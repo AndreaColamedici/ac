@@ -59,6 +59,9 @@ header.menu-open {
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .logo em {
@@ -67,6 +70,25 @@ header.menu-open {
 
 header.menu-open .logo {
     color: var(--bianco);
+}
+
+/* Segnale vivo nell'header */
+.pulse-signal {
+    width: 6px;
+    height: 6px;
+    background: var(--ottanio);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.4); opacity: 1; }
+}
+
+header.menu-open .pulse-signal {
+    background: var(--ottanio);
 }
 
 nav {
@@ -341,6 +363,18 @@ main {
     margin-bottom: 0;
 }
 
+/* Connettore visivo tra sezioni */
+.section-connector {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ottanio);
+    opacity: 0.7;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--grigio-chiaro);
+}
+
 .featured {
     min-height: 100vh;
     background: var(--nero);
@@ -364,11 +398,31 @@ main {
     pointer-events: none;
 }
 
+/* Carattere cinese animato */
 .featured-bg-text {
     font-size: 60vw;
     color: rgba(42, 107, 107, 0.05);
     user-select: none;
     line-height: 1;
+    animation: breathe 8s ease-in-out infinite;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-bg-text.reactive {
+    animation: none;
+}
+
+@keyframes breathe {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1;
+        filter: blur(0px);
+    }
+    50% { 
+        transform: scale(1.02); 
+        opacity: 0.7;
+        filter: blur(1px);
+    }
 }
 
 .featured-glow {
@@ -381,6 +435,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     animation: glowPulse 8s ease-in-out infinite;
+    pointer-events: none;
 }
 
 @keyframes glowPulse {
@@ -531,6 +586,7 @@ main {
     color: rgba(255,255,255,0.25);
 }
 
+/* Griglia eventi con animazioni migliorate */
 .upcoming-grid {
     display: grid;
     gap: 1px;
@@ -545,11 +601,28 @@ main {
     padding: 2rem;
     background: var(--bianco);
     align-items: center;
-    transition: background 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.upcoming-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--ottanio);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .upcoming-item:hover {
     background: rgba(42, 107, 107, 0.03);
+    padding-left: 2.5rem;
+}
+
+.upcoming-item:hover::before {
+    width: 3px;
 }
 
 .upcoming-date {
@@ -576,6 +649,58 @@ main {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--grigio);
+}
+
+/* Traccia - la porta nascosta */
+.trace {
+    padding: 6rem 3rem;
+    text-align: center;
+    position: relative;
+}
+
+.trace-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.trace-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--grigio-chiaro), transparent);
+    margin: 0 auto 2rem;
+}
+
+.trace-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--grigio);
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
+    cursor: default;
+}
+
+.trace-text:hover {
+    opacity: 0.8;
+}
+
+.trace-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ottanio);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.trace:hover .trace-link {
+    opacity: 0.5;
+}
+
+.trace-link:hover {
+    opacity: 1 !important;
 }
 
 .books-category {
@@ -995,5 +1120,9 @@ footer {
         flex-direction: column;
         gap: 1.5rem;
         text-align: center;
+    }
+    
+    .trace {
+        padding: 4rem 1.5rem;
     }
 }

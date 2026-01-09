@@ -4,16 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speaking — Andrea Colamedici</title>
-    <meta name="description" content="Andrea Colamedici's lectures and talks: TEDx, international festivals, universities and cultural institutions.">
+    <meta name="description" content="Andrea Colamedici's speaking engagements: international conferences, festivals, TEDx talks, and corporate training.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .event-grid {
+            display: grid;
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+        }
+        .event-item {
+            display: grid;
+            grid-template-columns: 140px 1fr auto;
+            gap: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bianco);
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        .event-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .event-date {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .event-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+        }
+        .event-desc {
+            font-size: 0.9rem;
+            color: var(--grigio);
+        }
+        .event-location {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--grigio);
+            white-space: nowrap;
+        }
+
+        .festival-card {
+            padding: 2.5rem;
+            border: 1px solid var(--grigio-chiaro);
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .festival-card:hover {
+            border-color: var(--ottanio);
+        }
+        .festival-role {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .festival-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .festival-desc {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--grigio);
+        }
+        .festival-stats {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--ottanio);
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .training-item {
+            padding: 1.5rem;
+            border: 1px solid var(--grigio-chiaro);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .training-item:hover {
+            border-color: var(--ottanio);
+        }
+        .training-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 900px) {
+            .event-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .event-location {
+                justify-self: start;
+            }
+            .training-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <a href="./" class="logo">Andrea <em>Colamedici</em></a>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
         <nav>
             <a href="books.html">Books</a>
             <a href="research.html">Research</a>
@@ -39,150 +151,204 @@
     <main>
         <div class="page-header">
             <h1 class="page-title">Speaking</h1>
-            <p class="page-subtitle">Talks on artificial intelligence, philosophy and contemporary culture</p>
+            <p class="page-subtitle">International conferences, festivals, and corporate training</p>
         </div>
 
         <section class="section">
             <div class="section-content">
-                
-                <div class="speaking-year-group reveal">
-                    <h3 class="speaking-year">2025</h3>
-                    
-                    <div class="speaking-event">
-                        <div>
-                            <h4>Congreso Futuro · Cumbre de la Filosofía</h4>
-                            <p>Lecture on Hypnocracy and algorithmic trance</p>
-                        </div>
-                        <span class="speaking-location">Santiago, Chile · January</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>Book Launch: Prompt Thinking</h4>
-                            <p>International edition presentation</p>
-                        </div>
-                        <span class="speaking-location">New York · February</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>AI and International Politics</h4>
-                            <p>Conference on artificial intelligence in international relations</p>
-                        </div>
-                        <span class="speaking-location">Oslo · March</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>Cognitive Dangers of AI</h4>
-                            <p>Conference on the risks of artificial intelligence for thought</p>
-                        </div>
-                        <span class="speaking-location">Madrid · March</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>The Assault on Illusion</h4>
-                            <p>Speech at Arts Centre Santa Mònica</p>
-                        </div>
-                        <span class="speaking-location">Barcelona · April</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>Tsinghua University</h4>
-                            <p>International competition on writing and artificial intelligence</p>
-                        </div>
-                        <span class="speaking-location">China · Spring</span>
-                    </div>
+                <div class="section-header reveal">
+                    <h2 class="section-title">Upcoming</h2>
+                    <span class="section-num">2025</span>
                 </div>
 
-                <div class="speaking-year-group reveal">
-                    <h3 class="speaking-year">2024</h3>
-                    
-                    <div class="speaking-event">
+                <div class="event-grid reveal">
+                    <div class="event-item">
+                        <span class="event-date">January 13–14</span>
                         <div>
-                            <h4>Festival del Pensare Contemporaneo</h4>
-                            <p>Philosophical direction</p>
+                            <div class="event-title">Congreso Futuro · Cumbre de la Filosofía</div>
+                            <div class="event-desc">Lecture on Hypnocracy and algorithmic trance</div>
                         </div>
-                        <span class="speaking-location">Piacenza</span>
+                        <span class="event-location">Santiago, Chile</span>
                     </div>
-
-                    <div class="speaking-event">
+                    <div class="event-item">
+                        <span class="event-date">Late February</span>
                         <div>
-                            <h4>Carnival of Putignano</h4>
-                            <p>Philosophical direction</p>
+                            <div class="event-title">Prompt Thinking Book Launch</div>
+                            <div class="event-desc">International edition presentation</div>
                         </div>
-                        <span class="speaking-location">Putignano</span>
+                        <span class="event-location">New York</span>
                     </div>
-                </div>
-
-                <div class="speaking-year-group reveal">
-                    <h3 class="speaking-year">TEDx</h3>
-                    
-                    <div class="speaking-event">
+                    <div class="event-item">
+                        <span class="event-date">March</span>
                         <div>
-                            <h4>TEDxRoma</h4>
-                            <p>The Philosophy of Artificial Intelligence</p>
+                            <div class="event-title">AI and International Politics</div>
+                            <div class="event-desc">Conference on algorithmic sovereignty</div>
                         </div>
-                        <span class="speaking-location">Rome</span>
+                        <span class="event-location">Oslo</span>
                     </div>
-
-                    <div class="speaking-event">
+                    <div class="event-item">
+                        <span class="event-date">March</span>
                         <div>
-                            <h4>TEDxBarletta</h4>
-                            <p>Art and Artificial Intelligence</p>
+                            <div class="event-title">Cognitive Dangers of AI</div>
+                            <div class="event-desc">Conference on risks for thought</div>
                         </div>
-                        <span class="speaking-location">Barletta</span>
+                        <span class="event-location">Madrid</span>
                     </div>
-                </div>
-
-                <div class="speaking-year-group reveal">
-                    <h3 class="speaking-year">Festivals and Artistic Directions</h3>
-                    
-                    <div class="speaking-event">
+                    <div class="event-item">
+                        <span class="event-date">April</span>
                         <div>
-                            <h4>Festival del Pensare Contemporaneo</h4>
-                            <p>Philosophical director (with Maura Gancitano)</p>
+                            <div class="event-title">The Assault on Illusion</div>
+                            <div class="event-desc">Speech at Arts Centre Santa Mònica</div>
                         </div>
-                        <span class="speaking-location">Piacenza</span>
+                        <span class="event-location">Barcelona</span>
                     </div>
-
-                    <div class="speaking-event">
+                    <div class="event-item">
+                        <span class="event-date">Spring</span>
                         <div>
-                            <h4>Carnival of Putignano</h4>
-                            <p>Philosophical director (with Maura Gancitano)</p>
+                            <div class="event-title">Tsinghua University</div>
+                            <div class="event-desc">International competition on writing and AI</div>
                         </div>
-                        <span class="speaking-location">Putignano</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>Festa della Filosofia</h4>
-                            <p>Founder</p>
-                        </div>
-                        <span class="speaking-location">Triennale Milan · Triennale Rome</span>
-                    </div>
-
-                    <div class="speaking-event">
-                        <div>
-                            <h4>Italian Podcast Awards</h4>
-                            <p>Founder</p>
-                        </div>
-                        <span class="speaking-location">Italy</span>
+                        <span class="event-location">China</span>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
-                <div class="section-header">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Festivals</h2>
+                    <span class="section-num">Direction</span>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Philosophical Director</span>
+                    <h3 class="festival-name">Festival del Pensare Contemporaneo</h3>
+                    <p class="festival-desc">One of Italy's major philosophy festivals, held annually in Piacenza. The festival brings together philosophers, scientists, artists, and public figures to explore contemporary thought. In 2024, President Mattarella attended.</p>
+                    <p class="festival-stats">19,000 attendees (2023) → 24,000 attendees (2024)</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Philosophical Director</span>
+                    <h3 class="festival-name">Carnevale di Putignano</h3>
+                    <p class="festival-desc">Philosophical direction of one of Italy's oldest carnivals, integrating contemporary thought into traditional celebration.</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Creator</span>
+                    <h3 class="festival-name">Festa della Filosofia</h3>
+                    <p class="festival-desc">Triennale Milano. A festival dedicated to making philosophy accessible and engaging for broad audiences.</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Creator</span>
+                    <h3 class="festival-name">Concerti Filosofici</h3>
+                    <p class="festival-desc">Live performances combining musicians with philosophical dialogue. Featured artists include Niccolò Fabi, Arisa, and Dargen D'Amico.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Past Events</h2>
+                    <span class="section-num">Selection</span>
+                </div>
+
+                <div class="event-grid reveal">
+                    <div class="event-item">
+                        <span class="event-date">2024</span>
+                        <div>
+                            <div class="event-title">Cannes AI Conference</div>
+                            <div class="event-desc">Hypnocracy discussed at international AI forum</div>
+                        </div>
+                        <span class="event-location">Cannes</span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">2024</span>
+                        <div>
+                            <div class="event-title">Festival del Pensare Contemporaneo</div>
+                            <div class="event-desc">24,000 attendees · President Mattarella in attendance</div>
+                        </div>
+                        <span class="event-location">Piacenza</span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">2023</span>
+                        <div>
+                            <div class="event-title">TEDxRoma</div>
+                            <div class="event-desc">Philosophy of Artificial Intelligence</div>
+                        </div>
+                        <span class="event-location">Rome</span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">2023</span>
+                        <div>
+                            <div class="event-title">Festival del Pensare Contemporaneo</div>
+                            <div class="event-desc">19,000 attendees</div>
+                        </div>
+                        <span class="event-location">Piacenza</span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">2022</span>
+                        <div>
+                            <div class="event-title">TEDxBarletta</div>
+                            <div class="event-desc">Art and Artificial Intelligence</div>
+                        </div>
+                        <span class="event-location">Barletta</span>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">2020</span>
+                        <div>
+                            <div class="event-title">Prendiamola con Filosofia</div>
+                            <div class="event-desc">Streaming marathon for Ministry of Health during COVID-19 · Reached millions</div>
+                        </div>
+                        <span class="event-location">Online</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Corporate Training</h2>
+                </div>
+
+                <div class="text-content reveal" style="margin-bottom: 2rem;">
+                    <p style="color: rgba(255,255,255,0.7);">Workshops and training programs on philosophy of AI, prompt thinking, and navigating complexity. Clients include:</p>
+                </div>
+
+                <div class="training-grid reveal">
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Google</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Amazon</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Ferrero</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Lamborghini</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">UniCredit</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">European Parliament</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
                     <h2 class="section-title">Booking</h2>
                 </div>
+
                 <div class="text-content reveal">
-                    <p>Available for conferences, keynotes, workshops and academic collaborations. I speak Italian, English and Spanish. My main topics are artificial intelligence, media philosophy, digital culture and contemporary thought.</p>
+                    <p>For speaking engagements, keynotes, workshops, and corporate training, contact Tlon or write directly.</p>
                     <div style="margin-top: 2rem;">
                         <a href="contact.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
                             <span>Contact</span>

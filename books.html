@@ -24,18 +24,16 @@
         .book-featured-cover {
             position: relative;
         }
-        .book-featured-cover-placeholder {
-            aspect-ratio: 2/3;
-            background: linear-gradient(135deg, rgba(42, 107, 107, 0.1) 0%, rgba(42, 107, 107, 0.02) 100%);
-            border: 1px solid var(--grigio-chiaro);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Instrument Serif', serif;
-            font-size: 3rem;
-            font-style: italic;
-            color: var(--ottanio);
-            opacity: 0.3;
+        .book-featured-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .book-featured-cover:hover img {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         }
         .book-featured-content h3 {
             font-family: 'Instrument Serif', serif;
@@ -186,7 +184,7 @@
 
                 <div class="book-featured reveal">
                     <div class="book-featured-cover">
-                        <div class="book-featured-cover-placeholder">谎</div>
+                        <img src="assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia - Copertina italiana">
                     </div>
                     <div class="book-featured-content">
                         <h3><em>Hypnocracy</em></h3>
@@ -211,7 +209,7 @@
 
                 <div class="book-featured reveal">
                     <div class="book-featured-cover">
-                        <div class="book-featured-cover-placeholder">?</div>
+                        <img src="assets/images/Prompt.jpg" alt="Prompt Thinking - Cover">
                     </div>
                     <div class="book-featured-content">
                         <h3>Prompt <em>Thinking</em></h3>
@@ -235,7 +233,7 @@
 
                 <div class="book-featured reveal">
                     <div class="book-featured-cover">
-                        <div class="book-featured-cover-placeholder">∞</div>
+                        <img src="assets/images/algoritmo.jpg" alt="L'algoritmo di Babele - Copertina">
                     </div>
                     <div class="book-featured-content">
                         <h3>The Algorithm of <em>Babel</em></h3>

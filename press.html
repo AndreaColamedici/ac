@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press — Andrea Colamedici</title>
+    <meta name="description" content="Andrea Colamedici's press coverage: articles, interviews and reviews in El País, Le Monde, Corriere della Sera and other international outlets.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <a href="./" class="logo">Andrea <em>Colamedici</em></a>
+        <nav>
+            <a href="books.html">Books</a>
+            <a href="research.html">Research</a>
+            <a href="speaking.html">Speaking</a>
+            <a href="press.html" class="active">Press</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="books.html">Books</a>
+        <a href="research.html">Research</a>
+        <a href="speaking.html">Speaking</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Press</h1>
+            <p class="page-subtitle">Articles, interviews and reviews from international media</p>
+        </div>
+
+        <section class="section">
+            <div class="section-content">
+                
+                <div class="section-header reveal">
+                    <h2 class="section-title">On Hypnocracy</h2>
+                </div>
+
+                <div class="press-grid reveal">
+                    <div class="press-item">
+                        <div class="press-source">El País</div>
+                        <div class="press-title">The philosophical experiment that fooled international media</div>
+                        <div class="press-date">2025</div>
+                    </div>
+
+                    <div class="press-item">
+                        <div class="press-source">Le Monde</div>
+                        <div class="press-title">Hypnocracy: when philosophy becomes performance</div>
+                        <div class="press-date">2025</div>
+                    </div>
+
+                    <div class="press-item">
+                        <div class="press-source">Libération</div>
+                        <div class="press-title">Jianwei Xun, the philosopher who didn't exist</div>
+                        <div class="press-date">2025</div>
+                    </div>
+
+                    <div class="press-item">
+                        <div class="press-source">Corriere della Sera</div>
+                        <div class="press-title">The invented Chinese philosopher who conquered Europe</div>
+                        <div class="press-date">2025</div>
+                    </div>
+
+                    <div class="press-item">
+                        <div class="press-source">La Stampa</div>
+                        <div class="press-title">Hypnocracy and the era of editorial post-truth</div>
+                        <div class="press-date">2025</div>
+                    </div>
+
+                    <div class="press-item">
+                        <div class="press-source">Le Figaro</div>
+                        <div class="press-title">A philosophical experiment in the age of AI</div>
+                        <div class="press-date">2025</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                
+                <div class="section-header reveal">
+                    <h2 class="section-title">Regular Collaborations</h2>
+                </div>
+
+                <div class="text-content reveal">
+                    <p>With Maura Gancitano he writes the column <strong>"Prendila con filosofia"</strong> for Vanity Fair Italy and regularly participates in the program <strong>"Matteo Caccia racconta"</strong> on Radio24.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                
+                <div class="section-header reveal">
+                    <h2 class="section-title">Press Contacts</h2>
+                </div>
+
+                <div class="text-content reveal">
+                    <p>For interview requests, participation in television or radio programs, articles and editorial collaborations, contact Tlon's press office or write directly.</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="contact.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
+                            <span>Contact</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2025 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>

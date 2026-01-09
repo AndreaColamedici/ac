@@ -4,16 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hypnocracy — Andrea Colamedici</title>
-    <meta name="description" content="Hypnocracy: Trump, Musk and the New Architecture of Reality. The international publishing phenomenon signed by Jianwei Xun, the Chinese philosopher who doesn't exist.">
+    <meta name="description" content="Hypnocracy: Trump, Musk and the New Architecture of Reality. The philosophical experiment that fooled international press to demonstrate its own thesis.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .concept {
+            padding: 2rem;
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .concept::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--ottanio);
+            transition: width 0.5s ease;
+        }
+        .concept:hover {
+            border-color: var(--ottanio);
+            transform: translateY(-5px);
+        }
+        .concept:hover::before {
+            width: 100%;
+        }
+        .concept-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .concept-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .concept-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+        
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 3rem;
+        }
+        .press-item {
+            padding: 1.5rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .press-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .press-source {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .press-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--nero);
+            transition: color 0.3s ease;
+        }
+        .press-item:hover .press-title {
+            color: var(--ottanio);
+        }
+        
+        .quote-section {
+            padding: 6rem 3rem;
+            background: var(--nero);
+            color: var(--bianco);
+            text-align: center;
+        }
+        .quote-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .quote-mark {
+            font-family: 'Instrument Serif', serif;
+            font-size: 6rem;
+            color: var(--ottanio);
+            opacity: 0.3;
+            line-height: 0.5;
+            margin-bottom: 2rem;
+        }
+        .quote-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .quote-source {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+        
+        .editions {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .edition {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            color: rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+        }
+        .edition:hover {
+            border-color: var(--ottanio);
+            color: var(--bianco);
+        }
+
+        @media (max-width: 900px) {
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+            .press-grid {
+                grid-template-columns: 1fr;
+            }
+            .quote-section {
+                padding: 4rem 1.5rem;
+            }
+            .quote-text {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <a href="./" class="logo">Andrea <em>Colamedici</em></a>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
         <nav>
             <a href="books.html">Books</a>
             <a href="research.html">Research</a>
@@ -39,23 +191,19 @@
     <main>
         <section class="featured" style="min-height: 80vh;">
             <div class="featured-bg">
-                <span class="featured-bg-text">谎</span>
+                <span class="featured-bg-text" id="huangChar">谎</span>
             </div>
             <div class="featured-glow"></div>
             <div class="featured-content">
-                <span class="featured-label">The International Publishing Phenomenon</span>
+                <span class="featured-label">Diagnosis</span>
                 <h1 class="featured-title"><em>Hypnocracy</em></h1>
                 <p class="featured-subtitle">Trump, Musk and the New Architecture of Reality</p>
-                <p class="featured-desc">A book signed by a Chinese philosopher who doesn't exist. A narrative performance that crossed the boundaries between fiction and truth.</p>
-                <div class="featured-press">
-                    <p class="featured-press-label">Featured in</p>
-                    <div class="featured-press-logos">
-                        <span>El País</span>
-                        <span>Le Monde</span>
-                        <span>Libération</span>
-                        <span>Corriere della Sera</span>
-                        <span>La Stampa</span>
-                    </div>
+                <p class="featured-desc">A book. A performance. A demonstration.</p>
+                <div class="editions">
+                    <span class="edition">Italian</span>
+                    <span class="edition">English</span>
+                    <span class="edition">French</span>
+                    <span class="edition">Spanish</span>
                 </div>
             </div>
         </section>
@@ -67,21 +215,52 @@
                     <span class="section-num">I</span>
                 </div>
                 <div class="text-content reveal">
-                    <p><em>Hypnocracy</em> is the first philosophical experiment of the artificial intelligence era. The book is signed by <strong>Jianwei Xun</strong>, a Chinese philosopher who doesn't exist: a character created by Andrea Colamedici with the help of artificial intelligence, complete with biography, photos, interviews and media presence.</p>
-                    <p>The experiment crossed the boundaries between fiction and reality, becoming the subject of debate in the international press. Major European newspapers dedicated articles and reviews to the book, some before discovering the true nature of the author, others after, transforming the publishing phenomenon into an occasion to reflect on the mechanisms of truth in the digital age.</p>
+                    <p>In January 2024, I published a philosophical essay signed by <strong>Jianwei Xun</strong>, a Chinese philosopher I invented. The book analyzes how contemporary power manipulates reality, coining the term "Hypnocracy" to describe a regime that operates directly on consciousness. Le Monde, El País, The New York Times, Wired—they all reviewed it, discussed it, took it seriously.</p>
+                    <p>In April 2025, L'Espresso revealed that Jianwei Xun does not exist. I created him with artificial intelligence as critical interlocutor. The hoax became the proof: a book about reality manipulation that manipulated reality to demonstrate its thesis. The operation showed how easily a fictitious identity can acquire authority, how cultural validation systems work, how perception is constructed.</p>
+                    <p>This was not a prank. It was philosophy practiced, not described. Co-written with Claude and ChatGPT, the book embeds the very mechanisms it theorizes. If you believed in Xun before learning the truth, you experienced Hypnocracy firsthand.</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-content reveal">
+                <div class="quote-mark">«</div>
+                <p class="quote-text">Hypnocracy is the first regime that operates directly on consciousness. It does not control bodies. It does not repress thoughts. Rather, it induces a permanent altered state of consciousness. A lucid sleep. A functional trance.</p>
+                <p class="quote-source">Hypnocracy, Introduction</p>
             </div>
         </section>
 
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">The Book</h2>
+                    <h2 class="section-title">Key Concepts</h2>
                     <span class="section-num">II</span>
                 </div>
-                <div class="text-content reveal">
-                    <p><em>Hypnocracy</em> analyzes how figures like Donald Trump and Elon Musk are building a new architecture of reality, founded not on truth but on the ability to capture and maintain attention. The text explores the mechanisms of algorithmic trance, showing how social media and artificial intelligence are becoming the perfect engines of hypnocratic power.</p>
-                    <p>The book has been published in Italy (Tlon), France (various editions), Spain and other countries. The English edition is in preparation.</p>
+                <div class="concepts-grid">
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Algorithmic <em>trance</em></h3>
+                        <p class="concept-desc">The continuous flow of digital content induces a permanent altered state of consciousness, where attention is modulated like a wave and emotional states are constantly manipulated.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Perceptual <em>sovereignty</em></h3>
+                        <p class="concept-desc">The ability to maintain a core of autonomy in the perception of reality, resisting the dissolution of the boundary between true and false.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Algorithmic <em>edging</em></h3>
+                        <p class="concept-desc">The technique through which platforms keep users in perpetual anticipation, promising satisfactions that are constantly postponed.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Dark <em>resistance</em></h3>
+                        <p class="concept-desc">Forms of invisible resistance that inhabit the system's cracks, cultivating spaces of opacity within the regime of total transparency.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Gaseous <em>reality</em></h3>
+                        <p class="concept-desc">The contemporary condition where reality has become entirely fluid: the distinction between truth and falsehood has lost meaning.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">The Other <em>Plane</em></h3>
+                        <p class="concept-desc">The intuition that the digital may be not only an instrument of control but an interface toward new dimensions of experience.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -89,12 +268,61 @@
         <section class="section">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">The Recursivity</h2>
+                    <h2 class="section-title">International Press</h2>
                     <span class="section-num">III</span>
                 </div>
                 <div class="text-content reveal">
-                    <p>The most radical aspect of the experiment is its meta-recursive nature: a book about the manipulation of reality that is itself a manipulation of reality. The reader, upon discovering that the author doesn't exist, finds themselves in the same position as the citizens described in the text: they believed something false, and this experience becomes part of the message.</p>
-                    <p>The experiment raises fundamental questions: in the age of artificial intelligence, what does authorship mean? What distinguishes a useful fiction from a harmful lie? And above all: how can we develop the cognitive antibodies necessary to navigate a world where the distinction between true and false is increasingly blurred?</p>
+                    <p>The operation generated global coverage. Before and after the revelation, these publications engaged with the work:</p>
+                </div>
+                <div class="press-grid">
+                    <a href="https://www.nytimes.com/2025/04/30/world/europe/hypnocracy-ai-philosopher-book.html" target="_blank" class="press-item reveal">
+                        <span class="press-source">The New York Times</span>
+                        <span class="press-title">A.I. Can Trick You, Warns Book That Hid A.I.'s Help Writing It</span>
+                    </a>
+                    <a href="https://www.lemonde.fr/idees/article/2025/04/16/le-philosophe-jianwei-xun-n-existe-pas-mais-son-concept-d-hypnocratie-entre-dans-notre-realite_6596657_3232.html" target="_blank" class="press-item reveal">
+                        <span class="press-source">Le Monde</span>
+                        <span class="press-title">Le philosophe Jianwei Xun n'existe pas, mais son concept d'« hypnocratie » entre dans notre réalité</span>
+                    </a>
+                    <a href="https://www.wired.com/story/an-acclaimed-book-about-digital-manipulation-was-actually-written-by-ai/" target="_blank" class="press-item reveal">
+                        <span class="press-source">Wired</span>
+                        <span class="press-title">A Philosopher Released an Acclaimed Book About Digital Manipulation. The Author Ended Up Being AI</span>
+                    </a>
+                    <a href="https://english.elpais.com/technology/2025-04-07/jianwei-xun-the-supposed-philosopher-behind-the-hypnocracy-theory-does-not-exist-and-is-a-product-of-artificial-intelligence.html" target="_blank" class="press-item reveal">
+                        <span class="press-source">El País</span>
+                        <span class="press-title">Jianwei Xun, the supposed philosopher behind the hypnocracy theory, does not exist</span>
+                    </a>
+                    <a href="https://www.clarin.com/opinion/hipnocracia-libro-ano_0_YpGyoKZ1Nh.html" target="_blank" class="press-item reveal">
+                        <span class="press-source">El Clarín</span>
+                        <span class="press-title">Hipnocracia, el libro del año</span>
+                    </a>
+                    <a href="https://www.telerama.fr/livre/la-vertigineuse-histoire-d-hypnocratie-le-percutant-essai-d-un-auteur-philosophe-hongkongais-imaginaire-7025198.php" target="_blank" class="press-item reveal">
+                        <span class="press-source">Télérama</span>
+                        <span class="press-title">La vertigineuse histoire d'"Hypnocratie"</span>
+                    </a>
+                    <a href="https://www.philomag.com/articles/lia-est-un-outil-dune-puissance-extraordinaire-pour-construire-des-concepts-entretien" target="_blank" class="press-item reveal">
+                        <span class="press-source">Philosophie Magazine</span>
+                        <span class="press-title">"L'IA est un outil d'une puissance extraordinaire pour construire des concepts"</span>
+                    </a>
+                    <a href="https://www.lanacion.com.ar/economia/IA/el-filosofo-inventado-con-ia-que-fue-un-exito-editorial-nid11042025/" target="_blank" class="press-item reveal">
+                        <span class="press-source">La Nación</span>
+                        <span class="press-title">El filósofo inventado con IA que fue un éxito editorial</span>
+                    </a>
+                    <a href="https://legrandcontinent.eu/fr/2025/04/03/qui-est-vraiment-jianwei-xun-une-conversation-avec-jianwei-xun/" target="_blank" class="press-item reveal">
+                        <span class="press-source">Le Grand Continent</span>
+                        <span class="press-title">Qui est vraiment Jianwei Xun ?</span>
+                    </a>
+                    <a href="https://es.rollingstone.com/el-libro-del-ano-del-autor-inexistente-una-advertencia-sobre-la-inteligencia-artificial/" target="_blank" class="press-item reveal">
+                        <span class="press-source">Rolling Stone</span>
+                        <span class="press-title">El libro del año del autor inexistente</span>
+                    </a>
+                    <a href="https://www.nationalgeographic.com.es/ciencia/este-es-libro-ano-pero-su-aclamado-autor-no-existe-es-ia_24696" target="_blank" class="press-item reveal">
+                        <span class="press-source">National Geographic</span>
+                        <span class="press-title">Este es el "libro del año", pero su aclamado autor no existe</span>
+                    </a>
+                    <a href="https://lespresso.it/c/inchieste/2025/4/7/ipnocrazia-best-seller-libro-chi-e-xun/53621" target="_blank" class="press-item reveal">
+                        <span class="press-source">L'Espresso</span>
+                        <span class="press-title">Ipnocrazia, ecco perché il filosofo Xun non esiste</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -102,13 +330,27 @@
         <section class="section" style="background: var(--nero); color: var(--bianco);">
             <div class="section-content" style="text-align: center;">
                 <div class="reveal">
-                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">To learn more about the experiment</p>
-                    <a href="https://tlon.it/ipnocrazia" target="_blank" class="featured-cta">
-                        <span>Visit the Tlon page</span>
+                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">The method that navigates the trance</p>
+                    <a href="prompt-thinking.html" class="featured-cta">
+                        <span>Prompt Thinking</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">The Book</h2>
+                    <span class="section-num">IV</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>Through the cases of Donald Trump and Elon Musk, <em>Hypnocracy</em> reveals how contemporary power operates: the emptying of language into hypnotic signifiers, the flooding of imagination with promises destined never to be fulfilled, the modulation of collective states of consciousness. The book is available in Italian (Tlon), French (Philosophie Magazine), Spanish, and English.</p>
+                    <p>More information and purchase: <a href="https://tlon.it/ipnocrazia" target="_blank" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">tlon.it/ipnocrazia</a></p>
+                    <p>The phantom author's site: <a href="https://www.jianweixun.com" target="_blank" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">jianweixun.com</a></p>
                 </div>
             </div>
         </section>
@@ -150,6 +392,28 @@
                 document.body.style.overflow = '';
             });
         });
+
+        // Carattere cinese interattivo
+        const huangChar = document.getElementById('huangChar');
+        const featuredSection = document.querySelector('.featured');
+        
+        if (huangChar && featuredSection) {
+            featuredSection.addEventListener('mousemove', (e) => {
+                const rect = featuredSection.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                
+                huangChar.classList.add('reactive');
+                huangChar.style.transform = `translate(${x * 30}px, ${y * 30}px) scale(${1 + Math.abs(x * y) * 0.1})`;
+                huangChar.style.opacity = 0.03 + Math.abs(x * y) * 0.05;
+            });
+            
+            featuredSection.addEventListener('mouseleave', () => {
+                huangChar.classList.remove('reactive');
+                huangChar.style.transform = '';
+                huangChar.style.opacity = '';
+            });
+        }
     </script>
 
 </body>

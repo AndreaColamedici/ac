@@ -123,24 +123,35 @@
             color: var(--ottanio);
         }
         
-        .editions {
-            display: flex;
-            justify-content: center;
+        .editions-covers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
-        .edition {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-family: 'Instrument Serif', serif;
-            font-style: italic;
-            color: rgba(255,255,255,0.7);
-            transition: all 0.3s ease;
+        .edition-cover {
+            position: relative;
+            overflow: hidden;
         }
-        .edition:hover {
-            border-color: var(--ottanio);
-            color: var(--bianco);
+        .edition-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .edition-cover:hover img {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .edition-cover-label {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
         }
 
         @media (max-width: 900px) {
@@ -149,6 +160,9 @@
             }
             .press-grid {
                 grid-template-columns: 1fr;
+            }
+            .editions-covers {
+                grid-template-columns: repeat(2, 1fr);
             }
             .quote-section {
                 padding: 4rem 1.5rem;
@@ -199,11 +213,32 @@
                 <h1 class="featured-title"><em>Hypnocracy</em></h1>
                 <p class="featured-subtitle">Trump, Musk and the New Architecture of Reality</p>
                 <p class="featured-desc">A book. A performance. A demonstration.</p>
-                <div class="editions">
-                    <span class="edition">Italian</span>
-                    <span class="edition">English</span>
-                    <span class="edition">French</span>
-                    <span class="edition">Spanish</span>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Editions</h2>
+                    <span class="section-num">4 languages</span>
+                </div>
+                <div class="editions-covers">
+                    <div class="edition-cover reveal">
+                        <img src="assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia - Edizione italiana">
+                        <p class="edition-cover-label">Italian</p>
+                    </div>
+                    <div class="edition-cover reveal">
+                        <img src="assets/images/ipnocrazia-en.jpg" alt="Hypnocracy - English edition">
+                        <p class="edition-cover-label">English</p>
+                    </div>
+                    <div class="edition-cover reveal">
+                        <img src="assets/images/ipnocrazia-fr.jpg" alt="Hypnocratie - Édition française">
+                        <p class="edition-cover-label">French</p>
+                    </div>
+                    <div class="edition-cover reveal">
+                        <img src="assets/images/ipnocrazia-es.jpg" alt="Hipnocracia - Edición española">
+                        <p class="edition-cover-label">Spanish</p>
+                    </div>
                 </div>
             </div>
         </section>

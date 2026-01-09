@@ -4,16 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Press — Andrea Colamedici</title>
-    <meta name="description" content="Andrea Colamedici's press coverage: articles, interviews and reviews in El País, Le Monde, Corriere della Sera and other international outlets.">
+    <meta name="description" content="International press coverage of Andrea Colamedici's work: The New York Times, Le Monde, Wired, El País and more.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .press-section-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .press-link {
+            padding: 1.5rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .press-link:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .press-link-source {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+        .press-link-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--nero);
+            transition: color 0.3s ease;
+        }
+        .press-link:hover .press-link-title {
+            color: var(--ottanio);
+        }
+        .press-link-lang {
+            font-size: 0.7rem;
+            color: var(--grigio);
+            margin-top: 0.25rem;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .media-item {
+            padding: 2rem;
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.4s ease;
+        }
+        .media-item:hover {
+            border-color: var(--ottanio);
+        }
+        .media-type {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .media-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .media-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--grigio);
+        }
+
+        @media (max-width: 900px) {
+            .press-section-grid {
+                grid-template-columns: 1fr;
+            }
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <a href="./" class="logo">Andrea <em>Colamedici</em></a>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
         <nav>
             <a href="books.html">Books</a>
             <a href="research.html">Research</a>
@@ -39,7 +128,7 @@
     <main>
         <div class="page-header">
             <h1 class="page-title">Press</h1>
-            <p class="page-subtitle">Articles, interviews and reviews from international media</p>
+            <p class="page-subtitle">International coverage of the Hypnocracy operation and other work</p>
         </div>
 
         <section class="section">
@@ -47,44 +136,94 @@
                 
                 <div class="section-header reveal">
                     <h2 class="section-title">On Hypnocracy</h2>
+                    <span class="section-num">2025</span>
                 </div>
 
-                <div class="press-grid reveal">
-                    <div class="press-item">
-                        <div class="press-source">El País</div>
-                        <div class="press-title">The philosophical experiment that fooled international media</div>
-                        <div class="press-date">2025</div>
-                    </div>
+                <div class="text-content reveal">
+                    <p>The <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy operation</a>—a philosophical essay signed by invented Chinese philosopher Jianwei Xun, co-written with AI, that fooled international press before revealing its own mechanism—generated global coverage.</p>
+                </div>
 
-                    <div class="press-item">
-                        <div class="press-source">Le Monde</div>
-                        <div class="press-title">Hypnocracy: when philosophy becomes performance</div>
-                        <div class="press-date">2025</div>
-                    </div>
-
-                    <div class="press-item">
-                        <div class="press-source">Libération</div>
-                        <div class="press-title">Jianwei Xun, the philosopher who didn't exist</div>
-                        <div class="press-date">2025</div>
-                    </div>
-
-                    <div class="press-item">
-                        <div class="press-source">Corriere della Sera</div>
-                        <div class="press-title">The invented Chinese philosopher who conquered Europe</div>
-                        <div class="press-date">2025</div>
-                    </div>
-
-                    <div class="press-item">
-                        <div class="press-source">La Stampa</div>
-                        <div class="press-title">Hypnocracy and the era of editorial post-truth</div>
-                        <div class="press-date">2025</div>
-                    </div>
-
-                    <div class="press-item">
-                        <div class="press-source">Le Figaro</div>
-                        <div class="press-title">A philosophical experiment in the age of AI</div>
-                        <div class="press-date">2025</div>
-                    </div>
+                <div class="press-section-grid">
+                    <a href="https://www.nytimes.com/2025/04/30/world/europe/hypnocracy-ai-philosopher-book.html" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">The New York Times</span>
+                        <span class="press-link-title">A.I. Can Trick You, Warns Book That Hid A.I.'s Help Writing It</span>
+                    </a>
+                    <a href="https://www.lemonde.fr/idees/article/2025/04/16/le-philosophe-jianwei-xun-n-existe-pas-mais-son-concept-d-hypnocratie-entre-dans-notre-realite_6596657_3232.html" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Le Monde</span>
+                        <span class="press-link-title">Le philosophe Jianwei Xun n'existe pas, mais son concept d'« hypnocratie » entre dans notre réalité</span>
+                    </a>
+                    <a href="https://www.wired.com/story/an-acclaimed-book-about-digital-manipulation-was-actually-written-by-ai/" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Wired</span>
+                        <span class="press-link-title">A Philosopher Released an Acclaimed Book About Digital Manipulation. The Author Ended Up Being AI</span>
+                    </a>
+                    <a href="https://english.elpais.com/technology/2025-04-07/jianwei-xun-the-supposed-philosopher-behind-the-hypnocracy-theory-does-not-exist-and-is-a-product-of-artificial-intelligence.html" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">El País</span>
+                        <span class="press-link-title">Jianwei Xun, the supposed philosopher behind the hypnocracy theory, does not exist</span>
+                    </a>
+                    <a href="https://www.clarin.com/opinion/hipnocracia-libro-ano_0_YpGyoKZ1Nh.html" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">El Clarín</span>
+                        <span class="press-link-title">Hipnocracia, el libro del año</span>
+                    </a>
+                    <a href="https://www.lanacion.com.ar/economia/IA/el-filosofo-inventado-con-ia-que-fue-un-exito-editorial-nid11042025/" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">La Nación</span>
+                        <span class="press-link-title">El filósofo inventado con IA que fue un éxito editorial</span>
+                    </a>
+                    <a href="https://www.telerama.fr/livre/la-vertigineuse-histoire-d-hypnocratie-le-percutant-essai-d-un-auteur-philosophe-hongkongais-imaginaire-7025198.php" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Télérama</span>
+                        <span class="press-link-title">La vertigineuse histoire d'"Hypnocratie", le percutant essai d'un philosophe hongkongais imaginaire</span>
+                    </a>
+                    <a href="https://www.radiofrance.fr/franceculture/podcasts/questions-du-soir-l-idee/l-ia-peut-elle-inventer-des-concepts-1122233" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">France Culture</span>
+                        <span class="press-link-title">L'IA peut-elle inventer des concepts ?</span>
+                    </a>
+                    <a href="https://www.philomag.com/articles/lia-est-un-outil-dune-puissance-extraordinaire-pour-construire-des-concepts-entretien" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Philosophie Magazine FR</span>
+                        <span class="press-link-title">"L'IA est un outil d'une puissance extraordinaire pour construire des concepts"</span>
+                    </a>
+                    <a href="https://www.philomag.de/artikel/der-xun-test" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Philosophie Magazine DE</span>
+                        <span class="press-link-title">Der Xun-Test</span>
+                    </a>
+                    <a href="https://es.rollingstone.com/el-libro-del-ano-del-autor-inexistente-una-advertencia-sobre-la-inteligencia-artificial/" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Rolling Stone</span>
+                        <span class="press-link-title">El libro del año del autor inexistente: Una advertencia sobre la inteligencia artificial</span>
+                    </a>
+                    <a href="https://www.nationalgeographic.com.es/ciencia/este-es-libro-ano-pero-su-aclamado-autor-no-existe-es-ia_24696" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">National Geographic</span>
+                        <span class="press-link-title">Este es el "libro del año", pero su aclamado autor no existe: es una IA</span>
+                    </a>
+                    <a href="https://es.wired.com/articulos/entrevista-con-andrea-colamedici-el-autor-detras-de-hipnocracia-de-jianwei-xun" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Wired ES</span>
+                        <span class="press-link-title">Andrea Colamedici, la mente detrás de Hipnocracia</span>
+                    </a>
+                    <a href="https://www.infobae.com/realidad-aumentada/2025/05/05/el-autor-chino-que-escribio-el-libro-del-ano-no-existe-lo-hicimos-la-ia-y-yo/" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Infobae</span>
+                        <span class="press-link-title">El autor chino que escribió el libro del año no existe: "Lo hicimos la IA y yo"</span>
+                    </a>
+                    <a href="https://legrandcontinent.eu/fr/2025/04/03/qui-est-vraiment-jianwei-xun-une-conversation-avec-jianwei-xun/" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Le Grand Continent</span>
+                        <span class="press-link-title">Qui est vraiment Jianwei Xun ? Une conversation avec Jianwei Xun</span>
+                    </a>
+                    <a href="https://lespresso.it/c/inchieste/2025/4/7/ipnocrazia-best-seller-libro-chi-e-xun/53621" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">L'Espresso</span>
+                        <span class="press-link-title">Ipnocrazia, ecco perché il filosofo Xun non esiste</span>
+                    </a>
+                    <a href="https://style.corriere.it/attualita/societa/ipnocrazia-libro-andrea-colamedici-intervista/" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Corriere della Sera</span>
+                        <span class="press-link-title">La verità su "Ipnocrazia", il libro esperimento di Jianwei Xun</span>
+                    </a>
+                    <a href="https://www.lavanguardia.com/cultura/20250406/10556823/ia-fake-jianwei-xun-hipnocracia.html" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">La Vanguardia</span>
+                        <span class="press-link-title">El aclamado filósofo chino Jianwei Xun no existe, es en realidad una IA</span>
+                    </a>
+                    <a href="https://tg24.sky.it/tecnologia/2025/04/03/caso-ipnocrazia-lespresso-autore-non-estite-creato-ai" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Sky TG24</span>
+                        <span class="press-link-title">L'Espresso su 'Ipnocrazia': autore non esiste, saggio creato dall'IA</span>
+                    </a>
+                    <a href="https://www.doppiozero.com/svegliarsi-dallipnocrazia" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Doppiozero</span>
+                        <span class="press-link-title">Svegliarsi dall'Ipnocrazia</span>
+                    </a>
                 </div>
 
             </div>
@@ -97,8 +236,27 @@
                     <h2 class="section-title">Regular Collaborations</h2>
                 </div>
 
-                <div class="text-content reveal">
-                    <p>With Maura Gancitano he writes the column <strong>"Prendila con filosofia"</strong> for Vanity Fair Italy and regularly participates in the program <strong>"Matteo Caccia racconta"</strong> on Radio24.</p>
+                <div class="media-grid">
+                    <div class="media-item reveal">
+                        <span class="media-type">Column</span>
+                        <h3 class="media-title">Prendila con filosofia</h3>
+                        <p class="media-desc">Weekly column for Vanity Fair Italy, written with Maura Gancitano.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Radio</span>
+                        <h3 class="media-title">Matteo Caccia racconta</h3>
+                        <p class="media-desc">Regular philosophical contributions on Radio24.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Podcast</span>
+                        <h3 class="media-title">Scuola di Filosofie</h3>
+                        <p class="media-desc">Among Italy's most listened-to audio content on Audible, with Maura Gancitano.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Podcast</span>
+                        <h3 class="media-title">Pensare Europeo</h3>
+                        <p class="media-desc">Collaboration with the European Parliament on European identity.</p>
+                    </div>
                 </div>
 
             </div>
@@ -108,13 +266,36 @@
             <div class="section-content">
                 
                 <div class="section-header reveal">
+                    <h2 class="section-title">TEDx Talks</h2>
+                </div>
+
+                <div class="media-grid">
+                    <div class="media-item reveal">
+                        <span class="media-type">TEDxRoma · 2023</span>
+                        <h3 class="media-title">Philosophy of Artificial Intelligence</h3>
+                        <p class="media-desc">On thinking with and through AI systems.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">TEDxBarletta · 2022</span>
+                        <h3 class="media-title">Art and Artificial Intelligence</h3>
+                        <p class="media-desc">On the creative possibilities of human-AI collaboration.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
                     <h2 class="section-title">Press Contacts</h2>
                 </div>
 
                 <div class="text-content reveal">
-                    <p>For interview requests, participation in television or radio programs, articles and editorial collaborations, contact Tlon's press office or write directly.</p>
+                    <p style="color: rgba(255,255,255,0.7);">For interview requests, participation in television or radio programs, articles and editorial collaborations, contact Tlon's press office or write directly.</p>
                     <div style="margin-top: 2rem;">
-                        <a href="contact.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
+                        <a href="contact.html" class="featured-cta">
                             <span>Contact</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M5 12h14M12 5l7 7-7 7"/>

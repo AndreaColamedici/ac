@@ -25,6 +25,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            text-decoration: none;
         }
         .press-link:hover {
             background: rgba(42, 107, 107, 0.03);
@@ -86,12 +87,54 @@
             color: var(--grigio);
         }
 
+        .interview-list {
+            display: grid;
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .interview-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--bianco);
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        .interview-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .interview-outlet {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.25rem;
+        }
+        .interview-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--nero);
+        }
+        .interview-year {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+
         @media (max-width: 900px) {
             .press-section-grid {
                 grid-template-columns: 1fr;
             }
             .media-grid {
                 grid-template-columns: 1fr;
+            }
+            .interview-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
             }
         }
     </style>
@@ -128,7 +171,7 @@
     <main>
         <div class="page-header">
             <h1 class="page-title">Press</h1>
-            <p class="page-subtitle">International coverage of the Hypnocracy operation and other work</p>
+            <p class="page-subtitle">International coverage, interviews, and regular collaborations</p>
         </div>
 
         <section class="section">
@@ -140,7 +183,7 @@
                 </div>
 
                 <div class="text-content reveal">
-                    <p>The <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy operation</a>—a philosophical essay signed by invented Chinese philosopher Jianwei Xun, co-written with AI, that fooled international press before revealing its own mechanism—generated global coverage.</p>
+                    <p>The <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy operation</a>—a philosophical essay signed by invented Chinese philosopher Jianwei Xun, co-written with AI, that fooled international press before revealing its own mechanism—generated global coverage across continents and languages.</p>
                 </div>
 
                 <div class="press-section-grid">
@@ -224,12 +267,71 @@
                         <span class="press-link-source">Doppiozero</span>
                         <span class="press-link-title">Svegliarsi dall'Ipnocrazia</span>
                     </a>
+                    <a href="https://www.perfil.com/noticias/periodismopuro/andrea-colamedici-el-filosofo-revelacion-detras-de-hipnocracia.phtml" target="_blank" class="press-link reveal">
+                        <span class="press-link-source">Perfil</span>
+                        <span class="press-link-title">Andrea Colamedici, el filósofo revelación detrás de "Hipnocracia"</span>
+                    </a>
                 </div>
 
             </div>
         </section>
 
         <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                
+                <div class="section-header reveal">
+                    <h2 class="section-title">Interviews & Features</h2>
+                </div>
+
+                <div class="interview-list reveal">
+                    <div class="interview-item">
+                        <div>
+                            <span class="interview-outlet">New Italian Books</span>
+                            <span class="interview-title">Interview with Andrea Colamedici and Maura Gancitano (Edizioni Tlon)</span>
+                        </div>
+                        <span class="interview-year">2024</span>
+                    </div>
+                    <div class="interview-item">
+                        <div>
+                            <span class="interview-outlet">The Italian Rêve</span>
+                            <span class="interview-title">Prendere la Vita con Filosofia</span>
+                        </div>
+                        <span class="interview-year">2023</span>
+                    </div>
+                    <div class="interview-item">
+                        <div>
+                            <span class="interview-outlet">Art A Part of Culture</span>
+                            <span class="interview-title">Festival del pensare contemporaneo: un invito a smarrirsi nella meraviglia</span>
+                        </div>
+                        <span class="interview-year">2023</span>
+                    </div>
+                    <div class="interview-item">
+                        <div>
+                            <span class="interview-outlet">Ultima Voce</span>
+                            <span class="interview-title">Intervista al vulcano Andrea Colamedici, perennemente attivo in nuovi progetti</span>
+                        </div>
+                        <span class="interview-year">2020</span>
+                    </div>
+                    <div class="interview-item">
+                        <div>
+                            <span class="interview-outlet">Social Warning</span>
+                            <span class="interview-title">Voci dal Movimento — Odiare Ti Costa</span>
+                        </div>
+                        <span class="interview-year">2020</span>
+                    </div>
+                    <div class="interview-item">
+                        <div>
+                            <span class="interview-outlet">WU Magazine</span>
+                            <span class="interview-title">Tlon — Filosofia "applicata"</span>
+                        </div>
+                        <span class="interview-year">2019</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section">
             <div class="section-content">
                 
                 <div class="section-header reveal">
@@ -250,19 +352,39 @@
                     <div class="media-item reveal">
                         <span class="media-type">Podcast</span>
                         <h3 class="media-title">Scuola di Filosofie</h3>
-                        <p class="media-desc">Among Italy's most listened-to audio content on Audible, with Maura Gancitano.</p>
+                        <p class="media-desc">Among Italy's most listened-to audio content on Audible. 2 seasons, 36 episodes on 20th century philosophers.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Podcast</span>
+                        <h3 class="media-title">Meno per meno</h3>
+                        <p class="media-desc">With Niccolò Fabi on RaiPlaySound. 10 episodes exploring his 25 years of music through philosophical dialogue.</p>
                     </div>
                     <div class="media-item reveal">
                         <span class="media-type">Podcast</span>
                         <h3 class="media-title">Pensare Europeo</h3>
-                        <p class="media-desc">Collaboration with the European Parliament on European identity.</p>
+                        <p class="media-desc">Collaboration with the European Parliament on European identity. Dialogues with MEPs and activists.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Podcast</span>
+                        <h3 class="media-title">Audible Club</h3>
+                        <p class="media-desc">2 seasons, 40 episodes on literary classics from the 19th and 20th centuries.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Podcast</span>
+                        <h3 class="media-title">La filosofia di Harry Potter</h3>
+                        <p class="media-desc">Philosophy through popular culture. 2 seasons for Audible.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">Radio</span>
+                        <h3 class="media-title">Disc Jockey di Wally</h3>
+                        <p class="media-desc">Weekly column with Maura Gancitano on Radiofreccia.</p>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" style="background: #fafafa;">
             <div class="section-content">
                 
                 <div class="section-header reveal">
@@ -273,12 +395,22 @@
                     <div class="media-item reveal">
                         <span class="media-type">TEDxRoma · 2023</span>
                         <h3 class="media-title">Philosophy of Artificial Intelligence</h3>
-                        <p class="media-desc">On thinking with and through AI systems.</p>
+                        <p class="media-desc">On the ethical consequences of tools like ChatGPT and the future of human-AI interaction.</p>
                     </div>
                     <div class="media-item reveal">
                         <span class="media-type">TEDxBarletta · 2022</span>
                         <h3 class="media-title">Art and Artificial Intelligence</h3>
-                        <p class="media-desc">On the creative possibilities of human-AI collaboration.</p>
+                        <p class="media-desc">On the creative possibilities of human-AI collaboration and the future of artistic production.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">TEDxLeverano</span>
+                        <h3 class="media-title">Philosophy and contemporary life</h3>
+                        <p class="media-desc">On bringing philosophical tools to everyday challenges.</p>
+                    </div>
+                    <div class="media-item reveal">
+                        <span class="media-type">TEDxGenova</span>
+                        <h3 class="media-title">The power of questioning</h3>
+                        <p class="media-desc">On the art of formulating questions that open spaces for thought.</p>
                     </div>
                 </div>
 
@@ -294,9 +426,15 @@
 
                 <div class="text-content reveal">
                     <p style="color: rgba(255,255,255,0.7);">For interview requests, participation in television or radio programs, articles and editorial collaborations, contact Tlon's press office or write directly.</p>
-                    <div style="margin-top: 2rem;">
-                        <a href="contact.html" class="featured-cta">
-                            <span>Contact</span>
+                    <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="mailto:ufficiostampa@tlon.it" class="featured-cta">
+                            <span>Press Office</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="contact.html" class="featured-cta" style="border-color: rgba(255,255,255,0.3);">
+                            <span>Direct Contact</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M5 12h14M12 5l7 7-7 7"/>
                             </svg>

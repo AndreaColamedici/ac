@@ -4,16 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books — Andrea Colamedici</title>
-    <meta name="description" content="Books by Andrea Colamedici: Hypnocracy, Prompt Thinking, The Algorithm of Babel and other essays on philosophy, artificial intelligence and contemporary culture.">
+    <meta name="description" content="Books by Andrea Colamedici: Hypnocracy, Prompt Thinking, The Algorithm of Babel, and works with Maura Gancitano translated worldwide.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .book-featured {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--grigio-chiaro);
+            margin-bottom: 3rem;
+        }
+        .book-featured:last-child {
+            border-bottom: none;
+        }
+        .book-featured-cover {
+            position: relative;
+        }
+        .book-featured-cover-placeholder {
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, rgba(42, 107, 107, 0.1) 0%, rgba(42, 107, 107, 0.02) 100%);
+            border: 1px solid var(--grigio-chiaro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            font-style: italic;
+            color: var(--ottanio);
+            opacity: 0.3;
+        }
+        .book-featured-content h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        .book-featured-content h3 em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .book-featured-meta {
+            font-size: 0.85rem;
+            color: var(--ottanio);
+            margin-bottom: 1.5rem;
+        }
+        .book-featured-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--grigio);
+            margin-bottom: 1.5rem;
+        }
+        .book-featured-editions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .book-edition-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--grigio-chiaro);
+            color: var(--grigio);
+        }
+        .book-edition-tag.highlight {
+            border-color: var(--ottanio);
+            color: var(--ottanio);
+        }
+
+        .books-list {
+            display: grid;
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+        }
+        .book-list-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bianco);
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        .book-list-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .book-list-year {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .book-list-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+        }
+        .book-list-subtitle {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+        .book-list-publisher {
+            font-size: 0.85rem;
+            color: var(--grigio);
+            text-align: right;
+        }
+        .book-list-translations {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .book-featured {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .book-featured-cover {
+                max-width: 250px;
+            }
+            .book-list-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .book-list-publisher {
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <a href="./" class="logo">Andrea <em>Colamedici</em></a>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
         <nav>
             <a href="books.html" class="active">Books</a>
             <a href="research.html">Research</a>
@@ -39,196 +174,217 @@
     <main>
         <div class="page-header">
             <h1 class="page-title">Books</h1>
-            <p class="page-subtitle">Essays on philosophy, artificial intelligence, myth and contemporary culture</p>
+            <p class="page-subtitle">Philosophy practiced, not just described</p>
         </div>
 
         <section class="section">
             <div class="section-content">
-                
-                <div class="books-category reveal">
-                    <div class="category-title">Individual works and collaborations</div>
-                    
-                    <div class="book-item">
-                        <span class="book-year">2025</span>
-                        <div class="book-info">
-                            <span class="book-title">Prompt Thinking</span>
-                            <span class="book-subtitle">Philosophy in the Age of Artificial Intelligence</span>
-                            <span class="book-note">Polity Press · Rosameron</span>
-                        </div>
-                        <span class="book-publisher">International</span>
-                    </div>
+                <div class="section-header reveal">
+                    <h2 class="section-title">Featured</h2>
+                    <span class="section-num">2024–25</span>
+                </div>
 
-                    <div class="book-item">
-                        <span class="book-year">2025</span>
-                        <div class="book-info">
-                            <span class="book-title">Hypnocracy</span>
-                            <span class="book-subtitle">Trump, Musk and the New Architecture of Reality</span>
-                            <span class="book-note">as Jianwei Xun</span>
-                        </div>
-                        <span class="book-publisher">Tlon</span>
+                <div class="book-featured reveal">
+                    <div class="book-featured-cover">
+                        <div class="book-featured-cover-placeholder">谎</div>
                     </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2024</span>
-                        <div class="book-info">
-                            <span class="book-title">The Algorithm of Babel</span>
-                            <span class="book-subtitle">Stories and Myths of Artificial Intelligence</span>
-                            <span class="book-note">with Simone Arcagni</span>
+                    <div class="book-featured-content">
+                        <h3><em>Hypnocracy</em></h3>
+                        <p class="book-featured-meta">As Jianwei Xun · Tlon, 2024 · Co-written with Claude and ChatGPT</p>
+                        <p class="book-featured-desc">A philosophical essay signed by an invented Chinese philosopher, co-written with AI, that fooled international press before revealing its own mechanism. The book analyzes how contemporary power operates directly on consciousness, coining the term "hypnocracy" to describe this new regime. Discussed at the Cannes AI conference, reviewed by The New York Times, Le Monde, Wired, El País. Published in Gallimard's <em>L'Empire de l'ombre</em> alongside Sam Altman, Mario Draghi, Peter Thiel.</p>
+                        <div class="book-featured-editions">
+                            <span class="book-edition-tag highlight">Italian</span>
+                            <span class="book-edition-tag highlight">French</span>
+                            <span class="book-edition-tag highlight">Spanish</span>
+                            <span class="book-edition-tag highlight">English</span>
                         </div>
-                        <span class="book-publisher">Solferino</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2021</span>
-                        <div class="book-info">
-                            <span class="book-title">The Responsibility of Revolt</span>
-                            <span class="book-note">with Miguel Benasayag</span>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="hypnocracy.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro); padding: 1rem 1.5rem; font-size: 0.75rem;">
+                                <span>The experiment</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
                         </div>
-                        <span class="book-publisher">Tlon</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2019</span>
-                        <div class="book-info">
-                            <span class="book-title">The Code of Myth</span>
-                            <span class="book-subtitle">Plato's Dream and the Nightmare of the West</span>
-                        </div>
-                        <span class="book-publisher">Mursia</span>
                     </div>
                 </div>
 
-                <div class="books-category reveal">
-                    <div class="category-title">With Maura Gancitano</div>
-
-                    <div class="book-item">
-                        <span class="book-year">2025</span>
-                        <div class="book-info">
-                            <span class="book-title">Botany of Wonder</span>
-                        </div>
-                        <span class="book-publisher">HarperCollins</span>
+                <div class="book-featured reveal">
+                    <div class="book-featured-cover">
+                        <div class="book-featured-cover-placeholder">?</div>
                     </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2023</span>
-                        <div class="book-info">
-                            <span class="book-title">Why Bother?</span>
-                            <span class="book-subtitle">How Work Has Deceived Us: The End of the Spell</span>
+                    <div class="book-featured-content">
+                        <h3>Prompt <em>Thinking</em></h3>
+                        <p class="book-featured-meta">Polity Press (EN) · Rosameron (ES) · February 2025</p>
+                        <p class="book-featured-desc">If Hypnocracy is the diagnosis, Prompt Thinking is the navigation method. The book proposes a new discipline: the art of formulating questions that generate thought, not just answers. From Socratic maieutics to Zen koans, from Cartesian meditations to contemporary prompts, the history of philosophy is revealed as a history of techniques for generating thought through questioning.</p>
+                        <div class="book-featured-editions">
+                            <span class="book-edition-tag highlight">English</span>
+                            <span class="book-edition-tag highlight">Spanish</span>
+                            <span class="book-edition-tag">Feb 2025</span>
                         </div>
-                        <span class="book-publisher">HarperCollins</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2022</span>
-                        <div class="book-info">
-                            <span class="book-title">The Game of Thought</span>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="prompt-thinking.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro); padding: 1rem 1.5rem; font-size: 0.75rem;">
+                                <span>The method</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
                         </div>
-                        <span class="book-publisher">Zanichelli</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2021</span>
-                        <div class="book-info">
-                            <span class="book-title">The Dawn of the New Gods</span>
-                            <span class="book-subtitle">From Plato to Big Data</span>
-                        </div>
-                        <span class="book-publisher">Mondadori</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2021</span>
-                        <div class="book-info">
-                            <span class="book-title">Take It Philosophically</span>
-                            <span class="book-subtitle">A Manual for Personal Flourishing</span>
-                        </div>
-                        <span class="book-publisher">HarperCollins</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2019</span>
-                        <div class="book-info">
-                            <span class="book-title">Free Yourself from the Good Girl</span>
-                            <span class="book-subtitle">Eight Stories for Flourishing</span>
-                        </div>
-                        <span class="book-publisher">HarperCollins</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2018</span>
-                        <div class="book-info">
-                            <span class="book-title">The Performance Society</span>
-                            <span class="book-subtitle">How to Exit the Cave</span>
-                        </div>
-                        <span class="book-publisher">Tlon</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2017</span>
-                        <div class="book-info">
-                            <span class="book-title">Lessons in Wonder</span>
-                            <span class="book-subtitle">Journeys Between Philosophy and Imagination</span>
-                        </div>
-                        <span class="book-publisher">Tlon</span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year">2016</span>
-                        <div class="book-info">
-                            <span class="book-title">You Are Not God</span>
-                            <span class="book-subtitle">Phenomenology of Contemporary Spirituality</span>
-                        </div>
-                        <span class="book-publisher">Tlon</span>
                     </div>
                 </div>
 
-                <div class="books-category reveal">
-                    <div class="category-title">Translations</div>
-
-                    <div class="book-item">
-                        <span class="book-year"></span>
-                        <div class="book-info">
-                            <span class="book-title">Hypnocracy</span>
-                            <span class="book-subtitle">Spanish, French, English</span>
-                        </div>
-                        <span class="book-publisher"></span>
+                <div class="book-featured reveal">
+                    <div class="book-featured-cover">
+                        <div class="book-featured-cover-placeholder">∞</div>
                     </div>
-
-                    <div class="book-item">
-                        <span class="book-year"></span>
-                        <div class="book-info">
-                            <span class="book-title">Take It Philosophically</span>
-                            <span class="book-subtitle">Chinese, Spanish, Polish, Korean</span>
+                    <div class="book-featured-content">
+                        <h3>The Algorithm of <em>Babel</em></h3>
+                        <p class="book-featured-meta">With Simone Arcagni · Solferino, 2024</p>
+                        <p class="book-featured-desc">An exploration of artificial intelligence through the lens of Jorge Luis Borges. Co-written with media scholar Simone Arcagni, the book uses Borges's literary imagination as a tool for understanding the philosophical implications of generative AI, infinite libraries, and the relationship between language and reality.</p>
+                        <div class="book-featured-editions">
+                            <span class="book-edition-tag">Italian</span>
                         </div>
-                        <span class="book-publisher"></span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year"></span>
-                        <div class="book-info">
-                            <span class="book-title">Free Yourself from the Good Girl</span>
-                            <span class="book-subtitle">Chinese, Korean</span>
-                        </div>
-                        <span class="book-publisher"></span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year"></span>
-                        <div class="book-info">
-                            <span class="book-title">Botany of Wonder</span>
-                            <span class="book-subtitle">Spanish (forthcoming), French (forthcoming)</span>
-                        </div>
-                        <span class="book-publisher"></span>
-                    </div>
-
-                    <div class="book-item">
-                        <span class="book-year"></span>
-                        <div class="book-info">
-                            <span class="book-title">The Dawn of the New Gods</span>
-                            <span class="book-subtitle">English (forthcoming)</span>
-                        </div>
-                        <span class="book-publisher"></span>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Solo Works</h2>
+                </div>
+
+                <div class="books-list reveal">
+                    <div class="book-list-item">
+                        <span class="book-list-year">2024</span>
+                        <div>
+                            <div class="book-list-title">L'algoritmo di Babele</div>
+                            <div class="book-list-subtitle">With Simone Arcagni</div>
+                        </div>
+                        <div class="book-list-publisher">Solferino</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2021</span>
+                        <div>
+                            <div class="book-list-title">La responsabilità della rivolta</div>
+                            <div class="book-list-subtitle">With Miguel Benasayag</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2019</span>
+                        <div>
+                            <div class="book-list-title">Il codice del mito</div>
+                            <div class="book-list-subtitle">Plato's dream and Western nightmares</div>
+                        </div>
+                        <div class="book-list-publisher">Mursia</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">With Maura Gancitano</h2>
+                </div>
+
+                <div class="text-content reveal" style="margin-bottom: 2rem;">
+                    <p>Since 2016, I have written nine books with Maura Gancitano, co-founder of Tlon. Together we have developed a practice of popular philosophy that has reached hundreds of thousands of readers, with translations across Asia and Europe.</p>
+                </div>
+
+                <div class="books-list reveal">
+                    <div class="book-list-item">
+                        <span class="book-list-year">2025</span>
+                        <div>
+                            <div class="book-list-title">Botanica della meraviglia</div>
+                            <div class="book-list-subtitle">Botany of Wonder</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2023</span>
+                        <div>
+                            <div class="book-list-title">Ma chi me lo fa fare?</div>
+                            <div class="book-list-subtitle">A critique of work culture's grip on contemporary life</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2022</span>
+                        <div>
+                            <div class="book-list-title">Il gioco del pensiero</div>
+                            <div class="book-list-subtitle">Philosophy manual for schools</div>
+                        </div>
+                        <div class="book-list-publisher">Zanichelli</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2021</span>
+                        <div>
+                            <div class="book-list-title">L'alba dei nuovi dèi</div>
+                            <div class="book-list-subtitle">The Dawn of the New Gods</div>
+                        </div>
+                        <div class="book-list-publisher">Mondadori</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2021</span>
+                        <div>
+                            <div class="book-list-title">Prendila con filosofia</div>
+                            <div class="book-list-subtitle">Personal flourishing manual</div>
+                            <div class="book-list-translations">5 languages</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2019</span>
+                        <div>
+                            <div class="book-list-title">Liberati della brava bambina</div>
+                            <div class="book-list-subtitle">Feminist philosophical phenomenon</div>
+                            <div class="book-list-translations">Chinese · Korean</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2018</span>
+                        <div>
+                            <div class="book-list-title">La società della performance</div>
+                            <div class="book-list-subtitle">The Performance Society</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2017</span>
+                        <div>
+                            <div class="book-list-title">Lezioni di meraviglia</div>
+                            <div class="book-list-subtitle">Lessons in Wonder</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2016</span>
+                        <div>
+                            <div class="book-list-title">Tu non sei Dio</div>
+                            <div class="book-list-subtitle">You Are Not God</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content" style="text-align: center;">
+                <div class="reveal">
+                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 1rem;">Tlon · Publishing · Bookshops · Festivals</p>
+                    <p style="font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 2rem;">200+ titles published · 4 bookshops in Rome and Venice · Podcasts among Italy's most listened</p>
+                    <a href="https://tlon.it" target="_blank" class="featured-cta">
+                        <span>Discover Tlon</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </section>
     </main>

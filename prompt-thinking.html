@@ -4,16 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Thinking — Andrea Colamedici</title>
-    <meta name="description" content="Prompt Thinking: Philosophy in the Age of Artificial Intelligence. Andrea Colamedici's new book coming from Polity Press and Rosameron.">
+    <meta name="description" content="Prompt Thinking: Philosophy in the Age of Artificial Intelligence. The art of formulating questions that generate thought, not just answers.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .traditions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .tradition {
+            padding: 2rem;
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .tradition::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--ottanio);
+            transition: width 0.5s ease;
+        }
+        .tradition:hover {
+            border-color: var(--ottanio);
+            transform: translateY(-5px);
+        }
+        .tradition:hover::before {
+            width: 100%;
+        }
+        .tradition-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .tradition-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .tradition-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        .quote-section {
+            padding: 6rem 3rem;
+            background: var(--nero);
+            color: var(--bianco);
+            text-align: center;
+        }
+        .quote-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .quote-mark {
+            font-family: 'Instrument Serif', serif;
+            font-size: 6rem;
+            color: var(--ottanio);
+            opacity: 0.3;
+            line-height: 0.5;
+            margin-bottom: 2rem;
+        }
+        .quote-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .quote-source {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .teaching-item {
+            padding: 2rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .teaching-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .teaching-institution {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .teaching-course {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--nero);
+        }
+
+        .publishers {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .publisher {
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            color: rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+        }
+        .publisher:hover {
+            border-color: var(--ottanio);
+            color: var(--bianco);
+        }
+
+        @media (max-width: 900px) {
+            .traditions-grid {
+                grid-template-columns: 1fr;
+            }
+            .teaching-grid {
+                grid-template-columns: 1fr;
+            }
+            .quote-section {
+                padding: 4rem 1.5rem;
+            }
+            .quote-text {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <a href="./" class="logo">Andrea <em>Colamedici</em></a>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
         <nav>
             <a href="books.html">Books</a>
             <a href="research.html">Research</a>
@@ -40,42 +188,14 @@
         <section class="featured" style="min-height: 80vh; background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
             <div class="featured-glow" style="background: radial-gradient(circle, rgba(100, 120, 180, 0.2) 0%, transparent 70%);"></div>
             <div class="featured-content">
-                <span class="featured-label">Coming · February 2025</span>
+                <span class="featured-label">Method</span>
                 <h1 class="featured-title" style="font-size: clamp(3rem, 10vw, 8rem);">Prompt<br><em>Thinking</em></h1>
                 <p class="featured-subtitle">Philosophy in the Age of Artificial Intelligence</p>
-                <p class="featured-desc">The art of formulating questions that generate thought, not just answers. A new discipline for the age of generative artificial intelligence.</p>
-                <div class="featured-press" style="border-top-color: rgba(255,255,255,0.1);">
-                    <p class="featured-press-label">Publishers</p>
-                    <div class="featured-press-logos">
-                        <span>Polity Press (EN)</span>
-                        <span>Rosameron (ES)</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">The Book</h2>
-                    <span class="section-num">I</span>
-                </div>
-                <div class="text-content reveal">
-                    <p><em>Prompt Thinking</em> explores a fundamental question: in an era when machines can generate answers to any question, what remains specifically human? The answer, the book suggests, lies in the ability to formulate the right questions.</p>
-                    <p>The text traverses the history of philosophy to show how every great tradition of thought has been, at its core, a technology for generating thought through the right formulation of questions. From Socratic maieutics to Zen koans, from Cartesian meditations to the paradoxes of analytic philosophy, the history of thought is a history of prompts: stimuli, provocations, questions that open spaces for reflection.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" style="background: #fafafa;">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">The Discipline</h2>
-                    <span class="section-num">II</span>
-                </div>
-                <div class="text-content reveal">
-                    <p>Prompt Thinking is not just a theory: it's a practice. Andrea Colamedici teaches this discipline at IED Rome and 24Ore Business School, where students and professionals learn to interact with artificial intelligence systems in ways that generate not just useful outputs, but occasions for thought.</p>
-                    <p>The course explores the deep structures of questioning: what makes a prompt effective? Why do certain formulations open spaces for reflection while others close them? How can we use artificial intelligence not as a substitute for thought, but as its amplifier?</p>
+                <p class="featured-desc">The art of formulating questions that generate thought, not just answers. A new discipline for navigating the algorithmic trance.</p>
+                <div class="publishers">
+                    <span class="publisher">Polity Press (EN)</span>
+                    <span class="publisher">Rosameron (ES)</span>
+                    <span class="publisher">February 2025</span>
                 </div>
             </div>
         </section>
@@ -84,11 +204,88 @@
             <div class="section-content">
                 <div class="section-header reveal">
                     <h2 class="section-title">The Thesis</h2>
+                    <span class="section-num">I</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>In an era when machines can generate answers to any question, what remains specifically human? The answer lies in the ability to formulate the right questions. <em>Prompt Thinking</em> proposes a reversal: instead of worrying that machines think like us, we should ask how we can think better with them.</p>
+                    <p>If <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy</a> is the diagnosis of our condition—the algorithmic trance that dissolves the boundary between true and false—Prompt Thinking is the navigation method. It does not promise awakening from the trance, but conscious movement within it: inhabiting simulations as one inhabits a lucid dream, without pretending to unmask them but without being possessed by them either.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-content reveal">
+                <div class="quote-mark">«</div>
+                <p class="quote-text">Every great tradition of thought has been, at its core, a technology for generating thought through the right formulation of questions.</p>
+                <p class="quote-source">Prompt Thinking</p>
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">The Traditions</h2>
+                    <span class="section-num">II</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>The book traverses the history of philosophy to show how questioning has always been the engine of thought. The history of philosophy is a history of prompts: stimuli, provocations, questions that open spaces for reflection.</p>
+                </div>
+                <div class="traditions-grid">
+                    <div class="tradition reveal">
+                        <h3 class="tradition-title">Socratic <em>Maieutics</em></h3>
+                        <p class="tradition-desc">The art of midwifery applied to thought: questions that help ideas be born from within the interlocutor, never imposing answers from outside.</p>
+                    </div>
+                    <div class="tradition reveal">
+                        <h3 class="tradition-title">Zen <em>Koans</em></h3>
+                        <p class="tradition-desc">Paradoxical questions that short-circuit rational thought and open access to non-discursive understanding. The question as tool for breaking mental patterns.</p>
+                    </div>
+                    <div class="tradition reveal">
+                        <h3 class="tradition-title">Cartesian <em>Meditations</em></h3>
+                        <p class="tradition-desc">Methodical doubt as a technique for reaching solid ground. The question "what can I not doubt?" as foundation of modern philosophy.</p>
+                    </div>
+                    <div class="tradition reveal">
+                        <h3 class="tradition-title">Analytic <em>Paradoxes</em></h3>
+                        <p class="tradition-desc">From Russell to Wittgenstein, the use of logical puzzles to reveal the limits and possibilities of language and thought.</p>
+                    </div>
+                    <div class="tradition reveal">
+                        <h3 class="tradition-title">Phenomenological <em>Epoché</em></h3>
+                        <p class="tradition-desc">Husserl's suspension of judgment as a technique for seeing things as they appear, before theoretical constructions intervene.</p>
+                    </div>
+                    <div class="tradition reveal">
+                        <h3 class="tradition-title">Contemporary <em>Prompts</em></h3>
+                        <p class="tradition-desc">The interaction with generative AI as the latest chapter in this history: questions addressed to machines that reveal the structure of our own thinking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">The Practice</h2>
                     <span class="section-num">III</span>
                 </div>
                 <div class="text-content reveal">
-                    <p>The central thesis of the book is that generative artificial intelligence doesn't make human thought obsolete: it makes it more necessary than ever. In a world saturated with automatic answers, the ability to formulate meaningful questions becomes the fundamental competence.</p>
-                    <p>Prompt Thinking proposes a reversal: instead of worrying that machines think like us, we should ask how we can think better thanks to them. Artificial intelligence, in this perspective, is not a threat to thought but an occasion to rethink what it means to think.</p>
+                    <p>Prompt Thinking is not just a theory: it is a practice. I teach it, and I use it daily in my own work—including in the writing of <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy</a>, where Claude and ChatGPT served as critical interlocutors throughout the creative process.</p>
+                    <p>The course explores the deep structures of questioning: what makes a prompt effective? Why do certain formulations open spaces for reflection while others close them? How can we use artificial intelligence not as a substitute for thought, but as its amplifier?</p>
+                </div>
+                <div class="teaching-grid">
+                    <div class="teaching-item reveal">
+                        <span class="teaching-institution">IED Roma</span>
+                        <span class="teaching-course">Prompt Thinking</span>
+                    </div>
+                    <div class="teaching-item reveal">
+                        <span class="teaching-institution">24Ore Business School</span>
+                        <span class="teaching-course">Prompt Thinking</span>
+                    </div>
+                    <div class="teaching-item reveal">
+                        <span class="teaching-institution">Universidad del Sur, Buenos Aires</span>
+                        <span class="teaching-course">Borges y la Inteligencia Artificial</span>
+                    </div>
+                    <div class="teaching-item reveal">
+                        <span class="teaching-institution">GenIA, AANT Roma</span>
+                        <span class="teaching-course">AI Research Hub (President)</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -96,10 +293,18 @@
         <section class="section" style="background: var(--nero); color: var(--bianco);">
             <div class="section-content">
                 <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
-                    <h2 class="section-title">Presentations</h2>
-                    <span class="section-num">2025</span>
+                    <h2 class="section-title">Presentations 2025</h2>
+                    <span class="section-num">IV</span>
                 </div>
                 <div class="upcoming-grid reveal" style="background: transparent; border: none;">
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">January 13–14</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">Congreso Futuro</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Lecture on algorithmic trance and navigation</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Santiago, Chile</span>
+                    </div>
                     <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
                         <span class="upcoming-date" style="color: var(--ottanio);">Late February</span>
                         <div class="upcoming-info">
@@ -108,9 +313,48 @@
                         </div>
                         <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">New York</span>
                     </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">March</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">AI and International Politics</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Conference on cognitive sovereignty</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Oslo</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">March</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">Cognitive Dangers of AI</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Conference on risks for thought</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Madrid</span>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section class="section">
+            <div class="section-content" style="text-align: center;">
+                <div class="reveal">
+                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: var(--grigio); margin-bottom: 2rem;">The diagnosis that Prompt Thinking navigates</p>
+                    <a href="hypnocracy.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
+                        <span>Hypnocracy</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="trace reveal">
+            <div class="trace-content">
+                <div class="trace-line"></div>
+                <p class="trace-text">There is an experiment in progress. When the time comes, you will see it.</p>
+                <a href="https://andreacolamedici.github.io/alveare/" target="_blank" class="trace-link">◯</a>
+            </div>
+        </section>
+
     </main>
 
     <footer>

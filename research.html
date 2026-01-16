@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research — Andrea Colamedici</title>
-    <meta name="description" content="Andrea Colamedici's research: GenIA AI hub, University of Foggia fellowship, teaching at IED and 24Ore Business School.">
+    <meta name="description" content="Andrea Colamedici's research: GenIA AI hub, University of Foggia fellowship, teaching at IED and 24Ore Business School, festival direction.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -127,12 +127,68 @@
             color: var(--grigio);
         }
 
+        .festival-card {
+            padding: 2.5rem;
+            border: 1px solid var(--grigio-chiaro);
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .festival-card:hover {
+            border-color: var(--ottanio);
+        }
+        .festival-role {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .festival-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .festival-desc {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--grigio);
+        }
+        .festival-stats {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--ottanio);
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .training-item {
+            padding: 1.5rem;
+            border: 1px solid var(--grigio-chiaro);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .training-item:hover {
+            border-color: var(--ottanio);
+        }
+        .training-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
         @media (max-width: 900px) {
             .teaching-grid {
                 grid-template-columns: 1fr;
             }
             .area-grid {
                 grid-template-columns: 1fr;
+            }
+            .training-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -147,7 +203,6 @@
         <nav>
             <a href="books.html">Books</a>
             <a href="research.html" class="active">Research</a>
-            <a href="speaking.html">Speaking</a>
             <a href="press.html">Press</a>
             <a href="contact.html">Contact</a>
             <div class="lang-switch">
@@ -169,7 +224,6 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="books.html">Books</a>
         <a href="research.html">Research</a>
-        <a href="speaking.html">Speaking</a>
         <a href="press.html">Press</a>
         <a href="contact.html">Contact</a>
         <div class="mobile-lang-switch">
@@ -181,7 +235,7 @@
     <main>
         <div class="page-header">
             <h1 class="page-title">Research</h1>
-            <p class="page-subtitle">Academic positions, teaching, and research areas</p>
+            <p class="page-subtitle">Academic positions, teaching, festivals, and research areas</p>
         </div>
 
         <section class="section">
@@ -219,6 +273,46 @@
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
                 <div class="section-header reveal">
+                    <h2 class="section-title">Festivals</h2>
+                    <span class="section-num">Direction</span>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Philosophical Director</span>
+                    <h3 class="festival-name">Festival del Pensare Contemporaneo</h3>
+                    <p class="festival-desc">One of Italy's major philosophy festivals, held annually in Piacenza. Four days, over 100 interventions and 50 events. In 2024, President Mattarella attended.</p>
+                    <p class="festival-stats">19,000 attendees (2023) — 24,000 attendees (2024)</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Philosophical Director</span>
+                    <h3 class="festival-name">Carnevale di Putignano</h3>
+                    <p class="festival-desc">Philosophical direction of one of Italy's oldest carnivals, integrating contemporary thought into traditional celebration.</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Creator</span>
+                    <h3 class="festival-name">Festa della Filosofia</h3>
+                    <p class="festival-desc">Triennale Milano and Rome. A festival dedicated to making philosophy accessible and engaging for broad audiences. Organized in media-partnership with Rai Scuola.</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Creator</span>
+                    <h3 class="festival-name">Concerti Filosofici</h3>
+                    <p class="festival-desc">Live performances combining musicians with philosophical dialogue. Featured artists include La Rappresentante di Lista, Niccolò Fabi, Vinicio Capossela.</p>
+                </div>
+
+                <div class="festival-card reveal">
+                    <span class="festival-role">Creator</span>
+                    <h3 class="festival-name">ilPod — Italian Podcast Awards</h3>
+                    <p class="festival-desc">Annual awards celebrating the best Italian podcasts. Created to support the growing podcast ecosystem in Italy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
                     <h2 class="section-title">Teaching</h2>
                 </div>
 
@@ -242,6 +336,39 @@
                         <span class="teaching-institution">Scuola di Filosofie</span>
                         <h3 class="teaching-course">Podcast</h3>
                         <p class="teaching-desc">Among Italy's most listened-to audio content on Audible, with Maura Gancitano</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Corporate Training</h2>
+                </div>
+
+                <div class="text-content reveal" style="margin-bottom: 2rem;">
+                    <p style="color: rgba(255,255,255,0.7);">Workshops and training programs on philosophy of AI, prompt thinking, diversity & inclusion, digital literacy, and navigating complexity. Clients include:</p>
+                </div>
+
+                <div class="training-grid reveal">
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Google</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Amazon</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Ferrero</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">Lamborghini</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">UniCredit</span>
+                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="training-name" style="color: var(--bianco);">European Parliament</span>
                     </div>
                 </div>
             </div>
@@ -282,36 +409,36 @@
             </div>
         </section>
 
-        <section class="section" style="background: var(--nero); color: var(--bianco);">
+        <section class="section" style="background: #fafafa;">
             <div class="section-content">
-                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                <div class="section-header reveal">
                     <h2 class="section-title">Podcasts</h2>
                 </div>
 
                 <div class="text-content reveal" style="margin-bottom: 2rem;">
-                    <p style="color: rgba(255,255,255,0.7);">Audio projects extending philosophical practice beyond traditional formats:</p>
+                    <p>Audio projects extending philosophical practice beyond traditional formats:</p>
                 </div>
 
-                <div class="teaching-grid reveal" style="background: transparent; border: none; gap: 1rem;">
-                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="teaching-institution" style="color: var(--ottanio);">Audible</span>
-                        <h3 class="teaching-course" style="color: var(--bianco);">Scuola di Filosofie</h3>
-                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">With Maura Gancitano · Among Italy's most listened</p>
+                <div class="teaching-grid reveal">
+                    <div class="teaching-item">
+                        <span class="teaching-institution">Audible</span>
+                        <h3 class="teaching-course">Scuola di Filosofie</h3>
+                        <p class="teaching-desc">With Maura Gancitano · Among Italy's most listened</p>
                     </div>
-                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="teaching-institution" style="color: var(--ottanio);">European Parliament</span>
-                        <h3 class="teaching-course" style="color: var(--bianco);">Pensare Europeo</h3>
-                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">On European identity</p>
+                    <div class="teaching-item">
+                        <span class="teaching-institution">European Parliament</span>
+                        <h3 class="teaching-course">Pensare Europeo</h3>
+                        <p class="teaching-desc">On European identity</p>
                     </div>
-                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="teaching-institution" style="color: var(--ottanio);">RaiPlaySound</span>
-                        <h3 class="teaching-course" style="color: var(--bianco);">Meno per meno</h3>
-                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">With Niccolò Fabi</p>
+                    <div class="teaching-item">
+                        <span class="teaching-institution">RaiPlaySound</span>
+                        <h3 class="teaching-course">Meno per meno</h3>
+                        <p class="teaching-desc">With Niccolò Fabi</p>
                     </div>
-                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="teaching-institution" style="color: var(--ottanio);">Audible</span>
-                        <h3 class="teaching-course" style="color: var(--bianco);">La filosofia di Harry Potter</h3>
-                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">Philosophy through popular culture</p>
+                    <div class="teaching-item">
+                        <span class="teaching-institution">Audible</span>
+                        <h3 class="teaching-course">La filosofia di Harry Potter</h3>
+                        <p class="teaching-desc">Philosophy through popular culture</p>
                     </div>
                 </div>
             </div>

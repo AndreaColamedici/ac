@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto — Andrea Colamedici</title>
+    <meta name="description" content="Contactar a Andrea Colamedici para conferencias, colaboraciones académicas, entrevistas y proyectos editoriales.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="libros.html">Libros</a>
+            <a href="investigacion.html">Investigación</a>
+            <a href="conferencias.html">Conferencias</a>
+            <a href="prensa.html">Prensa</a>
+            <a href="contacto.html" class="active">Contacto</a>
+            <div class="lang-switch">
+                <a href="../contact.html">EN</a>
+                <a href="contacto.html" class="active">ES</a>
+            </div>
+        </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
+            <a href="../contact.html">EN</a>
+            <a href="contacto.html" class="active">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="libros.html">Libros</a>
+        <a href="investigacion.html">Investigación</a>
+        <a href="conferencias.html">Conferencias</a>
+        <a href="prensa.html">Prensa</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="mobile-lang-switch">
+            <a href="../contact.html">EN</a>
+            <a href="contacto.html" class="active">ES</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Contacto</h1>
+            <p class="page-subtitle">Para conferencias, colaboraciones y proyectos</p>
+        </div>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="contact-grid reveal">
+                    
+                    <div class="contact-main">
+                        <h3>Ponerse en contacto</h3>
+                        <p>Disponible para conferencias, keynotes, talleres y colaboraciones académicas. Hablo italiano, inglés y español. Mis temas principales son inteligencia artificial, filosofía de los medios, cultura digital y pensamiento contemporáneo.</p>
+                        <p>Para invitaciones a eventos, proyectos editoriales o solicitudes de entrevistas, contáctame directamente o a través de la oficina de prensa de Tlon.</p>
+                        <a href="mailto:andrea@tlon.it" class="contact-email">info@tlon.it</a>
+                    </div>
+
+                    <div class="contact-sidebar">
+                        <h4>Tlon</h4>
+                        <ul>
+                            <li><a href="https://tlon.it" target="_blank">tlon.it</a></li>
+                            <li><a href="mailto:info@tlon.it">info@tlon.it</a></li>
+                        </ul>
+
+                        <h4>Redes sociales</h4>
+                        <ul>
+                            <li><a href="https://instagram.com/andreacolamedici" target="_blank">Instagram</a></li>
+                            <li><a href="https://twitter.com/acolamedici" target="_blank">Twitter / X</a></li>
+                            <li><a href="https://www.linkedin.com/in/andreacolamedici/" target="_blank">LinkedIn</a></li>
+                        </ul>
+
+                        <h4>Oficina de prensa</h4>
+                        <ul>
+                            <li><a href="mailto:ufficiostampa@tlon.it">ufficiostampa@tlon.it</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>

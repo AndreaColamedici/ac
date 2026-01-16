@@ -161,6 +161,11 @@ header.menu-open .lang-switch a.active {
     background: rgba(42, 107, 107, 0.3);
 }
 
+/* Hide standalone lang-switch on desktop - only show on mobile */
+header > .lang-switch {
+    display: none;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -1120,7 +1125,9 @@ footer {
         display: flex;
     }
 
-    .lang-switch {
+    /* Show standalone lang-switch on mobile */
+    header > .lang-switch {
+        display: flex;
         position: absolute;
         right: 4rem;
         top: 50%;

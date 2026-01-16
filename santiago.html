@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>These Shoes Are Not Mine — Andrea Colamedici</title>
+    <meta name="description" content="What I learned from being robbed twenty minutes before a dialogue with six philosophers at Congreso Futuro, Santiago de Chile.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .narrative-hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .narrative-date {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 2rem;
+        }
+        .narrative-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .narrative-title em {
+            font-style: italic;
+        }
+        .narrative-subtitle {
+            font-size: 1.25rem;
+            color: var(--grigio);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+        
+        .narrative-body {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+        .narrative-body p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 1.75rem;
+            color: var(--nero);
+        }
+        .narrative-body p:first-of-type::first-letter {
+            font-family: 'Instrument Serif', serif;
+            font-size: 4rem;
+            float: left;
+            line-height: 1;
+            padding-right: 0.5rem;
+            color: var(--ottanio);
+        }
+        .narrative-body strong {
+            font-weight: 500;
+        }
+        .narrative-body em {
+            font-style: italic;
+        }
+        
+        .pullquote {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--ottanio);
+            padding: 2rem 0;
+            margin: 2rem 0;
+            border-top: 1px solid var(--grigio-chiaro);
+            border-bottom: 1px solid var(--grigio-chiaro);
+        }
+        
+        .narrative-image {
+            margin: 3rem 0;
+            position: relative;
+        }
+        .narrative-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .narrative-image-caption {
+            font-size: 0.8rem;
+            color: var(--grigio);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+        
+        .context-section {
+            background: var(--nero);
+            color: var(--bianco);
+            padding: 5rem 2rem;
+            margin-top: 4rem;
+        }
+        .context-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .context-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 1.5rem;
+        }
+        .context-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .context-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+        }
+        .context-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ottanio);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+        .context-link:hover {
+            gap: 0.75rem;
+        }
+        
+        .lang-switch {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+        .lang-switch a {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--bianco);
+            border: 1px solid var(--grigio-chiaro);
+            color: var(--grigio);
+            transition: all 0.3s ease;
+        }
+        .lang-switch a:hover,
+        .lang-switch a.active {
+            background: var(--nero);
+            border-color: var(--nero);
+            color: var(--bianco);
+        }
+        
+        @media (max-width: 768px) {
+            .narrative-hero {
+                padding: 6rem 1.5rem 3rem;
+                min-height: 50vh;
+            }
+            .narrative-body {
+                padding: 0 1.5rem 4rem;
+            }
+            .pullquote {
+                font-size: 1.35rem;
+            }
+            .lang-switch {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="books.html">Books</a>
+            <a href="research.html">Research</a>
+            <a href="speaking.html">Speaking</a>
+            <a href="press.html">Press</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="books.html">Books</a>
+        <a href="research.html">Research</a>
+        <a href="speaking.html">Speaking</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="lang-switch">
+        <a href="santiago.html" class="active">EN</a>
+        <a href="santiago-es.html">ES</a>
+    </div>
+
+    <main>
+        <section class="narrative-hero">
+            <span class="narrative-date">Santiago de Chile · January 14, 2026</span>
+            <h1 class="narrative-title">These Shoes Are <em>Not Mine</em></h1>
+            <p class="narrative-subtitle">What I learned from being robbed twenty minutes before a dialogue with six philosophers at Congreso Futuro.</p>
+        </section>
+
+        <article class="narrative-body">
+            <p>This is how I opened my speech at the <em>Cumbre de la Filosofía</em> during Congreso Futuro in Chile: "These shoes are not mine." Half an hour before I was supposed to step onto the stage with José María Lassalle, Dominique Lestel, Renata Salecl, Shigeru Taguchi, Maurizio Ferraris, and Ingrid Guardiola, I had been robbed on the street, six kilometers from the theater. They took my phone and my shoes.</p>
+
+            <p>The first thing I felt, isolated in a distant country, was a subtle but undeniable form of panic. My entire agenda, my contacts, my credit card, my notes for the talk, the photos of my children, the ability to reach anyone—all gone. I was completely alone, twelve thousand kilometers from home. And shoeless.</p>
+
+            <p>Above all, there was that dialogue with some of the world's most important thinkers that I was going to miss. Which was the main reason I was there in the first place.</p>
+
+            <p>Thanks to the kindness of two shopkeepers, I managed to contact Maura, who unblocked the situation. The event at the theater was at 7 pm, but by the time they reached me it was already 7:30, and there was still quite a distance to cover. I would arrive too late for the <em>cumbre</em>. I was therefore convinced I would go back to the hotel to sleep and curse my luck. But then I told myself: this story is exactly what I need to talk about tonight.</p>
+
+            <p>Maura pushed me in this direction, so we set off toward the theater.</p>
+
+            <p>I had to mentally reconstruct what I wanted to say, and at the very edge of the stage, they gave me a pair of shoes (nicer than the ones that had been taken from me). All of this allowed me to say something <em>true</em> that I would never have been able to share otherwise.</p>
+
+            <p class="pullquote">Thinking without a net, without notes, without a device, I discovered that fragility itself was becoming the thought finding its way.</p>
+
+            <p>The panel's theme was artificial intelligence and the future of human beings. Seven philosophers, two hours, three rounds of intervention (for me two: I had only missed one, in the end). I should have spoken directly about algorithms, biases, and regulation. But I began by recounting what had just happened to me, because I had realized that thinking without a net, without notes, and without a device was forcing me to be more present and more exposed. Fragility was the thought finding its way.</p>
+
+            <p>I made several jokes about my situation, using it as a tool to better explain my ideas about AI as a <em>cognitive atmosphere</em>. The audience laughed and appreciated it, and so the misfortune transformed into vital energy.</p>
+
+            <p>We are convinced that thought requires ideal conditions to manifest: calm, preparation, control. But the most alive thinking often arises from rupture, from disorientation, from finding oneself thrown into situations neither sought nor desired. It is that tension that forces the search for form.</p>
+
+            <p>Hypnocracy works by removing friction: everything flows, everything is comfortable, everything is already prepared. Thought works the opposite way: it vitally needs resistance, obstacles, something that gets in the way. The theft had returned to me, for the duration of that encounter, a story to tell and a condition to inhabit.</p>
+
+            <p class="pullquote">The political question is not whether to use these technologies, but whether we want to be their citizens or their subjects.</p>
+
+            <p>During the event I explained that AI is not a tool. It is an environment in which we are immersed, one that prepares and organizes the field of what is thinkable. It operates <em>before</em> the decision, not after. And its greatest power is comfort: the removal of effort, the answer that arrives before the question, the convenience of delegation. The real political question is not whether to use these technologies, but whether we want to be their citizens or their subjects.</p>
+
+            <p>It was very beautiful, and I doubt I will ever forget it.</p>
+
+            <p>At the end, they let me keep the shoes.</p>
+        </article>
+
+        <section class="context-section">
+            <div class="context-content">
+                <span class="context-label">Context</span>
+                <h2 class="context-title">Congreso Futuro · Cumbre de la Filosofía</h2>
+                <p class="context-text">Congreso Futuro is the largest science and ideas conference in Latin America, organized by the Chilean Senate. The 2026 edition of the Cumbre de la Filosofía gathered philosophers from around the world to discuss artificial intelligence and the future of human consciousness. Alongside the <em>Cumbre</em>, I gave a lecture on <em>Hypnocracy</em> and algorithmic trance—my first full speech in Spanish.</p>
+                <a href="hypnocracy.html" class="context-link">
+                    <span>Read about Hypnocracy</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>

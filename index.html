@@ -267,6 +267,147 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
+           RECENT / HIGHLIGHTS SECTION
+           ═══════════════════════════════════════════════════════════════ */
+        .recent-section {
+            background: #fafafa;
+            padding: 5rem 0;
+        }
+        .recent-event {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--grigio-chiaro);
+        }
+        .recent-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        .recent-year {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+        
+        .recent-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .recent-card-meta {
+            position: sticky;
+            top: 6rem;
+        }
+        .recent-card-location {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .recent-card-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+        .recent-card-name em {
+            font-style: italic;
+        }
+        .recent-card-date {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+        
+        .recent-card-facts {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .recent-fact {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: start;
+            padding: 1.5rem;
+            background: var(--bianco);
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.4s ease;
+        }
+        .recent-fact:hover {
+            border-color: var(--ottanio);
+            transform: translateX(5px);
+        }
+        .recent-fact-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--ottanio);
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .recent-fact-content h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        .recent-fact-content p {
+            font-size: 0.9rem;
+            color: var(--grigio);
+            line-height: 1.6;
+        }
+        .recent-fact-link {
+            align-self: center;
+        }
+        .recent-fact-link a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--grigio-chiaro);
+            border-radius: 50%;
+            color: var(--grigio);
+            transition: all 0.3s ease;
+        }
+        .recent-fact-link a:hover {
+            background: var(--ottanio);
+            border-color: var(--ottanio);
+            color: var(--bianco);
+        }
+        
+        @media (max-width: 900px) {
+            .recent-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .recent-card-meta {
+                position: static;
+            }
+            .recent-fact {
+                grid-template-columns: auto 1fr;
+            }
+            .recent-fact-link {
+                grid-column: 1 / -1;
+                justify-self: end;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
            FIELD NOTE SECTION - Santiago Story
            ═══════════════════════════════════════════════════════════════ */
         .field-note {
@@ -519,6 +660,55 @@
             </div>
         </section>
 
+        <!-- Recent / Highlights -->
+        <section class="recent-section reveal">
+            <div class="recent-event">
+                <div class="recent-header">
+                    <h2 class="recent-title">Recent</h2>
+                    <span class="recent-year">January 2026</span>
+                </div>
+                <div class="recent-card">
+                    <div class="recent-card-meta">
+                        <p class="recent-card-location">Santiago, Chile</p>
+                        <h3 class="recent-card-name"><em>Congreso Futuro</em></h3>
+                        <p class="recent-card-date">January 13–14, 2026</p>
+                    </div>
+                    <div class="recent-card-facts">
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">1</span>
+                            <div class="recent-fact-content">
+                                <h4>Cumbre de la Filosofía</h4>
+                                <p>Panel on AI and the future of human consciousness with José María Lassalle, Dominique Lestel, Renata Salecl, Shigeru Taguchi, Maurizio Ferraris, and Ingrid Guardiola.</p>
+                            </div>
+                            <div class="recent-fact-link"></div>
+                        </div>
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">2</span>
+                            <div class="recent-fact-content">
+                                <h4>Hipnocracia · First speech in Spanish</h4>
+                                <p>Lecture on algorithmic trance, perceptive sovereignty, and the philosophical performance behind the Jianwei Xun experiment.</p>
+                            </div>
+                            <div class="recent-fact-link"></div>
+                        </div>
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">3</span>
+                            <div class="recent-fact-content">
+                                <h4>These shoes are not mine</h4>
+                                <p>Robbed twenty minutes before the panel, I turned the disruption into demonstration: thinking without a net, fragility as the thought finding its way.</p>
+                            </div>
+                            <div class="recent-fact-link">
+                                <a href="santiago.html" class="magnetic">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Field Note: Santiago Story -->
         <section class="field-note reveal">
             <div class="field-note-content">
@@ -652,7 +842,6 @@
                 this.radius = Math.random() * 2 + 1;
             }
             update() {
-                // Mouse interaction
                 if (mouse.x !== null) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
@@ -665,10 +854,8 @@
                 }
                 this.x += this.vx;
                 this.y += this.vy;
-                // Boundaries
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                // Damping
                 this.vx *= 0.99;
                 this.vy *= 0.99;
             }
@@ -680,7 +867,6 @@
             }
         }
 
-        // Create particles
         for (let i = 0; i < 80; i++) {
             particles.push(new Particle());
         }
@@ -727,7 +913,6 @@
             glitchElement.classList.add('active');
             setTimeout(() => glitchElement.classList.remove('active'), 300);
         }
-        // Random glitch
         setInterval(() => {
             if (Math.random() > 0.7) triggerGlitch();
         }, 3000);
@@ -753,9 +938,7 @@
                 iteration += 1/2;
             }, 30);
         }
-        // Initial scramble on load
         setTimeout(scrambleText, 1000);
-        // Occasional re-scramble
         setInterval(() => {
             if (Math.random() > 0.8) scrambleText();
         }, 10000);

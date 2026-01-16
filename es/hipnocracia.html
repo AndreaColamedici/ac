@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hipnocracia — Andrea Colamedici</title>
+    <meta name="description" content="Hipnocracia: Trump, Musk y la Nueva Arquitectura de la Realidad. El experimento filosófico que engañó a la prensa internacional para demostrar su propia tesis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .concept {
+            padding: 2rem;
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .concept::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--ottanio);
+            transition: width 0.5s ease;
+        }
+        .concept:hover {
+            border-color: var(--ottanio);
+            transform: translateY(-5px);
+        }
+        .concept:hover::before {
+            width: 100%;
+        }
+        .concept-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .concept-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .concept-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+        
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 3rem;
+        }
+        .press-item {
+            padding: 1.5rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .press-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .press-source {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .press-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--nero);
+            transition: color 0.3s ease;
+        }
+        .press-item:hover .press-title {
+            color: var(--ottanio);
+        }
+        
+        .quote-section {
+            padding: 6rem 3rem;
+            background: var(--nero);
+            color: var(--bianco);
+            text-align: center;
+        }
+        .quote-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .quote-mark {
+            font-family: 'Instrument Serif', serif;
+            font-size: 6rem;
+            color: var(--ottanio);
+            opacity: 0.3;
+            line-height: 0.5;
+            margin-bottom: 2rem;
+        }
+        .quote-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .quote-source {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+        
+        .editions-covers {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .edition-cover {
+            position: relative;
+            overflow: hidden;
+        }
+        .edition-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .edition-cover:hover img {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .edition-cover-label {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+
+        @media (max-width: 900px) {
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+            .press-grid {
+                grid-template-columns: 1fr;
+            }
+            .editions-covers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .quote-section {
+                padding: 4rem 1.5rem;
+            }
+            .quote-text {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="libros.html">Libros</a>
+            <a href="investigacion.html">Investigación</a>
+            <a href="conferencias.html">Conferencias</a>
+            <a href="prensa.html">Prensa</a>
+            <a href="contacto.html">Contacto</a>
+            <div class="lang-switch">
+                <a href="../hypnocracy.html">EN</a>
+                <a href="hipnocracia.html" class="active">ES</a>
+            </div>
+        </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
+            <a href="../hypnocracy.html">EN</a>
+            <a href="hipnocracia.html" class="active">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="libros.html">Libros</a>
+        <a href="investigacion.html">Investigación</a>
+        <a href="conferencias.html">Conferencias</a>
+        <a href="prensa.html">Prensa</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="mobile-lang-switch">
+            <a href="../hypnocracy.html">EN</a>
+            <a href="hipnocracia.html" class="active">ES</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="featured" style="min-height: 80vh;">
+            <div class="featured-bg">
+                <span class="featured-bg-text" id="huangChar">谎</span>
+            </div>
+            <div class="featured-glow"></div>
+            <div class="featured-content">
+                <span class="featured-label">Diagnóstico</span>
+                <h1 class="featured-title"><em>Hipnocracia</em></h1>
+                <p class="featured-subtitle">Trump, Musk y la Nueva Arquitectura de la Realidad</p>
+                <p class="featured-desc">Un libro. Una performance. Una demostración.</p>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Ediciones</h2>
+                    <span class="section-num">4 idiomas</span>
+                </div>
+                <div class="editions-covers">
+                    <div class="edition-cover reveal">
+                        <img src="../assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia - Edición italiana">
+                        <p class="edition-cover-label">Italiano</p>
+                    </div>
+                    <div class="edition-cover reveal">
+                        <img src="../assets/images/ipnocrazia-en.jpg" alt="Hypnocracy - Edición inglesa">
+                        <p class="edition-cover-label">Inglés</p>
+                    </div>
+                    <div class="edition-cover reveal">
+                        <img src="../assets/images/ipnocrazia-fr.jpg" alt="Hypnocratie - Edición francesa">
+                        <p class="edition-cover-label">Francés</p>
+                    </div>
+                    <div class="edition-cover reveal">
+                        <img src="../assets/images/ipnocrazia-es.jpg" alt="Hipnocracia - Edición española">
+                        <p class="edition-cover-label">Español</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">El Experimento</h2>
+                    <span class="section-num">I</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>En enero de 2024, publiqué un ensayo filosófico firmado por <strong>Jianwei Xun</strong>, un filósofo chino que inventé. El libro analiza cómo el poder contemporáneo manipula la realidad, acuñando el término "Hipnocracia" para describir un régimen que opera directamente sobre la conciencia. Le Monde, El País, The New York Times, Wired—todos lo reseñaron, lo discutieron, lo tomaron en serio.</p>
+                    <p>En abril de 2025, L'Espresso reveló que Jianwei Xun no existe. Lo creé con inteligencia artificial como interlocutor crítico. El engaño se convirtió en la prueba: un libro sobre manipulación de la realidad que manipuló la realidad para demostrar su tesis. La operación mostró con qué facilidad una identidad ficticia puede adquirir autoridad, cómo funcionan los sistemas de validación cultural, cómo se construye la percepción.</p>
+                    <p>Esto no fue una broma. Fue filosofía practicada, no descrita. Coescrito con Claude y ChatGPT, el libro integra los mismos mecanismos que teoriza. Si creíste en Xun antes de conocer la verdad, experimentaste la Hipnocracia de primera mano.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-content reveal">
+                <div class="quote-mark">«</div>
+                <p class="quote-text">La Hipnocracia es el primer régimen que opera directamente sobre la conciencia. No controla cuerpos. No reprime pensamientos. Más bien, induce un estado alterado permanente de conciencia. Un sueño lúcido. Un trance funcional.</p>
+                <p class="quote-source">Hipnocracia, Introducción</p>
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Conceptos Clave</h2>
+                    <span class="section-num">II</span>
+                </div>
+                <div class="concepts-grid">
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Trance <em>algorítmico</em></h3>
+                        <p class="concept-desc">El flujo continuo de contenido digital induce un estado alterado permanente de conciencia, donde la atención se modula como una onda y los estados emocionales se manipulan constantemente.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Soberanía <em>perceptiva</em></h3>
+                        <p class="concept-desc">La capacidad de mantener un núcleo de autonomía en la percepción de la realidad, resistiendo la disolución del límite entre verdadero y falso.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Edging <em>algorítmico</em></h3>
+                        <p class="concept-desc">La técnica mediante la cual las plataformas mantienen a los usuarios en perpetua anticipación, prometiendo satisfacciones que se posponen constantemente.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Resistencia <em>oscura</em></h3>
+                        <p class="concept-desc">Formas de resistencia invisible que habitan las grietas del sistema, cultivando espacios de opacidad dentro del régimen de transparencia total.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">Realidad <em>gaseosa</em></h3>
+                        <p class="concept-desc">La condición contemporánea donde la realidad se ha vuelto completamente fluida: la distinción entre verdad y falsedad ha perdido sentido.</p>
+                    </div>
+                    <div class="concept reveal">
+                        <h3 class="concept-title">El Otro <em>Plano</em></h3>
+                        <p class="concept-desc">La intuición de que lo digital puede no ser solo un instrumento de control sino una interfaz hacia nuevas dimensiones de experiencia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content" style="text-align: center;">
+                <div class="reveal">
+                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">El método que navega el trance</p>
+                    <a href="pensamiento-prompt.html" class="featured-cta">
+                        <span>Pensamiento Prompt</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">El Libro</h2>
+                    <span class="section-num">III</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>A través de los casos de Donald Trump y Elon Musk, <em>Hipnocracia</em> revela cómo opera el poder contemporáneo: el vaciamiento del lenguaje en significantes hipnóticos, la inundación de la imaginación con promesas destinadas a nunca cumplirse, la modulación de estados colectivos de conciencia. El libro está disponible en italiano (Tlon), francés (Philosophie Magazine), español e inglés.</p>
+                    <p>Más información y compra: <a href="https://tlon.it/ipnocrazia" target="_blank" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">tlon.it/ipnocrazia</a></p>
+                    <p>El sitio del autor fantasma: <a href="https://www.jianweixun.com" target="_blank" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">jianweixun.com</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        const huangChar = document.getElementById('huangChar');
+        const featuredSection = document.querySelector('.featured');
+        
+        if (huangChar && featuredSection) {
+            featuredSection.addEventListener('mousemove', (e) => {
+                const rect = featuredSection.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                
+                huangChar.classList.add('reactive');
+                huangChar.style.transform = `translate(${x * 30}px, ${y * 30}px) scale(${1 + Math.abs(x * y) * 0.1})`;
+                huangChar.style.opacity = 0.03 + Math.abs(x * y) * 0.05;
+            });
+            
+            featuredSection.addEventListener('mouseleave', () => {
+                huangChar.classList.remove('reactive');
+                huangChar.style.transform = '';
+                huangChar.style.opacity = '';
+            });
+        }
+    </script>
+
+</body>
+</html>

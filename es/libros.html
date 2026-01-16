@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libros — Andrea Colamedici</title>
+    <meta name="description" content="Libros de Andrea Colamedici: Hipnocracia, Pensamiento Prompt, El Algoritmo de Babel y obras con Maura Gancitano traducidas mundialmente.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .book-featured {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--grigio-chiaro);
+            margin-bottom: 3rem;
+        }
+        .book-featured:last-child {
+            border-bottom: none;
+        }
+        .book-featured-cover {
+            position: relative;
+        }
+        .book-featured-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .book-featured-cover:hover img {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .book-featured-content h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        .book-featured-content h3 em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .book-featured-meta {
+            font-size: 0.85rem;
+            color: var(--ottanio);
+            margin-bottom: 1.5rem;
+        }
+        .book-featured-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--grigio);
+            margin-bottom: 1.5rem;
+        }
+        .book-featured-editions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .book-edition-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--grigio-chiaro);
+            color: var(--grigio);
+        }
+        .book-edition-tag.highlight {
+            border-color: var(--ottanio);
+            color: var(--ottanio);
+        }
+
+        .books-list {
+            display: grid;
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+        }
+        .book-list-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bianco);
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        .book-list-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .book-list-year {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .book-list-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+        }
+        .book-list-subtitle {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+        .book-list-publisher {
+            font-size: 0.85rem;
+            color: var(--grigio);
+            text-align: right;
+        }
+        .book-list-translations {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .book-featured {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .book-featured-cover {
+                max-width: 250px;
+            }
+            .book-list-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .book-list-publisher {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="libros.html" class="active">Libros</a>
+            <a href="investigacion.html">Investigación</a>
+            <a href="conferencias.html">Conferencias</a>
+            <a href="prensa.html">Prensa</a>
+            <a href="contacto.html">Contacto</a>
+            <div class="lang-switch">
+                <a href="../books.html">EN</a>
+                <a href="libros.html" class="active">ES</a>
+            </div>
+        </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
+            <a href="../books.html">EN</a>
+            <a href="libros.html" class="active">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="libros.html">Libros</a>
+        <a href="investigacion.html">Investigación</a>
+        <a href="conferencias.html">Conferencias</a>
+        <a href="prensa.html">Prensa</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="mobile-lang-switch">
+            <a href="../books.html">EN</a>
+            <a href="libros.html" class="active">ES</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Libros</h1>
+            <p class="page-subtitle">Filosofía practicada, no solo descrita</p>
+        </div>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Destacados</h2>
+                    <span class="section-num">2024–26</span>
+                </div>
+
+                <div class="book-featured reveal">
+                    <div class="book-featured-cover">
+                        <img src="../assets/images/ipnocrazia-it.jpg" alt="Hipnocracia - Portada">
+                    </div>
+                    <div class="book-featured-content">
+                        <h3><em>Hipnocracia</em></h3>
+                        <p class="book-featured-meta">Como Jianwei Xun · Tlon, 2024 · Coescrito con Claude y ChatGPT</p>
+                        <p class="book-featured-desc">Un ensayo filosófico firmado por un filósofo chino inventado, coescrito con IA, que engañó a la prensa internacional antes de revelar su propio mecanismo. El libro analiza cómo el poder contemporáneo opera directamente sobre la conciencia, acuñando el término "hipnocracia" para describir este nuevo régimen. Discutido en la conferencia de IA de Cannes, reseñado por The New York Times, Le Monde, Wired, El País. Publicado en <em>L'Empire de l'ombre</em> de Gallimard junto a Sam Altman, Mario Draghi, Peter Thiel.</p>
+                        <div class="book-featured-editions">
+                            <span class="book-edition-tag highlight">Italiano</span>
+                            <span class="book-edition-tag highlight">Francés</span>
+                            <span class="book-edition-tag highlight">Español</span>
+                            <span class="book-edition-tag highlight">Inglés</span>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="hipnocracia.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro); padding: 1rem 1.5rem; font-size: 0.75rem;">
+                                <span>El experimento</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-featured reveal">
+                    <div class="book-featured-cover">
+                        <img src="../assets/images/Prompt.jpg" alt="Pensamiento Prompt - Portada">
+                    </div>
+                    <div class="book-featured-content">
+                        <h3>Pensamiento <em>Prompt</em></h3>
+                        <p class="book-featured-meta">Polity Press (EN) · Rosameron (ES) · Febrero 2026</p>
+                        <p class="book-featured-desc">Si Hipnocracia es el diagnóstico, Pensamiento Prompt es el método de navegación. El libro propone una nueva disciplina: el arte de formular preguntas que generan pensamiento, no solo respuestas. Desde la mayéutica socrática hasta los koans zen, desde las meditaciones cartesianas hasta los prompts contemporáneos, la historia de la filosofía se revela como una historia de técnicas para generar pensamiento a través del cuestionamiento.</p>
+                        <div class="book-featured-editions">
+                            <span class="book-edition-tag highlight">Inglés</span>
+                            <span class="book-edition-tag highlight">Español</span>
+                            <span class="book-edition-tag">Feb 2026</span>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="pensamiento-prompt.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro); padding: 1rem 1.5rem; font-size: 0.75rem;">
+                                <span>El método</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-featured reveal">
+                    <div class="book-featured-cover">
+                        <img src="../assets/images/algoritmo.jpg" alt="El Algoritmo de Babel - Portada">
+                    </div>
+                    <div class="book-featured-content">
+                        <h3>El Algoritmo de <em>Babel</em></h3>
+                        <p class="book-featured-meta">Con Simone Arcagni · Solferino, 2024</p>
+                        <p class="book-featured-desc">Una exploración de la inteligencia artificial a través de la lente de Jorge Luis Borges. Coescrito con el estudioso de medios Simone Arcagni, el libro usa la imaginación literaria de Borges como herramienta para comprender las implicaciones filosóficas de la IA generativa, las bibliotecas infinitas y la relación entre lenguaje y realidad.</p>
+                        <div class="book-featured-editions">
+                            <span class="book-edition-tag">Italiano</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Obras individuales</h2>
+                </div>
+
+                <div class="books-list reveal">
+                    <div class="book-list-item">
+                        <span class="book-list-year">2024</span>
+                        <div>
+                            <div class="book-list-title">L'algoritmo di Babele</div>
+                            <div class="book-list-subtitle">Con Simone Arcagni</div>
+                        </div>
+                        <div class="book-list-publisher">Solferino</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2021</span>
+                        <div>
+                            <div class="book-list-title">La responsabilità della rivolta</div>
+                            <div class="book-list-subtitle">Con Miguel Benasayag</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2019</span>
+                        <div>
+                            <div class="book-list-title">Il codice del mito</div>
+                            <div class="book-list-subtitle">El sueño de Platón y las pesadillas occidentales</div>
+                        </div>
+                        <div class="book-list-publisher">Mursia</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Con Maura Gancitano</h2>
+                </div>
+
+                <div class="text-content reveal" style="margin-bottom: 2rem;">
+                    <p>Desde 2016, he escrito nueve libros con Maura Gancitano, cofundadora de Tlon. Juntos hemos desarrollado una práctica de filosofía popular que ha llegado a cientos de miles de lectores, con traducciones en Asia y Europa.</p>
+                </div>
+
+                <div class="books-list reveal">
+                    <div class="book-list-item">
+                        <span class="book-list-year">2025</span>
+                        <div>
+                            <div class="book-list-title">Botanica della meraviglia</div>
+                            <div class="book-list-subtitle">Botánica del Asombro</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2023</span>
+                        <div>
+                            <div class="book-list-title">Ma chi me lo fa fare?</div>
+                            <div class="book-list-subtitle">Crítica del dominio de la cultura laboral sobre la vida contemporánea</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2022</span>
+                        <div>
+                            <div class="book-list-title">Il gioco del pensiero</div>
+                            <div class="book-list-subtitle">Manual de filosofía para escuelas</div>
+                        </div>
+                        <div class="book-list-publisher">Zanichelli</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2021</span>
+                        <div>
+                            <div class="book-list-title">L'alba dei nuovi dèi</div>
+                            <div class="book-list-subtitle">El Amanecer de los Nuevos Dioses</div>
+                        </div>
+                        <div class="book-list-publisher">Mondadori</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2021</span>
+                        <div>
+                            <div class="book-list-title">Prendila con filosofia</div>
+                            <div class="book-list-subtitle">Manual de florecimiento personal</div>
+                            <div class="book-list-translations">5 idiomas</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2019</span>
+                        <div>
+                            <div class="book-list-title">Liberati della brava bambina</div>
+                            <div class="book-list-subtitle">Fenómeno filosófico feminista</div>
+                            <div class="book-list-translations">Chino · Coreano</div>
+                        </div>
+                        <div class="book-list-publisher">HarperCollins</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2018</span>
+                        <div>
+                            <div class="book-list-title">La società della performance</div>
+                            <div class="book-list-subtitle">La Sociedad del Rendimiento</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2017</span>
+                        <div>
+                            <div class="book-list-title">Lezioni di meraviglia</div>
+                            <div class="book-list-subtitle">Lecciones de Asombro</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                    <div class="book-list-item">
+                        <span class="book-list-year">2016</span>
+                        <div>
+                            <div class="book-list-title">Tu non sei Dio</div>
+                            <div class="book-list-subtitle">Tú No Eres Dios</div>
+                        </div>
+                        <div class="book-list-publisher">Tlon</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content" style="text-align: center;">
+                <div class="reveal">
+                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 1rem;">Tlon · Editorial · Librerías · Festivales</p>
+                    <p style="font-size: 1rem; color: rgba(255,255,255,0.5); margin-bottom: 2rem;">200+ títulos publicados · 4 librerías en Roma y Venecia · Podcasts entre los más escuchados de Italia</p>
+                    <a href="https://tlon.it" target="_blank" class="featured-cta">
+                        <span>Descubrir Tlon</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea Colamedici — Filósofo, Editor, Escritor</title>
+    <meta name="description" content="Andrea Colamedici es filósofo, editor y escritor. Cofundador de Tlon, trabaja en filosofía de la inteligencia artificial, teoría de los medios y pensamiento contemporáneo.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Neural Network Canvas */
+        #neural-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+        
+        .hero {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 1px solid var(--grigio-chiaro);
+        }
+        .lang-switch a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--grigio);
+            text-decoration: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .lang-switch a:hover {
+            color: var(--nero);
+        }
+        .lang-switch a.active {
+            color: var(--ottanio);
+            background: rgba(42, 107, 107, 0.1);
+        }
+        @media (max-width: 900px) {
+            .lang-switch {
+                position: absolute;
+                right: 4rem;
+                top: 50%;
+                transform: translateY(-50%);
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        .glitch::before {
+            color: #ff006e;
+            z-index: -1;
+        }
+        .glitch::after {
+            color: #00f5d4;
+            z-index: -2;
+        }
+        .glitch.active::before {
+            animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            opacity: 0.8;
+        }
+        .glitch.active::after {
+            animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            opacity: 0.8;
+        }
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+        }
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(3px, -3px); }
+            40% { transform: translate(3px, 3px); }
+            60% { transform: translate(-3px, -3px); }
+            80% { transform: translate(-3px, 3px); }
+        }
+
+        /* Magnetic cursor effect */
+        .magnetic {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Scramble text cursor */
+        .scramble-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--ottanio);
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Enhanced hero photo */
+        .hero-photo-frame {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--ottanio), transparent 30%);
+            animation: rotate-border 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero-photo-frame:hover::before {
+            opacity: 0.3;
+        }
+        @keyframes rotate-border {
+            100% { transform: rotate(360deg); }
+        }
+        .hero-photo-frame img {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating elements */
+        .float-element {
+            position: absolute;
+            font-family: 'Instrument Serif', serif;
+            font-size: 8rem;
+            opacity: 0.03;
+            pointer-events: none;
+            color: var(--ottanio);
+            z-index: 0;
+        }
+        .float-1 { top: 10%; right: 5%; animation: float 20s ease-in-out infinite; }
+        .float-2 { bottom: 20%; left: 3%; animation: float 25s ease-in-out infinite reverse; }
+        .float-3 { top: 40%; right: 15%; animation: float 18s ease-in-out infinite 2s; font-size: 5rem; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(20px) rotate(-5deg); }
+        }
+
+        /* Hypnocracy trance effect */
+        .trance-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .trance-char {
+            position: absolute;
+            font-family: 'Instrument Serif', serif;
+            color: rgba(255,255,255,0.03);
+            animation: trance-float 15s ease-in-out infinite;
+        }
+        @keyframes trance-float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.02; }
+            50% { transform: translateY(-30px) scale(1.1); opacity: 0.05; }
+        }
+
+        /* Pulsing glow for featured section */
+        .featured-glow {
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        /* Enhanced section transitions */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Upcoming items stagger */
+        .upcoming-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible .upcoming-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal.visible .upcoming-item:nth-child(1) { transition-delay: 0.1s; }
+        .reveal.visible .upcoming-item:nth-child(2) { transition-delay: 0.2s; }
+        .reveal.visible .upcoming-item:nth-child(3) { transition-delay: 0.3s; }
+        .reveal.visible .upcoming-item:nth-child(4) { transition-delay: 0.4s; }
+        .reveal.visible .upcoming-item:nth-child(5) { transition-delay: 0.5s; }
+        .reveal.visible .upcoming-item:nth-child(6) { transition-delay: 0.6s; }
+        .reveal.visible .upcoming-item:nth-child(7) { transition-delay: 0.7s; }
+        .reveal.visible .upcoming-item:nth-child(8) { transition-delay: 0.8s; }
+        .reveal.visible .upcoming-item:nth-child(9) { transition-delay: 0.9s; }
+
+        /* Noise overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Hero intro animation */
+        .hero-intro > * {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero-label { animation-delay: 0.2s; }
+        .hero-name { animation-delay: 0.4s; }
+        .hero-tagline { animation-delay: 0.6s; }
+        .hero-meta { animation-delay: 0.8s; }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scan line effect on featured */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--ottanio), transparent);
+            opacity: 0.3;
+            animation: scan 8s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Interactive trace */
+        .trace {
+            position: relative;
+            overflow: hidden;
+        }
+        .trace::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--ottanio) 0%, transparent 70%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s ease;
+        }
+        .trace:hover::before {
+            width: 300px;
+            height: 300px;
+            opacity: 0.1;
+        }
+
+        /* ———————————————————————————————————————————————————————————————
+           RECENT / HIGHLIGHTS SECTION
+           ——————————————————————————————————————————————————————————————— */
+        .recent-section {
+            background: #fafafa;
+            padding: 5rem 0;
+        }
+        .recent-event {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--grigio-chiaro);
+        }
+        .recent-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        .recent-year {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+        
+        .recent-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .recent-card-meta {
+            position: sticky;
+            top: 6rem;
+        }
+        .recent-card-location {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .recent-card-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+        .recent-card-name em {
+            font-style: italic;
+        }
+        .recent-card-date {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+        
+        .recent-card-facts {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .recent-fact {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: start;
+            padding: 1.5rem;
+            background: var(--bianco);
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.4s ease;
+        }
+        .recent-fact:hover {
+            border-color: var(--ottanio);
+            transform: translateX(5px);
+        }
+        .recent-fact-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--ottanio);
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .recent-fact-content h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        .recent-fact-content p {
+            font-size: 0.9rem;
+            color: var(--grigio);
+            line-height: 1.6;
+        }
+        .recent-fact-link {
+            align-self: center;
+        }
+        .recent-fact-link a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--grigio-chiaro);
+            border-radius: 50%;
+            color: var(--grigio);
+            transition: all 0.3s ease;
+        }
+        .recent-fact-link a:hover {
+            background: var(--ottanio);
+            border-color: var(--ottanio);
+            color: var(--bianco);
+        }
+        
+        @media (max-width: 900px) {
+            .recent-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .recent-card-meta {
+                position: static;
+            }
+            .recent-fact {
+                grid-template-columns: auto 1fr;
+            }
+            .recent-fact-link {
+                grid-column: 1 / -1;
+                justify-self: end;
+            }
+        }
+
+        /* ———————————————————————————————————————————————————————————————
+           FIELD NOTE SECTION - Santiago Story
+           ——————————————————————————————————————————————————————————————— */
+        .field-note {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .field-note::before {
+            content: '👟';
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%) rotate(-15deg);
+            font-size: 15rem;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        .field-note-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .field-note-badge {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            padding: 1rem 0;
+            border-left: 2px solid var(--ottanio);
+            padding-left: 0.75rem;
+        }
+        .field-note-main {
+            color: var(--bianco);
+        }
+        .field-note-date {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1rem;
+        }
+        .field-note-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.95);
+        }
+        .field-note-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .field-note-excerpt {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+        }
+        .field-note-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .field-note-cta a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .field-note-cta a:hover {
+            background: var(--ottanio);
+            border-color: var(--ottanio);
+            transform: scale(1.1);
+        }
+        .field-note-cta span {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+        
+        @media (max-width: 900px) {
+            .field-note-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .field-note-badge {
+                writing-mode: horizontal-tb;
+                transform: none;
+                border-left: none;
+                border-bottom: 2px solid var(--ottanio);
+                padding: 0 0 0.5rem 0;
+                justify-self: center;
+            }
+            .field-note-excerpt {
+                margin: 0 auto;
+            }
+            .field-note-cta {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .field-note::before {
+                font-size: 8rem;
+                right: -5%;
+                opacity: 0.02;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <canvas id="neural-canvas"></canvas>
+
+    <header>
+        <a href="./" class="logo magnetic">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="libros.html" class="magnetic">Libros</a>
+            <a href="investigacion.html" class="magnetic">Investigación</a>
+            <a href="conferencias.html" class="magnetic">Conferencias</a>
+            <a href="prensa.html" class="magnetic">Prensa</a>
+            <a href="contacto.html" class="magnetic">Contacto</a>
+            <div class="lang-switch">
+                <a href="../index.html">EN</a>
+                <a href="index.html" class="active">ES</a>
+            </div>
+        </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); display: none;">
+            <a href="../index.html">EN</a>
+            <a href="index.html" class="active">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="libros.html">Libros</a>
+        <a href="investigacion.html">Investigación</a>
+        <a href="conferencias.html">Conferencias</a>
+        <a href="prensa.html">Prensa</a>
+        <a href="contacto.html">Contacto</a>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+            <a href="../index.html" style="opacity: 0.5;">EN</a>
+            <a href="index.html" style="color: var(--ottanio);">ES</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Floating background elements -->
+        <div class="float-element float-1">?</div>
+        <div class="float-element float-2">∞</div>
+        <div class="float-element float-3">谎</div>
+
+        <section class="hero">
+            <div class="hero-photo">
+                <div class="hero-photo-frame">
+                    <img src="../assets/images/foto1.jpg" alt="Andrea Colamedici">
+                </div>
+            </div>
+            <div class="hero-intro">
+                <span class="hero-label">Filósofo · Editor · Escritor</span>
+                <h1 class="hero-name glitch" data-text="Andrea Colamedici">Andrea <em>Colamedici</em></h1>
+                <p class="hero-tagline" id="scramble-text">Estudio cómo se construye la realidad. A veces la construyo yo mismo, para ver si alguien se da cuenta.</p>
+                <p class="hero-tagline-sub" style="margin-top: 0.5rem; opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.7s;">Cofundador de <a href="https://tlon.it" target="_blank">Tlon</a>; como Jianwei Xun, autor de <a href="hipnocracia.html">Hipnocracia</a> y <a href="pensamiento-prompt.html">Pensamiento Prompt</a>.</p>
+                <div class="hero-meta">
+                    <span>Roma, 1987</span>
+                    <span>Presidente de GenIA, Hub de IA en AANT</span>
+                    <span>Director filosófico, Festival del Pensare Contemporaneo</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Próximos eventos</h2>
+                    <span class="section-num">2026</span>
+                </div>
+                <div class="upcoming-grid">
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">22 de enero</span>
+                        <div class="upcoming-info">
+                            <h3>AI Festival · El Oltresujeto</h3>
+                            <p>Conferencia plenaria sobre agencia híbrida en la era de las inteligencias autónomas. El experimento Jianwei Xun y el doble juego de la conciencia.</p>
+                        </div>
+                        <span class="upcoming-location">Milán, Bocconi</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Febrero</span>
+                        <div class="upcoming-info">
+                            <h3>Pensamiento Prompt</h3>
+                            <p>Publicación de las ediciones en inglés (Polity Press) y español (Rosameron)</p>
+                        </div>
+                        <span class="upcoming-location">Internacional</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">19 de febrero</span>
+                        <div class="upcoming-info">
+                            <h3>Observatorio Konkoly · Seminario</h3>
+                            <p>Tlon en el instituto húngaro de investigación astronómica. La filosofía encuentra la astrofísica.</p>
+                        </div>
+                        <span class="upcoming-location">Budapest</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Finales de febrero</span>
+                        <div class="upcoming-info">
+                            <h3>Lanzamiento: Pensamiento Prompt</h3>
+                            <p>Presentación de la edición internacional</p>
+                        </div>
+                        <span class="upcoming-location">Nueva York</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Marzo</span>
+                        <div class="upcoming-info">
+                            <h3>IA y política internacional</h3>
+                            <p>Conferencia sobre inteligencia artificial en las relaciones internacionales</p>
+                        </div>
+                        <span class="upcoming-location">Oslo</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Marzo</span>
+                        <div class="upcoming-info">
+                            <h3>Peligros cognitivos de la IA</h3>
+                            <p>Conferencia sobre los riesgos de la inteligencia artificial para el pensamiento</p>
+                        </div>
+                        <span class="upcoming-location">Madrid</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">23 de marzo</span>
+                        <div class="upcoming-info">
+                            <h3>Hipnocracia · Teatro Carcano</h3>
+                            <p>Jianwei Xun entrevistado por Maura Gancitano y Andrea Colamedici</p>
+                        </div>
+                        <span class="upcoming-location">Milán</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Abril</span>
+                        <div class="upcoming-info">
+                            <h3>El asalto a la ilusión</h3>
+                            <p>Ponencia en Arts Centre Santa Mònica</p>
+                        </div>
+                        <span class="upcoming-location">Barcelona</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Primavera</span>
+                        <div class="upcoming-info">
+                            <h3>Universidad Tsinghua</h3>
+                            <p>Concurso internacional sobre escritura e inteligencia artificial</p>
+                        </div>
+                        <span class="upcoming-location">China</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent / Highlights -->
+        <section class="recent-section reveal">
+            <div class="recent-event">
+                <div class="recent-header">
+                    <h2 class="recent-title">Reciente</h2>
+                    <span class="recent-year">Enero 2026</span>
+                </div>
+                <div class="recent-card">
+                    <div class="recent-card-meta">
+                        <p class="recent-card-location">Santiago, Chile</p>
+                        <h3 class="recent-card-name"><em>Congreso Futuro</em></h3>
+                        <p class="recent-card-date">13–14 de enero de 2026</p>
+                    </div>
+                    <div class="recent-card-facts">
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">1</span>
+                            <div class="recent-fact-content">
+                                <h4>Cumbre de la Filosofía</h4>
+                                <p>Panel sobre IA y el futuro de la conciencia humana con José María Lassalle, Dominique Lestel, Renata Salecl, Shigeru Taguchi, Maurizio Ferraris e Ingrid Guardiola.</p>
+                            </div>
+                            <div class="recent-fact-link"></div>
+                        </div>
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">2</span>
+                            <div class="recent-fact-content">
+                                <h4>Hipnocracia · Primera conferencia en español</h4>
+                                <p>Lectio sobre el trance algorítmico, la soberanía perceptiva y la performance filosófica detrás del experimento Jianwei Xun.</p>
+                            </div>
+                            <div class="recent-fact-link"></div>
+                        </div>
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">3</span>
+                            <div class="recent-fact-content">
+                                <h4>Estos zapatos no son míos</h4>
+                                <p>Robado veinte minutos antes del panel, convertí la interrupción en demostración: pensar sin red, la fragilidad como el pensamiento encontrando su camino.</p>
+                            </div>
+                            <div class="recent-fact-link">
+                                <a href="santiago.html" class="magnetic">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Field Note: Santiago Story -->
+        <section class="field-note reveal">
+            <div class="field-note-content">
+                <div class="field-note-badge">Nota de campo</div>
+                <div class="field-note-main">
+                    <p class="field-note-date">Santiago de Chile · 14 de enero de 2026</p>
+                    <h2 class="field-note-title">Estos zapatos <em>no son míos</em></h2>
+                    <p class="field-note-excerpt">Lo que aprendí al ser robado veinte minutos antes de un diálogo con seis filósofos en el Congreso Futuro. La fragilidad se convirtió en el pensamiento encontrando su camino.</p>
+                </div>
+                <div class="field-note-cta">
+                    <a href="santiago.html" class="magnetic">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <span>Leer</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured" id="hypnocracy-section">
+            <div class="scan-line"></div>
+            <div class="trance-container" id="trance-container"></div>
+            <div class="featured-bg">
+                <span class="featured-bg-text" id="huangChar">谎</span>
+            </div>
+            <div class="featured-glow"></div>
+            <div class="featured-content">
+                <span class="featured-label">Diagnóstico</span>
+                <h2 class="featured-title"><em>Hipnocracia</em></h2>
+                <p class="featured-subtitle">Trump, Musk y la nueva arquitectura de la realidad</p>
+                <p class="featured-desc">En 2024 inventé un filósofo chino llamado Jianwei Xun. Le Monde, El País y Libération reseñaron su libro. Cuando se reveló el engaño, demostró la tesis: vivimos en un régimen que opera directamente sobre la conciencia. Coescrito con Claude y ChatGPT como interlocutores críticos.</p>
+                <a href="hipnocracia.html" class="featured-cta magnetic">
+                    <span>El experimento</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <div class="featured-press">
+                    <p class="featured-press-label">Publicado en</p>
+                    <div class="featured-press-logos">
+                        <span>El País</span>
+                        <span>Le Monde</span>
+                        <span>Libération</span>
+                        <span>Corriere della Sera</span>
+                        <span>La Stampa</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Pensamiento Prompt</h2>
+                    <span class="section-num">Método</span>
+                </div>
+                <div class="text-content">
+                    <p>Si <em>Hipnocracia</em> es el diagnóstico, <em>Pensamiento Prompt</em> es el método de navegación. Próximamente en febrero de 2026 de <strong>Polity Press</strong> (inglés) y <strong>Rosameron</strong> (español), el libro propone una nueva disciplina: el arte de formular preguntas que generan pensamiento, no solo respuestas.</p>
+                    <p>Desde la mayéutica socrática hasta la ingeniería de prompts contemporánea, el texto atraviesa la historia de la filosofía para mostrar cómo toda gran tradición de pensamiento ha sido, en su núcleo, una tecnología para generar pensamiento a través de la formulación correcta de preguntas. Enseñado en IED Roma y 24Ore Business School. Practicado diariamente.</p>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <a href="pensamiento-prompt.html" class="featured-cta magnetic" style="color: var(--nero); border-color: var(--grigio-chiaro);">
+                        <span>Descubrir el libro</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="section-connector">El hilo que conecta este trabajo es una pregunta: ¿cómo pensamos en la era del trance algorítmico?</p>
+            </div>
+        </section>
+
+        <section class="section reveal" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Biografía</h2>
+                    <span class="section-num">I</span>
+                </div>
+                <div class="text-content">
+                    <p>Soy filósofo, editor y escritor. En 2014 fundé <strong>Tlon</strong> junto con Maura Gancitano: un proyecto cultural que se manifiesta a través de festivales y eventos, una editorial, dos librerías, y divulgación online y offline, mezclando alta y baja cultura, analizando las necesidades y significados de nuestro tiempo, y conectando el mundo académico con la cultura popular.</p>
+                    <p>Enseño <strong>Pensamiento Prompt</strong> en IED Roma y 24Ore Business School, y <em>Borges y la Inteligencia Artificial</em> en la Universidad del Sur en Buenos Aires. Soy <strong>presidente de GenIA</strong>, un hub interdisciplinario sobre inteligencia artificial en AANT – Academia de Artes y Nuevas Tecnologías en Roma. En 2024–2025 tuve una beca de investigación en la Universidad de Foggia sobre inteligencia artificial y sistemas de pensamiento.</p>
+                    <p>Junto con Maura Gancitano soy <strong>director filosófico</strong> del Festival del Pensare Contemporaneo en Piacenza y el Carnaval de Putignano. He dado charlas TEDx sobre la filosofía de la inteligencia artificial (TEDxRoma) y la relación entre arte e IA (TEDxBarletta).</p>
+                    <p>Mi enfoque de la inteligencia artificial no es observacional sino dialógico. Trabajo <em>con</em> sistemas de IA, no solo <em>sobre</em> ellos. Así se escribió <em>Hipnocracia</em>. Así pienso.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="trace reveal">
+            <div class="trace-content">
+                <div class="trace-line"></div>
+                <p class="trace-text">Hay un experimento en curso. Cuando llegue el momento, lo verás.</p>
+                <a href="https://andreacolamedici.github.io/alveare/" target="_blank" class="trace-link">→</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ———————————————————————————————————————————————————————————————
+        // NEURAL NETWORK CANVAS
+        // ———————————————————————————————————————————————————————————————
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        this.vx -= (dx / dist) * force * 0.02;
+                        this.vy -= (dy / dist) * force * 0.02;
+                    }
+                }
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(42, 107, 107, 0.5)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(42, 107, 107, ${0.2 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // ———————————————————————————————————————————————————————————————
+        // GLITCH EFFECT
+        // ———————————————————————————————————————————————————————————————
+        const glitchElement = document.querySelector('.glitch');
+        function triggerGlitch() {
+            glitchElement.classList.add('active');
+            setTimeout(() => glitchElement.classList.remove('active'), 300);
+        }
+        setInterval(() => {
+            if (Math.random() > 0.7) triggerGlitch();
+        }, 3000);
+
+        // ———————————————————————————————————————————————————————————————
+        // SCRAMBLE TEXT EFFECT
+        // ———————————————————————————————————————————————————————————————
+        const scrambleEl = document.getElementById('scramble-text');
+        const originalText = scrambleEl.textContent;
+        const chars = '!<>-_\\/[]{}—=+*^?#アイウエオカキクケコサシスセソ';
+        
+        function scrambleText() {
+            let iteration = 0;
+            const interval = setInterval(() => {
+                scrambleEl.textContent = originalText
+                    .split('')
+                    .map((char, index) => {
+                        if (index < iteration) return originalText[index];
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join('');
+                if (iteration >= originalText.length) clearInterval(interval);
+                iteration += 1/2;
+            }, 30);
+        }
+        setTimeout(scrambleText, 1000);
+        setInterval(() => {
+            if (Math.random() > 0.8) scrambleText();
+        }, 10000);
+
+        // ———————————————————————————————————————————————————————————————
+        // MAGNETIC CURSOR EFFECT
+        // ———————————————————————————————————————————————————————————————
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // ———————————————————————————————————————————————————————————————
+        // TRANCE CHARACTERS (Hypnocracy section)
+        // ———————————————————————————————————————————————————————————————
+        const tranceContainer = document.getElementById('trance-container');
+        const tranceChars = ['谎', '梦', '幻', '眠', '醒'];
+        for (let i = 0; i < 15; i++) {
+            const char = document.createElement('span');
+            char.className = 'trance-char';
+            char.textContent = tranceChars[Math.floor(Math.random() * tranceChars.length)];
+            char.style.left = Math.random() * 100 + '%';
+            char.style.top = Math.random() * 100 + '%';
+            char.style.fontSize = (Math.random() * 8 + 4) + 'rem';
+            char.style.animationDelay = Math.random() * 5 + 's';
+            char.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            tranceContainer.appendChild(char);
+        }
+
+        // ———————————————————————————————————————————————————————————————
+        // ENHANCED CHINESE CHARACTER INTERACTION
+        // ———————————————————————————————————————————————————————————————
+        const huangChar = document.getElementById('huangChar');
+        const featuredSection = document.getElementById('hypnocracy-section');
+        
+        if (huangChar && featuredSection) {
+            let rotation = 0;
+            featuredSection.addEventListener('mousemove', (e) => {
+                const rect = featuredSection.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                rotation += 0.5;
+                
+                huangChar.style.transform = `
+                    translate(${x * 50}px, ${y * 50}px) 
+                    scale(${1 + Math.abs(x * y) * 0.3})
+                    rotate(${rotation * 0.1}deg)
+                `;
+                huangChar.style.opacity = 0.03 + Math.abs(x * y) * 0.08;
+                huangChar.style.filter = `blur(${Math.abs(x * y) * 5}px)`;
+            });
+            
+            featuredSection.addEventListener('mouseleave', () => {
+                huangChar.style.transform = '';
+                huangChar.style.opacity = '';
+                huangChar.style.filter = '';
+            });
+        }
+
+        // ———————————————————————————————————————————————————————————————
+        // REVEAL ON SCROLL
+        // ———————————————————————————————————————————————————————————————
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // ———————————————————————————————————————————————————————————————
+        // MOBILE MENU
+        // ———————————————————————————————————————————————————————————————
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ———————————————————————————————————————————————————————————————
+        // PARALLAX ON SCROLL
+        // ———————————————————————————————————————————————————————————————
+        const floatElements = document.querySelectorAll('.float-element');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            floatElements.forEach((el, i) => {
+                const speed = 0.1 + (i * 0.05);
+                el.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+        });
+    </script>
+
+</body>
+</html>

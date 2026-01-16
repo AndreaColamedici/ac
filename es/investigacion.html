@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación — Andrea Colamedici</title>
+    <meta name="description" content="Investigación de Andrea Colamedici: hub de IA GenIA, beca Universidad de Foggia, docencia en IED y 24Ore Business School.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .position-card {
+            padding: 2.5rem;
+            border: 1px solid var(--grigio-chiaro);
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .position-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--ottanio);
+            transition: width 0.5s ease;
+        }
+        .position-card:hover {
+            border-color: var(--ottanio);
+        }
+        .position-card:hover::before {
+            width: 100%;
+        }
+        .position-role {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .position-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .position-institution {
+            font-size: 1rem;
+            color: var(--grigio);
+            margin-bottom: 1rem;
+        }
+        .position-desc {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+        .position-years {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--ottanio);
+        }
+
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+        }
+        .teaching-item {
+            padding: 2rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .teaching-item:hover {
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .teaching-institution {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .teaching-course {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .teaching-desc {
+            font-size: 0.9rem;
+            color: var(--grigio);
+        }
+
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .area-item {
+            padding: 2rem;
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.4s ease;
+        }
+        .area-item:hover {
+            border-color: var(--ottanio);
+            transform: translateY(-5px);
+        }
+        .area-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .area-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .area-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--grigio);
+        }
+
+        @media (max-width: 900px) {
+            .teaching-grid {
+                grid-template-columns: 1fr;
+            }
+            .area-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="libros.html">Libros</a>
+            <a href="investigacion.html" class="active">Investigación</a>
+            <a href="conferencias.html">Conferencias</a>
+            <a href="prensa.html">Prensa</a>
+            <a href="contacto.html">Contacto</a>
+            <div class="lang-switch">
+                <a href="../research.html">EN</a>
+                <a href="investigacion.html" class="active">ES</a>
+            </div>
+        </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
+            <a href="../research.html">EN</a>
+            <a href="investigacion.html" class="active">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="libros.html">Libros</a>
+        <a href="investigacion.html">Investigación</a>
+        <a href="conferencias.html">Conferencias</a>
+        <a href="prensa.html">Prensa</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="mobile-lang-switch">
+            <a href="../research.html">EN</a>
+            <a href="investigacion.html" class="active">ES</a>
+        </div>
+    </div>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Investigación</h1>
+            <p class="page-subtitle">Posiciones académicas, docencia y áreas de investigación</p>
+        </div>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Posiciones</h2>
+                    <span class="section-num">Actual</span>
+                </div>
+
+                <div class="position-card reveal">
+                    <span class="position-role">Presidente</span>
+                    <h3 class="position-title">GenIA</h3>
+                    <p class="position-institution">AANT — Academia de Artes y Nuevas Tecnologías, Roma</p>
+                    <p class="position-desc">Hub de investigación interdisciplinario en IA que explora la intersección entre inteligencia artificial, filosofía y práctica creativa. GenIA reúne investigadores, artistas y tecnólogos para investigar las implicaciones cognitivas, éticas y estéticas de la IA generativa.</p>
+                </div>
+
+                <div class="position-card reveal">
+                    <span class="position-role">Investigador</span>
+                    <h3 class="position-title">IA y Sistemas de Pensamiento</h3>
+                    <p class="position-institution">Universidad de Foggia</p>
+                    <p class="position-desc">Beca de investigación que examina cómo los sistemas de inteligencia artificial modelan, generan y transforman el pensamiento filosófico. El proyecto examina las implicaciones epistemológicas de la colaboración humano-IA en la producción de conocimiento.</p>
+                    <p class="position-years">2024–2025</p>
+                </div>
+
+                <div class="position-card reveal">
+                    <span class="position-role">Cofundador · Editor</span>
+                    <h3 class="position-title">Tlon</h3>
+                    <p class="position-institution">Editorial · Librerías · Festivales · Educación</p>
+                    <p class="position-desc">Ecosistema cultural fundado en 2014 con Maura Gancitano. Nombrado en honor al planeta ficticio de Borges que se vuelve real a través de la creencia colectiva. Incluye Edizioni Tlon (200+ títulos), cuatro librerías (Roma y Venecia), el podcast "Scuola di Filosofie" (entre los más escuchados de Italia) y dirección filosófica de festivales importantes.</p>
+                    <p class="position-years">Desde 2014</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Docencia</h2>
+                </div>
+
+                <div class="teaching-grid reveal">
+                    <div class="teaching-item">
+                        <span class="teaching-institution">IED Roma</span>
+                        <h3 class="teaching-course">Pensamiento Prompt</h3>
+                        <p class="teaching-desc">El arte de formular preguntas que generan pensamiento en la era de la IA</p>
+                    </div>
+                    <div class="teaching-item">
+                        <span class="teaching-institution">24Ore Business School</span>
+                        <h3 class="teaching-course">Pensamiento Prompt</h3>
+                        <p class="teaching-desc">Formación ejecutiva sobre navegar la complejidad a través del cuestionamiento</p>
+                    </div>
+                    <div class="teaching-item">
+                        <span class="teaching-institution">Universidad del Sur, Buenos Aires</span>
+                        <h3 class="teaching-course">Borges y la Inteligencia Artificial</h3>
+                        <p class="teaching-desc">Explorar la IA a través de la imaginación literaria de Borges</p>
+                    </div>
+                    <div class="teaching-item">
+                        <span class="teaching-institution">Scuola di Filosofie</span>
+                        <h3 class="teaching-course">Podcast</h3>
+                        <p class="teaching-desc">Entre los contenidos de audio más escuchados de Italia en Audible, con Maura Gancitano</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Áreas de investigación</h2>
+                </div>
+
+                <div class="area-grid">
+                    <div class="area-item reveal">
+                        <h3 class="area-title">Filosofía de la <em>IA</em></h3>
+                        <p class="area-desc">Investigar cómo la inteligencia artificial transforma el pensamiento, la percepción y la construcción de la realidad. No observación desde afuera sino diálogo desde dentro.</p>
+                    </div>
+                    <div class="area-item reveal">
+                        <h3 class="area-title"><em>Hipnocracia</em></h3>
+                        <p class="area-desc">La teoría de que el poder contemporáneo opera directamente sobre la conciencia, induciendo un estado alterado permanente donde la distinción entre verdadero y falso pierde sentido.</p>
+                    </div>
+                    <div class="area-item reveal">
+                        <h3 class="area-title">Pensamiento <em>Prompt</em></h3>
+                        <p class="area-desc">Una nueva disciplina que explora el arte de formular preguntas que generan pensamiento. Desde la mayéutica socrática hasta los prompts contemporáneos.</p>
+                    </div>
+                    <div class="area-item reveal">
+                        <h3 class="area-title">Teoría de <em>Medios</em></h3>
+                        <p class="area-desc">Cómo las tecnologías mediáticas moldean la percepción, la memoria y la atención. Las implicaciones cognitivas y culturales de la mediación algorítmica.</p>
+                    </div>
+                    <div class="area-item reveal">
+                        <h3 class="area-title">Filosofía <em>Popular</em></h3>
+                        <p class="area-desc">Hacer la filosofía accesible sin hacerla superficial. La filosofía como infraestructura cultural: librerías, festivales, podcasts, formación.</p>
+                    </div>
+                    <div class="area-item reveal">
+                        <h3 class="area-title">Ficción como <em>Método</em></h3>
+                        <p class="area-desc">El uso de la ficción como herramienta filosófica. El experimento Jianwei Xun como "ingeniería ontológica"—practicar la teoría a través de su propia demostración.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Podcasts</h2>
+                </div>
+
+                <div class="text-content reveal" style="margin-bottom: 2rem;">
+                    <p style="color: rgba(255,255,255,0.7);">Proyectos de audio que extienden la práctica filosófica más allá de los formatos tradicionales:</p>
+                </div>
+
+                <div class="teaching-grid reveal" style="background: transparent; border: none; gap: 1rem;">
+                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="teaching-institution" style="color: var(--ottanio);">Audible</span>
+                        <h3 class="teaching-course" style="color: var(--bianco);">Scuola di Filosofie</h3>
+                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">Con Maura Gancitano · Entre los más escuchados de Italia</p>
+                    </div>
+                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="teaching-institution" style="color: var(--ottanio);">Parlamento Europeo</span>
+                        <h3 class="teaching-course" style="color: var(--bianco);">Pensare Europeo</h3>
+                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">Sobre identidad europea</p>
+                    </div>
+                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="teaching-institution" style="color: var(--ottanio);">RaiPlaySound</span>
+                        <h3 class="teaching-course" style="color: var(--bianco);">Meno per meno</h3>
+                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">Con Niccolò Fabi</p>
+                    </div>
+                    <div class="teaching-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                        <span class="teaching-institution" style="color: var(--ottanio);">Audible</span>
+                        <h3 class="teaching-course" style="color: var(--bianco);">La filosofia di Harry Potter</h3>
+                        <p class="teaching-desc" style="color: rgba(255,255,255,0.5);">Filosofía a través de la cultura popular</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Contacto</h2>
+                </div>
+
+                <div class="text-content reveal">
+                    <p>Para colaboraciones académicas, proyectos de investigación o invitaciones a conferencias, contactar directamente o a través de Tlon.</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="contacto.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
+                            <span>Ponerse en contacto</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trace reveal">
+            <div class="trace-content">
+                <div class="trace-line"></div>
+                <p class="trace-text">Hay un experimento en curso. Cuando llegue el momento, lo verás.</p>
+                <a href="https://andreacolamedici.github.io/alveare/" target="_blank" class="trace-link">→</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>

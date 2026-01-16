@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estos zapatos no son míos — Andrea Colamedici</title>
+    <meta name="description" content="Lo que aprendí al ser asaltado veinte minutos antes de un diálogo con seis filósofos en el Congreso Futuro, Santiago de Chile.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        :root {
+            --ottanio: #2a6b6b;
+            --nero: #1a1a1a;
+            --bianco: #ffffff;
+            --grigio: #666;
+            --grigio-chiaro: #e5e5e5;
+        }
+
+        .narrative-hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shoe-silhouette {
+            position: absolute;
+            right: -5%;
+            bottom: 10%;
+            width: 40vw;
+            max-width: 400px;
+            height: auto;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            transition: all 1s ease;
+        }
+        .narrative-hero:hover .shoe-silhouette {
+            opacity: 0.06;
+            transform: rotate(-12deg) scale(1.05);
+        }
+        
+        .narrative-date {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 0.2s;
+        }
+        .narrative-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 0.4s;
+        }
+        .narrative-title em {
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+        .narrative-title em::after {
+            content: '';
+            position: absolute;
+            bottom: 0.1em;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--ottanio);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s ease;
+        }
+        .narrative-hero:hover .narrative-title em::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .narrative-subtitle {
+            font-size: 1.25rem;
+            color: var(--grigio);
+            line-height: 1.6;
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 0.6s;
+        }
+        
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.2s;
+        }
+        .scroll-indicator span {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--grigio);
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--ottanio), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .disruption-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.03) 2px,
+                rgba(0,0,0,0.03) 4px
+            );
+            transition: opacity 0.3s ease;
+        }
+        .disruption-overlay.active {
+            opacity: 1;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--ottanio);
+            width: 0%;
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+
+        .narrative-body {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+        .narrative-body p {
+            font-size: 1.15rem;
+            line-height: 1.95;
+            margin-bottom: 1.75rem;
+            color: var(--nero);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .narrative-body p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .narrative-body p:first-of-type::first-letter {
+            font-family: 'Instrument Serif', serif;
+            font-size: 4.5rem;
+            float: left;
+            line-height: 0.8;
+            padding-right: 0.75rem;
+            padding-top: 0.1rem;
+            color: var(--ottanio);
+        }
+        .narrative-body strong {
+            font-weight: 500;
+            color: var(--nero);
+        }
+        .narrative-body em {
+            font-style: italic;
+        }
+
+        .pullquote {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.65rem;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--nero);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .pullquote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .pullquote::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--ottanio);
+        }
+        .pullquote::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--ottanio);
+        }
+        .pullquote .highlight {
+            background: linear-gradient(120deg, rgba(42, 107, 107, 0.1) 0%, rgba(42, 107, 107, 0.1) 100%);
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            background-position: 0 0;
+            transition: background-size 0.8s ease;
+            padding: 0 0.25rem;
+        }
+        .pullquote.visible .highlight {
+            background-size: 100% 100%;
+        }
+
+        .journey-section {
+            background: #fafafa;
+            padding: 5rem 2rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .journey-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .journey-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .journey-timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 2rem 0;
+        }
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--grigio-chiaro);
+        }
+        .journey-point {
+            position: relative;
+            text-align: center;
+            flex: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .journey-point.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .journey-point:nth-child(1) { transition-delay: 0.1s; }
+        .journey-point:nth-child(2) { transition-delay: 0.2s; }
+        .journey-point:nth-child(3) { transition-delay: 0.3s; }
+        .journey-point:nth-child(4) { transition-delay: 0.4s; }
+        .journey-point:nth-child(5) { transition-delay: 0.5s; }
+        .journey-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--bianco);
+            border: 2px solid var(--ottanio);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .journey-point:hover .journey-dot {
+            background: var(--ottanio);
+            transform: scale(1.3);
+        }
+        .journey-point.crisis .journey-dot {
+            border-color: #c44;
+            background: #c44;
+        }
+        .journey-time {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .journey-label {
+            font-size: 0.85rem;
+            color: var(--grigio);
+            max-width: 120px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        .journey-point.crisis .journey-time {
+            color: #c44;
+        }
+
+        .context-section {
+            background: var(--nero);
+            color: var(--bianco);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .context-section::before {
+            content: 'FUTURO';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Instrument Serif', serif;
+            font-size: 20vw;
+            font-weight: 400;
+            color: rgba(255,255,255,0.02);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        .context-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .context-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 1.5rem;
+        }
+        .context-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.95);
+        }
+        .context-text {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+        .context-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .context-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ottanio);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid rgba(42, 107, 107, 0.5);
+            transition: all 0.3s ease;
+        }
+        .context-link:hover {
+            background: var(--ottanio);
+            color: var(--bianco);
+            border-color: var(--ottanio);
+        }
+        .context-link svg {
+            transition: transform 0.3s ease;
+        }
+        .context-link:hover svg {
+            transform: translateX(3px);
+        }
+
+        .coda {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #fafafa;
+        }
+        .coda-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.35rem;
+            font-style: italic;
+            color: var(--grigio);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .coda-emoji {
+            font-size: 2rem;
+            margin-top: 1.5rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .narrative-hero {
+                padding: 6rem 1.5rem 3rem;
+                min-height: 70vh;
+            }
+            .shoe-silhouette {
+                width: 60vw;
+                right: -15%;
+                opacity: 0.02;
+            }
+            .narrative-body {
+                padding: 0 1.5rem 4rem;
+            }
+            .narrative-body p {
+                font-size: 1.05rem;
+            }
+            .pullquote {
+                font-size: 1.35rem;
+                padding: 2rem 0;
+            }
+            .journey-timeline {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .journey-timeline::before {
+                top: 0;
+                left: 50%;
+                width: 1px;
+                height: 100%;
+            }
+            .journey-point {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+            }
+            .journey-dot {
+                margin: 0;
+                flex-shrink: 0;
+            }
+            .journey-label {
+                max-width: none;
+                margin: 0;
+            }
+            .context-links {
+                flex-direction: column;
+            }
+            .scroll-indicator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reading-progress" id="readingProgress"></div>
+    <div class="disruption-overlay" id="disruptionOverlay"></div>
+
+    <header>
+        <a href="./" class="logo">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="libros.html">Libros</a>
+            <a href="investigacion.html">Investigación</a>
+            <a href="conferencias.html">Conferencias</a>
+            <a href="prensa.html">Prensa</a>
+            <a href="contacto.html">Contacto</a>
+            <div class="lang-switch">
+                <a href="../santiago.html">EN</a>
+                <a href="santiago.html" class="active">ES</a>
+            </div>
+        </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
+            <a href="../santiago.html">EN</a>
+            <a href="santiago.html" class="active">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="libros.html">Libros</a>
+        <a href="investigacion.html">Investigación</a>
+        <a href="conferencias.html">Conferencias</a>
+        <a href="prensa.html">Prensa</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="mobile-lang-switch">
+            <a href="../santiago.html">EN</a>
+            <a href="santiago.html" class="active">ES</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="narrative-hero">
+            <svg class="shoe-silhouette" viewBox="0 0 100 60" fill="currentColor">
+                <path d="M95 35c0-5-3-9-8-10l-5-1c-2-8-9-14-18-14-3 0-6 1-9 2l-15 8c-5 2-10 3-15 3H10c-5 0-9 4-9 9v8c0 5 4 9 9 9h75c5 0 9-4 9-9v-5z"/>
+            </svg>
+            <span class="narrative-date">Santiago de Chile · 14 de enero de 2026</span>
+            <h1 class="narrative-title">Estos zapatos <em>no son míos</em></h1>
+            <p class="narrative-subtitle">Lo que aprendí al ser asaltado veinte minutos antes de un diálogo con seis filósofos en el Congreso Futuro.</p>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <article class="narrative-body">
+            <p>Así abrí mi intervención en la <em>Cumbre de la Filosofía</em> durante el Congreso Futuro en Chile: "Estos zapatos no son míos." Media hora antes de subir al escenario junto a José María Lassalle, Dominique Lestel, Renata Salecl, Shigeru Taguchi, Maurizio Ferraris e Ingrid Guardiola, me habían asaltado en la calle, a seis kilómetros del teatro. Se llevaron mi teléfono y mis zapatos.</p>
+
+            <p>Lo primero que sentí, aislado en un país lejano, fue una forma sutil pero innegable de pánico. Toda mi agenda, mis contactos, mi tarjeta de crédito, mis notas para la charla, las fotos de mis hijos, la posibilidad de contactar a alguien: todo había desaparecido. Y yo estaba completamente solo, a doce mil kilómetros de casa. Y descalzo.</p>
+
+            <p>Sobre todo, estaba ese diálogo con algunos de los pensadores más importantes del mundo al que iba a faltar. Que era, al fin y al cabo, la razón principal por la que estaba ahí.</p>
+        </article>
+
+        <section class="journey-section">
+            <div class="journey-content">
+                <h2 class="journey-title">El viaje de esa noche</h2>
+                <div class="journey-timeline">
+                    <div class="journey-point">
+                        <div class="journey-dot"></div>
+                        <span class="journey-time">18:30</span>
+                        <span class="journey-label">Caminando al teatro</span>
+                    </div>
+                    <div class="journey-point crisis">
+                        <div class="journey-dot"></div>
+                        <span class="journey-time">18:35</span>
+                        <span class="journey-label">Asaltado en la calle</span>
+                    </div>
+                    <div class="journey-point">
+                        <div class="journey-dot"></div>
+                        <span class="journey-time">19:30</span>
+                        <span class="journey-label">Contacto restablecido</span>
+                    </div>
+                    <div class="journey-point">
+                        <div class="journey-dot"></div>
+                        <span class="journey-time">20:15</span>
+                        <span class="journey-label">Zapatos nuevos, backstage</span>
+                    </div>
+                    <div class="journey-point">
+                        <div class="journey-dot"></div>
+                        <span class="journey-time">20:20</span>
+                        <span class="journey-label">En el escenario</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <article class="narrative-body">
+            <p>Gracias a la amabilidad de dos comerciantes logré contactar a Maura, quien desbloqueó la situación. El evento en el teatro era a las 19, pero cuando me alcanzaron ya eran las 19:30, y todavía quedaba bastante camino por recorrer. Llegaría demasiado tarde a la <em>cumbre</em>. Estaba convencido de que volvería al hotel a dormir y a maldecir mi suerte. Pero entonces me dije: esta historia es exactamente de lo que debo hablar esta noche.</p>
+
+            <p>Maura me empujó en esta dirección, así que partimos hacia el teatro.</p>
+
+            <p>Tuve que reconstruir mentalmente lo que quería decir, y al borde mismo del escenario me dieron unos zapatos (más bonitos que los que me habían quitado). Todo esto me permitió decir algo <em>verdadero</em> que de otro modo nunca hubiera podido compartir.</p>
+
+            <p class="pullquote"><span class="highlight">Pensar sin red, sin apuntes, sin dispositivo, descubrí que la fragilidad misma se estaba convirtiendo en el pensamiento que se abría paso.</span></p>
+
+            <p>El tema del panel era la inteligencia artificial y el futuro del ser humano. Siete filósofos, dos horas, tres rondas de intervención (para mí dos: al final solo había perdido una). Debía haber hablado directamente de algoritmos, sesgos y regulación. Pero empecé contando lo que me acababa de pasar, porque me había dado cuenta de que pensar sin red, sin apuntes y sin dispositivo me estaba obligando a estar más presente y más expuesto. La fragilidad era el pensamiento que se abría paso.</p>
+
+            <p>Hice varias bromas sobre mi situación, usándola como herramienta para explicar mejor mis ideas sobre la IA como <em>atmósfera cognitiva</em>. El público se rio y lo agradeció, y así la desgracia se transformó en energía vital.</p>
+
+            <p>Estamos convencidos de que el pensamiento requiere condiciones ideales para manifestarse: calma, preparación, control. Pero el pensamiento más vivo a menudo nace de la ruptura, de la desorientación, de encontrarse arrojado en situaciones no buscadas ni deseadas. Es esa tensión la que obliga a buscar una forma.</p>
+
+            <p>La hipnocracia funciona quitando la fricción: todo fluye, todo es cómodo, todo está ya preparado. El pensamiento funciona al revés: necesita vitalmente resistencia, obstáculos, algo que se interponga. El robo me había devuelto, por el tiempo de ese encuentro, una historia que contar y una condición que habitar.</p>
+
+            <p class="pullquote"><span class="highlight">La cuestión política no es si usar estas tecnologías, sino si queremos ser sus ciudadanos o sus súbditos.</span></p>
+
+            <p>Durante el evento expliqué que la IA no es una herramienta. Es un ambiente en el que estamos inmersos, que prepara y organiza el campo de lo pensable. Opera <em>antes</em> de la decisión, no después. Y su mayor poder es la comodidad: la eliminación del esfuerzo, la respuesta que llega antes de la pregunta, la conveniencia de la delegación. La verdadera cuestión política no es si usar estas tecnologías, sino si queremos ser sus ciudadanos o sus súbditos.</p>
+
+            <p>Fue muy hermoso, y dudo que lo olvide jamás.</p>
+        </article>
+
+        <div class="coda">
+            <p class="coda-text">Al final, me regalaron los zapatos.</p>
+            <div class="coda-emoji">👟</div>
+        </div>
+
+        <section class="context-section">
+            <div class="context-content">
+                <span class="context-label">Contexto</span>
+                <h2 class="context-title">Congreso Futuro · Cumbre de la Filosofía</h2>
+                <p class="context-text">Congreso Futuro es la conferencia de ciencia e ideas más grande de América Latina, organizada por el Senado de Chile. La edición 2026 de la Cumbre de la Filosofía reunió a filósofos de todo el mundo para discutir sobre inteligencia artificial y el futuro de la conciencia humana. Junto a la <em>Cumbre</em>, di una conferencia sobre <em>Hipnocracia</em> y el trance algorítmico: mi primer discurso completo en español.</p>
+                <div class="context-links">
+                    <a href="hipnocracia.html" class="context-link">
+                        <span>Leer sobre Hipnocracia</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="pensamiento-prompt.html" class="context-link">
+                        <span>Descubrir Pensamiento Prompt</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        const progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+
+        const observerOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.narrative-body p, .pullquote, .journey-point').forEach(el => {
+            observer.observe(el);
+        });
+
+        const disruptionOverlay = document.getElementById('disruptionOverlay');
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const scrollDelta = Math.abs(scrollY - lastScrollY);
+            
+            if (scrollDelta > 50) {
+                disruptionOverlay.classList.add('active');
+                setTimeout(() => disruptionOverlay.classList.remove('active'), 150);
+            }
+            lastScrollY = scrollY;
+        });
+    </script>
+
+</body>
+</html>

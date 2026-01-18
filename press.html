@@ -22,6 +22,11 @@
         .media-type { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 0.75rem; }
         .media-title { font-family: 'Instrument Serif', serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
         .media-desc { font-size: 0.95rem; line-height: 1.6; color: var(--grigio); }
+        .video-featured { margin-top: 2rem; margin-bottom: 2rem; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: var(--nero); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-caption { margin-top: 1rem; font-size: 0.9rem; color: var(--grigio); }
+        .video-caption strong { color: var(--nero); font-weight: 500; }
         @media (max-width: 900px) { .press-section-grid { grid-template-columns: 1fr; } .media-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -53,7 +58,13 @@
         <section class="section">
             <div class="section-content">
                 <div class="section-header reveal"><h2 class="section-title">Congreso Futuro 2026</h2><span class="section-num">Santiago</span></div>
-                <div class="text-content reveal"><p>Coverage from the lectures on Hypnocracy and AI trance, and the Cumbre de la Filosofía at <a href="https://congresofuturo.cl" target="_blank" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Congreso Futuro</a> in Santiago de Chile, January 2026.</p></div>
+                <div class="text-content reveal"><p>Lecture on Hypnocracy and AI trance, and participation in the Cumbre de la Filosofía at <a href="https://congresofuturo.cl" target="_blank" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Congreso Futuro</a> in Santiago de Chile, January 2026.</p></div>
+                <div class="video-featured reveal">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/I6c_fAvAHxQ" title="Andrea Colamedici - Hypnocracy lecture at Congreso Futuro 2026" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-caption"><strong>Hypnocracy: The New Architecture of Reality</strong> — Full lecture at Congreso Futuro, Santiago de Chile, January 2026.</p>
+                </div>
                 <div class="press-section-grid">
                     <a href="https://www.latercera.com/mundo/noticia/andrea-colamedici-filosofo-italiano-la-inteligencia-artificial-es-medicina-y-veneno-a-la-vez-una-tecnologia-capaz-de-amplificar-el-pensamiento-como-de-narcotizarlo/" target="_blank" class="press-link reveal"><span class="press-link-source">La Tercera</span><span class="press-link-title">La inteligencia artificial es medicina y veneno a la vez</span></a>
                     <a href="https://radio.uchile.cl/2026/01/17/que-tiene-para-decir-la-filosofia-sobre-inteligencia-artificial/" target="_blank" class="press-link reveal"><span class="press-link-source">Radio Universidad de Chile</span><span class="press-link-title">¿Qué tiene para decir la filosofía sobre inteligencia artificial?</span></a>

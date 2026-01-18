@@ -10,28 +10,159 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        .position-card {
-            padding: 2.5rem;
-            border: 1px solid var(--grigio-chiaro);
-            margin-bottom: 1.5rem;
-            transition: all 0.4s ease;
+        /* Hero Section */
+        .research-hero {
             position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--nero);
+        }
+        .research-hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+        }
+        .research-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        .research-hero-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            color: var(--bianco);
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 1.2s ease forwards 0.3s;
+        }
+        .research-hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: heroFadeIn 1.2s ease forwards 0.6s;
+        }
+        .research-hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--ottanio);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: heroFadeIn 1.2s ease forwards 0.9s, float 3s ease-in-out infinite 2s;
+        }
+        @keyframes heroFadeIn {
+            to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Geometric Decorations */
+        .geo-line {
+            position: absolute;
+            background: var(--ottanio);
+            opacity: 0.3;
+        }
+        .geo-line-h {
+            height: 1px;
+            width: 100%;
+        }
+        .geo-line-v {
+            width: 1px;
+            height: 100%;
+        }
+        .geo-circle {
+            position: absolute;
+            border: 1px solid var(--ottanio);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        /* Position Cards - Enhanced */
+        .positions-section {
+            position: relative;
+            padding: 8rem 0;
+            background: var(--bianco);
+            overflow: hidden;
+        }
+        .positions-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(42,107,107,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .position-card {
+            position: relative;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            background: var(--bianco);
+            border: 1px solid var(--grigio-chiaro);
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .position-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 0;
-            height: 3px;
+            width: 4px;
+            height: 0;
             background: var(--ottanio);
-            transition: width 0.5s ease;
+            transition: height 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .position-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle at top right, rgba(42,107,107,0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
         }
         .position-card:hover {
+            transform: translateX(10px);
             border-color: var(--ottanio);
+            box-shadow: -10px 0 40px rgba(42,107,107,0.1);
         }
         .position-card:hover::before {
-            width: 100%;
+            height: 100%;
+        }
+        .position-card:hover::after {
+            opacity: 1;
+        }
+        .position-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-family: 'Instrument Serif', serif;
+            font-size: 4rem;
+            color: rgba(42,107,107,0.1);
+            line-height: 1;
+            transition: color 0.4s ease;
+        }
+        .position-card:hover .position-number {
+            color: rgba(42,107,107,0.2);
         }
         .position-role {
             font-size: 0.7rem;
@@ -43,103 +174,91 @@
         }
         .position-title {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
         }
         .position-institution {
             font-size: 1rem;
             color: var(--grigio);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         .position-desc {
             font-size: 1rem;
-            line-height: 1.8;
+            line-height: 1.9;
             color: var(--grigio);
+            max-width: 600px;
         }
         .position-years {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-size: 0.85rem;
             font-style: italic;
             color: var(--ottanio);
         }
 
-        .teaching-grid {
+        /* Festivals Section - Visual Grid */
+        .festivals-section {
+            position: relative;
+            padding: 8rem 0;
+            background: var(--nero);
+            color: var(--bianco);
+            overflow: hidden;
+        }
+        .festivals-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+        .festival-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--grigio-chiaro);
-            border: 1px solid var(--grigio-chiaro);
+            gap: 2px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 3rem;
         }
-        .teaching-item {
-            padding: 2rem;
-            background: var(--bianco);
-            transition: all 0.4s ease;
-        }
-        .teaching-item:hover {
-            background: rgba(42, 107, 107, 0.03);
-        }
-        .teaching-institution {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-            margin-bottom: 0.5rem;
-        }
-        .teaching-course {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.15rem;
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
-        .teaching-desc {
-            font-size: 0.9rem;
-            color: var(--grigio);
-        }
-
-        .area-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .area-item {
-            padding: 2rem;
-            border: 1px solid var(--grigio-chiaro);
-            transition: all 0.4s ease;
-        }
-        .area-item:hover {
-            border-color: var(--ottanio);
-            transform: translateY(-5px);
-        }
-        .area-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-        .area-title em {
-            font-style: italic;
-            color: var(--ottanio);
-        }
-        .area-desc {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--grigio);
-        }
-
         .festival-card {
-            padding: 2.5rem;
-            border: 1px solid var(--grigio-chiaro);
-            margin-bottom: 1.5rem;
-            transition: all 0.4s ease;
+            position: relative;
+            padding: 3rem;
+            background: var(--nero);
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        .festival-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(42,107,107,0.2) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .festival-card:hover::before {
+            opacity: 1;
         }
         .festival-card:hover {
-            border-color: var(--ottanio);
+            background: rgba(42,107,107,0.1);
+        }
+        .festival-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .festival-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--ottanio);
+            stroke-width: 1;
+            fill: none;
         }
         .festival-role {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--ottanio);
             margin-bottom: 0.75rem;
@@ -147,49 +266,396 @@
         .festival-name {
             font-family: 'Instrument Serif', serif;
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--bianco);
         }
         .festival-desc {
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.7;
-            color: var(--grigio);
+            color: rgba(255,255,255,0.6);
         }
         .festival-stats {
-            margin-top: 1rem;
-            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
             color: var(--ottanio);
+            font-weight: 500;
         }
 
-        .training-grid {
+        /* Research Areas - Immersive Cards */
+        .areas-section {
+            position: relative;
+            padding: 10rem 0;
+            background: var(--bianco);
+            overflow: hidden;
+        }
+        .areas-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(42,107,107,0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .areas-intro {
+            max-width: 700px;
+            margin: 0 auto 5rem;
+            text-align: center;
+        }
+        .areas-intro p {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+        .area-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+            gap: 3rem;
         }
-        .training-item {
-            padding: 1.5rem;
+        .area-card {
+            position: relative;
+            padding: 3rem 2rem;
+            background: var(--bianco);
             border: 1px solid var(--grigio-chiaro);
-            text-align: center;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .training-item:hover {
+        .area-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ottanio) 0%, transparent 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .area-card::after {
+            content: attr(data-number);
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            color: rgba(42,107,107,0.08);
+            line-height: 1;
+        }
+        .area-card:hover {
+            transform: translateY(-10px);
             border-color: var(--ottanio);
+            box-shadow: 0 20px 60px rgba(42,107,107,0.15);
         }
-        .training-name {
+        .area-card:hover::before {
+            transform: scaleX(1);
+        }
+        .area-glyph {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .area-glyph::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--ottanio);
+            opacity: 0.5;
+            transition: all 0.4s ease;
+        }
+        .area-card:hover .area-glyph::before {
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .area-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .area-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .area-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        /* Teaching Section */
+        .teaching-section {
+            position: relative;
+            padding: 8rem 0;
+            background: #f8f8f8;
+            overflow: hidden;
+        }
+        .teaching-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--ottanio) 50%, transparent 100%);
+            opacity: 0.3;
+        }
+        .teaching-visual {
+            position: absolute;
+            top: 50%;
+            right: -100px;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 400px;
+            border: 1px solid rgba(42,107,107,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .teaching-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(42,107,107,0.1);
+            border-radius: 50%;
+        }
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+        }
+        .teaching-item {
+            position: relative;
+            padding: 2.5rem;
+            background: var(--bianco);
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        .teaching-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(42,107,107,0.03) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .teaching-item:hover::before {
+            opacity: 1;
+        }
+        .teaching-item:hover {
+            background: var(--bianco);
+        }
+        .teaching-institution {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .teaching-course {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+        .teaching-desc {
+            font-size: 0.9rem;
+            color: var(--grigio);
+            line-height: 1.6;
+        }
+
+        /* Corporate Training - Dark with Motion */
+        .training-section {
+            position: relative;
+            padding: 8rem 0;
+            background: var(--nero);
+            color: var(--bianco);
+            overflow: hidden;
+        }
+        .training-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(42,107,107,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(42,107,107,0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        .training-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        .training-logo {
+            flex: 0 0 auto;
+            padding: 1.5rem 2.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
             font-family: 'Instrument Serif', serif;
             font-size: 1.1rem;
             font-style: italic;
+            color: rgba(255,255,255,0.7);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .training-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(42,107,107,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        .training-logo:hover::before {
+            left: 100%;
+        }
+        .training-logo:hover {
+            border-color: var(--ottanio);
+            color: var(--bianco);
         }
 
-        @media (max-width: 900px) {
-            .teaching-grid {
-                grid-template-columns: 1fr;
-            }
-            .area-grid {
-                grid-template-columns: 1fr;
-            }
-            .training-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* Podcasts Section */
+        .podcasts-section {
+            position: relative;
+            padding: 8rem 0;
+            background: var(--bianco);
+            overflow: hidden;
+        }
+        .podcast-wave {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            transform: translateY(-50%);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .podcast-wave svg {
+            width: 100%;
+            height: 100%;
+        }
+        .podcast-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .podcast-card {
+            position: relative;
+            padding: 2rem;
+            background: #fafafa;
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        .podcast-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--ottanio);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        .podcast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .podcast-card:hover::before {
+            transform: scaleX(1);
+        }
+        .podcast-platform {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .podcast-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .podcast-desc {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            position: relative;
+            padding: 10rem 0;
+            background: linear-gradient(180deg, var(--bianco) 0%, #f5f5f5 100%);
+            text-align: center;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(180deg, var(--ottanio) 0%, transparent 100%);
+            opacity: 0.3;
+        }
+        .contact-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .contact-text {
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        @media (max-width: 1024px) {
+            .festival-grid { grid-template-columns: 1fr; }
+            .area-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .podcast-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .research-hero { min-height: 60vh; }
+            .research-hero-title { font-size: 3rem; }
+            .teaching-grid { grid-template-columns: 1fr; }
+            .area-grid { grid-template-columns: 1fr; }
+            .podcast-grid { grid-template-columns: 1fr; }
+            .training-logos { justify-content: center; }
         }
     </style>
 </head>
@@ -233,12 +699,18 @@
     </div>
 
     <main>
-        <div class="page-header">
-            <h1 class="page-title">Research</h1>
-            <p class="page-subtitle">Academic positions, teaching, festivals, and research areas</p>
-        </div>
+        <!-- Hero Section with Canvas -->
+        <section class="research-hero">
+            <canvas id="heroCanvas" class="research-hero-canvas"></canvas>
+            <div class="research-hero-content">
+                <h1 class="research-hero-title">Research</h1>
+                <p class="research-hero-subtitle">Thought in Motion</p>
+            </div>
+            <span class="research-hero-scroll">Scroll to explore</span>
+        </section>
 
-        <section class="section">
+        <!-- Positions Section -->
+        <section class="positions-section">
             <div class="section-content">
                 <div class="section-header reveal">
                     <h2 class="section-title">Positions</h2>
@@ -246,6 +718,7 @@
                 </div>
 
                 <div class="position-card reveal">
+                    <span class="position-number">01</span>
                     <span class="position-role">President</span>
                     <h3 class="position-title">GenIA</h3>
                     <p class="position-institution">AANT — Academy of Arts and New Technologies, Rome</p>
@@ -253,6 +726,7 @@
                 </div>
 
                 <div class="position-card reveal">
+                    <span class="position-number">02</span>
                     <span class="position-role">Research Fellow</span>
                     <h3 class="position-title">AI and Systems of Thought</h3>
                     <p class="position-institution">University of Foggia</p>
@@ -261,57 +735,116 @@
                 </div>
 
                 <div class="position-card reveal">
+                    <span class="position-number">03</span>
                     <span class="position-role">Co-founder · Editor</span>
                     <h3 class="position-title">Tlon</h3>
                     <p class="position-institution">Publishing · Bookshops · Festivals · Education</p>
-                    <p class="position-desc">Cultural ecosystem founded in 2014 with Maura Gancitano. Named after Borges's fictional planet that becomes real through collective belief. Includes Edizioni Tlon (200+ titles), four bookshops (Rome and Venice), "Scuola di Filosofie" podcast (among Italy's most listened), and philosophical direction of major festivals.</p>
+                    <p class="position-desc">Cultural ecosystem founded in 2014 with Maura Gancitano. Named after Borges's fictional planet that becomes real through collective belief. Includes Edizioni Tlon (200+ titles), four bookshops (Rome and Venice), and philosophical direction of major festivals.</p>
                     <p class="position-years">Since 2014</p>
                 </div>
             </div>
         </section>
 
-        <section class="section" style="background: #fafafa;">
+        <!-- Research Areas Section -->
+        <section class="areas-section">
             <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Festivals</h2>
-                    <span class="section-num">Direction</span>
+                <div class="section-header reveal" style="text-align: center; justify-content: center;">
+                    <h2 class="section-title">Research Areas</h2>
                 </div>
 
-                <div class="festival-card reveal">
-                    <span class="festival-role">Philosophical Director</span>
-                    <h3 class="festival-name">Festival del Pensare Contemporaneo</h3>
-                    <p class="festival-desc">One of Italy's major philosophy festivals, held annually in Piacenza. Four days, over 100 interventions and 50 events. In 2024, President Mattarella attended.</p>
-                    <p class="festival-stats">19,000 attendees (2023) — 24,000 attendees (2024)</p>
+                <div class="areas-intro reveal">
+                    <p>Philosophy as intervention. Theory that performs itself. Thought that transforms the conditions of its own emergence.</p>
                 </div>
 
-                <div class="festival-card reveal">
-                    <span class="festival-role">Philosophical Director</span>
-                    <h3 class="festival-name">Carnevale di Putignano</h3>
-                    <p class="festival-desc">Philosophical direction of one of Italy's oldest carnivals, integrating contemporary thought into traditional celebration.</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Creator</span>
-                    <h3 class="festival-name">Festa della Filosofia</h3>
-                    <p class="festival-desc">Triennale Milano and Rome. A festival dedicated to making philosophy accessible and engaging for broad audiences. Organized in media-partnership with Rai Scuola.</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Creator</span>
-                    <h3 class="festival-name">Concerti Filosofici</h3>
-                    <p class="festival-desc">Live performances combining musicians with philosophical dialogue. Featured artists include La Rappresentante di Lista, Niccolò Fabi, Vinicio Capossela.</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Creator</span>
-                    <h3 class="festival-name">ilPod — Italian Podcast Awards</h3>
-                    <p class="festival-desc">Annual awards celebrating the best Italian podcasts. Created to support the growing podcast ecosystem in Italy.</p>
+                <div class="area-grid">
+                    <div class="area-card reveal" data-number="01">
+                        <div class="area-glyph"></div>
+                        <h3 class="area-title">Philosophy of <em>AI</em></h3>
+                        <p class="area-desc">Investigating how artificial intelligence transforms thought, perception, and the construction of reality. Not observation from outside but dialogue from within.</p>
+                    </div>
+                    <div class="area-card reveal" data-number="02">
+                        <div class="area-glyph"></div>
+                        <h3 class="area-title"><em>Hypnocracy</em></h3>
+                        <p class="area-desc">The theory that contemporary power operates directly on consciousness, inducing a permanent altered state where the distinction between true and false loses meaning.</p>
+                    </div>
+                    <div class="area-card reveal" data-number="03">
+                        <div class="area-glyph"></div>
+                        <h3 class="area-title">Prompt <em>Thinking</em></h3>
+                        <p class="area-desc">A new discipline exploring the art of formulating questions that generate thought. From Socratic maieutics to contemporary prompts.</p>
+                    </div>
+                    <div class="area-card reveal" data-number="04">
+                        <div class="area-glyph"></div>
+                        <h3 class="area-title">Media <em>Theory</em></h3>
+                        <p class="area-desc">How media technologies shape perception, memory, and attention. The cognitive and cultural implications of algorithmic mediation.</p>
+                    </div>
+                    <div class="area-card reveal" data-number="05">
+                        <div class="area-glyph"></div>
+                        <h3 class="area-title">Popular <em>Philosophy</em></h3>
+                        <p class="area-desc">Making philosophy accessible without making it superficial. Philosophy as cultural infrastructure: bookshops, festivals, podcasts, training.</p>
+                    </div>
+                    <div class="area-card reveal" data-number="06">
+                        <div class="area-glyph"></div>
+                        <h3 class="area-title">Fiction as <em>Method</em></h3>
+                        <p class="area-desc">The use of fiction as philosophical tool. The Jianwei Xun experiment as "ontological engineering"—practicing theory through its own demonstration.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="section">
-            <div class="section-content">
+        <!-- Festivals Section - Dark with Canvas -->
+        <section class="festivals-section">
+            <canvas id="festivalsCanvas" class="festivals-canvas"></canvas>
+            <div class="section-content" style="position: relative; z-index: 2;">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Festivals</h2>
+                    <span class="section-num">Direction</span>
+                </div>
+
+                <div class="festival-grid">
+                    <div class="festival-card reveal">
+                        <div class="festival-icon">
+                            <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="25"/><line x1="30" y1="5" x2="30" y2="55"/><line x1="5" y1="30" x2="55" y2="30"/></svg>
+                        </div>
+                        <span class="festival-role">Philosophical Director</span>
+                        <h3 class="festival-name">Festival del Pensare Contemporaneo</h3>
+                        <p class="festival-desc">One of Italy's major philosophy festivals, held annually in Piacenza. Four days, over 100 interventions and 50 events. In 2024, President Mattarella attended.</p>
+                        <p class="festival-stats">19,000 attendees (2023) → 24,000 attendees (2024)</p>
+                    </div>
+
+                    <div class="festival-card reveal">
+                        <div class="festival-icon">
+                            <svg viewBox="0 0 60 60"><polygon points="30,5 55,45 5,45"/><circle cx="30" cy="35" r="8"/></svg>
+                        </div>
+                        <span class="festival-role">Philosophical Director</span>
+                        <h3 class="festival-name">Carnevale di Putignano</h3>
+                        <p class="festival-desc">Philosophical direction of one of Italy's oldest carnivals, integrating contemporary thought into traditional celebration.</p>
+                    </div>
+
+                    <div class="festival-card reveal">
+                        <div class="festival-icon">
+                            <svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" rx="5"/><circle cx="30" cy="30" r="10"/></svg>
+                        </div>
+                        <span class="festival-role">Creator</span>
+                        <h3 class="festival-name">Festa della Filosofia</h3>
+                        <p class="festival-desc">Triennale Milano and Rome. A festival dedicated to making philosophy accessible and engaging for broad audiences.</p>
+                    </div>
+
+                    <div class="festival-card reveal">
+                        <div class="festival-icon">
+                            <svg viewBox="0 0 60 60"><path d="M10,30 Q30,5 50,30 Q30,55 10,30"/><circle cx="30" cy="30" r="5"/></svg>
+                        </div>
+                        <span class="festival-role">Creator</span>
+                        <h3 class="festival-name">Concerti Filosofici</h3>
+                        <p class="festival-desc">Live performances combining musicians with philosophical dialogue. Featured artists include La Rappresentante di Lista, Niccolò Fabi, Vinicio Capossela.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Section -->
+        <section class="teaching-section">
+            <div class="teaching-visual"></div>
+            <div class="section-content" style="position: relative; z-index: 2;">
                 <div class="section-header reveal">
                     <h2 class="section-title">Teaching</h2>
                 </div>
@@ -333,134 +866,87 @@
                         <p class="teaching-desc">Exploring AI through the lens of Borges's literary imagination</p>
                     </div>
                     <div class="teaching-item">
-                        <span class="teaching-institution">Scuola di Filosofie</span>
-                        <h3 class="teaching-course">Podcast</h3>
-                        <p class="teaching-desc">Among Italy's most listened-to audio content on Audible, with Maura Gancitano</p>
+                        <span class="teaching-institution">University of Bologna</span>
+                        <h3 class="teaching-course">AI Tools for Journalism</h3>
+                        <p class="teaching-desc">Master's program in journalism, practical AI applications</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section" style="background: var(--nero); color: var(--bianco);">
-            <div class="section-content">
+        <!-- Corporate Training Section -->
+        <section class="training-section">
+            <div class="section-content" style="position: relative; z-index: 2;">
                 <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
                     <h2 class="section-title">Corporate Training</h2>
                 </div>
 
                 <div class="text-content reveal" style="margin-bottom: 2rem;">
-                    <p style="color: rgba(255,255,255,0.7);">Workshops and training programs on philosophy of AI, prompt thinking, diversity & inclusion, digital literacy, and navigating complexity. Clients include:</p>
+                    <p style="color: rgba(255,255,255,0.6); max-width: 600px;">Workshops on philosophy of AI, prompt thinking, diversity & inclusion, digital literacy, and navigating complexity.</p>
                 </div>
 
-                <div class="training-grid reveal">
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Google</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Amazon</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Ferrero</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Lamborghini</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">UniCredit</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">European Parliament</span>
-                    </div>
+                <div class="training-logos reveal">
+                    <div class="training-logo">Google</div>
+                    <div class="training-logo">Amazon</div>
+                    <div class="training-logo">Ferrero</div>
+                    <div class="training-logo">Lamborghini</div>
+                    <div class="training-logo">UniCredit</div>
+                    <div class="training-logo">European Parliament</div>
+                    <div class="training-logo">Eni</div>
+                    <div class="training-logo">Intesa Sanpaolo</div>
                 </div>
             </div>
         </section>
 
-        <section class="section">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Research Areas</h2>
-                </div>
-
-                <div class="area-grid">
-                    <div class="area-item reveal">
-                        <h3 class="area-title">Philosophy of <em>AI</em></h3>
-                        <p class="area-desc">Investigating how artificial intelligence transforms thought, perception, and the construction of reality. Not observation from outside but dialogue from within.</p>
-                    </div>
-                    <div class="area-item reveal">
-                        <h3 class="area-title"><em>Hypnocracy</em></h3>
-                        <p class="area-desc">The theory that contemporary power operates directly on consciousness, inducing a permanent altered state where the distinction between true and false loses meaning.</p>
-                    </div>
-                    <div class="area-item reveal">
-                        <h3 class="area-title">Prompt <em>Thinking</em></h3>
-                        <p class="area-desc">A new discipline exploring the art of formulating questions that generate thought. From Socratic maieutics to contemporary prompts.</p>
-                    </div>
-                    <div class="area-item reveal">
-                        <h3 class="area-title">Media <em>Theory</em></h3>
-                        <p class="area-desc">How media technologies shape perception, memory, and attention. The cognitive and cultural implications of algorithmic mediation.</p>
-                    </div>
-                    <div class="area-item reveal">
-                        <h3 class="area-title">Popular <em>Philosophy</em></h3>
-                        <p class="area-desc">Making philosophy accessible without making it superficial. Philosophy as cultural infrastructure: bookshops, festivals, podcasts, training.</p>
-                    </div>
-                    <div class="area-item reveal">
-                        <h3 class="area-title">Fiction as <em>Method</em></h3>
-                        <p class="area-desc">The use of fiction as philosophical tool. The Jianwei Xun experiment as "ontological engineering"—practicing theory through its own demonstration.</p>
-                    </div>
-                </div>
+        <!-- Podcasts Section -->
+        <section class="podcasts-section">
+            <div class="podcast-wave">
+                <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+                    <path d="M0,100 Q150,50 300,100 T600,100 T900,100 T1200,100" stroke="var(--ottanio)" stroke-width="2" fill="none"/>
+                    <path d="M0,100 Q150,150 300,100 T600,100 T900,100 T1200,100" stroke="var(--ottanio)" stroke-width="1" fill="none" opacity="0.5"/>
+                </svg>
             </div>
-        </section>
-
-        <section class="section" style="background: #fafafa;">
-            <div class="section-content">
+            <div class="section-content" style="position: relative; z-index: 2;">
                 <div class="section-header reveal">
                     <h2 class="section-title">Podcasts</h2>
                 </div>
 
-                <div class="text-content reveal" style="margin-bottom: 2rem;">
-                    <p>Audio projects extending philosophical practice beyond traditional formats:</p>
-                </div>
-
-                <div class="teaching-grid reveal">
-                    <div class="teaching-item">
-                        <span class="teaching-institution">Audible</span>
-                        <h3 class="teaching-course">Scuola di Filosofie</h3>
-                        <p class="teaching-desc">With Maura Gancitano · Among Italy's most listened</p>
+                <div class="podcast-grid">
+                    <div class="podcast-card reveal">
+                        <span class="podcast-platform">Audible</span>
+                        <h3 class="podcast-name">Scuola di Filosofie</h3>
+                        <p class="podcast-desc">With Maura Gancitano · Among Italy's most listened</p>
                     </div>
-                    <div class="teaching-item">
-                        <span class="teaching-institution">European Parliament</span>
-                        <h3 class="teaching-course">Pensare Europeo</h3>
-                        <p class="teaching-desc">On European identity</p>
+                    <div class="podcast-card reveal">
+                        <span class="podcast-platform">European Parliament</span>
+                        <h3 class="podcast-name">Pensare Europeo</h3>
+                        <p class="podcast-desc">On European identity and belonging</p>
                     </div>
-                    <div class="teaching-item">
-                        <span class="teaching-institution">RaiPlaySound</span>
-                        <h3 class="teaching-course">Meno per meno</h3>
-                        <p class="teaching-desc">With Niccolò Fabi</p>
+                    <div class="podcast-card reveal">
+                        <span class="podcast-platform">RaiPlaySound</span>
+                        <h3 class="podcast-name">Meno per meno</h3>
+                        <p class="podcast-desc">With Niccolò Fabi</p>
                     </div>
-                    <div class="teaching-item">
-                        <span class="teaching-institution">Audible</span>
-                        <h3 class="teaching-course">La filosofia di Harry Potter</h3>
-                        <p class="teaching-desc">Philosophy through popular culture</p>
+                    <div class="podcast-card reveal">
+                        <span class="podcast-platform">Audible</span>
+                        <h3 class="podcast-name">La filosofia di Harry Potter</h3>
+                        <p class="podcast-desc">Philosophy through popular culture</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section">
+        <!-- Contact Section -->
+        <section class="contact-section">
             <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Contact</h2>
-                </div>
-
-                <div class="text-content reveal">
-                    <p>For academic collaborations, research projects, or speaking invitations, contact directly or through Tlon.</p>
-                    <div style="margin-top: 2rem;">
-                        <a href="contact.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
-                            <span>Get in touch</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                <h2 class="contact-title reveal">Let's work together</h2>
+                <p class="contact-text reveal">For academic collaborations, research projects, or speaking invitations.</p>
+                <a href="contact.html" class="featured-cta reveal" style="color: var(--nero); border-color: var(--nero);">
+                    <span>Get in touch</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
             </div>
         </section>
 
@@ -484,6 +970,123 @@
     </footer>
 
     <script>
+        // Hero Canvas - Neural Network Animation
+        const heroCanvas = document.getElementById('heroCanvas');
+        const heroCtx = heroCanvas.getContext('2d');
+        let heroNodes = [];
+        
+        function initHeroCanvas() {
+            heroCanvas.width = window.innerWidth;
+            heroCanvas.height = heroCanvas.parentElement.offsetHeight;
+            
+            heroNodes = [];
+            const nodeCount = Math.floor((heroCanvas.width * heroCanvas.height) / 15000);
+            
+            for (let i = 0; i < nodeCount; i++) {
+                heroNodes.push({
+                    x: Math.random() * heroCanvas.width,
+                    y: Math.random() * heroCanvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 2 + 1
+                });
+            }
+        }
+        
+        function drawHeroCanvas() {
+            heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+            
+            // Draw connections
+            heroCtx.strokeStyle = 'rgba(42, 107, 107, 0.15)';
+            heroCtx.lineWidth = 0.5;
+            
+            for (let i = 0; i < heroNodes.length; i++) {
+                for (let j = i + 1; j < heroNodes.length; j++) {
+                    const dx = heroNodes[i].x - heroNodes[j].x;
+                    const dy = heroNodes[i].y - heroNodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 150) {
+                        heroCtx.beginPath();
+                        heroCtx.moveTo(heroNodes[i].x, heroNodes[i].y);
+                        heroCtx.lineTo(heroNodes[j].x, heroNodes[j].y);
+                        heroCtx.globalAlpha = 1 - (dist / 150);
+                        heroCtx.stroke();
+                    }
+                }
+            }
+            
+            // Draw and update nodes
+            heroCtx.globalAlpha = 1;
+            heroCtx.fillStyle = 'rgba(42, 107, 107, 0.6)';
+            
+            heroNodes.forEach(node => {
+                node.x += node.vx;
+                node.y += node.vy;
+                
+                if (node.x < 0 || node.x > heroCanvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > heroCanvas.height) node.vy *= -1;
+                
+                heroCtx.beginPath();
+                heroCtx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                heroCtx.fill();
+            });
+            
+            requestAnimationFrame(drawHeroCanvas);
+        }
+        
+        // Festivals Canvas - Floating Particles
+        const festivalsCanvas = document.getElementById('festivalsCanvas');
+        const festivalsCtx = festivalsCanvas.getContext('2d');
+        let particles = [];
+        
+        function initFestivalsCanvas() {
+            festivalsCanvas.width = window.innerWidth;
+            festivalsCanvas.height = festivalsCanvas.parentElement.offsetHeight;
+            
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * festivalsCanvas.width,
+                    y: Math.random() * festivalsCanvas.height,
+                    size: Math.random() * 3 + 1,
+                    speedY: Math.random() * 0.5 + 0.2,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+        
+        function drawFestivalsCanvas() {
+            festivalsCtx.clearRect(0, 0, festivalsCanvas.width, festivalsCanvas.height);
+            
+            particles.forEach(p => {
+                p.y -= p.speedY;
+                if (p.y < -10) {
+                    p.y = festivalsCanvas.height + 10;
+                    p.x = Math.random() * festivalsCanvas.width;
+                }
+                
+                festivalsCtx.beginPath();
+                festivalsCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                festivalsCtx.fillStyle = `rgba(42, 107, 107, ${p.opacity})`;
+                festivalsCtx.fill();
+            });
+            
+            requestAnimationFrame(drawFestivalsCanvas);
+        }
+        
+        // Initialize
+        initHeroCanvas();
+        drawHeroCanvas();
+        initFestivalsCanvas();
+        drawFestivalsCanvas();
+        
+        window.addEventListener('resize', () => {
+            initHeroCanvas();
+            initFestivalsCanvas();
+        });
+        
+        // Reveal animations
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -492,6 +1095,7 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         reveals.forEach(el => observer.observe(el));
 
+        // Mobile menu
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
         const header = document.querySelector('header');

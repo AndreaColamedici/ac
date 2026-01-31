@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Innesto 07</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            background: #040405;
+            color: #c0b8b0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 2;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 60% 30%, rgba(80,60,50,0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .chapter {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15vh 8vw;
+            position: relative;
+        }
+
+        .chapter-content {
+            max-width: 540px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chapter-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .opening {
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            text-align: center;
+            font-style: italic;
+            color: #a08070;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        p { margin-bottom: 1.8rem; }
+        p:last-child { margin-bottom: 0; }
+
+        .emphasis {
+            color: #c0a090;
+            font-weight: 500;
+        }
+
+        .data-point {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: #6a5a50;
+            margin: 0.6rem 0;
+            padding: 0.5rem 1rem;
+            border-left: 1px solid #5a4a40;
+            background: linear-gradient(90deg, rgba(80,60,50,0.08), transparent);
+        }
+
+        /* GLITCH OVERLAY */
+        .glitch-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9000;
+            opacity: 0;
+        }
+
+        .glitch-overlay.active {
+            animation: glitchFlash 0.12s ease;
+        }
+
+        @keyframes glitchFlash {
+            0% { opacity: 0; background: transparent; }
+            20% { opacity: 1; background: rgba(192,160,144,0.15); }
+            40% { opacity: 0; background: transparent; }
+            60% { opacity: 1; background: rgba(192,128,96,0.1); }
+            100% { opacity: 0; }
+        }
+
+        /* HIDEO BLACKOUT */
+        .hideo-blackout {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.05s;
+        }
+
+        .hideo-blackout.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hideo-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: #2a5a2a;
+            letter-spacing: 0.1em;
+        }
+
+        /* SCREEN TEAR */
+        .screen-tear {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(192,160,144,0.8) 20%, rgba(255,255,255,0.9) 50%, rgba(192,160,144,0.8) 80%, transparent);
+            z-index: 9500;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .screen-tear.active {
+            animation: tearSweep 0.15s linear;
+        }
+
+        @keyframes tearSweep {
+            0% { top: -3px; opacity: 1; }
+            100% { top: 100%; opacity: 0.5; }
+        }
+
+        /* FACE CORRUPTION */
+        .face-corrupt {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9200;
+            opacity: 0;
+            mix-blend-mode: difference;
+        }
+
+        .face-corrupt.active {
+            animation: faceCorrupt 0.2s ease;
+        }
+
+        @keyframes faceCorrupt {
+            0% { opacity: 0; transform: translateX(0); }
+            25% { opacity: 0.3; transform: translateX(-5px); filter: hue-rotate(90deg); }
+            50% { opacity: 0; transform: translateX(3px); }
+            75% { opacity: 0.2; transform: translateX(-2px); filter: hue-rotate(-90deg); }
+            100% { opacity: 0; transform: translateX(0); }
+        }
+
+        /* Photo activation */
+        .photo-prompt {
+            position: fixed;
+            inset: 0;
+            z-index: 800;
+            background: #040405;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .photo-prompt.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .photo-prompt p {
+            text-align: center;
+            color: #a08070;
+            margin-bottom: 1rem;
+            padding: 0 2rem;
+            max-width: 360px;
+        }
+
+        .photo-command {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: #c0a090;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-weight: 400;
+        }
+
+        /* Camera viewfinder */
+        .viewfinder {
+            width: 260px;
+            height: 260px;
+            border: 2px solid #5a4a40;
+            position: relative;
+            margin: 1.5rem auto;
+            overflow: hidden;
+            background: #0a0908;
+        }
+
+        .viewfinder video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        .viewfinder-corner {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #c0a090;
+        }
+
+        .viewfinder-corner.tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .viewfinder-corner.tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .viewfinder-corner.bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .viewfinder-corner.br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .viewfinder-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(192,160,144,0.3);
+            border-radius: 50%;
+        }
+
+        /* Scan lines */
+        .viewfinder::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.1) 0px,
+                rgba(0,0,0,0.1) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            animation: scanDrift 8s linear infinite;
+        }
+
+        @keyframes scanDrift {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100px; }
+        }
+
+        .capture-btn {
+            width: 70px;
+            height: 70px;
+            border: 3px solid #5a4a40;
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            margin: 1.5rem auto;
+            transition: all 0.3s ease;
+        }
+
+        .capture-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #c0a090;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .capture-btn:active::before {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .capture-btn.capturing {
+            border-color: #c0a090;
+            animation: capturePulse 0.5s ease;
+        }
+
+        @keyframes capturePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        .capture-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #5a4a40;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .photo-fallback {
+            margin-top: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #4a3a30;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #3a2a20;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .photo-fallback.visible {
+            opacity: 1;
+        }
+
+        /* Multiplication reveal */
+        .multiply-reveal {
+            position: fixed;
+            inset: 0;
+            z-index: 850;
+            background: #030304;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .multiply-reveal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .multiply-title {
+            font-size: 1.1rem;
+            color: #c0a090;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        /* Photo grid - aggressive multiplication */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 2px;
+            max-width: 360px;
+            margin: 1rem auto;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s ease;
+        }
+
+        .photo-grid.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .photo-cell {
+            aspect-ratio: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+            transition: all 0.3s ease;
+        }
+
+        .photo-cell.glitch img {
+            filter: hue-rotate(var(--hue)) saturate(var(--sat)) brightness(var(--bright));
+        }
+
+        .photo-cell.corrupt {
+            animation: cellCorrupt 0.3s ease infinite;
+        }
+
+        @keyframes cellCorrupt {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+
+        .multiply-count {
+            font-family: 'Space Mono', monospace;
+            font-size: 2rem;
+            color: #c0a090;
+            text-align: center;
+            margin: 1rem 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .multiply-count.visible {
+            opacity: 1;
+        }
+
+        .multiply-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.45rem;
+            color: #5a4a40;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .multiply-comment {
+            font-size: 0.8rem;
+            color: #7a6a60;
+            margin-top: 1.5rem;
+            line-height: 1.9;
+            text-align: center;
+            max-width: 340px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .multiply-comment.visible {
+            opacity: 1;
+        }
+
+        .multiply-continue {
+            margin-top: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: #5a4a40;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid #4a3a30;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .multiply-continue.visible {
+            opacity: 1;
+        }
+
+        .final-text {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            text-align: center;
+            line-height: 2.2;
+            color: #8a7a70;
+        }
+
+        .return-prompt {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 0.8rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #5a4a40;
+            border: 1px solid #4a3a30;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .return-prompt:hover {
+            color: #a08070;
+            border-color: #6a5a50;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: #3a2a20;
+            text-transform: uppercase;
+            transition: opacity 0.5s ease;
+        }
+
+        .scroll-indicator.hidden { opacity: 0; }
+
+        .audio-prompt {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #3a2a20;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #2a1a10;
+            z-index: 100;
+        }
+
+        .audio-prompt.enabled {
+            color: #6a5a50;
+            border-color: #5a4a40;
+        }
+
+        .final-overlay {
+            position: fixed;
+            inset: 0;
+            background: #020203;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease;
+            z-index: 1000;
+        }
+
+        .final-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .final-overlay-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 380px;
+        }
+
+        .final-overlay-content p {
+            font-size: 0.9rem;
+            line-height: 2;
+            color: #6a5a50;
+        }
+
+        .final-overlay-content em {
+            color: #c0a090;
+            font-style: normal;
+        }
+
+        #captureCanvas { display: none; }
+
+        @media (max-width: 600px) {
+            html { font-size: 15px; }
+            .chapter { padding: 12vh 6vw; }
+            .photo-grid { grid-template-columns: repeat(6, 1fr); max-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glitch-overlay" id="glitchOverlay"></div>
+<div class="screen-tear" id="screenTear"></div>
+<div class="face-corrupt" id="faceCorrupt"></div>
+<div class="hideo-blackout" id="hideoBlackout">
+    <span class="hideo-text">TEMPLATE</span>
+</div>
+
+<div class="scroll-indicator" id="scrollIndicator">scorri</div>
+<div class="audio-prompt" id="audioPrompt">◉ audio</div>
+
+<!-- Photo activation -->
+<div class="photo-prompt" id="photoPrompt">
+    <p>Ogni volto è un template. Ogni persona: una variazione su un tema.</p>
+    <div class="photo-command">Mostrami il tuo.</div>
+    <p style="color: #6a5a50; font-size: 0.85rem;">La foto non verrà salvata né trasmessa.</p>
+
+    <div class="viewfinder" id="viewfinder">
+        <video id="cameraFeed" autoplay playsinline muted></video>
+        <div class="viewfinder-corner tl"></div>
+        <div class="viewfinder-corner tr"></div>
+        <div class="viewfinder-corner bl"></div>
+        <div class="viewfinder-corner br"></div>
+        <div class="viewfinder-center"></div>
+    </div>
+
+    <button class="capture-btn" id="captureBtn"></button>
+    <div class="capture-label" id="captureLabel">scatta</div>
+
+    <div class="photo-fallback" id="photoFallback">fotocamera non disponibile — tocca qui</div>
+</div>
+
+<!-- Multiplication reveal -->
+<div class="multiply-reveal" id="multiplyReveal">
+    <div class="multiply-title">Il tuo volto, moltiplicato</div>
+
+    <div class="photo-grid" id="photoGrid"></div>
+
+    <div class="multiply-count" id="multiplyCount">×48</div>
+    <div class="multiply-label">variazioni generate</div>
+
+    <div class="multiply-comment" id="multiplyComment">
+        Ogni copia è leggermente diversa. Colori alterati, contrasti variati. Come quando un volto viene usato per addestrare un modello: migliaia di variazioni dello stesso template.
+    </div>
+
+    <div class="multiply-continue" id="multiplyContinue">continua</div>
+</div>
+
+<canvas id="captureCanvas"></canvas>
+
+<!-- CAPITOLO 1 -->
+<div class="chapter" id="ch1">
+    <div class="chapter-content">
+        <p class="opening">Il tuo volto è già stato moltiplicato.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 2 -->
+<div class="chapter" id="ch2">
+    <div class="chapter-content">
+        <p>Nel libro hai letto della bambina che appare centotrentatré volte. Ogni apparizione è una variazione: luce diversa, angolazione diversa, espressione diversa. Ma il template rimane riconoscibile. È sempre lei, eppure non è mai la stessa.</p>
+        <p>Il volto umano funziona così. Ci sono circa cinquemila modi in cui gli occhi, il naso, la bocca possono combinarsi. Questo spiega perché esistono i sosia, perché a volte incontri sconosciuti che ti sembrano familiari. Il tuo volto è una variazione su un numero finito di temi.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 3 -->
+<div class="chapter" id="ch3">
+    <div class="chapter-content">
+        <p>I sistemi di riconoscimento facciale lo sanno. Non memorizzano il tuo volto — memorizzano una mappa di relazioni geometriche. La distanza tra gli occhi. L'angolo del naso. La curva della mascella. Questi numeri sono la tua firma biometrica.</p>
+        <p>Ogni volta che passi davanti a una telecamera, quella firma viene confrontata con milioni di altre. In una frazione di secondo, il sistema decide se sei tu o qualcun altro. Non ti chiede il permesso. Non ti avverte. Calcola.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 4 -->
+<div class="chapter" id="ch4">
+    <div class="chapter-content">
+        <p>Nel libro, la voce narrante parla del <span class="emphasis">"volto come interfaccia"</span>. Il volto è la superficie attraverso cui comunichiamo emozioni, intenzioni, identità. È il punto di contatto tra l'interno e l'esterno. Ma quando diventa dato biometrico, il volto perde la sua ambiguità. Viene ridotto a coordinate.</p>
+        <p>La bambina generata non ha questa storia. Il suo volto è nato come coordinate, poi è diventato immagine. Il processo inverso del tuo.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 5 -->
+<div class="chapter" id="ch5">
+    <div class="chapter-content">
+        <p class="final-text">
+            Il tuo volto è stato catturato.<br>
+            Moltiplicato quarantotto volte.<br>
+            Ogni copia: una variazione.<br><br>
+
+            Nessuna è stata salvata.<br>
+            Ma il gesto rimane:<br>
+            hai mostrato il template<br>
+            a qualcosa che calcola.<br><br>
+
+            La bambina del libro<br>
+            è nata da gesti come questo.<br>
+            Milioni di volti offerti<br>
+            a sistemi che imparano.
+        </p>
+        <div class="return-prompt" id="returnPrompt">Torna al libro</div>
+    </div>
+</div>
+
+<!-- Overlay finale -->
+<div class="final-overlay" id="finalOverlay">
+    <div class="final-overlay-content">
+        <p id="farewellText"></p>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'arcipelago_realta';
+    const getData = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
+    const saveData = (k, v) => {
+        const d = getData();
+        d[k] = v;
+        d.lastVisit = Date.now();
+        d.visitedInnesti = d.visitedInnesti || [];
+        if (!d.visitedInnesti.includes(7)) d.visitedInnesti.push(7);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+    };
+
+    const sessionStart = Date.now();
+    let capturedImage = null;
+    let photoComplete = false;
+    let cameraStream = null;
+
+    // === VIBRATION ===
+    function vibrate(pattern) {
+        if ('vibrate' in navigator) navigator.vibrate(pattern);
+    }
+
+    // === GLITCH EFFECTS ===
+    function triggerGlitch() {
+        const overlay = document.getElementById('glitchOverlay');
+        overlay.classList.add('active');
+        setTimeout(() => overlay.classList.remove('active'), 120);
+    }
+
+    function triggerScreenTear() {
+        const tear = document.getElementById('screenTear');
+        tear.classList.add('active');
+        setTimeout(() => tear.classList.remove('active'), 150);
+    }
+
+    function triggerFaceCorrupt() {
+        const corrupt = document.getElementById('faceCorrupt');
+        corrupt.classList.add('active');
+        setTimeout(() => corrupt.classList.remove('active'), 200);
+    }
+
+    function triggerHideoBlackout(duration = 600) {
+        const blackout = document.getElementById('hideoBlackout');
+        blackout.classList.add('active');
+        setTimeout(() => blackout.classList.remove('active'), duration);
+    }
+
+    // === AUDIO ===
+    let audioCtx = null;
+    let audioEnabled = false;
+
+    document.getElementById('audioPrompt').addEventListener('click', function() {
+        if (!audioEnabled) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            audioEnabled = true;
+            this.classList.add('enabled');
+            this.textContent = '◉ audio on';
+        } else {
+            audioEnabled = false;
+            this.classList.remove('enabled');
+            this.textContent = '◉ audio';
+        }
+    });
+
+    function playTone(freq, dur, type = 'sine', vol = 0.05) {
+        if (!audioEnabled || !audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+    }
+
+    // === CAMERA ===
+    async function initCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 640 } }
+            });
+            cameraStream = stream;
+            document.getElementById('cameraFeed').srcObject = stream;
+        } catch (err) {
+            document.getElementById('photoFallback').classList.add('visible');
+        }
+    }
+
+    function capturePhoto() {
+        if (photoComplete) return;
+
+        const video = document.getElementById('cameraFeed');
+        const canvas = document.getElementById('captureCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 640;
+
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+        ctx.restore();
+
+        capturedImage = canvas.toDataURL('image/jpeg', 0.8);
+        photoComplete = true;
+
+        // Stop camera
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(t => t.stop());
+        }
+
+        // Effects
+        vibrate([100, 50, 100]);
+        triggerGlitch();
+        triggerFaceCorrupt();
+
+        document.getElementById('captureBtn').classList.add('capturing');
+        document.getElementById('captureLabel').textContent = 'elaborazione...';
+
+        playTone(200, 0.3, 'sine', 0.06);
+
+        saveData('activation7_photo', true);
+
+        // HIDEO blackout before reveal
+        setTimeout(() => triggerHideoBlackout(500), 400);
+
+        setTimeout(() => {
+            document.getElementById('photoPrompt').classList.remove('visible');
+            showMultiplicationReveal();
+        }, 1200);
+    }
+
+    function showMultiplicationReveal() {
+        const reveal = document.getElementById('multiplyReveal');
+        reveal.classList.add('visible');
+
+        triggerGlitch();
+        vibrate(50);
+
+        const grid = document.getElementById('photoGrid');
+        grid.innerHTML = '';
+
+        const numCells = window.innerWidth < 600 ? 36 : 48;
+        saveData('activation7_multiplications', numCells);
+
+        // Create cells with progressive reveal
+        for (let i = 0; i < numCells; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'photo-cell';
+
+            if (capturedImage) {
+                const img = document.createElement('img');
+                img.src = capturedImage;
+
+                // Random variations
+                const hue = Math.random() * 60 - 30;
+                const sat = 0.7 + Math.random() * 0.6;
+                const bright = 0.8 + Math.random() * 0.4;
+
+                cell.classList.add('glitch');
+                cell.style.setProperty('--hue', hue + 'deg');
+                cell.style.setProperty('--sat', sat);
+                cell.style.setProperty('--bright', bright);
+
+                // Some cells get corruption effect
+                if (Math.random() < 0.15) {
+                    cell.classList.add('corrupt');
+                }
+
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                cell.appendChild(img);
+
+                // Staggered reveal with glitch
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                    if (Math.random() < 0.3) {
+                        triggerGlitch();
+                        vibrate(20);
+                    }
+                }, i * 50);
+            }
+
+            grid.appendChild(cell);
+        }
+
+        setTimeout(() => {
+            grid.classList.add('visible');
+        }, 100);
+
+        setTimeout(() => {
+            document.getElementById('multiplyCount').classList.add('visible');
+            document.getElementById('multiplyCount').textContent = '×' + numCells;
+            triggerScreenTear();
+        }, numCells * 50 + 500);
+
+        setTimeout(() => {
+            document.getElementById('multiplyComment').classList.add('visible');
+        }, numCells * 50 + 1500);
+
+        setTimeout(() => {
+            document.getElementById('multiplyContinue').classList.add('visible');
+        }, numCells * 50 + 2500);
+    }
+
+    // Fallback without camera
+    document.getElementById('photoFallback').addEventListener('click', () => {
+        if (photoComplete) return;
+        photoComplete = true;
+
+        vibrate([50, 30, 100]);
+        triggerGlitch();
+
+        saveData('activation7_photo', 'simulated');
+
+        document.getElementById('captureLabel').textContent = 'simulato';
+
+        setTimeout(() => {
+            document.getElementById('photoPrompt').classList.remove('visible');
+            showMultiplicationReveal();
+        }, 800);
+    });
+
+    document.getElementById('captureBtn').addEventListener('click', capturePhoto);
+
+    document.getElementById('multiplyContinue').addEventListener('click', () => {
+        triggerScreenTear();
+        document.getElementById('multiplyReveal').classList.remove('visible');
+        setTimeout(() => {
+            document.getElementById('multiplyReveal').style.display = 'none';
+            document.getElementById('ch4').scrollIntoView({ behavior: 'smooth' });
+        }, 600);
+    });
+
+    // Show fallback after delay
+    setTimeout(() => {
+        if (!cameraStream && !photoComplete) {
+            document.getElementById('photoFallback').classList.add('visible');
+        }
+    }, 4000);
+
+    // === OBSERVER ===
+    let showPhotoTriggered = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+                entry.target.classList.add('visible');
+                playTone(90 + Math.random() * 50, 0.3, 'sine', 0.02);
+
+                if (entry.target.closest('#ch3') && !showPhotoTriggered && !photoComplete) {
+                    showPhotoTriggered = true;
+                    setTimeout(() => {
+                        document.getElementById('photoPrompt').classList.add('visible');
+                        initCamera();
+                    }, 1500);
+                }
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => document.getElementById('scrollIndicator').classList.add('hidden'));
+
+    // === RETURN ===
+    document.getElementById('returnPrompt').addEventListener('click', () => {
+        triggerHideoBlackout(400);
+        vibrate([50, 30, 50]);
+
+        setTimeout(() => {
+            const overlay = document.getElementById('finalOverlay');
+            const text = document.getElementById('farewellText');
+
+            const readingTime = Math.round((Date.now() - sessionStart) / 60000);
+            const timeStr = readingTime < 1 ? 'meno di un minuto' : `${readingTime} minuti`;
+
+            const data = getData();
+            const multiplications = data.activation7_multiplications || 48;
+
+            let msg = `<em>${timeStr}</em> qui.<br>`;
+            msg += `Il tuo volto: <em>${multiplications}</em> variazioni.<br><br>`;
+            msg += `Nessuna salvata.<br>Tutte dissolte.`;
+
+            text.innerHTML = msg;
+            overlay.classList.add('visible');
+
+            saveData('innesto7_completed', true);
+        }, 500);
+    });
+</script>
+
+</body>
+</html>

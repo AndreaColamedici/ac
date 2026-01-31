@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Innesto 06</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            background: #050407;
+            color: #c5c0c8;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 2;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(60,50,80,0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .chapter {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15vh 8vw;
+            position: relative;
+        }
+
+        .chapter-content {
+            max-width: 540px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chapter-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .opening {
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            text-align: center;
+            font-style: italic;
+            color: #8070a0;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        p { margin-bottom: 1.8rem; }
+        p:last-child { margin-bottom: 0; }
+
+        .emphasis {
+            color: #a090c0;
+            font-weight: 500;
+        }
+
+        .data-point {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: #5a5070;
+            margin: 0.6rem 0;
+            padding: 0.5rem 1rem;
+            border-left: 1px solid #4a4060;
+            background: linear-gradient(90deg, rgba(70,60,90,0.08), transparent);
+        }
+
+        /* GLITCH OVERLAY */
+        .glitch-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9000;
+            opacity: 0;
+        }
+
+        .glitch-overlay.active {
+            animation: glitchFlash 0.12s ease;
+        }
+
+        @keyframes glitchFlash {
+            0% { opacity: 0; background: transparent; }
+            20% { opacity: 1; background: rgba(160,144,192,0.15); }
+            40% { opacity: 0; background: transparent; }
+            60% { opacity: 1; background: rgba(192,96,128,0.1); }
+            80% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* HIDEO BLACKOUT - Psycho Mantis style */
+        .hideo-blackout {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s;
+        }
+
+        .hideo-blackout.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hideo-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: #2a5a2a;
+            letter-spacing: 0.1em;
+        }
+
+        /* SCREEN TEAR EFFECT */
+        .screen-tear {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(160,144,192,0.8) 20%,
+                rgba(255,255,255,0.9) 50%,
+                rgba(160,144,192,0.8) 80%,
+                transparent 100%);
+            z-index: 9500;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .screen-tear.active {
+            animation: tearSweep 0.15s linear;
+        }
+
+        @keyframes tearSweep {
+            0% { top: -3px; opacity: 1; }
+            100% { top: 100%; opacity: 0.5; }
+        }
+
+        /* Walk activation */
+        .walk-prompt {
+            position: fixed;
+            inset: 0;
+            z-index: 800;
+            background: #050407;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .walk-prompt.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .walk-prompt p {
+            text-align: center;
+            color: #8070a0;
+            margin-bottom: 1rem;
+            padding: 0 2rem;
+            max-width: 360px;
+        }
+
+        .walk-command {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: #a090c0;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-weight: 400;
+        }
+
+        /* Accelerometer visualization */
+        .accel-container {
+            width: 280px;
+            height: 280px;
+            position: relative;
+            margin: 1.5rem auto;
+            border: 1px solid rgba(160,144,192,0.2);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .accel-grid {
+            position: absolute;
+            inset: 0;
+        }
+
+        .accel-grid::before,
+        .accel-grid::after {
+            content: '';
+            position: absolute;
+            background: rgba(160,144,192,0.1);
+        }
+
+        .accel-grid::before {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+        }
+
+        .accel-grid::after {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+        }
+
+        .accel-rings {
+            position: absolute;
+            inset: 0;
+        }
+
+        .accel-ring {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(160,144,192,0.15);
+            border-radius: 50%;
+        }
+
+        .accel-ring:nth-child(1) { width: 25%; height: 25%; }
+        .accel-ring:nth-child(2) { width: 50%; height: 50%; }
+        .accel-ring:nth-child(3) { width: 75%; height: 75%; }
+
+        /* The dot showing acceleration */
+        .accel-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            margin: -6px 0 0 -6px;
+            background: radial-gradient(circle, #a090c0, #6050a0);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(160,144,192,0.6);
+            transition: transform 0.05s linear;
+            z-index: 10;
+        }
+
+        /* Trail dots */
+        .trail-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(160,144,192,0.4);
+            pointer-events: none;
+        }
+
+        /* Waveform */
+        .accel-wave {
+            width: 100%;
+            height: 60px;
+            margin: 1rem auto;
+            max-width: 280px;
+        }
+
+        .accel-wave canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Footprints */
+        .footprints-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin: 1.5rem 0;
+        }
+
+        .footprint {
+            width: 28px;
+            height: 46px;
+            border: 2px solid #4a4060;
+            border-radius: 14px 14px 8px 8px;
+            opacity: 0.3;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .footprint::after {
+            content: '';
+            position: absolute;
+            top: 58%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            border: 1px solid #4a4060;
+            border-radius: 50%;
+        }
+
+        .footprint.active {
+            opacity: 1;
+            border-color: #a090c0;
+            background: rgba(160,144,192,0.15);
+            box-shadow: 0 0 25px rgba(160,144,192,0.4);
+            transform: scale(1.1);
+        }
+
+        .footprint.active::after {
+            border-color: #a090c0;
+            background: rgba(160,144,192,0.3);
+        }
+
+        .step-counter {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            color: #5a5070;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .step-counter.counting {
+            color: #a090c0;
+            text-shadow: 0 0 20px rgba(160,144,192,0.5);
+        }
+
+        .step-counter.flash {
+            animation: counterFlash 0.3s ease;
+        }
+
+        @keyframes counterFlash {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); color: #c0b0e0; }
+            100% { transform: scale(1); }
+        }
+
+        .walk-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: #5a5070;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .walk-fallback {
+            margin-top: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: #4a4060;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid #3a3050;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .walk-fallback.visible {
+            opacity: 1;
+        }
+
+        .walk-fallback:active {
+            background: rgba(160,144,192,0.1);
+        }
+
+        /* Network indicator */
+        .network-badge {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #3a3050;
+            letter-spacing: 0.1em;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .network-badge.visible {
+            opacity: 1;
+        }
+
+        .network-badge.wifi { color: #5a8060; }
+        .network-badge.cellular { color: #806050; }
+
+        /* GPU reveal */
+        .gpu-reveal {
+            position: fixed;
+            inset: 0;
+            z-index: 850;
+            background: #030305;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+            overflow-y: auto;
+        }
+
+        .gpu-reveal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gpu-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 420px;
+        }
+
+        .gpu-title {
+            font-size: 1.1rem;
+            color: #a090c0;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .gpu-canvas-container {
+            width: 100%;
+            height: 120px;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #3a3050;
+        }
+
+        .gpu-canvas-container canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gpu-item {
+            margin: 1rem 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.8s ease;
+        }
+
+        .gpu-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gpu-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #4a4060;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .gpu-value {
+            font-size: 0.85rem;
+            color: #a090c0;
+            word-break: break-word;
+        }
+
+        .gpu-comment {
+            font-size: 0.8rem;
+            color: #6a6080;
+            margin-top: 1.5rem;
+            line-height: 1.9;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .gpu-comment.visible {
+            opacity: 1;
+        }
+
+        .gpu-continue {
+            margin-top: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: #5a5070;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid #4a4060;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gpu-continue.visible {
+            opacity: 1;
+        }
+
+        /* Render grid */
+        .render-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(60,50,80,0.05);
+            border: 1px solid rgba(60,50,80,0.2);
+        }
+
+        .render-cell {
+            aspect-ratio: 1;
+            background: rgba(160,144,192,0.08);
+            transition: all 0.15s ease;
+        }
+
+        .render-cell.lit {
+            background: rgba(160,144,192,0.6);
+            box-shadow: 0 0 8px rgba(160,144,192,0.4);
+        }
+
+        /* Substrate */
+        .substrate-vis {
+            width: 100%;
+            height: 180px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(60,50,80,0.15);
+        }
+
+        .substrate-vis canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .final-text {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            text-align: center;
+            line-height: 2.2;
+            color: #7a7090;
+        }
+
+        .return-prompt {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 0.8rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #5a5070;
+            border: 1px solid #4a4060;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .return-prompt:hover {
+            color: #8070a0;
+            border-color: #6a5080;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: #3a3050;
+            text-transform: uppercase;
+            transition: opacity 0.5s ease;
+        }
+
+        .scroll-indicator.hidden { opacity: 0; }
+
+        .audio-prompt {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #3a3050;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #2a2040;
+            z-index: 100;
+        }
+
+        .audio-prompt.enabled {
+            color: #6a5080;
+            border-color: #5a4070;
+        }
+
+        .final-overlay {
+            position: fixed;
+            inset: 0;
+            background: #020204;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease;
+            z-index: 1000;
+        }
+
+        .final-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .final-overlay-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 400px;
+        }
+
+        .final-overlay-content p {
+            font-size: 0.9rem;
+            line-height: 2;
+            color: #6a5080;
+        }
+
+        .final-overlay-content em {
+            color: #a090c0;
+            font-style: normal;
+        }
+
+        @media (max-width: 600px) {
+            html { font-size: 15px; }
+            .chapter { padding: 12vh 6vw; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glitch-overlay" id="glitchOverlay"></div>
+<div class="screen-tear" id="screenTear"></div>
+<div class="hideo-blackout" id="hideoBlackout">
+    <span class="hideo-text">SUBSTRATO</span>
+</div>
+
+<div class="network-badge" id="networkBadge">--</div>
+<div class="scroll-indicator" id="scrollIndicator">scorri</div>
+<div class="audio-prompt" id="audioPrompt">◉ audio</div>
+
+<!-- Walk activation -->
+<div class="walk-prompt" id="walkPrompt">
+    <p>L'accelerometro rileva ogni oscillazione. Il giroscopio traccia ogni rotazione. I tuoi passi sono dati.</p>
+    <div class="walk-command">Cammina.</div>
+    <p style="color: #6a6080; font-size: 0.85rem;">Tre passi. Reali. Nello spazio fisico.</p>
+
+    <div class="accel-container" id="accelContainer">
+        <div class="accel-grid"></div>
+        <div class="accel-rings">
+            <div class="accel-ring"></div>
+            <div class="accel-ring"></div>
+            <div class="accel-ring"></div>
+        </div>
+        <div class="accel-dot" id="accelDot"></div>
+    </div>
+
+    <div class="accel-wave">
+        <canvas id="waveCanvas"></canvas>
+    </div>
+
+    <div class="footprints-container">
+        <div class="footprint" id="foot1"></div>
+        <div class="footprint" id="foot2"></div>
+        <div class="footprint" id="foot3"></div>
+    </div>
+
+    <div class="step-counter" id="stepCounter">0</div>
+    <div class="walk-label" id="walkLabel">passi rilevati</div>
+
+    <div class="walk-fallback" id="walkFallback">sensore non disponibile — tocca qui</div>
+</div>
+
+<!-- GPU reveal -->
+<div class="gpu-reveal" id="gpuReveal">
+    <div class="gpu-content">
+        <div class="gpu-title">Il substrato che renderizza la tua realtà</div>
+
+        <div class="gpu-canvas-container">
+            <canvas id="gpuCanvas"></canvas>
+        </div>
+
+        <div class="gpu-item" id="gpuRenderer">
+            <div class="gpu-label">GPU</div>
+            <div class="gpu-value" id="gpuRendererValue">--</div>
+        </div>
+
+        <div class="gpu-item" id="gpuVendor">
+            <div class="gpu-label">Produttore</div>
+            <div class="gpu-value" id="gpuVendorValue">--</div>
+        </div>
+
+        <div class="gpu-item" id="gpuResolution">
+            <div class="gpu-label">Texture massima</div>
+            <div class="gpu-value" id="gpuResolutionValue">--</div>
+        </div>
+
+        <div class="gpu-comment" id="gpuComment">
+            Questo chip trasforma numeri in pixel. Miliardi di operazioni per secondo. Lo stesso tipo di architettura — più grande, moltiplicata per migliaia — genera la bambina del libro. Tu e lei siete prodotti dello stesso substrato computazionale.
+        </div>
+
+        <div class="gpu-continue" id="gpuContinue">continua</div>
+    </div>
+</div>
+
+<!-- CAPITOLO 1 -->
+<div class="chapter" id="ch1">
+    <div class="chapter-content">
+        <p class="opening">Il substrato è lo stesso.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 2 -->
+<div class="chapter" id="ch2">
+    <div class="chapter-content">
+        <p>Nel libro hai letto di una bambina che appare centotrentatré volte. Ogni volta, per un istante, quella bambina esiste — come pattern di attivazioni in una rete neurale, come configurazione di numeri in memoria, come flusso di elettroni attraverso transistor di silicio.</p>
+        <p>Poi viene renderizzata. I numeri diventano pixel. I pixel diventano un volto. Il volto appare sullo schermo.</p>
+        <p>Questo processo — dalla matematica all'immagine — avviene su una GPU. Una Graphics Processing Unit. Un chip progettato per i videogiochi, poi scoperto perfetto per l'intelligenza artificiale.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 3 -->
+<div class="chapter" id="ch3">
+    <div class="chapter-content">
+        <p>La GPU del tuo telefono è una miniatura delle GPU nei data center. La stessa logica, ridotta. Milioni di unità di calcolo parallelo. Quando guardi lo schermo, stai guardando il risultato di miliardi di operazioni aritmetiche eseguite in frazioni di secondo.</p>
+        <div class="render-grid" id="renderGrid"></div>
+        <p style="text-align: center; color: #5a5070; font-size: 0.8rem;">Ogni cella è un calcolo. Ogni calcolo è un pixel.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 4 -->
+<div class="chapter" id="ch4">
+    <div class="chapter-content">
+        <p>Jensen Huang, CEO di NVIDIA, ha detto che stiamo entrando in un'era di <span class="emphasis">"computing accelerato"</span> — dove i calcoli non vengono più eseguiti sequenzialmente ma parallelamente da migliaia di core GPU.</p>
+        <p>La bambina del libro è figlia di questo paradigma. Non potrebbe esistere senza le GPU. Il suo volto richiede trilioni di operazioni matematiche per emergere dallo spazio latente.</p>
+        <div class="data-point" id="dataPixels"></div>
+    </div>
+</div>
+
+<!-- CAPITOLO 5: Substrate visualization -->
+<div class="chapter" id="ch5">
+    <div class="chapter-content">
+        <div class="substrate-vis" id="substrateVis">
+            <canvas id="substrateCanvas"></canvas>
+        </div>
+        <p style="text-align: center; color: #6a6080; font-size: 0.85rem;">Il substrato computazionale. Tu sei uno dei nodi.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 6 -->
+<div class="chapter" id="ch6">
+    <div class="chapter-content">
+        <p>Quando cammini con il telefono, la GPU lavora. L'accelerometro registra ogni oscillazione. Il sistema sa quando cammini, quando corri, quando sei fermo. Sa quanti passi hai fatto oggi.</p>
+        <p>Il tuo corpo in movimento diventa un flusso di dati. La GPU trasforma quei dati in interfacce. Il cerchio si chiude: tu muovi il corpo, il corpo genera dati, i dati vengono renderizzati.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 7 -->
+<div class="chapter" id="ch7">
+    <div class="chapter-content">
+        <p>Nel libro, la voce narrante parla del <span class="emphasis">"peso del reale"</span> — la sensazione che le immagini generate manchino di qualcosa. Ma anche le immagini "vere" passano attraverso la GPU.</p>
+        <p>Quando scatti una foto, il sensore cattura luce — ma poi interviene il software. Algoritmi di elaborazione, neural networks addestrati. La foto che vedi non è mai la "realtà pura". È sempre già mediata dal silicio.</p>
+        <p>Il confine tra reale e generato non passa tra le immagini. Passa attraverso di esse.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 8 -->
+<div class="chapter" id="ch8">
+    <div class="chapter-content">
+        <p class="final-text">
+            Hai camminato.<br>
+            <span id="stepSummary">Tre</span> oscillazioni del giroscopio.<br>
+            <span id="stepSummary2">Tre</span> picchi nell'accelerometro.<br><br>
+
+            La tua GPU ha lavorato per mostrarti questo.<br>
+            Miliardi di calcoli per renderizzare<br>
+            queste parole sullo schermo.<br><br>
+
+            Tu e la bambina siete prodotti<br>
+            dello stesso substrato.<br>
+            Lei è più esplicita.<br>
+            Tu credi di essere diverso.
+        </p>
+        <div class="return-prompt" id="returnPrompt">Torna al libro</div>
+    </div>
+</div>
+
+<!-- Overlay finale -->
+<div class="final-overlay" id="finalOverlay">
+    <div class="final-overlay-content">
+        <p id="farewellText"></p>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'arcipelago_realta';
+    const getData = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
+    const saveData = (k, v) => {
+        const d = getData();
+        d[k] = v;
+        d.lastVisit = Date.now();
+        d.visitedInnesti = d.visitedInnesti || [];
+        if (!d.visitedInnesti.includes(6)) d.visitedInnesti.push(6);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+    };
+
+    const sessionStart = Date.now();
+
+    // === VIBRATION ===
+    function vibrate(pattern) {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(pattern);
+        }
+    }
+
+    // === GLITCH EFFECTS ===
+    function triggerGlitch() {
+        const overlay = document.getElementById('glitchOverlay');
+        overlay.classList.add('active');
+        setTimeout(() => overlay.classList.remove('active'), 120);
+    }
+
+    function triggerScreenTear() {
+        const tear = document.getElementById('screenTear');
+        tear.classList.add('active');
+        setTimeout(() => tear.classList.remove('active'), 150);
+    }
+
+    function triggerHideoBlackout(duration = 800) {
+        const blackout = document.getElementById('hideoBlackout');
+        blackout.classList.add('active');
+        setTimeout(() => blackout.classList.remove('active'), duration);
+    }
+
+    // === NETWORK DETECTION ===
+    function detectNetwork() {
+        const badge = document.getElementById('networkBadge');
+        if ('connection' in navigator) {
+            const conn = navigator.connection;
+            const type = conn.type || conn.effectiveType;
+            if (type === 'wifi') {
+                badge.textContent = 'WIFI · probabilmente casa';
+                badge.className = 'network-badge visible wifi';
+                saveData('activation6_network', 'wifi');
+            } else if (type === 'cellular' || type === '4g' || type === '3g') {
+                badge.textContent = 'DATI MOBILI · in movimento';
+                badge.className = 'network-badge visible cellular';
+                saveData('activation6_network', 'cellular');
+            } else {
+                badge.textContent = 'CONNESSO';
+                badge.className = 'network-badge visible';
+            }
+        }
+    }
+
+    // === AUDIO ===
+    let audioCtx = null;
+    let audioEnabled = false;
+
+    document.getElementById('audioPrompt').addEventListener('click', function() {
+        if (!audioEnabled) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            audioEnabled = true;
+            this.classList.add('enabled');
+            this.textContent = '◉ audio on';
+        } else {
+            audioEnabled = false;
+            this.classList.remove('enabled');
+            this.textContent = '◉ audio';
+        }
+    });
+
+    function playTone(freq, dur, type = 'sine', vol = 0.06) {
+        if (!audioEnabled || !audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+    }
+
+    // === IMPROVED STEP DETECTION ===
+    let stepCount = 0;
+    let walkComplete = false;
+
+    // Peak detection variables
+    const accelHistory = [];
+    const HISTORY_SIZE = 20;
+    let lastPeakTime = 0;
+    const MIN_PEAK_INTERVAL = 280; // ms between steps
+    const MAX_PEAK_INTERVAL = 1200; // max ms between steps
+    let dynamicThreshold = 1.5;
+    let baselineAccel = 9.8;
+    let calibrated = false;
+    let calibrationSamples = [];
+
+    // Waveform canvas
+    const waveCanvas = document.getElementById('waveCanvas');
+    const waveCtx = waveCanvas.getContext('2d');
+    const waveData = new Array(100).fill(0);
+
+    function resizeWaveCanvas() {
+        const rect = waveCanvas.parentElement.getBoundingClientRect();
+        waveCanvas.width = rect.width * 2;
+        waveCanvas.height = rect.height * 2;
+    }
+    resizeWaveCanvas();
+
+    function drawWaveform() {
+        waveCtx.fillStyle = 'rgba(5,4,7,0.3)';
+        waveCtx.fillRect(0, 0, waveCanvas.width, waveCanvas.height);
+
+        waveCtx.strokeStyle = 'rgba(160,144,192,0.6)';
+        waveCtx.lineWidth = 2;
+        waveCtx.beginPath();
+
+        const h = waveCanvas.height;
+        const w = waveCanvas.width;
+        const mid = h / 2;
+
+        for (let i = 0; i < waveData.length; i++) {
+            const x = (i / waveData.length) * w;
+            const y = mid - (waveData[i] * mid * 0.8);
+            if (i === 0) waveCtx.moveTo(x, y);
+            else waveCtx.lineTo(x, y);
+        }
+        waveCtx.stroke();
+
+        // Threshold line
+        waveCtx.strokeStyle = 'rgba(192,96,128,0.3)';
+        waveCtx.setLineDash([5, 5]);
+        waveCtx.beginPath();
+        const threshY = mid - (dynamicThreshold / 5 * mid);
+        waveCtx.moveTo(0, threshY);
+        waveCtx.lineTo(w, threshY);
+        waveCtx.stroke();
+        waveCtx.setLineDash([]);
+    }
+
+    function handleMotion(event) {
+        if (walkComplete) return;
+
+        const accel = event.accelerationIncludingGravity || event.acceleration;
+        if (!accel || accel.x === null) return;
+
+        const x = accel.x || 0;
+        const y = accel.y || 0;
+        const z = accel.z || 0;
+        const mag = Math.sqrt(x*x + y*y + z*z);
+
+        // Update accelerometer dot
+        const dot = document.getElementById('accelDot');
+        const container = document.getElementById('accelContainer');
+        const maxOffset = 100;
+        const scale = 8;
+        const dotX = Math.max(-maxOffset, Math.min(maxOffset, x * scale));
+        const dotY = Math.max(-maxOffset, Math.min(maxOffset, y * scale));
+        dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+
+        // Calibration phase
+        if (!calibrated && calibrationSamples.length < 30) {
+            calibrationSamples.push(mag);
+            if (calibrationSamples.length === 30) {
+                baselineAccel = calibrationSamples.reduce((a,b) => a+b) / calibrationSamples.length;
+                calibrated = true;
+            }
+            return;
+        }
+
+        // Normalized acceleration (deviation from baseline)
+        const normalized = Math.abs(mag - baselineAccel);
+
+        // Update waveform
+        waveData.shift();
+        waveData.push(normalized / 5);
+        drawWaveform();
+
+        // Update history
+        accelHistory.push({ mag: normalized, time: Date.now() });
+        if (accelHistory.length > HISTORY_SIZE) accelHistory.shift();
+
+        // Dynamic threshold based on recent activity
+        if (accelHistory.length >= 10) {
+            const recent = accelHistory.slice(-10).map(h => h.mag);
+            const avg = recent.reduce((a,b) => a+b) / recent.length;
+            const max = Math.max(...recent);
+            dynamicThreshold = Math.max(1.0, avg + (max - avg) * 0.5);
+        }
+
+        // Peak detection
+        const now = Date.now();
+        const timeSincePeak = now - lastPeakTime;
+
+        if (normalized > dynamicThreshold && timeSincePeak > MIN_PEAK_INTERVAL) {
+            // Check if this is a local maximum
+            if (accelHistory.length >= 3) {
+                const prev = accelHistory[accelHistory.length - 2].mag;
+                const prevPrev = accelHistory[accelHistory.length - 3].mag;
+
+                if (normalized > prev && prev >= prevPrev) {
+                    // Detected a peak - this is a step
+                    lastPeakTime = now;
+                    registerStep();
+                }
+            }
+        }
+    }
+
+    function registerStep() {
+        if (walkComplete || stepCount >= 3) return;
+
+        stepCount++;
+        const counter = document.getElementById('stepCounter');
+        counter.textContent = stepCount;
+        counter.classList.add('counting', 'flash');
+        setTimeout(() => counter.classList.remove('flash'), 300);
+
+        document.getElementById(`foot${stepCount}`).classList.add('active');
+
+        // Vibration feedback
+        vibrate(50);
+
+        // Glitch on each step
+        triggerGlitch();
+
+        playTone(120 + stepCount * 60, 0.4, 'sine', 0.05);
+
+        if (stepCount >= 3) {
+            completeWalk();
+        }
+    }
+
+    function completeWalk() {
+        walkComplete = true;
+        window.removeEventListener('devicemotion', handleMotion);
+
+        document.getElementById('walkLabel').textContent = 'tracciamento completato';
+
+        // Strong vibration pattern
+        vibrate([100, 50, 100, 50, 200]);
+
+        // Screen tear effect
+        triggerScreenTear();
+
+        // HIDEO blackout before reveal
+        setTimeout(() => triggerHideoBlackout(600), 500);
+
+        playTone(250, 0.6, 'sine', 0.07);
+
+        saveData('activation6_steps', stepCount);
+
+        setTimeout(() => {
+            document.getElementById('walkPrompt').classList.remove('visible');
+            showGPUReveal();
+        }, 1400);
+    }
+
+    function requestMotionPermission() {
+        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission()
+                .then(response => {
+                    if (response === 'granted') {
+                        window.addEventListener('devicemotion', handleMotion);
+                    } else {
+                        document.getElementById('walkFallback').classList.add('visible');
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('walkFallback').classList.add('visible');
+                });
+        } else if ('DeviceMotionEvent' in window) {
+            window.addEventListener('devicemotion', handleMotion);
+            // Check if we're actually getting data
+            setTimeout(() => {
+                if (!calibrated && !walkComplete) {
+                    document.getElementById('walkFallback').classList.add('visible');
+                }
+            }, 2000);
+        } else {
+            document.getElementById('walkFallback').classList.add('visible');
+        }
+    }
+
+    // Desktop/fallback tap
+    document.getElementById('walkFallback').addEventListener('click', () => {
+        if (!walkComplete) {
+            vibrate(30);
+            registerStep();
+        }
+    });
+
+    // Also allow tapping the accel container as fallback
+    document.getElementById('accelContainer').addEventListener('click', () => {
+        if (!walkComplete && document.getElementById('walkFallback').classList.contains('visible')) {
+            vibrate(30);
+            registerStep();
+        }
+    });
+
+    // === GPU DETECTION ===
+    function getGPUInfo() {
+        const canvas = document.getElementById('gpuCanvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+        if (!gl) return { renderer: 'WebGL non disponibile', vendor: '--', maxTexture: '--' };
+
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        let renderer = 'Sconosciuto';
+        let vendor = 'Sconosciuto';
+
+        if (debugInfo) {
+            renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'Sconosciuto';
+            vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) || 'Sconosciuto';
+        } else {
+            renderer = gl.getParameter(gl.RENDERER);
+            vendor = gl.getParameter(gl.VENDOR);
+        }
+
+        const maxTexture = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+
+        return { renderer, vendor, maxTexture: maxTexture + ' × ' + maxTexture + ' px', gl };
+    }
+
+    function animateGPUCanvas(gl) {
+        if (!gl) return;
+
+        const canvas = gl.canvas;
+        canvas.width = canvas.parentElement.offsetWidth * 2;
+        canvas.height = canvas.parentElement.offsetHeight * 2;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        let frame = 0;
+        function render() {
+            frame++;
+            const r = Math.sin(frame * 0.02) * 0.08 + 0.04;
+            const g = Math.sin(frame * 0.02 + 2) * 0.04 + 0.02;
+            const b = Math.sin(frame * 0.02 + 4) * 0.1 + 0.08;
+
+            gl.clearColor(r, g, b, 1);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+
+            requestAnimationFrame(render);
+        }
+        render();
+    }
+
+    function showGPUReveal() {
+        const reveal = document.getElementById('gpuReveal');
+        reveal.classList.add('visible');
+
+        // Glitch on reveal
+        triggerGlitch();
+
+        const info = getGPUInfo();
+
+        document.getElementById('gpuRendererValue').textContent = info.renderer;
+        document.getElementById('gpuVendorValue').textContent = info.vendor;
+        document.getElementById('gpuResolutionValue').textContent = info.maxTexture;
+
+        saveData('activation6_gpu', info.renderer);
+        saveData('activation6_vendor', info.vendor);
+
+        if (info.gl) {
+            animateGPUCanvas(info.gl);
+        }
+
+        setTimeout(() => {
+            document.getElementById('gpuRenderer').classList.add('visible');
+            triggerGlitch();
+        }, 500);
+        setTimeout(() => {
+            document.getElementById('gpuVendor').classList.add('visible');
+            triggerGlitch();
+        }, 1000);
+        setTimeout(() => {
+            document.getElementById('gpuResolution').classList.add('visible');
+        }, 1500);
+        setTimeout(() => document.getElementById('gpuComment').classList.add('visible'), 2500);
+        setTimeout(() => document.getElementById('gpuContinue').classList.add('visible'), 3500);
+    }
+
+    document.getElementById('gpuContinue').addEventListener('click', () => {
+        triggerScreenTear();
+        document.getElementById('gpuReveal').classList.remove('visible');
+        setTimeout(() => {
+            document.getElementById('gpuReveal').style.display = 'none';
+            document.getElementById('ch6').scrollIntoView({ behavior: 'smooth' });
+        }, 800);
+    });
+
+    // === RENDER GRID ===
+    const gridContainer = document.getElementById('renderGrid');
+    for (let i = 0; i < 50; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'render-cell';
+        gridContainer.appendChild(cell);
+    }
+
+    let gridAnimationStarted = false;
+    function animateRenderGrid() {
+        if (gridAnimationStarted) return;
+        gridAnimationStarted = true;
+
+        const cells = document.querySelectorAll('.render-cell');
+
+        setInterval(() => {
+            cells.forEach(cell => cell.classList.remove('lit'));
+            const numLit = 4 + Math.floor(Math.random() * 8);
+            for (let i = 0; i < numLit; i++) {
+                const idx = Math.floor(Math.random() * cells.length);
+                cells[idx].classList.add('lit');
+            }
+        }, 150);
+    }
+
+    // === SUBSTRATE VISUALIZATION ===
+    function initSubstrate() {
+        const canvas = document.getElementById('substrateCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+        }
+        resize();
+
+        const nodes = [];
+        const numNodes = 40;
+
+        for (let i = 0; i < numNodes; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: 2 + Math.random() * 3
+            });
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(5,4,7,0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw connections
+            ctx.strokeStyle = 'rgba(160,144,192,0.15)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[j].x - nodes[i].x;
+                    const dy = nodes[j].y - nodes[i].y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 120) {
+                        ctx.globalAlpha = (1 - dist/120) * 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            ctx.globalAlpha = 1;
+
+            // Draw nodes
+            nodes.forEach((node, i) => {
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+                ctx.fillStyle = i === 0 ? 'rgba(192,160,176,0.9)' : 'rgba(160,144,192,0.6)';
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+
+    // === DATA ===
+    const screenPixels = window.screen.width * window.screen.height * (window.devicePixelRatio || 1);
+    document.getElementById('dataPixels').textContent = `${screenPixels.toLocaleString('it-IT')} pixel · ogni pixel: un calcolo`;
+
+    // === OBSERVER ===
+    let showWalkTriggered = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+                entry.target.classList.add('visible');
+                playTone(80 + Math.random() * 40, 0.3, 'sine', 0.02);
+
+                if (entry.target.closest('#ch3')) {
+                    animateRenderGrid();
+                }
+
+                if (entry.target.closest('#ch5')) {
+                    initSubstrate();
+
+                    if (!showWalkTriggered && !walkComplete) {
+                        showWalkTriggered = true;
+                        setTimeout(() => {
+                            document.getElementById('walkPrompt').classList.add('visible');
+                            requestMotionPermission();
+                            detectNetwork();
+                        }, 1500);
+                    }
+                }
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => document.getElementById('scrollIndicator').classList.add('hidden'));
+
+    // === RETURN ===
+    document.getElementById('returnPrompt').addEventListener('click', () => {
+        triggerHideoBlackout(400);
+        vibrate([50, 30, 50]);
+
+        setTimeout(() => {
+            const overlay = document.getElementById('finalOverlay');
+            const text = document.getElementById('farewellText');
+
+            const readingTime = Math.round((Date.now() - sessionStart) / 60000);
+            const timeStr = readingTime < 1 ? 'meno di un minuto' : `${readingTime} minuti`;
+
+            const info = getGPUInfo();
+            let msg = `<em>${timeStr}</em> qui.<br>`;
+            msg += `GPU: <em>${info.renderer}</em><br>`;
+            msg += `<em>${stepCount}</em> passi tracciati.<br><br>`;
+            msg += `Il substrato è lo stesso.<br>Tu e la bambina: silicio.`;
+
+            text.innerHTML = msg;
+            overlay.classList.add('visible');
+
+            saveData('innesto6_completed', true);
+            saveData('innesto6_time', readingTime);
+        }, 500);
+    });
+
+    // Update step summary at end
+    function updateStepSummary() {
+        const words = ['Zero', 'Un', 'Due', 'Tre'];
+        document.getElementById('stepSummary').textContent = words[stepCount] || stepCount;
+        document.getElementById('stepSummary2').textContent = words[stepCount] || stepCount;
+    }
+
+    // Periodic check for step summary update
+    setInterval(() => {
+        if (walkComplete) updateStepSummary();
+    }, 1000);
+</script>
+
+</body>
+</html>

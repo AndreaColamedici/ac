@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Innesto 02</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
             background: #050505;
             color: #e0e0e0;
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 18px;
             line-height: 1.9;
             scroll-behavior: smooth;
         }
@@ -353,7 +353,7 @@
             position: fixed;
             pointer-events: none;
             z-index: 100;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 1.2rem;
             color: rgba(212,165,116,0.6);
             transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -728,6 +728,43 @@
             color: #7a8fa8;
             border-color: #5a6a7a;
         }
+
+        /* Desktop fallback */
+        .rotate-fallback {
+            margin-top: 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: #3a4a5a;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid #2a3a4a;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .rotate-fallback.visible {
+            opacity: 1;
+        }
+
+        .rotate-fallback:hover {
+            color: #5a6a7a;
+            border-color: #4a5a6a;
+        }
+
+        /* Rotation progress indicator */
+        .rotate-progress {
+            margin-top: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem;
+            color: #4a5a6a;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .rotate-progress.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -742,8 +779,10 @@
 <!-- ATTIVAZIONE: Rotazione -->
 <div class="rotate-prompt" id="rotatePrompt">
     <p>Hai lasciato una parola.<br>Ora vuoi vedere dove va?</p>
-    <div class="rotate-icon"></div>
-    <div class="rotate-label">ruota il telefono</div>
+    <div class="rotate-icon" id="rotateIcon"></div>
+    <div class="rotate-label" id="rotateLabel">ruota il telefono</div>
+    <div class="rotate-progress" id="rotateProgress"></div>
+    <div class="rotate-fallback" id="rotateFallback">oppure tocca qui</div>
 </div>
 
 <!-- Landscape Reveal -->
@@ -1228,7 +1267,9 @@
             setTimeout(() => {
                 document.getElementById('rotatePrompt').classList.add('visible');
                 document.getElementById('journeyWord').textContent = w;
+                rotationPromptShown = true;
                 playTone(100, 1, 'sine', 0.02);
+                showRotationFallback();
             }, 500);
         }, 2000);
     }
@@ -1236,34 +1277,75 @@
     // === ROTATION DETECTION ===
     let rotationHandled = false;
     let currentWord = '';
+    let rotationPromptShown = false;
 
     function checkOrientation() {
         if (rotationHandled) return;
 
-        const isLandscape = window.innerWidth > window.innerHeight;
+        const rotatePrompt = document.getElementById('rotatePrompt');
+
+        // Multiple detection methods for better reliability
+        const isLandscape = window.innerWidth > window.innerHeight ||
+            (screen.orientation && screen.orientation.type.includes('landscape')) ||
+            (window.orientation && (window.orientation === 90 || window.orientation === -90));
+
+        // Show progress feedback when user starts rotating
+        if (rotatePrompt.classList.contains('visible')) {
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            const rotateProgress = document.getElementById('rotateProgress');
+
+            if (aspectRatio > 0.85 && aspectRatio < 1.15) {
+                rotateProgress.textContent = 'quasi...';
+                rotateProgress.classList.add('visible');
+            } else if (!isLandscape) {
+                rotateProgress.classList.remove('visible');
+            }
+        }
+
+        if (isLandscape && rotatePrompt.classList.contains('visible')) {
+            triggerRotationReveal();
+        }
+    }
+
+    function triggerRotationReveal() {
+        if (rotationHandled) return;
+        rotationHandled = true;
+
         const rotatePrompt = document.getElementById('rotatePrompt');
         const landscapeReveal = document.getElementById('landscapeReveal');
 
-        if (isLandscape && rotatePrompt.classList.contains('visible')) {
-            rotationHandled = true;
-            rotatePrompt.classList.remove('visible');
-            landscapeReveal.classList.add('visible');
+        rotatePrompt.classList.remove('visible');
+        landscapeReveal.classList.add('visible');
 
-            // Populate languages
-            const langs = navigator.languages || [navigator.language];
-            document.getElementById('langValue').textContent = langs.join(' · ');
+        // Populate languages
+        const langs = navigator.languages || [navigator.language];
+        document.getElementById('langValue').textContent = langs.join(' · ');
 
-            // Get the word
-            currentWord = document.getElementById('journeyWord').textContent;
+        // Get the word
+        currentWord = document.getElementById('journeyWord').textContent;
 
-            // Animate the journey
-            animateJourney();
+        // Animate the journey
+        animateJourney();
 
-            // Save activation
-            saveData('activation2_rotation', true);
-            saveData('activation2_languages', langs);
-        }
+        // Save activation
+        saveData('activation2_rotation', true);
+        saveData('activation2_languages', langs);
     }
+
+    // Show fallback button after delay (for desktop users)
+    function showRotationFallback() {
+        if (rotationHandled) return;
+        setTimeout(() => {
+            if (!rotationHandled && rotationPromptShown) {
+                document.getElementById('rotateFallback').classList.add('visible');
+            }
+        }, 4000); // Show after 4 seconds
+    }
+
+    // Fallback click handler
+    document.getElementById('rotateFallback').addEventListener('click', () => {
+        triggerRotationReveal();
+    });
 
     function animateJourney() {
         const nodes = document.querySelectorAll('.journey-node');
@@ -1313,9 +1395,21 @@
         }, delay + 1500);
     }
 
-    // Listen for orientation changes
+    // Listen for orientation changes - multiple methods for reliability
     window.addEventListener('resize', checkOrientation);
     window.addEventListener('orientationchange', checkOrientation);
+
+    // Also use screen.orientation API if available
+    if (screen.orientation) {
+        screen.orientation.addEventListener('change', checkOrientation);
+    }
+
+    // Poll for orientation changes on mobile (backup)
+    setInterval(() => {
+        if (rotationPromptShown && !rotationHandled) {
+            checkOrientation();
+        }
+    }, 500);
 
     // Continue from landscape
     document.getElementById('landscapeContinue').addEventListener('click', () => {

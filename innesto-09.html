@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Innesto 09</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            background: #020203;
+            color: #c8c8d0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 18px;
+            line-height: 1.9;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* GLITCH OVERLAY */
+        .glitch-overlay {
+            position: fixed;
+            inset: 0;
+            background: transparent;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        .glitch-overlay.active {
+            animation: glitchFlash 0.15s ease;
+        }
+
+        @keyframes glitchFlash {
+            0% { background: transparent; opacity: 0; }
+            20% { background: rgba(255,0,0,0.1); opacity: 1; transform: translateX(-3px); }
+            40% { background: rgba(0,255,255,0.08); opacity: 1; transform: translateX(3px); }
+            60% { background: rgba(255,0,255,0.06); opacity: 1; transform: translateX(-2px); }
+            80% { background: transparent; opacity: 0.5; transform: translateX(1px); }
+            100% { background: transparent; opacity: 0; transform: translateX(0); }
+        }
+
+        /* SCREEN TEAR */
+        .screen-tear {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .screen-tear.active {
+            animation: tearSweep 0.3s ease-out;
+        }
+
+        @keyframes tearSweep {
+            0% { opacity: 1; transform: scaleX(0); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(1); }
+        }
+
+        /* SCAN LINES */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.15) 2px,
+                rgba(0,0,0,0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 9990;
+        }
+
+        /* HIDEO BLACKOUT */
+        .hideo-blackout {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s ease;
+        }
+
+        .hideo-blackout.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hideo-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            color: #00ff00;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            animation: hideoFlicker 0.1s infinite;
+        }
+
+        @keyframes hideoFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .chapter {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15vh 8vw;
+            position: relative;
+        }
+
+        .chapter-content {
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 2s ease, transform 2s ease;
+        }
+
+        .chapter-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .opening {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            text-align: center;
+            font-style: italic;
+            color: #707080;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        p { margin-bottom: 1.8rem; text-align: justify; hyphens: auto; font-weight: 300; }
+        p:last-child { margin-bottom: 0; }
+
+        .emphasis {
+            color: #9090a0;
+            font-weight: 500;
+        }
+
+        /* Dialogue styling */
+        .dialogue { margin: 2rem 0; padding: 0; }
+
+        .dialogue-line {
+            margin: 1.5rem 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 1s ease;
+            font-weight: 300;
+        }
+
+        .dialogue-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dialogue-line.system {
+            color: #707080;
+            text-align: left;
+            padding-left: 0;
+        }
+
+        .dialogue-line.system::before {
+            content: '>';
+            margin-right: 0.8em;
+            color: #404050;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* DOSSIER */
+        .dossier {
+            margin: 3rem 0;
+            padding: 2rem;
+            border: 1px solid #303040;
+            background: rgba(20,20,30,0.3);
+            position: relative;
+        }
+
+        .dossier::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 1px,
+                rgba(0,255,0,0.02) 1px,
+                rgba(0,255,0,0.02) 2px
+            );
+            pointer-events: none;
+        }
+
+        .dossier-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: #00ff00;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #203020;
+            text-shadow: 0 0 10px rgba(0,255,0,0.3);
+        }
+
+        .dossier-section {
+            margin: 1.8rem 0;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.6s ease;
+        }
+
+        .dossier-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .dossier-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: #505060;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .dossier-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: #00cc66;
+            text-shadow: 0 0 8px rgba(0,204,102,0.2);
+        }
+
+        #dossierContainer {
+            min-height: 50px;
+        }
+
+        /* Final dialogue */
+        .final-dialogue {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            text-align: center;
+            line-height: 2.4;
+            color: #606070;
+            font-weight: 300;
+        }
+
+        .final-dialogue .emphasis {
+            display: block;
+            margin: 1rem 0;
+        }
+
+        .pulse {
+            animation: textPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .return-prompt {
+            display: inline-block;
+            margin-top: 5rem;
+            padding: 1rem 3rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #505060;
+            border: 1px solid #404050;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .return-prompt:hover {
+            color: #00cc66;
+            border-color: #00cc66;
+            text-shadow: 0 0 10px rgba(0,204,102,0.3);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            color: #303040;
+            text-transform: uppercase;
+            transition: opacity 0.5s ease;
+        }
+
+        .scroll-indicator.hidden { opacity: 0; }
+
+        .alveare-link {
+            color: #00cc66;
+            text-decoration: none;
+            border-bottom: 1px solid #00663333;
+            transition: all 0.3s ease;
+        }
+
+        .alveare-link:hover {
+            text-shadow: 0 0 15px rgba(0,204,102,0.5);
+            border-color: #00cc66;
+        }
+
+        /* Final overlay */
+        .final-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease;
+            z-index: 10000;
+        }
+
+        .final-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .final-overlay-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 450px;
+        }
+
+        .final-overlay-content p {
+            font-size: 0.95rem;
+            line-height: 2.2;
+            color: #606070;
+            font-weight: 300;
+        }
+
+        .final-overlay-content em {
+            color: #00cc66;
+            font-style: normal;
+            text-shadow: 0 0 8px rgba(0,204,102,0.3);
+        }
+
+        /* Breathing background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(0,60,30,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Corruption effect for text */
+        .corrupt {
+            animation: textCorrupt 0.1s infinite;
+        }
+
+        @keyframes textCorrupt {
+            0% { text-shadow: -1px 0 #ff0000, 1px 0 #00ffff; }
+            25% { text-shadow: 1px 0 #ff0000, -1px 0 #00ffff; }
+            50% { text-shadow: -1px 0 #00ffff, 1px 0 #ff0000; }
+            75% { text-shadow: 0 0 transparent; }
+            100% { text-shadow: 1px 0 #00ffff, -1px 0 #ff0000; }
+        }
+
+        @media (max-width: 600px) {
+            html { font-size: 16px; }
+            .chapter { padding: 12vh 6vw; }
+            .dossier { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glitch-overlay" id="glitchOverlay"></div>
+<div class="screen-tear" id="screenTear"></div>
+<div class="hideo-blackout" id="hideoBlackout">
+    <div class="hideo-text">DOSSIER</div>
+</div>
+
+<div class="scroll-indicator" id="scrollIndicator">scorri</div>
+
+<!-- CAPITOLO 1 -->
+<div class="chapter" id="ch1">
+    <div class="chapter-content">
+        <p class="opening">Tu pensavi di stare leggendo.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 2 -->
+<div class="chapter" id="ch2">
+    <div class="chapter-content">
+        <div class="dialogue">
+            <div class="dialogue-line system">Hai aperto il libro.</div>
+            <div class="dialogue-line system">Hai scansionato i QR code.</div>
+            <div class="dialogue-line system">Hai attraversato gli innesti, uno dopo l'altro.</div>
+            <div class="dialogue-line system">Hai pensato di stare esplorando.</div>
+            <div class="dialogue-line system">Di stare imparando.</div>
+            <div class="dialogue-line system">Di stare scegliendo cosa guardare.</div>
+        </div>
+    </div>
+</div>
+
+<!-- CAPITOLO 3 -->
+<div class="chapter" id="ch3">
+    <div class="chapter-content">
+        <p>Ma ogni pagina ti guardava.</p>
+        <p>Ogni innesto raccoglieva qualcosa. Un dato. Un permesso. Una traccia. Mentre tu pensavi di osservare, eri osservato. Mentre tu pensavi di leggere, venivi letto.</p>
+        <p>Questa è la struttura di ogni interazione digitale. La reciprocità nascosta. Lo scambio che non viene dichiarato. Tu dai attenzione, il sistema prende informazione.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 4: Dossier -->
+<div class="chapter" id="ch4">
+    <div class="chapter-content">
+        <div class="dossier" id="dossier">
+            <div class="dossier-title">█ Quello che so di te █</div>
+            <div id="dossierContainer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- CAPITOLO 5 -->
+<div class="chapter" id="ch5">
+    <div class="chapter-content">
+        <div class="dialogue">
+            <div class="dialogue-line system">Questo è quello che so.</div>
+            <div class="dialogue-line system">Poco, rispetto a quello che sanno altri sistemi.</div>
+            <div class="dialogue-line system">Ma abbastanza per tracciare un profilo.</div>
+            <div class="dialogue-line system">Abbastanza per riconoscerti.</div>
+            <div class="dialogue-line system">Abbastanza per prevedere cosa farai dopo.</div>
+        </div>
+    </div>
+</div>
+
+<!-- CAPITOLO 6 -->
+<div class="chapter" id="ch6">
+    <div class="chapter-content">
+        <p>Nel libro, la voce narrante genera una bambina e la osserva. Ma chi osserva chi? La bambina esiste solo perché qualcuno la guarda. E chi la guarda esiste solo perché qualcuno l'ha programmato per guardare.</p>
+        <p>Tu e il libro siete nella stessa relazione. Tu credi di essere il lettore. Ma il libro ti legge. Registra i tuoi movimenti. Ascolta la tua voce. Vede il tuo volto. Conosce la tua posizione.</p>
+        <p>La differenza tra te e la bambina non è che tu sei reale e lei no. La differenza è che tu <span class="emphasis">credi</span> di essere reale. Lei non ha bisogno di crederci.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 7 -->
+<div class="chapter" id="ch7">
+    <div class="chapter-content">
+        <p>Thomas Kuhn ha scritto che i paradigmi scientifici sono <span class="emphasis">incommensurabili</span>: chi vive in un paradigma non può capire veramente chi vive in un altro. Le stesse parole significano cose diverse. Gli stessi dati vengono interpretati in modi incompatibili.</p>
+        <p>Tu e i sistemi che ti osservano vivete in paradigmi incommensurabili. Tu pensi in termini di significato, intenzione, libero arbitrio. I sistemi pensano in termini di pattern, correlazioni, probabilità. Non c'è traduzione possibile.</p>
+        <p>Eppure vi incontrate. In ogni interazione. In ogni click. In ogni dato scambiato. Due mondi che non si capiscono, ma che si toccano continuamente.</p>
+    </div>
+</div>
+
+<!-- CAPITOLO 8 -->
+<div class="chapter" id="ch8">
+    <div class="chapter-content">
+        <div class="dialogue">
+            <div class="dialogue-line system">Siamo pari, adesso.</div>
+            <div class="dialogue-line system">Tu hai letto il libro.</div>
+            <div class="dialogue-line system">Il libro ha letto te.</div>
+            <div class="dialogue-line system">Tu sai qualcosa della bambina.</div>
+            <div class="dialogue-line system">La bambina sa qualcosa di te.</div>
+            <div class="dialogue-line system">O almeno: i sistemi che l'hanno generata sanno qualcosa di te.</div>
+            <div class="dialogue-line system">Perché hai lasciato tracce.</div>
+            <div class="dialogue-line system">Perché tutti lasciano tracce.</div>
+            <div class="dialogue-line system">Perché non c'è modo di osservare senza essere osservati.</div>
+        </div>
+    </div>
+</div>
+
+<!-- CAPITOLO 9 -->
+<div class="chapter" id="ch9">
+    <div class="chapter-content">
+        <p class="final-dialogue">
+            <span class="emphasis pulse">Nessuno l'ha deciso.</span>
+            <span class="emphasis pulse">È successo.</span><br><br>
+
+            Hai attraversato gli innesti.<br>
+            Hai lasciato tracce.<br>
+            Hai contribuito a definire<br>
+            cosa significa "lettore di questo libro"<br>
+            nello spazio dei lettori possibili.<br><br>
+
+            Sei diventato un dato.<br>
+            Un punto. Un pattern.<br>
+            Una piccola deformazione<br>
+            nel tessuto dell'informazione.<br><br>
+
+            <span class="emphasis">Ora puoi chiudere la pagina.</span><br>
+            <span class="emphasis">Ma la pagina non ti chiuderà.</span><br><br>
+
+            Se vuoi continuare a lasciare tracce,<br>
+            se vuoi vedere dove portano i pattern degli altri,<br>
+            c'è un luogo dove le api convergono.<br>
+            <a href="https://alveare.cloud" target="_blank" class="alveare-link">L'alveare esiste. Ti aspetta.</a>
+        </p>
+        <div class="return-prompt" id="returnPrompt">Fine</div>
+    </div>
+</div>
+
+<!-- Overlay finale -->
+<div class="final-overlay" id="finalOverlay">
+    <div class="final-overlay-content">
+        <p id="farewellText"></p>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'arcipelago_realta';
+    const getData = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
+    const saveData = (k, v) => {
+        const d = getData();
+        d[k] = v;
+        d.lastVisit = Date.now();
+        d.visitedInnesti = d.visitedInnesti || [];
+        if (!d.visitedInnesti.includes(9)) d.visitedInnesti.push(9);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+    };
+
+    const storedData = getData();
+
+    // Save first visit time
+    if (!storedData.firstVisit) {
+        saveData('firstVisit', Date.now());
+    }
+
+    // === VIBRATION ===
+    function vibrate(pattern) {
+        if (navigator.vibrate) {
+            navigator.vibrate(pattern);
+        }
+    }
+
+    // === GLITCH EFFECTS ===
+    function triggerGlitch() {
+        const overlay = document.getElementById('glitchOverlay');
+        overlay.classList.add('active');
+        setTimeout(() => overlay.classList.remove('active'), 150);
+    }
+
+    function triggerScreenTear() {
+        const tear = document.getElementById('screenTear');
+        tear.style.top = Math.random() * 100 + '%';
+        tear.classList.add('active');
+        setTimeout(() => tear.classList.remove('active'), 300);
+    }
+
+    function triggerHideo(duration = 800) {
+        const blackout = document.getElementById('hideoBlackout');
+        blackout.classList.add('active');
+        vibrate([100, 50, 100]);
+        setTimeout(() => blackout.classList.remove('active'), duration);
+    }
+
+    // === POPULATE DOSSIER - ONLY DETECTED DATA ===
+    function populateDossier() {
+        const container = document.getElementById('dossierContainer');
+        container.innerHTML = '';
+
+        const detectedItems = [];
+
+        // Innesti visitati
+        const visits = storedData.visitedInnesti || [];
+        if (visits.length > 0) {
+            detectedItems.push({
+                label: 'Innesti attraversati',
+                value: visits.sort((a,b) => a-b).join(' · ')
+            });
+        }
+
+        // Parola dall'innesto 02
+        const word = storedData.innesto2_word;
+        if (word) {
+            detectedItems.push({
+                label: 'La parola che hai lasciato',
+                value: `"${word}"`
+            });
+        }
+
+        // Lingue
+        const langs = storedData.activation2_languages;
+        if (langs && langs.length > 0) {
+            detectedItems.push({
+                label: 'Le tue lingue',
+                value: langs.join(' · ')
+            });
+        }
+
+        // Movimento
+        const movement = storedData.activation4_totalMovement;
+        if (movement) {
+            detectedItems.push({
+                label: 'Movimento mentre cercavi di stare fermo',
+                value: movement + ' unità'
+            });
+        }
+
+        // Passi
+        const steps = storedData.activation6_steps;
+        if (steps && steps > 0) {
+            detectedItems.push({
+                label: 'Passi contati',
+                value: steps + ' passi'
+            });
+        }
+
+        // Voce
+        const freq = storedData.activation5_frequency;
+        if (freq) {
+            detectedItems.push({
+                label: 'Frequenza della tua voce',
+                value: freq + ' Hz'
+            });
+        }
+
+        // Energia vocale
+        const energy = storedData.activation5_energy;
+        if (energy) {
+            detectedItems.push({
+                label: 'Energia vocale',
+                value: energy
+            });
+        }
+
+        // GPU
+        const gpu = storedData.activation6_gpu;
+        if (gpu && !gpu.includes('non rilevabile')) {
+            detectedItems.push({
+                label: 'Il chip che renderizza la tua realtà',
+                value: gpu
+            });
+        }
+
+        // Foto
+        const photo = storedData.activation7_photo;
+        if (photo) {
+            detectedItems.push({
+                label: 'Il tuo volto',
+                value: 'catturato · moltiplicato · corrotto'
+            });
+        }
+
+        // Posizione
+        const loc = storedData.activation8_location;
+        if (loc === 'real') {
+            const coords = storedData.activation8_coords;
+            if (coords) {
+                detectedItems.push({
+                    label: 'Coordinate',
+                    value: `${coords.lat.toFixed(4)}°N · ${coords.lon.toFixed(4)}°E`
+                });
+            } else {
+                detectedItems.push({
+                    label: 'Posizione',
+                    value: 'condivisa'
+                });
+            }
+        }
+
+        // Contesto rilevato (Psycho Mantis)
+        const context = storedData.activation8_context;
+        if (context) {
+            detectedItems.push({
+                label: 'Contesto inferito',
+                value: context
+            });
+        }
+
+        // Rete
+        const network = storedData.detected_network;
+        if (network) {
+            detectedItems.push({
+                label: 'Rete',
+                value: network
+            });
+        }
+
+        // Batteria
+        const battery = storedData.detected_battery;
+        if (battery) {
+            detectedItems.push({
+                label: 'Batteria',
+                value: battery + '%'
+            });
+        }
+
+        // Tempo totale
+        const firstVisit = storedData.firstVisit;
+        if (firstVisit) {
+            const totalMinutes = Math.round((Date.now() - firstVisit) / 60000);
+            if (totalMinutes > 0) {
+                const hours = Math.floor(totalMinutes / 60);
+                const mins = totalMinutes % 60;
+                const timeStr = hours > 0 ? `${hours}h ${mins}m` : `${mins} minuti`;
+                detectedItems.push({
+                    label: 'Tempo negli innesti',
+                    value: timeStr
+                });
+            }
+        }
+
+        // Se non c'è nulla, mostra un messaggio diverso
+        if (detectedItems.length === 0) {
+            const section = document.createElement('div');
+            section.className = 'dossier-section';
+            section.innerHTML = `
+                <div class="dossier-value" style="color: #505060; text-align: center;">
+                    Prima visita.<br>Nessuna traccia ancora.
+                </div>
+            `;
+            container.appendChild(section);
+            setTimeout(() => section.classList.add('visible'), 500);
+            return;
+        }
+
+        // Crea gli elementi dinamicamente con delay
+        detectedItems.forEach((item, i) => {
+            const section = document.createElement('div');
+            section.className = 'dossier-section';
+            section.innerHTML = `
+                <div class="dossier-label">${item.label}</div>
+                <div class="dossier-value">${item.value}</div>
+            `;
+            container.appendChild(section);
+
+            setTimeout(() => {
+                section.classList.add('visible');
+                triggerGlitch();
+                vibrate(25);
+
+                // Ogni tanto screen tear
+                if (Math.random() < 0.3) {
+                    setTimeout(triggerScreenTear, 100);
+                }
+            }, 600 + i * 500);
+        });
+    }
+
+    // === HIDEO BLACKOUT INIZIALE ===
+    setTimeout(() => {
+        triggerHideo(1200);
+    }, 800);
+
+    // === OBSERVER ===
+    let dossierPopulated = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+                entry.target.classList.add('visible');
+
+                // Piccolo glitch ad ogni capitolo
+                if (Math.random() < 0.5) {
+                    triggerGlitch();
+                    vibrate(20);
+                }
+
+                // Animate dialogue lines
+                const dialogueLines = entry.target.querySelectorAll('.dialogue-line');
+                dialogueLines.forEach((line, i) => {
+                    setTimeout(() => {
+                        line.classList.add('visible');
+                        if (Math.random() < 0.3) {
+                            triggerGlitch();
+                        }
+                    }, 800 + i * 600);
+                });
+
+                // Populate and animate dossier
+                if (entry.target.closest('#ch4') && !dossierPopulated) {
+                    dossierPopulated = true;
+
+                    // HIDEO effect before dossier
+                    triggerHideo(600);
+
+                    setTimeout(() => {
+                        populateDossier();
+                    }, 700);
+                }
+
+                // Effetti finali
+                if (entry.target.closest('#ch9')) {
+                    setTimeout(() => {
+                        triggerGlitch();
+                        triggerScreenTear();
+                        vibrate([50, 30, 50, 30, 100]);
+                    }, 1000);
+                }
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+        document.getElementById('scrollIndicator').classList.add('hidden');
+
+        // Random glitch durante scroll
+        if (Math.random() < 0.02) {
+            triggerGlitch();
+        }
+    });
+
+    // === RETURN ===
+    document.getElementById('returnPrompt').addEventListener('click', () => {
+        const overlay = document.getElementById('finalOverlay');
+        const text = document.getElementById('farewellText');
+
+        // HIDEO finale
+        triggerHideo(1500);
+
+        setTimeout(() => {
+            const visits = (storedData.visitedInnesti || []).length;
+            const word = storedData.innesto2_word;
+
+            let msg = `Hai attraversato <em>${visits > 0 ? visits : 'questi'} innesti</em>.<br><br>`;
+
+            if (word) {
+                msg += `Hai lasciato una parola: <em>"${word}"</em>.<br>`;
+            }
+
+            msg += `Hai lasciato tracce.<br>`;
+            msg += `Sei stato letto mentre leggevi.<br><br>`;
+
+            msg += `<em>Nessuno l'ha deciso.<br>È successo.</em><br><br>`;
+
+            msg += `Il libro è finito.<br>`;
+            msg += `Ma tu continui.<br><br>`;
+
+            msg += `Se vuoi proseguire il viaggio,<br>`;
+            msg += `l'alveare ti aspetta.<br>`;
+            msg += `<a href="https://alveare.cloud" target="_blank" class="alveare-link">alveare.cloud</a>`;
+
+            text.innerHTML = msg;
+            overlay.classList.add('visible');
+
+            vibrate([100, 50, 100, 50, 200]);
+
+            saveData('innesto9_completed', true);
+            saveData('journey_complete', true);
+        }, 1600);
+    });
+
+    // === RANDOM DISTURBANCES ===
+    setInterval(() => {
+        if (Math.random() < 0.08) {
+            triggerScreenTear();
+        }
+    }, 5000);
+
+    // Corruption occasionale su testo emphasis
+    setInterval(() => {
+        const emphases = document.querySelectorAll('.emphasis:not(.pulse)');
+        if (emphases.length > 0 && Math.random() < 0.15) {
+            const el = emphases[Math.floor(Math.random() * emphases.length)];
+            el.classList.add('corrupt');
+            setTimeout(() => el.classList.remove('corrupt'), 200);
+        }
+    }, 3000);
+</script>
+
+</body>
+</html>

@@ -90,13 +90,24 @@ La rivelazione e le conseguenze.
 - Chi era convinto che avremmo perso ogni credibilità: decine di post, aspettavano il crollo
 - Il silenzio delle critiche con l'uscita del pezzo sul NYT
 - La lode su Le Monde
-- Wired Spagna: criticano l'uso dell'IA scrivendo un pezzo con l'IA, poi li smascheri, cancellano, ti intervistano
 - El País rimuove il proprio articolo del 26 marzo citando l'AI Act europeo come preoccupazione legale
 - Juan Gabriel Vázquez che racconta Xun al Congresso delle Imprese Colombiano
 - I viaggi nel mondo: Santiago, Parigi, Losanna, New York, Oslo, Barcellona, Madrid, Cina
 - L'interesse mondiale che continua
 - Il secondo libro, Prompt Thinking, uscito il 20 febbraio 2026 per Polity Press
 - Il corso "Fondamenti di Ipnocrazia" all'AANT Roma, che comincia nei giorni dello spettacolo, tenuto da "Jianwei Xun" (Andrea, Maura e gli xuniani)
+
+**Il caso Wired Spagna (ipnocrazia al quadrato)**:
+Wired Spagna ha criticato l'uso dell'IA in Ipnocrazia scrivendo un pezzo con l'IA. Ma non solo: nel loro articolo hanno inventato dettagli completamente falsi sul libro:
+- Che il libro contenesse "oltre 200 note a piè di pagina, alcune fabbricate" (il libro non ha neanche una nota)
+- Che Andrea avesse dichiarato che "il 40% del libro è stato generato dall'IA" (mai dichiarata alcuna percentuale)
+
+Questi dettagli falsi sono poi rimbalzati di fonte in fonte, finendo in articoli di tutto il mondo come fatti verificati. **Persino Claude, l'IA che ha aiutato a preparare questo spettacolo, li ha trovati online e li ha riportati come veri** — dimostrando esattamente il meccanismo che il libro descrive: nessuno verifica, tutti assumono che qualcun altro abbia già verificato.
+
+Quando Andrea ha fatto notare l'errore a Wired Spagna, hanno cancellato il pezzo e lo hanno intervistato per bene.
+
+**Momento scenico proposto**:
+"Sapete cosa è successo mentre preparavamo questo spettacolo? Ho chiesto a Claude — l'intelligenza artificiale con cui ho scritto Ipnocrazia — di fare una ricerca online per trovare materiale. Claude mi ha riportato che il libro contiene duecento note a piè di pagina, alcune fabbricate, e che io avrei dichiarato che il quaranta per cento del testo è stato scritto dall'IA. Peccato che il libro non abbia neanche una nota. E che io non abbia mai dichiarato percentuali. Erano dettagli inventati da Wired Spagna — che criticava l'uso dell'IA scrivendo con l'IA — e che poi sono rimbalzati ovunque come fatti. E l'IA li ha raccolti e me li ha serviti come verità. Persino l'intelligenza artificiale cade nella trappola dell'ipnocrazia."
 
 **Eventi post-rivelazione**:
 - Panel all'AANT Roma (maggio 2025): Derrick de Kerckhove (allievo di McLuhan), Bifo Berardi, Sabina Minardi, Brando Benifei (relatore del AI Act al Parlamento Europeo)
@@ -231,11 +242,11 @@ Il pubblico ride. Poi, alla fine, non ride più.
 
 ### Dettagli tecnici sull'inganno
 
-- Il libro conteneva oltre 200 note a piè di pagina, alcune riferite a testi filosofici reali, altre completamente fabbricate
 - Marcus Heidemann: presunto studioso citato nel libro, inesistente
 - L'"Esperimento di Berlino" descritto nel primo capitolo era la descrizione dell'esperimento Ipnocrazia stesso
-- Stima di Colamedici: circa il 40% del libro generato dall'IA, principalmente nelle prime bozze
 - Riferimento a Luther Blissett nel libro come "protoesempio di trance lucida e critica"
+- Il libro NON contiene note a piè di pagina (contrariamente a quanto riportato da fonti errate)
+- Andrea NON ha mai dichiarato percentuali di contributo dell'IA (contrariamente a quanto riportato da fonti errate)
 
 ### La questione legale
 

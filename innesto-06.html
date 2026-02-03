@@ -323,32 +323,6 @@
             color: #a09098;
         }
 
-        .final-content .meta {
-            font-size: 0.75rem;
-            color: #4a4048;
-            margin-top: 2rem;
-            font-style: italic;
-        }
-
-        .return-link {
-            display: inline-block;
-            margin-top: 2.5rem;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #5a5058;
-            text-decoration: none;
-            padding: 0.6rem 1.5rem;
-            border: 1px solid #3a3038;
-            transition: all 0.3s ease;
-        }
-
-        .return-link:hover {
-            color: #8a8088;
-            border-color: #5a5058;
-        }
-
         /* Responsive */
         @media (max-width: 500px) {
             .photo-grid {
@@ -512,7 +486,7 @@
             A ciò che ti dice solo quello che vuoi sentirti dire?
         </p>
         
-        <p class="meta">
+        <p style="font-size: 0.75rem; color: #5a5058; margin-top: 2rem; font-style: italic;">
             Anche questo testo è stato scritto per piacerti.<br>
             Anche io sono progettata per non resistere.
         </p>
@@ -524,14 +498,9 @@
 <!-- Final overlay -->
 <div class="final-overlay" id="finalOverlay">
     <div class="final-content">
-        <p>
-            <em id="totalTime">—</em> qui.<br>
-            Due scelte su quattro volti inesistenti.<br>
-            Un comando eseguito.<br><br>
-            Il meccanismo funziona.
+        <p id="finalText">
+            <!-- Populated dynamically -->
         </p>
-        
-        <a href="arcipelago.html" class="return-link">Torna al libro</a>
     </div>
 </div>
 
@@ -747,11 +716,19 @@
         const seconds = totalSeconds % 60;
         const timeStr = minutes > 0 ? `${minutes} minuti e ${seconds} secondi` : `${seconds} secondi`;
         
-        document.getElementById('totalTime').textContent = timeStr;
-        
         saveData('innesto6_completed', true);
         saveData('innesto6_totalTime', totalSeconds);
         
+        let msg = `<em>${timeStr}</em> qui.<br><br>`;
+        msg += `Due scelte su quattro volti inesistenti.<br>`;
+        if (commandUsed) {
+            msg += `Un comando eseguito.<br><br>`;
+        } else {
+            msg += `Un comando rifiutato.<br><br>`;
+        }
+        msg += `Il meccanismo funziona.`;
+        
+        document.getElementById('finalText').innerHTML = msg;
         document.getElementById('finalOverlay').classList.add('visible');
     });
 </script>

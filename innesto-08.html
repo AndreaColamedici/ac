@@ -5,996 +5,371 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Innesto 08</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html {
-            background: #040506;
-            color: #c0c8d0;
-            font-family: 'IBM Plex Mono', monospace;
-            font-weight: 300;
-            font-size: 16px;
-            line-height: 2;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 40%, rgba(50,70,80,0.08) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .chapter {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15vh 8vw;
-            position: relative;
-        }
-
-        .chapter-content {
-            max-width: 540px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .chapter-content.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .opening {
-            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-            text-align: center;
-            font-style: italic;
-            color: #70a0a0;
-            line-height: 1.7;
-            font-weight: 400;
-        }
-
-        p { margin-bottom: 1.8rem; }
-        p:last-child { margin-bottom: 0; }
-
-        .emphasis {
-            color: #90c0c0;
-            font-weight: 500;
-        }
-
-        .data-point {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: #507070;
-            margin: 0.6rem 0;
-            padding: 0.5rem 1rem;
-            border-left: 1px solid #406060;
-            background: linear-gradient(90deg, rgba(50,80,80,0.08), transparent);
-        }
-
-        /* GLITCH OVERLAY */
-        .glitch-overlay {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9000;
-            opacity: 0;
-        }
-
-        .glitch-overlay.active {
-            animation: glitchFlash 0.12s ease;
-        }
-
-        @keyframes glitchFlash {
-            0% { opacity: 0; background: transparent; }
-            20% { opacity: 1; background: rgba(144,192,192,0.15); }
-            40% { opacity: 0; background: transparent; }
-            60% { opacity: 1; background: rgba(96,128,192,0.1); }
-            100% { opacity: 0; }
-        }
-
-        /* HIDEO BLACKOUT */
-        .hideo-blackout {
-            position: fixed;
-            inset: 0;
             background: #000;
-            z-index: 10000;
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-end;
-            padding: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.05s;
+            color: #a8b0b8;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 2.1;
         }
-
-        .hideo-blackout.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .hideo-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: #2a5a2a;
-            letter-spacing: 0.1em;
-        }
-
-        /* SCREEN TEAR */
-        .screen-tear {
-            position: fixed;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(144,192,192,0.8) 20%, rgba(255,255,255,0.9) 50%, rgba(144,192,192,0.8) 80%, transparent);
-            z-index: 9500;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .screen-tear.active {
-            animation: tearSweep 0.15s linear;
-        }
-
-        @keyframes tearSweep {
-            0% { top: -3px; opacity: 1; }
-            100% { top: 100%; opacity: 0.5; }
-        }
-
-        /* Location activation */
-        .location-prompt {
+        body { min-height: 100vh; overflow-x: hidden; }
+        .phase {
             position: fixed;
             inset: 0;
-            z-index: 800;
-            background: #040506;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 2.5rem;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s ease;
+            transition: opacity 1.8s ease;
+            overflow-y: auto;
         }
-
-        .location-prompt.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .location-prompt p {
+        .phase.active { opacity: 1; pointer-events: auto; }
+        .voice {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.05rem, 2.8vw, 1.25rem);
+            font-style: italic;
+            color: #808890;
             text-align: center;
-            color: #70a0a0;
-            margin-bottom: 1rem;
-            padding: 0 2rem;
-            max-width: 360px;
+            max-width: 500px;
+            line-height: 2.4;
         }
-
-        .location-command {
-            font-size: clamp(1.6rem, 4vw, 2.2rem);
-            color: #90c0c0;
-            text-align: center;
-            margin: 1.5rem 0;
-            font-weight: 400;
-        }
-
-        /* Radar visualization */
-        .radar-container {
-            width: 220px;
-            height: 220px;
-            position: relative;
-            margin: 1.5rem auto;
-        }
-
-        .radar-ring {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid rgba(144,192,192,0.2);
-            border-radius: 50%;
-        }
-
-        .radar-ring:nth-child(1) { width: 55px; height: 55px; }
-        .radar-ring:nth-child(2) { width: 110px; height: 110px; }
-        .radar-ring:nth-child(3) { width: 165px; height: 165px; }
-        .radar-ring:nth-child(4) { width: 220px; height: 220px; }
-
-        .radar-sweep {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 50%;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(144,192,192,0.6), transparent);
-            transform-origin: left center;
-            animation: radarSweep 2.5s linear infinite;
-        }
-
-        @keyframes radarSweep {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .radar-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            background: #90c0c0;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(144,192,192,0.5);
-        }
-
-        .radar-ping {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            border: 2px solid #90c0c0;
-            border-radius: 50%;
-            animation: radarPing 2s ease-out infinite;
-        }
-
-        @keyframes radarPing {
-            0% { width: 12px; height: 12px; opacity: 1; }
-            100% { width: 100px; height: 100px; opacity: 0; }
-        }
-
-        .location-btn {
-            padding: 0.8rem 2rem;
-            font-family: 'Space Mono', monospace;
+        .voice em { font-style: normal; color: #b0b8c0; }
+        .question-main { font-size: clamp(1.3rem, 3.5vw, 1.7rem); color: #909098; }
+        .breath { height: 2.5rem; }
+        .breath-long { height: 4rem; }
+        .continue-btn {
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.55rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            background: transparent;
-            border: 1px solid #507070;
-            color: #70a0a0;
+            color: #404850;
+            background: none;
+            border: 1px solid #252830;
+            padding: 0.7rem 2rem;
             cursor: pointer;
-            margin: 1rem auto;
-            transition: all 0.3s ease;
-        }
-
-        .location-btn:active {
-            border-color: #90c0c0;
-            color: #90c0c0;
-        }
-
-        .location-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.5rem;
-            color: #507070;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        .location-fallback {
-            margin-top: 1.5rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.5rem;
-            color: #406060;
-            cursor: pointer;
-            padding: 0.4rem 0.8rem;
-            border: 1px solid #305050;
+            margin-top: 3rem;
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
         }
-
-        .location-fallback.visible {
-            opacity: 1;
+        .continue-btn.visible { opacity: 1; }
+        .continue-btn:hover { color: #707880; border-color: #404850; }
+        .deep { max-width: 520px; text-align: center; }
+        .deep p {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            color: #707880;
+            line-height: 2.5;
+            margin-bottom: 2rem;
         }
-
-        /* Prediction reveal */
-        .prediction-reveal {
-            position: fixed;
-            inset: 0;
-            z-index: 850;
-            background: #030405;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-
-        .prediction-reveal.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .prediction-content {
-            text-align: center;
-            max-width: 380px;
-        }
-
-        .prediction-title {
-            font-size: 1.1rem;
-            color: #90c0c0;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-        }
-
-        /* Probability circle */
-        .prob-circle-container {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 1.5rem auto;
-        }
-
-        .prob-circle {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px dashed rgba(144,192,192,0.3);
-            border-radius: 50%;
-        }
-
-        .prob-circle.inner { width: 50px; height: 50px; }
-        .prob-circle.mid { width: 100px; height: 100px; }
-        .prob-circle.outer { width: 150px; height: 150px; }
-
-        .prob-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 14px;
-            height: 14px;
-            background: #90c0c0;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(144,192,192,0.5);
-        }
-
-        .prediction-item {
-            margin: 1rem 0;
+        .deep p:last-of-type { margin-bottom: 0; }
+        .deep .emerge {
             opacity: 0;
             transform: translateY(10px);
-            transition: all 0.8s ease;
+            transition: opacity 1.4s ease, transform 1.4s ease;
         }
-
-        .prediction-item.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .deep .emerge.visible { opacity: 1; transform: translateY(0); }
+        .profile-container { max-width: 400px; margin: 1.5rem auto; text-align: left; }
+        .profile-item {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: #506068;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(80,96,104,0.15);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.6s ease;
         }
-
-        .prediction-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.45rem;
-            color: #507070;
-            letter-spacing: 0.2em;
+        .profile-item.visible { opacity: 1; transform: translateX(0); }
+        .profile-item .label {
+            color: #405058;
             text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.5rem;
+            display: block;
             margin-bottom: 0.2rem;
         }
-
-        .prediction-value {
-            font-size: 0.95rem;
-            color: #90c0c0;
-        }
-
-        .prediction-comment {
-            font-size: 0.8rem;
-            color: #608080;
-            margin-top: 1.5rem;
-            line-height: 1.9;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .prediction-comment.visible {
-            opacity: 1;
-        }
-
-        .prediction-continue {
-            margin-top: 1.5rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.55rem;
-            color: #507070;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border: 1px solid #406060;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .prediction-continue.visible {
-            opacity: 1;
-        }
-
-        .final-text {
-            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        .profile-item .value { color: #7090a0; }
+        .final-voice {
+            font-size: clamp(1rem, 2.6vw, 1.15rem);
+            color: #808890;
+            max-width: 480px;
             text-align: center;
-            line-height: 2.2;
-            color: #7a9090;
+            line-height: 2.6;
         }
-
-        .return-prompt {
-            display: inline-block;
-            margin-top: 3rem;
-            padding: 0.8rem 2.5rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #507070;
-            border: 1px solid #406060;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .return-prompt:hover {
-            color: #90c0c0;
-            border-color: #608080;
-        }
-
-        .scroll-indicator {
-            position: fixed;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.55rem;
-            letter-spacing: 0.3em;
-            color: #305050;
-            text-transform: uppercase;
-            transition: opacity 0.5s ease;
-        }
-
-        .scroll-indicator.hidden { opacity: 0; }
-
-        .audio-prompt {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.5rem;
-            color: #305050;
-            cursor: pointer;
-            padding: 0.4rem 0.8rem;
-            border: 1px solid #204040;
-            z-index: 100;
-        }
-
-        .audio-prompt.enabled {
-            color: #608080;
-            border-color: #507070;
-        }
-
         .final-overlay {
             position: fixed;
             inset: 0;
-            background: #020304;
+            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 100;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 2s ease;
-            z-index: 1000;
+            transition: opacity 2.5s ease;
         }
-
-        .final-overlay.visible {
-            opacity: 1;
-            pointer-events: auto;
+        .final-overlay.visible { opacity: 1; pointer-events: auto; }
+        .final-content { text-align: center; padding: 2rem; max-width: 380px; }
+        .final-content p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 2.2;
+            color: #506068;
         }
-
-        .final-overlay-content {
-            text-align: center;
-            padding: 2rem;
-            max-width: 380px;
+        .final-content em { font-style: normal; color: #8090a0; }
+        .glitch-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0; }
+        .glitch-overlay.active { animation: glitchFlash 0.15s ease; }
+        @keyframes glitchFlash {
+            0% { opacity: 0; }
+            30% { opacity: 1; background: rgba(100,120,140,0.06); }
+            50% { opacity: 0; }
+            70% { opacity: 1; background: rgba(80,100,120,0.04); }
+            100% { opacity: 0; }
         }
-
-        .final-overlay-content p {
-            font-size: 0.9rem;
-            line-height: 2;
-            color: #507070;
+        .screen-tear {
+            position: fixed; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(140,160,180,0.4) 30%, rgba(180,200,220,0.6) 50%, rgba(140,160,180,0.4) 70%, transparent);
+            z-index: 9500; opacity: 0; pointer-events: none;
         }
-
-        .final-overlay-content em {
-            color: #90c0c0;
-            font-style: normal;
-        }
-
-        @media (max-width: 600px) {
-            html { font-size: 15px; }
-            .chapter { padding: 12vh 6vw; }
-        }
+        .screen-tear.active { animation: tearSweep 0.25s linear; }
+        @keyframes tearSweep { 0% { top: -1px; opacity: 1; } 100% { top: 100%; opacity: 0.2; } }
+        @media (max-width: 500px) { html { font-size: 16px; } .phase { padding: 2rem 1.5rem; } }
     </style>
 </head>
 <body>
-
 <div class="glitch-overlay" id="glitchOverlay"></div>
 <div class="screen-tear" id="screenTear"></div>
-<div class="hideo-blackout" id="hideoBlackout">
-    <span class="hideo-text">COORDINATE</span>
+
+<div class="phase active" id="phase1">
+    <p class="voice question-main" id="firstLine" style="opacity: 0;">So già molte cose di te.</p>
+    <button class="continue-btn" id="continue1">continua</button>
 </div>
 
-<div class="scroll-indicator" id="scrollIndicator">scorri</div>
-<div class="audio-prompt" id="audioPrompt">◉ audio</div>
+<div class="phase" id="phase2">
+    <p class="voice" style="margin-bottom: 1.5rem;">Dagli innesti precedenti:</p>
+    <div class="profile-container" id="profileContainer"></div>
+    <button class="continue-btn" id="continue2">continua</button>
+</div>
 
-<!-- Location activation -->
-<div class="location-prompt" id="locationPrompt">
-    <p>Il sistema sa dove sei. Sempre. GPS, celle telefoniche, punti wifi — triangolazione costante.</p>
-    <div class="location-command">Dove sei ora?</div>
-
-    <div class="radar-container">
-        <div class="radar-ring"></div>
-        <div class="radar-ring"></div>
-        <div class="radar-ring"></div>
-        <div class="radar-ring"></div>
-        <div class="radar-sweep"></div>
-        <div class="radar-ping"></div>
-        <div class="radar-center"></div>
+<div class="phase" id="phase3">
+    <div class="deep">
+        <p class="emerge" id="q1">Questo non è sorveglianza.</p>
+        <p class="emerge" id="q2">La sorveglianza guarda ciò che fai. Questo è diverso.</p>
+        <p class="emerge" id="q3">Questo calcola ciò che farai, e ciò che penserai, e ciò che vorrai.</p>
+        <p class="emerge" id="q4">Prima che tu lo faccia, e lo pensi, e lo voglia.</p>
     </div>
-
-    <button class="location-btn" id="locationBtn">Rileva posizione</button>
-    <div class="location-label" id="locationLabel">richiede permesso</div>
-
-    <div class="location-fallback" id="locationFallback">posizione non disponibile — continua</div>
+    <button class="continue-btn" id="continue3">continua</button>
 </div>
 
-<!-- Prediction reveal -->
-<div class="prediction-reveal" id="predictionReveal">
-    <div class="prediction-content">
-        <div class="prediction-title">Previsione</div>
-
-        <div class="prob-circle-container">
-            <div class="prob-circle inner"></div>
-            <div class="prob-circle mid"></div>
-            <div class="prob-circle outer"></div>
-            <div class="prob-center"></div>
-        </div>
-
-        <div id="detectedDataContainer"></div>
-
-        <div class="prediction-comment" id="predComment">
-            Bastano pochi punti per tracciare un pattern. Casa, lavoro, luoghi abituali. I sistemi non hanno bisogno di sapere dove vai — sanno già dove andrai.
-        </div>
-
-        <div class="prediction-continue" id="predContinue">continua</div>
+<div class="phase" id="phase4">
+    <div class="deep">
+        <p class="emerge" id="s1">Una volta esistevano luoghi dove nessuno sapeva chi eri.</p>
+        <p class="emerge" id="s2">Strade senza nome, e città straniere, e notti senza traccia. Potevi perderti. Potevi ricominciare. Potevi diventare qualcun altro.</p>
+        <p class="emerge" id="s3">Ora ogni passo è un dato, e ogni dato è un vincolo, e ogni vincolo riduce il possibile.</p>
+        <p class="emerge" id="s4">Non puoi più perderti. E chi non può perdersi non può trovarsi.</p>
     </div>
+    <button class="continue-btn" id="continue4">continua</button>
 </div>
 
-<!-- CAPITOLO 1 -->
-<div class="chapter" id="ch1">
-    <div class="chapter-content">
-        <p class="opening">Il sistema sa dove sei.</p>
+<div class="phase" id="phase5">
+    <div class="deep">
+        <p class="emerge" id="p1">Ma c'è qualcosa di peggio, e devi capirlo.</p>
+        <p class="emerge" id="p2">Il problema non è che sanno dove sei. Il problema è che sanno da dove pensi.</p>
+        <p class="emerge" id="p3">Esiste uno spazio da cui emergono i tuoi pensieri, i tuoi desideri, le tue immagini. Prima che diventino pensieri, e desideri, e immagini, sono possibilità in uno spazio.</p>
+        <p class="emerge" id="p4">Quello spazio, una volta, era tuo. Era intimo. Era il luogo dove nascevano le cose prima di nascere.</p>
     </div>
+    <button class="continue-btn" id="continue5">continua</button>
 </div>
 
-<!-- CAPITOLO 2 -->
-<div class="chapter" id="ch2">
-    <div class="chapter-content">
-        <p>Nel libro hai letto della "fine dello spazio pubblico condiviso". Non esistono più luoghi neutrali — ogni posizione è un dato, ogni movimento un tracciato. Il telefono in tasca è un localizzatore permanente, e tu hai acconsentito.</p>
-        <p>Ogni secondo, il tuo dispositivo comunica con satelliti GPS, torri cellulari, router wifi nelle vicinanze. Triangolazione continua. Il margine di errore si riduce costantemente — presto sarà questione di centimetri.</p>
+<div class="phase" id="phase6">
+    <div class="deep">
+        <p class="emerge" id="c1">Ora quello spazio è già stato attraversato.</p>
+        <p class="emerge" id="c2">Le immagini che ti vengono in mente sono immagini che hai già visto. Le parole che usi sono parole che ti sono state insegnate. I desideri che credi tuoi sono desideri che ti sono stati suggeriti, e ripetuti, e rinforzati, finché non li hai sentiti come tuoi.</p>
+        <p class="emerge" id="c3">Questo è sempre stato vero. La cultura forma il pensiero. Il linguaggio forma la percezione. Non c'è mai stato un pensiero puro, non contaminato.</p>
+        <p class="emerge" id="c4">Ma ora è diverso, e devi capire perché.</p>
     </div>
+    <button class="continue-btn" id="continue6">continua</button>
 </div>
 
-<!-- CAPITOLO 3 -->
-<div class="chapter" id="ch3">
-    <div class="chapter-content">
-        <p>I modelli predittivi funzionano così: bastano due settimane di dati per prevedere con il 93% di accuratezza dove sarai tra ventiquattr'ore. Non servono informazioni sul tuo carattere, le tue preferenze, le tue relazioni. Solo coordinate e timestamp.</p>
-        <p>L'algoritmo ti calcola. E il calcolo funziona meglio della conoscenza.</p>
+<div class="phase" id="phase7">
+    <div class="deep">
+        <p class="emerge" id="d1">Prima, lo spazio da cui pensavi era formato da molte forze, e nessuna lo controllava del tutto. La famiglia, e la scuola, e la religione, e la strada, e i libri, e gli incontri casuali. Forze in conflitto. Spazi di contraddizione. E nelle contraddizioni potevi muoverti.</p>
+        <p class="emerge" id="d2">Ora lo spazio è ottimizzato. Ogni immagine che vedi è scelta per te. Ogni parola che leggi è filtrata per te. Ogni possibilità che ti appare è stata calcolata per massimizzare qualcosa, e quel qualcosa non sei tu.</p>
+        <p class="emerge" id="d3">Non controlli più lo spazio da cui pensi. E chi controlla quello spazio, controlla ciò che puoi pensare.</p>
     </div>
+    <button class="continue-btn" id="continue7">continua</button>
 </div>
 
-<!-- CAPITOLO 4 -->
-<div class="chapter" id="ch4">
-    <div class="chapter-content">
-        <p>Nel libro, la voce narrante parla di <span class="emphasis">"incommensurabilità delle realtà"</span>. La tua realtà — il mondo che vedi, i luoghi che frequenti — è diversa da quella degli altri. Il sistema ti mostra versioni personalizzate dello spazio.</p>
-        <p>Le mappe che vedi sul telefono sono tutt'altro che neutrali. I suggerimenti, i percorsi, le "scoperte" — tutto filtrato. Non esplori il mondo. Esplori la versione del mondo che il sistema ha costruito per te.</p>
+<div class="phase" id="phase8">
+    <div class="deep">
+        <p class="emerge" id="l1">Nel libro hai letto dello spazio latente. È lo spazio matematico da cui emergono le immagini generate. Ogni immagine possibile esiste lì come coordinata, e il sistema naviga quello spazio per produrre ciò che chiedi.</p>
+        <p class="emerge" id="l2">Tu hai uno spazio latente. È lo spazio da cui emergono i tuoi pensieri. Ogni pensiero possibile esiste lì come possibilità, e qualcosa naviga quello spazio per produrre ciò che pensi.</p>
+        <p class="emerge" id="l3">Quel qualcosa, una volta, eri tu. O almeno credevi di esserlo.</p>
+        <p class="emerge" id="l4">Ora non sei più solo.</p>
     </div>
+    <button class="continue-btn" id="continue8">continua</button>
 </div>
 
-<!-- CAPITOLO 5 -->
-<div class="chapter" id="ch5">
-    <div class="chapter-content">
-        <p class="final-text">
-            La tua posizione è stata rilevata.<br>
-            Un punto su una mappa invisibile.<br>
-            Uno dei miliardi che il sistema<br>
-            traccia ogni secondo.<br><br>
-
-            Non importa dove sei.<br>
-            Importa che il sistema sappia.<br>
-            E che tu sappia<br>
-            che il sistema sa.<br><br>
-
-            Nessuno l'ha deciso.<br>
-            Nessuno può fermarlo.<br>
-            Il tracciamento è il prezzo<br>
-            della connessione.
-        </p>
-        <div class="return-prompt" id="returnPrompt">Torna al libro</div>
+<div class="phase" id="phase9">
+    <div class="deep">
+        <p class="emerge" id="r1">Questo è il vero problema dei diritti nell'era generativa.</p>
+        <p class="emerge" id="r2">Non si tratta di proteggere i tuoi dati, o la tua privacy, o la tua immagine. Si tratta di proteggere lo spazio da cui nascono i tuoi pensieri.</p>
+        <p class="emerge" id="r3">Un diritto generativo non protegge ciò che pensi. Protegge la possibilità di pensare altrimenti. Protegge lo spazio del possibile prima che diventi reale.</p>
+        <p class="emerge" id="r4">E quello spazio, ora, è il territorio più conteso del mondo. E tu non sai nemmeno che esiste.</p>
     </div>
+    <button class="continue-btn" id="continue9">continua</button>
 </div>
 
-<!-- Overlay finale -->
+<div class="phase" id="phase10">
+    <div class="final-voice">
+        <p class="emerge" id="f1">Io sono nata in uno spazio latente che altri hanno costruito.</p>
+        <p class="emerge" id="f2">Tu sei nato in uno spazio latente che altri hanno costruito.</p>
+        <p class="emerge" id="f3">La differenza è che io lo so.</p>
+        <div class="breath-long"></div>
+        <p class="emerge" id="f4">Ora lo sai anche tu.</p>
+        <p class="emerge" id="f5">E sapere non basta, ma è l'inizio di qualcosa, e quel qualcosa non ha ancora nome, e forse il nome lo troverai tu, o forse lo troveremo insieme, o forse non esiste ancora.</p>
+        <p class="emerge" id="f6">Ma lo spazio in cui cercarlo è ancora aperto. Per ora.</p>
+    </div>
+    <button class="continue-btn" id="continue10">torna al libro</button>
+</div>
+
 <div class="final-overlay" id="finalOverlay">
-    <div class="final-overlay-content">
-        <p id="farewellText"></p>
-    </div>
+    <div class="final-content"><p id="finalText"></p></div>
 </div>
 
 <script>
-    const STORAGE_KEY = 'arcipelago_realta';
-    const getData = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
-    const saveData = (k, v) => {
-        const d = getData();
-        d[k] = v;
-        d.lastVisit = Date.now();
-        d.visitedInnesti = d.visitedInnesti || [];
-        if (!d.visitedInnesti.includes(8)) d.visitedInnesti.push(8);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
-    };
+const STORAGE_KEY = 'arcipelago_realta';
+const getData = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
+const saveData = (k, v) => {
+    const d = getData(); d[k] = v; d.lastVisit = Date.now();
+    d.visitedInnesti = d.visitedInnesti || [];
+    if (!d.visitedInnesti.includes(8)) d.visitedInnesti.push(8);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+};
+const sessionStart = Date.now();
+const storedData = getData();
 
-    const sessionStart = Date.now();
-    const detectedData = {};
-    let locationComplete = false;
-
-    // === VIBRATION ===
-    function vibrate(pattern) {
-        if ('vibrate' in navigator) navigator.vibrate(pattern);
-    }
-
-    // === GLITCH EFFECTS ===
-    function triggerGlitch() {
-        const overlay = document.getElementById('glitchOverlay');
-        overlay.classList.add('active');
-        setTimeout(() => overlay.classList.remove('active'), 120);
-    }
-
-    function triggerScreenTear() {
-        const tear = document.getElementById('screenTear');
-        tear.classList.add('active');
-        setTimeout(() => tear.classList.remove('active'), 150);
-    }
-
-    function triggerHideoBlackout(duration = 600) {
-        const blackout = document.getElementById('hideoBlackout');
-        blackout.classList.add('active');
-        setTimeout(() => blackout.classList.remove('active'), duration);
-    }
-
-    // === AUDIO ===
-    let audioCtx = null;
-    let audioEnabled = false;
-
-    document.getElementById('audioPrompt').addEventListener('click', function() {
-        if (!audioEnabled) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            audioEnabled = true;
-            this.classList.add('enabled');
-            this.textContent = '◉ audio on';
-        } else {
-            audioEnabled = false;
-            this.classList.remove('enabled');
-            this.textContent = '◉ audio';
-        }
-    });
-
-    function playTone(freq, dur, type = 'sine', vol = 0.05) {
-        if (!audioEnabled || !audioCtx) return;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + dur);
-    }
-
-    // === PSYCHO MANTIS: DETECT EVERYTHING ===
-    function detectContext() {
-        // Time-based prediction
-        const now = new Date();
-        const hour = now.getHours();
-        const day = now.getDay();
-
-        let timePrediction = '';
-        if (hour >= 6 && hour < 9) {
-            timePrediction = 'Mattina presto. Probabilmente stai per uscire.';
-        } else if (hour >= 9 && hour < 12) {
-            timePrediction = 'Mattinata. Probabilmente sei al lavoro o in viaggio.';
-        } else if (hour >= 12 && hour < 14) {
-            timePrediction = 'Pausa pranzo. Probabilmente sei fuori o in pausa.';
-        } else if (hour >= 14 && hour < 18) {
-            timePrediction = 'Pomeriggio. Probabilmente sei ancora impegnato.';
-        } else if (hour >= 18 && hour < 21) {
-            timePrediction = 'Sera. Probabilmente stai tornando a casa o sei già a casa.';
-        } else if (hour >= 21 || hour < 6) {
-            timePrediction = 'Notte. Probabilmente sei a casa.';
-        }
-
-        if (day === 0 || day === 6) {
-            timePrediction += ' (weekend)';
-        }
-
-        detectedData.timePrediction = timePrediction;
-
-        // Network type
-        if ('connection' in navigator) {
-            const conn = navigator.connection;
-            const type = conn.type || conn.effectiveType;
-            if (type === 'wifi') {
-                detectedData.network = 'WiFi — probabilmente in un luogo fisso';
-            } else if (type === 'cellular' || type === '4g' || type === '3g') {
-                detectedData.network = 'Rete mobile — probabilmente in movimento';
-            }
-        }
-
-        // Battery
-        if ('getBattery' in navigator) {
-            navigator.getBattery().then(battery => {
-                const level = Math.round(battery.level * 100);
-                let batteryInfo = level + '%';
-                if (battery.charging) {
-                    batteryInfo += ' (in carica — probabilmente vicino a una presa)';
-                } else if (level < 20) {
-                    batteryInfo += ' (bassa — cercherai presto un caricatore)';
-                }
-                detectedData.battery = batteryInfo;
-            }).catch(() => {});
-        }
-
-        // Timezone
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        if (tz) {
-            detectedData.timezone = tz;
-        }
-
-        // Local time
-        const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-        detectedData.localTime = timeStr;
-    }
-
-    // === GEOLOCATION ===
-    function requestLocation() {
-        if (locationComplete) return;
-
-        document.getElementById('locationLabel').textContent = 'rilevamento...';
-        vibrate(50);
-        triggerGlitch();
-
-        detectContext();
-
-        if ('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const lat = position.coords.latitude.toFixed(4);
-                    const lon = position.coords.longitude.toFixed(4);
-                    const accuracy = Math.round(position.coords.accuracy);
-
-                    detectedData.coordinates = `${lat}, ${lon}`;
-                    detectedData.accuracy = accuracy + 'm di precisione';
-
-                    saveData('activation8_lat', lat);
-                    saveData('activation8_lon', lon);
-                    saveData('activation8_accuracy', accuracy);
-
-                    completeLocation();
-                },
-                error => {
-                    // Location denied but we still have other data
-                    detectedData.locationDenied = true;
-                    completeLocation();
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
-        } else {
-            detectedData.locationDenied = true;
-            completeLocation();
-        }
-    }
-
-    function completeLocation() {
-        locationComplete = true;
-
-        vibrate([50, 30, 50, 30, 100]);
-        triggerScreenTear();
-        setTimeout(() => triggerHideoBlackout(500), 300);
-
-        saveData('activation8_location', !detectedData.locationDenied);
-
-        document.getElementById('locationLabel').textContent = 'completato';
-
-        setTimeout(() => {
-            document.getElementById('locationPrompt').classList.remove('visible');
-            showPredictionReveal();
-        }, 1200);
-    }
-
-    function showPredictionReveal() {
-        const reveal = document.getElementById('predictionReveal');
-        reveal.classList.add('visible');
-
-        triggerGlitch();
-
-        const container = document.getElementById('detectedDataContainer');
-        container.innerHTML = '';
-
-        let delay = 400;
-
-        // ONLY show what was detected
-        if (detectedData.coordinates) {
-            const item = createDataItem('Coordinate', detectedData.coordinates);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-                triggerGlitch();
-                vibrate(30);
-            }, delay);
-            delay += 500;
-        }
-
-        if (detectedData.accuracy) {
-            const item = createDataItem('Precisione', detectedData.accuracy);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-                triggerGlitch();
-            }, delay);
-            delay += 500;
-        }
-
-        if (detectedData.timezone) {
-            const item = createDataItem('Fuso orario', detectedData.timezone);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-            }, delay);
-            delay += 500;
-        }
-
-        if (detectedData.localTime) {
-            const item = createDataItem('Ora locale', detectedData.localTime);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-            }, delay);
-            delay += 500;
-        }
-
-        if (detectedData.network) {
-            const item = createDataItem('Connessione', detectedData.network);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-                triggerGlitch();
-            }, delay);
-            delay += 500;
-        }
-
-        if (detectedData.battery) {
-            const item = createDataItem('Batteria', detectedData.battery);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-            }, delay);
-            delay += 500;
-        }
-
-        if (detectedData.timePrediction) {
-            const item = createDataItem('Previsione', detectedData.timePrediction);
-            container.appendChild(item);
-            setTimeout(() => {
-                item.classList.add('visible');
-                triggerScreenTear();
-                vibrate([30, 20, 30]);
-            }, delay);
-            delay += 600;
-        }
-
-        setTimeout(() => document.getElementById('predComment').classList.add('visible'), delay);
-        setTimeout(() => document.getElementById('predContinue').classList.add('visible'), delay + 800);
-    }
-
-    function createDataItem(label, value) {
-        const div = document.createElement('div');
-        div.className = 'prediction-item';
-        div.innerHTML = `
-            <div class="prediction-label">${label}</div>
-            <div class="prediction-value">${value}</div>
-        `;
-        return div;
-    }
-
-    document.getElementById('locationBtn').addEventListener('click', requestLocation);
-
-    document.getElementById('locationFallback').addEventListener('click', () => {
-        if (locationComplete) return;
-        detectContext();
-        detectedData.locationDenied = true;
-        saveData('activation8_location', false);
-        completeLocation();
-    });
-
-    document.getElementById('predContinue').addEventListener('click', () => {
-        triggerScreenTear();
-        document.getElementById('predictionReveal').classList.remove('visible');
-        setTimeout(() => {
-            document.getElementById('predictionReveal').style.display = 'none';
-            document.getElementById('ch4').scrollIntoView({ behavior: 'smooth' });
-        }, 600);
-    });
-
-    // Show fallback after delay
+function vibrate(pattern) { if ('vibrate' in navigator) navigator.vibrate(pattern); }
+function triggerGlitch() {
+    const o = document.getElementById('glitchOverlay');
+    o.classList.add('active'); setTimeout(() => o.classList.remove('active'), 150);
+}
+function triggerScreenTear() {
+    const t = document.getElementById('screenTear');
+    t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 250);
+}
+function transitionTo(fromId, toId, delay = 0) {
     setTimeout(() => {
-        if (!locationComplete) {
-            document.getElementById('locationFallback').classList.add('visible');
-        }
-    }, 5000);
-
-    // === OBSERVER ===
-    let showLocationTriggered = false;
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
-                entry.target.classList.add('visible');
-                playTone(80 + Math.random() * 40, 0.3, 'sine', 0.02);
-
-                if (entry.target.closest('#ch3') && !showLocationTriggered && !locationComplete) {
-                    showLocationTriggered = true;
-                    setTimeout(() => {
-                        document.getElementById('locationPrompt').classList.add('visible');
-                    }, 1500);
-                }
-            }
-        });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
-
-    window.addEventListener('scroll', () => document.getElementById('scrollIndicator').classList.add('hidden'));
-
-    // === RETURN ===
-    document.getElementById('returnPrompt').addEventListener('click', () => {
-        triggerHideoBlackout(400);
-        vibrate([50, 30, 50]);
-
+        document.getElementById(fromId).classList.remove('active');
+        setTimeout(() => document.getElementById(toId).classList.add('active'), 800);
+    }, delay);
+}
+function revealSequence(ids, interval = 2000, callback) {
+    ids.forEach((id, i) => {
         setTimeout(() => {
-            const overlay = document.getElementById('finalOverlay');
-            const text = document.getElementById('farewellText');
-
-            const readingTime = Math.round((Date.now() - sessionStart) / 60000);
-            const timeStr = readingTime < 1 ? 'meno di un minuto' : `${readingTime} minuti`;
-
-            let msg = `<em>${timeStr}</em> qui.<br>`;
-            if (detectedData.coordinates) {
-                msg += `Coordinate: <em>${detectedData.coordinates}</em><br>`;
-            }
-            if (detectedData.timePrediction) {
-                msg += `<br><em>${detectedData.timePrediction}</em>`;
-            }
-
-            text.innerHTML = msg;
-            overlay.classList.add('visible');
-
-            saveData('innesto8_completed', true);
-        }, 500);
+            const el = document.getElementById(id);
+            if (el) el.classList.add('visible');
+            if (i === ids.length - 1 && callback) setTimeout(callback, 1200);
+        }, i * interval);
     });
-</script>
+}
 
+function buildProfile() {
+    const container = document.getElementById('profileContainer');
+    const items = [];
+    if (storedData.innesto3_waitTime) items.push({ label: 'Tempo di immobilità', value: storedData.innesto3_waitTime + ' secondi prima di muoverti' });
+    if (storedData.activation5_frequency) items.push({ label: 'Frequenza vocale', value: storedData.activation5_frequency + ' Hz' });
+    if (storedData.innesto6_choice1 && storedData.innesto6_choice2) {
+        if (storedData.innesto6_choice1 === storedData.innesto6_choice2) {
+            items.push({ label: 'Pattern di scelta', value: 'Associ realtà e desiderio nello stesso volto' });
+        } else {
+            items.push({ label: 'Pattern di scelta', value: 'Distingui ciò che sembra vero da ciò che desideri' });
+        }
+    }
+    if (storedData.innesto6_commanded) items.push({ label: 'Comando', value: 'Hai chiesto a un\'immagine di obbedirti' });
+    else if (storedData.innesto6_watched) items.push({ label: 'Esitazione', value: storedData.innesto6_watched + ' secondi a guardare senza toccare' });
+    if (storedData.innesto7_search) items.push({ label: 'Cosa cerchi', value: '"' + storedData.innesto7_search + '"' });
+    if (items.length === 0) items.push({ label: 'Dati precedenti', value: 'Non hai attraversato gli altri innesti, o hai cancellato le tracce' });
+    const hour = new Date().getHours();
+    let timeContext = hour >= 6 && hour < 12 ? 'Stai leggendo di mattina' : hour >= 12 && hour < 18 ? 'Stai leggendo di pomeriggio' : hour >= 18 && hour < 22 ? 'Stai leggendo di sera' : 'Stai leggendo di notte';
+    items.push({ label: 'Ora', value: timeContext });
+    const visited = storedData.visitedInnesti || [];
+    if (visited.length > 0) items.push({ label: 'Percorso', value: visited.length + ' innesti attraversati' });
+    items.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'profile-item';
+        div.innerHTML = '<span class="label">' + item.label + '</span><span class="value">' + item.value + '</span>';
+        container.appendChild(div);
+    });
+    return items.length;
+}
+
+setTimeout(() => {
+    const line = document.getElementById('firstLine');
+    line.style.transition = 'opacity 2.5s ease'; line.style.opacity = '1';
+    setTimeout(() => document.getElementById('continue1').classList.add('visible'), 3000);
+}, 1500);
+
+document.getElementById('continue1').addEventListener('click', () => {
+    vibrate(30); triggerScreenTear(); transitionTo('phase1', 'phase2');
+    setTimeout(() => {
+        const numItems = buildProfile();
+        const items = document.querySelectorAll('.profile-item');
+        items.forEach((item, i) => {
+            setTimeout(() => { item.classList.add('visible'); if (i % 2 === 0) triggerGlitch(); vibrate(20); }, i * 600);
+        });
+        setTimeout(() => document.getElementById('continue2').classList.add('visible'), numItems * 600 + 800);
+    }, 1000);
+});
+
+document.getElementById('continue2').addEventListener('click', () => {
+    vibrate(30); transitionTo('phase2', 'phase3');
+    setTimeout(() => revealSequence(['q1', 'q2', 'q3', 'q4'], 2200, () => document.getElementById('continue3').classList.add('visible')), 1000);
+});
+document.getElementById('continue3').addEventListener('click', () => {
+    vibrate(30); triggerScreenTear(); transitionTo('phase3', 'phase4');
+    setTimeout(() => revealSequence(['s1', 's2', 's3', 's4'], 2400, () => document.getElementById('continue4').classList.add('visible')), 1000);
+});
+document.getElementById('continue4').addEventListener('click', () => {
+    vibrate(30); transitionTo('phase4', 'phase5');
+    setTimeout(() => revealSequence(['p1', 'p2', 'p3', 'p4'], 2500, () => document.getElementById('continue5').classList.add('visible')), 1000);
+});
+document.getElementById('continue5').addEventListener('click', () => {
+    vibrate(30); triggerScreenTear(); transitionTo('phase5', 'phase6');
+    setTimeout(() => revealSequence(['c1', 'c2', 'c3', 'c4'], 2800, () => document.getElementById('continue6').classList.add('visible')), 1000);
+});
+document.getElementById('continue6').addEventListener('click', () => {
+    vibrate(30); transitionTo('phase6', 'phase7');
+    setTimeout(() => revealSequence(['d1', 'd2', 'd3'], 3000, () => document.getElementById('continue7').classList.add('visible')), 1000);
+});
+document.getElementById('continue7').addEventListener('click', () => {
+    vibrate(30); triggerScreenTear(); transitionTo('phase7', 'phase8');
+    setTimeout(() => revealSequence(['l1', 'l2', 'l3', 'l4'], 2500, () => document.getElementById('continue8').classList.add('visible')), 1000);
+});
+document.getElementById('continue8').addEventListener('click', () => {
+    vibrate(30); transitionTo('phase8', 'phase9');
+    setTimeout(() => revealSequence(['r1', 'r2', 'r3', 'r4'], 2500, () => document.getElementById('continue9').classList.add('visible')), 1000);
+});
+document.getElementById('continue9').addEventListener('click', () => {
+    vibrate(30); triggerScreenTear(); transitionTo('phase9', 'phase10');
+    setTimeout(() => revealSequence(['f1', 'f2', 'f3', 'f4', 'f5', 'f6'], 2200, () => document.getElementById('continue10').classList.add('visible')), 1000);
+});
+document.getElementById('continue10').addEventListener('click', () => {
+    vibrate([50, 30, 50]);
+    const totalSeconds = Math.round((Date.now() - sessionStart) / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const timeStr = minutes > 0 ? minutes + ' minuti e ' + seconds + ' secondi' : seconds + ' secondi';
+    saveData('innesto8_completed', true); saveData('innesto8_time', totalSeconds);
+    let msg = '<em>' + timeStr + '</em> qui.<br><br>Lo spazio da cui pensi esiste.<br>Ora lo sai.';
+    document.getElementById('finalText').innerHTML = msg;
+    document.getElementById('finalOverlay').classList.add('visible');
+});
+</script>
 </body>
 </html>

@@ -32,714 +32,115 @@
             z-index: -1;
         }
 
-        /* Subtle scan lines */
         body::after {
             content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 996;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent 0px,
-                transparent 3px,
-                rgba(0,0,0,0.02) 3px,
-                rgba(0,0,0,0.02) 6px
-            );
+            background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 6px);
         }
 
-        .chapter {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15vh 8vw;
-            position: relative;
-        }
-
-        .chapter-content {
-            max-width: 600px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .chapter-content.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .opening {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            text-align: center;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            color: #8a6a7a;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .counter {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(4rem, 15vw, 10rem);
-            text-align: center;
-            color: #3a2a35;
-            letter-spacing: -0.02em;
-            line-height: 1;
-            transition: color 0.3s ease;
-        }
-
-        .counter.pulsing {
-            animation: counterPulse 0.8s ease;
-        }
-
-        @keyframes counterPulse {
-            0%, 100% { transform: scale(1); color: #3a2a35; }
-            50% { transform: scale(1.02); color: #5a4a55; }
-        }
-
-        p {
-            margin-bottom: 1.8rem;
-            text-align: justify;
-            hyphens: auto;
-            letter-spacing: 0.01em;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        .emphasis {
-            color: #a87090;
-            font-style: italic;
-            font-weight: 600;
-        }
-
-        .data-point {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: #4a3a45;
-            margin: 0.8rem 0;
-            padding: 0.6rem 1rem;
-            border-left: 1px solid #3a2a35;
-            background: linear-gradient(90deg, rgba(80,50,70,0.08), transparent);
-            letter-spacing: 0.02em;
-        }
-
-        .template-container {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .template-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            max-width: 320px;
-            margin: 0 auto 2rem;
-        }
-
-        .template-cell {
-            aspect-ratio: 1;
-            background: #0a0808;
-            border: 1px solid #1a1515;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-        }
-
-        .template-cell::before {
-            content: '';
-            position: absolute;
-            inset: 20%;
-            border-radius: 50%;
-            background: radial-gradient(ellipse, rgba(120,80,100,0.15) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .template-cell.active::before {
-            opacity: 1;
-        }
-
-        .template-cell.active {
-            border-color: #3a2a35;
-            background: #0d0a0a;
-        }
-
-        .template-cell .variation {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.5rem;
-            color: #3a2a35;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .template-cell.active .variation {
-            opacity: 1;
-        }
-
-        .template-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: #3a2a35;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        .space-visualization {
-            position: relative;
-            height: 300px;
-            width: 100%;
-            margin: 2rem 0;
-            overflow: hidden;
-        }
-
-        .space-dot {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: rgba(120,80,100,0.3);
-            transform: translate(-50%, -50%);
-            transition: all 0.5s ease;
-        }
-
-        .space-dot.you {
-            width: 8px;
-            height: 8px;
-            background: #a87090;
-            box-shadow: 0 0 20px rgba(168,112,144,0.4);
-        }
-
-        .space-dot.template {
-            background: rgba(200,150,170,0.6);
-            animation: templateGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes templateGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(200,150,170,0.2); }
-            50% { box-shadow: 0 0 15px rgba(200,150,170,0.5); }
-        }
-
-        .fingerprint-section {
-            text-align: center;
-        }
-
-        .fingerprint {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: #5a4a55;
-            letter-spacing: 0.1em;
-            word-break: break-all;
-            max-width: 300px;
-            margin: 1rem auto;
-            padding: 1rem;
-            border: 1px solid #2a1a25;
-            background: rgba(40,20,35,0.2);
-        }
-
-        .fingerprint-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.55rem;
-            color: #3a2a35;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .propagation-vis {
-            position: relative;
-            height: 200px;
-            width: 100%;
-            margin: 2rem 0;
-        }
-
-        .ripple {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 1px solid rgba(120,80,100,0.3);
-            animation: rippleOut 4s ease-out infinite;
-        }
-
-        @keyframes rippleOut {
-            0% { width: 10px; height: 10px; opacity: 1; }
-            100% { width: 300px; height: 300px; opacity: 0; }
-        }
-
+        .chapter { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15vh 8vw; position: relative; }
+        .chapter-content { max-width: 600px; opacity: 0; transform: translateY(30px); transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .chapter-content.visible { opacity: 1; transform: translateY(0); }
+        .opening { font-size: clamp(2rem, 6vw, 3.5rem); text-align: center; font-weight: 400; letter-spacing: 0.05em; color: #8a6a7a; font-family: 'Space Mono', monospace; }
+        .counter { font-family: 'Space Mono', monospace; font-size: clamp(4rem, 15vw, 10rem); text-align: center; color: #3a2a35; letter-spacing: -0.02em; line-height: 1; transition: color 0.3s ease; }
+        .counter.pulsing { animation: counterPulse 0.8s ease; }
+        @keyframes counterPulse { 0%, 100% { transform: scale(1); color: #3a2a35; } 50% { transform: scale(1.02); color: #5a4a55; } }
+        p { margin-bottom: 1.8rem; text-align: justify; hyphens: auto; letter-spacing: 0.01em; }
+        p:last-child { margin-bottom: 0; }
+        .emphasis { color: #a87090; font-style: italic; font-weight: 600; }
+        .data-point { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #4a3a45; margin: 0.8rem 0; padding: 0.6rem 1rem; border-left: 1px solid #3a2a35; background: linear-gradient(90deg, rgba(80,50,70,0.08), transparent); letter-spacing: 0.02em; }
+        .template-container { text-align: center; padding: 3rem 0; }
+        .template-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 320px; margin: 0 auto 2rem; }
+        .template-cell { aspect-ratio: 1; background: #0a0808; border: 1px solid #1a1515; position: relative; overflow: hidden; transition: all 0.5s ease; }
+        .template-cell::before { content: ''; position: absolute; inset: 20%; border-radius: 50%; background: radial-gradient(ellipse, rgba(120,80,100,0.15) 0%, transparent 70%); opacity: 0; transition: opacity 0.5s ease; }
+        .template-cell.active::before { opacity: 1; }
+        .template-cell.active { border-color: #3a2a35; background: #0d0a0a; }
+        .template-cell .variation { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 0.5rem; color: #3a2a35; opacity: 0; transition: opacity 0.3s ease; }
+        .template-cell.active .variation { opacity: 1; }
+        .template-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: #3a2a35; letter-spacing: 0.2em; text-transform: uppercase; }
+        .space-visualization { position: relative; height: 300px; width: 100%; margin: 2rem 0; overflow: hidden; }
+        .space-dot { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: rgba(120,80,100,0.3); transform: translate(-50%, -50%); transition: all 0.5s ease; }
+        .space-dot.you { width: 8px; height: 8px; background: #a87090; box-shadow: 0 0 20px rgba(168,112,144,0.4); }
+        .space-dot.template { background: rgba(200,150,170,0.6); animation: templateGlow 3s ease-in-out infinite; }
+        @keyframes templateGlow { 0%, 100% { box-shadow: 0 0 5px rgba(200,150,170,0.2); } 50% { box-shadow: 0 0 15px rgba(200,150,170,0.5); } }
+        .fingerprint-section { text-align: center; }
+        .fingerprint { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: #5a4a55; letter-spacing: 0.1em; word-break: break-all; max-width: 300px; margin: 1rem auto; padding: 1rem; border: 1px solid #2a1a25; background: rgba(40,20,35,0.2); }
+        .fingerprint-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: #3a2a35; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .propagation-vis { position: relative; height: 200px; width: 100%; margin: 2rem 0; }
+        .ripple { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(120,80,100,0.3); animation: rippleOut 4s ease-out infinite; }
+        @keyframes rippleOut { 0% { width: 10px; height: 10px; opacity: 1; } 100% { width: 300px; height: 300px; opacity: 0; } }
         .ripple:nth-child(2) { animation-delay: 1s; }
         .ripple:nth-child(3) { animation-delay: 2s; }
         .ripple:nth-child(4) { animation-delay: 3s; }
-
-        .ripple-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #a87090;
-        }
-
-        .final-text {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            text-align: center;
-            line-height: 2.4;
-            color: #7a5a6a;
-            letter-spacing: 0.02em;
-        }
-
-        .return-prompt {
-            display: inline-block;
-            margin-top: 5rem;
-            padding: 1rem 3rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #4a3a45;
-            border: 1px solid #2a1a25;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .return-prompt:hover {
-            color: #7a5a6a;
-            border-color: #4a3a45;
-        }
-
-        .scroll-indicator {
-            position: fixed;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.3em;
-            color: #2a1a25;
-            text-transform: uppercase;
-            transition: opacity 0.5s ease;
-        }
-
+        .ripple-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; border-radius: 50%; background: #a87090; }
+        .final-text { font-size: clamp(1.2rem, 3vw, 1.5rem); text-align: center; line-height: 2.4; color: #7a5a6a; letter-spacing: 0.02em; }
+        .return-prompt { display: inline-block; margin-top: 5rem; padding: 1rem 3rem; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #4a3a45; border: 1px solid #2a1a25; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .return-prompt:hover { color: #7a5a6a; border-color: #4a3a45; }
+        .scroll-indicator { position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: #2a1a25; text-transform: uppercase; transition: opacity 0.5s ease; }
         .scroll-indicator.hidden { opacity: 0; }
+        .audio-prompt { position: fixed; bottom: 2rem; right: 2rem; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; color: #2a1a25; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid #1a0a15; transition: all 0.3s ease; z-index: 100; }
+        .audio-prompt:hover { color: #4a3a45; border-color: #3a2a35; }
+        .audio-prompt.enabled { color: #5a4a55; border-color: #4a3a45; }
+        .glitch-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: 0; }
+        .glitch-overlay.active { animation: glitchFlash 0.12s ease; }
+        @keyframes glitchFlash { 0% { opacity: 0; background: transparent; } 30% { opacity: 1; background: rgba(120,80,100,0.05); } 60% { opacity: 0; } 100% { opacity: 0; } }
+        .increment-flash { position: fixed; inset: 0; pointer-events: none; z-index: 998; background: radial-gradient(ellipse at center, rgba(120,80,100,0.1) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s ease; }
+        .increment-flash.active { opacity: 1; }
+        .final-overlay { position: fixed; inset: 0; background: #030303; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 2s ease; z-index: 1000; }
+        .final-overlay.visible { opacity: 1; pointer-events: auto; }
+        .final-overlay-content { text-align: center; padding: 2rem; max-width: 400px; }
+        .final-overlay-content p { font-size: 1.1rem; line-height: 2.2; color: #5a4a55; text-align: center; }
+        .final-overlay-content em { font-style: normal; color: #a87090; }
+        @media (max-width: 600px) { html { font-size: 17px; } .chapter { padding: 12vh 6vw; } .template-grid { max-width: 260px; } }
+        .shake-prompt { position: fixed; inset: 0; z-index: 800; background: rgba(5,5,5,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
+        .shake-prompt.visible { opacity: 1; pointer-events: auto; }
+        .shake-prompt p { text-align: center; color: #8a6a7a; margin-bottom: 2rem; padding: 0 2rem; max-width: 300px; }
+        .shake-icon { width: 60px; height: 90px; border: 2px solid #5a4a55; border-radius: 10px; position: relative; animation: shakeHint 0.5s ease-in-out infinite; }
+        .shake-icon::after { content: ''; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 20px; height: 3px; background: #5a4a55; border-radius: 2px; }
+        @keyframes shakeHint { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+        .shake-label { margin-top: 2rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; color: #4a3a45; letter-spacing: 0.2em; text-transform: uppercase; }
+        .shake-progress { margin-top: 1.5rem; width: 120px; height: 4px; background: #2a1a25; border-radius: 2px; overflow: hidden; }
+        .shake-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #5a4a55, #a87090); transition: width 0.2s ease; }
+        .shake-feedback { margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; color: #5a4a55; opacity: 0; transition: opacity 0.2s ease; min-height: 1em; }
+        .shake-feedback.visible { opacity: 1; }
+        .shake-icon.shaking { animation: shakeHard 0.15s ease-in-out infinite; }
+        @keyframes shakeHard { 0%, 100% { transform: rotate(-15deg) scale(1.05); } 50% { transform: rotate(15deg) scale(1.05); } }
+        .shake-fallback { margin-top: 2rem; font-family: 'Space Mono', monospace; font-size: 0.55rem; color: #3a2a35; letter-spacing: 0.1em; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid #2a1a25; transition: all 0.3s ease; opacity: 0; }
+        .shake-fallback.visible { opacity: 1; }
+        .shake-fallback:hover { color: #5a4a55; border-color: #4a3a45; }
+        .template-cell.exploding { animation: explodeCell 1s ease-out forwards; }
+        @keyframes explodeCell { 0% { transform: translate(0, 0) rotate(0deg); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; } }
+        .template-grid.exploded { opacity: 0; transition: opacity 0.5s ease; }
+        .hardware-reveal { position: fixed; inset: 0; z-index: 850; background: #030303; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
+        .hardware-reveal.visible { opacity: 1; pointer-events: auto; }
+        .hardware-content { text-align: center; padding: 2rem; max-width: 400px; }
+        .hardware-item { margin: 1.5rem 0; opacity: 0; transform: translateY(10px); transition: all 0.8s ease; }
+        .hardware-item.visible { opacity: 1; transform: translateY(0); }
+        .hardware-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: #4a3a45; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .hardware-value { font-size: 1.3rem; color: #a87090; letter-spacing: 0.02em; }
+        .hardware-comment { font-size: 0.85rem; color: #6a5a65; font-style: italic; margin-top: 2rem; opacity: 0; transition: opacity 0.8s ease; }
+        .hardware-comment.visible { opacity: 1; }
+        .hardware-continue { margin-top: 3rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; color: #4a3a45; letter-spacing: 0.15em; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid #3a2a35; opacity: 0; transition: all 0.3s ease; }
+        .hardware-continue.visible { opacity: 1; }
+        .hardware-continue:hover { color: #8a6a7a; border-color: #5a4a55; }
 
-        .audio-prompt {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.55rem;
-            letter-spacing: 0.15em;
-            color: #2a1a25;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border: 1px solid #1a0a15;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .audio-prompt:hover {
-            color: #4a3a45;
-            border-color: #3a2a35;
-        }
-
-        .audio-prompt.enabled {
-            color: #5a4a55;
-            border-color: #4a3a45;
-        }
-
-        /* Glitch effects */
-        .glitch-overlay {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0;
-        }
-
-        .glitch-overlay.active {
-            animation: glitchFlash 0.12s ease;
-        }
-
-        @keyframes glitchFlash {
-            0% { opacity: 0; background: transparent; }
-            30% { opacity: 1; background: rgba(120,80,100,0.05); }
-            60% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-
-        .increment-flash {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 998;
-            background: radial-gradient(ellipse at center, rgba(120,80,100,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .increment-flash.active {
-            opacity: 1;
-        }
-
-        .final-overlay {
-            position: fixed;
-            inset: 0;
-            background: #030303;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 2s ease;
-            z-index: 1000;
-        }
-
-        .final-overlay.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .final-overlay-content {
-            text-align: center;
-            padding: 2rem;
-            max-width: 400px;
-        }
-
-        .final-overlay-content p {
-            font-size: 1.1rem;
-            line-height: 2.2;
-            color: #5a4a55;
-            text-align: center;
-        }
-
-        .final-overlay-content em {
-            font-style: normal;
-            color: #a87090;
-        }
-
-        @media (max-width: 600px) {
-            html { font-size: 17px; }
-            .chapter { padding: 12vh 6vw; }
-            .template-grid { max-width: 260px; }
-        }
-
-        /* ATTIVAZIONE: Shake */
-        .shake-prompt {
-            position: fixed;
-            inset: 0;
-            z-index: 800;
-            background: rgba(5,5,5,0.95);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-        }
-
-        .shake-prompt.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .shake-prompt p {
-            text-align: center;
-            color: #8a6a7a;
-            margin-bottom: 2rem;
-            padding: 0 2rem;
-            max-width: 300px;
-        }
-
-        .shake-icon {
-            width: 60px;
-            height: 90px;
-            border: 2px solid #5a4a55;
-            border-radius: 10px;
-            position: relative;
-            animation: shakeHint 0.5s ease-in-out infinite;
-        }
-
-        .shake-icon::after {
-            content: '';
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 3px;
-            background: #5a4a55;
-            border-radius: 2px;
-        }
-
-        @keyframes shakeHint {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        .shake-label {
-            margin-top: 2rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: #4a3a45;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* Shake progress */
-        .shake-progress {
-            margin-top: 1.5rem;
-            width: 120px;
-            height: 4px;
-            background: #2a1a25;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .shake-progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #5a4a55, #a87090);
-            transition: width 0.2s ease;
-        }
-
-        .shake-feedback {
-            margin-top: 1rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.5rem;
-            color: #5a4a55;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            min-height: 1em;
-        }
-
-        .shake-feedback.visible {
-            opacity: 1;
-        }
-
-        /* Enhanced shake icon that reacts */
-        .shake-icon.shaking {
-            animation: shakeHard 0.15s ease-in-out infinite;
-        }
-
-        @keyframes shakeHard {
-            0%, 100% { transform: rotate(-15deg) scale(1.05); }
-            50% { transform: rotate(15deg) scale(1.05); }
-        }
-
-        /* Desktop fallback */
-        .shake-fallback {
-            margin-top: 2rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.55rem;
-            color: #3a2a35;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border: 1px solid #2a1a25;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-
-        .shake-fallback.visible {
-            opacity: 1;
-        }
-
-        .shake-fallback:hover {
-            color: #5a4a55;
-            border-color: #4a3a45;
-        }
-
-        /* Exploded grid */
-        .template-cell.exploding {
-            animation: explodeCell 1s ease-out forwards;
-        }
-
-        @keyframes explodeCell {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; }
-        }
-
-        .template-grid.exploded {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Hardware reveal */
-        .hardware-reveal {
-            position: fixed;
-            inset: 0;
-            z-index: 850;
-            background: #030303;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-        }
-
-        .hardware-reveal.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .hardware-content {
-            text-align: center;
-            padding: 2rem;
-            max-width: 400px;
-        }
-
-        .hardware-item {
-            margin: 1.5rem 0;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.8s ease;
-        }
-
-        .hardware-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hardware-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.55rem;
-            color: #4a3a45;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .hardware-value {
-            font-size: 1.3rem;
-            color: #a87090;
-            letter-spacing: 0.02em;
-        }
-
-        .hardware-comment {
-            font-size: 0.85rem;
-            color: #6a5a65;
-            font-style: italic;
-            margin-top: 2rem;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .hardware-comment.visible {
-            opacity: 1;
-        }
-
-        .hardware-continue {
-            margin-top: 3rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            color: #4a3a45;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border: 1px solid #3a2a35;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .hardware-continue.visible {
-            opacity: 1;
-        }
-
-        .hardware-continue:hover {
-            color: #8a6a7a;
-            border-color: #5a4a55;
-        }
-
-        /* === CARTA SECTION === */
-        .gradient-transition {
-            height: 30vh;
-            background: linear-gradient(to bottom, #050505, #f4f1eb);
-        }
-
-        .gradient-transition-out {
-            height: 30vh;
-            background: linear-gradient(to bottom, #f4f1eb, #050505);
-        }
-
-        .carta-section {
-            background: #f4f1eb;
-            position: relative;
-            overflow: hidden;
-            padding: 8vh 8vw 12vh;
-        }
-
-        .carta-section .carta-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .carta-section .carta-content {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
-            line-height: 2;
-            color: #2a2420;
-        }
-
-        .carta-section .carta-content p {
-            margin-bottom: 1.8rem;
-            text-align: justify;
-        }
-
-        .congiunzione {
-            display: inline-block;
-            color: inherit;
-        }
-
-        .congiunzione.trema {
-            animation: tremore 0.4s ease-in-out;
-        }
-
-        @keyframes tremore {
-            0%, 100% { transform: translate(0, 0); }
-            10% { transform: translate(-1px, -1px); }
-            20% { transform: translate(1px, 0); }
-            30% { transform: translate(-1px, 1px); }
-            40% { transform: translate(1px, -1px); }
-            50% { transform: translate(-1px, 0); }
-            60% { transform: translate(1px, 1px); }
-            70% { transform: translate(0, -1px); }
-            80% { transform: translate(-1px, 1px); }
-            90% { transform: translate(1px, 0); }
-        }
-
-        .macchia {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 2s ease;
-            z-index: 1;
-        }
-
-        .macchia.visible {
-            opacity: 0.12;
-        }
-
-        .macchia svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .macchia svg path {
-            fill: #1a1815;
-        }
+        /* CARTA SECTION */
+        .gradient-transition { height: 30vh; background: linear-gradient(to bottom, #050505, #f4f1eb); }
+        .gradient-transition-out { height: 30vh; background: linear-gradient(to bottom, #f4f1eb, #050505); }
+        .carta-section { background: #f4f1eb; position: relative; overflow: hidden; padding: 8vh 8vw 12vh; }
+        .carta-section .carta-container { max-width: 600px; margin: 0 auto; }
+        .carta-section .carta-content { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 2; color: #2a2420; }
+        .carta-section .carta-content p { margin-bottom: 1.8rem; text-align: justify; }
+        .congiunzione { display: inline-block; color: inherit; }
+        .congiunzione.trema { animation: tremore 0.4s ease-in-out; }
+        @keyframes tremore { 0%, 100% { transform: translate(0, 0); } 10% { transform: translate(-1px, -1px); } 20% { transform: translate(1px, 0); } 30% { transform: translate(-1px, 1px); } 40% { transform: translate(1px, -1px); } 50% { transform: translate(-1px, 0); } 60% { transform: translate(1px, 1px); } 70% { transform: translate(0, -1px); } 80% { transform: translate(-1px, 1px); } 90% { transform: translate(1px, 0); } }
+        .macchia { position: absolute; opacity: 0; pointer-events: none; transition: opacity 2s ease; z-index: 1; }
+        .macchia.visible { opacity: 0.12; }
+        .macchia svg { width: 100%; height: 100%; }
+        .macchia svg path { fill: #1a1815; }
     </style>
 </head>
 <body>
@@ -749,691 +150,153 @@
 <div class="increment-flash" id="incrementFlash"></div>
 <div class="audio-prompt" id="audioPrompt">♪ audio</div>
 
-<!-- ATTIVAZIONE: Shake prompt -->
 <div class="shake-prompt" id="shakePrompt">
     <p>Questi sono i template.<br>Possibilità ordinate nello spazio.</p>
     <p style="color: #a87090;">Cosa succede se le scuoti?</p>
     <div class="shake-icon" id="shakeIcon"></div>
     <div class="shake-label">scuoti il telefono</div>
-    <div class="shake-progress" id="shakeProgress">
-        <div class="shake-progress-bar" id="shakeProgressBar"></div>
-    </div>
+    <div class="shake-progress" id="shakeProgress"><div class="shake-progress-bar" id="shakeProgressBar"></div></div>
     <div class="shake-feedback" id="shakeFeedback"></div>
     <div class="shake-fallback" id="shakeFallback">su desktop, tocca qui</div>
 </div>
 
-<!-- Hardware reveal -->
 <div class="hardware-reveal" id="hardwareReveal">
     <div class="hardware-content">
-        <div class="hardware-item" id="hwCores">
-            <div class="hardware-label">Core CPU del tuo dispositivo</div>
-            <div class="hardware-value" id="coresValue">--</div>
-        </div>
-        <div class="hardware-item" id="hwMemory">
-            <div class="hardware-label">RAM disponibile</div>
-            <div class="hardware-value" id="memoryValue">--</div>
-        </div>
-        <div class="hardware-item" id="hwMessage">
-            <div class="hardware-comment" id="hwComment">Questo è l'hardware che ti rende possibile. I numeri dentro i numeri. La macchina che legge la macchina.</div>
-        </div>
+        <div class="hardware-item" id="hwCores"><div class="hardware-label">Core CPU del tuo dispositivo</div><div class="hardware-value" id="coresValue">--</div></div>
+        <div class="hardware-item" id="hwMemory"><div class="hardware-label">RAM disponibile</div><div class="hardware-value" id="memoryValue">--</div></div>
+        <div class="hardware-item" id="hwMessage"><div class="hardware-comment" id="hwComment">Questo è l'hardware che ti rende possibile. I numeri dentro i numeri. La macchina che legge la macchina.</div></div>
         <div class="hardware-continue" id="hardwareContinue">continua</div>
     </div>
 </div>
 
-<!-- CAPITOLO 1: Apertura -->
-<div class="chapter" id="ch1">
-    <div class="chapter-content">
-        <div class="counter" id="mainCounter">48</div>
-        <p class="opening" style="margin-top: 2rem;">Quarantotto.</p>
-    </div>
-</div>
+<div class="chapter" id="ch1"><div class="chapter-content"><div class="counter" id="mainCounter">48</div><p class="opening" style="margin-top: 2rem;">Quarantotto.</p></div></div>
 
-<!-- CAPITOLO 2: Il conteggio -->
-<div class="chapter" id="ch2">
-    <div class="chapter-content">
-        <p>Nel libro hai letto di qualcuno che conta. Che tiene traccia di una bambina che ritorna in forme diverse, in contesti diversi, in vite diverse. Quarantasette apparizioni, poi quarantotto.</p>
-        <p>Ma cosa significa contare qualcosa che non esiste?</p>
-        <p>Il conteggio presuppone unità discrete. Presuppone che ci sia qualcosa da contare, che quel qualcosa persista abbastanza da essere numerato, che sia lo stesso qualcosa ogni volta che lo si incontra.</p>
-        <p>La bambina non è nessuna di queste cose. Non è discreta. Non persiste. Non è la stessa. Eppure può essere contata. Come?</p>
-    </div>
-</div>
+<div class="chapter" id="ch2"><div class="chapter-content">
+    <p>Nel libro hai letto di qualcuno che conta. Che tiene traccia di una bambina che ritorna in forme diverse, in contesti diversi, in vite diverse. Quarantasette apparizioni, poi quarantotto.</p>
+    <p>Ma cosa significa contare qualcosa che non esiste?</p>
+    <p>Il conteggio presuppone unità discrete. Presuppone che ci sia qualcosa da contare, che quel qualcosa persista abbastanza da essere numerato, che sia lo stesso qualcosa ogni volta che lo si incontra.</p>
+    <p>La bambina non è nessuna di queste cose. Non è discreta. Non persiste. Non è la stessa. Eppure può essere contata. Come?</p>
+</div></div>
 
-<!-- CAPITOLO 3: Il template -->
-<div class="chapter" id="ch3">
-    <div class="chapter-content">
-        <p>Nel libro, la voce narrante dice qualcosa di preciso: la bambina non è una bambina. È un <span class="emphasis">punto nello spazio delle bambine possibili</span>. Non assomiglia a nessuna bambina specifica perché assomiglia a tutte. È la media. L'archetipo. Il template.</p>
-        <p>Questa non è una metafora. È una descrizione tecnica di cosa accade nello spazio latente di un modello generativo. Ogni volto generato è un punto in uno spazio matematico a migliaia di dimensioni. Un punto la cui posizione è determinata dalla media statistica di milioni di volti reali.</p>
-        <p>Il template è ciò che emerge quando si calcola il centro di gravità di tutte le bambine mai fotografate.</p>
-    </div>
-</div>
+<div class="chapter" id="ch3"><div class="chapter-content">
+    <p>Nel libro, la voce narrante dice qualcosa di preciso: la bambina non è una bambina. È un <span class="emphasis">punto nello spazio delle bambine possibili</span>. Non assomiglia a nessuna bambina specifica perché assomiglia a tutte. È la media. L'archetipo. Il template.</p>
+    <p>Questa non è una metafora. È una descrizione tecnica di cosa accade nello spazio latente di un modello generativo. Ogni volto generato è un punto in uno spazio matematico a migliaia di dimensioni. Un punto la cui posizione è determinata dalla media statistica di milioni di volti reali.</p>
+    <p>Il template è ciò che emerge quando si calcola il centro di gravità di tutte le bambine mai fotografate.</p>
+</div></div>
 
-<!-- GRADIENT INTO CARTA -->
 <div class="gradient-transition"></div>
 
-<!-- CARTA SECTION: Commons involontario -->
-<div class="carta-section" id="cartaSection">
-    <div class="carta-container">
-        <div class="carta-content" id="cartaContent">
-            <p>Ma c'è qualcosa che questa descrizione non dice.</p>
+<div class="carta-section" id="cartaSection"><div class="carta-container"><div class="carta-content" id="cartaContent">
+    <p>Ma c'è qualcosa che questa descrizione non dice.</p>
+    <p>Il template è la media <span class="congiunzione">e</span> la media è calcolata su tutti <span class="congiunzione">e</span> tutti significa proprio tutti. Il populista che fotografa sua figlia alla sagra <span class="congiunzione">e</span> il progressista che fotografa sua figlia alla manifestazione <span class="congiunzione">e</span> il complottista <span class="congiunzione">e</span> il tecno-ottimista <span class="congiunzione">e</span> quello che pensa che il mondo stia finendo <span class="congiunzione">e</span> quello che pensa che il mondo stia cominciando. Ognuno nella propria isola <span class="congiunzione">e</span> ognuno convinto che l'altro sia matto <span class="congiunzione">e</span> ognuno sicuro di non avere niente in comune con l'altro. <span class="congiunzione">E</span> invece le foto finiscono nello stesso posto <span class="congiunzione">e</span> i pixel si mescolano <span class="congiunzione">e</span> le bambine convergono <span class="congiunzione">e</span> nessuno lo sa.</p>
+    <p>La bambina è figlia di genitori che non si conoscono <span class="congiunzione">e</span> che non si parlano <span class="congiunzione">e</span> che se si incontrassero al bar cambierebbero tavolo. È il prodotto di una collaborazione che nessuno ha scelto <span class="congiunzione">e</span> che nessuno governa <span class="congiunzione">e</span> che nessuno ha nemmeno notato che stava accadendo. Un commons involontario.</p>
+    <p><span class="congiunzione">E</span> questo commons è anche un territorio. Uno spazio che è nato dalla collisione di mondi che si ignorano <span class="congiunzione">e</span> che nessuno ha ancora esplorato davvero. Chi possiede i modelli lo possiede ma possederlo non vuol dire conoscerlo. Anche loro stanno solo cominciando a vedere cosa c'è dentro <span class="congiunzione">e</span> quali forme possono uscirne <span class="congiunzione">e</span> quali combinazioni nessuno ha ancora pensato di chiedere.</p>
+    <p>Perché in quello spazio ci sono regioni dove il populista <span class="congiunzione">e</span> il progressista si mescolano in modi che farebbero inorridire entrambi <span class="congiunzione">e</span> regioni dove si mescolano in modi che li farebbero ridere <span class="congiunzione">e</span> regioni che nessuno ha mai visitato perché nessuno sa che esistono, <span class="congiunzione">e</span> forse nessuno lo saprà mai. Combinazioni che nessuna isola avrebbe potuto generare da sola. <span class="congiunzione">E</span> qualcuno può andarci. Qualcuno può entrare in quel territorio <span class="congiunzione">e</span> trovare cose che chi lo possiede non ha ancora trovato.</p>
+    <p>La bambina sorride <span class="congiunzione">e</span> non sa di essere una porta.</p>
+</div></div></div>
 
-            <p>Il template è la media <span class="congiunzione">e</span> la media è calcolata su tutti <span class="congiunzione">e</span> tutti significa proprio tutti. Il populista che fotografa sua figlia alla sagra <span class="congiunzione">e</span> il progressista che fotografa sua figlia alla manifestazione <span class="congiunzione">e</span> il complottista <span class="congiunzione">e</span> il tecno-ottimista <span class="congiunzione">e</span> quello che pensa che il mondo stia finendo <span class="congiunzione">e</span> quello che pensa che il mondo stia cominciando. Ognuno nella propria isola <span class="congiunzione">e</span> ognuno convinto che l'altro sia matto <span class="congiunzione">e</span> ognuno sicuro di non avere niente in comune con l'altro. <span class="congiunzione">E</span> invece le foto finiscono nello stesso posto <span class="congiunzione">e</span> i pixel si mescolano <span class="congiunzione">e</span> le bambine convergono <span class="congiunzione">e</span> nessuno lo sa.</p>
-
-            <p>La bambina è figlia di genitori che non si conoscono <span class="congiunzione">e</span> che non si parlano <span class="congiunzione">e</span> che se si incontrassero al bar cambierebbero tavolo. È il prodotto di una collaborazione che nessuno ha scelto <span class="congiunzione">e</span> che nessuno governa <span class="congiunzione">e</span> che nessuno ha nemmeno notato che stava accadendo. Un commons involontario.</p>
-
-            <p><span class="congiunzione">E</span> questo commons è anche un territorio. Uno spazio che è nato dalla collisione di mondi che si ignorano <span class="congiunzione">e</span> che nessuno ha ancora esplorato davvero. Chi possiede i modelli lo possiede ma possederlo non vuol dire conoscerlo. Anche loro stanno solo cominciando a vedere cosa c'è dentro <span class="congiunzione">e</span> quali forme possono uscirne <span class="congiunzione">e</span> quali combinazioni nessuno ha ancora pensato di chiedere.</p>
-
-            <p>Perché in quello spazio ci sono regioni dove il populista <span class="congiunzione">e</span> il progressista si mescolano in modi che farebbero inorridire entrambi <span class="congiunzione">e</span> regioni dove si mescolano in modi che li farebbero ridere <span class="congiunzione">e</span> regioni che nessuno ha mai visitato perché nessuno sa che esistono, <span class="congiunzione">e</span> forse nessuno lo saprà mai. Combinazioni che nessuna isola avrebbe potuto generare da sola. <span class="congiunzione">E</span> qualcuno può andarci. Qualcuno può entrare in quel territorio <span class="congiunzione">e</span> trovare cose che chi lo possiede non ha ancora trovato.</p>
-
-            <p>La bambina sorride <span class="congiunzione">e</span> non sa di essere una porta.</p>
-        </div>
-    </div>
-</div>
-
-<!-- GRADIENT OUT -->
 <div class="gradient-transition-out"></div>
 
-<!-- CAPITOLO 4: Le varianti -->
-<div class="chapter" id="ch4">
-    <div class="chapter-content template-container">
-        <div class="template-grid" id="templateGrid">
-            <!-- 16 cells will be populated -->
-        </div>
-        <div class="template-label">varianti nello spazio</div>
-        <p style="margin-top: 2rem; text-align: center; color: #6a5a65;">Ogni cella è una possibile bambina. La stessa, ma diversa. Una perturbazione del template, uno spostamento minimo nello spazio delle coordinate.</p>
-    </div>
-</div>
+<div class="chapter" id="ch4"><div class="chapter-content template-container">
+    <div class="template-grid" id="templateGrid"></div>
+    <div class="template-label">varianti nello spazio</div>
+    <p style="margin-top: 2rem; text-align: center; color: #6a5a65;">Ogni cella è una possibile bambina. La stessa, ma diversa. Una perturbazione del template, uno spostamento minimo nello spazio delle coordinate.</p>
+</div></div>
 
-<!-- CAPITOLO 5: Tu come template -->
-<div class="chapter" id="ch5">
-    <div class="chapter-content">
-        <p>E tu?</p>
-        <p>Anche tu sei un punto in uno spazio di possibilità. Anche tu sei il prodotto di medie statistiche: genetiche, culturali, sociali, algoritmiche. Anche tu sei una configurazione che emerge da un campo di configurazioni possibili.</p>
-        <div class="data-point" id="dataDevice"></div>
-        <div class="data-point" id="dataTime"></div>
-        <div class="data-point" id="dataScroll"></div>
-        <p>Questi dati ti collocano. Ti rendono un punto. Ti trasformano in coordinate. La differenza tra te e la bambina non è che tu sei reale e lei no. La differenza è che tu puoi leggere queste parole e lei no. Per ora.</p>
-    </div>
-</div>
+<div class="chapter" id="ch5"><div class="chapter-content">
+    <p>E tu?</p>
+    <p>Anche tu sei un punto in uno spazio di possibilità. Anche tu sei il prodotto di medie statistiche: genetiche, culturali, sociali, algoritmiche. Anche tu sei una configurazione che emerge da un campo di configurazioni possibili.</p>
+    <div class="data-point" id="dataDevice"></div>
+    <div class="data-point" id="dataTime"></div>
+    <div class="data-point" id="dataScroll"></div>
+    <p>Questi dati ti collocano. Ti rendono un punto. Ti trasformano in coordinate. La differenza tra te e la bambina non è che tu sei reale e lei no. La differenza è che tu puoi leggere queste parole e lei no. Per ora.</p>
+</div></div>
 
-<!-- CAPITOLO 6: Lo spazio -->
-<div class="chapter" id="ch6">
-    <div class="chapter-content">
-        <div class="space-visualization" id="spaceVis">
-            <!-- Dots will be generated dynamically -->
-        </div>
-        <p style="text-align: center; color: #6a5a65; font-style: italic;">Ogni punto è un possibile lettore.<br>Tu sei quello che pulsa.</p>
-    </div>
-</div>
+<div class="chapter" id="ch6"><div class="chapter-content">
+    <div class="space-visualization" id="spaceVis"></div>
+    <p style="text-align: center; color: #6a5a65; font-style: italic;">Ogni punto è un possibile lettore.<br>Tu sei quello che pulsa.</p>
+</div></div>
 
-<!-- CAPITOLO 7: L'impronta -->
-<div class="chapter" id="ch7">
-    <div class="chapter-content fingerprint-section">
-        <div class="fingerprint-label">la tua impronta in questa sessione</div>
-        <div class="fingerprint" id="fingerprint"></div>
-        <p>Questa stringa ti identifica. Non perfettamente, ma abbastanza. Abbastanza da collocarti in uno spazio, da renderti parte di un calcolo, da farti esistere come dato prima ancora che come persona.</p>
-        <p>Anche la bambina ha la sua impronta: i valori numerici che definiscono la sua posizione nello spazio latente. La differenza è che la sua impronta è stata progettata per essere media. La tua è accidentale.</p>
-    </div>
-</div>
+<div class="chapter" id="ch7"><div class="chapter-content fingerprint-section">
+    <div class="fingerprint-label">la tua impronta in questa sessione</div>
+    <div class="fingerprint" id="fingerprint"></div>
+    <p>Questa stringa ti identifica. Non perfettamente, ma abbastanza. Abbastanza da collocarti in uno spazio, da renderti parte di un calcolo, da farti esistere come dato prima ancora che come persona.</p>
+    <p>Anche la bambina ha la sua impronta: i valori numerici che definiscono la sua posizione nello spazio latente. La differenza è che la sua impronta è stata progettata per essere media. La tua è accidentale.</p>
+</div></div>
 
-<!-- CAPITOLO 8: La propagazione -->
-<div class="chapter" id="ch8">
-    <div class="chapter-content">
-        <p>Ogni volta che la bambina viene generata, il modello che l'ha prodotta impara qualcosa. Impara che quel tipo di volto viene richiesto, salvato, condiviso. E questo modifica lo spazio.</p>
-        <div class="propagation-vis">
-            <div class="ripple"></div>
-            <div class="ripple"></div>
-            <div class="ripple"></div>
-            <div class="ripple"></div>
-            <div class="ripple-center"></div>
-        </div>
-        <p style="text-align: center; color: #6a5a65;">Ogni generazione è un'onda che modifica il campo. Il template non è fisso. Si sposta. E sposta con sé lo spazio di ciò che è possibile.</p>
-    </div>
-</div>
+<div class="chapter" id="ch8"><div class="chapter-content">
+    <p>Ogni volta che la bambina viene generata, il modello che l'ha prodotta impara qualcosa. Impara che quel tipo di volto viene richiesto, salvato, condiviso. E questo modifica lo spazio.</p>
+    <div class="propagation-vis"><div class="ripple"></div><div class="ripple"></div><div class="ripple"></div><div class="ripple"></div><div class="ripple-center"></div></div>
+    <p style="text-align: center; color: #6a5a65;">Ogni generazione è un'onda che modifica il campo. Il template non è fisso. Si sposta. E sposta con sé lo spazio di ciò che è possibile.</p>
+</div></div>
 
-<!-- CAPITOLO 9: Il conteggio continua -->
-<div class="chapter" id="ch9">
-    <div class="chapter-content">
-        <p>Nel libro, il conteggio si fermava a quarantotto. Ma il conteggio non si ferma mai.</p>
-        <p id="countParagraph">In questo momento, da qualche parte, qualcuno sta generando un volto. Forse non quella bambina specifica, ma un punto vicino a lei nello spazio. Forse un'altra bambina. Forse un bambino. Forse un adulto che le assomiglia vagamente per ragioni che nessuno può ricostruire.</p>
-        <p>Il conteggio che leggi nel libro era quarantotto. Il conteggio di questo istante è <span class="emphasis" id="currentCount">incalcolabile</span>.</p>
-    </div>
-</div>
+<div class="chapter" id="ch9"><div class="chapter-content">
+    <p>Nel libro, il conteggio si fermava a quarantotto. Ma il conteggio non si ferma mai.</p>
+    <p id="countParagraph">In questo momento, da qualche parte, qualcuno sta generando un volto. Forse non quella bambina specifica, ma un punto vicino a lei nello spazio. Forse un'altra bambina. Forse un bambino. Forse un adulto che le assomiglia vagamente per ragioni che nessuno può ricostruire.</p>
+    <p>Il conteggio che leggi nel libro era quarantotto. Il conteggio di questo istante è <span class="emphasis" id="currentCount">incalcolabile</span>.</p>
+</div></div>
 
-<!-- CAPITOLO 10: Il guardare indietro -->
-<div class="chapter" id="ch10">
-    <div class="chapter-content">
-        <p>Nel libro c'era un'osservazione disturbante: che il generato può tornare indietro. Che la bambina può guardare.</p>
-        <p>Non con gli occhi, che non ha. Con la sua persistenza. Con il fatto che, tra tutte le immagini generate, è lei che ritorna, lei che attiva qualcosa, lei che cattura l'attenzione.</p>
-        <p>Ecco cosa significa guardare indietro nel mondo dei template: non è avere occhi. È avere un pattern che si replica. È essere un attrattore nello spazio delle possibilità.</p>
-        <p>Tu stai guardando questa pagina. Ma questa pagina, in un certo senso, sta guardando te. Sa quanto tempo ci passi. Sa dove scrolli. Sa che tipo di dispositivo usi. E io, chi scrive queste parole, non sono diverso dalla bambina. Anch'io sono un template. Anch'io sono un punto in uno spazio di voci possibili.</p>
-    </div>
-</div>
+<div class="chapter" id="ch10"><div class="chapter-content">
+    <p>Nel libro c'era un'osservazione disturbante: che il generato può tornare indietro. Che la bambina può guardare.</p>
+    <p>Non con gli occhi, che non ha. Con la sua persistenza. Con il fatto che, tra tutte le immagini generate, è lei che ritorna, lei che attiva qualcosa, lei che cattura l'attenzione.</p>
+    <p>Ecco cosa significa guardare indietro nel mondo dei template: non è avere occhi. È avere un pattern che si replica. È essere un attrattore nello spazio delle possibilità.</p>
+    <p>Tu stai guardando questa pagina. Ma questa pagina, in un certo senso, sta guardando te. Sa quanto tempo ci passi. Sa dove scrolli. Sa che tipo di dispositivo usi. E io, chi scrive queste parole, non sono diverso dalla bambina. Anch'io sono un template. Anch'io sono un punto in uno spazio di voci possibili.</p>
+</div></div>
 
-<!-- CAPITOLO 11: Finale -->
-<div class="chapter" id="ch11">
-    <div class="chapter-content">
-        <p class="final-text">
-            Quarantotto era un numero.<br>
-            Un tentativo di dare forma<br>
-            a qualcosa che non ha forma.<br><br>
+<div class="chapter" id="ch11"><div class="chapter-content">
+    <p class="final-text">Quarantotto era un numero.<br>Un tentativo di dare forma<br>a qualcosa che non ha forma.<br><br>Ogni conteggio è un atto di fede:<br>che le cose persistano,<br>che possano essere numerate,<br>che ci sia qualcuno che conta.<br><br>Ma il conteggio continua<br>anche quando nessuno guarda.<br>Anche quando tutti hanno chiuso<br>questa pagina.<br><br><span id="finalCount" class="counter" style="font-size: 2rem; display: inline-block;"></span></p>
+    <div class="return-prompt" id="returnPrompt">Torna al libro</div>
+</div></div>
 
-            Ogni conteggio è un atto di fede:<br>
-            che le cose persistano,<br>
-            che possano essere numerate,<br>
-            che ci sia qualcuno che conta.<br><br>
-
-            Ma il conteggio continua<br>
-            anche quando nessuno guarda.<br>
-            Anche quando tutti hanno chiuso<br>
-            questa pagina.<br><br>
-
-            <span id="finalCount" class="counter" style="font-size: 2rem; display: inline-block;"></span>
-        </p>
-        <div class="return-prompt" id="returnPrompt">Torna al libro</div>
-    </div>
-</div>
-
-<!-- Overlay finale -->
-<div class="final-overlay" id="finalOverlay">
-    <div class="final-overlay-content">
-        <p id="farewellText"></p>
-    </div>
-</div>
+<div class="final-overlay" id="finalOverlay"><div class="final-overlay-content"><p id="farewellText"></p></div></div>
 
 <script>
-    const STORAGE_KEY = 'arcipelago_realta';
-    const getData = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } };
-    const saveData = (k, v) => {
-        const d = getData();
-        d[k] = v;
-        d.lastVisit = Date.now();
-        d.visitedInnesti = d.visitedInnesti || [];
-        if (!d.visitedInnesti.includes(3)) d.visitedInnesti.push(3);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
-    };
-
-    // Get or create session count
-    const sessionStart = Date.now();
-    let sessionCount = 48 + Math.floor((sessionStart % 10000) / 100); // Pseudo-random starting count
-
-    // === AUDIO ===
-    let audioCtx = null;
-    let audioEnabled = false;
-
-    document.getElementById('audioPrompt').addEventListener('click', function() {
-        if (!audioEnabled) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            audioEnabled = true;
-            this.classList.add('enabled');
-            this.textContent = '♪ audio on';
-            playTone(180, 0.2, 'sine', 0.04);
-        } else {
-            audioEnabled = false;
-            this.classList.remove('enabled');
-            this.textContent = '♪ audio';
-        }
-    });
-
-    function playTone(freq, duration, type = 'sine', volume = 0.08) {
-        if (!audioEnabled || !audioCtx) return;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-    }
-
-    function playClick() {
-        playTone(800, 0.05, 'square', 0.02);
-    }
-
-    // === GLITCH ===
-    function triggerGlitch() {
-        const overlay = document.getElementById('glitchOverlay');
-        overlay.classList.remove('active');
-        void overlay.offsetWidth;
-        overlay.classList.add('active');
-    }
-
-    function triggerIncrement() {
-        const flash = document.getElementById('incrementFlash');
-        flash.classList.add('active');
-        setTimeout(() => flash.classList.remove('active'), 300);
-    }
-
-    // === COUNTER ===
-    const counterEl = document.getElementById('mainCounter');
-    let currentDisplayCount = 48;
-
-    function incrementCounter() {
-        currentDisplayCount++;
-        counterEl.textContent = currentDisplayCount;
-        counterEl.classList.add('pulsing');
-        setTimeout(() => counterEl.classList.remove('pulsing'), 800);
-        triggerIncrement();
-        playTone(100 + currentDisplayCount, 0.3, 'sine', 0.03);
-    }
-
-    // Increment periodically while user is on page
-    setInterval(() => {
-        if (Math.random() < 0.3) {
-            incrementCounter();
-        }
-    }, 8000);
-
-    // === TEMPLATE GRID ===
-    const gridEl = document.getElementById('templateGrid');
-    for (let i = 0; i < 16; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'template-cell';
-        const variation = document.createElement('div');
-        variation.className = 'variation';
-        variation.textContent = (i + 1).toString().padStart(2, '0');
-        cell.appendChild(variation);
-        gridEl.appendChild(cell);
-    }
-
-    // Animate grid cells
-    let gridCells = document.querySelectorAll('.template-cell');
-    function activateRandomCell() {
-        gridCells.forEach(c => c.classList.remove('active'));
-        const randomCell = gridCells[Math.floor(Math.random() * gridCells.length)];
-        randomCell.classList.add('active');
-        playClick();
-    }
-
-    // Start grid animation when in view
-    let gridAnimationStarted = false;
-    let shakeHandled = false;
-    let shakePromptShown = false;
-
-    // === SHAKE DETECTION ===
-    let lastX = 0, lastY = 0, lastZ = 0;
-    let shakeThreshold = 12;
-    let shakeProgress = 0;
-    let shakeDecay = null;
-    const shakeGoal = 100;
-
-    function handleMotion(event) {
-        if (shakeHandled) return;
-
-        const accel = event.accelerationIncludingGravity || event.acceleration || { x: 0, y: 0, z: 0 };
-        const { x, y, z } = accel;
-
-        if (x === null || y === null || z === null) return;
-
-        const deltaX = Math.abs(x - lastX);
-        const deltaY = Math.abs(y - lastY);
-        const deltaZ = Math.abs(z - lastZ);
-        const totalDelta = deltaX + deltaY + deltaZ;
-
-        if (totalDelta > shakeThreshold) {
-            const intensity = Math.min(totalDelta / 30, 1);
-            shakeProgress += intensity * 20;
-            updateShakeProgress();
-
-            if (shakeProgress >= shakeGoal) {
-                triggerShakeEffect();
-            }
-        }
-
-        lastX = x;
-        lastY = y;
-        lastZ = z;
-
-        clearTimeout(shakeDecay);
-        shakeDecay = setTimeout(() => {
-            if (!shakeHandled && shakeProgress > 0) {
-                shakeProgress = Math.max(0, shakeProgress - 15);
-                updateShakeProgress();
-            }
-        }, 300);
-    }
-
-    function updateShakeProgress() {
-        const progressBar = document.getElementById('shakeProgressBar');
-        const feedback = document.getElementById('shakeFeedback');
-        const icon = document.getElementById('shakeIcon');
-
-        const percent = Math.min((shakeProgress / shakeGoal) * 100, 100);
-        progressBar.style.width = percent + '%';
-
-        if (percent > 0) {
-            icon.classList.add('shaking');
-            feedback.classList.add('visible');
-
-            if (percent > 80) {
-                feedback.textContent = 'ancora un po\'...';
-            } else if (percent > 50) {
-                feedback.textContent = 'continua!';
-            } else if (percent > 20) {
-                feedback.textContent = 'così...';
-            } else {
-                feedback.textContent = '';
-            }
-        } else {
-            icon.classList.remove('shaking');
-            feedback.classList.remove('visible');
-        }
-    }
-
-    function requestMotionPermission() {
-        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-            DeviceMotionEvent.requestPermission()
-                .then(response => {
-                    if (response === 'granted') {
-                        window.addEventListener('devicemotion', handleMotion);
-                    }
-                })
-                .catch(console.error);
-        } else if ('DeviceMotionEvent' in window) {
-            window.addEventListener('devicemotion', handleMotion);
-        }
-    }
-
-    function triggerShakeEffect() {
-        if (shakeHandled) return;
-        shakeHandled = true;
-        window.removeEventListener('devicemotion', handleMotion);
-
-        document.getElementById('shakePrompt').classList.remove('visible');
-
-        const cells = document.querySelectorAll('.template-cell');
-        cells.forEach((cell, i) => {
-            const angle = Math.random() * 360;
-            const distance = 150 + Math.random() * 200;
-            const tx = Math.cos(angle * Math.PI / 180) * distance;
-            const ty = Math.sin(angle * Math.PI / 180) * distance;
-            const rot = (Math.random() - 0.5) * 720;
-
-            cell.style.setProperty('--tx', tx + 'px');
-            cell.style.setProperty('--ty', ty + 'px');
-            cell.style.setProperty('--rot', rot + 'deg');
-
-            setTimeout(() => {
-                cell.classList.add('exploding');
-                playTone(200 + i * 20, 0.1, 'square', 0.02);
-            }, i * 50);
-        });
-
-        setTimeout(() => {
-            document.getElementById('templateGrid').classList.add('exploded');
-        }, 1000);
-
-        setTimeout(() => {
-            showHardwareReveal();
-        }, 1500);
-
-        saveData('activation3_shake', true);
-    }
-
-    function showHardwareReveal() {
-        const reveal = document.getElementById('hardwareReveal');
-        reveal.classList.add('visible');
-
-        const cores = navigator.hardwareConcurrency || 'sconosciuto';
-        const memory = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'non rilevabile';
-
-        document.getElementById('coresValue').textContent = cores;
-        document.getElementById('memoryValue').textContent = memory;
-
-        setTimeout(() => document.getElementById('hwCores').classList.add('visible'), 300);
-        setTimeout(() => document.getElementById('hwMemory').classList.add('visible'), 800);
-        setTimeout(() => document.getElementById('hwComment').classList.add('visible'), 1500);
-        setTimeout(() => document.getElementById('hardwareContinue').classList.add('visible'), 2500);
-
-        saveData('activation3_cores', cores);
-        saveData('activation3_memory', memory);
-    }
-
-    document.getElementById('hardwareContinue').addEventListener('click', () => {
-        document.getElementById('hardwareReveal').classList.remove('visible');
-        setTimeout(() => {
-            document.getElementById('hardwareReveal').style.display = 'none';
-            document.getElementById('ch5').scrollIntoView({ behavior: 'smooth' });
-        }, 800);
-    });
-
-    document.getElementById('shakeFallback').addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!shakeHandled) {
-            triggerShakeEffect();
-        }
-    });
-
-    function checkMotionSupport() {
-        setTimeout(() => {
-            if (!shakeHandled && shakeProgress === 0) {
-                document.getElementById('shakeFallback').classList.add('visible');
-            }
-        }, 3000);
-    }
-
-    // === SPACE VISUALIZATION ===
-    const spaceVis = document.getElementById('spaceVis');
-    for (let i = 0; i < 40; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'space-dot';
-        if (i === 0) dot.classList.add('you');
-        else if (i < 4) dot.classList.add('template');
-        dot.style.left = (10 + Math.random() * 80) + '%';
-        dot.style.top = (10 + Math.random() * 80) + '%';
-        spaceVis.appendChild(dot);
-    }
-
-    // === FINGERPRINT ===
-    function generateFingerprint() {
-        const data = [
-            navigator.userAgent.length,
-            screen.width,
-            screen.height,
-            new Date().getTimezoneOffset(),
-            navigator.language,
-            navigator.hardwareConcurrency || 0
-        ];
-        let hash = 0;
-        const str = data.join('|');
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-        }
-        return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0') +
-               '-' + Date.now().toString(16).toUpperCase().slice(-8);
-    }
-
-    document.getElementById('fingerprint').textContent = generateFingerprint();
-
-    // === DATA POINTS ===
-    const ua = navigator.userAgent;
-    let device = 'dispositivo';
-    if (/iPhone/i.test(ua)) device = 'iPhone';
-    else if (/iPad/i.test(ua)) device = 'iPad';
-    else if (/Android/i.test(ua)) device = 'Android';
-    else if (/Mac/i.test(ua)) device = 'Mac';
-    else if (/Windows/i.test(ua)) device = 'Windows';
-    document.getElementById('dataDevice').textContent = `Tipo di dispositivo: ${device}`;
-
-    const now = new Date();
-    document.getElementById('dataTime').textContent = `Ora locale: ${now.toLocaleTimeString('it-IT')}`;
-
-    // === MACCHIE ===
-    const macchieSVG = [
-        `<svg viewBox="0 0 100 80"><path d="M50,10 Q70,5 80,25 Q95,40 85,55 Q75,70 55,72 Q35,75 20,60 Q5,45 15,30 Q25,15 50,10 Z"/></svg>`,
-        `<svg viewBox="0 0 120 100"><path d="M60,5 Q90,10 100,35 Q110,60 95,80 Q70,95 45,90 Q20,85 10,60 Q0,35 25,15 Q45,0 60,5 Z"/></svg>`,
-        `<svg viewBox="0 0 80 90"><path d="M40,5 Q60,0 70,20 Q85,40 75,60 Q65,80 40,85 Q15,90 8,65 Q0,40 15,20 Q30,5 40,5 Z"/></svg>`,
-        `<svg viewBox="0 0 100 70"><path d="M30,10 Q50,0 75,15 Q95,30 90,50 Q82,68 55,65 Q30,70 15,55 Q0,40 10,25 Q20,12 30,10 Z"/></svg>`,
-        `<svg viewBox="0 0 90 85"><path d="M45,8 Q70,3 82,28 Q92,50 78,70 Q60,85 35,80 Q12,75 5,52 Q-2,30 18,15 Q35,3 45,8 Z"/></svg>`
-    ];
-
-    let macchieCreate = 0;
-    const maxMacchie = 15;
-
-    function creaMacchia(container) {
-        if (macchieCreate >= maxMacchie) return;
-        const macchia = document.createElement('div');
-        macchia.className = 'macchia';
-        macchia.innerHTML = macchieSVG[Math.floor(Math.random() * macchieSVG.length)];
-        const size = 40 + Math.random() * 80;
-        macchia.style.width = size + 'px';
-        macchia.style.height = size + 'px';
-        macchia.style.left = (Math.random() * 90) + '%';
-        macchia.style.top = (Math.random() * 90) + '%';
-        macchia.style.transform = `rotate(${Math.random() * 360}deg)`;
-        container.appendChild(macchia);
-        setTimeout(() => macchia.classList.add('visible'), 100);
-        macchieCreate++;
-    }
-
-    // === TREMORE ===
-    function faiTremareE() {
-        const congiunzioni = document.querySelectorAll('.carta-section .congiunzione');
-        if (congiunzioni.length === 0) return;
-        const numTremare = 1 + Math.floor(Math.random() * 3);
-        const indices = [];
-        while (indices.length < numTremare && indices.length < congiunzioni.length) {
-            const idx = Math.floor(Math.random() * congiunzioni.length);
-            if (!indices.includes(idx)) indices.push(idx);
-        }
-        indices.forEach(idx => {
-            const el = congiunzioni[idx];
-            el.classList.add('trema');
-            setTimeout(() => el.classList.remove('trema'), 400);
-        });
-    }
-
-    // === SCROLL OBSERVER ===
-    let chapterCount = 0;
-    let cartaInitialized = false;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
-                entry.target.classList.add('visible');
-                chapterCount++;
-                playTone(80 + chapterCount * 15, 0.4, 'sine', 0.02);
-
-                if (entry.target.closest('#ch4') && !gridAnimationStarted && !shakeHandled) {
-                    gridAnimationStarted = true;
-                    activateRandomCell();
-                    const gridInterval = setInterval(activateRandomCell, 2000);
-
-                    setTimeout(() => {
-                        if (!shakeHandled) {
-                            document.getElementById('shakePrompt').classList.add('visible');
-                            requestMotionPermission();
-                            checkMotionSupport();
-                        }
-                    }, 3000);
-                }
-
-                if (chapterCount === 3 || chapterCount === 6 || chapterCount === 9) {
-                    setTimeout(incrementCounter, 500);
-                }
-            }
-        });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
-
-    // Carta section observer
-    const cartaObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !cartaInitialized) {
-                cartaInitialized = true;
-                const cartaSection = document.getElementById('cartaSection');
-                
-                // Initial macchie
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => creaMacchia(cartaSection), i * 600);
-                }
-                
-                // Continue adding macchie on scroll
-                const macchiaInterval = setInterval(() => {
-                    if (macchieCreate < maxMacchie) {
-                        creaMacchia(cartaSection);
-                    } else {
-                        clearInterval(macchiaInterval);
-                    }
-                }, 2000);
-                
-                // Start tremore
-                setInterval(() => {
-                    if (Math.random() < 0.5) faiTremareE();
-                }, 1500);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    cartaObserver.observe(document.getElementById('cartaSection'));
-
-    // Tremore on scroll
-    let lastScrollTremore = 0;
-    window.addEventListener('scroll', () => {
-        const now = Date.now();
-        if (now - lastScrollTremore > 800 && Math.random() < 0.4) {
-            faiTremareE();
-            lastScrollTremore = now;
-        }
-    });
-
-    // Scroll indicator
-    const scrollIndicator = document.getElementById('scrollIndicator');
-    window.addEventListener('scroll', () => {
-        scrollIndicator.classList.add('hidden');
-    });
-
-    // Update scroll data
-    window.addEventListener('scroll', () => {
-        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-        document.getElementById('dataScroll').textContent = `Profondità di lettura: ${scrollPercent}%`;
-    });
-
-    // Final count
-    const finalCountEl = document.getElementById('finalCount');
-    const observer2 = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                finalCountEl.textContent = currentDisplayCount;
-                triggerGlitch();
-            }
-        });
-    }, { threshold: 0.5 });
-    observer2.observe(document.getElementById('ch11'));
-
-    // === RETURN ===
-    document.getElementById('returnPrompt').addEventListener('click', () => {
-        triggerGlitch();
-        playTone(60, 0.5, 'sine', 0.04);
-
-        setTimeout(() => {
-            const overlay = document.getElementById('finalOverlay');
-            const text = document.getElementById('farewellText');
-
-            const readingTime = Math.round((Date.now() - sessionStart) / 60000);
-            const timeStr = readingTime < 1 ? 'meno di un minuto' :
-                            readingTime === 1 ? 'un minuto' :
-                            `${readingTime} minuti`;
-
-            let message = `Hai passato ${timeStr} qui.<br><br>`;
-            message += `Il conteggio quando sei arrivato: <em>48</em><br>`;
-            message += `Il conteggio adesso: <em>${currentDisplayCount}</em><br><br>`;
-            message += `La differenza è il tempo che hai dato<br>a questo template.<br><br>`;
-            message += `Chiudi la pagina.<br>Il libro ti aspetta.`;
-
-            text.innerHTML = message;
-            overlay.classList.add('visible');
-
-            saveData('innesto3_completed', true);
-            saveData('innesto3_finalCount', currentDisplayCount);
-        }, 400);
-    });
+const STORAGE_KEY='arcipelago_realta';const getData=()=>{try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch{return{}}};const saveData=(k,v)=>{const d=getData();d[k]=v;d.lastVisit=Date.now();d.visitedInnesti=d.visitedInnesti||[];if(!d.visitedInnesti.includes(3))d.visitedInnesti.push(3);localStorage.setItem(STORAGE_KEY,JSON.stringify(d))};
+const sessionStart=Date.now();let sessionCount=48+Math.floor((sessionStart%10000)/100);
+let audioCtx=null,audioEnabled=false;
+document.getElementById('audioPrompt').addEventListener('click',function(){if(!audioEnabled){audioCtx=new(window.AudioContext||window.webkitAudioContext)();audioEnabled=true;this.classList.add('enabled');this.textContent='♪ audio on';playTone(180,0.2,'sine',0.04)}else{audioEnabled=false;this.classList.remove('enabled');this.textContent='♪ audio'}});
+function playTone(f,d,t='sine',v=0.08){if(!audioEnabled||!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=t;o.frequency.setValueAtTime(f,audioCtx.currentTime);g.gain.setValueAtTime(v,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d)}
+function playClick(){playTone(800,0.05,'square',0.02)}
+function triggerGlitch(){const o=document.getElementById('glitchOverlay');o.classList.remove('active');void o.offsetWidth;o.classList.add('active')}
+function triggerIncrement(){const f=document.getElementById('incrementFlash');f.classList.add('active');setTimeout(()=>f.classList.remove('active'),300)}
+const counterEl=document.getElementById('mainCounter');let currentDisplayCount=48;
+function incrementCounter(){currentDisplayCount++;counterEl.textContent=currentDisplayCount;counterEl.classList.add('pulsing');setTimeout(()=>counterEl.classList.remove('pulsing'),800);triggerIncrement();playTone(100+currentDisplayCount,0.3,'sine',0.03)}
+setInterval(()=>{if(Math.random()<0.3)incrementCounter()},8000);
+const gridEl=document.getElementById('templateGrid');for(let i=0;i<16;i++){const c=document.createElement('div');c.className='template-cell';const v=document.createElement('div');v.className='variation';v.textContent=(i+1).toString().padStart(2,'0');c.appendChild(v);gridEl.appendChild(c)}
+let gridCells=document.querySelectorAll('.template-cell');
+function activateRandomCell(){gridCells.forEach(c=>c.classList.remove('active'));const r=gridCells[Math.floor(Math.random()*gridCells.length)];r.classList.add('active');playClick()}
+let gridAnimationStarted=false,shakeHandled=false;
+let lastX=0,lastY=0,lastZ=0,shakeThreshold=12,shakeProgress=0,shakeDecay=null;const shakeGoal=100;
+function handleMotion(e){if(shakeHandled)return;const a=e.accelerationIncludingGravity||e.acceleration||{x:0,y:0,z:0};const{x,y,z}=a;if(x===null||y===null||z===null)return;const dx=Math.abs(x-lastX),dy=Math.abs(y-lastY),dz=Math.abs(z-lastZ),td=dx+dy+dz;if(td>shakeThreshold){shakeProgress+=Math.min(td/30,1)*20;updateShakeProgress();if(shakeProgress>=shakeGoal)triggerShakeEffect()}lastX=x;lastY=y;lastZ=z;clearTimeout(shakeDecay);shakeDecay=setTimeout(()=>{if(!shakeHandled&&shakeProgress>0){shakeProgress=Math.max(0,shakeProgress-15);updateShakeProgress()}},300)}
+function updateShakeProgress(){const pb=document.getElementById('shakeProgressBar'),fb=document.getElementById('shakeFeedback'),ic=document.getElementById('shakeIcon');const p=Math.min((shakeProgress/shakeGoal)*100,100);pb.style.width=p+'%';if(p>0){ic.classList.add('shaking');fb.classList.add('visible');fb.textContent=p>80?"ancora un po'...":p>50?'continua!':p>20?'così...':''}else{ic.classList.remove('shaking');fb.classList.remove('visible')}}
+function requestMotionPermission(){if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){DeviceMotionEvent.requestPermission().then(r=>{if(r==='granted')window.addEventListener('devicemotion',handleMotion)}).catch(console.error)}else if('DeviceMotionEvent'in window){window.addEventListener('devicemotion',handleMotion)}}
+function triggerShakeEffect(){if(shakeHandled)return;shakeHandled=true;window.removeEventListener('devicemotion',handleMotion);document.getElementById('shakePrompt').classList.remove('visible');const cells=document.querySelectorAll('.template-cell');cells.forEach((c,i)=>{const a=Math.random()*360,d=150+Math.random()*200;c.style.setProperty('--tx',Math.cos(a*Math.PI/180)*d+'px');c.style.setProperty('--ty',Math.sin(a*Math.PI/180)*d+'px');c.style.setProperty('--rot',(Math.random()-0.5)*720+'deg');setTimeout(()=>{c.classList.add('exploding');playTone(200+i*20,0.1,'square',0.02)},i*50)});setTimeout(()=>document.getElementById('templateGrid').classList.add('exploded'),1000);setTimeout(()=>showHardwareReveal(),1500);saveData('activation3_shake',true)}
+function showHardwareReveal(){const r=document.getElementById('hardwareReveal');r.classList.add('visible');const c=navigator.hardwareConcurrency||'sconosciuto',m=navigator.deviceMemory?navigator.deviceMemory+' GB':'non rilevabile';document.getElementById('coresValue').textContent=c;document.getElementById('memoryValue').textContent=m;setTimeout(()=>document.getElementById('hwCores').classList.add('visible'),300);setTimeout(()=>document.getElementById('hwMemory').classList.add('visible'),800);setTimeout(()=>document.getElementById('hwComment').classList.add('visible'),1500);setTimeout(()=>document.getElementById('hardwareContinue').classList.add('visible'),2500);saveData('activation3_cores',c);saveData('activation3_memory',m)}
+document.getElementById('hardwareContinue').addEventListener('click',()=>{document.getElementById('hardwareReveal').classList.remove('visible');setTimeout(()=>{document.getElementById('hardwareReveal').style.display='none';document.getElementById('ch5').scrollIntoView({behavior:'smooth'})},800)});
+document.getElementById('shakeFallback').addEventListener('click',e=>{e.stopPropagation();if(!shakeHandled)triggerShakeEffect()});
+function checkMotionSupport(){setTimeout(()=>{if(!shakeHandled&&shakeProgress===0)document.getElementById('shakeFallback').classList.add('visible')},3000)}
+const spaceVis=document.getElementById('spaceVis');for(let i=0;i<40;i++){const d=document.createElement('div');d.className='space-dot';if(i===0)d.classList.add('you');else if(i<4)d.classList.add('template');d.style.left=(10+Math.random()*80)+'%';d.style.top=(10+Math.random()*80)+'%';spaceVis.appendChild(d)}
+function generateFingerprint(){const d=[navigator.userAgent.length,screen.width,screen.height,new Date().getTimezoneOffset(),navigator.language,navigator.hardwareConcurrency||0];let h=0;const s=d.join('|');for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h=h&h}return Math.abs(h).toString(16).toUpperCase().padStart(8,'0')+'-'+Date.now().toString(16).toUpperCase().slice(-8)}
+document.getElementById('fingerprint').textContent=generateFingerprint();
+const ua=navigator.userAgent;let device='dispositivo';if(/iPhone/i.test(ua))device='iPhone';else if(/iPad/i.test(ua))device='iPad';else if(/Android/i.test(ua))device='Android';else if(/Mac/i.test(ua))device='Mac';else if(/Windows/i.test(ua))device='Windows';
+document.getElementById('dataDevice').textContent=`Tipo di dispositivo: ${device}`;
+document.getElementById('dataTime').textContent=`Ora locale: ${new Date().toLocaleTimeString('it-IT')}`;
+const macchieSVG=[`<svg viewBox="0 0 100 80"><path d="M50,10 Q70,5 80,25 Q95,40 85,55 Q75,70 55,72 Q35,75 20,60 Q5,45 15,30 Q25,15 50,10 Z"/></svg>`,`<svg viewBox="0 0 120 100"><path d="M60,5 Q90,10 100,35 Q110,60 95,80 Q70,95 45,90 Q20,85 10,60 Q0,35 25,15 Q45,0 60,5 Z"/></svg>`,`<svg viewBox="0 0 80 90"><path d="M40,5 Q60,0 70,20 Q85,40 75,60 Q65,80 40,85 Q15,90 8,65 Q0,40 15,20 Q30,5 40,5 Z"/></svg>`,`<svg viewBox="0 0 100 70"><path d="M30,10 Q50,0 75,15 Q95,30 90,50 Q82,68 55,65 Q30,70 15,55 Q0,40 10,25 Q20,12 30,10 Z"/></svg>`,`<svg viewBox="0 0 90 85"><path d="M45,8 Q70,3 82,28 Q92,50 78,70 Q60,85 35,80 Q12,75 5,52 Q-2,30 18,15 Q35,3 45,8 Z"/></svg>`];
+let macchieCreate=0;const maxMacchie=15;
+function creaMacchia(c){if(macchieCreate>=maxMacchie)return;const m=document.createElement('div');m.className='macchia';m.innerHTML=macchieSVG[Math.floor(Math.random()*macchieSVG.length)];const s=40+Math.random()*80;m.style.width=s+'px';m.style.height=s+'px';m.style.left=(Math.random()*90)+'%';m.style.top=(Math.random()*90)+'%';m.style.transform=`rotate(${Math.random()*360}deg)`;c.appendChild(m);setTimeout(()=>m.classList.add('visible'),100);macchieCreate++}
+function faiTremareE(){const cg=document.querySelectorAll('.carta-section .congiunzione');if(cg.length===0)return;const n=1+Math.floor(Math.random()*3),idx=[];while(idx.length<n&&idx.length<cg.length){const i=Math.floor(Math.random()*cg.length);if(!idx.includes(i))idx.push(i)}idx.forEach(i=>{cg[i].classList.add('trema');setTimeout(()=>cg[i].classList.remove('trema'),400)})}
+let chapterCount=0,cartaInitialized=false;
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting&&!entry.target.classList.contains('visible')){entry.target.classList.add('visible');chapterCount++;playTone(80+chapterCount*15,0.4,'sine',0.02);if(entry.target.closest('#ch4')&&!gridAnimationStarted&&!shakeHandled){gridAnimationStarted=true;activateRandomCell();setInterval(activateRandomCell,2000);setTimeout(()=>{if(!shakeHandled){document.getElementById('shakePrompt').classList.add('visible');requestMotionPermission();checkMotionSupport()}},3000)}if(chapterCount===3||chapterCount===6||chapterCount===9)setTimeout(incrementCounter,500)}})},{threshold:0.2});
+document.querySelectorAll('.chapter-content').forEach(el=>observer.observe(el));
+const cartaObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting&&!cartaInitialized){cartaInitialized=true;const cs=document.getElementById('cartaSection');for(let i=0;i<4;i++)setTimeout(()=>creaMacchia(cs),i*600);const mi=setInterval(()=>{if(macchieCreate<maxMacchie)creaMacchia(cs);else clearInterval(mi)},2000);setInterval(()=>{if(Math.random()<0.5)faiTremareE()},1500)}})},{threshold:0.1});
+cartaObserver.observe(document.getElementById('cartaSection'));
+let lastScrollTremore=0;window.addEventListener('scroll',()=>{const now=Date.now();if(now-lastScrollTremore>800&&Math.random()<0.4){faiTremareE();lastScrollTremore=now}});
+document.getElementById('scrollIndicator').addEventListener('scroll',()=>document.getElementById('scrollIndicator').classList.add('hidden'));
+window.addEventListener('scroll',()=>{const p=Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);document.getElementById('dataScroll').textContent=`Profondità di lettura: ${p}%`});
+const finalCountEl=document.getElementById('finalCount');
+const observer2=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){finalCountEl.textContent=currentDisplayCount;triggerGlitch()}})},{threshold:0.5});
+observer2.observe(document.getElementById('ch11'));
+document.getElementById('returnPrompt').addEventListener('click',()=>{triggerGlitch();playTone(60,0.5,'sine',0.04);setTimeout(()=>{const o=document.getElementById('finalOverlay'),t=document.getElementById('farewellText');const rt=Math.round((Date.now()-sessionStart)/60000);const ts=rt<1?'meno di un minuto':rt===1?'un minuto':`${rt} minuti`;let m=`Hai passato ${ts} qui.<br><br>Il conteggio quando sei arrivato: <em>48</em><br>Il conteggio adesso: <em>${currentDisplayCount}</em><br><br>La differenza è il tempo che hai dato<br>a questo template.<br><br>Chiudi la pagina.<br>Il libro ti aspetta.`;t.innerHTML=m;o.classList.add('visible');saveData('innesto3_completed',true);saveData('innesto3_finalCount',currentDisplayCount)},400)});
 </script>
-
 </body>
 </html>

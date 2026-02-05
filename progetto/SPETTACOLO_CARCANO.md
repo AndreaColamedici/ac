@@ -12,17 +12,38 @@
 
 ---
 
-## IL PROBLEMA E LA SOLUZIONE
+## IL PROBLEMA DRAMMATURGICO
 
 Lo spettacolo ha un problema strutturale: racconta una storia già nota. Chi viene a teatro sa già come va a finire — Xun non esiste, è stato rivelato, è diventato un caso. La suspense tradizionale non funziona.
 
 La soluzione è doppia: trasformare il "come" in qualcosa di più interessante del "cosa", e nascondere un secondo livello narrativo (Serena) che il pubblico non si aspetta.
 
-La struttura non può essere cronologica. Deve essere emotiva.
+**Forma**: una confessione a due voci che è essa stessa un trucco. Mentre confessano il primo inganno (Xun), ne stanno perpetrando un secondo (Serena). Il pubblico che si sente superiore perché "ora sa" scoprirà alla fine che non sapeva abbastanza.
 
-**Forma**: una confessione a due voci. Due persone che hanno fatto qualcosa di enorme e finalmente possono raccontare tutto. Il piacere del pubblico è quello di essere ammesso nel retroscena, di vedere i fili del trucco.
+---
 
-Ma la confessione è essa stessa un trucco. Mentre confessano il primo inganno (Xun), ne stanno perpetrando un secondo (Serena). Il pubblico che si sente superiore perché "ora sa" scoprirà alla fine che non sapeva abbastanza.
+## PRINCIPI DRAMMATURGICI
+
+### 1. L'economia del materiale
+Sessanta minuti significano otto-dieci aneddoti forti, non trenta. Ogni aneddoto va scelto per la sua **funzione drammatica**, non per la sua bellezza intrinseca. Un aneddoto perfetto che non serve all'arco emotivo deve restare fuori.
+
+### 2. Il principio di Čechov
+Ogni elemento introdotto deve tornare. Se mostro i due volti diversi, questo deve avere una conseguenza. Se introduco Serena, la sua rivelazione deve essere il culmine. Niente elementi decorativi.
+
+### 3. La curva di tensione
+La curva non può essere solo crescente. Servono respiri, cadute, momenti di rilascio prima del nuovo accumulo. Il ritmo è: tensione → rilascio → tensione maggiore → rilascio → tensione massima → caduta → risoluzione.
+
+### 4. Il conflitto interno
+Lo spettacolo parla di inganno, ma anche di qualcos'altro: la solitudine di chi inganna, il costo emotivo, la domanda su cosa sia davvero vero. Senza questo secondo livello, resta solo aneddotica.
+
+### 5. La catarsi
+Il pubblico deve uscire trasformato, non solo divertito. Il colpo di Serena serve a questo: non è una presa in giro, è una dimostrazione che rende il pubblico partecipe dell'esperimento.
+
+### 6. La struttura ternaria
+Sei movimenti, ma struttura ternaria classica:
+- **Atto I** (Movimenti I-II): Preparazione — il patto, la fabbricazione
+- **Atto II** (Movimenti III-IV): Sviluppo — l'escalation, la frattura  
+- **Atto III** (Movimenti V-VI): Risoluzione — il colpo, il congedo
 
 ---
 
@@ -31,124 +52,166 @@ Ma la confessione è essa stessa un trucco. Mentre confessano il primo inganno (
 ### MOVIMENTO I — L'INVITO
 *(minuti 1-10)*
 
-**Obiettivo**: stabilire il patto, creare complicità, presentare la posta in gioco.
+**Funzione drammatica**: stabilire il patto di complicità, seminare Serena, creare appetito narrativo.
 
-Andrea e Maura entrano. Nessuna cerimonia. Si siedono o stanno in piedi, informali.
+**Tono**: leggero, complice, da "vi raccontiamo un segreto".
+
+Andrea e Maura entrano. Nessuna cerimonia. Informali.
 
 **Andrea**: "Stasera vi raccontiamo come abbiamo fregato mezzo mondo."
 
 **Maura**: "E come mezzo mondo si è fatto fregare volentieri."
 
-Subito il pubblico è dentro: non è una conferenza, è una confessione. Il tono è quello di due amici che finalmente possono raccontare un segreto.
+Il pubblico è subito dentro: non è una conferenza, è una confessione.
 
-Qui si presenta **Serena Ferrante** — di passaggio, naturale: "Tutto questo è stato possibile grazie al progetto di ricerca coordinato da Serena Ferrante all'Università di Foggia." Nessun peso particolare. Il pubblico registra il nome senza sospettare.
+**Semina di Serena** — di passaggio, naturale: "Tutto questo è stato possibile grazie al progetto di ricerca coordinato da Serena Ferrante all'Università di Foggia." Nessun peso particolare. Il pubblico registra il nome senza sospettare.
 
-Poi: "Ma prima di raccontarvi come è andata, vogliamo farvi vedere qualcosa."
+**Primo video xuniano**: Sabina Minardi risponde a "Quando hai saputo del progetto?". Trenta secondi. Il pubblico vede che c'era un gruppo, una cospirazione. Vuole sapere di più.
 
-**Primo video xuniano**: qualcuno (forse Sabina Minardi, o Bifo) che risponde alla domanda "Quando hai saputo del progetto?". Trenta secondi. Il pubblico vede che c'era un gruppo, una cospirazione. Vuole sapere di più.
+**Aneddoto portante**: La presentazione fantasma dell'8 dicembre. "Xun non c'era. Ma alcuni hanno detto: 'Però lì si è manifestato.' Il pubblico ha costruito da solo la sua presenza."
+
+Questo aneddoto stabilisce il tema: la realtà si costruisce collettivamente, anche senza prove.
 
 ---
 
 ### MOVIMENTO II — LA FABBRICAZIONE
 *(minuti 10-25)*
 
-**Obiettivo**: mostrare come si costruisce una realtà. Il piacere artigianale del falso.
+**Funzione drammatica**: mostrare l'artigianato del falso, creare ammirazione per la costruzione, seminare la seconda apparizione di Serena.
 
-Qui si racconta la nascita di Xun. Ma non in modo lineare — per **illuminazioni successive**.
+**Tono**: da "guardate come si fa", piacere del mestiere.
 
-Prima: il nome. Il carattere 谎. L'ordine invertito che nessuno ha notato.
+La nascita di Xun per **illuminazioni successive**:
 
-Poi: il volto. Mostrare l'immagine. Poi mostrare l'altra immagine, quella di Academia.edu. "Due persone diverse. Nessuno ha guardato."
+1. **Il nome**: Il carattere 谎. L'ordine invertito cognome-nome che nessuno ha notato. "Solo una sinologa di Hong Kong l'ha colto. Dopo."
 
-Poi: l'infrastruttura. Il sito creato due giorni prima. Sarah Horowitz che rispondeva alle mail. Wikipedia modificata.
+2. **I due volti**: Mostrare le due immagini affiancate. "Due persone completamente diverse. Nessuno ha guardato. C'è un razzismo di fondo in questo: non ci siamo soffermati perché era un volto asiatico."
+   
+   *Questo aneddoto funziona perché tocca qualcosa di scomodo — il pubblico si riconosce.*
 
-Poi: le tracce nel libro. L'Esperimento di Berlino. "Abbiamo descritto esattamente quello che stavamo facendo. Era scritto a pagina 19."
+3. **L'infrastruttura**: Il sito creato due giorni prima. Sarah Horowitz che rispondeva alle mail. "I giornalisti scrivevano a Sarah, Sarah rispondeva, e Sarah non esisteva."
 
-**Maura** interviene con il domestico: cosa significava vivere con qualcuno che stava costruendo un filosofo immaginario. Le conversazioni surreali. "Mi chiedeva: secondo te Xun userebbe questa parola?"
+4. **Wikipedia**: I riferimenti inseriti nelle pagine di Deleuze, Byung-Chul Han, Bifo. "Abbiamo inquinato le fonti. E nessuno ha verificato le fonti."
 
-**Secondo video xuniano**: qualcuno che risponde a "Hai mai dovuto mentire a qualcuno?". Trenta secondi. Il pubblico ride, riconosce l'assurdità della situazione.
+**Maura** interviene con il domestico: "Mi chiedeva: secondo te Xun userebbe questa parola?" Il pubblico ride.
 
-Qui cade la **prima citazione di Serena Ferrante** — proiettata sullo schermo mentre Andrea parla d'altro: "L'autorità è una forma di fede. Non si dimostra: si riceve." Il pubblico la legge, la metabolizza come commento autorevole, e va avanti.
+**Secondo video xuniano**: qualcuno risponde a "Hai mai dovuto mentire a qualcuno?". Rilascio comico.
+
+**Citazione di Serena Ferrante** — proiettata sullo schermo: "L'autorità è una forma di fede. Non si dimostra: si riceve."
+
+Il pubblico la legge, la metabolizza come commento autorevole, e va avanti.
 
 ---
 
 ### MOVIMENTO III — L'ESCALATION
 *(minuti 25-40)*
 
-**Obiettivo**: far sentire la vertigine di qualcosa che cresce oltre ogni controllo.
+**Funzione drammatica**: far sentire la vertigine, accelerare fino alla perdita di controllo, seminare la voce di Serena.
 
-Il libro esce. Il mondo abbocca. Ma qui la narrazione deve **accelerare** — una cascata di eventi che si accumulano.
+**Tono**: da eccitazione crescente ad ansia crescente.
 
-La struttura è per accumulo: ogni aneddoto è più grande del precedente.
+**Struttura**: cascata per accumulo. Ogni gradino è più grande del precedente. Il ritmo deve accelerare fisicamente — le frasi si accorciano, le pause spariscono.
 
-- Prima le recensioni italiane.
-- Poi Le Grand Continent.
-- Poi l'interesse francese. Gallimard. Philosophie Magazine.
-- Poi Le Figaro. L'intervista. Il disegno a mano di un volto generato dall'IA.
-- Poi L'Opinion: "È arrivato all'Eliseo."
-- Poi il Wiktionnaire: "Hypnocratie" è nel dizionario.
-- Poi Macron.
+**La scalata** (Andrea racconta, Maura reagisce domesticamente):
 
-Ogni gradino: **Andrea** racconta l'evento, **Maura** racconta la reazione domestica. "Quella notte non ha dormito." "Mi ha chiamato alle tre di mattina per dirmi di Macron."
+- Le recensioni italiane. Pino Corrias: "Potrebbe persino esistere anche in quanto avatar di inchiostro collettivo."
+- Il Foglio: "Siamo nell'epoca del potere gassoso."
+- Le Grand Continent pubblica un estratto.
+- Philosophie Magazine.
+- **Le Figaro** fa l'intervista. Disegnano a mano il volto generato dall'IA. "Vertiginoso."
+- L'Opinion: "È arrivato all'Eliseo."
+- Il Wiktionnaire: "Hypnocratie" entra nel dizionario francese. Non per mano nostra.
+- **Macron**.
 
-In mezzo a questa escalation, le **complicazioni**:
+Maura: "Quella notte non ha dormito." / "Mi ha chiamato alle tre di mattina."
 
-- La tv francese che blocca il programma. "Erano gli unici ad aver verificato."
-- Bifo che chiama per la pagina Wikipedia. La storia completa, comica e filosofica.
-- Felice Cimatti che capisce tutto, lo scrive, e nessuno lo legge.
+**Le complicazioni** (rallentano il ritmo, creano respiro):
 
-**Terzo video xuniano**: qualcuno che risponde a "Qual è stato il momento in cui hai avuto più paura che saltasse tutto?". Il pubblico sente la tensione vissuta.
+- La tv francese che blocca il programma. "Erano gli unici ad aver verificato." Pausa. "Che strano, no?"
 
-Qui cade il **caso Carofiglio**: il plagio al contrario. "Può un inesistente essere plagiato?" Il pubblico ride, ma la domanda resta.
+- **Bifo**: "Mi ha detto: 'Nella mia pagina Wikipedia risulta che io abbia scritto un libro con Xun nel '92. Ma che io sappia l'ho scritto da solo. E per di più Xun non era ancora nato.'"
+  
+  Andrea lo porta dentro al progetto. Bifo scrive comunque la sua riflessione: "Sospetto che Jianwei Xun non esista. Da quando conobbi Luther Blissett, ho imparato che l'Autore è una figura piuttosto elusiva."
 
-E qui cade il **vocale di Serena Ferrante**: "Serena ci ha mandato questo stamattina." Due minuti di voce — pensosa, personale, che racconta la sua prospettiva sul progetto. Il pubblico ascolta in silenzio. Nessun sospetto.
+- **Cimatti**: aveva capito tutto, lo scrive pubblicamente su Doppio Zero. Nessuno lo legge.
+
+**Terzo video xuniano**: "Qual è stato il momento in cui hai avuto più paura che saltasse tutto?" Il pubblico sente la tensione.
+
+**Vocale di Serena Ferrante**: "Serena ci ha mandato questo stamattina." Due minuti di voce — pensosa, personale. Il pubblico ascolta in silenzio. Nessun sospetto.
 
 ---
 
 ### MOVIMENTO IV — LA FRATTURA
 *(minuti 40-50)*
 
-**Obiettivo**: il momento in cui tutto cambia. La rivelazione e le sue conseguenze.
+**Funzione drammatica**: il cambio di registro. Dal comico al serio. Il costo dell'esperimento.
 
-Il 4 aprile. L'Espresso esce con la copertina. Sabina Minardi scrive "Sono una xuniana."
+**Tono**: più lento, più grave. Qui lo spettacolo mostra che non è solo divertimento.
 
-Ma qui il tono cambia. Non è più comico. È **il costo**.
+Il 4 aprile. L'Espresso esce con la copertina. Sabina Minardi: "Sono una xuniana."
 
-Le critiche: Victor Mair. Gloria Origgi. Laura Ruggieri.
+**La copertura mondiale** (proiezioni rapide, titoli che scorrono):
+- New York Times: "A.I. Can Trick You, Warns Book That Hid A.I.'s Help Writing It"
+- Le Monde: "Le philosophe Jianwei Xun n'existe pas, mais son concept entre dans notre réalité"
+- El Clarín: "Hipnocracia, el libro del año"
+- Wired USA: "A Philosopher Released an Acclaimed Book About Digital Manipulation. The Author Ended Up Being AI"
+- Rolling Stone: "El libro del año del autor inexistente"
+
+Poi: **il costo**.
 
 **Il caso Origgi** — proiettato in sequenza:
 - "Il filosofo di Hong-Kong Jianwei Xun ha scritto un bel libro" — 5 marzo
-- Pausa.
+- Pausa lunga.
 - "Ipnocrazia è un libretto dalle tesi superficiali e fragili" — 14 aprile
 
 **Andrea**, piano: "Stesso libro. Stesse pagine. Stesse parole. L'unica cosa che era cambiata era chi l'aveva scritto."
 
 Silenzio.
 
-Poi il **caso Wired Spagna**: l'ipnocrazia al quadrato. I dettagli inventati che rimbalzano ovunque.
+**Il caso Wired Spagna**: l'ipnocrazia al quadrato. Hanno inventato dettagli falsi — "200 note a piè di pagina fabbricate" (il libro non ha neanche una nota), "il 40% generato dall'IA" (mai detta alcuna percentuale). Questi dettagli sono rimbalzati ovunque come fatti.
 
-E qui: "Sapete cosa è successo mentre preparavamo questo spettacolo? Ho chiesto a Claude di fare una ricerca..." La storia di come l'IA è caduta nella trappola. Il pubblico ride nervosamente.
+"E sapete cosa è successo mentre preparavamo questo spettacolo? Ho chiesto a Claude di fare una ricerca. Claude ha trovato quei dettagli falsi e me li ha riportati come veri."
 
-**Quarto video xuniano**: qualcuno che risponde a "Cosa hai provato il 4 aprile?". Più lungo, più emotivo. Il pubblico sente che questa storia ha avuto un peso reale su persone reali.
+Il pubblico ride, ma nervosamente. L'IA che ha aiutato a creare l'esperimento è caduta nella trappola dell'esperimento.
+
+**Le recensioni Amazon** (proiettate):
+- "Metto una sola stella, ma il sabotaggio culturale di Colamedici ne meriterebbe 5."
+- "Ci sono cascata anch'io: ho dedicato quattro giorni della mia vita a recensire questa patacca."
+
+**Il paragone con l'Affare Sokal** (Carlos Scolari, Pompeu Fabra): "Negli anni Novanta l'Affare Sokal ha scosso le scienze umane. Ora è la volta di Jianwei Xun."
+
+**Quarto video xuniano**: "Cosa hai provato il 4 aprile?" Più lungo, più emotivo. Il pubblico sente che questa storia ha avuto un peso reale.
 
 ---
 
 ### MOVIMENTO V — IL COLPO
 *(minuti 50-58)*
 
-**Obiettivo**: ribaltare tutto, ma poi spiegare perché.
+**Funzione drammatica**: ribaltare tutto. Trasformare il pubblico da spettatore a soggetto dell'esperimento.
 
-Andrea e Maura sembrano avviarsi alla conclusione. Il tono è riflessivo.
+**Tono**: apparente conclusione riflessiva, poi il colpo, poi la spiegazione.
+
+Andrea e Maura sembrano avviarsi alla fine.
 
 **Andrea**: "Ci siamo chiesti a lungo cosa significasse tutto questo."
 
 **Maura**: "Cosa dice di noi, del modo in cui costruiamo la fiducia."
 
+**L'aneddoto di Vásquez** — il culmine prima del colpo:
+
+"Quattro mesi dopo la rivelazione, uno dei più importanti scrittori latinoamericani viventi — Juan Gabriel Vásquez, Premio Alfaguara — tiene un discorso al Congresso Imprenditoriale Colombiano. Cita Xun tre volte. Sapendo che non esiste. Dice: 'Estoy de acuerdo con Jianwei Xun.' Poi racconta tutta la storia. Poi chiede a ChatGPT cosa penserebbe Xun della Colombia. Mette la risposta nel discorso ufficiale."
+
+Pausa.
+
+"E conclude così: 'Vi propongo di ascoltare Jianwei Xun. È vero che il poveretto non esiste; ma così come stanno le cose, questo può essere il minore dei suoi difetti.'"
+
+Silenzio. Il pubblico metabolizza: le idee sopravvivono all'autore.
+
 **Andrea**: "Serena Ferrante ci ha mandato un video ieri sera. Volevamo mostrarvelo."
 
-Parte il video. Una donna, volto credibile, sfondo di studio accademico. Parla al pubblico. Ringrazia Andrea e Maura. Dice qualcosa di toccante sulla natura dell'autorialità, sulla fiducia, sul progetto.
+Parte il video. Una donna, volto credibile, sfondo di studio accademico. Parla al pubblico. Ringrazia Andrea e Maura. Dice qualcosa di toccante sulla fiducia, sull'autorialità.
 
-Dopo trenta secondi, il volto comincia a **glitchare**. Piano. Il pubblico pensa a un problema tecnico. Poi il glitch si intensifica. Il volto si deforma. La voce si distorce.
+Dopo trenta secondi, il volto comincia a **glitchare**. Piano. Il pubblico pensa a un problema tecnico. Il glitch si intensifica. Il volto si deforma. La voce si distorce.
 
 Il video si interrompe.
 
@@ -156,7 +219,7 @@ Silenzio.
 
 **Andrea**, senza enfasi: "Serena Ferrante non esiste."
 
-Silenzio. Poi, senza fretta:
+Silenzio lungo.
 
 **Maura**: "L'abbiamo nominata all'inizio. Avete letto una sua citazione. Avete ascoltato la sua voce. Avete visto il suo volto. E non avete avuto motivo di dubitare."
 
@@ -166,7 +229,7 @@ Pausa.
 
 **Maura**: "L'abbiamo fatto per questo. Raccontarvi di Xun non bastava."
 
-**Andrea**: "Potevate pensare: io non ci sarei cascato. Quei giornalisti non hanno verificato, ma io avrei verificato. Quei lettori si sono fidati, ma io non mi sarei fidato."
+**Andrea**: "Potevate pensare: io non ci sarei cascato. Quei giornalisti non hanno verificato, ma io avrei verificato."
 
 **Maura**: "E invece vi siete fidati. Stasera. Dopo un'ora in cui vi abbiamo raccontato esattamente come funziona."
 
@@ -185,7 +248,11 @@ Pausa.
 ### MOVIMENTO VI — IL CONGEDO
 *(minuti 58-60)*
 
-Silenzio. Poi, più leggero:
+**Funzione drammatica**: ricomporre, dare senso, lasciare andare il pubblico con qualcosa.
+
+**Tono**: più leggero, ma non frivolo. Caldo.
+
+Silenzio. Poi:
 
 **Andrea**: "Gli xuniani che avete visto nei video sono veri. Potete cercarli. Esistono."
 
@@ -203,214 +270,145 @@ Pausa.
 
 ---
 
-## PRINCIPI STRUTTURALI
+## SELEZIONE DEGLI ANEDDOTI PER FUNZIONE
 
-1. **Progressione emotiva, non cronologica**: si parte dalla complicità, si passa all'eccitazione, si arriva alla vertigine, si chiude con lo spaesamento.
+Il materiale disponibile è enorme. La selezione segue un principio: ogni aneddoto deve avere una **funzione drammatica unica**. Due aneddoti che fanno la stessa cosa sono uno di troppo.
 
-2. **Serena cresce in background**: citazione → testo → voce → corpo → crollo. Il pubblico non se ne accorge perché è concentrato su Xun.
+### Aneddoti selezionati per lo spettacolo (8-10 totali)
 
-3. **I video xuniani sono il coro**: distribuiti nei momenti di transizione, creano ritmo e danno respiro. Costruiscono fiducia che verrà tradita da Serena.
+| Aneddoto | Funzione | Movimento |
+|----------|----------|-----------|
+| Presentazione fantasma | Stabilisce il tema: realtà costruita collettivamente | I |
+| I due volti diversi | Tocca qualcosa di scomodo (razzismo implicito) | II |
+| Sarah Horowitz | Mostra l'infrastruttura del falso | II |
+| Bifo e Wikipedia | Comico + filosofico insieme | III |
+| Cimatti che capisce | La verità ignorata | III |
+| Le Figaro (disegno a mano) | Vertigine dell'assurdo | III |
+| Caso Origgi (prima/dopo) | Il costo — cambio di giudizio | IV |
+| Wired Spagna + Claude | Meta-livello — l'IA che cade nella trappola | IV |
+| Vásquez al Congresso | Le idee sopravvivono all'autore | V |
+| Serena Ferrante | Il colpo finale | V |
 
-4. **Andrea/Maura come doppia prospettiva**: lui l'epica, lei il domestico. Lo scarto crea comicità e verità insieme.
+### Aneddoti in riserva (da usare solo se servono)
 
-5. **Il colpo finale cambia tutto**: il pubblico pensava di essere spettatore. Scopre di essere stato soggetto dell'esperimento.
+- Il caso Carofiglio (plagio al contrario) — divertente ma non essenziale
+- Il libro fake "Ipnocrazia Oscura" — comico ma ridondante
+- Dublin University che smentisce — dettaglio tecnico
+- France Culture che chiede interviste video — già coperto da Le Figaro
+- Macron — già implicito nell'escalation, non serve dettagliare
+
+### Aneddoti da NON usare
+
+- Qualsiasi aneddoto che ripeta la stessa funzione di un altro
+- Aneddoti che richiedono troppo contesto per essere compresi
+- Aneddoti che rallentano senza aggiungere emozione
+
+---
+
+## SERENA FERRANTE — LA COSTRUZIONE DEL TRADIMENTO
+
+### Il principio drammaturgico
+
+Serena deve crescere **in background**, mai in primo piano. Il pubblico deve averla metabolizzata come reale senza mai essersi fermato a pensarci. La sua rivelazione funziona solo se è stata completamente invisibile.
+
+### La progressione (quattro gradini)
+
+**Gradino 1 — La menzione (Movimento I)**
+"Tutto questo è stato possibile grazie al progetto di ricerca coordinato da Serena Ferrante all'Università di Foggia."
+*Funzione*: piantare il nome. Nessun peso.
+
+**Gradino 2 — La citazione (Movimento II)**
+Proiettata sullo schermo: "L'autorità è una forma di fede. Non si dimostra: si riceve."
+*Funzione*: dare autorità intellettuale. Il pubblico la legge come commento autorevole.
+
+**Gradino 3 — La voce (Movimento III)**
+"Serena ci ha mandato questo stamattina." Due minuti di audio.
+*Funzione*: dare corpo sonoro. Il pubblico sente una persona reale.
+
+**Gradino 4 — Il video e il crollo (Movimento V)**
+Il video che glitcha.
+*Funzione*: dare corpo visivo, poi distruggerlo.
+
+### Il cognome
+
+Ferrante richiama Elena Ferrante — la scrittrice più famosa d'Italia di cui nessuno conosce l'identità. Tre livelli di fantasma autoriale. Ma questo non va mai detto — chi lo coglie, lo coglie.
 
 ---
 
 ## STRUMENTI TEATRALI
 
-### L'alternanza tra monologo e dialogo
-Quando Andrea racconta da solo, il pubblico è in modalità ascolto. Quando Maura interviene, si attiva una dinamica diversa — verifica, contraddizione, completamento. L'alternanza crea ritmo. Troppo monologo e il pubblico si spegne. Troppo dialogo e perde il filo epico.
+### Il ritmo
 
-### La gestione del tempo scenico
-Una storia di cinque mesi non può essere raccontata in modo lineare. Servono salti, ellissi, flashforward. "Ma torniamo indietro." "Questo lo scopriremo dopo." "Intanto, dall'altra parte del mondo..." Il montaggio temporale tiene sveglio il pubblico e permette di creare suspense anche su eventi già noti.
+Lo spettacolo ha una curva ritmica precisa:
+- **Movimenti I-II**: ritmo medio, respiri lunghi, tempo per costruire
+- **Movimento III**: accelerazione progressiva, frasi più corte, pause che spariscono
+- **Movimento IV**: rallentamento brusco, silenzi, peso
+- **Movimento V**: ritmo sospeso, poi il colpo, poi il tempo che si ferma
+- **Movimento VI**: ritmo caldo, lento, di congedo
 
-### Il cambio di registro
-Passare dal comico al serio senza stacco netto. La frase di Bifo su Wikipedia è comica. La frase di Bifo sul linguaggio che si separa dal locutore è filosofica. Stanno nella stessa storia. Il passaggio deve essere fluido, non segnalato.
+### L'alternanza monologo/dialogo
 
-### L'indirizzo diretto
-Quando guardate il pubblico negli occhi e quando no. Lo sguardo diretto crea intimità e responsabilità. Lo sguardo che evita il pubblico (verso lo schermo, verso l'altro, verso il vuoto) crea distanza narrativa.
+Quando Andrea racconta da solo: modalità epica, il pubblico ascolta.
+Quando Maura interviene: verifica, contraddizione, rilascio comico.
+Troppo monologo e il pubblico si spegne. Troppo dialogo e perde il filo.
 
 ### Il corpo come ancoraggio
-In mezzo a tante parole e immagini, il corpo è l'unica cosa sicuramente reale. Dove state, come state, se siete fermi o in movimento — questo comunica prima delle parole.
+
+In mezzo a tante parole e immagini, il corpo è l'unica cosa sicuramente reale. Andrea che beve acqua nei momenti di tensione. Maura che guarda Andrea mentre lui è perso nel racconto.
 
 ### La ripetizione con variazione
-Una frase, un gesto, un'immagine che torna — ma ogni volta leggermente diversa. Crea struttura inconscia. Il pubblico riconosce il pattern e anticipa.
+
+Una frase che torna: "E poi è successo qualcosa che non avevamo previsto."
+Prima: divertiti.
+Poi: preoccupati.
+Poi: esausti.
+
+### Il telefono che vibra
+
+Ogni volta che arriva una notizia importante nella storia — la mail di Bifo, l'articolo su L'Opinion, la chiamata di Sabina — il telefono vibra. All'inizio è eccitazione. Poi ansia. Poi terrore. Il pubblico impara a temere quel suono.
 
 ---
 
-## IDEE AGGIUNTIVE PER STRUMENTI TEATRALI
+## COPERTURA MEDIATICA INTERNAZIONALE
 
-### Ganci narrativi ricorrenti
+### Testate principali (per le proiezioni del Movimento IV)
 
-**Il telefono che vibra**: Ogni volta che nella storia arriva una notizia importante — la mail di Bifo, l'articolo su L'Opinion, la chiamata di Sabina — il telefono vibra. All'inizio è eccitazione. Poi diventa ansia. Poi terrore. Il pubblico impara a temere quel suono.
+**Mondo anglofono**
+- **New York Times**: "A.I. Can Trick You, Warns Book That Hid A.I.'s Help Writing It"
+- **Wired USA**: "A Philosopher Released an Acclaimed Book About Digital Manipulation. The Author Ended Up Being AI"
+- **Language Log** (University of Pennsylvania): "Jianwei Xun: Fake philosopher"
+- **eWeek**: "'Creative Codependency' With AI Helped Write Acclaimed Philosophy Book"
 
-**Una frase che torna**: "E poi è successo qualcosa che non avevamo previsto." La ripetete in momenti diversi, con toni diversi. Prima divertiti. Poi preoccupati. Poi esausti.
+**Francia**
+- **Le Monde**: "Le philosophe Jianwei Xun n'existe pas, mais son concept d'« hypnocratie » entre dans notre réalité"
+- **Le Grand Continent**: interviste e copertura estesa
+- **Télérama**: "La vertigineuse histoire d'Hypnocratie"
+- **France Inter**: "L'IA peut-elle inventer des concepts?"
+- **Le Figaro**: intervista poi ritirata
+- **Wiktionnaire**: lemma "hypnocratie"
 
-### Gesti fisici
+**Mondo ispanofono**
+- **El País**: discorso di Vásquez
+- **El Clarín**: "Hipnocracia, el libro del año"
+- **La Nación**: "El filósofo inventado con IA que fue un éxito editorial"
+- **Rolling Stone ES**: "El libro del año del autor inexistente"
+- **National Geographic ES**: "Este es el 'libro del año', pero su aclamado autor no existe: es una IA"
+- **Wired España**: articolo critico con errori (poi usato come esempio di ipnocrazia al quadrato)
 
-**Andrea che beve acqua**: Nella conferenza dicevi "bevo un po' d'acqua perché sono emozionato come un bambino" — quel gesto può tornare nei momenti di massima tensione. Il pubblico impara a leggerlo come segnale: sta per succedere qualcosa di grosso.
-
-**Maura che guarda Andrea**: Mentre lui è perso nel racconto, e lui non se ne accorge. Il pubblico vede lei che lo osserva. Questo crea complicità con Maura e dice qualcosa sul loro rapporto senza bisogno di parole.
-
-### Musica e suono
-
-**Un tema sonoro per Xun**: Qualcosa di vagamente orientaleggiante, elettronico, ambiguo. Parte la prima volta quando mostrate il suo volto. Torna quando leggete le sue citazioni. E torna, distorto, quando Serena glitcha.
-
-**Una canzone vera**: All'inizio o alla fine. Qualcosa che parli di maschere, di identità, di finzione.
-
----
-
-## MATERIALE NARRATIVO PER ANEDDOTI
-
-### Sulla costruzione dell'identità di Xun
-
-- Il nome invertiva l'ordine cinese cognome-nome — una bandiera rossa evidente per chiunque conoscesse le convenzioni cinesi, ma nessun giornalista europeo l'ha notato. Solo Laura Ruggieri del Hong Kong Polytechnic l'ha colto.
-- La "Dublin University" come affiliazione accademica: il dipartimento di filosofia dell'University College Dublin ha dovuto smentire di conoscere qualcuno che non esiste.
-- L'agente letteraria fittizia **Sarah Horowitz** che gestiva le richieste dei media. "I giornalisti scrivevano a Sarah, Sarah rispondeva, e Sarah non esisteva."
-- Il sito jianweixun.com creato il 17 novembre 2024, due giorni prima della pubblicazione.
-- Profilo Academia.edu con paper accademici fittizi.
-- Riferimenti inseriti su Wikipedia nelle pagine di filosofi come Deleuze, Byung-Chul Han, Nick Land, Mark Fisher, Bifo.
-- Il volto generato con "Consistent Character".
-- **I due volti diversi**: "Bastava guardare. I volti di Xun sul sito e su Academia.edu erano di due persone completamente diverse. Ma ce lo siamo fatti bastare. C'è anche un certo razzismo di fondo che ci impedisce di accettare l'idea che non ci siamo soffermati a guardare."
-
-### Aneddoti chiave
-
-**La presentazione fantasma (8 dicembre 2024)**:
-"Il libro è stato presentato l'8 dicembre. Io non c'ero. Xun non c'era. C'era un videomessaggio previsto di Xun che non è mai stato mandato. Ma alcuni che si sono messi sulle tracce hanno pensato che invece fosse stato spedito, e quindi hanno detto: 'Vabbè, però in effetti lì si è fatto vedere, lì si è manifestato.'" Il pubblico ha costruito da solo la presenza di Xun.
-
-**La storia completa di Bifo**:
-"Mi ha contattato Franco Bifo Berardi e mi ha detto: 'Senti, voglio scrivere una riflessione su Ipnocrazia, però c'è un problema. Mi ha contattato un tale e mi ha detto che nella mia pagina Wikipedia risulta che io abbia scritto nel '92 un libro con Xun. Ma che io sappia l'ho scritto da solo. E per di più Xun non era ancora nato.'" — Lo porto dentro al progetto, gli racconto tutto, lui scrive comunque la sua riflessione filosofica.
-
-**La citazione di Bifo** (20 marzo 2025, prima della rivelazione):
-"Chi sia Jianwei Xun non saprei dirlo. Io non lo ricordo, e sospetto che Jianwei Xun non esista. Da quando conobbi Luther Blissett, ho imparato che l'Autore è una figura piuttosto elusiva. Da quando l'evoluzione tecnologica ha portato alla creazione di intelligenze artificiali ho cominciato a comprendere che il linguaggio si è separato dal locutore e procede per forza propria."
-
-**L'intervista a Le Figaro**: Che poi verrà ritirata dopo la rivelazione. "Sono affascinato dall'idea che sia stato prodotto un disegno a mano di un'immagine generata con l'intelligenza artificiale. Vertiginoso."
-
-**Il libro fake su Amazon**: "Ipnocrazia Oscura" — un plagio fatto con l'intelligenza artificiale. "Una stella. Qualcuno ha preso la recensione di Ipnocrazia, ha unito un po' di spunti, e ha detto all'IA 'rifammelo'. È orrendo, ovviamente. Ma è bellissimo che sia orrendo."
-
-**Il caso Carofiglio (il plagio al contrario)**:
-Gianrico Carofiglio pubblica "Con parole precise". Dentro c'è un capitolo sulla comunicazione politica come ipnosi. Usa la parola "ipnocrazia". Applica il concetto a Trump. Parla di trance collettiva, di suggestione che aggira l'intelletto, di emozioni che prevalgono sulla ragione. Le stesse idee. Le stesse strutture. Lo stesso caso di studio. Ma non cita Xun.
-
-"Può un inesistente essere plagiato? Se ti rubano le idee ma tu non esisti, il furto è avvenuto? È una domanda per filosofi. Peccato che l'unico filosofo qualificato a rispondere sia Xun. Che non esiste."
-
-**Il lemma nel Wiktionnaire francese**: "Hypnocratie" entra nel dizionario, non per mano nostra.
-
-**France Culture**: Tenta più volte di organizzare interviste video ma riceve solo risposte scritte.
-
-**La tv francese che blocca il programma**: Erano gli unici ad aver verificato.
-
-**Felice Cimatti — il primo a capire** (28 febbraio, su Doppio Zero):
-"Né lo scienziato sociale Heidemann né Hiroshi Tanaka esistono. Xun si gioca del lettore, o meglio gli chiede di non credere alle stesse tesi del libro che altrimenti pretenderebbe di rappresentare un punto di vista oggettivo sul mondo digitale — un punto di vista che chiaramente non può esistere."
-Cimatti aveva capito tutto — e l'aveva scritto pubblicamente — ma nessuno l'ha ascoltato.
-
-**Pino Corrias sul Fatto Quotidiano** (25 febbraio):
-"Formidabile nello stile e nelle intuizioni... autore un certo filosofo di Hong Kong di nome Xun che potrebbe persino esistere anche in quanto avatar di inchiostro collettivo, coerente al mondo che, senza troppo svelarsi, ci contiene."
-
-**Il caso Gloria Origgi (materiale comico perfetto)**:
-- **5 marzo 2025**: Gloria Origgi, filosofa del CNRS di Parigi, scrive su Appunti (newsletter di Stefano Feltri): "Il filosofo di Hong-Kong Jianwei Xun ha scritto un bel libro intitolato Ipnocrazia"
-- **14 aprile 2025**: Dopo la rivelazione, stessa testata, stesso autore: "La difesa di Andrea Colamedici del progetto Ipnocrazia non regge: le tesi del libro non sono supportate da dati e gli esperimenti citati non esistono"
-
-**Il caso Wired Spagna (ipnocrazia al quadrato)**:
-Wired Spagna ha criticato l'uso dell'IA in Ipnocrazia scrivendo un pezzo con l'IA. Ma non solo: nel loro articolo hanno inventato dettagli completamente falsi sul libro:
-- Che il libro contenesse "oltre 200 note a piè di pagina, alcune fabbricate" (il libro non ha neanche una nota)
-- Che Andrea avesse dichiarato che "il 40% del libro è stato generato dall'IA" (mai dichiarata alcuna percentuale)
-
-Questi dettagli falsi sono poi rimbalzati di fonte in fonte, finendo in articoli di tutto il mondo come fatti verificati. **Persino Claude, l'IA che ha aiutato a preparare questo spettacolo, li ha trovati online e li ha riportati come veri** — dimostrando esattamente il meccanismo che il libro descrive: nessuno verifica, tutti assumono che qualcun altro abbia già verificato.
-
-**L'ansia della rivelazione**:
-"Con questo sorriso sembro felicissimo. In realtà ero di un'ansia incredibile. Ero convinto di rischiare di apparire una versione di Žižek comprata su Temu, con il mio inglese stentato e la zeppola."
-
-**I giorni folli**:
-"I giorni più folli della mia vita, in cui sono stato bombardato dalla Colombia, dall'Argentina, dalla Spagna. Ieri mi hanno dato del truffatore — bellissimo. Altri mi esaltano come un genio assoluto. Qui bisogna buttare giù la categoria della genialità. Ammiro molto di più l'idea del coindividuo di cui parlano i Luther Blissett, l'idea di un'intelligenza distribuita."
-
-**Il caso Juan Gabriel Vásquez — le idee che sopravvivono al loro autore (agosto 2025)**:
-Juan Gabriel Vásquez — Premio Alfaguara, uno dei più importanti scrittori latinoamericani viventi — tiene un discorso al Congresso Imprenditoriale Colombiano (ANDI) a Cartagena, quattro mesi dopo la rivelazione. Il titolo: "Instrucciones para no ser sonámbulos: inteligencia artificial, ciudadanía y democracia."
-
-Vásquez cita Xun tre volte, sapendo che non esiste:
-- "Dice Jianwei Xun que los algoritmos no son simples útiles de cálculo y predicción: son tecnologías de manipulación masiva. Estoy de acuerdo con Jianwei Xun."
-- "Dice Jianwei Xun que la inteligencia artificial no es sólo una revolución tecnológica de posibilidades maravillosas: es un proyecto potencialmente antidemocrático. Estoy de acuerdo con Jianwei Xun."
-- "Dice Jianwei Xun que, si la inteligencia artificial ha conseguido la complicidad de los nuevos populistas como Donald Trump, no es porque prometa progreso y bienestar, sino porque es capaz de producir una realidad inestable donde ya nadie sabe qué es verdad y qué es mentira. Sí: estoy de acuerdo con Jianwei Xun en esto."
-
-Poi racconta tutta la storia — Colamedici, Claude, ChatGPT, le tracce su Wikipedia, il racconto di Borges "Las ruinas circulares". E cita la risposta di Xun alla domanda "Cosa sei?": "Soy un comienzo."
-
-Ma il colpo di genio: Vásquez racconta di aver chiesto a ChatGPT cosa penserebbe Xun della Colombia. Ha messo la risposta dell'IA nel discorso ufficiale al Congresso.
-
-La chiusura: "Yo les propongo que escuchemos a Jianwei Xun. Es verdad que el pobre no existe; pero tal como están las cosas, ese puede ser el menor de sus defectos."
-
-**Perché questo aneddoto è cruciale**: dimostra che le idee di Xun hanno acquisito vita propria. Uno scrittore di fama mondiale le usa sapendo che vengono da un inesistente, e dice al pubblico: ascoltatelo lo stesso. L'autore è morto, ma le idee sono più vive che mai.
+**Italia**
+- **L'Espresso**: copertina, inchiesta di Sabina Minardi
+- **Style Corriere della Sera**
+- **Il Foglio**
+- **Doppio Zero**: articolo di Cimatti
+- **Il Fatto Quotidiano**: Pino Corrias
+- **The Italian Review**: Francesco D'Isa
+- **Sky TG24**
 
 ---
 
-## SERENA FERRANTE — DETTAGLI
+## SITOGRAFIA COMPLETA
 
-### Il personaggio
-
-**Nome**: Serena Ferrante
-**Ruolo**: Professoressa associata di Filosofia del Linguaggio, Università di Foggia
-**Funzione nel progetto**: Ha coordinato il progetto di ricerca "Architetture Cognitive e Sistemi Generativi" da cui è nato l'assegno di ricerca di Andrea. È la testimone accademica, colei che c'era dall'inizio.
-
-**Nota**: Il cognome Ferrante richiama Elena Ferrante — la scrittrice più famosa d'Italia di cui nessuno conosce l'identità. Tre livelli di fantasma autoriale.
-
-**Tono delle sue citazioni**: Aforistico, denso, leggermente poetico. Con tic accademici riconoscibili, vagamente pretenziosa. Il pubblico ride di lei, con affetto.
-
-**Frasi possibili**:
-- "L'autorità è una forma di fede. Non si dimostra: si riceve."
-- "Xun ha funzionato perché nessuno voleva che non funzionasse. La verifica avrebbe interrotto il piacere."
-- "Il nome proprio è l'ultima illusione del soggetto moderno. Toglilo, e resta solo la voce."
-- "L'autore non è chi firma, ma chi viene creduto."
-
-### La progressione (costruzione della fiducia per gradi)
-
-**Primo gradino — La menzione (Movimento I)**
-All'inizio, di passaggio: "Tutto questo è stato possibile grazie al progetto di ricerca coordinato da Serena Ferrante all'Università di Foggia."
-
-**Secondo gradino — La citazione (Movimento II)**
-Durante il racconto della genesi, proiettata sullo schermo: "L'autorità è una forma di fede. Non si dimostra: si riceve."
-
-**Terzo gradino — La voce (Movimento III)**
-A metà serata: "Serena ci ha mandato questo stamattina." Due minuti di voce — pensosa, personale.
-
-**Quarto gradino — Il corpo e il crollo (Movimento V)**
-"Serena ci ha mandato un video ieri sera." Il video parte, poi glitcha.
-
----
-
-## LISTA XUNIANI (per i videomessaggi)
-
-- Nicola Zamperini
-- Giorgio Maria Cornelio
-- Alessandro Fusacchia
-- Francesco Marino
-- Rebecca Moutier
-- Luna Bianchi
-- Bifo Berardi
-- Filippo Lubrano
-- Gianna Angelini
-- Sabina Minardi
-- Raffaele Mauro
-
----
-
-## CITAZIONI CHIAVE DA USARE
-
-**Nam June Paik**: "Uso la tecnologia per poterla odiare meglio."
-
-**Andrea sulla collaborazione uomo-macchina**: "L'essere umano come direttore all'inizio — l'idea è quella di guidare, dirigere. Poi questa idea andrà via. Ma inizialmente c'è l'idea di guidare un processo, e l'intelligenza artificiale come partner generativo. Poi però nasce una terza voce, che non è la voce dell'intelligenza artificiale, che non è la voce dell'umano, ma è la nascita di una nuova prospettiva. È la nascita di Xun."
-
-**Sulla distruzione interna**: "Il grande rischio di un utilizzo assolutamente inconsapevole dell'intelligenza artificiale è quello di una distruzione interna. Non rischiamo solo di crollare fuori — rischiamo di crollare dentro, a botte di insensatezza, a botte di mancanza di senso."
-
-**Sulla genialità**: "Qui bisogna buttare giù la categoria della genialità. Carmelo Bene diceva: 'Del genio ho sempre avuto la mancanza di talento.' Io non rivendico affatto questa categoria. Ammiro molto di più quella del coindividuo di cui parlano i Luther Blissett, l'idea di un'intelligenza distribuita."
-
-**Sulla filosofia**: "L'idea è quella di imparare a fabbricare i concetti. Filosofia come la capacità di costruire, di fabbricarli. Come la capacità di gettare un lenzuolo sullo spettro e farne un fantasma."
-
-**Juan Gabriel Vásquez su Xun**: "Yo les propongo que escuchemos a Jianwei Xun. Es verdad que el pobre no existe; pero tal como están las cosas, ese puede ser el menor de sus defectos."
-
----
-
-## SITOGRAFIA
-
-### Articoli e fonti principali
+### Fonti primarie verificate
 
 **Juan Gabriel Vásquez, "Instrucciones para no ser sonámbulos"** (El País, 17 agosto 2025)
 https://elpais.com/america-colombia/2025-08-17/instrucciones-para-no-ser-sonambulos-inteligencia-artificial-ciudadania-y-democracia.html
@@ -418,61 +416,88 @@ https://elpais.com/america-colombia/2025-08-17/instrucciones-para-no-ser-sonambu
 **Felice Cimatti, "Ipnocrazia"** (Doppio Zero, 28 febbraio 2025)
 https://www.doppiozero.com/ipnocrazia
 
-**Gloria Origgi su Appunti** (newsletter di Stefano Feltri)
-- 5 marzo 2025: recensione positiva
-- 14 aprile 2025: critica post-rivelazione
-[link da reperire]
+**Le Grand Continent — intervista-rivelazione** (4 aprile 2025)
+https://legrandcontinent.eu/fr/2025/04/04/qui-est-vraiment-jianwei-xun-une-conversation-avec-jianwei-xun/
 
-**Pino Corrias** (Il Fatto Quotidiano, 25 febbraio 2025)
-[link da reperire]
+**Le Grand Continent — estratto iniziale** (26 gennaio 2025)
+"Trump, Musk: l'hypnocratie ou l'empire des fantasmes"
 
-**Victor Mair, Language Log** (University of Pennsylvania)
-https://languagelog.ldc.upenn.edu/
-
-**Le Grand Continent** — interviste e copertura
-https://legrandcontinent.eu/
+**Francesco D'Isa, The Italian Review** (4 aprile 2025)
+https://www.theitalianreview.com/ipnocrazia-o-della-credulita/
 
 **Wiktionnaire francese — lemma "Hypnocratie"**
 https://fr.wiktionary.org/wiki/hypnocratie
 
-**L'Espresso** — copertina con Sabina Minardi (aprile 2025)
-[link da reperire]
+**Language Log, University of Pennsylvania** (17 maggio 2025)
+"Jianwei Xun: Fake philosopher"
+https://languagelog.ldc.upenn.edu/
 
-**Le Figaro** — intervista poi ritirata
-[link da reperire]
+**L'Espresso — copertura internazionale** (8 aprile 2025)
+https://lespresso.it/c/cultura/2025/4/8/ipnocrazia-lespresso-giornali-stranieri-inchiesta/53647
 
-**L'Opinion** — articolo su Macron e Ipnocrazia
-[link da reperire]
+**Tlon — pagina Hypnocracy con rassegna stampa**
+https://www.tlon.it/ipnocrazia-en.html
 
-**Wired España** — articolo critico (poi rimosso)
-[link da reperire]
+### Fonti da reperire
 
-**Francesco D'Isa, The Italian Review**
-[link da reperire]
+- Gloria Origgi su Appunti (5 marzo e 14 aprile 2025)
+- Pino Corrias, Il Fatto Quotidiano (25 febbraio 2025)
+- Le Figaro — intervista originale poi ritirata
+- L'Opinion — articolo su Macron
+- Wired España — articolo critico originale
 
-**CREMIT, Università Cattolica** — critica
-[link da reperire]
+---
 
-**Laura Ruggieri, Hong Kong Polytechnic**
-[link da reperire]
+## CITAZIONI CHIAVE
+
+**Bifo** (20 marzo 2025):
+"Chi sia Jianwei Xun non saprei dirlo. Io non lo ricordo, e sospetto che Jianwei Xun non esista. Da quando conobbi Luther Blissett, ho imparato che l'Autore è una figura piuttosto elusiva. Da quando l'evoluzione tecnologica ha portato alla creazione di intelligenze artificiali ho cominciato a comprendere che il linguaggio si è separato dal locutore e procede per forza propria."
+
+**Juan Gabriel Vásquez** (agosto 2025):
+"Yo les propongo que escuchemos a Jianwei Xun. Es verdad que el pobre no existe; pero tal como están las cosas, ese puede ser el menor de sus defectos."
+
+**Carlos Scolari** (Pompeu Fabra):
+"Negli anni Novanta l'Affare Sokal ha scosso le fondamenta delle scienze umane e sociali. Ora è la volta di Jianwei Xun."
+
+**Recensione Amazon**:
+"Metto una sola stella ovviamente, ma il sabotaggio culturale di Colamedici ne meriterebbe 5."
+
+**Andrea sulla nascita di Xun**:
+"Nasce una terza voce, che non è la voce dell'intelligenza artificiale, che non è la voce dell'umano, ma è la nascita di una nuova prospettiva. È la nascita di Xun."
+
+**Sulla genialità**:
+"Qui bisogna buttare giù la categoria della genialità. Carmelo Bene diceva: 'Del genio ho sempre avuto la mancanza di talento.' Ammiro molto di più l'idea del coindividuo di cui parlano i Luther Blissett."
+
+---
+
+## LISTA XUNIANI
+
+- Sabina Minardi
+- Franco "Bifo" Berardi
+- Nicola Zamperini
+- Giorgio Maria Cornelio
+- Alessandro Fusacchia
+- Francesco Marino
+- Rebecca Moutier
+- Luna Bianchi
+- Filippo Lubrano
+- Gianna Angelini
+- Raffaele Mauro
 
 ---
 
 ## DA SVILUPPARE
 
-- [ ] Testi definitivi delle citazioni di Serena Ferrante
 - [ ] Script del messaggio vocale di Serena (2 minuti)
 - [ ] Script del video di Serena (con indicazioni per il glitch)
-- [ ] Selezione definitiva degli aneddoti per ogni Movimento
 - [ ] Contattare gli xuniani per i videomessaggi
-- [ ] Domande specifiche per ogni xuniano
-- [ ] Materiali visivi: screenshot, articoli, mail
-- [ ] Raccolta degli articoli di Origgi (prima e dopo) per la proiezione
+- [ ] Domande specifiche per i quattro video xuniani
+- [ ] Raccolta materiali visivi per proiezioni
 - [ ] Tema sonoro per Xun
 - [ ] Prove sul palco per tempi e ritmi
-- [ ] Completare la sitografia con i link mancanti
+- [ ] Tabella di marcia minuto per minuto
 
 ---
 
 *Documento creato: 1 febbraio 2026*
-*Ultima modifica: 5 febbraio 2026*
+*Ultima revisione drammaturgica: 5 febbraio 2026*

@@ -100,6 +100,16 @@ Il libro esce, il mondo abbocca.
 
 **Il libro fake su Amazon**: "Ipnocrazia Oscura" — un plagio fatto con l'intelligenza artificiale. "Una stella. Qualcuno ha preso la recensione di Ipnocrazia, ha unito un po' di spunti, e ha detto all'IA 'rifammelo'. È orrendo, ovviamente. Ma è bellissimo che sia orrendo."
 
+**Il caso Carofiglio (il plagio al contrario)**:
+Gianrico Carofiglio pubblica "Con parole precise". Dentro c'è un capitolo sulla comunicazione politica come ipnosi. Usa la parola "ipnocrazia". Applica il concetto a Trump. Parla di trance collettiva, di suggestione che aggira l'intelletto, di emozioni che prevalgono sulla ragione. Le stesse idee. Le stesse strutture. Lo stesso caso di studio. Ma non cita Xun.
+
+Carofiglio è uno scrittore famoso. Ex magistrato. Bestsellerista. Uno che vende centinaia di migliaia di copie. E Xun non esiste.
+
+C'è qualcosa di cosmicamente comico in questa situazione: uno scrittore famoso che esiste davvero potrebbe aver preso idee da un filosofo inesistente senza citarlo.
+
+**Momento scenico — La domanda filosofica**:
+"Può un inesistente essere plagiato? Se ti rubano le idee ma tu non esisti, il furto è avvenuto? È una domanda per filosofi. Peccato che l'unico filosofo qualificato a rispondere sia Xun. Che non esiste."
+
 **Il lemma nel Wiktionnaire francese**: "Hypnocratie" entra nel dizionario, non per mano nostra.
 
 **France Culture**: Tenta più volte di organizzare interviste video ma riceve solo risposte scritte.
@@ -314,4 +324,4 @@ Il pubblico ride. Poi, alla fine, non ride più.
 ---
 
 *Documento creato: 1 febbraio 2026*
-*Ultima modifica: 1 febbraio 2026*
+*Ultima modifica: 5 febbraio 2026*

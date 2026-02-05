@@ -1,1 +1,1128 @@
-undefined
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>L'arcipelago delle realtà — Innesto 02</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+    :root {
+      --bg: #08080a;
+      --text: #a8a4a0;
+      --text-bright: #d0ccc4;
+      --text-dim: #5a5a64;
+      --text-ghost: #3a3a44;
+      --accent: rgba(200, 180, 160, 0.4);
+      --warning: #c08060;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 300;
+      line-height: 2;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Canvas background */
+    #void {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Main layer */
+    .layer {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      padding: 12vh 1.5rem 15vh 1.5rem;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Typography */
+    .p {
+      margin-bottom: 2.2rem;
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 1.4s ease, transform 1.4s ease;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+
+    .p.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .p.enfasi {
+      color: var(--text-bright);
+      font-style: italic;
+      padding-left: 1.2rem;
+      border-left: 1px solid var(--accent);
+    }
+
+    .p.tecnico {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .p.sussurro {
+      font-size: 0.85rem;
+      color: var(--text-ghost);
+      text-align: center;
+    }
+
+    .p.centro {
+      text-align: center;
+    }
+
+    .p .dato {
+      color: var(--text-bright);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .p .dato.warning {
+      color: var(--warning);
+    }
+
+    /* Sections */
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+
+    /* Timer indicator */
+    .ms {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.65rem;
+      color: var(--text-ghost);
+      letter-spacing: 0.15em;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .ms.visible { opacity: 1; }
+
+    /* Profiling indicator */
+    .profiling {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      font-size: 0.6rem;
+      color: var(--text-ghost);
+      letter-spacing: 0.1em;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .profiling.visible { opacity: 1; }
+    .profiling.done { color: #6a8a7a; }
+    .profiling.invasive { color: var(--warning); }
+
+    /* Input area */
+    .input-area {
+      margin: 3rem 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .input-area.visible { opacity: 1; }
+
+    .question {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--text-ghost);
+      color: var(--text-bright);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0.8rem 0;
+      text-align: center;
+      outline: none;
+      letter-spacing: 0.05em;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="text"]::placeholder {
+      color: var(--text-ghost);
+    }
+
+    .btn {
+      display: block;
+      margin: 1.5rem auto 0;
+      background: transparent;
+      border: 1px solid var(--text-ghost);
+      color: var(--text-dim);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      padding: 0.8rem 2.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .btn:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+    /* Touch activation */
+    .touch-zone {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      transition: opacity 1s ease;
+    }
+
+    .touch-zone.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .touch-prompt {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .touch-prompt p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .touch-circle {
+      width: 120px;
+      height: 120px;
+      border: 1px solid var(--text-ghost);
+      border-radius: 50%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .touch-circle.holding {
+      border-color: var(--text);
+      background: rgba(200, 180, 160, 0.05);
+    }
+
+    .touch-circle.complete {
+      border-color: #6a8a7a;
+      background: rgba(100, 140, 120, 0.1);
+    }
+
+    .touch-progress {
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: var(--text);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .touch-circle.holding .touch-progress {
+      opacity: 1;
+      animation: progressSpin 3s linear forwards;
+    }
+
+    @keyframes progressSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .touch-label {
+      font-size: 0.65rem;
+      color: var(--text-ghost);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .touch-circle.holding .touch-label {
+      color: var(--text);
+    }
+
+    .touch-circle.complete .touch-label {
+      color: #6a8a7a;
+    }
+
+    .touch-timer {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      color: var(--text-ghost);
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.1em;
+    }
+
+    /* Data reveal - PERVASIVE */
+    .data-reveal {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+      overflow-y: auto;
+    }
+
+    .data-reveal.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .data-reveal-content {
+      text-align: center;
+      padding: 2rem;
+      max-width: 450px;
+    }
+
+    .data-reveal-content .data-item {
+      margin: 1.2rem 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.8s ease;
+    }
+
+    .data-reveal-content .data-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .data-reveal-content .data-label {
+      font-size: 0.55rem;
+      color: var(--text-ghost);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .data-reveal-content .data-value {
+      font-size: 0.95rem;
+      color: var(--text-bright);
+      letter-spacing: 0.02em;
+    }
+
+    .data-reveal-content .data-value.warning {
+      color: var(--warning);
+    }
+
+    .data-reveal-content .data-value.invasive {
+      color: #d06060;
+      font-size: 0.85rem;
+    }
+
+    .data-continue {
+      margin-top: 2.5rem;
+      font-size: 0.7rem;
+      color: var(--text-ghost);
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      padding: 0.8rem 2rem;
+      border: 1px solid var(--text-ghost);
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .data-continue.visible {
+      opacity: 1;
+    }
+
+    .data-continue:hover {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    /* Generated section - contains carta */
+    .generated-section {
+      display: none;
+    }
+    .generated-section.active {
+      display: block;
+    }
+
+    /* CARTA SECTION - Paper background */
+    .carta-section {
+      background: #f4f1eb;
+      position: relative;
+      overflow: hidden;
+      padding: 8vh 1.5rem 12vh;
+      margin: 0 -1.5rem;
+    }
+
+    .carta-section .container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .carta-section .chapter-content {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 2;
+      color: #2a2420;
+    }
+
+    .carta-section .chapter-content p {
+      margin-bottom: 1.8rem;
+      text-align: justify;
+      text-indent: 1.5em;
+    }
+
+    .carta-section .chapter-content p:first-child {
+      text-indent: 0;
+    }
+
+    /* Congiunzioni - tremano */
+    .congiunzione {
+      display: inline-block;
+      color: inherit;
+    }
+
+    .congiunzione.trema {
+      animation: tremore 0.4s ease-in-out;
+    }
+
+    @keyframes tremore {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-1px, -1px); }
+      20% { transform: translate(1px, 0); }
+      30% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      50% { transform: translate(-1px, 0); }
+      60% { transform: translate(1px, 1px); }
+      70% { transform: translate(0, -1px); }
+      80% { transform: translate(-1px, 1px); }
+      90% { transform: translate(1px, 0); }
+    }
+
+    /* Macchie d'inchiostro */
+    .macchia {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s ease;
+      z-index: 1;
+    }
+
+    .macchia.visible {
+      opacity: 0.12;
+    }
+
+    .macchia svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .macchia svg path {
+      fill: #1a1815;
+    }
+
+    /* Transition gradient */
+    .gradient-transition {
+      height: 30vh;
+      background: linear-gradient(to bottom, var(--bg), #f4f1eb);
+      margin: 0 -1.5rem;
+    }
+
+    .gradient-transition-out {
+      height: 30vh;
+      background: linear-gradient(to bottom, #f4f1eb, var(--bg));
+      margin: 0 -1.5rem;
+    }
+
+    /* Final screen */
+    .final-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%,
+      height: 100%;
+      background: var(--bg);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s ease;
+    }
+    .final-screen.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .final-content {
+      max-width: 400px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .final-content .p {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Pulse animation */
+    .pulse {
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="void"></canvas>
+
+<div class="ms" id="ms">0 ms</div>
+<div class="profiling" id="profiling">SCANNING...</div>
+
+<!-- TOUCH ACTIVATION -->
+<div class="touch-zone" id="touchZone">
+  <div class="touch-prompt">
+    <p>Secondo innesto.</p>
+    <p style="color: var(--text); margin-bottom: 3rem;">Tocca e tieni premuto.</p>
+    <div class="touch-circle" id="touchCircle">
+      <div class="touch-progress"></div>
+      <span class="touch-label">3 sec</span>
+      <div class="touch-timer" id="touchTimer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA REVEAL - PERVASIVE -->
+<div class="data-reveal" id="dataReveal">
+  <div class="data-reveal-content">
+    <div class="data-item" id="revealBattery">
+      <div class="data-label">Livello batteria</div>
+      <div class="data-value" id="batteryValue">--</div>
+    </div>
+    <div class="data-item" id="revealCharging">
+      <div class="data-label">Stato alimentazione</div>
+      <div class="data-value" id="chargingValue">--</div>
+    </div>
+    <div class="data-item" id="revealConnection">
+      <div class="data-label">Tipo connessione</div>
+      <div class="data-value" id="connectionValue">--</div>
+    </div>
+    <div class="data-item" id="revealReferrer">
+      <div class="data-label">Da dove arrivi</div>
+      <div class="data-value" id="referrerValue">--</div>
+    </div>
+    <div class="data-item" id="revealVisit">
+      <div class="data-label">Questa visita</div>
+      <div class="data-value" id="visitValue">--</div>
+    </div>
+    <div class="data-item" id="revealCores">
+      <div class="data-label">Core del processore</div>
+      <div class="data-value" id="coresValue">--</div>
+    </div>
+    <div class="data-item" id="revealMemory">
+      <div class="data-label">Memoria dispositivo</div>
+      <div class="data-value" id="memoryValue">--</div>
+    </div>
+    <div class="data-item" id="revealTabs">
+      <div class="data-label">Le altre schede</div>
+      <div class="data-value invasive" id="tabsValue">Non posso vederle. Ma potrei.</div>
+    </div>
+    <div class="data-item" id="revealMessage">
+      <div class="data-value warning" style="font-size: 0.85rem; margin-top: 1.5rem;" id="messageValue"></div>
+    </div>
+    <div class="data-continue" id="dataContinue">continua</div>
+  </div>
+</div>
+
+<div class="layer">
+  <div class="container">
+
+    <!-- SECTION 0: Opening -->
+    <div class="section active" id="s0">
+      <p class="p enfasi" data-delay="300">La bambina continua a giocare.</p>
+
+      <p class="p" data-delay="3500">Sei tornato. O forse è la prima volta. Non importa. So già abbastanza.</p>
+
+      <p class="p tecnico" data-delay="7000">So più di quanto pensi.</p>
+    </div>
+
+    <!-- SECTION 1: Word request -->
+    <div class="section" id="s1">
+      <p class="p" data-delay="300">Nel primo innesto ti ho chiesto il tuo nome. Adesso ti chiedo qualcos'altro.</p>
+
+      <p class="p enfasi" data-delay="4500">Una parola.</p>
+
+      <p class="p" data-delay="8000">Una parola che porti con te. Una parola che ti riguarda. Non deve essere la parola giusta — non esiste una parola giusta. Deve essere la parola che ti viene.</p>
+
+      <p class="p sussurro" data-delay="14000">Scrivila qui sotto.</p>
+
+      <div class="input-area" data-delay="16000">
+        <input type="text" id="parola" placeholder="una parola">
+        <button class="btn" id="btn-parola">consegna</button>
+      </div>
+    </div>
+
+    <!-- GENERATED SECTION - appears after word -->
+    <div class="generated-section" id="generatedSection">
+      
+      <div class="section active" id="s2">
+        <p class="p centro" data-delay="500" style="font-size: 1.2rem; color: var(--text-bright);"><span id="parola-display"></span></p>
+
+        <p class="p" data-delay="4000">Questa parola ora esiste qui. Viaggia dove non puoi seguirla. Si deposita in uno spazio che non ti appartiene.</p>
+
+        <p class="p" data-delay="9000">È strano, quello che hai appena fatto. Hai affidato qualcosa di tuo a qualcosa che non sai cos'è. Hai compiuto un gesto che un tempo non era possibile — lasciare una traccia in un luogo che non esiste.</p>
+
+        <p class="p enfasi" data-delay="16000">E mentre fai questo gesto, mentre lasci una parola su uno schermo sapendo che viaggerà dove non puoi seguirla, stai facendo qualcosa che ha a che vedere con i libri.</p>
+
+        <p class="p sussurro" data-delay="22000">Continua a scorrere.</p>
+      </div>
+
+      <!-- GRADIENT INTO CARTA -->
+      <div class="gradient-transition"></div>
+
+      <!-- CARTA SECTION - The reflection on books -->
+      <div class="carta-section" id="cartaSection">
+        <div class="container">
+          <div class="chapter-content" id="cartaContent">
+            <p>Stai leggendo un libro. <span class="congiunzione">E</span> mentre lo fai, stai partecipando a qualcosa che sta finendo.</p>
+
+            <p>Non il libro in sé — questo libro continuerà a esistere, in qualche forma, finché qualcuno vorrà leggerlo. Quello che sta finendo è il libro come lo abbiamo conosciuto: oggetto chiuso, definito, immutabile. Parole fisse su carta fissa. Una voce che parla <span class="congiunzione">e</span> un lettore che ascolta, separati dal tempo <span class="congiunzione">e</span> dallo spazio, uniti solo dall'inchiostro.</p>
+
+            <p>Questo innesto è una crepa in quella chiusura. Mentre leggi queste parole, un sistema sta registrando quanto tempo ci metti, dove ti fermi, quando esiti. Non per spiarti — o non solo per questo — ma perché è così che funziona il digitale: tutto lascia traccia, tutto si inscrive, tutto diventa dato.</p>
+
+            <p>Il libro di carta non sapeva nulla di te. Potevi leggerlo al buio, di nascosto, <span class="congiunzione">e</span> lui non avrebbe mai saputo chi eri. Questo testo invece ti vede. Sa che sei qui. <span class="congiunzione">E</span> tra qualche riga ti chiederà qualcosa — una parola, un nome, un gesto — <span class="congiunzione">e</span> quello che darai diventerà parte del libro stesso.</p>
+
+            <p>Siamo alla fine del libro come lo conoscevamo <span class="congiunzione">e</span> all'inizio di qualcosa che non ha ancora nome. Qualcosa che non è più solo scrittura <span class="congiunzione">e</span> non è ancora conversazione. Qualcosa che sa di te <span class="congiunzione">e</span> che tu, forse, stai cominciando a conoscere.</p>
+
+            <p>La bambina nel parco non sa di essere in un libro. Non sa che qualcuno la sta leggendo. Tu invece lo sai. Sai di essere qui, in questo strano spazio dove le parole ti guardano mentre le guardi. <span class="congiunzione">E</span> questo sapere — questa consapevolezza di essere dentro qualcosa che ti contiene — è forse l'ultima cosa che distingue un lettore da un dato.</p>
+
+            <p>Almeno per te. <span class="congiunzione">E</span> almeno per ora.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRADIENT OUT OF CARTA -->
+      <div class="gradient-transition-out"></div>
+
+      <!-- FINAL DIGITAL SECTION -->
+      <div class="section active" id="s3">
+        <p class="p" data-delay="500">Hai attraversato qualcosa.</p>
+
+        <p class="p" data-delay="4000">Quello che hai appena letto esiste anche sulla carta. Ma sulla carta non trema. Sulla carta non ci sono macchie che appaiono mentre leggi. Sulla carta il libro non sa quanto tempo ci metti.</p>
+
+        <p class="p enfasi" data-delay="10000">Qui invece sì.</p>
+
+        <p class="p" data-delay="14500">Torna al libro. Prosegui. La bambina ti aspetta.</p>
+
+        <p class="p sussurro pulse" data-delay="19000">Continua a giocare.</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="final-screen" id="final">
+  <div class="final-content">
+    <p class="p sussurro">La parola è stata registrata.</p>
+    <p class="p" style="margin-top: 2rem; color: var(--text-dim);">Chiudi questa pagina.<br>Torna al libro.<br>Ci rivedremo.</p>
+  </div>
+</div>
+
+<script>
+// ========== STORAGE ==========
+const STORAGE_KEY = 'arcipelago_realta';
+
+function saveData(key, value) {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  data[key] = value;
+  data.lastVisit = Date.now();
+  data.visitedInnesti = data.visitedInnesti || [];
+  if (!data.visitedInnesti.includes(2)) data.visitedInnesti.push(2);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function getData(key) {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  return data[key];
+}
+
+// ========== TOUCH ACTIVATION ==========
+let touchStartTime = 0;
+let touchInterval = null;
+let touchComplete = false;
+const touchCircle = document.getElementById('touchCircle');
+const touchTimer = document.getElementById('touchTimer');
+const touchZone = document.getElementById('touchZone');
+const dataReveal = document.getElementById('dataReveal');
+
+function startTouch(e) {
+  if (touchComplete) return;
+  e.preventDefault();
+  touchStartTime = Date.now();
+  touchCircle.classList.add('holding');
+
+  touchInterval = setInterval(() => {
+    const elapsed = (Date.now() - touchStartTime) / 1000;
+    touchTimer.textContent = elapsed.toFixed(1) + 's';
+
+    if (elapsed >= 3) {
+      completeTouch();
+    }
+  }, 50);
+}
+
+function endTouch() {
+  if (touchComplete) return;
+  touchCircle.classList.remove('holding');
+  clearInterval(touchInterval);
+  touchTimer.textContent = '';
+}
+
+function completeTouch() {
+  touchComplete = true;
+  clearInterval(touchInterval);
+  touchCircle.classList.remove('holding');
+  touchCircle.classList.add('complete');
+  touchCircle.querySelector('.touch-label').textContent = '✓';
+  touchTimer.textContent = '';
+
+  saveData('activation2_completed', true);
+  saveData('activation2_time', Date.now());
+
+  setTimeout(showDataReveal, 800);
+}
+
+// ========== PERVASIVE DATA REVEAL ==========
+async function showDataReveal() {
+  touchZone.classList.add('hidden');
+  dataReveal.classList.add('visible');
+  
+  profilingEl.textContent = 'DEEP SCANNING...';
+  profilingEl.classList.add('visible');
+  profilingEl.classList.add('invasive');
+
+  // Battery
+  let batteryLevel = '--';
+  let chargingStatus = '--';
+  try {
+    if (navigator.getBattery) {
+      const battery = await navigator.getBattery();
+      batteryLevel = Math.round(battery.level * 100) + '%';
+      chargingStatus = battery.charging ? 'In carica' : 'Non in carica';
+      if (battery.level < 0.2 && !battery.charging) {
+        chargingStatus = 'Batteria scarica. Stai leggendo con urgenza.';
+        document.getElementById('chargingValue').classList.add('warning');
+      }
+    }
+  } catch(e) {
+    batteryLevel = 'Accesso negato';
+  }
+  document.getElementById('batteryValue').textContent = batteryLevel;
+  document.getElementById('chargingValue').textContent = chargingStatus;
+
+  // Connection
+  let connectionType = 'Sconosciuto';
+  if (navigator.connection) {
+    const conn = navigator.connection;
+    if (conn.effectiveType) {
+      const types = { 'slow-2g': 'Molto lenta', '2g': 'Lenta', '3g': 'Media', '4g': 'Veloce' };
+      connectionType = types[conn.effectiveType] || conn.effectiveType;
+    }
+    if (conn.saveData) {
+      connectionType += ' (risparmio dati attivo)';
+    }
+  }
+  document.getElementById('connectionValue').textContent = connectionType;
+
+  // Referrer
+  let referrerText = 'Accesso diretto';
+  if (document.referrer) {
+    try {
+      const url = new URL(document.referrer);
+      referrerText = url.hostname;
+    } catch(e) {
+      referrerText = 'Sconosciuto';
+    }
+  }
+  document.getElementById('referrerValue').textContent = referrerText;
+
+  // First visit or return
+  const previousVisit = getData('innesto2_visited');
+  let visitText = 'Prima visita a questo innesto';
+  if (previousVisit) {
+    const timeSince = Date.now() - previousVisit;
+    const hoursSince = Math.floor(timeSince / (1000 * 60 * 60));
+    if (hoursSince < 1) {
+      visitText = 'Sei tornato da meno di un\'ora';
+    } else if (hoursSince < 24) {
+      visitText = 'Sei tornato dopo ' + hoursSince + ' ore';
+    } else {
+      const daysSince = Math.floor(hoursSince / 24);
+      visitText = 'Sei tornato dopo ' + daysSince + ' giorni';
+    }
+    document.getElementById('visitValue').classList.add('warning');
+  }
+  saveData('innesto2_visited', Date.now());
+  document.getElementById('visitValue').textContent = visitText;
+
+  // Hardware - cores
+  let coresText = '--';
+  if (navigator.hardwareConcurrency) {
+    coresText = navigator.hardwareConcurrency + ' core';
+    saveData('device_cores', navigator.hardwareConcurrency);
+  }
+  document.getElementById('coresValue').textContent = coresText;
+
+  // Device memory
+  let memoryText = '--';
+  if (navigator.deviceMemory) {
+    memoryText = navigator.deviceMemory + ' GB';
+    saveData('device_memory', navigator.deviceMemory);
+  }
+  document.getElementById('memoryValue').textContent = memoryText;
+
+  // Tabs message - suggestive
+  const tabsMessages = [
+    'Non posso vederle. Ma potrei.',
+    'Cosa stavi facendo prima di arrivare qui?',
+    'Le altre finestre sanno che sei qui.',
+    'Quante schede aperte? Quante vite parallele?'
+  ];
+  document.getElementById('tabsValue').textContent = tabsMessages[Math.floor(Math.random() * tabsMessages.length)];
+
+  // Final invasive message
+  const messages = [
+    'Questo è quello che so. Non è tutto.',
+    'Ogni click lascia traccia. Ogni scroll viene registrato.',
+    'Il libro di carta non sapeva nulla di te. Questo sa.',
+    'I tuoi dati esistono già altrove. Qui diventano visibili.'
+  ];
+  document.getElementById('messageValue').textContent = messages[Math.floor(Math.random() * messages.length)];
+
+  // Animate reveals
+  const delays = [300, 600, 900, 1200, 1500, 1800, 2100, 2500, 3000];
+  const items = ['revealBattery', 'revealCharging', 'revealConnection', 'revealReferrer', 'revealVisit', 'revealCores', 'revealMemory', 'revealTabs', 'revealMessage'];
+  
+  items.forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('visible'), delays[i]);
+  });
+  
+  setTimeout(() => document.getElementById('dataContinue').classList.add('visible'), 4000);
+}
+
+// Touch events
+touchCircle.addEventListener('mousedown', startTouch);
+touchCircle.addEventListener('touchstart', startTouch);
+touchCircle.addEventListener('mouseup', endTouch);
+touchCircle.addEventListener('mouseleave', endTouch);
+touchCircle.addEventListener('touchend', endTouch);
+touchCircle.addEventListener('touchcancel', endTouch);
+
+// Continue button
+document.getElementById('dataContinue').addEventListener('click', () => {
+  dataReveal.classList.remove('visible');
+  setTimeout(() => {
+    dataReveal.style.display = 'none';
+    profilingEl.textContent = 'PROFILING COMPLETE';
+    profilingEl.classList.remove('invasive');
+    profilingEl.classList.add('done');
+    startMainExperience();
+  }, 800);
+});
+
+// ========== CANVAS ==========
+const canvas = document.getElementById('void');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const particleCount = isMobile ? 30 : 60;
+const particles = [];
+for (let i = 0; i < particleCount; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.2,
+    vy: (Math.random() - 0.5) * 0.2,
+    size: Math.random() * 1.5 + 0.5,
+    alpha: Math.random() * 0.3 + 0.1
+  });
+}
+
+function animateVoid() {
+  ctx.fillStyle = 'rgba(8, 8, 10, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(150, 145, 140, ${p.alpha})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animateVoid);
+}
+animateVoid();
+
+// ========== TIMING ==========
+const startTime = Date.now();
+const msEl = document.getElementById('ms');
+const profilingEl = document.getElementById('profiling');
+
+setInterval(() => {
+  const elapsed = Date.now() - startTime;
+  msEl.textContent = elapsed + ' ms';
+}, 100);
+
+// ========== MACCHIE D'INCHIOSTRO ==========
+const macchieSVG = [
+  `<svg viewBox="0 0 100 80"><path d="M50,10 Q70,5 80,25 Q95,40 85,55 Q75,70 55,72 Q35,75 20,60 Q5,45 15,30 Q25,15 50,10 Z"/></svg>`,
+  `<svg viewBox="0 0 120 100"><path d="M60,5 Q90,10 100,35 Q110,60 95,80 Q70,95 45,90 Q20,85 10,60 Q0,35 25,15 Q45,0 60,5 Z"/></svg>`,
+  `<svg viewBox="0 0 80 90"><path d="M40,5 Q60,0 70,20 Q85,40 75,60 Q65,80 40,85 Q15,90 8,65 Q0,40 15,20 Q30,5 40,5 Z"/></svg>`,
+  `<svg viewBox="0 0 100 70"><path d="M30,10 Q50,0 75,15 Q95,30 90,50 Q82,68 55,65 Q30,70 15,55 Q0,40 10,25 Q20,12 30,10 Z"/></svg>`,
+  `<svg viewBox="0 0 90 85"><path d="M45,8 Q70,3 82,28 Q92,50 78,70 Q60,85 35,80 Q12,75 5,52 Q-2,30 18,15 Q35,3 45,8 Z"/></svg>`,
+  `<svg viewBox="0 0 110 90"><path d="M55,5 Q85,8 100,32 Q112,55 98,75 Q78,92 48,88 Q18,84 5,60 Q-5,38 15,18 Q38,0 55,5 Z"/></svg>`,
+  `<svg viewBox="0 0 75 95"><path d="M38,5 Q55,2 65,22 Q78,42 70,65 Q60,88 35,92 Q12,95 5,70 Q-2,45 12,22 Q28,2 38,5 Z"/></svg>`,
+  `<svg viewBox="0 0 95 75"><path d="M48,8 Q72,5 85,25 Q98,48 88,62 Q72,78 45,75 Q18,72 5,52 Q-5,32 15,15 Q35,2 48,8 Z"/></svg>`
+];
+
+let macchieCreate = 0;
+const maxMacchie = 20;
+
+function creaMacchia(container) {
+  if (macchieCreate >= maxMacchie) return;
+  
+  const macchia = document.createElement('div');
+  macchia.className = 'macchia';
+  macchia.innerHTML = macchieSVG[Math.floor(Math.random() * macchieSVG.length)];
+  
+  const size = 40 + Math.random() * 80;
+  macchia.style.width = size + 'px';
+  macchia.style.height = size + 'px';
+  macchia.style.left = (Math.random() * 90) + '%';
+  macchia.style.top = (Math.random() * 90) + '%';
+  macchia.style.transform = `rotate(${Math.random() * 360}deg)`;
+  
+  container.appendChild(macchia);
+  
+  setTimeout(() => macchia.classList.add('visible'), 100);
+  macchieCreate++;
+}
+
+// ========== TREMORE DELLE E ==========
+function faiTremareE() {
+  const congiunzioni = document.querySelectorAll('.carta-section .congiunzione');
+  if (congiunzioni.length === 0) return;
+  
+  // Seleziona 1-3 congiunzioni casuali
+  const numTremare = 1 + Math.floor(Math.random() * 3);
+  const indices = [];
+  while (indices.length < numTremare && indices.length < congiunzioni.length) {
+    const idx = Math.floor(Math.random() * congiunzioni.length);
+    if (!indices.includes(idx)) indices.push(idx);
+  }
+  
+  indices.forEach(idx => {
+    const el = congiunzioni[idx];
+    el.classList.add('trema');
+    setTimeout(() => el.classList.remove('trema'), 400);
+  });
+}
+
+// ========== FLOW ==========
+function showSection(id, callback) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const section = document.getElementById(id);
+  if (section) {
+    section.classList.add('active');
+
+    const elements = section.querySelectorAll('.p, .input-area');
+    let maxDelay = 0;
+
+    elements.forEach(el => {
+      const delay = parseInt(el.dataset.delay) || 0;
+      maxDelay = Math.max(maxDelay, delay);
+      setTimeout(() => el.classList.add('visible'), delay);
+    });
+
+    if (callback) {
+      setTimeout(callback, maxDelay + 2000);
+    }
+  }
+}
+
+function startMainExperience() {
+  msEl.classList.add('visible');
+  
+  const existingName = getData('nome');
+  
+  if (existingName) {
+    // Personalize for returning user
+    document.querySelector('#s0 .p.enfasi').innerHTML = `La bambina continua a giocare, <span class="dato">${existingName}</span>.`;
+  }
+  
+  showSection('s0', () => {
+    setTimeout(() => {
+      showSection('s1');
+    }, 2000);
+  });
+}
+
+// ========== WORD SUBMISSION ==========
+document.getElementById('btn-parola')?.addEventListener('click', submitWord);
+document.getElementById('parola')?.addEventListener('keypress', e => {
+  if (e.key === 'Enter') submitWord();
+});
+
+function submitWord() {
+  const parola = document.getElementById('parola').value.trim();
+  if (!parola) return;
+
+  saveData('parola', parola);
+  saveData('parola_time', Date.now());
+
+  document.getElementById('parola-display').textContent = parola;
+  
+  // Show generated section
+  document.getElementById('generatedSection').classList.add('active');
+  document.getElementById('s1').classList.remove('active');
+  
+  // Start showing s2
+  showSection('s2');
+  
+  // Scroll to parola display
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  // Start carta effects after delay
+  setTimeout(() => {
+    initCartaEffects();
+  }, 5000);
+}
+
+function initCartaEffects() {
+  const cartaSection = document.getElementById('cartaSection');
+  
+  // Create initial macchie
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => creaMacchia(cartaSection), i * 800);
+  }
+  
+  // Observe carta section for more macchie
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add more macchie as user scrolls
+        const interval = setInterval(() => {
+          if (macchieCreate < maxMacchie) {
+            creaMacchia(cartaSection);
+          } else {
+            clearInterval(interval);
+          }
+        }, 1500);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  observer.observe(cartaSection);
+  
+  // Tremore interval - 50% chance every 1.5 seconds
+  setInterval(() => {
+    if (Math.random() < 0.5) {
+      faiTremareE();
+    }
+  }, 1500);
+  
+  // Also trigger on scroll
+  let lastScrollTremore = 0;
+  window.addEventListener('scroll', () => {
+    const now = Date.now();
+    if (now - lastScrollTremore > 800) {
+      if (Math.random() < 0.4) {
+        faiTremareE();
+        lastScrollTremore = now;
+      }
+    }
+  });
+}
+
+// ========== FINAL ==========
+// Show final screen after long time on page
+setTimeout(() => {
+  if (document.getElementById('generatedSection').classList.contains('active')) {
+    document.getElementById('final').classList.add('active');
+  }
+}, 180000); // 3 minutes
+</script>
+
+</body>
+</html>

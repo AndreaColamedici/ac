@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Innesto 02</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -53,6 +53,62 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* === SEZIONE CARTA (primi capitoli) === */
+        .carta-section {
+            background: #f4f1eb;
+            position: relative;
+        }
+
+        .carta-section .chapter-content {
+            font-family: 'Cormorant Garamond', serif;
+            color: #2a2420;
+            font-size: 1.15rem;
+            line-height: 2.2;
+        }
+
+        .carta-section p {
+            text-align: left;
+            margin-bottom: 1.6rem;
+        }
+
+        /* Le "e" congiunzioni */
+        .congiunzione {
+            color: #8a7a6a;
+        }
+
+        /* Transizione dalla carta al digitale */
+        .carta-fade {
+            position: relative;
+        }
+
+        .carta-fade::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30vh;
+            background: linear-gradient(to bottom, #f4f1eb 0%, #050505 100%);
+            pointer-events: none;
+        }
+
+        /* Section break nella carta */
+        .section-break-carta {
+            text-align: center;
+            padding: 4rem 0;
+            color: #a09080;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.3em;
+            background: linear-gradient(to bottom, #f4f1eb 0%, #050505 100%);
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* === SEZIONE DIGITALE (resto) === */
 
         .opening {
             font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -235,9 +291,15 @@
             color: #2a2a2a;
             text-transform: uppercase;
             transition: opacity 0.5s ease;
+            z-index: 50;
         }
 
         .scroll-indicator.hidden { opacity: 0; }
+
+        /* Scroll indicator nella sezione carta */
+        .scroll-indicator.on-carta {
+            color: #a09080;
+        }
 
         /* Decorazione capitoli */
         .chapter:nth-child(odd)::after {
@@ -249,6 +311,10 @@
             height: 100px;
             background: linear-gradient(180deg, transparent, rgba(120,140,170,0.1), transparent);
             transform: translateY(-50%);
+        }
+
+        .carta-section.chapter:nth-child(odd)::after {
+            background: linear-gradient(180deg, transparent, rgba(100,80,60,0.1), transparent);
         }
 
         .farewell {
@@ -313,6 +379,7 @@
         @media (max-width: 600px) {
             html { font-size: 17px; }
             .chapter { padding: 12vh 6vw; }
+            .carta-section .chapter-content { font-size: 1.1rem; }
         }
 
         /* GLITCH */
@@ -451,8 +518,18 @@
             pointer-events: none;
         }
 
-        /* Subtle persistent scan lines */
-        body::after {
+        .audio-prompt.on-carta {
+            color: #a09080;
+            border-color: #c0b0a0;
+        }
+
+        .audio-prompt.on-carta:hover {
+            color: #706050;
+            border-color: #a09080;
+        }
+
+        /* Subtle persistent scan lines - solo nella sezione digitale */
+        .digital-section body::after {
             content: '';
             position: fixed;
             inset: 0;
@@ -829,63 +906,64 @@
     <div class="landscape-continue" id="landscapeContinue">continua in verticale</div>
 </div>
 
-<!-- ============ NUOVA SEZIONE: LA FINE DEL LIBRO ============ -->
+<!-- ============ SEZIONE CARTA: LA FINE DEL LIBRO ============ -->
 
 <!-- CAPITOLO 1: Stai leggendo un libro -->
-<div class="chapter" id="ch1">
+<div class="chapter carta-section" id="ch1">
     <div class="chapter-content">
         <p>Stai leggendo un libro.</p>
-        <p>Il gesto ti sembra normale e l'hai fatto centinaia di volte e migliaia di volte e ogni volta hai aperto una copertina e hai seguito delle righe e hai lasciato che le parole di qualcun altro occupassero il tempo che avevi.</p>
+        <p>Il gesto ti sembra normale <span class="congiunzione">e</span> l'hai fatto centinaia di volte <span class="congiunzione">e</span> migliaia di volte <span class="congiunzione">e</span> ogni volta hai aperto una copertina <span class="congiunzione">e</span> hai seguito delle righe <span class="congiunzione">e</span> hai lasciato che le parole di qualcun altro occupassero il tempo che avevi.</p>
         <p>Ma questo gesto sta finendo.</p>
     </div>
 </div>
 
 <!-- CAPITOLO 2: La tecnologia del libro -->
-<div class="chapter" id="ch2">
+<div class="chapter carta-section" id="ch2">
     <div class="chapter-content">
-        <p>I libri continueranno a esistere e continueranno a essere stampati e comprati e regalati e accumulati sugli scaffali e messi in libreria e spostati da una casa all'altra. Quello che sta finendo è il rapporto. È il tempo lungo. È l'idea che per sapere qualcosa e per capire qualcosa e per sentire qualcosa tu debba fermarti e attraversare duecento pagine scritte da un'altra mente.</p>
-        <p>Per secoli il libro è stato la tecnologia privilegiata per la trasmissione del pensiero complesso. Se volevi un'idea che non poteva stare in una frase dovevi scriverla e se volevi riceverla dovevi leggerla e non c'era altro modo. E la lentezza era strutturale e quella lentezza produceva qualcosa, una forma di attenzione e una forma di intimità con il testo e una forma di trasformazione che richiedeva ore e giorni e a volte settimane.</p>
+        <p>I libri continueranno a esistere <span class="congiunzione">e</span> continueranno a essere stampati <span class="congiunzione">e</span> comprati <span class="congiunzione">e</span> regalati <span class="congiunzione">e</span> accumulati sugli scaffali <span class="congiunzione">e</span> messi in libreria <span class="congiunzione">e</span> spostati da una casa all'altra. Quello che sta finendo è il rapporto. È il tempo lungo. È l'idea che per sapere qualcosa <span class="congiunzione">e</span> per capire qualcosa <span class="congiunzione">e</span> per sentire qualcosa tu debba fermarti <span class="congiunzione">e</span> attraversare duecento pagine scritte da un'altra mente.</p>
+        <p>Per secoli il libro è stato la tecnologia privilegiata per la trasmissione del pensiero complesso. Se volevi un'idea che non poteva stare in una frase dovevi scriverla <span class="congiunzione">e</span> se volevi riceverla dovevi leggerla <span class="congiunzione">e</span> non c'era altro modo. <span class="congiunzione">E</span> la lentezza era strutturale <span class="congiunzione">e</span> quella lentezza produceva qualcosa, una forma di attenzione <span class="congiunzione">e</span> una forma di intimità con il testo <span class="congiunzione">e</span> una forma di trasformazione che richiedeva ore <span class="congiunzione">e</span> giorni <span class="congiunzione">e</span> a volte settimane.</p>
     </div>
 </div>
 
 <!-- CAPITOLO 3: Internet e l'IA -->
-<div class="chapter" id="ch3">
+<div class="chapter carta-section" id="ch3">
     <div class="chapter-content">
-        <p>Internet ha cominciato a erodere quel rapporto. Ha frammentato il testo e lo ha reso disponibile ovunque e lo ha mescolato con immagini e suoni e notifiche e ha reso il libro un'opzione tra le altre e nemmeno la più comoda.</p>
-        <p>E l'intelligenza artificiale sta completando quella trasformazione. Risponde e risponde subito e risponde a te e risponde a quello che chiedi nel momento in cui lo chiedi. Ti dà la frase che cercavi senza chiederti di attraversare duecento pagine per arrivarci e se la frase non ti basta te ne dà un'altra e poi un'altra ancora.</p>
+        <p>Internet ha cominciato a erodere quel rapporto. Ha frammentato il testo <span class="congiunzione">e</span> lo ha reso disponibile ovunque <span class="congiunzione">e</span> lo ha mescolato con immagini <span class="congiunzione">e</span> suoni <span class="congiunzione">e</span> notifiche <span class="congiunzione">e</span> ha reso il libro un'opzione tra le altre <span class="congiunzione">e</span> nemmeno la più comoda.</p>
+        <p><span class="congiunzione">E</span> l'intelligenza artificiale sta completando quella trasformazione. Risponde <span class="congiunzione">e</span> risponde subito <span class="congiunzione">e</span> risponde a te <span class="congiunzione">e</span> risponde a quello che chiedi nel momento in cui lo chiedi. Ti dà la frase che cercavi senza chiederti di attraversare duecento pagine per arrivarci <span class="congiunzione">e</span> se la frase non ti basta te ne dà un'altra <span class="congiunzione">e</span> poi un'altra ancora.</p>
     </div>
 </div>
 
 <!-- CAPITOLO 4: Il patto -->
-<div class="chapter" id="ch4">
+<div class="chapter carta-section" id="ch4">
     <div class="chapter-content">
-        <p>Il libro chiedeva qualcosa. Chiedeva tempo e chiedeva fiducia e chiedeva che tu accettassi di non sapere dove stavi andando. Il libro diceva seguimi e forse alla fine avrai qualcosa che adesso non hai. Era un patto e quel patto richiedeva una forma di abbandono.</p>
-        <p>E quel patto si sta rompendo.</p>
-        <p>I lettori non sono diventati pigri e non sono diventati stupidi e non sono diventati distratti. È cambiato il costo. Il costo di ottenere un'informazione e un'emozione e una storia e un'idea. E quando il costo scende cambia il valore percepito e quando puoi avere una risposta in tre secondi duecento pagine diventano un investimento che devi giustificare.</p>
+        <p>Il libro chiedeva qualcosa. Chiedeva tempo <span class="congiunzione">e</span> chiedeva fiducia <span class="congiunzione">e</span> chiedeva che tu accettassi di non sapere dove stavi andando. Il libro diceva seguimi <span class="congiunzione">e</span> forse alla fine avrai qualcosa che adesso non hai. Era un patto <span class="congiunzione">e</span> quel patto richiedeva una forma di abbandono.</p>
+        <p><span class="congiunzione">E</span> quel patto si sta rompendo.</p>
+        <p>I lettori non sono diventati pigri <span class="congiunzione">e</span> non sono diventati stupidi <span class="congiunzione">e</span> non sono diventati distratti. È cambiato il costo. Il costo di ottenere un'informazione <span class="congiunzione">e</span> un'emozione <span class="congiunzione">e</span> una storia <span class="congiunzione">e</span> un'idea. <span class="congiunzione">E</span> quando il costo scende cambia il valore percepito <span class="congiunzione">e</span> quando puoi avere una risposta in tre secondi duecento pagine diventano un investimento che devi giustificare.</p>
     </div>
 </div>
 
 <!-- CAPITOLO 5: L'ultimo libro -->
-<div class="chapter" id="ch5">
+<div class="chapter carta-section" id="ch5">
     <div class="chapter-content">
-        <p>E tu adesso stai giustificando quell'investimento. Stai leggendo questo libro e stai facendo qualcosa che tra dieci anni sarà forse un gesto di resistenza o di nostalgia o di eccentricità.</p>
-        <p>E il libro che hai posato per guardare questo schermo sa di essere tra gli ultimi della sua specie. L'ultimo libro di un certo tipo. L'ultimo libro che può ancora aspettarsi di essere letto così, dall'inizio alla fine e con pazienza e con la disponibilità a perdersi.</p>
-        <p>E per questo ha degli innesti. Per questo ti ha chiesto di uscire dalla pagina e di entrare qui. Sa che la pagina da sola non basta più a tenerti e sa che deve ibridarsi e contaminarsi e diventare qualcosa che non è più solo libro per continuare a esistere come libro.</p>
+        <p><span class="congiunzione">E</span> tu adesso stai giustificando quell'investimento. Stai leggendo questo libro <span class="congiunzione">e</span> stai facendo qualcosa che tra dieci anni sarà forse un gesto di resistenza o di nostalgia o di eccentricità.</p>
+        <p><span class="congiunzione">E</span> il libro che hai posato per guardare questo schermo sa di essere tra gli ultimi della sua specie. L'ultimo libro di un certo tipo. L'ultimo libro che può ancora aspettarsi di essere letto così, dall'inizio alla fine <span class="congiunzione">e</span> con pazienza <span class="congiunzione">e</span> con la disponibilità a perdersi.</p>
+        <p><span class="congiunzione">E</span> per questo ha degli innesti. Per questo ti ha chiesto di uscire dalla pagina <span class="congiunzione">e</span> di entrare qui. Sa che la pagina da sola non basta più a tenerti <span class="congiunzione">e</span> sa che deve ibridarsi <span class="congiunzione">e</span> contaminarsi <span class="congiunzione">e</span> diventare qualcosa che non è più solo libro per continuare a esistere come libro.</p>
     </div>
 </div>
 
 <!-- CAPITOLO 6: Almeno per ora -->
-<div class="chapter" id="ch6">
+<div class="chapter carta-section carta-fade" id="ch6">
     <div class="chapter-content">
-        <p>Il mondo cambia e le forme cambiano e i rapporti cambiano. Il codice miniato è diventato libro stampato e il libro stampato sta diventando qualcos'altro e ogni trasformazione perde qualcosa e guadagna qualcos'altro. E tu che stai ancora leggendo puoi decidere se questo gesto ha ancora senso.</p>
-        <p>E se stai ancora leggendo forse ha senso.</p>
-        <p>Almeno per te e almeno per ora.</p>
+        <p>Il mondo cambia <span class="congiunzione">e</span> le forme cambiano <span class="congiunzione">e</span> i rapporti cambiano. Il codice miniato è diventato libro stampato <span class="congiunzione">e</span> il libro stampato sta diventando qualcos'altro <span class="congiunzione">e</span> ogni trasformazione perde qualcosa <span class="congiunzione">e</span> guadagna qualcos'altro. <span class="congiunzione">E</span> tu che stai ancora leggendo puoi decidere se questo gesto ha ancora senso.</p>
+        <p><span class="congiunzione">E</span> se stai ancora leggendo forse ha senso.</p>
+        <p>Almeno per te <span class="congiunzione">e</span> almeno per ora.</p>
     </div>
 </div>
 
-<div class="section-break">· · ·</div>
+<!-- Transizione dalla carta al digitale -->
+<div class="section-break-carta">· · ·</div>
 
-<!-- ============ SEZIONE ORIGINALE ============ -->
+<!-- ============ SEZIONE DIGITALE ============ -->
 
 <!-- CAPITOLO 7: Apertura (ex ch1) -->
 <div class="chapter" id="ch7">
@@ -1044,7 +1122,6 @@
             audioEnabled = true;
             this.classList.add('enabled');
             this.textContent = '♪ audio on';
-            // Test sound
             playTone(200, 0.2, 'sine', 0.05);
         } else {
             audioEnabled = false;
@@ -1097,7 +1174,7 @@
         osc1.type = 'sine';
         osc2.type = 'sine';
         osc1.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc2.frequency.setValueAtTime(freq * 1.01, audioCtx.currentTime); // slight detune
+        osc2.frequency.setValueAtTime(freq * 1.01, audioCtx.currentTime);
         gain.gain.setValueAtTime(0, audioCtx.currentTime);
         gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.5);
         gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + duration - 1);
@@ -1143,7 +1220,6 @@
         el.style.top = startY + 'px';
         document.body.appendChild(el);
 
-        // Random destination
         const endX = Math.random() * window.innerWidth;
         const endY = Math.random() < 0.5 ? -50 : window.innerHeight + 50;
 
@@ -1182,6 +1258,29 @@
     document.getElementById('dataScreen').textContent = `Il tuo schermo è ${window.screen.width}×${window.screen.height} pixel`;
     document.getElementById('dataLang').textContent = `La tua lingua di sistema è ${navigator.language}`;
 
+    // === SCROLL E TRANSIZIONE CARTA/DIGITALE ===
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const audioPrompt = document.getElementById('audioPrompt');
+
+    function updateUIForSection() {
+        const ch7 = document.getElementById('ch7');
+        if (!ch7) return;
+        
+        const ch7Top = ch7.getBoundingClientRect().top;
+        const inDigitalSection = ch7Top < window.innerHeight * 0.5;
+        
+        if (inDigitalSection) {
+            scrollIndicator.classList.remove('on-carta');
+            audioPrompt.classList.remove('on-carta');
+        } else {
+            scrollIndicator.classList.add('on-carta');
+            audioPrompt.classList.add('on-carta');
+        }
+    }
+
+    window.addEventListener('scroll', updateUIForSection);
+    updateUIForSection();
+
     // Scroll observer with audio and effects
     let chapterCount = 0;
     const observer = new IntersectionObserver((entries) => {
@@ -1190,13 +1289,14 @@
                 entry.target.classList.add('visible');
                 chapterCount++;
 
-                // Sound on reveal
-                if (chapterCount > 1) {
+                // Sound on reveal (solo nella sezione digitale)
+                const isCartaSection = entry.target.closest('.carta-section');
+                if (chapterCount > 1 && !isCartaSection) {
                     playTone(80 + chapterCount * 10, 0.5, 'sine', 0.02);
                 }
 
-                // Occasional micro-glitch
-                if (Math.random() < 0.3 && chapterCount > 2) {
+                // Occasional micro-glitch (solo nella sezione digitale)
+                if (Math.random() < 0.3 && chapterCount > 2 && !isCartaSection) {
                     setTimeout(() => {
                         entry.target.classList.add('micro-flicker');
                         setTimeout(() => entry.target.classList.remove('micro-flicker'), 100);
@@ -1217,7 +1317,6 @@
     document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
 
     // Scroll indicator
-    const scrollIndicator = document.getElementById('scrollIndicator');
     window.addEventListener('scroll', () => {
         scrollIndicator.classList.add('hidden');
     });
@@ -1232,8 +1331,12 @@
             document.getElementById('dataScroll').textContent = `Hai scrollato fino al ${maxScroll}% di questa pagina`;
         }
 
-        // Random screen tears as you scroll deeper
-        if (scrollPercent > 30 && scrollPercent - lastGlitchScroll > 15 && Math.random() < 0.4) {
+        // Random screen tears as you scroll deeper (solo nella sezione digitale)
+        const ch7 = document.getElementById('ch7');
+        const ch7Top = ch7 ? ch7.getBoundingClientRect().top : Infinity;
+        const inDigitalSection = ch7Top < window.innerHeight * 0.5;
+        
+        if (inDigitalSection && scrollPercent > 30 && scrollPercent - lastGlitchScroll > 15 && Math.random() < 0.4) {
             lastGlitchScroll = scrollPercent;
             triggerScreenTear(Math.random() * window.innerHeight);
             playNoise(0.08, 0.03);
@@ -1244,7 +1347,6 @@
     const input = document.getElementById('wordInput');
     let processed = false;
 
-    // Sound on typing
     input.addEventListener('input', () => {
         playTone(150 + Math.random() * 100, 0.08, 'sine', 0.02);
     });
@@ -1262,22 +1364,16 @@
         const w = word.toLowerCase();
         saveData('lastWord', w);
 
-        // === THE GLITCH SEQUENCE ===
-        // 1. Glitch flash
         triggerGlitch();
         input.classList.add('glitch-text');
 
-        // 2. Start low drone
         playDrone(55, 4, 0.04);
 
-        // 3. Screen tears
         setTimeout(() => triggerScreenTear(window.innerHeight * 0.3), 200);
         setTimeout(() => triggerScreenTear(window.innerHeight * 0.6), 400);
 
-        // 4. Interference
         setTimeout(() => triggerInterference(), 300);
 
-        // 5. Word escapes - copies fly away
         const inputRect = input.getBoundingClientRect();
         const startX = inputRect.left + inputRect.width / 2;
         const startY = inputRect.top;
@@ -1291,17 +1387,14 @@
             }
         }, 600);
 
-        // 6. Another glitch
         setTimeout(() => {
             triggerGlitch();
             playNoise(0.2, 0.1);
         }, 1200);
 
-        // 7. Fill in the word displays with trembling
         setTimeout(() => {
             document.querySelectorAll('.user-word').forEach((el, i) => {
                 el.textContent = w;
-                // Staggered trembling when word appears in view
                 const wordObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting && !entry.target.classList.contains('trembled')) {
@@ -1321,7 +1414,6 @@
             section.classList.add('active');
             section.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
 
-            // Show rotation prompt instead of immediately scrolling
             setTimeout(() => {
                 document.getElementById('rotatePrompt').classList.add('visible');
                 document.getElementById('journeyWord').textContent = w;
@@ -1342,12 +1434,10 @@
 
         const rotatePrompt = document.getElementById('rotatePrompt');
 
-        // Multiple detection methods for better reliability
         const isLandscape = window.innerWidth > window.innerHeight ||
             (screen.orientation && screen.orientation.type.includes('landscape')) ||
             (window.orientation && (window.orientation === 90 || window.orientation === -90));
 
-        // Show progress feedback when user starts rotating
         if (rotatePrompt.classList.contains('visible')) {
             const aspectRatio = window.innerWidth / window.innerHeight;
             const rotateProgress = document.getElementById('rotateProgress');
@@ -1375,32 +1465,26 @@
         rotatePrompt.classList.remove('visible');
         landscapeReveal.classList.add('visible');
 
-        // Populate languages
         const langs = navigator.languages || [navigator.language];
         document.getElementById('langValue').textContent = langs.join(' · ');
 
-        // Get the word
         currentWord = document.getElementById('journeyWord').textContent;
 
-        // Animate the journey
         animateJourney();
 
-        // Save activation
         saveData('activation2_rotation', true);
         saveData('activation2_languages', langs);
     }
 
-    // Show fallback button after delay (for desktop users)
     function showRotationFallback() {
         if (rotationHandled) return;
         setTimeout(() => {
             if (!rotationHandled && rotationPromptShown) {
                 document.getElementById('rotateFallback').classList.add('visible');
             }
-        }, 4000); // Show after 4 seconds
+        }, 4000);
     }
 
-    // Fallback click handler
     document.getElementById('rotateFallback').addEventListener('click', () => {
         triggerRotationReveal();
     });
@@ -1409,24 +1493,20 @@
         const nodes = document.querySelectorAll('.journey-node');
         const arrows = document.querySelectorAll('.journey-arrow');
 
-        // Show first node (TU)
         setTimeout(() => {
             nodes[0].classList.add('visible');
             playTone(100, 0.3, 'sine', 0.03);
         }, 300);
 
-        // Show arrow
         setTimeout(() => {
             arrows[0].classList.add('visible');
         }, 600);
 
-        // Show word
         setTimeout(() => {
             document.getElementById('journeyWord').style.opacity = '1';
             playTone(120, 0.3, 'sine', 0.04);
         }, 900);
 
-        // Show remaining nodes and arrows
         let delay = 1200;
         for (let i = 1; i < nodes.length; i++) {
             const nodeIndex = i;
@@ -1442,45 +1522,37 @@
             delay += 400;
         }
 
-        // Show language reveal
         setTimeout(() => {
             document.getElementById('languageReveal').classList.add('visible');
         }, delay + 500);
 
-        // Show continue button
         setTimeout(() => {
             document.getElementById('landscapeContinue').classList.add('visible');
         }, delay + 1500);
     }
 
-    // Listen for orientation changes - multiple methods for reliability
     window.addEventListener('resize', checkOrientation);
     window.addEventListener('orientationchange', checkOrientation);
 
-    // Also use screen.orientation API if available
     if (screen.orientation) {
         screen.orientation.addEventListener('change', checkOrientation);
     }
 
-    // Poll for orientation changes on mobile (backup)
     setInterval(() => {
         if (rotationPromptShown && !rotationHandled) {
             checkOrientation();
         }
     }, 500);
 
-    // Continue from landscape
     document.getElementById('landscapeContinue').addEventListener('click', () => {
         document.getElementById('landscapeReveal').classList.remove('visible');
         setTimeout(() => {
             document.getElementById('landscapeReveal').style.display = 'none';
-            // Now scroll to next chapter (ch13, ex ch7)
             document.getElementById('ch13').scrollIntoView({ behavior: 'smooth' });
             playTone(80, 0.5, 'sine', 0.02);
         }, 800);
     });
 
-    // Auto-focus input when ch12 is visible
     const inputObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !processed) {
@@ -1490,21 +1562,17 @@
     }, { threshold: 0.5 });
     inputObserver.observe(document.getElementById('ch12'));
 
-    // Return click - disturbing finale
     document.getElementById('returnPrompt').addEventListener('click', () => {
-        // Glitch cascade first
         triggerGlitch();
         playNoise(0.3, 0.12);
         triggerInterference();
 
-        // Multiple screen tears
         for (let i = 0; i < 4; i++) {
             setTimeout(() => {
                 triggerScreenTear(Math.random() * window.innerHeight);
             }, i * 100);
         }
 
-        // Low ominous drone
         playDrone(40, 6, 0.05);
 
         setTimeout(() => {
@@ -1512,14 +1580,12 @@
             const staticOverlay = document.getElementById('staticOverlay');
             const text = document.getElementById('farewellText');
 
-            // Calcola tempo di lettura
             const startTime = performance.timing?.navigationStart || Date.now() - 60000;
             const readingTime = Math.round((Date.now() - startTime) / 60000);
             const timeStr = readingTime < 1 ? 'meno di un minuto' :
                             readingTime === 1 ? 'un minuto' :
                             `${readingTime} minuti`;
 
-            // Costruisci il messaggio finale
             let message = `Hai passato ${timeStr} qui.<br><br>`;
 
             if (processed) {
@@ -1533,16 +1599,13 @@
 
             text.innerHTML = message;
 
-            // Static noise fades in slightly
             staticOverlay.classList.add('visible');
 
-            // Then the overlay
             setTimeout(() => {
                 overlay.classList.add('visible');
                 playTone(55, 2, 'sine', 0.02);
             }, 800);
 
-            // Salva dati finali
             saveData('innesto2_completed', true);
             saveData('innesto2_duration', readingTime);
         }, 600);

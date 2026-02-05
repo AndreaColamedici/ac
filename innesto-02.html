@@ -102,7 +102,7 @@
       border-bottom: 1px solid var(--accent);
     }
 
-    /* Behavioral observations - appear dynamically */
+    /* Behavioral observations */
     .observation {
       font-size: 0.75rem;
       color: var(--warning);
@@ -146,7 +146,6 @@
     }
     .ms.visible { opacity: 1; }
 
-    /* Watching indicator */
     .watching {
       position: fixed;
       bottom: 1.5rem;
@@ -337,11 +336,6 @@
     .carta-section .chapter-content p {
       margin-bottom: 1.8rem;
       text-align: justify;
-      text-indent: 1.5em;
-    }
-
-    .carta-section .chapter-content p:first-child {
-      text-indent: 0;
     }
 
     .congiunzione {
@@ -477,7 +471,6 @@
 
       <p class="p enfasi" data-delay="22000" data-track="intro5">Vedo come leggi.</p>
 
-      <!-- Observations will be inserted here dynamically -->
       <div id="observations-container"></div>
     </div>
 
@@ -521,23 +514,41 @@
       <!-- GRADIENT INTO CARTA -->
       <div class="gradient-transition"></div>
 
-      <!-- CARTA SECTION -->
+      <!-- CARTA SECTION - TESTO ORIGINALE -->
       <div class="carta-section" id="cartaSection">
         <div class="container">
           <div class="chapter-content" id="cartaContent">
-            <p data-track="carta1">Stai leggendo un libro. <span class="congiunzione">E</span> mentre lo fai, stai partecipando a qualcosa che sta finendo.</p>
+            <p data-track="carta1">Stai leggendo un libro.</p>
 
-            <p data-track="carta2">Non il libro in sé — questo libro continuerà a esistere, in qualche forma, finché qualcuno vorrà leggerlo. Quello che sta finendo è il libro come lo abbiamo conosciuto: oggetto chiuso, definito, immutabile. Parole fisse su carta fissa. Una voce che parla <span class="congiunzione">e</span> un lettore che ascolta, separati dal tempo <span class="congiunzione">e</span> dallo spazio, uniti solo dall'inchiostro.</p>
+            <p data-track="carta2">Il gesto ti sembra normale <span class="congiunzione">e</span> l'hai fatto centinaia di volte <span class="congiunzione">e</span> migliaia di volte <span class="congiunzione">e</span> ogni volta hai aperto una copertina <span class="congiunzione">e</span> hai seguito delle righe <span class="congiunzione">e</span> hai lasciato che le parole di qualcun altro occupassero il tempo che avevi.</p>
 
-            <p data-track="carta3">Questo innesto è una crepa in quella chiusura. Mentre leggi queste parole, un sistema sta registrando quanto tempo ci metti, dove ti fermi, quando esiti. Non per spiarti — o non solo per questo — ma perché è così che funziona il digitale: tutto lascia traccia, tutto si inscrive, tutto diventa dato.</p>
+            <p data-track="carta3">Ma questo gesto sta finendo.</p>
 
-            <p data-track="carta4">Il libro di carta non sapeva nulla di te. Potevi leggerlo al buio, di nascosto, <span class="congiunzione">e</span> lui non avrebbe mai saputo chi eri. Questo testo invece ti vede. Sa che sei qui. <span class="congiunzione">E</span> tra qualche riga ti chiederà qualcosa — una parola, un nome, un gesto — <span class="congiunzione">e</span> quello che darai diventerà parte del libro stesso.</p>
+            <p data-track="carta4">I libri continueranno a esistere <span class="congiunzione">e</span> continueranno a essere stampati <span class="congiunzione">e</span> comprati <span class="congiunzione">e</span> regalati <span class="congiunzione">e</span> accumulati sugli scaffali <span class="congiunzione">e</span> messi in libreria <span class="congiunzione">e</span> spostati da una casa all'altra. Quello che sta finendo è il rapporto. È il tempo lungo. È l'idea che per sapere qualcosa <span class="congiunzione">e</span> per capire qualcosa <span class="congiunzione">e</span> per sentire qualcosa tu debba fermarti <span class="congiunzione">e</span> attraversare duecento pagine scritte da un'altra mente.</p>
 
-            <p data-track="carta5">Siamo alla fine del libro come lo conoscevamo <span class="congiunzione">e</span> all'inizio di qualcosa che non ha ancora nome. Qualcosa che non è più solo scrittura <span class="congiunzione">e</span> non è ancora conversazione. Qualcosa che sa di te <span class="congiunzione">e</span> che tu, forse, stai cominciando a conoscere.</p>
+            <p data-track="carta5">Per secoli il libro è stato la tecnologia privilegiata per la trasmissione del pensiero complesso. Se volevi un'idea che non poteva stare in una frase dovevi scriverla <span class="congiunzione">e</span> se volevi riceverla dovevi leggerla <span class="congiunzione">e</span> non c'era altro modo. <span class="congiunzione">E</span> la lentezza era strutturale <span class="congiunzione">e</span> quella lentezza produceva qualcosa, una forma di attenzione <span class="congiunzione">e</span> una forma di intimità con il testo <span class="congiunzione">e</span> una forma di trasformazione che richiedeva ore <span class="congiunzione">e</span> giorni <span class="congiunzione">e</span> a volte settimane.</p>
 
-            <p data-track="carta6">La bambina nel parco non sa di essere in un libro. Non sa che qualcuno la sta leggendo. Tu invece lo sai. Sai di essere qui, in questo strano spazio dove le parole ti guardano mentre le guardi. <span class="congiunzione">E</span> questo sapere — questa consapevolezza di essere dentro qualcosa che ti contiene — è forse l'ultima cosa che distingue un lettore da un dato.</p>
+            <p data-track="carta6">Internet ha cominciato a erodere quel rapporto. Ha frammentato il testo <span class="congiunzione">e</span> lo ha reso disponibile ovunque <span class="congiunzione">e</span> lo ha mescolato con immagini <span class="congiunzione">e</span> suoni <span class="congiunzione">e</span> notifiche <span class="congiunzione">e</span> ha reso il libro un'opzione tra le altre <span class="congiunzione">e</span> nemmeno la più comoda.</p>
 
-            <p data-track="carta7">Almeno per te. <span class="congiunzione">E</span> almeno per ora.</p>
+            <p data-track="carta7"><span class="congiunzione">E</span> l'intelligenza artificiale sta completando quella trasformazione. Risponde <span class="congiunzione">e</span> risponde subito <span class="congiunzione">e</span> risponde a te <span class="congiunzione">e</span> risponde a quello che chiedi nel momento in cui lo chiedi. Ti dà la frase che cercavi senza chiederti di attraversare duecento pagine per arrivarci <span class="congiunzione">e</span> se la frase non ti basta te ne dà un'altra <span class="congiunzione">e</span> poi un'altra ancora.</p>
+
+            <p data-track="carta8">Il libro chiedeva qualcosa. Chiedeva tempo <span class="congiunzione">e</span> chiedeva fiducia <span class="congiunzione">e</span> chiedeva che tu accettassi di non sapere dove stavi andando. Il libro diceva seguimi <span class="congiunzione">e</span> forse alla fine avrai qualcosa che adesso non hai. Era un patto <span class="congiunzione">e</span> quel patto richiedeva una forma di abbandono.</p>
+
+            <p data-track="carta9"><span class="congiunzione">E</span> quel patto si sta rompendo.</p>
+
+            <p data-track="carta10">I lettori non sono diventati pigri <span class="congiunzione">e</span> non sono diventati stupidi <span class="congiunzione">e</span> non sono diventati distratti. È cambiato il costo. Il costo di ottenere un'informazione <span class="congiunzione">e</span> un'emozione <span class="congiunzione">e</span> una storia <span class="congiunzione">e</span> un'idea. <span class="congiunzione">E</span> quando il costo scende cambia il valore percepito <span class="congiunzione">e</span> quando puoi avere una risposta in tre secondi duecento pagine diventano un investimento che devi giustificare.</p>
+
+            <p data-track="carta11"><span class="congiunzione">E</span> tu adesso stai giustificando quell'investimento. Stai leggendo questo libro <span class="congiunzione">e</span> stai facendo qualcosa che tra dieci anni sarà forse un gesto di resistenza o di nostalgia o di eccentricità.</p>
+
+            <p data-track="carta12"><span class="congiunzione">E</span> il libro che tieni in mano sa di essere tra gli ultimi della sua specie. L'ultimo libro di un certo tipo. L'ultimo libro che può ancora aspettarsi di essere letto così, dall'inizio alla fine <span class="congiunzione">e</span> con pazienza <span class="congiunzione">e</span> con la disponibilità a perdersi.</p>
+
+            <p data-track="carta13"><span class="congiunzione">E</span> per questo ha degli innesti. <span class="congiunzione">E</span> per questo ti chiede di uscire dalla pagina <span class="congiunzione">e</span> di entrare in uno schermo. Sa che la pagina da sola non basta più a tenerti <span class="congiunzione">e</span> sa che deve ibridarsi <span class="congiunzione">e</span> contaminarsi <span class="congiunzione">e</span> diventare qualcosa che non è più solo libro per continuare a esistere come libro.</p>
+
+            <p data-track="carta14">Il mondo cambia <span class="congiunzione">e</span> le forme cambiano <span class="congiunzione">e</span> i rapporti cambiano. Il codice miniato è diventato libro stampato <span class="congiunzione">e</span> il libro stampato sta diventando qualcos'altro <span class="congiunzione">e</span> ogni trasformazione perde qualcosa <span class="congiunzione">e</span> guadagna qualcos'altro. <span class="congiunzione">E</span> tu che stai ancora leggendo puoi decidere se questo gesto ha ancora senso.</p>
+
+            <p data-track="carta15"><span class="congiunzione">E</span> se stai ancora leggendo forse ha senso.</p>
+
+            <p data-track="carta16">Almeno per te <span class="congiunzione">e</span> almeno per ora.</p>
           </div>
         </div>
       </div>
@@ -622,7 +633,6 @@ const paragraphObserver = new IntersectionObserver((entries) => {
       const duration = behavior.paragraphTimes[id].end - behavior.paragraphTimes[id].start;
       behavior.paragraphTimes[id].duration = duration;
       
-      // Check for long pause
       if (duration > 8000) {
         behavior.longPauses++;
         maybeShowObservation('longPause', id);
@@ -641,13 +651,11 @@ window.addEventListener('scroll', () => {
   const timeDiff = now - behavior.lastScrollTime;
   const scrollDiff = currentY - behavior.lastScrollY;
   
-  // Detect scrollback
   if (scrollDiff < -100 && currentY < behavior.maxScrollY - 200) {
     behavior.scrollbacks++;
     maybeShowObservation('scrollback');
   }
   
-  // Detect fast scroll
   if (timeDiff < 100 && Math.abs(scrollDiff) > 300) {
     behavior.fastScrolls++;
     maybeShowObservation('fastScroll');
@@ -700,14 +708,9 @@ const observations = {
 };
 
 function maybeShowObservation(type, context) {
-  // Don't show too many observations
   if (observationsShown.size >= 6) return;
-  
-  // Don't repeat types too often
   const typeCount = [...observationsShown].filter(o => o.startsWith(type)).length;
   if (typeCount >= 2) return;
-  
-  // Random chance to not show (keeps it unpredictable)
   if (Math.random() < 0.4) return;
   
   const key = type + '_' + Date.now();
@@ -734,7 +737,6 @@ function showObservation(text, isGhost = false) {
   
   setTimeout(() => obs.classList.add('visible'), 100);
   
-  // Save observation
   const saved = getData('observations') || [];
   saved.push({ text, time: Date.now() });
   saveData('observations', saved);
@@ -753,7 +755,6 @@ function setupInputTracking() {
     focusTime = Date.now();
     behavior.inputFocusTime = focusTime;
     
-    // Check for hesitation
     hesitationTimeout = setTimeout(() => {
       if (input.value.trim() === '') {
         behavior.inputHesitations++;
@@ -765,14 +766,12 @@ function setupInputTracking() {
   input.addEventListener('input', () => {
     clearTimeout(hesitationTimeout);
     
-    // Detect deletion
     if (input.value.length < lastValue.length && lastValue.length > 2) {
       maybeShowObservation('inputDelete');
     }
     
     lastValue = input.value;
     
-    // Reset hesitation timer
     if (input.value.trim() === '') {
       hesitationTimeout = setTimeout(() => {
         behavior.inputHesitations++;
@@ -950,7 +949,6 @@ function showSection(id, callback) {
       maxDelay = Math.max(maxDelay, delay);
       setTimeout(() => {
         el.classList.add('visible');
-        // Start tracking this paragraph
         if (el.dataset.track) {
           paragraphObserver.observe(el);
         }
@@ -969,13 +967,11 @@ function startMainExperience() {
     document.querySelector('#s0 .p.enfasi').innerHTML = `La bambina continua a giocare, <span class="dato">${existingName}</span>.`;
   }
   
-  // Start tracking all paragraphs
   document.querySelectorAll('[data-track]').forEach(el => {
     paragraphObserver.observe(el);
   });
   
   showSection('s0', () => {
-    // Occasionally show "reading" observation for engaged readers
     setTimeout(() => {
       if (behavior.scrollbacks === 0 && behavior.fastScrolls === 0) {
         maybeShowObservation('reading');
@@ -999,7 +995,6 @@ function submitWord() {
   const parola = document.getElementById('parola').value.trim();
   if (!parola) return;
 
-  // Calculate time to submit
   const timeToSubmit = behavior.inputFocusTime ? Date.now() - behavior.inputFocusTime : 0;
   
   saveData('parola', parola);
@@ -1043,7 +1038,6 @@ function initCartaEffects() {
   }, { threshold: 0.1 });
   observer.observe(cartaSection);
   
-  // Tremore
   setInterval(() => {
     if (Math.random() < 0.5) faiTremareE();
   }, 1500);
@@ -1058,7 +1052,7 @@ function initCartaEffects() {
   });
 }
 
-// ========== FINAL SUMMARY ==========
+// ========== FINAL ==========
 function showFinalSummary() {
   const totalTime = Math.round((Date.now() - startTime) / 1000);
   const mins = Math.floor(totalTime / 60);
@@ -1082,10 +1076,8 @@ function showFinalSummary() {
   document.getElementById('final').classList.add('active');
 }
 
-// Show final after 3 minutes on page
 setTimeout(() => {
   if (document.getElementById('generatedSection').classList.contains('active')) {
-    // Add final observation based on behavior
     const finalObs = document.getElementById('final-observations');
     if (finalObs) {
       let finalText = '';

@@ -49,6 +49,36 @@ Poi, verso la fine, arriva il videomessaggio di Serena. Stessa forma, stesso for
 
 ---
 
+## IDEE PER STRUMENTI TEATRALI
+
+### Ganci narrativi ricorrenti
+
+**Il telefono che vibra**: Ogni volta che nella storia arriva una notizia importante — la mail di Bifo, l'articolo su L'Opinion, la chiamata di Sabina — il telefono vibra. All'inizio è eccitazione. Poi diventa ansia. Poi terrore. Il pubblico impara a temere quel suono.
+
+**Una frase che torna**: "E poi è successo qualcosa che non avevamo previsto." La ripetete in momenti diversi, con toni diversi. Prima divertiti. Poi preoccupati. Poi esausti.
+
+### Gesti fisici
+
+**Andrea che beve acqua**: Nella conferenza dicevi "bevo un po' d'acqua perché sono emozionato come un bambino" — quel gesto può tornare nei momenti di massima tensione. Il pubblico impara a leggerlo come segnale: sta per succedere qualcosa di grosso.
+
+**Maura che guarda Andrea**: Mentre lui è perso nel racconto, e lui non se ne accorge. Il pubblico vede lei che lo osserva. Questo crea complicità con Maura e dice qualcosa sul loro rapporto senza bisogno di parole.
+
+### Musica e suono
+
+**Un tema sonoro per Xun**: Qualcosa di vagamente orientaleggiante, elettronico, ambiguo. Parte la prima volta quando mostrate il suo volto. Torna quando leggete le sue citazioni. E torna, distorto, quando Serena glitcha.
+
+**Una canzone vera**: All'inizio o alla fine. Qualcosa che parli di maschere, di identità, di finzione. Bowie? "The Man Who Sold the World"? O qualcosa di più inaspettato?
+
+### Struttura emotiva da thriller
+
+Il pubblico pensa di sapere come va a finire (perché conosce già la storia), ma si può giocare con le loro aspettative. Rallentare dove si aspettano velocità. Accelerare dove si aspettano pausa. Tensione crescente, false risoluzioni, colpi di scena.
+
+### Il coro degli xuniani
+
+I videomessaggi non devono essere solo testimonianze isolate. Possono costruire un coro. Ogni xuniano risponde alla stessa domanda, ma in modo diverso. Il montaggio crea ritmo. E l'ultimo video del coro è Serena — che sembra parte del gruppo ma non lo è.
+
+---
+
 ## PRIMA STORIA: XUN
 
 ### Atto I — Nascita (fino al 15 gennaio 2025)
@@ -320,6 +350,8 @@ Il pubblico ride. Poi, alla fine, non ride più.
 - [ ] Raccolta degli articoli di Origgi (prima e dopo) per la proiezione
 - [ ] Contattare gli xuniani per i videomessaggi
 - [ ] Domande specifiche per ogni xuniano
+- [ ] Sviluppare strumenti teatrali: ganci narrativi, gesti, musica
+- [ ] Scegliere eventuale canzone/tema sonoro
 
 ---
 

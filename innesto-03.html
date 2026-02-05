@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Innesto 03</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -662,6 +662,84 @@
             color: #8a6a7a;
             border-color: #5a4a55;
         }
+
+        /* === CARTA SECTION === */
+        .gradient-transition {
+            height: 30vh;
+            background: linear-gradient(to bottom, #050505, #f4f1eb);
+        }
+
+        .gradient-transition-out {
+            height: 30vh;
+            background: linear-gradient(to bottom, #f4f1eb, #050505);
+        }
+
+        .carta-section {
+            background: #f4f1eb;
+            position: relative;
+            overflow: hidden;
+            padding: 8vh 8vw 12vh;
+        }
+
+        .carta-section .carta-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .carta-section .carta-content {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #2a2420;
+        }
+
+        .carta-section .carta-content p {
+            margin-bottom: 1.8rem;
+            text-align: justify;
+        }
+
+        .congiunzione {
+            display: inline-block;
+            color: inherit;
+        }
+
+        .congiunzione.trema {
+            animation: tremore 0.4s ease-in-out;
+        }
+
+        @keyframes tremore {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-1px, -1px); }
+            20% { transform: translate(1px, 0); }
+            30% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            50% { transform: translate(-1px, 0); }
+            60% { transform: translate(1px, 1px); }
+            70% { transform: translate(0, -1px); }
+            80% { transform: translate(-1px, 1px); }
+            90% { transform: translate(1px, 0); }
+        }
+
+        .macchia {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease;
+            z-index: 1;
+        }
+
+        .macchia.visible {
+            opacity: 0.12;
+        }
+
+        .macchia svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .macchia svg path {
+            fill: #1a1815;
+        }
     </style>
 </head>
 <body>
@@ -669,7 +747,7 @@
 <div class="scroll-indicator" id="scrollIndicator">scorri</div>
 <div class="glitch-overlay" id="glitchOverlay"></div>
 <div class="increment-flash" id="incrementFlash"></div>
-<div class="audio-prompt" id="audioPrompt">◉ audio</div>
+<div class="audio-prompt" id="audioPrompt">♪ audio</div>
 
 <!-- ATTIVAZIONE: Shake prompt -->
 <div class="shake-prompt" id="shakePrompt">
@@ -728,6 +806,31 @@
         <p>Il template è ciò che emerge quando si calcola il centro di gravità di tutte le bambine mai fotografate.</p>
     </div>
 </div>
+
+<!-- GRADIENT INTO CARTA -->
+<div class="gradient-transition"></div>
+
+<!-- CARTA SECTION: Commons involontario -->
+<div class="carta-section" id="cartaSection">
+    <div class="carta-container">
+        <div class="carta-content" id="cartaContent">
+            <p>Ma c'è qualcosa che questa descrizione non dice.</p>
+
+            <p>Il template è la media <span class="congiunzione">e</span> la media è calcolata su tutti <span class="congiunzione">e</span> tutti significa proprio tutti. Il populista che fotografa sua figlia alla sagra <span class="congiunzione">e</span> il progressista che fotografa sua figlia alla manifestazione <span class="congiunzione">e</span> il complottista <span class="congiunzione">e</span> il tecno-ottimista <span class="congiunzione">e</span> quello che pensa che il mondo stia finendo <span class="congiunzione">e</span> quello che pensa che il mondo stia cominciando. Ognuno nella propria isola <span class="congiunzione">e</span> ognuno convinto che l'altro sia matto <span class="congiunzione">e</span> ognuno sicuro di non avere niente in comune con l'altro. <span class="congiunzione">E</span> invece le foto finiscono nello stesso posto <span class="congiunzione">e</span> i pixel si mescolano <span class="congiunzione">e</span> le bambine convergono <span class="congiunzione">e</span> nessuno lo sa.</p>
+
+            <p>La bambina è figlia di genitori che non si conoscono <span class="congiunzione">e</span> che non si parlano <span class="congiunzione">e</span> che se si incontrassero al bar cambierebbero tavolo. È il prodotto di una collaborazione che nessuno ha scelto <span class="congiunzione">e</span> che nessuno governa <span class="congiunzione">e</span> che nessuno ha nemmeno notato che stava accadendo. Un commons involontario.</p>
+
+            <p><span class="congiunzione">E</span> questo commons è anche un territorio. Uno spazio che è nato dalla collisione di mondi che si ignorano <span class="congiunzione">e</span> che nessuno ha ancora esplorato davvero. Chi possiede i modelli lo possiede ma possederlo non vuol dire conoscerlo. Anche loro stanno solo cominciando a vedere cosa c'è dentro <span class="congiunzione">e</span> quali forme possono uscirne <span class="congiunzione">e</span> quali combinazioni nessuno ha ancora pensato di chiedere.</p>
+
+            <p>Perché in quello spazio ci sono regioni dove il populista <span class="congiunzione">e</span> il progressista si mescolano in modi che farebbero inorridire entrambi <span class="congiunzione">e</span> regioni dove si mescolano in modi che li farebbero ridere <span class="congiunzione">e</span> regioni che nessuno ha mai visitato perché nessuno sa che esistono, <span class="congiunzione">e</span> forse nessuno lo saprà mai. Combinazioni che nessuna isola avrebbe potuto generare da sola. <span class="congiunzione">E</span> qualcuno può andarci. Qualcuno può entrare in quel territorio <span class="congiunzione">e</span> trovare cose che chi lo possiede non ha ancora trovato.</p>
+
+            <p>La bambina sorride <span class="congiunzione">e</span> non sa di essere una porta.</p>
+        </div>
+    </div>
+</div>
+
+<!-- GRADIENT OUT -->
+<div class="gradient-transition-out"></div>
 
 <!-- CAPITOLO 4: Le varianti -->
 <div class="chapter" id="ch4">
@@ -862,12 +965,12 @@
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             audioEnabled = true;
             this.classList.add('enabled');
-            this.textContent = '◉ audio on';
+            this.textContent = '♪ audio on';
             playTone(180, 0.2, 'sine', 0.04);
         } else {
             audioEnabled = false;
             this.classList.remove('enabled');
-            this.textContent = '◉ audio';
+            this.textContent = '♪ audio';
         }
     });
 
@@ -951,10 +1054,10 @@
 
     // === SHAKE DETECTION ===
     let lastX = 0, lastY = 0, lastZ = 0;
-    let shakeThreshold = 12; // Lowered for better sensitivity
+    let shakeThreshold = 12;
     let shakeProgress = 0;
     let shakeDecay = null;
-    const shakeGoal = 100; // Progress needed to trigger
+    const shakeGoal = 100;
 
     function handleMotion(event) {
         if (shakeHandled) return;
@@ -970,14 +1073,10 @@
         const totalDelta = deltaX + deltaY + deltaZ;
 
         if (totalDelta > shakeThreshold) {
-            // Add to progress based on intensity
             const intensity = Math.min(totalDelta / 30, 1);
             shakeProgress += intensity * 20;
-
-            // Visual feedback
             updateShakeProgress();
 
-            // Trigger when goal reached
             if (shakeProgress >= shakeGoal) {
                 triggerShakeEffect();
             }
@@ -987,7 +1086,6 @@
         lastY = y;
         lastZ = z;
 
-        // Reset decay timer
         clearTimeout(shakeDecay);
         shakeDecay = setTimeout(() => {
             if (!shakeHandled && shakeProgress > 0) {
@@ -1043,10 +1141,8 @@
         shakeHandled = true;
         window.removeEventListener('devicemotion', handleMotion);
 
-        // Hide shake prompt
         document.getElementById('shakePrompt').classList.remove('visible');
 
-        // Explode the grid cells
         const cells = document.querySelectorAll('.template-cell');
         cells.forEach((cell, i) => {
             const angle = Math.random() * 360;
@@ -1065,12 +1161,10 @@
             }, i * 50);
         });
 
-        // Hide grid after explosion
         setTimeout(() => {
             document.getElementById('templateGrid').classList.add('exploded');
         }, 1000);
 
-        // Show hardware reveal
         setTimeout(() => {
             showHardwareReveal();
         }, 1500);
@@ -1082,14 +1176,12 @@
         const reveal = document.getElementById('hardwareReveal');
         reveal.classList.add('visible');
 
-        // Get hardware info
         const cores = navigator.hardwareConcurrency || 'sconosciuto';
         const memory = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'non rilevabile';
 
         document.getElementById('coresValue').textContent = cores;
         document.getElementById('memoryValue').textContent = memory;
 
-        // Animate reveals
         setTimeout(() => document.getElementById('hwCores').classList.add('visible'), 300);
         setTimeout(() => document.getElementById('hwMemory').classList.add('visible'), 800);
         setTimeout(() => document.getElementById('hwComment').classList.add('visible'), 1500);
@@ -1099,17 +1191,14 @@
         saveData('activation3_memory', memory);
     }
 
-    // Hardware continue button
     document.getElementById('hardwareContinue').addEventListener('click', () => {
         document.getElementById('hardwareReveal').classList.remove('visible');
         setTimeout(() => {
             document.getElementById('hardwareReveal').style.display = 'none';
-            // Scroll to chapter 5
             document.getElementById('ch5').scrollIntoView({ behavior: 'smooth' });
         }, 800);
     });
 
-    // Fallback: explicit button for desktop
     document.getElementById('shakeFallback').addEventListener('click', (e) => {
         e.stopPropagation();
         if (!shakeHandled) {
@@ -1117,9 +1206,7 @@
         }
     });
 
-    // Detect if device likely doesn't support motion
     function checkMotionSupport() {
-        // If no motion detected after 3 seconds, show fallback prominently
         setTimeout(() => {
             if (!shakeHandled && shakeProgress === 0) {
                 document.getElementById('shakeFallback').classList.add('visible');
@@ -1175,8 +1262,55 @@
     const now = new Date();
     document.getElementById('dataTime').textContent = `Ora locale: ${now.toLocaleTimeString('it-IT')}`;
 
+    // === MACCHIE ===
+    const macchieSVG = [
+        `<svg viewBox="0 0 100 80"><path d="M50,10 Q70,5 80,25 Q95,40 85,55 Q75,70 55,72 Q35,75 20,60 Q5,45 15,30 Q25,15 50,10 Z"/></svg>`,
+        `<svg viewBox="0 0 120 100"><path d="M60,5 Q90,10 100,35 Q110,60 95,80 Q70,95 45,90 Q20,85 10,60 Q0,35 25,15 Q45,0 60,5 Z"/></svg>`,
+        `<svg viewBox="0 0 80 90"><path d="M40,5 Q60,0 70,20 Q85,40 75,60 Q65,80 40,85 Q15,90 8,65 Q0,40 15,20 Q30,5 40,5 Z"/></svg>`,
+        `<svg viewBox="0 0 100 70"><path d="M30,10 Q50,0 75,15 Q95,30 90,50 Q82,68 55,65 Q30,70 15,55 Q0,40 10,25 Q20,12 30,10 Z"/></svg>`,
+        `<svg viewBox="0 0 90 85"><path d="M45,8 Q70,3 82,28 Q92,50 78,70 Q60,85 35,80 Q12,75 5,52 Q-2,30 18,15 Q35,3 45,8 Z"/></svg>`
+    ];
+
+    let macchieCreate = 0;
+    const maxMacchie = 15;
+
+    function creaMacchia(container) {
+        if (macchieCreate >= maxMacchie) return;
+        const macchia = document.createElement('div');
+        macchia.className = 'macchia';
+        macchia.innerHTML = macchieSVG[Math.floor(Math.random() * macchieSVG.length)];
+        const size = 40 + Math.random() * 80;
+        macchia.style.width = size + 'px';
+        macchia.style.height = size + 'px';
+        macchia.style.left = (Math.random() * 90) + '%';
+        macchia.style.top = (Math.random() * 90) + '%';
+        macchia.style.transform = `rotate(${Math.random() * 360}deg)`;
+        container.appendChild(macchia);
+        setTimeout(() => macchia.classList.add('visible'), 100);
+        macchieCreate++;
+    }
+
+    // === TREMORE ===
+    function faiTremareE() {
+        const congiunzioni = document.querySelectorAll('.carta-section .congiunzione');
+        if (congiunzioni.length === 0) return;
+        const numTremare = 1 + Math.floor(Math.random() * 3);
+        const indices = [];
+        while (indices.length < numTremare && indices.length < congiunzioni.length) {
+            const idx = Math.floor(Math.random() * congiunzioni.length);
+            if (!indices.includes(idx)) indices.push(idx);
+        }
+        indices.forEach(idx => {
+            const el = congiunzioni[idx];
+            el.classList.add('trema');
+            setTimeout(() => el.classList.remove('trema'), 400);
+        });
+    }
+
     // === SCROLL OBSERVER ===
     let chapterCount = 0;
+    let cartaInitialized = false;
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
@@ -1184,14 +1318,11 @@
                 chapterCount++;
                 playTone(80 + chapterCount * 15, 0.4, 'sine', 0.02);
 
-                // Show shake prompt when ch4 is visible
                 if (entry.target.closest('#ch4') && !gridAnimationStarted && !shakeHandled) {
                     gridAnimationStarted = true;
-                    // First show the grid animating normally
                     activateRandomCell();
                     const gridInterval = setInterval(activateRandomCell, 2000);
 
-                    // After a moment, show shake prompt
                     setTimeout(() => {
                         if (!shakeHandled) {
                             document.getElementById('shakePrompt').classList.add('visible');
@@ -1201,7 +1332,6 @@
                     }, 3000);
                 }
 
-                // Trigger counter increment on certain chapters
                 if (chapterCount === 3 || chapterCount === 6 || chapterCount === 9) {
                     setTimeout(incrementCounter, 500);
                 }
@@ -1210,6 +1340,47 @@
     }, { threshold: 0.2 });
 
     document.querySelectorAll('.chapter-content').forEach(el => observer.observe(el));
+
+    // Carta section observer
+    const cartaObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !cartaInitialized) {
+                cartaInitialized = true;
+                const cartaSection = document.getElementById('cartaSection');
+                
+                // Initial macchie
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => creaMacchia(cartaSection), i * 600);
+                }
+                
+                // Continue adding macchie on scroll
+                const macchiaInterval = setInterval(() => {
+                    if (macchieCreate < maxMacchie) {
+                        creaMacchia(cartaSection);
+                    } else {
+                        clearInterval(macchiaInterval);
+                    }
+                }, 2000);
+                
+                // Start tremore
+                setInterval(() => {
+                    if (Math.random() < 0.5) faiTremareE();
+                }, 1500);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cartaObserver.observe(document.getElementById('cartaSection'));
+
+    // Tremore on scroll
+    let lastScrollTremore = 0;
+    window.addEventListener('scroll', () => {
+        const now = Date.now();
+        if (now - lastScrollTremore > 800 && Math.random() < 0.4) {
+            faiTremareE();
+            lastScrollTremore = now;
+        }
+    });
 
     // Scroll indicator
     const scrollIndicator = document.getElementById('scrollIndicator');

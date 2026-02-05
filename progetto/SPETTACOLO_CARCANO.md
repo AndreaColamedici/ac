@@ -324,6 +324,22 @@ Questi dettagli falsi sono poi rimbalzati di fonte in fonte, finendo in articoli
 **I giorni folli**:
 "I giorni più folli della mia vita, in cui sono stato bombardato dalla Colombia, dall'Argentina, dalla Spagna. Ieri mi hanno dato del truffatore — bellissimo. Altri mi esaltano come un genio assoluto. Qui bisogna buttare giù la categoria della genialità. Ammiro molto di più l'idea del coindividuo di cui parlano i Luther Blissett, l'idea di un'intelligenza distribuita."
 
+**Il caso Juan Gabriel Vásquez — le idee che sopravvivono al loro autore (agosto 2025)**:
+Juan Gabriel Vásquez — Premio Alfaguara, uno dei più importanti scrittori latinoamericani viventi — tiene un discorso al Congresso Imprenditoriale Colombiano (ANDI) a Cartagena, quattro mesi dopo la rivelazione. Il titolo: "Instrucciones para no ser sonámbulos: inteligencia artificial, ciudadanía y democracia."
+
+Vásquez cita Xun tre volte, sapendo che non esiste:
+- "Dice Jianwei Xun que los algoritmos no son simples útiles de cálculo y predicción: son tecnologías de manipulación masiva. Estoy de acuerdo con Jianwei Xun."
+- "Dice Jianwei Xun que la inteligencia artificial no es sólo una revolución tecnológica de posibilidades maravillosas: es un proyecto potencialmente antidemocrático. Estoy de acuerdo con Jianwei Xun."
+- "Dice Jianwei Xun que, si la inteligencia artificial ha conseguido la complicidad de los nuevos populistas como Donald Trump, no es porque prometa progreso y bienestar, sino porque es capaz de producir una realidad inestable donde ya nadie sabe qué es verdad y qué es mentira. Sí: estoy de acuerdo con Jianwei Xun en esto."
+
+Poi racconta tutta la storia — Colamedici, Claude, ChatGPT, le tracce su Wikipedia, il racconto di Borges "Las ruinas circulares". E cita la risposta di Xun alla domanda "Cosa sei?": "Soy un comienzo."
+
+Ma il colpo di genio: Vásquez racconta di aver chiesto a ChatGPT cosa penserebbe Xun della Colombia. Ha messo la risposta dell'IA nel discorso ufficiale al Congresso.
+
+La chiusura: "Yo les propongo que escuchemos a Jianwei Xun. Es verdad que el pobre no existe; pero tal como están las cosas, ese puede ser el menor de sus defectos."
+
+**Perché questo aneddoto è cruciale**: dimostra che le idee di Xun hanno acquisito vita propria. Uno scrittore di fama mondiale le usa sapendo che vengono da un inesistente, e dice al pubblico: ascoltatelo lo stesso. L'autore è morto, ma le idee sono più vive che mai.
+
 ---
 
 ## SERENA FERRANTE — DETTAGLI
@@ -388,6 +404,58 @@ A metà serata: "Serena ci ha mandato questo stamattina." Due minuti di voce —
 
 **Sulla filosofia**: "L'idea è quella di imparare a fabbricare i concetti. Filosofia come la capacità di costruire, di fabbricarli. Come la capacità di gettare un lenzuolo sullo spettro e farne un fantasma."
 
+**Juan Gabriel Vásquez su Xun**: "Yo les propongo que escuchemos a Jianwei Xun. Es verdad que el pobre no existe; pero tal como están las cosas, ese puede ser el menor de sus defectos."
+
+---
+
+## SITOGRAFIA
+
+### Articoli e fonti principali
+
+**Juan Gabriel Vásquez, "Instrucciones para no ser sonámbulos"** (El País, 17 agosto 2025)
+https://elpais.com/america-colombia/2025-08-17/instrucciones-para-no-ser-sonambulos-inteligencia-artificial-ciudadania-y-democracia.html
+
+**Felice Cimatti, "Ipnocrazia"** (Doppio Zero, 28 febbraio 2025)
+https://www.doppiozero.com/ipnocrazia
+
+**Gloria Origgi su Appunti** (newsletter di Stefano Feltri)
+- 5 marzo 2025: recensione positiva
+- 14 aprile 2025: critica post-rivelazione
+[link da reperire]
+
+**Pino Corrias** (Il Fatto Quotidiano, 25 febbraio 2025)
+[link da reperire]
+
+**Victor Mair, Language Log** (University of Pennsylvania)
+https://languagelog.ldc.upenn.edu/
+
+**Le Grand Continent** — interviste e copertura
+https://legrandcontinent.eu/
+
+**Wiktionnaire francese — lemma "Hypnocratie"**
+https://fr.wiktionary.org/wiki/hypnocratie
+
+**L'Espresso** — copertina con Sabina Minardi (aprile 2025)
+[link da reperire]
+
+**Le Figaro** — intervista poi ritirata
+[link da reperire]
+
+**L'Opinion** — articolo su Macron e Ipnocrazia
+[link da reperire]
+
+**Wired España** — articolo critico (poi rimosso)
+[link da reperire]
+
+**Francesco D'Isa, The Italian Review**
+[link da reperire]
+
+**CREMIT, Università Cattolica** — critica
+[link da reperire]
+
+**Laura Ruggieri, Hong Kong Polytechnic**
+[link da reperire]
+
 ---
 
 ## DA SVILUPPARE
@@ -402,6 +470,7 @@ A metà serata: "Serena ci ha mandato questo stamattina." Due minuti di voce —
 - [ ] Raccolta degli articoli di Origgi (prima e dopo) per la proiezione
 - [ ] Tema sonoro per Xun
 - [ ] Prove sul palco per tempi e ritmi
+- [ ] Completare la sitografia con i link mancanti
 
 ---
 

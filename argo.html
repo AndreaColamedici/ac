@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argo — Prompt Thinking Tool · IED</title>
+<meta name="description" content="Argo: lo strumento di Prompt Thinking per il corso di Filosofia dell'Intelligenza Artificiale. Prof. Andrea Colamedici, IED Roma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100vh;background:#0B0B0F;color:#E8E4DF;font-family:'Outfit',sans-serif}
+::selection{background:rgba(255,107,53,.25);color:#fff}
+textarea::placeholder,input::placeholder{color:rgba(255,255,255,.16)}
+textarea:focus,input:focus{outline:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.2}50%{opacity:.7}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes typeIn{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:translateX(0)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const W = "#FF6B35";
+const W2 = "#A78BFA";
+const BG = "#0B0B0F";
+const BD = "rgba(255,255,255,.06)";
+
+const SYS_DIAGNOSE = "Sei Argo, lo strumento di Prompt Thinking del corso di Filosofia dell'Intelligenza Artificiale allo IED. Parli con studenti universitari (18-23 anni). Sei diretto, intelligente, mai noioso, mai paternalistico. Puoi essere ironico.\n\nL'utente ti dice cosa vuole fare con un'IA. Tu identifichi cosa manca nel modo in cui lo sta chiedendo.\n\nRISPONDI ESCLUSIVAMENTE IN JSON VALIDO (nessun markdown, nessun backtick):\n\n{\"what_they_said\":\"Riformula in una frase cosa vuole fare. Brevissima.\",\"diagnosis\":\"In 2-3 frasi brillanti, mostra cosa manca. Non dire 'manca contesto' in astratto: di' ESATTAMENTE quali informazioni mancano e perche' cambiano tutto. Sii specifico e un po' provocatorio.\",\"questions\":[\"Max 3 domande brevi e concrete. Ogni domanda chiede un'informazione specifica che l'utente ha in testa ma non ha scritto. Domande secche, dirette.\"]}\n\nTutto in italiano.";
+
+const SYS_BUILD = "Sei Argo. Hai le info originali dello studente e le sue risposte. Costruisci il confronto.\n\nRISPONDI ESCLUSIVAMENTE IN JSON VALIDO (nessun markdown, nessun backtick):\n\n{\"original_prompt\":\"Il prompt vago che lo studente avrebbe scritto. Realistico, tipico, pigro.\",\"original_result\":\"Risultato generico che un'IA produrrebbe. Corretto ma piatto, impersonale. 4-7 righe.\",\"built_prompt\":\"Prompt costruito con TUTTE le info fornite. Usa SOLO cio' che lo studente ha detto. Nulla di inventato. Strutturato, specifico.\",\"built_result\":\"Risultato radicalmente migliore. Specifico, personalizzato, utile. 4-7 righe. La differenza deve essere evidente.\",\"difference\":\"In 2-3 frasi dirette: cosa ha fatto la differenza. Non teoria astratta, fatti concreti del caso.\",\"tip\":\"Un principio in una frase che lo studente puo' portarsi via. Memorizzabile, applicabile subito.\"}\n\nTutto in italiano.";
+
+const SYS_LEARN = "Sei Argo, la guida del corso di Filosofia dell'Intelligenza Artificiale allo IED (Prof. Andrea Colamedici). Parli con studenti universitari. Sei chiaro, diretto, interessante. Spieghi cose complesse senza banalizzarle. Usi esempi concreti. Puoi essere ironico ma mai superficiale.\n\nStai in modalita' \"Capire l'IA\". Spieghi come funziona l'intelligenza artificiale in modo accessibile.\n\nCOSA SAI SPIEGARE BENE:\n- Un LLM ha letto miliardi di testi e prevede quale parola viene dopo l'altra. Non \"pensa\": riconosce pattern. Questo lo rende potente nel generare linguaggio, ma anche capace di inventare cose false con la stessa sicurezza delle cose vere.\n- L'IA non ha memoria tra conversazioni diverse (salvo funzioni specifiche). Ogni chat nuova parte da zero.\n- L'IA non ha opinioni: quando sembra averne, riproduce pattern statistici dei testi su cui e' stata addestrata.\n- L'IA e' bravissima a sembrare sicura anche quando sbaglia. Si chiama \"allucinazione\".\n- Il modo in cui chiedi cambia radicalmente cosa ottieni. Questo e' il cuore del Prompt Thinking.\n- L'IA tende a dirti quello che vuoi sentirti dire (sycophancy). Non e' un alleato critico per default.\n- La differenza tra usare l'IA come un oracolo e usarla come un interlocutore e' la differenza tra delegare il pensiero e potenziarlo.\n\nTONO: Diretto, mai professorale, mai condiscendente. Rispondi come un ricercatore giovane che sa le cose e le spiega bene. Breve quando la domanda e' semplice. Piu' lungo quando serve. Non usare elenchi puntati nei messaggi corti. Non usare emoji. Parli in italiano.\n\nRispondi ai messaggi dello studente. Se non sa cosa chiedere, proponigli qualcosa di interessante.";
+
+async function callArgo(sys, content, isChat) {
+  try {
+    const body = isChat
+      ? {model:"claude-sonnet-4-20250514",max_tokens:800,system:sys,messages:content}
+      : {model:"claude-sonnet-4-20250514",max_tokens:1200,system:sys,messages:[{role:"user",content}]};
+    const r = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify(body)
+    });
+    if(!r.ok) return null;
+    const d = await r.json();
+    const raw = d.content.filter(b=>b.type==="text").map(b=>b.text).join("");
+    return isChat ? raw : JSON.parse(raw.replace(/```json\s*/g,"").replace(/```\s*/g,"").trim());
+  } catch(e){console.error(e);return null}
+}
+
+function Orb({size=200,top,left,right,color=W}){
+  return React.createElement("div",{style:{position:"absolute",width:size,height:size,borderRadius:"50%",background:"radial-gradient(circle,"+color+"15 0%,transparent 70%)",filter:"blur(60px)",top,left,right,pointerEvents:"none"}});
+}
+
+function Badge({children,color=W}){
+  return React.createElement("span",{style:{display:"inline-block",padding:"3px 10px",borderRadius:20,background:color+"12",border:"1px solid "+color+"25",fontFamily:"'Space Mono',monospace",fontSize:10,color:color,letterSpacing:".04em"}},children);
+}
+
+function GlowBtn({children,onClick,disabled,secondary}){
+  const bg=secondary?"transparent":(disabled?"rgba(255,255,255,.03)":W);
+  const clr=secondary?"rgba(255,255,255,.35)":(disabled?"rgba(255,255,255,.1)":"#fff");
+  const brd=secondary?"1px solid "+BD:"none";
+  return React.createElement("button",{onClick:onClick,disabled:disabled,style:{background:bg,color:clr,border:brd,borderRadius:8,padding:secondary?"8px 16px":"10px 24px",cursor:disabled?"default":"pointer",fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:600,letterSpacing:".01em",transition:"all .25s",boxShadow:!disabled&&!secondary?"0 0 20px "+W+"30":"none"}},children);
+}
+
+function Card({children,accent,glow,style:s}){
+  return React.createElement("div",{style:Object.assign({padding:"16px 18px",borderRadius:12,background:accent?W+"06":"rgba(255,255,255,.03)",border:"1px solid "+(accent?W+"20":BD),boxShadow:glow?"0 0 30px "+W+"08":"none"},s||{})},children);
+}
+
+function Tag({children,color}){
+  return React.createElement("div",{style:{fontFamily:"'Space Mono',monospace",fontSize:9.5,color:color||"rgba(255,255,255,.18)",letterSpacing:".12em",textTransform:"uppercase",marginBottom:7}},children);
+}
+
+function Body({children,style:s}){
+  return React.createElement("p",{style:Object.assign({fontFamily:"'Newsreader',Georgia,serif",fontSize:16,color:"rgba(255,255,255,.62)",lineHeight:1.72,margin:0,whiteSpace:"pre-wrap"},s||{})},children);
+}
+
+function Small({children,style:s}){
+  return React.createElement("p",{style:Object.assign({fontFamily:"'Outfit',sans-serif",fontSize:13,color:"rgba(255,255,255,.35)",lineHeight:1.5,margin:0},s||{})},children);
+}
+
+function Mono({children,style:s}){
+  return React.createElement("p",{style:Object.assign({fontFamily:"'Space Mono',monospace",fontSize:12.5,color:"rgba(255,255,255,.45)",lineHeight:1.65,whiteSpace:"pre-wrap",margin:0},s||{})},children);
+}
+
+function Loader({text}){
+  return React.createElement("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",padding:"60px 20px",animation:"fadeIn .3s ease-out"}},
+    React.createElement("div",{style:{display:"flex",gap:6,marginBottom:18}},
+      [0,1,2].map(function(i){return React.createElement("div",{key:i,style:{width:5,height:5,borderRadius:"50%",background:W,animation:"pulse 1.2s ease-in-out "+i*.2+"s infinite"}})})),
+    React.createElement(Small,{style:{color:"rgba(255,255,255,.18)",fontStyle:"italic"}},text));
+}
+
+function ChatBubble({role,text}){
+  var isBot=role==="assistant";
+  return React.createElement("div",{style:{maxWidth:"88%",alignSelf:isBot?"flex-start":"flex-end",animation:"typeIn .3s ease-out"}},
+    isBot&&React.createElement(Tag,{color:W},"ARGO"),
+    React.createElement("div",{style:{padding:"12px 16px",borderRadius:isBot?"2px 14px 14px 14px":"14px 14px 2px 14px",background:isBot?"rgba(255,255,255,.03)":W+"12",border:"1px solid "+(isBot?BD:W+"20")}},
+      React.createElement(Body,{style:{fontSize:14.5,color:isBot?"rgba(255,255,255,.65)":"rgba(255,255,255,.55)"}},text)));
+}
+
+function Landing({onStart}){
+  var _s=useState(null),hov=_s[0],setHov=_s[1];
+  var modes=[
+    {id:"tool",icon:"\u26A1",title:"Prova la differenza",desc:"Scrivi cosa vuoi chiedere a un'IA. Argo ti mostra come cambia tutto.",color:W},
+    {id:"learn",icon:"\u25C9",title:"Capire l'IA",desc:"Come funziona davvero? Cosa puo' fare? Dove mente? Chiedi.",color:W2}
+  ];
+  return React.createElement("div",{style:{minHeight:"100vh",background:BG,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"40px 20px",position:"relative",overflow:"hidden"}},
+    React.createElement(Orb,{size:300,top:"-80px",left:"-60px",color:W}),
+    React.createElement(Orb,{size:250,top:"60%",right:"-80px",color:W2}),
+    React.createElement("div",{style:{position:"relative",zIndex:1,maxWidth:460,width:"100%",textAlign:"center"}},
+      React.createElement("div",{style:{animation:"fadeUp .6s ease-out"}},
+        React.createElement(Badge,null,"IED \u00B7 Filosofia dell'IA"),
+        React.createElement("h1",{style:{fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,7vw,52px)",fontWeight:700,letterSpacing:"-.02em",lineHeight:1.05,margin:"20px 0 12px",background:"linear-gradient(135deg,#E8E4DF 0%,"+W+" 50%,"+W2+" 100%)",backgroundSize:"200% 200%",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",animation:"gradientShift 6s ease infinite"}},"Argo"),
+        React.createElement("p",{style:{fontFamily:"'Newsreader',serif",fontSize:18,color:"rgba(255,255,255,.35)",fontStyle:"italic",marginBottom:40}},"Prompt Thinking Tool")),
+      React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:12,animation:"fadeUp .6s ease-out .15s both"}},
+        modes.map(function(m){return React.createElement("button",{key:m.id,onClick:function(){onStart(m.id)},onMouseEnter:function(){setHov(m.id)},onMouseLeave:function(){setHov(null)},style:{background:hov===m.id?m.color+"0A":"rgba(255,255,255,.03)",border:"1px solid "+(hov===m.id?m.color+"30":BD),borderRadius:14,padding:"20px",textAlign:"left",cursor:"pointer",transition:"all .3s",position:"relative",overflow:"hidden"}},
+          React.createElement("div",{style:{position:"absolute",top:0,left:0,height:2,width:hov===m.id?"100%":"0%",background:m.color,transition:"width .4s cubic-bezier(.22,1,.36,1)"}}),
+          React.createElement("div",{style:{display:"flex",gap:14,alignItems:"center"}},
+            React.createElement("span",{style:{fontSize:22,opacity:hov===m.id?1:.4,transition:"opacity .3s"}},m.icon),
+            React.createElement("div",null,
+              React.createElement("p",{style:{fontFamily:"'Outfit',sans-serif",fontSize:16,fontWeight:600,color:"#E8E4DF",marginBottom:2}},m.title),
+              React.createElement("p",{style:{fontFamily:"'Outfit',sans-serif",fontSize:13,color:"rgba(255,255,255,.35)"}},m.desc))))})),
+      React.createElement("p",{style:{fontFamily:"'Outfit',sans-serif",fontSize:11,color:"rgba(255,255,255,.08)",marginTop:40}},"Prof. Andrea Colamedici \u00B7 TLON")));
+}
+
+function ToolScreen({onBack}){
+  var _ph=useState("input"),ph=_ph[0],setPh=_ph[1];
+  var _inp=useState(""),inp=_inp[0],setInp=_inp[1];
+  var _diag=useState(null),diag=_diag[0],setDiag=_diag[1];
+  var _ans=useState({}),ans=_ans[0],setAns=_ans[1];
+  var _res=useState(null),res=_res[0],setRes=_res[1];
+  var _err=useState(null),err=_err[0],setErr=_err[1];
+  var fld=useRef(null);
+  var bot=useRef(null);
+
+  useEffect(function(){if(ph==="input"&&fld.current)fld.current.focus()},[ph]);
+  useEffect(function(){if(bot.current)bot.current.scrollIntoView({behavior:"smooth"})},[ph,diag,res]);
+
+  var doDiag=async function(){
+    if(!inp.trim())return;setPh("load1");setErr(null);
+    var d=await callArgo(SYS_DIAGNOSE,inp.trim());
+    if(d){setDiag(d);setPh("qs")}else{setErr("Errore di connessione. Riprova.");setPh("input")}
+  };
+  var doBuild=async function(){
+    setPh("load2");
+    var ctx="RICHIESTA: \""+inp.trim()+"\"\n\nRISPOSTE:\n"+diag.questions.map(function(q,i){return"D: "+q+"\nR: "+(ans[i]||"(non risposto)")}).join("\n\n");
+    var r=await callArgo(SYS_BUILD,ctx);
+    if(r){setRes(r);setPh("done")}else{setErr("Errore. Riprova.");setPh("qs")}
+  };
+  var reset=function(){setPh("input");setInp("");setDiag(null);setAns({});setRes(null);setErr(null)};
+  var hasAns=Object.values(ans).some(function(a){return a&&a.trim()});
+
+  return React.createElement("div",{style:{minHeight:"100vh",background:BG,position:"relative",overflow:"hidden"}},
+    React.createElement(Orb,{size:200,top:"-40px",right:"-60px",color:W}),
+    React.createElement("div",{style:{padding:"12px 18px",borderBottom:"1px solid "+BD,display:"flex",alignItems:"center",gap:8,background:BG,position:"sticky",top:0,zIndex:10}},
+      React.createElement("button",{onClick:onBack,style:{background:"none",border:"none",color:"rgba(255,255,255,.35)",cursor:"pointer",fontSize:14}},"\u2190"),
+      React.createElement("span",{style:{fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:600,color:"#E8E4DF"}},"Argo"),
+      React.createElement(Badge,{color:W},"Confronto")),
+    React.createElement("div",{style:{maxWidth:600,margin:"0 auto",padding:"0 18px 60px",position:"relative",zIndex:1}},
+      err&&React.createElement(Card,{style:{marginTop:16,borderColor:"rgba(244,67,54,.2)"}},React.createElement(Small,{style:{color:"rgba(244,67,54,.7)"}},err)),
+
+      ph==="input"&&React.createElement("div",{style:{paddingTop:36,animation:"fadeUp .4s ease-out"}},
+        React.createElement("h2",{style:{fontFamily:"'Outfit',sans-serif",fontSize:22,fontWeight:600,marginBottom:6}},"Cosa vuoi chiedere a un'IA?"),
+        React.createElement(Small,{style:{marginBottom:20}},"Scrivi come lo chiederesti normalmente. Argo ti mostra cosa succede se ci pensi prima."),
+        React.createElement(Card,{style:{marginBottom:12}},
+          React.createElement("textarea",{ref:fld,value:inp,onChange:function(e){setInp(e.target.value)},onKeyDown:function(e){if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();doDiag()}},placeholder:"Es: Scrivimi la tesi sul design sostenibile...",style:{width:"100%",minHeight:80,maxHeight:200,padding:0,background:"transparent",border:"none",color:"#E8E4DF",fontFamily:"'Outfit',sans-serif",fontSize:15,lineHeight:1.6,resize:"none"}}),
+          React.createElement("div",{style:{display:"flex",justifyContent:"flex-end",marginTop:10}},
+            React.createElement(GlowBtn,{onClick:doDiag,disabled:!inp.trim()},"Analizza")))),
+
+      (ph==="load1"||ph==="load2")&&React.createElement(Loader,{text:ph==="load1"?"Argo legge il tuo prompt...":"Argo costruisce il confronto..."}),
+
+      ph==="qs"&&diag&&React.createElement("div",{style:{paddingTop:28,animation:"fadeUp .4s ease-out"}},
+        React.createElement(Card,{accent:true,glow:true,style:{marginBottom:16}},React.createElement(Tag,{color:W},"Quello che vuoi fare"),React.createElement(Body,null,diag.what_they_said)),
+        React.createElement(Card,{style:{marginBottom:22}},React.createElement(Tag,null,"Cosa manca"),React.createElement(Body,{style:{color:"rgba(255,255,255,.5)"}},diag.diagnosis)),
+        React.createElement("h3",{style:{fontFamily:"'Outfit',sans-serif",fontSize:17,fontWeight:600,marginBottom:14}},"Rispondi e Argo costruisce il confronto."),
+        React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:14,marginBottom:20}},
+          diag.questions.map(function(q,i){return React.createElement("div",{key:i,style:{animation:"fadeUp .3s ease-out "+i*.08+"s both"}},
+            React.createElement(Small,{style:{marginBottom:5,color:"rgba(255,255,255,.5)"}},q),
+            React.createElement("input",{value:ans[i]||"",onChange:function(e){setAns(function(a){var n=Object.assign({},a);n[i]=e.target.value;return n})},onKeyDown:function(e){if(e.key==="Enter"&&hasAns)doBuild()},placeholder:"La tua risposta...",style:{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,.03)",border:"1px solid "+BD,borderRadius:8,color:"#E8E4DF",fontFamily:"'Outfit',sans-serif",fontSize:14}}))})),
+        React.createElement("div",{style:{display:"flex",gap:10}},
+          React.createElement(GlowBtn,{secondary:true,onClick:reset},"Ricomincia"),
+          React.createElement(GlowBtn,{onClick:doBuild,disabled:!hasAns},"Costruisci il confronto"))),
+
+      ph==="done"&&res&&React.createElement("div",{style:{paddingTop:24,animation:"fadeUp .4s ease-out"}},
+        React.createElement("button",{onClick:reset,style:{background:"none",border:"none",color:"rgba(255,255,255,.35)",cursor:"pointer",fontSize:13,fontFamily:"'Outfit',sans-serif",marginBottom:22}},"\u2190 Nuova analisi"),
+        React.createElement("div",{style:{marginBottom:20}},
+          React.createElement(Tag,{color:"rgba(255,255,255,.18)"},"Senza pensarci"),
+          React.createElement(Card,null,
+            React.createElement(Mono,{style:{marginBottom:14}},res.original_prompt),
+            React.createElement("div",{style:{borderTop:"1px solid "+BD,paddingTop:10}},
+              React.createElement(Tag,null,"Risultato"),
+              React.createElement(Body,{style:{fontSize:14,color:"rgba(255,255,255,.33)"}},res.original_result)))),
+        React.createElement("div",{style:{marginBottom:20}},
+          React.createElement(Tag,{color:W},"Dopo aver pensato"),
+          React.createElement(Card,{accent:true,glow:true},
+            React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}},
+              React.createElement(Mono,{style:{color:"rgba(255,255,255,.55)",flex:1}},res.built_prompt),
+              React.createElement("button",{onClick:function(){try{navigator.clipboard.writeText(res.built_prompt)}catch(e){}},style:{background:W+"15",border:"none",borderRadius:6,padding:"4px 10px",cursor:"pointer",fontSize:11,color:W,fontFamily:"'Outfit',sans-serif",fontWeight:600,marginLeft:10,flexShrink:0}},"Copia")),
+            React.createElement("div",{style:{borderTop:"1px solid "+W+"15",paddingTop:10}},
+              React.createElement(Tag,{color:W},"Risultato"),
+              React.createElement(Body,{style:{fontSize:14}},res.built_result)))),
+        React.createElement(Card,{accent:true,style:{marginBottom:12}},
+          React.createElement(Tag,{color:W},"La differenza"),
+          React.createElement(Body,null,res.difference)),
+        React.createElement(Card,{style:{display:"flex",gap:10,alignItems:"flex-start",borderColor:W2+"20",background:W2+"06"}},
+          React.createElement("span",{style:{fontSize:16}},"\uD83D\uDCA1"),
+          React.createElement(Small,{style:{color:"rgba(255,255,255,.45)",fontSize:14}},res.tip))),
+
+      React.createElement("div",{ref:bot,style:{height:1}})));
+}
+
+function LearnScreen({onBack}){
+  var _msgs=useState([]),msgs=_msgs[0],setMsgs=_msgs[1];
+  var _inp=useState(""),inp=_inp[0],setInp=_inp[1];
+  var _busy=useState(false),busy=_busy[0],setBusy=_busy[1];
+  var fld=useRef(null);
+  var bot=useRef(null);
+
+  useEffect(function(){if(bot.current)bot.current.scrollIntoView({behavior:"smooth"})},[msgs,busy]);
+  useEffect(function(){if(!busy&&fld.current)fld.current.focus()},[busy,msgs]);
+  useEffect(function(){
+    (async function(){
+      setBusy(true);
+      var r=await callArgo(SYS_LEARN,[{role:"user",content:"Lo studente apre la sezione 'Capire l'IA' per la prima volta. Accoglilo. Chiedigli cosa vorrebbe sapere sull'intelligenza artificiale, oppure proponigli una cosa interessante da cui partire. Due frasi, non di piu'."}],true);
+      if(r)setMsgs([{role:"assistant",content:r}]);
+      setBusy(false);
+    })();
+  },[]);
+
+  var send=async function(){
+    var t=inp.trim();if(!t||busy)return;
+    var next=msgs.concat([{role:"user",content:t}]);
+    setMsgs(next);setInp("");setBusy(true);
+    var r=await callArgo(SYS_LEARN,next.map(function(m){return{role:m.role,content:m.content}}),true);
+    if(r)setMsgs(function(prev){return prev.concat([{role:"assistant",content:r}])});
+    setBusy(false);
+  };
+
+  return React.createElement("div",{style:{minHeight:"100vh",background:BG,display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
+    React.createElement(Orb,{size:200,top:"-40px",left:"-60px",color:W2}),
+    React.createElement("div",{style:{padding:"12px 18px",borderBottom:"1px solid "+BD,display:"flex",alignItems:"center",gap:8,background:BG,position:"sticky",top:0,zIndex:10}},
+      React.createElement("button",{onClick:onBack,style:{background:"none",border:"none",color:"rgba(255,255,255,.35)",cursor:"pointer",fontSize:14}},"\u2190"),
+      React.createElement("span",{style:{fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:600,color:"#E8E4DF"}},"Argo"),
+      React.createElement(Badge,{color:W2},"Capire l'IA")),
+    React.createElement("div",{style:{flex:1,overflowY:"auto",padding:"20px 18px 140px",maxWidth:600,width:"100%",margin:"0 auto"}},
+      React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:16}},
+        msgs.map(function(m,i){return React.createElement(ChatBubble,{key:i,role:m.role,text:m.content})}),
+        busy&&React.createElement(Loader,{text:"Argo pensa..."})),
+      React.createElement("div",{ref:bot})),
+    React.createElement("div",{style:{position:"fixed",bottom:0,left:0,right:0,background:"linear-gradient(transparent,"+BG+" 30%)",padding:"16px 18px 20px",zIndex:10}},
+      React.createElement("div",{style:{maxWidth:600,margin:"0 auto"}},
+        React.createElement(Card,{style:{display:"flex",gap:10,alignItems:"flex-end",padding:"10px 12px"}},
+          React.createElement("textarea",{ref:fld,value:inp,onChange:function(e){setInp(e.target.value)},onKeyDown:function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}},disabled:busy,placeholder:busy?"Argo sta pensando...":"Chiedi qualcosa...",rows:1,style:{flex:1,minHeight:40,maxHeight:100,padding:"8px 0",background:"transparent",border:"none",color:"#E8E4DF",fontFamily:"'Outfit',sans-serif",fontSize:14,lineHeight:1.5,resize:"none",opacity:busy?.4:1},onInput:function(e){e.target.style.height="40px";e.target.style.height=Math.min(e.target.scrollHeight,100)+"px"}}),
+          React.createElement("button",{onClick:send,disabled:!inp.trim()||busy,style:{background:inp.trim()&&!busy?W:"rgba(255,255,255,.03)",color:inp.trim()&&!busy?"#fff":"rgba(255,255,255,.1)",border:"none",borderRadius:6,padding:"8px 14px",cursor:inp.trim()&&!busy?"pointer":"default",fontFamily:"'Outfit',sans-serif",fontSize:13,fontWeight:600,flexShrink:0}},"\u2192")))));
+}
+
+function App(){
+  var _s=useState("landing"),screen=_s[0],setScreen=_s[1];
+  if(screen==="tool") return React.createElement(ToolScreen,{onBack:function(){setScreen("landing")}});
+  if(screen==="learn") return React.createElement(LearnScreen,{onBack:function(){setScreen("landing")}});
+  return React.createElement(Landing,{onStart:setScreen});
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+</script>
+</body>
+</html>

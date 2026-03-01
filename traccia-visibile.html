@@ -217,6 +217,59 @@
     .convo-tab:last-child { border-radius: 0 0 2px 2px; }
 }
 @media (max-width: 450px) { .axis-levels-grid { grid-template-columns: 1fr; } }
+
+/* Lab */
+.timeline { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4rem; position: relative; padding: 0 1rem; }
+.timeline::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--grigio-chiaro); transform: translateY(-50%); z-index: 0; }
+.stop { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; cursor: pointer; position: relative; z-index: 1; transition: all 0.4s ease; }
+.stop-num { width: 40px; height: 40px; border-radius: 50%; background: var(--bianco); border: 2px solid var(--grigio-chiaro); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--grigio); transition: all 0.4s ease; }
+.stop.active .stop-num { background: var(--ottanio); border-color: var(--ottanio); color: var(--bianco); transform: scale(1.15); }
+.stop.completed .stop-num { background: rgba(42,107,107,0.15); border-color: var(--ottanio); color: var(--ottanio); }
+.stop-label { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grigio); white-space: nowrap; transition: color 0.4s ease; }
+.stop.active .stop-label { color: var(--ottanio); font-weight: 500; }
+.lab-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.lab-prompt { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.8; color: var(--nero); background: rgba(42,107,107,0.04); padding: 2rem; border-radius: 4px; border-left: 3px solid var(--ottanio); transition: opacity 0.3s ease; }
+.lab-analysis { font-size: 0.95rem; line-height: 2; color: var(--nero); transition: opacity 0.3s ease; }
+
+/* Gauges */
+.gauges { display: flex; gap: 2rem; justify-content: center; margin: 3rem 0; flex-wrap: wrap; }
+.gauge { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.gauge svg { width: 80px; height: 80px; transform: rotate(-90deg); }
+.gauge-ring { fill: none; stroke: var(--ottanio); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+.gauge-bg { fill: none; stroke: var(--grigio-chiaro); stroke-width: 4; }
+.gauge-value { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 500; color: var(--ottanio); }
+.gauge-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grigio); text-align: center; max-width: 80px; }
+
+/* Verdict */
+.verdict { margin-top: 3rem; padding: 2rem; background: rgba(42,107,107,0.04); border-radius: 4px; text-align: center; }
+.verdict-bar { width: 100%; height: 6px; background: var(--grigio-chiaro); border-radius: 3px; margin: 1.5rem 0; overflow: hidden; }
+.verdict-fill { height: 100%; background: var(--ottanio); border-radius: 3px; transition: width 1s ease; width: 0%; }
+.verdict-score { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 400; color: var(--ottanio); }
+.verdict-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); margin-top: 0.5rem; }
+
+/* Axes cards */
+.axis-card { background: var(--bianco); border: 1px solid var(--grigio-chiaro); border-radius: 4px; padding: 2.5rem; margin-bottom: 2rem; }
+.axis-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; }
+.axis-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--ottanio); letter-spacing: 0.1em; }
+.axis-title { font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-weight: 400; color: var(--nero); flex: 1; }
+.axis-weight { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ottanio); padding: 0.3rem 0.8rem; background: rgba(42,107,107,0.08); border-radius: 2px; }
+.axis-desc { font-size: 0.95rem; line-height: 2; color: var(--nero); margin-bottom: 1.5rem; }
+.axis-toggle { background: none; border: 1px solid var(--grigio-chiaro); padding: 0.6rem 1.2rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grigio); cursor: pointer; transition: all 0.3s ease; border-radius: 2px; }
+.axis-toggle:hover { border-color: var(--ottanio); color: var(--ottanio); }
+.axis-rubric { margin-top: 1.5rem; }
+.rubric-row { display: flex; gap: 1.5rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(229,229,229,0.5); align-items: flex-start; }
+.rubric-row:last-child { border-bottom: none; }
+.rubric-level { display: flex; align-items: center; gap: 0.75rem; min-width: 160px; }
+.rubric-badge { font-size: 0.75rem; font-weight: 500; color: var(--ottanio); letter-spacing: 0.05em; }
+.rubric-range { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--grigio); }
+.rubric-desc { font-size: 0.85rem; line-height: 1.8; color: var(--nero); }
+
+@media (max-width: 900px) {
+    .lab-content { grid-template-columns: 1fr; }
+    .timeline { flex-wrap: wrap; gap: 1rem; }
+    .timeline::before { display: none; }
+    .gauges { gap: 1rem; }
+}
 </style>
 </head>
 <body>
@@ -434,10 +487,10 @@
 const AXES = [
   {
     id: 'interrogazione',
-    title: 'Qualità dell\'interrogazione iniziale',
+    title: 'Qualità dell\\'interrogazione iniziale',
     weight: 20,
     shortTitle: 'Interrogazione',
-    desc: 'Come lo studente formula la domanda iniziale rivolta all\'IA: il grado di specificità, la presenza di vincoli, la consapevolezza del contesto disciplinare.',
+    desc: 'Come lo studente formula la domanda iniziale rivolta all\\'IA: il grado di specificità, la presenza di vincoli, la consapevolezza del contesto disciplinare.',
     levels: [
       { level: 'Insufficiente', range: '0–3', desc: 'Prompt generico, privo di contesto disciplinare e di vincoli significativi. Nessun tentativo di circoscrivere il campo.' },
       { level: 'Base', range: '4–5', desc: 'Prompt con contesto minimo. Qualche vincolo presente ma formulato in modo vago o incompleto.' },
@@ -451,7 +504,7 @@ const AXES = [
     title: 'Comportamento correttivo',
     weight: 25,
     shortTitle: 'Correzione',
-    desc: 'La capacità dello studente di intervenire sulle risposte dell\'IA: identificare errori, imprecisioni, generalizzazioni indebite, e riformulare di conseguenza.',
+    desc: 'La capacità dello studente di intervenire sulle risposte dell\\'IA: identificare errori, imprecisioni, generalizzazioni indebite, e riformulare di conseguenza.',
     levels: [
       { level: 'Insufficiente', range: '0–3', desc: 'Accettazione passiva della risposta. Nessun intervento correttivo, nessuna verifica.' },
       { level: 'Base', range: '4–5', desc: 'Correzioni sporadiche, prevalentemente su aspetti formali. Scarsa verifica del contenuto.' },
@@ -469,7 +522,7 @@ const AXES = [
     levels: [
       { level: 'Insufficiente', range: '0–3', desc: 'Sequenza frammentaria, senza progressione logica. Turni scollegati tra loro.' },
       { level: 'Base', range: '4–5', desc: 'Sequenza lineare ma piatta. Qualche collegamento tra i turni, senza approfondimento.' },
-      { level: 'Intermedio', range: '6–7', desc: 'Struttura riconoscibile con progressione tematica. I turni costruiscono l\'uno sull\'altro.' },
+      { level: 'Intermedio', range: '6–7', desc: 'Struttura riconoscibile con progressione tematica. I turni costruiscono l\\'uno sull\\'altro.' },
       { level: 'Avanzato', range: '8–9', desc: 'Architettura deliberata: il dialogo procede per fasi, con momenti di sintesi e rilancio.' },
       { level: 'Eccellente', range: '10', desc: 'Il dialogo ha una struttura argomentativa complessa, con digressioni funzionali e ritorno al tema.' }
     ]
@@ -509,34 +562,34 @@ const CONVOS = {
     label: 'Delegare',
     messages: [
       { role: 'user', text: 'Fammi un riassunto della Critica della ragion pura di Kant.' },
-      { role: 'ai', text: 'La Critica della ragion pura (1781/1787) è l\'opera fondamentale di Immanuel Kant. In essa, Kant si propone di stabilire i limiti e le possibilità della conoscenza umana. L\'opera si divide in due parti principali: l\'Estetica trascendentale, dove Kant analizza le forme pure della sensibilità (spazio e tempo), e l\'Analitica trascendentale, dove esamina le categorie dell\'intelletto...' },
+      { role: 'ai', text: 'La Critica della ragion pura (1781/1787) è l\\'opera fondamentale di Immanuel Kant. In essa, Kant si propone di stabilire i limiti e le possibilità della conoscenza umana. L\\'opera si divide in due parti principali: l\\'Estetica trascendentale, dove Kant analizza le forme pure della sensibilità (spazio e tempo), e l\\'Analitica trascendentale, dove esamina le categorie dell\\'intelletto...' },
       { role: 'user', text: 'Ok, grazie. Puoi anche farmi un riassunto della Fenomenologia dello spirito di Hegel?' },
       { role: 'ai', text: 'La Fenomenologia dello spirito (1807) di Hegel descrive il percorso della coscienza dalla certezza sensibile al sapere assoluto. Attraverso figure come la dialettica servo-padrone, la coscienza infelice e la ragione, Hegel mostra come lo spirito raggiunga progressivamente la piena consapevolezza di sé...' },
       { role: 'user', text: 'Perfetto. Adesso scrivi un confronto tra le due opere per il mio esame.' },
-      { role: 'ai', text: 'Confronto tra la Critica della ragion pura e la Fenomenologia dello spirito:\n\n1. Metodo: Kant procede per analisi trascendentale, Hegel per dialettica.\n2. Soggetto: Per Kant il soggetto è dotato di strutture a priori stabili, per Hegel è in continuo divenimento.\n3. Conoscenza: Kant pone limiti alla ragione, Hegel mira al sapere assoluto...' },
+      { role: 'ai', text: 'Confronto tra la Critica della ragion pura e la Fenomenologia dello spirito:\\n\\n1. Metodo: Kant procede per analisi trascendentale, Hegel per dialettica.\\n2. Soggetto: Per Kant il soggetto è dotato di strutture a priori stabili, per Hegel è in continuo divenimento.\\n3. Conoscenza: Kant pone limiti alla ragione, Hegel mira al sapere assoluto...' },
       { role: 'user', text: 'Aggiungi anche una conclusione.' },
       { role: 'ai', text: 'In conclusione, entrambe le opere rappresentano momenti fondamentali della filosofia moderna. Mentre Kant stabilisce i confini della ragione, Hegel li supera attraverso il movimento dialettico dello spirito. La tensione tra limite e superamento del limite resta uno dei nodi centrali della filosofia post-kantiana.' },
       { role: 'user', text: 'Perfetto, grazie. Lo uso così.' },
-      { role: 'annotation', text: 'In sette turni lo studente non ha posto una sola domanda genuina. Ha usato l\'IA come un distributore automatico di contenuti, senza mai interrogare, verificare, contestare. Il testo finale è formalmente corretto ma intellettualmente vuoto: non contiene un solo pensiero che lo studente possa dire suo.' },
-      { role: 'ai', text: 'Prego! In bocca al lupo per l\'esame. Se hai bisogno di altri chiarimenti, non esitare a chiedere.' }
+      { role: 'annotation', text: 'In sette turni lo studente non ha posto una sola domanda genuina. Ha usato l\\'IA come un distributore automatico di contenuti, senza mai interrogare, verificare, contestare. Il testo finale è formalmente corretto ma intellettualmente vuoto: non contiene un solo pensiero che lo studente possa dire suo.' },
+      { role: 'ai', text: 'Prego! In bocca al lupo per l\\'esame. Se hai bisogno di altri chiarimenti, non esitare a chiedere.' }
     ]
   },
   traverse: {
     label: 'Attraversare',
     messages: [
       { role: 'user', text: 'Sto lavorando su Kant e Hegel per un esame di filosofia teoretica. Vorrei capire se ha senso leggere la Fenomenologia come una risposta alla prima Critica, o se questa è una semplificazione storiografica. Puoi aiutarmi a ragionare su questo?' },
-      { role: 'ai', text: 'È una domanda che tocca uno dei nodi più discussi della storiografia filosofica. La lettura della Fenomenologia come "risposta" a Kant ha una lunga tradizione — da Kroner a Hyppolite — ma comporta il rischio di linearizzare un rapporto molto più complesso. Hegel conosceva la prima Critica, certo, ma il suo interlocutore privilegiato era spesso Fichte, e il problema da cui partiva era diverso...' },
+      { role: 'ai', text: 'È una domanda che tocca uno dei nodi più discussi della storiografia filosofica. La lettura della Fenomenologia come \"risposta\" a Kant ha una lunga tradizione — da Kroner a Hyppolite — ma comporta il rischio di linearizzare un rapporto molto più complesso. Hegel conosceva la prima Critica, certo, ma il suo interlocutore privilegiato era spesso Fichte, e il problema da cui partiva era diverso...' },
       { role: 'user', text: 'Aspetta. Quando dici che il problema era diverso, cosa intendi esattamente? Kant parte dal problema della fondazione della conoscenza, e Hegel?' },
-      { role: 'ai', text: 'Buona domanda. Per semplificare — e dovrò poi complicare — si potrebbe dire che Kant parte dal problema "cosa posso conoscere?", mentre Hegel parte dal problema "come la coscienza arriva a sapere ciò che sa?". La differenza è sottile ma decisiva: Kant cerca le condizioni di possibilità, Hegel descrive un percorso effettivo...' },
-      { role: 'user', text: 'Questa distinzione mi convince solo in parte. Se Kant nella Deduzione trascendentale descrive come le categorie si applicano all\'esperienza, non sta anche lui descrivendo un percorso? Forse la differenza è meno netta di come la presenti.' },
-      { role: 'annotation', text: 'Il comportamento correttivo è qui evidente: lo studente non accetta la distinzione proposta, la mette alla prova con un controesempio interno al testo kantiano. L\'IA è costretta a raffinare la propria posizione.' },
-      { role: 'ai', text: 'Hai ragione a problematizzare. In effetti la Deduzione trascendentale — soprattutto nella versione del 1787, la cosiddetta Deduzione B — ha una struttura quasi narrativa. Kant stesso parla di un "cammino" dall\'appercezione all\'esperienza. La differenza, però, sta nello statuto di quel percorso: per Kant è una ricostruzione delle condizioni logiche, per Hegel è un\'esperienza reale della coscienza...' },
-      { role: 'user', text: 'Qui però mi viene un dubbio: quando Hegel nella Fenomenologia descrive la dialettica servo-padrone, sta davvero descrivendo un\'esperienza "reale"? O non è anche quella un\'astrazione, solo di tipo diverso? Forse entrambi costruiscono modelli, ma con finalità diverse.' },
-      { role: 'ai', text: 'Questa è un\'osservazione molto acuta che intercetta un dibattito tuttora aperto. Kojève leggeva la dialettica servo-padrone come un\'esperienza quasi storica, quasi antropologica. Pippin, al contrario, la legge come una struttura puramente normativa. Se segui Pippin — e ci sono buone ragioni per farlo — allora la distanza tra Kant e Hegel si riduce notevolmente...' },
-      { role: 'user', text: 'Mi interessa la lettura di Pippin. Ma vorrei capire: se la Fenomenologia non descrive esperienze reali ma strutture normative, cosa la distingue davvero da un\'analitica trascendentale? Perché Hegel non si accontenta del metodo kantiano?' },
-      { role: 'ai', text: 'Ecco, questa è forse la domanda centrale. Per Hegel il problema dell\'analitica trascendentale è che presuppone ciò che dovrebbe dimostrare: parte già da un soggetto costituito, con le sue categorie in ordine. La Fenomenologia, invece, vuole mostrare come quel soggetto si costituisca. Non parte dalle categorie: ci arriva...' },
+      { role: 'ai', text: 'Buona domanda. Per semplificare — e dovrò poi complicare — si potrebbe dire che Kant parte dal problema \"cosa posso conoscere?\", mentre Hegel parte dal problema \"come la coscienza arriva a sapere ciò che sa?\". La differenza è sottile ma decisiva: Kant cerca le condizioni di possibilità, Hegel descrive un percorso effettivo...' },
+      { role: 'user', text: 'Questa distinzione mi convince solo in parte. Se Kant nella Deduzione trascendentale descrive come le categorie si applicano all\\'esperienza, non sta anche lui descrivendo un percorso? Forse la differenza è meno netta di come la presenti.' },
+      { role: 'annotation', text: 'Il comportamento correttivo è qui evidente: lo studente non accetta la distinzione proposta, la mette alla prova con un controesempio interno al testo kantiano. L\\'IA è costretta a raffinare la propria posizione.' },
+      { role: 'ai', text: 'Hai ragione a problematizzare. In effetti la Deduzione trascendentale — soprattutto nella versione del 1787, la cosiddetta Deduzione B — ha una struttura quasi narrativa. Kant stesso parla di un \"cammino\" dall\\'appercezione all\\'esperienza. La differenza, però, sta nello statuto di quel percorso: per Kant è una ricostruzione delle condizioni logiche, per Hegel è un\\'esperienza reale della coscienza...' },
+      { role: 'user', text: 'Qui però mi viene un dubbio: quando Hegel nella Fenomenologia descrive la dialettica servo-padrone, sta davvero descrivendo un\\'esperienza \"reale\"? O non è anche quella un\\'astrazione, solo di tipo diverso? Forse entrambi costruiscono modelli, ma con finalità diverse.' },
+      { role: 'ai', text: 'Questa è un\\'osservazione molto acuta che intercetta un dibattito tuttora aperto. Kojève leggeva la dialettica servo-padrone come un\\'esperienza quasi storica, quasi antropologica. Pippin, al contrario, la legge come una struttura puramente normativa. Se segui Pippin — e ci sono buone ragioni per farlo — allora la distanza tra Kant e Hegel si riduce notevolmente...' },
+      { role: 'user', text: 'Mi interessa la lettura di Pippin. Ma vorrei capire: se la Fenomenologia non descrive esperienze reali ma strutture normative, cosa la distingue davvero da un\\'analitica trascendentale? Perché Hegel non si accontenta del metodo kantiano?' },
+      { role: 'ai', text: 'Ecco, questa è forse la domanda centrale. Per Hegel il problema dell\\'analitica trascendentale è che presuppone ciò che dovrebbe dimostrare: parte già da un soggetto costituito, con le sue categorie in ordine. La Fenomenologia, invece, vuole mostrare come quel soggetto si costituisca. Non parte dalle categorie: ci arriva...' },
       { role: 'user', text: 'Ok, credo di cominciare a vedere la differenza. Non è tanto nel metodo in sé, ma nel punto di partenza: Kant presuppone il soggetto trascendentale, Hegel lo genera. Però a questo punto mi chiedo: la critica di Hegel è davvero giusta? Kant non avrebbe potuto rispondere che il soggetto trascendentale non ha bisogno di genesi perché è una condizione logica, non storica?' },
-      { role: 'annotation', text: 'La resistenza alla facilità è qui al suo massimo: lo studente ha compreso la posizione hegeliana ma rifiuta di accettarla senza metterla alla prova. Ricostruisce la possibile obiezione kantiana dall\'interno. Il dialogo diventa un autentico esercizio filosofico.' },
+      { role: 'annotation', text: 'La resistenza alla facilità è qui al suo massimo: lo studente ha compreso la posizione hegeliana ma rifiuta di accettarla senza metterla alla prova. Ricostruisce la possibile obiezione kantiana dall\\'interno. Il dialogo diventa un autentico esercizio filosofico.' },
       { role: 'ai', text: 'Esattamente: questa è la risposta che la tradizione neo-kantiana ha effettivamente dato. Hermann Cohen e poi, in modo diverso, Strawson hanno sostenuto che la deduzione trascendentale non ha bisogno di una genesi perché opera su un piano diverso — il piano delle condizioni di possibilità, non quello della storia della coscienza. La questione, in fondo, è se si possa fondare la conoscenza senza raccontarne la storia...' }
     ]
   }
@@ -548,7 +601,7 @@ const STAGES = [
     num: 1,
     title: 'Il prompt ingenuo',
     prompt: 'Spiegami la filosofia di Kant.',
-    analysis: 'Nessun contesto disciplinare, nessun vincolo, nessuna direzione. Il prompt delega interamente all\'IA la selezione di cosa sia rilevante. Il risultato sarà inevitabilmente generico.',
+    analysis: 'Nessun contesto disciplinare, nessun vincolo, nessuna direzione. Il prompt delega interamente all\\'IA la selezione di cosa sia rilevante. Il risultato sarà inevitabilmente generico.',
     scores: { interrogazione: 2, correttivo: 0, architettura: 1, resistenza: 1, trasparenza: 0 }
   },
   {
@@ -562,21 +615,21 @@ const STAGES = [
     num: 3,
     title: 'Il prompt strutturato',
     prompt: 'Sto lavorando su Kant per un esame di filosofia teoretica. Ho capito la distinzione analitico/sintetico, ma non mi è chiaro perché Kant consideri i giudizi matematici sintetici a priori. Puoi spiegarmelo con un esempio, evitando di ripetere la definizione generale?',
-    analysis: 'Il prompt dichiara una conoscenza pregressa, isola un nodo specifico, include una meta-istruzione ("evitando di ripetere"). Lo studente sta già pensando, e chiede all\'IA di pensare con lui.',
+    analysis: 'Il prompt dichiara una conoscenza pregressa, isola un nodo specifico, include una meta-istruzione (\"evitando di ripetere\"). Lo studente sta già pensando, e chiede all\\'IA di pensare con lui.',
     scores: { interrogazione: 7, correttivo: 3, architettura: 5, resistenza: 5, trasparenza: 4 }
   },
   {
     num: 4,
     title: 'Il prompt critico',
-    prompt: 'Nella Critica della ragion pura, Kant sostiene che "7+5=12" è un giudizio sintetico a priori. Frege, nel § 88 dei Fondamenti dell\'aritmetica, obietta che è analitico. Ho letto entrambi i passaggi. Secondo me Kant ha ragione se ci si limita alla sua definizione di analiticità, ma Frege ha ragione se la si amplia. Puoi aiutarmi a verificare questa ipotesi? Dove potrebbe essere sbagliata?',
-    analysis: 'Il prompt è un micro-saggio: contiene una tesi, le sue fonti, e una richiesta di falsificazione. Lo studente non cerca una risposta: cerca un interlocutore critico. L\'IA è chiamata a funzionare come un tutor socratico.',
+    prompt: 'Nella Critica della ragion pura, Kant sostiene che \"7+5=12\" è un giudizio sintetico a priori. Frege, nel § 88 dei Fondamenti dell\\'aritmetica, obietta che è analitico. Ho letto entrambi i passaggi. Secondo me Kant ha ragione se ci si limita alla sua definizione di analiticità, ma Frege ha ragione se la si amplia. Puoi aiutarmi a verificare questa ipotesi? Dove potrebbe essere sbagliata?',
+    analysis: 'Il prompt è un micro-saggio: contiene una tesi, le sue fonti, e una richiesta di falsificazione. Lo studente non cerca una risposta: cerca un interlocutore critico. L\\'IA è chiamata a funzionare come un tutor socratico.',
     scores: { interrogazione: 9, correttivo: 6, architettura: 7, resistenza: 8, trasparenza: 7 }
   },
   {
     num: 5,
     title: 'Il prompt metacognitivo',
-    prompt: 'Ho chiesto a tre IA diverse di spiegarmi la distinzione analitico/sintetico di Kant. Tutte e tre hanno dato risposte leggermente diverse, soprattutto sulla questione dei giudizi matematici. Questo mi fa pensare che il problema sia nella formulazione della mia domanda, non nelle risposte. Puoi aiutarmi a capire cosa nella mia domanda originale ("i giudizi matematici sono sintetici a priori?") genera ambiguità? Vorrei riformularla in modo che la risposta sia più vincolata.',
-    analysis: 'Il prompt è un atto di trasparenza metacognitiva: lo studente riflette non sul contenuto ma sul processo, identificando nella propria domanda – e non nelle risposte dell\'IA – la fonte del problema. Qui la traccia del pensiero è pienamente visibile.',
+    prompt: 'Ho chiesto a tre IA diverse di spiegarmi la distinzione analitico/sintetico di Kant. Tutte e tre hanno dato risposte leggermente diverse, soprattutto sulla questione dei giudizi matematici. Questo mi fa pensare che il problema sia nella formulazione della mia domanda, non nelle risposte. Puoi aiutarmi a capire cosa nella mia domanda originale (\"i giudizi matematici sono sintetici a priori?\") genera ambiguità? Vorrei riformularla in modo che la risposta sia più vincolata.',
+    analysis: 'Il prompt è un atto di trasparenza metacognitiva: lo studente riflette non sul contenuto ma sul processo, identificando nella propria domanda – e non nelle risposte dell\\'IA – la fonte del problema. Qui la traccia del pensiero è pienamente visibile.',
     scores: { interrogazione: 10, correttivo: 8, architettura: 9, resistenza: 9, trasparenza: 10 }
   }
 ];
@@ -585,7 +638,7 @@ const VOICES = [
   {
     text: 'Ma non si rischia di valutare la capacità di usare uno strumento piuttosto che la competenza disciplinare vera e propria?',
     author: 'Docente di lettere, liceo classico',
-    response: 'Il protocollo valuta entrambe le cose, perché le ritiene inseparabili. Un prompt ben formulato su Kant richiede di conoscere Kant; un comportamento correttivo efficace richiede di saper riconoscere dove l\'IA semplifica. La competenza disciplinare non scompare: diventa la condizione necessaria per usare lo strumento in modo non banale.'
+    response: 'Il protocollo valuta entrambe le cose, perché le ritiene inseparabili. Un prompt ben formulato su Kant richiede di conoscere Kant; un comportamento correttivo efficace richiede di saper riconoscere dove l\\'IA semplifica. La competenza disciplinare non scompare: diventa la condizione necessaria per usare lo strumento in modo non banale.'
   },
   {
     text: 'Mi chiedo come si possano valutare cinque assi diversi per ogni studente. Il carico di lavoro sarebbe insostenibile.',
@@ -593,24 +646,24 @@ const VOICES = [
     response: 'Il protocollo non richiede di assegnare punteggi puntuali per ogni turno di conversazione. Prevede una valutazione olistica su ciascun asse, supportata dalla rubrica. Un docente esperto, dopo qualche settimana di familiarizzazione, impiega tra i dieci e i quindici minuti per valutare un dialogo completo. Non è più del tempo richiesto da un tema ben corretto.'
   },
   {
-    text: 'Se insegniamo agli studenti a interrogare l\'IA, non rischiamo di renderli ancora più dipendenti dalla tecnologia?',
-    author: 'Professore associato, scienze dell\'educazione',
-    response: 'Il rischio esiste solo se si confonde la dipendenza con la competenza. Un musicista che sa usare un metronomo non dipende dal metronomo: ha imparato a interiorizzare il tempo. Allo stesso modo, un\'educazione all\'uso critico dell\'IA sviluppa abitudini intellettuali – precisione nella domanda, verifica delle fonti, resistenza alla semplificazione – che rimangono valide anche senza lo strumento.'
+    text: 'Se insegniamo agli studenti a interrogare l\\'IA, non rischiamo di renderli ancora più dipendenti dalla tecnologia?',
+    author: 'Professore associato, scienze dell\\'educazione',
+    response: 'Il rischio esiste solo se si confonde la dipendenza con la competenza. Un musicista che sa usare un metronomo non dipende dal metronomo: ha imparato a interiorizzare il tempo. Allo stesso modo, un\\'educazione all\\'uso critico dell\\'IA sviluppa abitudini intellettuali – precisione nella domanda, verifica delle fonti, resistenza alla semplificazione – che rimangono valide anche senza lo strumento.'
   },
   {
     text: 'Ma i ragazzi con difficoltà di apprendimento non verrebbero penalizzati? Scrivere un buon prompt richiede competenze linguistiche avanzate.',
     author: 'Insegnante di sostegno',
-    response: 'È un\'obiezione seria, e il saggio la affronta esplicitamente nella sezione sui limiti. Il protocollo richiede adattamenti per gli studenti con BES, proprio come qualsiasi altro strumento di valutazione. La qualità dell\'interrogazione non si misura dalla complessità sintattica ma dalla pertinenza concettuale: un prompt breve ma preciso può valere più di uno elaborato ma generico.'
+    response: 'È un\\'obiezione seria, e il saggio la affronta esplicitamente nella sezione sui limiti. Il protocollo richiede adattamenti per gli studenti con BES, proprio come qualsiasi altro strumento di valutazione. La qualità dell\\'interrogazione non si misura dalla complessità sintattica ma dalla pertinenza concettuale: un prompt breve ma preciso può valere più di uno elaborato ma generico.'
   },
   {
     text: 'Questo approccio presuppone che tutti gli studenti abbiano accesso agli stessi strumenti di IA. E il divario digitale?',
     author: 'Ricercatore, politiche educative',
-    response: 'Il divario digitale è un problema reale che precede e trascende questo protocollo. Il PVP presuppone un contesto in cui l\'IA sia disponibile per tutti gli studenti – e propone che questa disponibilità sia garantita dall\'istituzione, non lasciata all\'iniziativa individuale. Detto questo: il protocollo funziona con qualsiasi IA generativa, anche quelle gratuite.'
+    response: 'Il divario digitale è un problema reale che precede e trascende questo protocollo. Il PVP presuppone un contesto in cui l\\'IA sia disponibile per tutti gli studenti – e propone che questa disponibilità sia garantita dall\\'istituzione, non lasciata all\\'iniziativa individuale. Detto questo: il protocollo funziona con qualsiasi IA generativa, anche quelle gratuite.'
   },
   {
-    text: 'Interessante, ma mi sembra che manchi un sesto asse: la capacità di sapere quando non usare l\'IA.',
+    text: 'Interessante, ma mi sembra che manchi un sesto asse: la capacità di sapere quando non usare l\\'IA.',
     author: 'Filosofo della tecnologia',
-    response: 'È un\'osservazione che tocca un punto delicato. Il saggio ne discute nella conclusione: sapere quando lo strumento non serve è forse la competenza più alta. Nel protocollo questa capacità è distribuita trasversalmente, soprattutto nell\'asse della resistenza alla facilità e in quello della trasparenza metacognitiva. Ma un asse dedicato potrebbe essere un\'evoluzione futura interessante.'
+    response: 'È un\\'osservazione che tocca un punto delicato. Il saggio ne discute nella conclusione: sapere quando lo strumento non serve è forse la competenza più alta. Nel protocollo questa capacità è distribuita trasversalmente, soprattutto nell\\'asse della resistenza alla facilità e in quello della trasparenza metacognitiva. Ma un asse dedicato potrebbe essere un\\'evoluzione futura interessante.'
   }
 ];
 
@@ -672,7 +725,7 @@ const VOICES = [
 })();
 
 // ═══ FLOW CANVASES ═══
-document.querySelectorAll('.flow-canvas').forEach(c => {
+document.querySelectorAll('.flow-div canvas').forEach(c => {
   const ctx = c.getContext('2d');
   let w, h, offset = 0;
   function resize() { w = c.width = c.offsetWidth; h = c.height = c.offsetHeight; }
@@ -707,7 +760,7 @@ const progressBar = document.querySelector('.reading-progress');
 if (progressBar) {
   window.addEventListener('scroll', () => {
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    progressBar.style.transform = `scaleX(${Math.min(pct, 1)})`;
+    progressBar.style.width = (Math.min(pct, 1) * 100) + '%';
   });
 }
 
@@ -741,7 +794,7 @@ if (counterStrip) counterObs.observe(counterStrip);
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('visible');
+      e.target.classList.add('vis');
       revealObs.unobserve(e.target);
     }
   });
@@ -752,18 +805,18 @@ document.querySelectorAll('.rv').forEach(el => revealObs.observe(el));
 const hlObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('is-visible');
+      e.target.classList.add('active');
       hlObs.unobserve(e.target);
     }
   });
 }, { threshold: 0.5 });
-document.querySelectorAll('.text-hl').forEach(el => hlObs.observe(el));
+document.querySelectorAll('.text-highlight').forEach(el => hlObs.observe(el));
 
 // ═══ ESSAY MARGIN NOTES ═══
 const noteObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('note-visible');
+      e.target.classList.add('visible');
       noteObs.unobserve(e.target);
     }
   });
@@ -772,9 +825,10 @@ document.querySelectorAll('.essay-note').forEach(el => noteObs.observe(el));
 
 
 // ═══ SIDE NAV ═══
-const sections = ['heroSection','essaySection','convoSection','radarSection','labSection','voicesSection','axesSection','dlSection'];
-const dots = document.querySelectorAll('.side-nav a');
-const sectionEls = sections.map(id => document.getElementById(id));
+const dots = document.querySelectorAll('.side-nav-dot');
+const sectionIds = [];
+dots.forEach(d => sectionIds.push(d.dataset.target));
+const sectionEls = sectionIds.map(id => document.getElementById(id));
 
 function updateSideNav() {
   let current = 0;
@@ -788,24 +842,23 @@ window.addEventListener('scroll', updateSideNav);
 updateSideNav();
 
 dots.forEach(d => {
-  d.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(d.getAttribute('href'));
+  d.addEventListener('click', () => {
+    const target = document.getElementById(d.dataset.target);
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 });
 
 // ═══ HAMBURGER ═══
 const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-if (hamburger && navLinks) {
+const mobileMenu = document.querySelector('.mobile-menu');
+if (hamburger && mobileMenu) {
   hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
     hamburger.classList.toggle('open');
   });
-  navLinks.querySelectorAll('a').forEach(a => {
+  mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
-      navLinks.classList.remove('open');
+      mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
     });
   });
@@ -814,7 +867,7 @@ if (hamburger && navLinks) {
 // ═══ CONVERSATION SIMULATOR ═══
 (function initConvo() {
   const tabs = document.querySelectorAll('.convo-tab');
-  const container = document.getElementById('convoMessages');
+  const container = document.getElementById('convoBody');
   if (!tabs.length || !container) return;
 
   let currentConvo = 'delegate';
@@ -853,17 +906,17 @@ if (hamburger && navLinks) {
     }
 
     const div = document.createElement('div');
-    div.className = `msg msg-${m.role}`;
+    div.className = 'convo-msg';
     div.style.opacity = '0';
     div.style.transform = 'translateY(15px)';
 
     const label = document.createElement('div');
-    label.className = 'msg-label';
+    label.className = 'convo-role ' + (m.role === 'user' ? 'human' : 'ai');
     label.textContent = m.role === 'user' ? 'Studente' : 'IA';
     div.appendChild(label);
 
     const text = document.createElement('div');
-    text.className = 'msg-text';
+    text.className = 'convo-text';
     div.appendChild(text);
 
     container.appendChild(div);
@@ -994,17 +1047,40 @@ if (hamburger && navLinks) {
 
 // ═══ LAB ═══
 (function initLab() {
-  const stops = document.querySelectorAll('.stop');
-  const promptText = document.getElementById('labPromptText');
-  const analysisText = document.getElementById('labAnalysisText');
-  const gauges = document.querySelectorAll('.gauge-ring');
-  const gaugeLabels = document.querySelectorAll('.gauge-label');
-  const gaugeValues = document.querySelectorAll('.gauge-value');
-  const verdictScore = document.getElementById('verdictScore');
-  const verdictLabel = document.getElementById('verdictLabel');
-  const verdictFill = document.querySelector('.verdict-fill');
+  const stopsContainer = document.getElementById('labStops');
+  const promptEl = document.getElementById('labPrompt');
+  const gaugesContainer = document.getElementById('labGauges');
+  const scoreEl = document.getElementById('labScore');
+  const levelEl = document.getElementById('labLevel');
+  const commentEl = document.getElementById('labComment');
+  const fillEl = document.getElementById('labFill');
 
-  if (!stops.length || !promptText) return;
+  if (!stopsContainer || !promptEl) return;
+
+  // Build stops
+  STAGES.forEach((st, i) => {
+    const stop = document.createElement('div');
+    stop.className = 'lab-stop' + (i === 0 ? ' active' : '');
+    stop.textContent = i + 1;
+    const label = document.createElement('div');
+    label.className = 'lab-stop-label';
+    label.textContent = st.title;
+    stop.appendChild(label);
+    stopsContainer.appendChild(stop);
+  });
+
+  // Build gauges
+  const circumference = 2 * Math.PI * 40;
+  AXES.forEach(ax => {
+    const g = document.createElement('div');
+    g.className = 'lab-gauge';
+    g.innerHTML = `<div class="lab-gauge-ring"><svg viewBox="0 0 90 90"><circle class="track" cx="45" cy="45" r="40"/><circle class="fill" cx="45" cy="45" r="40" style="stroke-dasharray:${circumference};stroke-dashoffset:${circumference};stroke:var(--ottanio)"/></svg><div class="lab-gauge-score">0</div></div><div class="lab-gauge-name">${ax.shortTitle}</div>`;
+    gaugesContainer.appendChild(g);
+  });
+
+  const stops = stopsContainer.querySelectorAll('.lab-stop');
+  const gaugeFills = gaugesContainer.querySelectorAll('.fill');
+  const gaugeScores = gaugesContainer.querySelectorAll('.lab-gauge-score');
 
   let currentStage = 0;
   let autoTimer = null;
@@ -1012,20 +1088,31 @@ if (hamburger && navLinks) {
   function showStage(idx) {
     currentStage = idx;
     const stage = STAGES[idx];
+
     stops.forEach((s, i) => {
       s.classList.toggle('active', i === idx);
-      s.classList.toggle('completed', i < idx);
+      s.classList.toggle('passed', i < idx);
     });
 
-    promptText.style.opacity = '0';
-    analysisText.style.opacity = '0';
+    // Timeline fill
+    if (fillEl) {
+      const pct = (idx / (STAGES.length - 1)) * 100;
+      fillEl.style.width = pct + '%';
+    }
 
+    promptEl.style.opacity = '0';
     setTimeout(() => {
-      promptText.textContent = stage.prompt;
-      analysisText.textContent = stage.analysis;
-      promptText.style.opacity = '1';
-      analysisText.style.opacity = '1';
+      promptEl.textContent = stage.prompt;
+      promptEl.style.opacity = '1';
     }, 300);
+
+    if (commentEl) {
+      commentEl.style.opacity = '0';
+      setTimeout(() => {
+        commentEl.textContent = stage.analysis;
+        commentEl.style.opacity = '1';
+      }, 500);
+    }
 
     // Update gauges
     const scoreKeys = ['interrogazione', 'correttivo', 'architettura', 'resistenza', 'trasparenza'];
@@ -1034,38 +1121,26 @@ if (hamburger && navLinks) {
       const val = stage.scores[key];
       radarScores.push(val);
       const pct = val / 10;
-      const circumference = 2 * Math.PI * 36;
       const offset = circumference * (1 - pct);
-
-      if (gauges[i]) {
-        gauges[i].style.transition = 'stroke-dashoffset 1s ease';
-        gauges[i].style.strokeDasharray = circumference;
-        gauges[i].style.strokeDashoffset = offset;
-      }
-      if (gaugeValues[i]) gaugeValues[i].textContent = val;
-      if (gaugeLabels[i]) gaugeLabels[i].textContent = AXES[i].shortTitle;
+      if (gaugeFills[i]) gaugeFills[i].style.strokeDashoffset = offset;
+      if (gaugeScores[i]) gaugeScores[i].textContent = val;
     });
 
-    // Update radar
     if (window.updateRadar) updateRadar(radarScores);
 
     // Verdict
     const weights = [0.20, 0.25, 0.15, 0.25, 0.15];
     let total = 0;
     radarScores.forEach((s, i) => total += s * weights[i]);
-    const finalScore = total.toFixed(1);
+    const finalScore = (total * 10).toFixed(0);
 
-    if (verdictScore) verdictScore.textContent = finalScore;
-    if (verdictFill) {
-      verdictFill.style.transition = 'width 1s ease';
-      verdictFill.style.width = (total * 10) + '%';
-    }
-    if (verdictLabel) {
-      if (total >= 8.5) verdictLabel.textContent = 'Eccellente';
-      else if (total >= 7) verdictLabel.textContent = 'Avanzato';
-      else if (total >= 5.5) verdictLabel.textContent = 'Intermedio';
-      else if (total >= 4) verdictLabel.textContent = 'Base';
-      else verdictLabel.textContent = 'Insufficiente';
+    if (scoreEl) scoreEl.textContent = finalScore;
+    if (levelEl) {
+      if (total >= 8.5) levelEl.textContent = 'Eccellente';
+      else if (total >= 7) levelEl.textContent = 'Avanzato';
+      else if (total >= 5.5) levelEl.textContent = 'Intermedio';
+      else if (total >= 4) levelEl.textContent = 'Base';
+      else levelEl.textContent = 'Insufficiente';
     }
   }
 
@@ -1083,7 +1158,6 @@ if (hamburger && navLinks) {
     }, 6000);
   }
 
-  // Start on scroll
   const labSection = document.getElementById('labSection');
   const labObs = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
@@ -1108,12 +1182,12 @@ if (hamburger && navLinks) {
 
     const text = document.createElement('div');
     text.className = 'voice-text';
-    text.textContent = '\\u00AB' + v.text + '\\u00BB';
+    text.textContent = '\u00ab' + v.text + '\u00bb';
     item.appendChild(text);
 
     const author = document.createElement('div');
     author.className = 'voice-author';
-    author.textContent = '\\u2014 ' + v.author;
+    author.textContent = '\u2014 ' + v.author;
     item.appendChild(author);
 
     const response = document.createElement('div');
@@ -1125,7 +1199,7 @@ if (hamburger && navLinks) {
   });
 
   // Re-observe new elements
-  document.querySelectorAll('.voices .rv').forEach(el => revealObs.observe(el));
+  document.querySelectorAll('.voice-item').forEach(el => revealObs.observe(el));
 })();
 
 // ═══ AXES CARDS ═══
@@ -1139,46 +1213,37 @@ if (hamburger && navLinks) {
     card.style.transitionDelay = (i * 0.08) + 's';
 
     const header = document.createElement('div');
-    header.className = 'axis-header';
-    header.innerHTML = `<span class="axis-num">${String(i + 1).padStart(2, '0')}</span>
-      <div class="axis-title">${ax.title}</div>
-      <div class="axis-weight">${ax.weight}%</div>`;
+    header.className = 'axis-card-head';
+    header.innerHTML = `<span class="axis-card-num">${String(i + 1).padStart(2, '0')}</span>
+      <div style="flex:1"><div class="axis-card-title">${ax.title}</div><div class="axis-card-desc">${ax.desc}</div></div>
+      <div class="axis-card-percent">${ax.weight}%</div><div class="axis-card-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>`;
     card.appendChild(header);
 
-    const desc = document.createElement('div');
-    desc.className = 'axis-desc';
-    desc.textContent = ax.desc;
-    card.appendChild(desc);
+    const body = document.createElement('div');
+    body.className = 'axis-card-body';
 
-    const toggle = document.createElement('button');
-    toggle.className = 'axis-toggle';
-    toggle.textContent = 'Mostra rubrica';
-    toggle.setAttribute('aria-expanded', 'false');
-
-    const rubric = document.createElement('div');
-    rubric.className = 'axis-rubric';
-    rubric.style.display = 'none';
+    const content = document.createElement('div');
+    content.className = 'axis-card-content';
 
     ax.levels.forEach(lv => {
       const row = document.createElement('div');
       row.className = 'rubric-row';
-      row.innerHTML = `<div class="rubric-level"><span class="rubric-badge">${lv.level}</span><span class="rubric-range">${lv.range}</span></div><div class="rubric-desc">${lv.desc}</div>`;
-      rubric.appendChild(row);
+      const levelClass = lv.level === 'Eccellente' ? 'exc' : lv.level === 'Avanzato' ? 'good' : lv.level === 'Intermedio' ? 'suf' : 'ins';
+      row.innerHTML = `<div class="rubric-level"><span class="rubric-badge ${levelClass}">${lv.level}</span><span class="rubric-range">${lv.range}</span></div><div class="rubric-desc">${lv.desc}</div>`;
+      content.appendChild(row);
     });
 
-    toggle.addEventListener('click', () => {
-      const open = rubric.style.display !== 'none';
-      rubric.style.display = open ? 'none' : 'block';
-      toggle.textContent = open ? 'Mostra rubrica' : 'Nascondi rubrica';
-      toggle.setAttribute('aria-expanded', !open);
+    body.appendChild(content);
+    card.appendChild(body);
+
+    card.addEventListener('click', () => {
+      card.classList.toggle('open');
     });
 
-    card.appendChild(toggle);
-    card.appendChild(rubric);
     container.appendChild(card);
   });
 
-  document.querySelectorAll('.axes .rv').forEach(el => revealObs.observe(el));
+  document.querySelectorAll('.axis-card').forEach(el => revealObs.observe(el));
 })();
 
 // ═══ DL GLOW ═══

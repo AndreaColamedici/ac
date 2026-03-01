@@ -49,465 +49,1033 @@
             color: #00f5d4;
             z-index: -2;
         }
-
-        @keyframes glitch-animation {
-            0% {
-                clip-path: inset(40% 0 61% 0);
-                transform: translate(-2px, -2px);
-                opacity: 0.75;
-            }
-            20% {
-                clip-path: inset(92% 0 1% 0);
-                transform: translate(2px, 2px);
-                opacity: 0.75;
-            }
-            40% {
-                clip-path: inset(43% 0 1% 0);
-                transform: translate(-2px, 2px);
-                opacity: 0.75;
-            }
-            60% {
-                clip-path: inset(25% 0 58% 0);
-                transform: translate(2px, -2px);
-                opacity: 0.75;
-            }
-            80% {
-                clip-path: inset(54% 0 7% 0);
-                transform: translate(-2px, -2px);
-                opacity: 0.75;
-            }
-            100% {
-                clip-path: inset(58% 0 43% 0);
-                transform: translate(2px, 2px);
-                opacity: 0.75;
-            }
-        }
-
-        .glitch:hover::before,
-        .glitch:hover::after {
-            animation: glitch-animation 0.3s infinite;
-        }
-
-        .glitch:hover::before {
+        .glitch.active::before {
+            animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
             opacity: 0.8;
         }
-
-        .glitch:hover::after {
+        .glitch.active::after {
+            animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
             opacity: 0.8;
+        }
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+        }
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(3px, -3px); }
+            40% { transform: translate(3px, 3px); }
+            60% { transform: translate(-3px, -3px); }
+            80% { transform: translate(-3px, 3px); }
+        }
+
+        /* Magnetic cursor effect */
+        .magnetic {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Scramble text cursor */
+        .scramble-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--ottanio);
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Enhanced hero photo */
+        .hero-photo-frame {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--ottanio), transparent 30%);
+            animation: rotate-border 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero-photo-frame:hover::before {
+            opacity: 0.3;
+        }
+        @keyframes rotate-border {
+            100% { transform: rotate(360deg); }
+        }
+        .hero-photo-frame img {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating elements */
+        .float-element {
+            position: absolute;
+            font-family: 'Instrument Serif', serif;
+            font-size: 8rem;
+            opacity: 0.03;
+            pointer-events: none;
+            color: var(--ottanio);
+            z-index: 0;
+        }
+        .float-1 { top: 10%; right: 5%; animation: float 20s ease-in-out infinite; }
+        .float-2 { bottom: 20%; left: 3%; animation: float 25s ease-in-out infinite reverse; }
+        .float-3 { top: 40%; right: 15%; animation: float 18s ease-in-out infinite 2s; font-size: 5rem; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(20px) rotate(-5deg); }
+        }
+
+        /* Hypnocracy trance effect */
+        .trance-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .trance-char {
+            position: absolute;
+            font-family: 'Instrument Serif', serif;
+            color: rgba(255,255,255,0.03);
+            animation: trance-float 15s ease-in-out infinite;
+        }
+        @keyframes trance-float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.02; }
+            50% { transform: translateY(-30px) scale(1.1); opacity: 0.05; }
+        }
+
+        /* Pulsing glow for featured section */
+        .featured-glow {
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        /* Enhanced section transitions */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Upcoming items stagger */
+        .upcoming-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible .upcoming-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal.visible .upcoming-item:nth-child(1) { transition-delay: 0.1s; }
+        .reveal.visible .upcoming-item:nth-child(2) { transition-delay: 0.2s; }
+        .reveal.visible .upcoming-item:nth-child(3) { transition-delay: 0.3s; }
+        .reveal.visible .upcoming-item:nth-child(4) { transition-delay: 0.4s; }
+        .reveal.visible .upcoming-item:nth-child(5) { transition-delay: 0.5s; }
+        .reveal.visible .upcoming-item:nth-child(6) { transition-delay: 0.6s; }
+        .reveal.visible .upcoming-item:nth-child(7) { transition-delay: 0.7s; }
+        .reveal.visible .upcoming-item:nth-child(8) { transition-delay: 0.8s; }
+        .reveal.visible .upcoming-item:nth-child(9) { transition-delay: 0.9s; }
+
+        /* Noise overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Hero intro animation */
+        .hero-intro > * {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero-label { animation-delay: 0.2s; }
+        .hero-name { animation-delay: 0.4s; }
+        .hero-tagline { animation-delay: 0.6s; }
+        .hero-meta { animation-delay: 0.8s; }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scan line effect on featured */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--ottanio), transparent);
+            opacity: 0.3;
+            animation: scan 8s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Interactive trace */
+        .trace {
+            position: relative;
+            overflow: hidden;
+        }
+        .trace::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--ottanio) 0%, transparent 70%);
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s ease;
+        }
+        .trace:hover::before {
+            width: 300px;
+            height: 300px;
+            opacity: 0.1;
+        }
+
+        /* ———————————————————————————————————————————————————————————————
+           RECENT / HIGHLIGHTS SECTION
+           ——————————————————————————————————————————————————————————————— */
+        .recent-section {
+            background: #fafafa;
+            padding: 5rem 0;
+        }
+        .recent-event {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--grigio-chiaro);
+        }
+        .recent-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        .recent-year {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+        }
+        
+        .recent-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .recent-card-meta {
+            position: sticky;
+            top: 6rem;
+        }
+        .recent-card-location {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .recent-card-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+        .recent-card-name em {
+            font-style: italic;
+        }
+        .recent-card-date {
+            font-size: 0.85rem;
+            color: var(--grigio);
+        }
+        
+        .recent-card-facts {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .recent-fact {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: start;
+            padding: 1.5rem;
+            background: var(--bianco);
+            border: 1px solid var(--grigio-chiaro);
+            transition: all 0.4s ease;
+        }
+        .recent-fact:hover {
+            border-color: var(--ottanio);
+            transform: translateX(5px);
+        }
+        .recent-fact-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--ottanio);
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .recent-fact-content h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        .recent-fact-content p {
+            font-size: 0.9rem;
+            color: var(--grigio);
+            line-height: 1.6;
+        }
+        .recent-fact-link {
+            align-self: center;
+        }
+        .recent-fact-link a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--grigio-chiaro);
+            border-radius: 50%;
+            color: var(--grigio);
+            transition: all 0.3s ease;
+        }
+        .recent-fact-link a:hover {
+            background: var(--ottanio);
+            border-color: var(--ottanio);
+            color: var(--bianco);
+        }
+        
+        @media (max-width: 900px) {
+            .recent-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .recent-card-meta {
+                position: static;
+            }
+            .recent-fact {
+                grid-template-columns: auto 1fr;
+            }
+            .recent-fact-link {
+                grid-column: 1 / -1;
+                justify-self: end;
+            }
+        }
+
+        /* ———————————————————————————————————————————————————————————————
+           FIELD NOTE SECTION - Santiago Story
+           ——————————————————————————————————————————————————————————————— */
+        .field-note {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .field-note::before {
+            content: '👟';
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%) rotate(-15deg);
+            font-size: 15rem;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        .field-note-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .field-note-badge {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            padding: 1rem 0;
+            border-left: 2px solid var(--ottanio);
+            padding-left: 0.75rem;
+        }
+        .field-note-main {
+            color: var(--bianco);
+        }
+        .field-note-date {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1rem;
+        }
+        .field-note-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.95);
+        }
+        .field-note-title em {
+            font-style: italic;
+            color: var(--ottanio);
+        }
+        .field-note-excerpt {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+        }
+        .field-note-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .field-note-cta a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .field-note-cta a:hover {
+            background: var(--ottanio);
+            border-color: var(--ottanio);
+            transform: scale(1.1);
+        }
+        .field-note-cta span {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+        
+        @media (max-width: 900px) {
+            .field-note-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .field-note-badge {
+                writing-mode: horizontal-tb;
+                transform: none;
+                border-left: none;
+                border-bottom: 2px solid var(--ottanio);
+                padding: 0 0 0.5rem 0;
+                justify-self: center;
+            }
+            .field-note-excerpt {
+                margin: 0 auto;
+            }
+            .field-note-cta {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .field-note::before {
+                font-size: 8rem;
+                right: -5%;
+                opacity: 0.02;
+            }
         }
     </style>
 </head>
 <body>
+
+    <div class="noise-overlay"></div>
     <canvas id="neural-canvas"></canvas>
-    
+
     <header>
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <a href="/">Andrea Colamedici</a>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#books" class="nav-link">Books</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#writing" class="nav-link">Writing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#speaking" class="nav-link">Speaking</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://tlon.it" class="nav-link">Tlon</a>
-                    </li>
-                </ul>
+        <a href="./" class="logo magnetic">
+            <span class="pulse-signal"></span>
+            Andrea <em>Colamedici</em>
+        </a>
+        <nav>
+            <a href="books.html" class="magnetic">Books</a>
+            <a href="research.html" class="magnetic">Research</a>
+            <a href="press.html" class="magnetic">Press</a>
+            <a href="contact.html" class="magnetic">Contact</a>
+            <div class="lang-switch">
+                <a href="index.html" class="active">EN</a>
+                <a href="es/index.html">ES</a>
             </div>
         </nav>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
+            <a href="index.html" class="active">EN</a>
+            <a href="es/index.html">ES</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="books.html">Books</a>
+        <a href="research.html">Research</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+        <div class="mobile-lang-switch">
+            <a href="index.html" class="active">EN</a>
+            <a href="es/index.html">ES</a>
+        </div>
+    </div>
+
     <main>
-        <!-- Hero Section -->
+        <!-- Floating background elements -->
+        <div class="float-element float-1">?</div>
+        <div class="float-element float-2">∞</div>
+        <div class="float-element float-3">谎</div>
+
         <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="glitch" data-text="Philosopher, Publisher, Writer">Philosopher, Publisher, Writer</h1>
-                    <p class="hero-subtitle">
-                        Co-founder of <a href="https://tlon.it" class="link-highlight">Tlon</a>, I work on philosophy of artificial intelligence, media theory and contemporary thought.
-                    </p>
-                    <div class="hero-cta">
-                        <a href="#about" class="btn btn-primary">Explore My Work</a>
-                        <a href="https://tlon.it" class="btn btn-secondary">Visit Tlon</a>
-                    </div>
+            <div class="hero-photo">
+                <div class="hero-photo-frame">
+                    <img src="assets/images/foto1.jpg" alt="Andrea Colamedici">
                 </div>
-                <div class="hero-visual">
-                    <div class="floating-card card-1">
-                        <span class="card-label">Philosophy</span>
-                    </div>
-                    <div class="floating-card card-2">
-                        <span class="card-label">AI & Technology</span>
-                    </div>
-                    <div class="floating-card card-3">
-                        <span class="card-label">Publishing</span>
-                    </div>
+            </div>
+            <div class="hero-intro">
+                <span class="hero-label">Philosopher · Publisher · Writer</span>
+                <h1 class="hero-name glitch" data-text="Andrea Colamedici">Andrea <em>Colamedici</em></h1>
+                <p class="hero-tagline" id="scramble-text">I study how reality is constructed. Sometimes I construct it myself, to see if anyone notices.</p>
+                <p class="hero-tagline-sub" style="margin-top: 0.5rem; opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.7s;">Co-founder of <a href="https://tlon.it" target="_blank">Tlon</a>; as Jianwei Xun, author of <a href="hypnocracy.html">Hypnocracy</a> and <a href="prompt-thinking.html">Prompt Thinking</a>.</p>
+                <div class="hero-meta">
+                    <span>Rome, 1987</span>
+                    <span>President of GenIA, AI Hub at AANT</span>
+                    <span>Philosophical Director, Festival del Pensare Contemporaneo</span>
                 </div>
             </div>
         </section>
 
-        <!-- Books Section -->
-        <section id="books" class="books-section">
-            <div class="container">
-                <h2>Recent Books</h2>
-                <div class="books-grid">
-                    <article class="book-card">
-                        <div class="book-image">
-                            <img src="assets/images/prompt-thinking.jpg" alt="Prompt Thinking cover">
+        <section class="section reveal">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Upcoming</h2>
+                    <span class="section-num">2026</span>
+                </div>
+                <div class="upcoming-grid">
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">January 22</span>
+                        <div class="upcoming-info">
+                            <h3>AI Festival · The Beyond-Subject</h3>
+                            <p>Plenary speech on hybrid agency in the age of autonomous intelligences. The Jianwei Xun experiment and the double game of consciousness.</p>
                         </div>
-                        <div class="book-info">
+                        <span class="upcoming-location">Milan, Bocconi</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">February</span>
+                        <div class="upcoming-info">
                             <h3>Prompt Thinking</h3>
-                            <p class="book-author">with Maura Gancitano</p>
-                            <p class="book-description">
-                                A philosophical exploration of how prompts are reshaping human thought and creativity in the age of artificial intelligence.
-                            </p>
-                            <p class="book-meta">Polity Press, February 2026</p>
-                            <a href="https://polity.co.uk" class="book-link">View on Publisher →</a>
+                            <p>Publication of English (Polity Press) and Spanish (Rosameron) editions</p>
                         </div>
-                    </article>
-
-                    <article class="book-card">
-                        <div class="book-image">
-                            <img src="assets/images/fragile-care.jpg" alt="Fragile Care cover">
+                        <span class="upcoming-location">International</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">February 19</span>
+                        <div class="upcoming-info">
+                            <h3>Konkoly Observatory · Seminar</h3>
+                            <p>Tlon at the Hungarian astronomical research institute. Philosophy meets astrophysics.</p>
                         </div>
-                        <div class="book-info">
-                            <h3>Fragile Care</h3>
-                            <p class="book-author">with Maura Gancitano</p>
-                            <p class="book-description">
-                                An investigation into care in contemporary times, exploring how we build meaning and connection in a fragmented world.
-                            </p>
-                            <p class="book-meta">Published 2024</p>
-                            <a href="#" class="book-link">Learn More →</a>
+                        <span class="upcoming-location">Budapest</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Late February</span>
+                        <div class="upcoming-info">
+                            <h3>Book Launch: Prompt Thinking</h3>
+                            <p>International edition presentation</p>
                         </div>
-                    </article>
-
-                    <article class="book-card">
-                        <div class="book-image">
-                            <img src="assets/images/free-thinkers.jpg" alt="Free Thinkers cover">
+                        <span class="upcoming-location">New York</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">March</span>
+                        <div class="upcoming-info">
+                            <h3>AI and International Politics</h3>
+                            <p>Conference on artificial intelligence in international relations</p>
                         </div>
-                        <div class="book-info">
-                            <h3>Free Thinkers</h3>
-                            <p class="book-author">with Maura Gancitano</p>
-                            <p class="book-description">
-                                A manifesto for intellectual freedom and independent thought in an age of algorithmic influence.
-                            </p>
-                            <p class="book-meta">Published 2023</p>
-                            <a href="#" class="book-link">Learn More →</a>
+                        <span class="upcoming-location">Oslo</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">March</span>
+                        <div class="upcoming-info">
+                            <h3>Cognitive Dangers of AI</h3>
+                            <p>Conference on the risks of artificial intelligence for thought</p>
                         </div>
-                    </article>
+                        <span class="upcoming-location">Madrid</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">March 23</span>
+                        <div class="upcoming-info">
+                            <h3>Ipnocrazia · Teatro Carcano</h3>
+                            <p>Jianwei Xun interviewed by Maura Gancitano and Andrea Colamedici</p>
+                        </div>
+                        <span class="upcoming-location">Milan</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">April</span>
+                        <div class="upcoming-info">
+                            <h3>The Assault on Illusion</h3>
+                            <p>Speech at Arts Centre Santa Mònica</p>
+                        </div>
+                        <span class="upcoming-location">Barcelona</span>
+                    </div>
+                    <div class="upcoming-item">
+                        <span class="upcoming-date">Spring</span>
+                        <div class="upcoming-info">
+                            <h3>Tsinghua University</h3>
+                            <p>International competition on writing and artificial intelligence</p>
+                        </div>
+                        <span class="upcoming-location">China</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Writing Section -->
-        <section id="writing" class="writing-section">
-            <div class="container">
-                <h2>Essays & Articles</h2>
-                <div class="articles-list">
-                    <article class="article-card">
-                        <div class="article-header">
-                            <h3><a href="#">The Philosophy of Prompting: How Language Shapes Intelligence</a></h3>
-                            <span class="article-date">March 2026</span>
-                        </div>
-                        <p class="article-preview">
-                            Exploring the philosophical dimensions of prompt engineering and how the way we ask questions fundamentally shapes the answers we receive from AI systems.
-                        </p>
-                        <div class="article-tags">
-                            <span class="tag">Philosophy</span>
-                            <span class="tag">AI</span>
-                            <span class="tag">Language</span>
-                        </div>
-                    </article>
-
-                    <article class="article-card">
-                        <div class="article-header">
-                            <h3><a href="#">Media Theory in the Age of Algorithms</a></h3>
-                            <span class="article-date">February 2026</span>
-                        </div>
-                        <p class="article-preview">
-                            Rethinking classical media theory concepts in light of algorithmic mediation, recommendation systems, and the personalization of information.
-                        </p>
-                        <div class="article-tags">
-                            <span class="tag">Media Theory</span>
-                            <span class="tag">Technology</span>
-                            <span class="tag">Philosophy</span>
-                        </div>
-                    </article>
-
-                    <article class="article-card">
-                        <div class="article-header">
-                            <h3><a href="#">Contemporary Thought and Digital Culture</a></h3>
-                            <span class="article-date">January 2026</span>
-                        </div>
-                        <p class="article-preview">
-                            How digital culture is reshaping philosophical discourse and what it means to think critically in an age of information abundance.
-                        </p>
-                        <div class="article-tags">
-                            <span class="tag">Contemporary Thought</span>
-                            <span class="tag">Digital Culture</span>
-                            <span class="tag">Philosophy</span>
-                        </div>
-                    </article>
-
-                    <article class="article-card">
-                        <div class="article-header">
-                            <h3><a href="https://www.vanityfair.com">Featured in Vanity Fair</a></h3>
-                            <span class="article-date">Ongoing</span>
-                        </div>
-                        <p class="article-preview">
-                            Regular contributions on philosophy, technology, and contemporary culture for Vanity Fair's intellectual platform.
-                        </p>
-                        <div class="article-tags">
-                            <span class="tag">Vanity Fair</span>
-                            <span class="tag">Culture</span>
-                            <span class="tag">Opinion</span>
-                        </div>
-                    </article>
+        <!-- Recent / Highlights -->
+        <section class="recent-section reveal">
+            <div class="recent-event">
+                <div class="recent-header">
+                    <h2 class="recent-title">Recent</h2>
+                    <span class="recent-year">January 2026</span>
                 </div>
-
-                <div class="writing-links">
-                    <h3>Other Platforms</h3>
-                    <ul>
-                        <li><a href="https://www.linkedin.com">LinkedIn Articles</a></li>
-                        <li><a href="https://substack.com/@tlonletter">TlonLetter on Substack</a></li>
-                        <li><a href="https://www.youtube.com">YouTube Channel</a></li>
-                        <li><a href="https://www.tiktok.com">TikTok Content</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Speaking Section -->
-        <section id="speaking" class="speaking-section">
-            <div class="container">
-                <h2>Speaking Engagements</h2>
-                <p class="section-intro">
-                    I speak about philosophy, artificial intelligence, media theory, and contemporary thought at conferences, universities, and cultural institutions.
-                </p>
-                
-                <div class="speaking-grid">
-                    <div class="speaking-card">
-                        <h3>International Conferences</h3>
-                        <p>
-                            I regularly present research and ideas at major international conferences focused on philosophy, technology, and digital culture.
-                        </p>
+                <div class="recent-card">
+                    <div class="recent-card-meta">
+                        <p class="recent-card-location">Santiago, Chile</p>
+                        <h3 class="recent-card-name"><em>Congreso Futuro</em></h3>
+                        <p class="recent-card-date">January 13–14, 2026</p>
                     </div>
-                    
-                    <div class="speaking-card">
-                        <h3>University Lectures</h3>
-                        <p>
-                            Guest lectures and seminars at universities exploring the intersection of philosophy and artificial intelligence.
-                        </p>
-                    </div>
-                    
-                    <div class="speaking-card">
-                        <h3>Cultural Institutions</h3>
-                        <p>
-                            Talks and workshops at museums, galleries, and cultural centers on contemporary thought and digital transformation.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="speaking-cta">
-                    <p>For speaking inquiries, please contact <a href="mailto:info@tlon.it">info@tlon.it</a></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="container">
-                <h2>About</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>
-                            I'm a philosopher and publisher based in Rome, Italy. I co-founded <a href="https://tlon.it" class="link-highlight">Tlon</a> with Maura Gancitano, a cultural project exploring philosophy, artificial intelligence, and contemporary thought.
-                        </p>
-                        <p>
-                            My work focuses on three interconnected areas: the philosophy of artificial intelligence, contemporary media theory, and critical analysis of digital culture. I'm particularly interested in how technology shapes human thought and how philosophical inquiry can help us navigate the challenges and opportunities of our time.
-                        </p>
-                        <p>
-                            At Tlon, we produce books, essays, newsletters, and multimedia content. We also develop GLAST, a philosophical life assessment project aimed at helping people gain clarity about their values and aspirations.
-                        </p>
-                        <p>
-                            I write regularly for Vanity Fair, maintain an active presence on LinkedIn, and create content for TikTok and YouTube. The TlonLetter, our Substack newsletter, publishes weekly essays on philosophy and culture.
-                        </p>
-                    </div>
-                    <div class="about-sidebar">
-                        <div class="about-card">
-                            <h3>Current Focus</h3>
-                            <p>Philosophy of AI, prompt thinking, and cultural critique</p>
+                    <div class="recent-card-facts">
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">1</span>
+                            <div class="recent-fact-content">
+                                <h4>Cumbre de la Filosofía</h4>
+                                <p>Panel on AI and the future of human consciousness with José María Lassalle, Dominique Lestel, Renata Salecl, Shigeru Taguchi, Maurizio Ferraris, and Ingrid Guardiola.</p>
+                            </div>
+                            <div class="recent-fact-link"></div>
                         </div>
-                        <div class="about-card">
-                            <h3>Based In</h3>
-                            <p>Rome, Italy</p>
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">2</span>
+                            <div class="recent-fact-content">
+                                <h4>Hipnocracia · First speech in Spanish</h4>
+                                <p>Lecture on algorithmic trance, perceptive sovereignty, and the philosophical performance behind the Jianwei Xun experiment.</p>
+                            </div>
+                            <div class="recent-fact-link"></div>
                         </div>
-                        <div class="about-card">
-                            <h3>Latest Project</h3>
-                            <p><a href="#">GLAST - Life Assessment</a></p>
-                        </div>
-                        <div class="about-card">
-                            <h3>Get In Touch</h3>
-                            <p><a href="mailto:andrea@andreacolamedici.com">Email me</a></p>
+                        <div class="recent-fact">
+                            <span class="recent-fact-num">3</span>
+                            <div class="recent-fact-content">
+                                <h4>These shoes are not mine</h4>
+                                <p>Robbed twenty minutes before the panel, I turned the disruption into demonstration: thinking without a net, fragility as the thought finding its way.</p>
+                            </div>
+                            <div class="recent-fact-link">
+                                <a href="santiago.html" class="magnetic">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Newsletter Section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <div class="newsletter-content">
-                    <h2>TlonLetter</h2>
-                    <p>
-                        Subscribe to TlonLetter on Substack for weekly essays on philosophy, culture, and contemporary thought.
-                    </p>
-                    <a href="https://substack.com/@tlonletter" class="btn btn-primary">Subscribe Now</a>
+        <!-- Field Note: Santiago Story -->
+        <section class="field-note reveal">
+            <div class="field-note-content">
+                <div class="field-note-badge">Field Note</div>
+                <div class="field-note-main">
+                    <p class="field-note-date">Santiago de Chile · January 14, 2026</p>
+                    <h2 class="field-note-title">These Shoes Are <em>Not Mine</em></h2>
+                    <p class="field-note-excerpt">What I learned from being robbed twenty minutes before a dialogue with six philosophers at Congreso Futuro. Fragility became the thought finding its way.</p>
+                </div>
+                <div class="field-note-cta">
+                    <a href="santiago.html" class="magnetic">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <span>Read</span>
                 </div>
             </div>
         </section>
+
+        <section class="featured" id="hypnocracy-section">
+            <div class="scan-line"></div>
+            <div class="trance-container" id="trance-container"></div>
+            <div class="featured-bg">
+                <span class="featured-bg-text" id="huangChar">谎</span>
+            </div>
+            <div class="featured-glow"></div>
+            <div class="featured-content">
+                <span class="featured-label">Diagnosis</span>
+                <h2 class="featured-title"><em>Hypnocracy</em></h2>
+                <p class="featured-subtitle">Trump, Musk and the New Architecture of Reality</p>
+                <p class="featured-desc">In 2024 I invented a Chinese philosopher named Jianwei Xun. Le Monde, El País and Libération reviewed his book. When the hoax was revealed, it demonstrated the thesis: we live in a regime that operates directly on consciousness. Co-written with Claude and ChatGPT as critical interlocutors.</p>
+                <a href="hypnocracy.html" class="featured-cta magnetic">
+                    <span>The experiment</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <div class="featured-press">
+                    <p class="featured-press-label">Featured in</p>
+                    <div class="featured-press-logos">
+                        <span>El País</span>
+                        <span>Le Monde</span>
+                        <span>Libération</span>
+                        <span>Corriere della Sera</span>
+                        <span>La Stampa</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Prompt Thinking</h2>
+                    <span class="section-num">Method</span>
+                </div>
+                <div class="text-content">
+                    <p>If <em>Hypnocracy</em> is the diagnosis, <em>Prompt Thinking</em> is the navigation method. Coming February 2026 from <strong>Polity Press</strong> (English) and <strong>Rosameron</strong> (Spanish), the book proposes a new discipline: the art of formulating questions that generate thought, not just answers.</p>
+                    <p>From Socratic maieutics to contemporary prompt engineering, the text traverses the history of philosophy to show how every great tradition of thought has been, at its core, a technology for generating thought through the right formulation of questions. Taught at IED Rome and 24Ore Business School. Practiced daily.</p>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <a href="prompt-thinking.html" class="featured-cta magnetic" style="color: var(--nero); border-color: var(--grigio-chiaro);">
+                        <span>Discover the book</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="section-connector">The thread connecting this work is a question: how do we think in the age of algorithmic trance?</p>
+            </div>
+        </section>
+
+        <section class="section reveal" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2 class="section-title">Biography</h2>
+                    <span class="section-num">I</span>
+                </div>
+                <div class="text-content">
+                    <p>I am a philosopher, publisher and writer. In 2014 I founded <strong>Tlon</strong> together with Maura Gancitano: a cultural project that manifests through festivals and events, a publishing house, two bookstores, and online and offline outreach, mixing high and low culture, analyzing the needs and meanings of our time, and connecting the academic world with popular culture.</p>
+                    <p>I teach <strong>Prompt Thinking</strong> at IED Rome and 24Ore Business School, and <em>Borges y la Inteligencia Artificial</em> at Universidad del Sur in Buenos Aires. I am <strong>president of GenIA</strong>, an interdisciplinary hub on artificial intelligence at AANT — Academy of Arts and New Technologies in Rome. In 2024–2025 I held a research fellowship at the University of Foggia on artificial intelligence and systems of thought.</p>
+                    <p>Together with Maura Gancitano I am <strong>philosophical director</strong> of the Festival del Pensare Contemporaneo in Piacenza and the Carnival of Putignano. I have given TEDx talks on the philosophy of artificial intelligence (TEDxRoma) and the relationship between art and AI (TEDxBarletta).</p>
+                    <p>My approach to artificial intelligence is not observational but dialogical. I work <em>with</em> AI systems, not just <em>about</em> them. This is how <em>Hypnocracy</em> was written. This is how I think.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="trace reveal">
+            <div class="trace-content">
+                <div class="trace-line"></div>
+                <p class="trace-text">There is an experiment in progress. When the time comes, you will see it.</p>
+                <a href="https://andreacolamedici.github.io/alveare/" target="_blank" class="trace-link">→</a>
+            </div>
+        </section>
+
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="#books">Books</a></li>
-                        <li><a href="#writing">Writing</a></li>
-                        <li><a href="#speaking">Speaking</a></li>
-                        <li><a href="#about">About</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Projects</h4>
-                    <ul>
-                        <li><a href="https://tlon.it">Tlon</a></li>
-                        <li><a href="#">GLAST</a></li>
-                        <li><a href="https://substack.com/@tlonletter">TlonLetter</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Social</h4>
-                    <ul>
-                        <li><a href="https://linkedin.com">LinkedIn</a></li>
-                        <li><a href="https://youtube.com">YouTube</a></li>
-                        <li><a href="https://tiktok.com">TikTok</a></li>
-                        <li><a href="https://twitter.com">Twitter/X</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p><a href="mailto:andrea@andreacolamedici.com">andrea@andreacolamedici.com</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Andrea Colamedici. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-left">© 2026 Andrea Colamedici</div>
+            <div class="footer-links">
+                <a href="https://tlon.it" target="_blank">Tlon</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Neural Network Canvas Animation
+        // ———————————————————————————————————————————————————————————————
+        // NEURAL NETWORK CANVAS
+        // ———————————————————————————————————————————————————————————————
         const canvas = document.getElementById('neural-canvas');
         const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const nodes = [];
-        const nodeCount = 30;
-        const connectionDistance = 150;
-
-        // Initialize nodes
-        for (let i = 0; i < nodeCount; i++) {
-            nodes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                radius: Math.random() * 2 + 1
-            });
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-        function distance(x1, y1, x2, y2) {
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            return Math.sqrt(dx * dx + dy * dy);
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Update and draw nodes
-            nodes.forEach((node, i) => {
-                node.x += node.vx;
-                node.y += node.vy;
-
-                // Bounce off walls
-                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-
-                // Keep nodes in bounds
-                node.x = Math.max(0, Math.min(canvas.width, node.x));
-                node.y = Math.max(0, Math.min(canvas.height, node.y));
-
-                // Draw node
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        this.vx -= (dx / dist) * force * 0.02;
+                        this.vy -= (dy / dist) * force * 0.02;
+                    }
+                }
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+            }
+            draw() {
                 ctx.beginPath();
-                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 245, 212, 0.5)';
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(42, 107, 107, 0.5)';
                 ctx.fill();
+            }
+        }
 
-                // Draw connections
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dist = distance(node.x, node.y, nodes[j].x, nodes[j].y);
-                    if (dist < connectionDistance) {
-                        const opacity = 1 - (dist / connectionDistance);
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
                         ctx.beginPath();
-                        ctx.moveTo(node.x, node.y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.strokeStyle = `rgba(0, 245, 212, ${opacity * 0.3})`;
-                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = `rgba(42, 107, 107, ${0.2 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
                 }
-            });
-
-            requestAnimationFrame(animate);
+            }
         }
 
-        animate();
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // ———————————————————————————————————————————————————————————————
+        // GLITCH EFFECT
+        // ———————————————————————————————————————————————————————————————
+        const glitchElement = document.querySelector('.glitch');
+        function triggerGlitch() {
+            glitchElement.classList.add('active');
+            setTimeout(() => glitchElement.classList.remove('active'), 300);
+        }
+        setInterval(() => {
+            if (Math.random() > 0.7) triggerGlitch();
+        }, 3000);
+
+        // ———————————————————————————————————————————————————————————————
+        // SCRAMBLE TEXT EFFECT
+        // ———————————————————————————————————————————————————————————————
+        const scrambleEl = document.getElementById('scramble-text');
+        const originalText = scrambleEl.textContent;
+        const chars = '!<>-_\\/[]{}—=+*^?#アイウエオカキクケコサシスセソ';
+        
+        function scrambleText() {
+            let iteration = 0;
+            const interval = setInterval(() => {
+                scrambleEl.textContent = originalText
+                    .split('')
+                    .map((char, index) => {
+                        if (index < iteration) return originalText[index];
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join('');
+                if (iteration >= originalText.length) clearInterval(interval);
+                iteration += 1/2;
+            }, 30);
+        }
+        setTimeout(scrambleText, 1000);
+        setInterval(() => {
+            if (Math.random() > 0.8) scrambleText();
+        }, 10000);
+
+        // ———————————————————————————————————————————————————————————————
+        // MAGNETIC CURSOR EFFECT
+        // ———————————————————————————————————————————————————————————————
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // ———————————————————————————————————————————————————————————————
+        // TRANCE CHARACTERS (Hypnocracy section)
+        // ———————————————————————————————————————————————————————————————
+        const tranceContainer = document.getElementById('trance-container');
+        const tranceChars = ['谎', '梦', '幻', '眠', '醒'];
+        for (let i = 0; i < 15; i++) {
+            const char = document.createElement('span');
+            char.className = 'trance-char';
+            char.textContent = tranceChars[Math.floor(Math.random() * tranceChars.length)];
+            char.style.left = Math.random() * 100 + '%';
+            char.style.top = Math.random() * 100 + '%';
+            char.style.fontSize = (Math.random() * 8 + 4) + 'rem';
+            char.style.animationDelay = Math.random() * 5 + 's';
+            char.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            tranceContainer.appendChild(char);
+        }
+
+        // ———————————————————————————————————————————————————————————————
+        // ENHANCED CHINESE CHARACTER INTERACTION
+        // ———————————————————————————————————————————————————————————————
+        const huangChar = document.getElementById('huangChar');
+        const featuredSection = document.getElementById('hypnocracy-section');
+        
+        if (huangChar && featuredSection) {
+            let rotation = 0;
+            featuredSection.addEventListener('mousemove', (e) => {
+                const rect = featuredSection.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                rotation += 0.5;
+                
+                huangChar.style.transform = `
+                    translate(${x * 50}px, ${y * 50}px) 
+                    scale(${1 + Math.abs(x * y) * 0.3})
+                    rotate(${rotation * 0.1}deg)
+                `;
+                huangChar.style.opacity = 0.03 + Math.abs(x * y) * 0.08;
+                huangChar.style.filter = `blur(${Math.abs(x * y) * 5}px)`;
+            });
+            
+            featuredSection.addEventListener('mouseleave', () => {
+                huangChar.style.transform = '';
+                huangChar.style.opacity = '';
+                huangChar.style.filter = '';
+            });
+        }
+
+        // ———————————————————————————————————————————————————————————————
+        // REVEAL ON SCROLL
+        // ———————————————————————————————————————————————————————————————
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // ———————————————————————————————————————————————————————————————
+        // MOBILE MENU
+        // ———————————————————————————————————————————————————————————————
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const header = document.querySelector('header');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            header.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ———————————————————————————————————————————————————————————————
+        // PARALLAX ON SCROLL
+        // ———————————————————————————————————————————————————————————————
+        const floatElements = document.querySelectorAll('.float-element');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            floatElements.forEach((el, i) => {
+                const speed = 0.1 + (i * 0.05);
+                el.style.transform = `translateY(${scrollY * speed}px)`;
             });
         });
     </script>
+
 </body>
 </html>

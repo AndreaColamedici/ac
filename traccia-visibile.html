@@ -197,6 +197,37 @@
 .dl-btn:hover svg { transform: translateY(3px); }
 .dl-meta { margin-top: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); }
 
+/* LINKEDIN POST */
+.linkedin-section { padding: 8rem 3rem; position: relative; }
+.linkedin-inner { max-width: 700px; margin: 0 auto; }
+.linkedin-header { text-align: center; margin-bottom: 4rem; }
+.linkedin-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
+.linkedin-header p { font-size: 1.05rem; color: var(--grigio); max-width: 500px; margin: 0 auto; line-height: 1.8; }
+.linkedin-card { border: 1px solid var(--grigio-chiaro); border-radius: 4px; padding: 2.5rem; background: #fafafa; }
+.linkedin-card-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.linkedin-card-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--ottanio); display: flex; align-items: center; justify-content: center; color: var(--bianco); font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; flex-shrink: 0; }
+.linkedin-card-author { font-size: 0.9rem; font-weight: 500; }
+.linkedin-card-date { font-size: 0.75rem; color: var(--grigio); }
+.linkedin-card-text { font-size: 0.95rem; line-height: 1.9; color: var(--nero); margin-bottom: 2rem; }
+.linkedin-card-text em { color: var(--ottanio); font-style: italic; }
+.linkedin-card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid var(--grigio-chiaro); }
+.linkedin-card-stats { font-size: 0.78rem; color: var(--grigio); }
+.linkedin-card-link { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); text-decoration: none; border-bottom: 1px solid rgba(42,107,107,0.3); padding-bottom: 0.15rem; transition: border-color 0.3s ease; }
+.linkedin-card-link:hover { border-color: var(--ottanio); }
+
+/* EDITORIAL NOTE */
+.editorial-note { max-width: 650px; margin: 3rem auto 0; padding: 2rem 2.5rem; border-left: 2px solid var(--ottanio); font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-style: italic; line-height: 1.7; color: var(--grigio); }
+
+/* PROMPT THINKING */
+.pt-section { padding: 6rem 3rem; background: #fafafa; border-top: 1px solid var(--grigio-chiaro); }
+.pt-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; gap: 3rem; }
+.pt-cover { width: 160px; flex-shrink: 0; }
+.pt-cover img { width: 100%; height: auto; border-radius: 2px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.pt-text { flex: 1; }
+.pt-text h3 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.75rem; }
+.pt-text p { font-size: 0.92rem; line-height: 1.8; color: var(--grigio); margin-bottom: 0.5rem; }
+.pt-model { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--ottanio); letter-spacing: 0.05em; }
+
 /* REVEAL */
 .rv { opacity: 0; transform: translateY(25px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
 .rv.vis { opacity: 1; transform: translateY(0); }
@@ -205,7 +236,10 @@
 @media (max-width: 900px) {
     .side-nav { display: none; }
     .t-hero-content { padding: 4rem 1.5rem; }
-    .bivio-section, .convo-section, .proto, .axes-radial, .lab-section, .voices-section, .dl-section { padding: 5rem 1.5rem; }
+    .bivio-section, .convo-section, .proto, .axes-radial, .lab-section, .linkedin-section, .voices-section, .dl-section { padding: 5rem 1.5rem; }
+    .pt-section { padding: 4rem 1.5rem; }
+    .pt-inner { flex-direction: column; text-align: center; }
+    .pt-cover { width: 120px; }
     .radar-wrap { flex-direction: column; gap: 3rem; }
     .radar-svg-wrap { width: 300px; height: 300px; }
     .counter-strip { gap: 3rem; }
@@ -232,6 +266,7 @@
     <div class="side-nav-dot" data-label="Protocollo" data-target="protoSection"></div>
     <div class="side-nav-dot" data-label="Assi" data-target="axesSection"></div>
     <div class="side-nav-dot" data-label="Laboratorio" data-target="labSection"></div>
+    <div class="side-nav-dot" data-label="Post" data-target="linkedinSection"></div>
     <div class="side-nav-dot" data-label="Voci" data-target="voicesSection"></div>
     <div class="side-nav-dot" data-label="Scarica" data-target="dlSection"></div>
 </nav>
@@ -355,7 +390,31 @@
 
 <div class="flow-div"><canvas id="flow5"></canvas></div>
 
-<!-- 8. VOCI DAL DIBATTITO -->
+<!-- 8. IL POST SU LINKEDIN -->
+<section class="linkedin-section" id="linkedinSection">
+    <div class="linkedin-inner">
+        <div class="linkedin-header rv">
+            <h2>Il post</h2>
+            <p>Il saggio è nato come riflessione su LinkedIn. La discussione che ne è seguita ha dato forma al protocollo.</p>
+        </div>
+        <div class="linkedin-card rv">
+            <div class="linkedin-card-meta">
+                <div class="linkedin-card-avatar">AC</div>
+                <div>
+                    <div class="linkedin-card-author">Andrea Colamedici</div>
+                    <div class="linkedin-card-date">Febbraio 2026 · New York</div>
+                </div>
+            </div>
+            <div class="linkedin-card-text">La valutazione del testo consegnato, il compito finito, l'elaborato a casa, da solo, nella sua forma definitiva, ha perso buona parte della sua funzione diagnostica. Bisogna farsene una ragione. La conseguenza è una sola, ed è radicale: <em>bisogna spostare la valutazione dal prodotto al processo</em>. E il processo che va valutato è l'uso dell'intelligenza artificiale stessa. Uno studente che discute con la macchina, che la corregge, che la costringe a riformulare, che rifiuta le semplificazioni e insiste sulle distinzioni, è uno studente che sta pensando — e sta pensando in un modo che il testo finale, da solo, non può mostrare. <em>Il pensiero lascia una traccia visibile, leggibile, analizzabile, e quella traccia è la conversazione con la macchina.</em></div>
+            <div class="linkedin-card-footer">
+                <span class="linkedin-card-stats">23+ commenti · Professionisti, docenti, imprenditori</span>
+                <a href="https://www.linkedin.com/posts/andrea-colamedici-77751b53_sono-a-new-york-in-questi-giorni-e-anche-share-7433578898686316545-6E7o" class="linkedin-card-link" target="_blank" rel="noopener">Leggi il post →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9. VOCI DAL DIBATTITO -->
 <section class="voices-section" id="voicesSection">
     <div class="voices-inner">
         <h2 class="rv">Voci dal dibattito</h2>
@@ -366,10 +425,23 @@
             <button class="voices-nav-btn" id="voicesNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <div class="voices-dots rv" id="voicesDots"></div>
+        <div class="editorial-note rv">Queste domande non chiudono il discorso, lo aprono. Il Protocollo di Valutazione del Processo è una proposta, non una risposta definitiva. Il fatto che generi questo tipo di confronto — attento, preciso, esigente — è parte del suo senso.</div>
     </div>
 </section>
 
-<!-- 9. DOWNLOAD -->
+<!-- 10. PROMPT THINKING -->
+<section class="pt-section rv" id="ptSection">
+    <div class="pt-inner">
+        <div class="pt-cover"><img src="assets/images/Prompt.jpg" alt="Prompt Thinking — Andrea Colamedici, Maura Gancitano (Polity Press, 2026)"></div>
+        <div class="pt-text">
+            <h3>Questa pagina è un esercizio di Prompt Thinking</h3>
+            <p>Progettata e realizzata attraverso una conversazione strutturata con l'intelligenza artificiale, seguendo il metodo descritto in <em>Prompt Thinking</em> (Polity Press, 2026) di Andrea Colamedici e Maura Gancitano.</p>
+            <span class="pt-model">Modello: Claude Opus 4.6 · Anthropic</span>
+        </div>
+    </div>
+</section>
+
+<!-- 11. DOWNLOAD -->
 <section class="dl-section" id="dlSection">
     <div class="dl-glow"></div>
     <div class="dl-inner rv">

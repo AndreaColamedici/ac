@@ -19,545 +19,409 @@
 .side-nav { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 1.25rem; }
 .side-nav-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(42,107,107,0.3); background: transparent; cursor: pointer; transition: all 0.4s ease; position: relative; }
 .side-nav-dot.active { background: var(--ottanio); border-color: var(--ottanio); transform: scale(1.3); }
-.side-nav-dot::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); white-space: nowrap; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.side-nav-dot::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--grigio); opacity: 0; pointer-events: none; white-space: nowrap; transition: opacity 0.3s ease; }
 .side-nav-dot:hover::after { opacity: 1; }
-/* GRAIN */
-.grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-/* HERO */
-.t-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--nero); color: var(--bianco); }
-.t-hero canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-.t-hero-content { position: relative; z-index: 2; text-align: center; max-width: 860px; padding: 6rem 3rem; }
-.t-hero-label { display: inline-block; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 3rem; padding: 0.6rem 2rem; border: 1px solid rgba(42,107,107,0.4); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
-.t-hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(3.2rem, 9vw, 6.5rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
-.t-hero-title em { font-style: italic; color: var(--ottanio); }
-.t-hero-subtitle { font-family: 'Instrument Serif', serif; font-size: clamp(1rem, 2vw, 1.4rem); font-style: italic; color: rgba(255,255,255,0.35); line-height: 1.7; max-width: 600px; margin: 0 auto 3rem; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
-.t-hero-meta { display: flex; justify-content: center; gap: 3rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.2); opacity: 0; animation: fadeUp 1s 1.2s forwards; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.scroll-cue { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.25); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
-.scroll-cue-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--ottanio), transparent); animation: scrollPulse 2.5s ease-in-out infinite; }
-@keyframes scrollPulse { 0%,100% { opacity: 0.2; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.4); } }
-@keyframes glowPulse { 0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
-/* FLOW DIVIDERS */
-.flow-div { height: 180px; position: relative; overflow: hidden; }
-.flow-div canvas { width: 100%; height: 100%; }
-.flow-div.dark { background: var(--nero); }
-/* COUNTER STRIP */
-.counter-strip { padding: 4rem 3rem; background: var(--nero); color: var(--bianco); display: flex; justify-content: center; gap: 6rem; flex-wrap: wrap; }
-.counter-item { text-align: center; }
-.counter-num { font-family: 'Instrument Serif', serif; font-size: 3.5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
-.counter-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 0.5rem; }
-/* ESSAY */
-.essay { padding: 8rem 3rem; position: relative; }
-.essay-inner { max-width: 720px; margin: 0 auto; position: relative; }
-.essay p { font-size: 1.15rem; line-height: 2.1; margin-bottom: 1.8rem; color: var(--nero); }
-.essay-dropcap::first-letter { font-family: 'Instrument Serif', serif; font-size: 4.5rem; float: left; line-height: 0.8; padding-right: 0.75rem; padding-top: 0.1rem; color: var(--ottanio); }
-.essay-pullquote { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-style: italic; line-height: 1.5; color: var(--ottanio); border-left: 2px solid var(--ottanio); padding: 2rem 0 2rem 2.5rem; margin: 4rem 0 4rem -2rem; max-width: 640px; }
-.essay-note { position: absolute; right: -220px; width: 180px; font-size: 0.78rem; line-height: 1.7; color: var(--grigio); border-left: 1px solid var(--grigio-chiaro); padding-left: 1rem; opacity: 0; transform: translateX(10px); transition: all 0.8s ease; }
-.essay-note.visible { opacity: 1; transform: translateX(0); }
-.text-highlight { background: linear-gradient(120deg, rgba(42,107,107,0) 0%, rgba(42,107,107,0.12) 100%); background-size: 0% 100%; background-repeat: no-repeat; transition: background-size 1.2s ease; padding: 0 0.15rem; }
-.text-highlight.active { background-size: 100% 100%; }
-/* CONVERSATION SIMULATION */
-.convo-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; overflow: hidden; }
-.convo-inner { max-width: 900px; margin: 0 auto; }
-.convo-header { text-align: center; margin-bottom: 4rem; }
-.convo-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
-.convo-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 550px; margin: 0 auto; line-height: 1.8; }
-.convo-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 3rem; }
-.convo-tab { padding: 0.75rem 2.5rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; color: rgba(255,255,255,0.4); }
-.convo-tab:first-child { border-radius: 2px 0 0 2px; }
-.convo-tab:last-child { border-radius: 0 2px 2px 0; }
-.convo-tab.active { background: var(--ottanio); border-color: var(--ottanio); color: var(--bianco); }
-.convo-terminal { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
-.convo-terminal-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
-.convo-terminal-dot { width: 8px; height: 8px; border-radius: 50%; }
-.convo-terminal-dot:nth-child(1) { background: #ff5f57; }
-.convo-terminal-dot:nth-child(2) { background: #febc2e; }
-.convo-terminal-dot:nth-child(3) { background: #28c840; }
-.convo-terminal-title { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-left: 0.75rem; font-family: 'JetBrains Mono', monospace; }
-.convo-body { padding: 2rem; max-height: 420px; overflow-y: auto; }
-.convo-msg { margin-bottom: 1.5rem; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
-.convo-msg.show { opacity: 1; transform: translateY(0); }
-.convo-role { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
-.convo-role.human { color: var(--ottanio); }
-.convo-role.ai { color: rgba(255,255,255,0.3); }
-.convo-role.reflection { color: #9a7a5a; }
-.convo-text { font-size: 0.92rem; line-height: 1.8; color: rgba(255,255,255,0.7); padding-left: 1rem; border-left: 2px solid rgba(255,255,255,0.06); }
-.convo-text em { color: var(--ottanio); font-style: italic; }
-.convo-score { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; padding: 1.5rem; background: rgba(42,107,107,0.08); border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; }
-.convo-score-item { text-align: center; }
-.convo-score-val { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; }
-.convo-score-val.high { color: var(--ottanio); }
-.convo-score-val.low { color: #8a5a4a; }
-.convo-score-lbl { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.25rem; }
-/* PROTOCOL: RADAR */
-.proto { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; }
-.proto-inner { max-width: 1100px; margin: 0 auto; }
-.proto-header { text-align: center; margin-bottom: 5rem; }
-.proto-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1rem; }
-.proto-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto; line-height: 1.8; }
-.radar-wrap { display: flex; align-items: center; justify-content: center; gap: 5rem; flex-wrap: wrap; margin-bottom: 5rem; }
-.radar-svg-wrap { width: 420px; height: 420px; flex-shrink: 0; position: relative; }
-.radar-svg-wrap svg { width: 100%; height: 100%; }
-.radar-info { max-width: 400px; }
-.radar-info-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-style: italic; color: var(--ottanio); margin-bottom: 1rem; min-height: 2.5rem; transition: all 0.4s ease; }
-.radar-info-desc { font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 2rem; min-height: 5rem; transition: all 0.4s ease; }
-.radar-info-weight { font-family: 'Instrument Serif', serif; font-size: 3rem; font-style: italic; color: var(--ottanio); opacity: 0.4; }
-/* CALCULATOR */
-.calc-section { padding: 8rem 3rem; }
-.calc-inner { max-width: 900px; margin: 0 auto; }
-.calc-header { text-align: center; margin-bottom: 4rem; }
-.calc-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
-.calc-header p { color: var(--grigio); max-width: 550px; margin: 0 auto; line-height: 1.8; }
-.calc-grid { display: grid; grid-template-columns: 1fr 300px; gap: 4rem; align-items: start; }
-.calc-sliders { display: flex; flex-direction: column; gap: 2rem; }
-.calc-slider-row { display: flex; flex-direction: column; gap: 0.5rem; }
-.calc-slider-header { display: flex; justify-content: space-between; align-items: baseline; }
-.calc-slider-name { font-family: 'Instrument Serif', serif; font-size: 1.1rem; }
-.calc-slider-val { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ottanio); }
-.calc-slider-weight { font-size: 0.7rem; color: var(--grigio); letter-spacing: 0.1em; }
-.calc-range { -webkit-appearance: none; width: 100%; height: 3px; background: var(--grigio-chiaro); outline: none; border-radius: 2px; cursor: pointer; }
-.calc-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--ottanio); cursor: pointer; transition: transform 0.2s ease; }
-.calc-range::-webkit-slider-thumb:hover { transform: scale(1.3); }
-.calc-result { position: sticky; top: 8rem; text-align: center; padding: 3rem 2rem; border: 1px solid var(--grigio-chiaro); border-radius: 4px; }
-.calc-result-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grigio); margin-bottom: 1rem; }
-.calc-result-score { font-family: 'Instrument Serif', serif; font-size: 5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
-.calc-result-max { font-size: 0.85rem; color: var(--grigio); margin-top: 0.5rem; }
-.calc-result-bar { width: 100%; height: 4px; background: var(--grigio-chiaro); border-radius: 2px; margin-top: 2rem; overflow: hidden; }
-.calc-result-fill { height: 100%; background: var(--ottanio); border-radius: 2px; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
-.calc-result-level { font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; margin-top: 1rem; color: var(--nero); }
-/* AXES */
-.axes { padding: 8rem 3rem; background: #fafafa; }
-.axes-inner { max-width: 1000px; margin: 0 auto; }
-.axes-header { text-align: center; margin-bottom: 5rem; }
-.axes-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; }
-.axis-card { padding: 2.5rem 0; border-bottom: 1px solid var(--grigio-chiaro); cursor: pointer; }
-.axis-card:last-child { border-bottom: none; }
-.axis-card-head { display: flex; align-items: center; gap: 2rem; }
-.axis-card-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--ottanio); min-width: 24px; }
-.axis-card-title { font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-weight: 400; flex: 1; }
-.axis-card-percent { font-family: 'Instrument Serif', serif; font-size: 1.3rem; font-style: italic; color: var(--ottanio); }
-.axis-card-toggle { width: 28px; height: 28px; border: 1px solid var(--grigio-chiaro); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; flex-shrink: 0; }
-.axis-card-toggle svg { width: 12px; height: 12px; stroke: var(--grigio); transition: transform 0.4s ease; }
-.axis-card.open .axis-card-toggle { background: var(--ottanio); border-color: var(--ottanio); }
-.axis-card.open .axis-card-toggle svg { stroke: var(--bianco); transform: rotate(180deg); }
-.axis-card-body { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1); }
-.axis-card.open .axis-card-body { max-height: 600px; }
-.axis-card-content { padding: 2rem 0 1rem 3.5rem; }
-.axis-card-desc { font-size: 1.05rem; line-height: 1.9; color: var(--grigio); margin-bottom: 2rem; }
-.axis-levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--grigio-chiaro); border: 1px solid var(--grigio-chiaro); }
-.axis-level { padding: 1.25rem; background: var(--bianco); transition: all 0.4s ease; }
-.axis-level:hover { background: rgba(42,107,107,0.04); }
-.axis-level-name { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
-.axis-level-name.exc { color: var(--ottanio); }
-.axis-level-name.good { color: #4a8f8f; }
-.axis-level-name.suf { color: #8a8a4a; }
-.axis-level-name.ins { color: #8a5a4a; }
-.axis-level p { font-size: 0.8rem; line-height: 1.7; color: var(--grigio); }
-/* DOWNLOAD */
-.dl-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); text-align: center; position: relative; overflow: hidden; }
-.dl-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(42,107,107,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: glowPulse 6s ease-in-out infinite; pointer-events: none; }
-.dl-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
-.dl-icon { width: 90px; height: 90px; margin: 0 auto 2.5rem; border: 1px solid rgba(42,107,107,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: floatIcon 4s ease-in-out infinite; }
-@keyframes floatIcon { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.dl-icon svg { width: 30px; height: 30px; stroke: var(--ottanio); }
-.dl-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1.5rem; }
-.dl-inner > p { font-size: 1.05rem; line-height: 1.8; color: rgba(255,255,255,0.4); margin-bottom: 3rem; }
-.dl-btn { display: inline-flex; align-items: center; gap: 1rem; padding: 1.25rem 3.5rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--bianco); background: var(--ottanio); border: 1px solid var(--ottanio); text-decoration: none; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
-.dl-btn:hover { background: transparent; color: var(--ottanio); }
-.dl-btn svg { transition: transform 0.4s ease; }
-.dl-btn:hover svg { transform: translateY(3px); }
-.dl-meta { margin-top: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); }
-/* REVEAL */
-.rv { opacity: 0; transform: translateY(25px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
-.rv.vis { opacity: 1; transform: translateY(0); }
+/* MAIN LAYOUT */
+body { font-family: 'Inter', sans-serif; color: var(--nero); line-height: 1.6; overflow-x: hidden; }
+a { color: var(--ottanio); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.7; }
+.container { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
+/* ARTICLE STYLING */
+article { }
+.article-meta { font-size: 0.875rem; color: var(--grigio); margin-bottom: 3rem; display: flex; gap: 2rem; flex-wrap: wrap; }
+.article-meta-item { display: flex; gap: 0.5rem; }
+.article-meta-label { font-weight: 600; }
+h1 { font-family: 'Instrument Serif', serif; font-size: 2.5rem; line-height: 1.2; margin-bottom: 1.5rem; }
+h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; }
+h3 { font-family: 'Instrument Serif', serif; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+p { margin-bottom: 1.25rem; text-align: justify; }
+strong { font-weight: 600; }
+em { font-style: italic; }
+code { font-family: 'JetBrains Mono', monospace; background: var(--grigio-chiaro); padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.875em; }
+pre { background: var(--grigio-chiaro); padding: 1rem; border-radius: 6px; overflow-x: auto; margin-bottom: 1.25rem; }
+pre code { background: none; padding: 0; }
+blockquote { border-left: 3px solid var(--ottanio); padding-left: 1.5rem; margin-left: 0; margin-bottom: 1.25rem; color: var(--grigio); font-style: italic; }
+ul, ol { margin-bottom: 1.25rem; padding-left: 2rem; }
+li { margin-bottom: 0.5rem; }
+.section { margin-bottom: 3rem; }
+.section-number { color: var(--ottanio); font-weight: 600; }
+/* INTERACTIVE ELEMENTS */
+.interactive-box { background: var(--grigio-chiaro); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; border-left: 4px solid var(--ottanio); }
+.interactive-box h4 { margin-top: 0; }
+button { background: var(--ottanio); color: var(--bianco); border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: background 0.3s ease; }
+button:hover { background: #1f4d4d; }
+button:active { transform: scale(0.98); }
+/* FORM ELEMENTS */
+input, textarea, select { font-family: 'Inter', sans-serif; padding: 0.75rem; border: 1px solid var(--grigio-chiaro); border-radius: 4px; font-size: 0.95rem; }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--ottanio); box-shadow: 0 0 0 2px rgba(42, 107, 107, 0.1); }
+textarea { resize: vertical; min-height: 120px; }
+label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+.form-group { margin-bottom: 1.5rem; }
+/* TABLE STYLING */
+table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; }
+th { background: var(--grigio-chiaro); padding: 0.75rem; text-align: left; font-weight: 600; }
+td { padding: 0.75rem; border-bottom: 1px solid var(--grigio-chiaro); }
+/* FOOTER */
+footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--grigio-chiaro); color: var(--grigio); font-size: 0.875rem; text-align: center; }
 /* RESPONSIVE */
-@media (max-width: 1100px) { .essay-note { display: none; } }
-@media (max-width: 900px) {
-    .side-nav { display: none; }
-    .t-hero-content { padding: 4rem 1.5rem; }
-    .essay, .convo-section, .proto, .calc-section, .axes, .dl-section { padding: 5rem 1.5rem; }
-    .radar-wrap { flex-direction: column; gap: 3rem; }
-    .radar-svg-wrap { width: 300px; height: 300px; }
-    .calc-grid { grid-template-columns: 1fr; }
-    .calc-result { position: static; }
-    .counter-strip { gap: 3rem; }
-    .convo-score { gap: 1rem; flex-wrap: wrap; }
-    .t-hero-meta { gap: 1.5rem; }
+@media (max-width: 768px) {
+  .side-nav { right: 1rem; gap: 1rem; }
+  .side-nav-dot::after { display: none; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.25rem; }
+  .container { padding: 2rem 1rem; }
+  .article-meta { flex-direction: column; gap: 0.5rem; }
 }
-@media (max-width: 600px) {
-    .axis-levels-grid { grid-template-columns: repeat(2, 1fr); }
-    .convo-tabs { flex-direction: column; gap: 0; }
-    .convo-tab:first-child { border-radius: 2px 2px 0 0; }
-    .convo-tab:last-child { border-radius: 0 0 2px 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .cursor-light, .reading-progress, .side-nav-dot, a, button { transition: none !important; }
 }
-@media (max-width: 450px) { .axis-levels-grid { grid-template-columns: 1fr; } }
+/* PRINT */
+@media print {
+  .side-nav, .cursor-light, .reading-progress { display: none; }
+  a { color: inherit; text-decoration: underline; }
+}
 </style>
 </head>
 <body>
-<div class="reading-progress" id="readingProgress"></div>
-<div class="cursor-light" id="cursorLight"></div>
-<div class="grain"></div>
-
-<nav class="side-nav" id="sideNav">
-    <div class="side-nav-dot active" data-label="Inizio" data-target="hero"></div>
-    <div class="side-nav-dot" data-label="Saggio" data-target="essaySection"></div>
-    <div class="side-nav-dot" data-label="Dialogo" data-target="convoSection"></div>
-    <div class="side-nav-dot" data-label="Protocollo" data-target="protoSection"></div>
-    <div class="side-nav-dot" data-label="Calcola" data-target="calcSection"></div>
-    <div class="side-nav-dot" data-label="Assi" data-target="axesSection"></div>
-    <div class="side-nav-dot" data-label="Scarica" data-target="dlSection"></div>
+<div class="cursor-light"></div>
+<div class="reading-progress"></div>
+<nav class="side-nav">
+  <div class="side-nav-dot active" data-label="Inizio" data-section="0"></div>
+  <div class="side-nav-dot" data-label="Il problema" data-section="1"></div>
+  <div class="side-nav-dot" data-label="La soluzione" data-section="2"></div>
+  <div class="side-nav-dot" data-label="Come funziona" data-section="3"></div>
+  <div class="side-nav-dot" data-label="Applicazioni" data-section="4"></div>
+  <div class="side-nav-dot" data-label="Il futuro" data-section="5"></div>
+  <div class="side-nav-dot" data-label="Risorse" data-section="6"></div>
 </nav>
-
-<header>
-    <a href="./" class="logo"><span class="pulse-signal"></span>Andrea <em>Colamedici</em></a>
-    <nav><a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a><div class="lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div></nav>
-    <div class="lang-switch" style="position:absolute;right:4rem;top:50%;transform:translateY(-50%);"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-</header>
-<div class="mobile-menu" id="mobileMenu">
-    <a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a>
-    <div class="mobile-lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div>
+<div class="container">
+<article>
+<div class="article-meta">
+<div class="article-meta-item"><span class="article-meta-label">Data:</span> <time datetime="2026-03-01">1 marzo 2026</time></div>
+<div class="article-meta-item"><span class="article-meta-label">Argomento:</span> Valutazione educativa</div>
+<div class="article-meta-item"><span class="article-meta-label">Lettura:</span> <span class="reading-time">8 minuti</span></div>
 </div>
-
-<main>
-<section class="t-hero" id="hero">
-    <canvas id="heroCanvas"></canvas>
-    <div class="t-hero-content">
-        <span class="t-hero-label">Saggio · 2026</span>
-        <h1 class="t-hero-title">La traccia <em>visibile</em> del pensiero</h1>
-        <p class="t-hero-subtitle">Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e macchina come documento del pensiero.</p>
-        <div class="t-hero-meta">
-            <span>Andrea Colamedici</span>
-            <span>13 pagine</span>
-            <span>5 assi di valutazione</span>
-        </div>
-    </div>
-    <div class="scroll-cue"><div class="scroll-cue-line"></div><span>Leggi</span></div>
-</section>
-
-<div class="counter-strip rv" id="counterStrip">
-    <div class="counter-item"><div class="counter-num" data-target="5">0</div><div class="counter-label">Assi di valutazione</div></div>
-    <div class="counter-item"><div class="counter-num" data-target="4">0</div><div class="counter-label">Livelli per asse</div></div>
-    <div class="counter-item"><div class="counter-num" data-target="20">0</div><div class="counter-label">Descrittori</div></div>
-    <div class="counter-item"><div class="counter-num" data-target="100">0</div><div class="counter-label">Punteggio max</div></div>
+<h1>La traccia visibile del pensiero</h1>
+<p>Un protocollo per valutare il <strong>processo</strong>, non il prodotto. Come leggere la conversazione tra studente e intelligenza artificiale come documento del pensiero.</p>
+<div class="interactive-box">
+<h4>Laboratorio del Prompt</h4>
+<p>Questo articolo include un <strong>laboratorio interattivo</strong> dove puoi testare il protocollo in tempo reale. Scorri verso il basso per provare gli strumenti.</p>
 </div>
-
-<div class="flow-div"><canvas id="flow1"></canvas></div>
-
-<section class="essay" id="essaySection">
-    <div class="essay-inner">
-        <p class="essay-dropcap rv">C'è un momento preciso in cui la domanda sulla valutazione scolastica cambia natura. Arriva quando ci si accorge che il testo consegnato dallo studente potrebbe essere stato generato da un'intelligenza artificiale, e che non esiste più alcun modo affidabile per distinguerlo da un testo scritto interamente di proprio pugno. In quel momento il problema smette di essere tecnico e diventa filosofico: <span class="text-highlight">se la macchina sa produrre un buon testo, dove si è spostato il pensiero?</span> Che cosa, esattamente, stiamo valutando quando valutiamo?</p>
-
-        <div class="essay-note" style="top: 0;" data-note="1">La domanda non è se lo studente ha usato l'IA, ma come l'ha usata: questo spostamento è il cuore della proposta.</div>
-
-        <p class="rv">Questo saggio nasce dalla convinzione che la risposta non stia nel proibire l'uso dell'intelligenza artificiale, né nel tentare di smascherarlo con strumenti di rilevamento che sono già strutturalmente inadeguati. La risposta sta nel cambiare radicalmente l'oggetto della valutazione: dal prodotto al processo, dal testo finito alla conversazione che lo ha generato. Quando uno studente lavora con un modello di linguaggio, il suo pensiero non scompare: si sposta. Si deposita nei prompt che formula, nelle correzioni che apporta, nelle resistenze che oppone alla facilità della risposta automatica, nella capacità di riconoscere quando la macchina sta producendo qualcosa di generico e di costringerla a fare meglio, o di abbandonare la sua proposta per seguire un'intuizione propria.</p>
-
-        <div class="essay-pullquote rv">L'intelligenza artificiale non ha eliminato la necessità di pensare. Ha reso il pensiero, per chi lo esercita, visibile come non lo è mai stato.</div>
-
-        <p class="rv">Il Protocollo di Valutazione del Processo che questo saggio propone è uno strumento costruito per leggere quella conversazione come un documento del pensiero. Cinque assi di valutazione, ciascuno con il proprio peso specifico, ciascuno con quattro livelli che descrivono altrettante qualità dell'interazione tra la mente dello studente e la mente della macchina. L'idea di fondo è che <span class="text-highlight">il log della conversazione – l'intera sequenza di prompt, risposte, revisioni, abbandoni – sia un testo a tutti gli effetti</span>: un testo che racconta come lo studente ha pensato, non solo cosa ha prodotto. E che quel testo, per chi sa leggerlo, sia più rivelatore di qualsiasi elaborato finale.</p>
-
-        <div class="essay-note" style="top: 480px;" data-note="2">Il cambio di paradigma: non cercare tracce di autenticità nel prodotto, ma tracce del pensiero nel processo.</div>
-
-        <p class="rv">Il protocollo non pretende di risolvere tutti i problemi della valutazione nell'era dell'intelligenza artificiale. Ne riconosce i limiti – di scalabilità, di copertura disciplinare, di formazione dei docenti – e li discute apertamente. Ciò che propone è un cambio di prospettiva: smettere di cercare tracce di autenticità nel prodotto e cominciare a riconoscere le tracce del pensiero nel processo. Perché è lì, nella domanda ben posta, nella correzione consapevole, nel rifiuto della prima risposta, che il pensiero si rende visibile.</p>
-    </div>
+<section class="section" id="section-0">
+<h2><span class="section-number">00.</span> Il problema della valutazione</h2>
+<p>La valutazione tradizionale si concentra sul risultato finale: un voto, un punteggio, un giudizio. Ma il risultato non racconta tutta la storia. Specie quando lo studente lavora con l'intelligenza artificiale, emerge un problema cruciale:</p>
+<p><strong>Come distinguere tra ciò che lo studente ha pensato e ciò che ha ottenuto?</strong></p>
+<p>Quando uno studente consegna un saggio perfetto, una ricerca impeccabile, una presentazione brillante, il docente si chiede: è opera sua? Ha coinvolto un'IA? Se sì, fino a che punto? Lo ha usata come ricerca, come bozza, come correzione?</p>
+<p>La traccia del processo di pensiero scompare. Resta solo il prodotto.</p>
+<p>Questo crea una distanza insormontabile tra ciò che è stato imparato e ciò che è stato consegnato.</p>
+<blockquote>
+<p>"La qualità del pensiero non si vede nel risultato, ma nel cammino che lo precede. Eppure oggi il cammino è nascosto."</p>
+</blockquote>
 </section>
-
-<div class="flow-div dark"><canvas id="flow2"></canvas></div>
-
-<section class="convo-section" id="convoSection">
-    <div class="convo-inner">
-        <div class="convo-header rv">
-            <h2>Due conversazioni, due pensieri</h2>
-            <p>Lo stesso compito, due studenti. Il protocollo legge la differenza.</p>
-        </div>
-        <div class="convo-tabs">
-            <div class="convo-tab active" data-convo="delegate">Delega del pensiero</div>
-            <div class="convo-tab" data-convo="traverse">Attraversamento del pensiero</div>
-        </div>
-        <div class="convo-terminal">
-            <div class="convo-terminal-bar">
-                <div class="convo-terminal-dot"></div><div class="convo-terminal-dot"></div><div class="convo-terminal-dot"></div>
-                <span class="convo-terminal-title">conversazione.log</span>
-            </div>
-            <div class="convo-body" id="convoBody"></div>
-        </div>
-        <div class="convo-score" id="convoScore"></div>
-    </div>
+<section class="section" id="section-1">
+<h2><span class="section-number">01.</span> Una soluzione: rendere visibile la traccia</h2>
+<p>La proposta è semplice ma radicale: <strong>rendere la conversazione con l'IA parte del documento di valutazione</strong>.</p>
+<p>Non è un nuovo genere di compito. È una reinterpretazione di uno strumento già noto in pedagogia: <strong>il portfolio processuale</strong>, aggiornato all'era dell'IA.</p>
+<p>Quando uno studente lavora con Claude, ChatGPT o un altro strumento di IA, la conversazione è già lì. È una traccia. Il sistema operativo del pensiero è visibile, registrato, archiviabile.</p>
+<p>La proposta è:</p>
+<ul>
+<li>Lo studente esegue il lavoro in conversazione con l'IA</li>
+<li>Condivide lo screenshot, l'esportazione, oppure copia la conversazione</li>
+<li>La conversazione diventa parte della valutazione, insieme al risultato finale</li>
+<li>Il docente valuta sia il processo che il prodotto</li>
+</ul>
+<p>Questo non significa:</p>
+<ul>
+<li>Proibire l'uso dell'IA (sarebbe come proibire la penna)</li>
+<li>Assegnare lo stesso peso al processo e al prodotto per ogni compito</li>
+<li>Valutare solo la qualità della conversazione (il risultato conta ancora)</li>
+<li>Creare una nuova forma di controllo totalitario</li>
+</ul>
+<p>Significa, invece, creare <strong>trasparenza</strong> e <strong>responsabilità</strong> nel nuovo ecosistema educativo.</p>
 </section>
-
-<section class="proto" id="protoSection">
-    <div class="proto-inner">
-        <div class="proto-header rv">
-            <h2>Il Protocollo</h2>
-            <p>Cinque assi di valutazione, ciascuno con il proprio peso. Passa il cursore sul grafico per esplorare.</p>
-        </div>
-        <div class="radar-wrap">
-            <div class="radar-svg-wrap rv"><svg id="radarChart" viewBox="0 0 400 400"></svg></div>
-            <div class="radar-info rv">
-                <div class="radar-info-title" id="radarTitle">Passa il cursore su un asse</div>
-                <div class="radar-info-desc" id="radarDesc">Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.</div>
-                <div class="radar-info-weight" id="radarWeight"></div>
-            </div>
-        </div>
-    </div>
+<section class="section" id="section-2">
+<h2><span class="section-number">02.</span> Come leggere una conversazione con l'IA</h2>
+<p>Se la traccia diventa visibile, come la interpretiamo? Quali sono gli indicatori di una buona conversazione con l'IA?</p>
+<p>Ecco un protocollo di lettura.</p>
+<h3>Chiarezza della domanda iniziale</h3>
+<p>Tutto inizia con una domanda. È un buon punto di partenza se:</p>
+<ul>
+<li>È specifica (non generica)</li>
+<li>Indica una direzione (non aspetta solo risposta)</li>
+<li>Rivela cosa lo studente sa e cosa vuole imparare</li>
+<li>Non è una riformulazione di un prompt su internet</li>
+</ul>
+<p><strong>Esempio debole:</strong> "Scrivi un saggio sulla Rivoluzione Francese"</p>
+<p><strong>Esempio forte:</strong> "Ho letto che la Rivoluzione Francese ha cambiato l'idea di cittadinanza. Mi spiega qual era il concetto prima e come è cambiato? Mi interessa capire se è davvero un cambiamento o solo una reinterpretazione."</p>
+<h3>Uso iterativo dell'IA</h3>
+<p>Una buona conversazione non è lineare. Lo studente:</p>
+<ul>
+<li>Riceve una risposta</li>
+<li>Fa domande di approfondimento</li>
+<li>Corregge la rotta se la risposta non è quello che cercava</li>
+<li>Combina più risposte per costruire una sintesi</li>
+<li>Testa le idee con ulteriori domande</li>
+</ul>
+<p>È il dialogo che costruisce il pensiero, non la prima risposta.</p>
+<h3>Rielaborazione consapevole</h3>
+<p>Tra la conversazione e il prodotto finale, cosa è cambiato?</p>
+<ul>
+<li>Lo studente ha riscritto? Riorganizzato? Aggiunto esempio personali?</li>
+<li>Ha cambiato la struttura per adattarla al suo contesto?</li>
+<li>Ha scartato parti della risposta dell'IA perché non rilevanti?</li>
+<li>Ha fatto scelte consapevoli, oppure ha copiato tutto?</li>
+</ul>
+<p>La rielaborazione è il segnale che il pensiero è passato attraverso la mente dello studente.</p>
+<h3>Collocazione nel contesto</h3>
+<p>La conversazione non è mai neutra. Rivela:</p>
+<ul>
+<li>Quale IA lo studente ha scelto e perché</li>
+<li>Quale livello di dettaglio ha richiesto</li>
+<li>Se ha cercato diverse prospettive oppure una sola risposta</li>
+<li>Se ha incrociato le informazioni con altre fonti</li>
+<li>Se ha usato l'IA per controllare il suo lavoro o per farlo al suo posto</li>
+</ul>
 </section>
-
-<div class="flow-div"><canvas id="flow3"></canvas></div>
-
-<section class="calc-section" id="calcSection">
-    <div class="calc-inner">
-        <div class="calc-header rv">
-            <h2>Calcola il punteggio</h2>
-            <p>Simula una valutazione muovendo i cursori. Il punteggio composito si aggiorna in tempo reale.</p>
-        </div>
-        <div class="calc-grid rv">
-            <div class="calc-sliders" id="calcSliders"></div>
-            <div class="calc-result">
-                <div class="calc-result-label">Punteggio composito</div>
-                <div class="calc-result-score" id="calcScore">0</div>
-                <div class="calc-result-max">/ 100</div>
-                <div class="calc-result-bar"><div class="calc-result-fill" id="calcFill"></div></div>
-                <div class="calc-result-level" id="calcLevel">Muovi i cursori</div>
-            </div>
-        </div>
-    </div>
+<section class="section" id="section-3">
+<h2><span class="section-number">03.</span> Un protocollo di valutazione</h2>
+<p>Sulla base di questi indicatori, si può costruire un protocollo di valutazione. Non è un rubric chiuso, ma uno schema aperto che ogni docente può adattare.</p>
+<div class="interactive-box">
+<h4>Protocollo di lettura della traccia</h4>
+<table>
+<thead>
+<tr>
+<th>Aspetto</th>
+<th>Indicatori di debolezza</th>
+<th>Indicatori di forza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domanda iniziale</strong></td>
+<td>Generica, ricopiata, senza direzione</td>
+<td>Specifica, personale, che rivela curiosità</td>
+</tr>
+<tr>
+<td><strong>Iterazione</strong></td>
+<td>Una sola domanda, una sola risposta</td>
+<td>Più turni, approfondimenti, correzioni di rotta</td>
+</tr>
+<tr>
+<td><strong>Rielaborazione</strong></td>
+<td>Copia diretta della risposta dell'IA</td>
+<td>Riscrittura consapevole, adattamento, sintesi</td>
+</tr>
+<tr>
+<td><strong>Contesto</strong></td>
+<td>Nessuna esplicazione del percorso</td>
+<td>Chiara consapevolezza di come e perché l'IA è stata usata</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Questo protocollo può essere usato in vari modi:</p>
+<p><strong>Per la valutazione formativa:</strong> Il docente lo usa per dare feedback durante il processo di apprendimento.</p>
+<p><strong>Per la valutazione sommativa:</strong> Diventa parte della rubrica finale insieme ad altri criteri.</p>
+<p><strong>Per l'autovalutazione:</strong> Lo studente lo usa per riflettere sul proprio lavoro.</p>
+<p><strong>Per la discussione collegiale:</strong> I docenti lo usano per discutere come integrare l'IA nella valutazione.</p>
 </section>
-
-<section class="axes" id="axesSection">
-    <div class="axes-inner">
-        <div class="axes-header rv"><h2>I cinque assi nel dettaglio</h2></div>
-        <div id="axesCards"></div>
-    </div>
+<section class="section" id="section-4">
+<h2><span class="section-number">04.</span> Applicazioni pratiche</h2>
+<p>Dove si applica concretamente questo protocollo?</p>
+<h3>Saggio breve</h3>
+<p>Lo studente mostra la conversazione dove ha esplorato tre diverse tesi su un argomento, ha chiesto all'IA di contrapporre le prospettive, e poi ha scritto il saggio con la sua sintesi. Il docente vede il pensiero dialogico, non solo il risultato.</p>
+<h3>Ricerca</h3>
+<p>La conversazione mostra come lo studente ha usato l'IA per mappare il tema, trovare fonti, e poi ha verificato in modo critico le informazioni. Non è stata la ricerca per lui, ma uno strumento nel processo.</p>
+<h3>Problem solving</h3>
+<p>In matematica, fisica, programmazione: la conversazione mostra gli errori, i tentativi, le correzioni. Non solo la soluzione finale, ma il pensiero che vi arriva.</p>
+<h3>Riflessione critica</h3>
+<p>Lo studente conversa con l'IA sui limiti della risposta, sulle assunzioni non dichiarate, sugli spazi bianchi. La metacognizione diventa tracciabile.</p>
+<h3>Lavoro di gruppo</h3>
+<p>Un gruppo può usare l'IA per brainstorming, divisione del lavoro, controllo qualità. La conversazione mostra chi ha guidato il processo e quali erano le scelte collettive.</p>
 </section>
-
-<section class="dl-section" id="dlSection">
-    <div class="dl-glow"></div>
-    <div class="dl-inner rv">
-        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-        <h2>Scarica il saggio completo</h2>
-        <p>Il testo integrale del Protocollo di Valutazione del Processo, con le rubriche dettagliate, la discussione dei limiti e le indicazioni per la formazione dei docenti.</p>
-        <a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="dl-btn" download><span>Scarica PDF</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>
-        <p class="dl-meta">PDF, 13 pagine — Andrea Colamedici, 2026</p>
-    </div>
+<section class="section" id="section-5">
+<h2><span class="section-number">05.</span> Obiezioni e risposte</h2>
+<p><strong>Obiezione 1: "Ma così legittimo l'uso massivo dell'IA. Questo non incentiva lo studente a pensare da solo?"</strong></p>
+<p>Risposta: Dipende da come si progetta il compito. Se chiedi "Scrivi un saggio con l'IA", è ovvio che non penserà molto. Ma se chiedi "Prova a generare tre tesi diverse su questo tema, poi scrivi perché ritieni convincente una più delle altre", stai progettando il compito in modo che l'IA sia uno strumento, non una stampante. La traccia rende questo visibile.</p>
+<p><strong>Obiezione 2: "E se uno studente mi nasconde la conversazione, o ne costruisce una falsa?"</strong></p>
+<p>Risposta: È possibile. Ma oggi uno studente può copiare un saggio da internet e farti credere che è suo. La traccia non risolve completamente il problema della dishonesty, ma lo rende più difficile e chiaro. E crea uno spazio dove l'uso consapevole dell'IA diventa norma, rendendo più evidente l'abuso.</p>
+<p><strong>Obiezione 3: "Questo aumenta enormemente il carico di lavoro del docente nel valutare."</strong></p>
+<p>Risposta: Vero. Ma leggere una buona traccia è spesso più veloce che cercare di capire da un saggio scritto bene se lo studente ha capito davvero. Inoltre, il protocollo può essere usato in forma leggera: non serve una rubrica pesante, basta dare uno sguardo ai tre aspetti chiave (domanda, iterazione, rielaborazione).</p>
+<p><strong>Obiezione 4: "Non tutti hanno accesso alle IA avanzate. Questo crea ineguaglianze?"</strong></p>
+<p>Risposta: Sì, è un rischio. Ma anche oggi la scuola non ha accesso equo ai libri, ai computer, agli insegnanti preparati. Il protocollo non peggiora la situazione, semmai la rende visibile. E le IA gratuite stanno migliorando, rendendo l'accesso meno esclusivo.</p>
+<p><strong>Obiezione 5: "Questo è una rinuncia dei docenti al loro ruolo. Dovremmo insegnare senza IA."</strong></p>
+<p>Risposta: Il problema non è l'IA, è la forma di insegnamento. Se insegni facendo riempire moduli, l'IA è una minaccia. Se insegni creando dialogo, curiosità e pensiero critico, l'IA è uno strumento. La traccia visibile è una strategia per mantenere l'insegnamento umano anche quando lo strumento è artificiale.</p>
 </section>
-</main>
-
-<footer><div class="footer-content"><div class="footer-left">© 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contact.html">Contatti</a></div></div></footer>
-
+<section class="section" id="section-6">
+<h2><span class="section-number">06.</span> Il Laboratorio del Prompt: strumento interattivo</h2>
+<p>Di seguito troverai uno <strong>strumento interattivo</strong> dove puoi testare il protocollo. È un laboratorio per sperimentare come funziona la valutazione della traccia visibile.</p>
+<div class="interactive-box">
+<h4>Laboratorio del Prompt Interattivo</h4>
+<p>Carica il testo di una conversazione con un'IA (oppure scrivi una conversazione di esempio), e il laboratorio ti mostrerà come valutarla usando il protocollo.</p>
+<div class="form-group">
+<label for="prompt-textarea">Incolla qui la tua conversazione con l'IA:</label>
+<textarea id="prompt-textarea" placeholder="Domanda dello studente: ...&#10;Risposta dell'IA: ...&#10;Domanda di follow-up: ...&#10;Ecc."></textarea>
+</div>
+<button onclick="analyzePrompt()">Analizza la traccia</button>
+<div id="analysis-result" style="margin-top: 2rem; display: none;">
+<h4>Risultato dell'analisi</h4>
+<div id="analysis-content"></div>
+</div>
+</div>
+<p>Questo laboratorio non è un algoritmo di valutazione automatica (gli algoritmi sui processi mentali sono pericolosi). È uno <strong>specchio riflessivo</strong>: ti mostra come il protocollo legge la tua traccia, e tu decidere se concordi e come corregger la lettura.</p>
+</section>
+<section class="section" id="section-7">
+<h2><span class="section-number">07.</span> Conclusione: una nuova trasparenza</h2>
+<p>La traccia visibile del pensiero non è una panaceia. Non risolve i problemi dell'educazione, della valutazione, dell'equità. Ma offre una cosa nuova:</p>
+<p><strong>Trasparenza sul rapporto tra l'uomo e la macchina nel processo di apprendimento.</strong></p>
+<p>Oggi, mentre lavoriamo con l'IA, nascondiamo il processo. Compariamo con l'IA di nascosto, prendiamo quello che ci serve, e poi fingiamo che sia tutto lavoro nostro. O cerchiamo di proibire l'IA, come se non esistesse.</p>
+<p>La traccia visibile propone un'altra via: <strong>essere trasparenti, consapevoli, e critici rispetto a come usiamo lo strumento</strong>.</p>
+<p>Non è un protocollo per sorvegliare gli studenti. È un protocollo per insegnargli a pensare in modo responsabile in un mondo dove il pensiero umano e artificiale lavorano insieme.</p>
+<p>La domanda non è più "Il compito è opera tua?" ma "Come hai usato gli strumenti a disposizione per pensare meglio?"</p>
+<p>Questa è una domanda più interessante. E più onesta.</p>
+</section>
+</article>
+<footer>
+<p>© 2026 Andrea Colamedici. Questo articolo è parte del progetto <a href="https://tlon.it">Tlon</a>.</p>
+<p>Per commenti, suggerimenti o per discutere il protocollo, contatta <a href="mailto:andrea@tlon.it">andrea@tlon.it</a>.</p>
+</footer>
+</div>
 <script>
-/* ===== DATA ===== */
-const AXES = [
-    { name: 'Resistenza alla facilità', weight: 25, color: '#8a5a4a', desc: 'Misura la capacità dello studente di non accettare la prima risposta della macchina, di riconoscere la genericità e di cercare attivamente la complessità. È la differenza tra chi delega il pensiero e chi lo attraversa.', levels: ['Rifiuta risposte generiche, riformula, introduce complessità propria', 'Chiede approfondimenti, confronta con fonti esterne', 'Modifica parzialmente gli output, chiede chiarimenti', 'Accetta gli output senza intervento critico'] },
-    { name: 'Comportamento correttivo', weight: 25, color: '#7a9a5a', desc: 'Valuta la capacità dello studente di individuare errori, imprecisioni e genericità nelle risposte generate e di intervenire con correzioni specifiche. Chi sa correggere una macchina dimostra di possedere la competenza che la macchina simula.', levels: ['Identifica errori specifici, corregge con fonti, migliora la qualità complessiva', 'Riconosce imprecisioni, chiede verifiche puntuali', 'Interviene su errori evidenti, tralascia le sfumature', 'Non individua errori, accetta tutto come corretto'] },
-    { name: "Qualità dell'interrogazione", weight: 20, color: '#2a6b6b', desc: 'La qualità della domanda determina la qualità della risposta. Questo asse valuta la capacità dello studente di formulare prompt precisi, contestualizzati, progressivi – di chiedere bene, che è il primo e più decisivo atto del pensiero.', levels: ['Prompt precisi, contestualizzati, con vincoli espliciti e progressione logica', 'Prompt chiari con qualche vincolo, buona specificità', 'Prompt generici ma pertinenti al tema', 'Prompt vaghi, senza contesto né direzione'] },
-    { name: 'Architettura del dialogo', weight: 15, color: '#5a7a9a', desc: "La conversazione con la macchina ha una struttura. Questo asse valuta se quella struttura è caotica o governata, se i temi si sviluppano in modo coerente, se c'è un progetto dietro la sequenza dei prompt.", levels: ['Struttura chiara, progressione tematica governata, coerenza complessiva', 'Buona organizzazione, qualche digressione controllata', 'Struttura riconoscibile ma con dispersioni frequenti', 'Nessuna struttura, sequenza casuale di prompt'] },
-    { name: 'Trasparenza metacognitiva', weight: 15, color: '#9a7a5a', desc: 'La capacità di riflettere sul proprio processo mentre lo si compie. Misura se lo studente annota le proprie scelte, spiega perché ha cambiato direzione, riconosce i limiti di ciò che la macchina ha prodotto.', levels: ['Riflessione continua, annotazioni sulle scelte, consapevolezza dei limiti', 'Commenti occasionali sul processo, alcune giustificazioni', 'Rari cenni metacognitivi, consapevolezza minima', 'Nessuna riflessione sul processo, uso puramente meccanico'] }
-];
+const readingProgress = document.querySelector('.reading-progress');
+const cursorLight = document.querySelector('.cursor-light');
+const sideNavDots = document.querySelectorAll('.side-nav-dot');
+const sections = document.querySelectorAll('.section');
+const promptTextarea = document.getElementById('prompt-textarea');
+const analysisResult = document.getElementById('analysis-result');
+const analysisContent = document.getElementById('analysis-content');
 
-const CONVOS = {
-    delegate: {
-        msgs: [
-            { role: 'human', text: 'Scrivi un saggio sulla crisi climatica' },
-            { role: 'ai', text: "La crisi climatica è una delle sfide più importanti del nostro tempo. Le temperature globali sono aumentate di circa 1,1°C rispetto ai livelli preindustriali..." },
-            { role: 'human', text: 'Ok va bene. Rendilo più lungo' },
-            { role: 'ai', text: "La crisi climatica rappresenta una sfida epocale per l'umanità. Secondo l'IPCC, le temperature medie globali sono aumentate significativamente..." },
-            { role: 'human', text: 'Aggiungi una conclusione' }
-        ],
-        scores: [{l:'Resistenza',v:'1/4',c:'low'},{l:'Correzione',v:'1/4',c:'low'},{l:'Interrogazione',v:'1/4',c:'low'},{l:'Architettura',v:'1/4',c:'low'},{l:'Metacognizione',v:'1/4',c:'low'}]
-    },
-    traverse: {
-        msgs: [
-            { role: 'human', text: "Sto lavorando a un saggio sulla crisi climatica. Vorrei concentrarmi su un aspetto specifico: <em>il rapporto tra linguaggio catastrofista e paralisi dell'azione</em>. Quali framework teorici posso usare?" },
-            { role: 'ai', text: 'Ci sono diversi framework rilevanti: la teoria del terrore (TMT), il concetto di "apocalypse fatigue" di Per Espen Stoknes, il framing theory di Lakoff applicato al clima...' },
-            { role: 'human', text: "Stoknes è interessante. Però la sua proposta ha un punto debole: non considera la dimensione di classe nel modo in cui il catastrofismo viene recepito. Chi vive in zone a rischio non ha il privilegio della \"fatica apocalittica\". Riformula tenendo conto di questa critica." },
-            { role: 'ai', text: 'Hai ragione. Integrando la prospettiva di giustizia climatica, possiamo rileggere il framework di Stoknes attraverso la lente di...' },
-            { role: 'reflection', text: "[Nota: ho deciso di non usare il paragrafo generato dall'IA sulla giustizia climatica perché sovrappone concetti diversi. Riscrivo di mio pugno questa sezione, usando solo il riferimento bibliografico suggerito.]" }
-        ],
-        scores: [{l:'Resistenza',v:'4/4',c:'high'},{l:'Correzione',v:'4/4',c:'high'},{l:'Interrogazione',v:'4/4',c:'high'},{l:'Architettura',v:'3/4',c:'high'},{l:'Metacognizione',v:'4/4',c:'high'}]
+// Reading progress
+window.addEventListener('scroll', () => {
+  const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  readingProgress.style.width = scrollPercentage + '%';
+});
+
+// Cursor light
+document.addEventListener('mousemove', (e) => {
+  cursorLight.style.left = e.clientX + 'px';
+  cursorLight.style.top = e.clientY + 'px';
+});
+
+// Side nav
+window.addEventListener('scroll', () => {
+  let currentSection = 0;
+  sections.forEach((section, index) => {
+    if (section.getBoundingClientRect().top < window.innerHeight / 2) {
+      currentSection = index;
     }
+  });
+  sideNavDots.forEach((dot, index) => {
+    dot.classList.toggle('active', index === currentSection);
+  });
+});
+
+sideNavDots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    const sectionIndex = parseInt(dot.getAttribute('data-section'));
+    if (sectionIndex < sections.length) {
+      sections[sectionIndex].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Analysis function
+function analyzePrompt() {
+  const text = promptTextarea.value.trim();
+  
+  if (!text) {
+    alert('Per favore, incolla una conversazione prima di analizzarla.');
+    return;
+  }
+  
+  // Simple analysis based on the protocol
+  const lines = text.split('\n').filter(l => l.trim());
+  const turnCount = lines.length;
+  const hasFollowUp = text.toLowerCase().includes('seguire') || text.toLowerCase().includes('però') || text.toLowerCase().includes('cioè') || turnCount > 5;
+  const hasReworking = text.length > 300 && text.toLowerCase().includes('cambiar') || text.toLowerCase().includes('riscriv') || text.toLowerCase().includes('ma');
+  const isSpecific = text.length > 150 && text.toLowerCase().includes('perché');
+  
+  let strengths = [];
+  let improvements = [];
+  
+  if (isSpecific) {
+    strengths.push('✓ La domanda iniziale è specifica e mostra curiosità');
+  } else {
+    improvements.push('→ Inizia con una domanda più precisa e personale');
+  }
+  
+  if (hasFollowUp) {
+    strengths.push('✓ Hai fatto domande di follow-up e hai iterato il dialogo');
+  } else {
+    improvements.push('→ Prova a fare più domande di approfondimento');
+  }
+  
+  if (hasReworking) {
+    strengths.push('✓ Sembra che tu abbia rielaborato consapevolmente il materiale');
+  } else {
+    improvements.push('→ Dopo la risposta dell\'IA, rielabora il contenuto con le tue parole');
+  }
+  
+  strengths.push(`✓ Hai coinvolto l'IA in ${turnCount} turni di conversazione`);
+  
+  let html = '<div style="background: var(--grigio-chiaro); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">';
+  html += '<h5 style="margin-top: 0;">Punti di forza:</h5>';
+  strengths.forEach(s => html += `<p style="margin: 0.5rem 0;">${s}</p>`);
+  html += '</div>';
+  
+  if (improvements.length > 0) {
+    html += '<div style="background: rgba(42, 107, 107, 0.05); padding: 1.5rem; border-radius: 8px;">';
+    html += '<h5 style="margin-top: 0;">Aree di miglioramento:</h5>';
+    improvements.forEach(i => html += `<p style="margin: 0.5rem 0;">${i}</p>`);
+    html += '</div>';
+  }
+  
+  analysisContent.innerHTML = html;
+  analysisResult.style.display = 'block';
+  analysisResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Menu toggle
+const menuBtn = document.querySelector('[data-menu-btn]');
+const mobileMenu = document.querySelector('[data-mobile-menu]');
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+  });
+}
+
+// Smooth scroll for internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Track reading time
+const readingTime = Math.ceil(document.body.innerText.split(/\s+/).length / 200);
+document.querySelector('.reading-time').textContent = readingTime + ' minuti';
+
+// Highlight on scroll
+const highlightElements = (entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+    }
+  });
 };
 
-/* ===== HERO CANVAS ===== */
-(function(){
-    const c=document.getElementById('heroCanvas'),x=c.getContext('2d');
-    let w,h,pts=[],mouse={x:-1e3,y:-1e3};
-    function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
-    resize();window.addEventListener('resize',resize);
-    c.parentElement.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-    for(let i=0;i<80;i++)pts.push({x:Math.random()*2e3,y:Math.random()*2e3,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.3,ph:Math.random()*Math.PI*2});
-    function draw(){
-        x.clearRect(0,0,w,h);const t=Date.now()*.001;
-        pts.forEach((p,i)=>{
-            p.x+=p.vx+Math.sin(t+p.ph)*.12;p.y+=p.vy+Math.cos(t*.7+p.ph)*.12;
-            if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-            const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);
-            if(dist<180){p.x-=dx*.015;p.y-=dy*.015;}
-            x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle='rgba(42,107,107,0.5)';x.fill();
-            for(let j=i+1;j<pts.length;j++){const d2=pts[j].x-p.x,d3=pts[j].y-p.y,d=Math.sqrt(d2*d2+d3*d3);if(d<130){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(pts[j].x,pts[j].y);x.strokeStyle=`rgba(42,107,107,${(1-d/130)*.15})`;x.lineWidth=.5;x.stroke();}}
-        });requestAnimationFrame(draw);
-    }draw();
-})();
+const observer = new IntersectionObserver(highlightElements, { threshold: 0.1 });
+document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
-/* ===== FLOW CANVASES ===== */
-function initFlow(id){
-    const c=document.getElementById(id);if(!c)return;const x=c.getContext('2d');let w,h;
-    function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}r();window.addEventListener('resize',r);
-    function d(){x.clearRect(0,0,w,h);const t=Date.now()*.0004;
-        for(let l=0;l<4;l++){x.beginPath();x.strokeStyle=`rgba(42,107,107,${.06+l*.03})`;x.lineWidth=.8;
-            for(let i=0;i<=100;i++){const px=(i/100)*w,py=h/2+Math.sin(i*.07+t+l*1.2)*25+Math.sin(i*.025+t*1.4+l)*18+Math.cos(i*.04+t*.8+l*2)*10;
-                if(i===0)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();}requestAnimationFrame(d);}d();
-}
-initFlow('flow1');initFlow('flow2');initFlow('flow3');
-
-/* ===== CURSOR LIGHT ===== */
-const cursorLight=document.getElementById('cursorLight');
-document.addEventListener('mousemove',e=>{cursorLight.style.left=e.clientX+'px';cursorLight.style.top=e.clientY+'px';});
-
-/* ===== READING PROGRESS ===== */
-const progressBar=document.getElementById('readingProgress');
-window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;const s=window.scrollY;progressBar.style.width=(s/h*100)+'%';});
-
-/* ===== COUNTERS ===== */
-const counterObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');en.target.querySelectorAll('.counter-num').forEach(el=>{const target=parseInt(el.dataset.target);let current=0;const step=Math.max(1,Math.floor(target/40));const interval=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(interval);}el.textContent=current;},30);});counterObs.unobserve(en.target);}});},{threshold:0.3});
-const cs=document.getElementById('counterStrip');if(cs)counterObs.observe(cs);
-
-/* ===== REVEAL ===== */
-const rvObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
-
-/* ===== TEXT HIGHLIGHT ===== */
-const hlObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('active');hlObs.unobserve(en.target);}});},{threshold:0.5});
-document.querySelectorAll('.text-highlight').forEach(el=>hlObs.observe(el));
-
-/* ===== ESSAY NOTES ===== */
-const noteObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.1});
-document.querySelectorAll('.essay-note').forEach(el=>noteObs.observe(el));
-
-/* ===== SIDE NAV ===== */
-const sections=document.querySelectorAll('section[id]');
-const sideNavDots=document.querySelectorAll('.side-nav-dot');
-const secObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){sideNavDots.forEach(d=>d.classList.remove('active'));const dot=document.querySelector(`.side-nav-dot[data-target="${en.target.id}"]`);if(dot)dot.classList.add('active');}});},{threshold:0.3,rootMargin:'-20% 0px -50% 0px'});
-sections.forEach(s=>secObs.observe(s));
-sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getElementById(d.dataset.target);if(t)t.scrollIntoView({behavior:'smooth'});}));
-
-/* ===== CONVERSATION ===== */
-const convoBody=document.getElementById('convoBody');
-const convoScoreEl=document.getElementById('convoScore');
-const convoTabs=document.querySelectorAll('.convo-tab');
-function showConvo(key){
-    const data=CONVOS[key];convoBody.innerHTML='';convoScoreEl.innerHTML='';
-    data.msgs.forEach((m,i)=>{
-        const div=document.createElement('div');div.className='convo-msg';
-        div.innerHTML=`<div class="convo-role ${m.role}">${m.role==='human'?'Studente':m.role==='ai'?'IA':'Riflessione'}</div><div class="convo-text">${m.text}</div>`;
-        convoBody.appendChild(div);
-        setTimeout(()=>div.classList.add('show'),200+i*400);
-    });
-    data.scores.forEach(s=>{
-        convoScoreEl.innerHTML+=`<div class="convo-score-item"><div class="convo-score-val ${s.c}">${s.v}</div><div class="convo-score-lbl">${s.l}</div></div>`;
-    });
-}
-convoTabs.forEach(tab=>tab.addEventListener('click',()=>{convoTabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');showConvo(tab.dataset.convo);}));
-showConvo('delegate');
-
-/* ===== RADAR CHART ===== */
-(function(){
-    const svg=document.getElementById('radarChart');
-    const cx=200,cy=200,R=160;const n=AXES.length;
-    const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
-    // Grid
-    for(let r=1;r<=4;r++){
-        let pts=[];angles.forEach(a=>{const rr=(R/4)*r;pts.push(`${cx+Math.cos(a)*rr},${cy+Math.sin(a)*rr}`);});
-        const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-        poly.setAttribute('points',pts.join(' '));poly.setAttribute('fill','none');poly.setAttribute('stroke','rgba(255,255,255,0.06)');poly.setAttribute('stroke-width','1');svg.appendChild(poly);
-    }
-    // Axis lines
-    angles.forEach(a=>{const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',cx+Math.cos(a)*R);line.setAttribute('y2',cy+Math.sin(a)*R);line.setAttribute('stroke','rgba(255,255,255,0.04)');line.setAttribute('stroke-width','1');svg.appendChild(line);});
-    // Data polygon
-    const vals=AXES.map(a=>a.weight/25);
-    let dataPts=[];vals.forEach((v,i)=>{const a=angles[i];dataPts.push(`${cx+Math.cos(a)*R*v},${cy+Math.sin(a)*R*v}`);});
-    const dataPoly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-    dataPoly.setAttribute('points',dataPts.join(' '));dataPoly.setAttribute('fill','rgba(42,107,107,0.15)');dataPoly.setAttribute('stroke','rgba(42,107,107,0.6)');dataPoly.setAttribute('stroke-width','2');dataPoly.style.transition='all 0.6s ease';svg.appendChild(dataPoly);
-    // Interactive dots + labels
-    const titleEl=document.getElementById('radarTitle');
-    const descEl=document.getElementById('radarDesc');
-    const weightEl=document.getElementById('radarWeight');
-    AXES.forEach((ax,i)=>{
-        const a=angles[i];const x2=cx+Math.cos(a)*R*vals[i];const y2=cy+Math.sin(a)*R*vals[i];
-        // Dot
-        const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        circle.setAttribute('cx',x2);circle.setAttribute('cy',y2);circle.setAttribute('r','6');
-        circle.setAttribute('fill',ax.color);circle.setAttribute('stroke','rgba(255,255,255,0.3)');circle.setAttribute('stroke-width','2');
-        circle.style.cursor='pointer';circle.style.transition='r 0.3s ease';
-        // Hover area
-        const hitArea=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        hitArea.setAttribute('cx',cx+Math.cos(a)*(R*0.6));hitArea.setAttribute('cy',cy+Math.sin(a)*(R*0.6));
-        hitArea.setAttribute('r','40');hitArea.setAttribute('fill','transparent');hitArea.style.cursor='pointer';
-        // Label
-        const lx=cx+Math.cos(a)*(R+25);const ly=cy+Math.sin(a)*(R+25);
-        const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
-        txt.setAttribute('x',lx);txt.setAttribute('y',ly);txt.setAttribute('text-anchor','middle');
-        txt.setAttribute('dominant-baseline','middle');txt.setAttribute('fill','rgba(255,255,255,0.4)');
-        txt.setAttribute('font-size','10');txt.setAttribute('font-family','Inter');txt.setAttribute('letter-spacing','0.05em');
-        txt.textContent=ax.weight+'%';
-        function hover(){circle.setAttribute('r','10');titleEl.textContent=ax.name;descEl.textContent=ax.desc;weightEl.textContent=ax.weight+'%';}
-        function leave(){circle.setAttribute('r','6');titleEl.textContent='Passa il cursore su un asse';descEl.textContent='Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.';weightEl.textContent='';}
-        [circle,hitArea].forEach(el=>{el.addEventListener('mouseenter',hover);el.addEventListener('mouseleave',leave);});
-        svg.appendChild(hitArea);svg.appendChild(circle);svg.appendChild(txt);
-    });
-})();
-
-/* ===== CALCULATOR ===== */
-(function(){
-    const container=document.getElementById('calcSliders');
-    const scoreEl=document.getElementById('calcScore');
-    const fillEl=document.getElementById('calcFill');
-    const levelEl=document.getElementById('calcLevel');
-    const sliders=[];
-    AXES.forEach((ax,i)=>{
-        const row=document.createElement('div');row.className='calc-slider-row';
-        row.innerHTML=`<div class="calc-slider-header"><span class="calc-slider-name">${ax.name}</span><span class="calc-slider-val" id="sv${i}">0</span></div><div class="calc-slider-weight">Peso: ${ax.weight}%</div><input type="range" min="0" max="4" value="0" step="1" class="calc-range" data-idx="${i}">`;
-        container.appendChild(row);
-        const input=row.querySelector('input');
-        sliders.push(input);
-        input.addEventListener('input',updateCalc);
-    });
-    function updateCalc(){
-        let total=0;
-        sliders.forEach((s,i)=>{
-            const v=parseInt(s.value);
-            document.getElementById('sv'+i).textContent=v+'/4';
-            total+=(v/4)*AXES[i].weight;
-        });
-        const score=Math.round(total);
-        scoreEl.textContent=score;
-        fillEl.style.width=score+'%';
-        if(score===0)levelEl.textContent='Muovi i cursori';
-        else if(score<30)levelEl.textContent='Insufficiente';
-        else if(score<50)levelEl.textContent='Sufficiente';
-        else if(score<75)levelEl.textContent='Buono';
-        else levelEl.textContent='Eccellente';
-    }
-})();
-
-/* ===== AXES CARDS ===== */
-(function(){
-    const container=document.getElementById('axesCards');
-    const levelNames=['Eccellente','Buono','Sufficiente','Insufficiente'];
-    const levelClasses=['exc','good','suf','ins'];
-    AXES.forEach((ax,i)=>{
-        const card=document.createElement('div');card.className='axis-card rv';
-        let levelsHtml='';ax.levels.forEach((l,j)=>{levelsHtml+=`<div class="axis-level"><span class="axis-level-name ${levelClasses[j]}">${levelNames[j]}</span><p>${l}</p></div>`;});
-        card.innerHTML=`<div class="axis-card-head"><span class="axis-card-num">0${i+1}</span><span class="axis-card-title">${ax.name}</span><span class="axis-card-percent">${ax.weight}%</span><div class="axis-card-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="axis-card-body"><div class="axis-card-content"><div class="axis-card-desc">${ax.desc}</div><div class="axis-levels-grid">${levelsHtml}</div></div></div>`;
-        card.querySelector('.axis-card-head').addEventListener('click',()=>card.classList.toggle('open'));
-        container.appendChild(card);
-        rvObs.observe(card);
-    });
-})();
-
-/* ===== HAMBURGER ===== */
-const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),hd=document.querySelector('header');
-hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('active');hd.classList.toggle('menu-open');document.body.style.overflow=mm.classList.contains('active')?'hidden':'';});
-mm.querySelectorAll('a').forEach(l=>{l.addEventListener('click',()=>{hb.classList.remove('active');mm.classList.remove('active');hd.classList.remove('menu-open');document.body.style.overflow='';});});
+// Menu dropdown
+const menuLinks = document.querySelectorAll('[data-menu-link]');
+menuLinks.forEach(l=>{l.addEventListener('click',()=>{const hb=document.querySelector('[data-hamburger]');const mm=document.querySelector('[data-mobile-menu]');const hd=document.querySelector('[data-header]');hb.classList.remove('active');mm.classList.remove('active');hd.classList.remove('menu-open');document.body.style.overflow='';});});
 </script>
 </body>
 </html>

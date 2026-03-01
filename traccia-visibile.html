@@ -22,512 +22,831 @@
 .side-nav { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 1.25rem; }
 .side-nav-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(42,107,107,0.3); background: transparent; cursor: pointer; transition: all 0.4s ease; position: relative; }
 .side-nav-dot.active { background: var(--ottanio); border-color: var(--ottanio); transform: scale(1.3); }
-.side-nav-tooltip { position: absolute; right: 3rem; white-space: nowrap; font-size: 0.875rem; padding: 0.5rem 0.75rem; background: var(--nero); color: var(--bianco); border-radius: 0.25rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-.side-nav-dot:hover .side-nav-tooltip { opacity: 1; }
+.side-nav-dot::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); white-space: nowrap; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.side-nav-dot:hover::after { opacity: 1; }
 
-/* CONTENT GRID */
-body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; color: var(--nero); background: var(--bianco); }
-.page-wrapper { display: grid; grid-template-columns: 1fr minmax(300px, 350px); gap: 2rem; padding: 3rem 2rem; max-width: 1400px; margin: 0 auto; }
-.main-content { grid-column: 1; }
-.sidebar-content { grid-column: 2; position: sticky; top: 3rem; max-height: calc(100vh - 6rem); overflow-y: auto; padding-right: 1rem; }
+/* GRAIN */
+.grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-/* HEADER */
-header { margin-bottom: 4rem; }
-h1 { font-family: 'Instrument Serif', serif; font-size: 3rem; font-weight: 400; margin: 0 0 0.5rem 0; line-height: 1.2; }
-.subtitle { font-size: 1.25rem; color: var(--grigio); font-weight: 300; margin: 0; }
+/* HERO */
+.t-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--nero); color: var(--bianco); }
+.t-hero canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.t-hero-content { position: relative; z-index: 2; text-align: center; max-width: 860px; padding: 6rem 3rem; }
+.t-hero-label { display: inline-block; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 3rem; padding: 0.6rem 2rem; border: 1px solid rgba(42,107,107,0.4); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
+.t-hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(3.2rem, 9vw, 6.5rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
+.t-hero-title em { font-style: italic; color: var(--ottanio); }
+.t-hero-subtitle { font-family: 'Instrument Serif', serif; font-size: clamp(1rem, 2vw, 1.4rem); font-style: italic; color: rgba(255,255,255,0.35); line-height: 1.7; max-width: 600px; margin: 0 auto 3rem; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
+.t-hero-meta { display: flex; justify-content: center; gap: 3rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.2); opacity: 0; animation: fadeUp 1s 1.2s forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.scroll-cue { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.25); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.scroll-cue-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--ottanio), transparent); animation: scrollPulse 2.5s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: 0.2; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.4); } }
+@keyframes glowPulse { 0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
 
-/* PROSE STYLING */
-.intro-section { margin-bottom: 3rem; }
-.intro-section p { font-size: 1.125rem; line-height: 1.6; margin: 0 0 1rem 0; color: var(--nero); }
-.intro-section p strong { font-weight: 600; }
-.intro-section em { font-style: italic; }
+/* FLOW DIVIDERS */
+.flow-div { height: 180px; position: relative; overflow: hidden; }
+.flow-div canvas { width: 100%; height: 100%; }
+.flow-div.dark { background: var(--nero); }
 
-/* SECTIONS */
-section { margin-bottom: 4rem; }
-section h2 { font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; margin: 0 0 1.5rem 0; color: var(--nero); }
-section h3 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; margin: 1.5rem 0 0.75rem 0; color: var(--nero); }
-section p { font-size: 1rem; line-height: 1.6; margin: 0 0 1rem 0; color: var(--nero); }
-section ul { margin: 0 0 1rem 0; padding-left: 1.5rem; }
-section li { margin-bottom: 0.5rem; }
+/* COUNTER STRIP */
+.counter-strip { padding: 4rem 3rem; background: var(--nero); color: var(--bianco); display: flex; justify-content: center; gap: 6rem; flex-wrap: wrap; }
+.counter-item { text-align: center; }
+.counter-num { font-family: 'Instrument Serif', serif; font-size: 3.5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
+.counter-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 0.5rem; }
 
-/* VISUAL ELEMENTS */
-.diagram { margin: 2rem 0; padding: 2rem; background: #f5f5f5; border-left: 4px solid var(--ottanio); border-radius: 0.25rem; }
-.diagram h4 { margin: 0 0 0.75rem 0; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--grigio); }
-.diagram svg { width: 100%; height: auto; display: block; }
-.diagram-label { font-size: 0.875rem; color: var(--grigio); font-style: italic; margin-top: 0.5rem; }
+/* BIVIO SECTION — the fork diagram */
+.bivio-section { padding: 8rem 3rem; position: relative; }
+.bivio-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.bivio-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
+.bivio-subtitle { font-size: 1.05rem; color: var(--grigio); max-width: 550px; margin: 0 auto 4rem; line-height: 1.8; }
+.bivio-svg-wrap { width: 100%; max-width: 760px; margin: 0 auto 3rem; }
+.bivio-svg-wrap svg { width: 100%; height: auto; }
+.bivio-quote { font-family: 'Instrument Serif', serif; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-style: italic; line-height: 1.6; color: var(--ottanio); max-width: 600px; margin: 0 auto; opacity: 0; transform: translateY(15px); transition: all 1s ease 0.8s; }
+.bivio-quote.vis { opacity: 1; transform: translateY(0); }
 
-/* INTERACTIVE RADAR */
-.radar-container { margin: 2rem 0; padding: 2rem; background: #f5f5f5; border-left: 4px solid var(--ottanio); border-radius: 0.25rem; }
-.radar-title { margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600; }
-svg.radar-chart { width: 100%; max-width: 500px; height: auto; }
-.radar-axis { stroke: var(--grigio-chiaro); stroke-width: 1; }
-.radar-label { font-size: 0.75rem; fill: var(--grigio); }
-.radar-grid { stroke: var(--grigio-chiaro); stroke-width: 0.5; }
-.radar-data { fill: var(--ottanio); opacity: 0.3; stroke: var(--ottanio); stroke-width: 2; }
-.radar-data:hover { opacity: 0.5; }
+/* SVG animation classes */
+.draw-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.draw-path.drawn { stroke-dashoffset: 0; }
+.svg-node { opacity: 0; transform: scale(0.5); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center; }
+.svg-node.shown { opacity: 1; transform: scale(1); }
+.svg-label { opacity: 0; transition: opacity 0.6s ease; }
+.svg-label.shown { opacity: 1; }
 
-/* CAROUSEL */
-.carousel-container { margin: 2rem 0; padding: 2rem; background: #f5f5f5; border-left: 4px solid var(--ottanio); border-radius: 0.25rem; }
-.carousel-title { margin: 0 0 1rem 0; font-size: 1rem; font-weight: 600; }
-.carousel-wrapper { position: relative; overflow: hidden; border-radius: 0.25rem; }
-.carousel-items { display: flex; transition: transform 0.4s ease; }
-.carousel-item { flex: 0 0 100%; padding: 1.5rem; background: var(--bianco); border: 1px solid var(--grigio-chiaro); }
-.carousel-item h4 { margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; }
-.carousel-item p { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--grigio); }
-.carousel-nav { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
-.carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--grigio-chiaro); cursor: pointer; transition: background 0.3s ease; }
-.carousel-dot.active { background: var(--ottanio); }
-.carousel-prev, .carousel-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(42,107,107,0.8); color: var(--bianco); border: none; width: 40px; height: 40px; cursor: pointer; border-radius: 0.25rem; font-size: 1.25rem; transition: background 0.3s ease; }
-.carousel-prev:hover, .carousel-next:hover { background: var(--ottanio); }
-.carousel-prev { left: 0; }
-.carousel-next { right: 0; }
+/* CONVERSATION SIMULATION */
+.convo-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; overflow: hidden; }
+.convo-inner { max-width: 900px; margin: 0 auto; }
+.convo-header { text-align: center; margin-bottom: 4rem; }
+.convo-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
+.convo-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 550px; margin: 0 auto; line-height: 1.8; }
+.convo-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 3rem; }
+.convo-tab { padding: 0.75rem 2.5rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; color: rgba(255,255,255,0.4); }
+.convo-tab:first-child { border-radius: 2px 0 0 2px; }
+.convo-tab:last-child { border-radius: 0 2px 2px 0; }
+.convo-tab.active { background: var(--ottanio); border-color: var(--ottanio); color: var(--bianco); }
+.convo-terminal { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+.convo-terminal-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.convo-terminal-dot { width: 8px; height: 8px; border-radius: 50%; }
+.convo-terminal-dot:nth-child(1) { background: #ff5f57; }
+.convo-terminal-dot:nth-child(2) { background: #febc2e; }
+.convo-terminal-dot:nth-child(3) { background: #28c840; }
+.convo-terminal-title { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-left: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.convo-body { padding: 2rem; max-height: 420px; overflow-y: auto; }
+.convo-msg { margin-bottom: 1.5rem; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
+.convo-msg.show { opacity: 1; transform: translateY(0); }
+.convo-role { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.convo-role.human { color: var(--ottanio); }
+.convo-role.ai { color: rgba(255,255,255,0.3); }
+.convo-role.reflection { color: #9a7a5a; }
+.convo-text { font-size: 0.92rem; line-height: 1.8; color: rgba(255,255,255,0.7); padding-left: 1rem; border-left: 2px solid rgba(255,255,255,0.06); }
+.convo-text em { color: var(--ottanio); font-style: italic; }
+.convo-score { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; padding: 1.5rem; background: rgba(42,107,107,0.08); border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; }
+.convo-score-item { text-align: center; }
+.convo-score-val { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; }
+.convo-score-val.high { color: var(--ottanio); }
+.convo-score-val.low { color: #8a5a4a; }
+.convo-score-lbl { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.25rem; }
 
-/* SIDEBAR STYLES */
-.sidebar-section { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--grigio-chiaro); }
-.sidebar-section:last-child { border-bottom: none; }
-.sidebar-section h3 { font-family: 'Instrument Serif', serif; font-size: 1rem; margin: 0 0 1rem 0; font-weight: 400; }
-.sidebar-section ul { list-style: none; padding: 0; margin: 0; }
-.sidebar-section li { margin-bottom: 0.75rem; }
-.sidebar-section a { color: var(--ottanio); text-decoration: none; font-size: 0.9375rem; transition: color 0.3s ease; }
-.sidebar-section a:hover { color: var(--nero); text-decoration: underline; }
+/* PROTOCOL: RADAR */
+.proto { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; }
+.proto-inner { max-width: 1100px; margin: 0 auto; }
+.proto-header { text-align: center; margin-bottom: 5rem; }
+.proto-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1rem; }
+.proto-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+.radar-wrap { display: flex; align-items: center; justify-content: center; gap: 5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.radar-svg-wrap { width: 420px; height: 420px; flex-shrink: 0; position: relative; }
+.radar-svg-wrap svg { width: 100%; height: 100%; }
+.radar-info { max-width: 400px; }
+.radar-info-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-style: italic; color: var(--ottanio); margin-bottom: 1rem; min-height: 2.5rem; transition: all 0.4s ease; }
+.radar-info-desc { font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 2rem; min-height: 5rem; transition: all 0.4s ease; }
+.radar-info-weight { font-family: 'Instrument Serif', serif; font-size: 3rem; font-style: italic; color: var(--ottanio); opacity: 0.4; }
 
-/* CODE/MONO STYLING */
-code { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; background: #f5f5f5; padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
-pre { background: #f5f5f5; padding: 1rem; border-left: 4px solid var(--ottanio); border-radius: 0.25rem; overflow-x: auto; }
-pre code { background: none; padding: 0; }
+/* AXES RADIAL — animated flower */
+.axes-radial { padding: 8rem 3rem; background: #fafafa; }
+.axes-radial-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.axes-radial-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
+.axes-radial-sub { font-size: 1.05rem; color: var(--grigio); max-width: 500px; margin: 0 auto 4rem; line-height: 1.8; }
+.axes-svg-wrap { width: 100%; max-width: 520px; margin: 0 auto 3rem; position: relative; }
+.axes-svg-wrap svg { width: 100%; height: auto; }
+.axis-petal { opacity: 0; transform-origin: center; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.axis-petal.grown { opacity: 1; }
+.axis-petal-fill { transition: opacity 0.3s ease; }
+.axis-petal:hover .axis-petal-fill { opacity: 0.25 !important; }
+.axes-hover-info { font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; color: var(--ottanio); min-height: 2rem; transition: all 0.4s ease; margin-bottom: 2rem; }
+.axes-pdf-link { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); text-decoration: none; border-bottom: 1px solid rgba(42,107,107,0.3); padding-bottom: 0.15rem; transition: border-color 0.3s ease; }
+.axes-pdf-link:hover { border-color: var(--ottanio); }
 
-/* EMPHASIS BOXES */
-.callout { margin: 2rem 0; padding: 1.5rem; background: rgba(42,107,107,0.05); border-left: 4px solid var(--ottanio); border-radius: 0.25rem; }
-.callout p { margin: 0; font-size: 1rem; line-height: 1.6; }
-.callout strong { font-weight: 600; }
+/* LAB — prompt timeline */
+.lab-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); }
+.lab-inner { max-width: 900px; margin: 0 auto; }
+.lab-header { text-align: center; margin-bottom: 5rem; }
+.lab-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
+.lab-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 550px; margin: 0 auto; line-height: 1.8; }
+.lab-timeline { position: relative; padding-left: 3rem; }
+.lab-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: rgba(42,107,107,0.15); }
+.lab-stop { position: relative; padding-bottom: 3rem; opacity: 0; transform: translateX(-10px); transition: all 0.6s ease; }
+.lab-stop.vis { opacity: 1; transform: translateX(0); }
+.lab-stop::before { content: ''; position: absolute; left: -3rem; top: 0.3rem; width: 10px; height: 10px; border-radius: 50%; background: var(--ottanio); border: 2px solid var(--nero); z-index: 1; transition: all 0.4s ease; }
+.lab-stop.active::before { background: var(--bianco); box-shadow: 0 0 12px rgba(42,107,107,0.6); }
+.lab-stop-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 0.5rem; }
+.lab-stop-prompt { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.7); padding: 1.25rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 3px; margin-bottom: 0.75rem; }
+.lab-stop-comment { font-size: 0.85rem; color: rgba(255,255,255,0.35); line-height: 1.7; font-style: italic; }
+.lab-gauges { display: flex; justify-content: center; gap: 3rem; margin-top: 4rem; flex-wrap: wrap; }
+.lab-gauge { text-align: center; width: 100px; }
+.lab-gauge svg { width: 80px; height: 80px; transform: rotate(-90deg); }
+.lab-gauge-ring { transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+.lab-gauge-val { font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-style: italic; color: var(--ottanio); margin-top: 0.5rem; }
+.lab-gauge-name { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.25rem; }
+.lab-verdict { text-align: center; margin-top: 3rem; padding: 2rem; border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; background: rgba(42,107,107,0.05); }
+.lab-verdict-score { font-family: 'Instrument Serif', serif; font-size: 3.5rem; font-style: italic; color: var(--ottanio); }
+.lab-verdict-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 0.5rem; }
+
+/* VOICES CAROUSEL */
+.voices-section { padding: 8rem 3rem; position: relative; }
+.voices-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.voices-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
+.voices-sub { font-size: 1.05rem; color: var(--grigio); max-width: 500px; margin: 0 auto 4rem; line-height: 1.8; }
+.voices-carousel { position: relative; overflow: hidden; min-height: 280px; }
+.voice-slide { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateX(40px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+.voice-slide.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+.voice-slide.leaving { opacity: 0; transform: translateX(-40px); }
+.voice-author { font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-style: italic; color: var(--ottanio); margin-bottom: 0.25rem; }
+.voice-role { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); margin-bottom: 2rem; }
+.voice-quote { font-family: 'Instrument Serif', serif; font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-style: italic; line-height: 1.6; color: var(--nero); margin-bottom: 2rem; position: relative; }
+.voice-quote::before { content: '\201C'; position: absolute; top: -0.4em; left: -0.6em; font-size: 3rem; color: rgba(42,107,107,0.15); }
+.voice-response { font-size: 0.95rem; line-height: 1.8; color: var(--grigio); max-width: 600px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid var(--grigio-chiaro); max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; }
+.voice-response.open { max-height: 400px; opacity: 1; padding-top: 1.5rem; }
+.voice-toggle { display: inline-block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); cursor: pointer; margin-top: 1rem; border-bottom: 1px solid rgba(42,107,107,0.3); padding-bottom: 0.1rem; }
+.voices-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+.voices-nav-btn { width: 40px; height: 40px; border: 1px solid var(--grigio-chiaro); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: transparent; transition: all 0.3s ease; }
+.voices-nav-btn:hover { border-color: var(--ottanio); }
+.voices-nav-btn svg { width: 16px; height: 16px; stroke: var(--grigio); transition: stroke 0.3s ease; }
+.voices-nav-btn:hover svg { stroke: var(--ottanio); }
+.voices-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+.voices-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--grigio-chiaro); cursor: pointer; transition: all 0.3s ease; }
+.voices-dot.active { background: var(--ottanio); transform: scale(1.3); }
+
+/* DOWNLOAD */
+.dl-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); text-align: center; position: relative; overflow: hidden; }
+.dl-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(42,107,107,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: glowPulse 6s ease-in-out infinite; pointer-events: none; }
+.dl-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+.dl-icon { width: 90px; height: 90px; margin: 0 auto 2.5rem; border: 1px solid rgba(42,107,107,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: floatIcon 4s ease-in-out infinite; }
+@keyframes floatIcon { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.dl-icon svg { width: 30px; height: 30px; stroke: var(--ottanio); }
+.dl-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1.5rem; }
+.dl-inner > p { font-size: 1.05rem; line-height: 1.8; color: rgba(255,255,255,0.4); margin-bottom: 3rem; }
+.dl-btn { display: inline-flex; align-items: center; gap: 1rem; padding: 1.25rem 3.5rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--bianco); background: var(--ottanio); border: 1px solid var(--ottanio); text-decoration: none; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
+.dl-btn:hover { background: transparent; color: var(--ottanio); }
+.dl-btn svg { transition: transform 0.4s ease; }
+.dl-btn:hover svg { transform: translateY(3px); }
+.dl-meta { margin-top: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(25px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+.rv.vis { opacity: 1; transform: translateY(0); }
 
 /* RESPONSIVE */
-@media (max-width: 1024px) {
-  .page-wrapper { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; }
-  .sidebar-content { grid-column: 1; position: static; max-height: none; }
-  h1 { font-size: 2.5rem; }
-  section h2 { font-size: 1.75rem; }
+@media (max-width: 900px) {
+    .side-nav { display: none; }
+    .t-hero-content { padding: 4rem 1.5rem; }
+    .bivio-section, .convo-section, .proto, .axes-radial, .lab-section, .voices-section, .dl-section { padding: 5rem 1.5rem; }
+    .radar-wrap { flex-direction: column; gap: 3rem; }
+    .radar-svg-wrap { width: 300px; height: 300px; }
+    .counter-strip { gap: 3rem; }
+    .convo-score { gap: 1rem; flex-wrap: wrap; }
+    .t-hero-meta { gap: 1.5rem; }
+    .lab-gauges { gap: 1.5rem; }
 }
-
-@media (max-width: 640px) {
-  .page-wrapper { padding: 1.5rem 1rem; }
-  h1 { font-size: 2rem; }
-  .subtitle { font-size: 1rem; }
-  section h2 { font-size: 1.25rem; }
-  section { margin-bottom: 2.5rem; }
-  .sidebar-section { margin-bottom: 1.5rem; }
+@media (max-width: 600px) {
+    .convo-tabs { flex-direction: column; gap: 0; }
+    .convo-tab:first-child { border-radius: 2px 2px 0 0; }
+    .convo-tab:last-child { border-radius: 0 0 2px 2px; }
 }
 </style>
 </head>
 <body>
-<div class="cursor-light"></div>
-<div class="reading-progress"></div>
+<div class="reading-progress" id="readingProgress"></div>
+<div class="cursor-light" id="cursorLight"></div>
+<div class="grain"></div>
 
-<div class="page-wrapper">
-  <main class="main-content">
-    <header>
-      <h1>La traccia visibile del pensiero</h1>
-      <p class="subtitle">Un protocollo per valutare il processo, non il prodotto</p>
-    </header>
+<nav class="side-nav" id="sideNav">
+    <div class="side-nav-dot active" data-label="Inizio" data-target="hero"></div>
+    <div class="side-nav-dot" data-label="Il bivio" data-target="bivioSection"></div>
+    <div class="side-nav-dot" data-label="Dialogo" data-target="convoSection"></div>
+    <div class="side-nav-dot" data-label="Protocollo" data-target="protoSection"></div>
+    <div class="side-nav-dot" data-label="Assi" data-target="axesSection"></div>
+    <div class="side-nav-dot" data-label="Laboratorio" data-target="labSection"></div>
+    <div class="side-nav-dot" data-label="Voci" data-target="voicesSection"></div>
+    <div class="side-nav-dot" data-label="Scarica" data-target="dlSection"></div>
+</nav>
 
-    <section class="intro-section">
-      <p>Quando uno studente conversa con un'intelligenza artificiale, la conversazione stessa diventa documento. Non un documento finale, ma un'evidenza del processo: delle domande riposte, degli errori corretti, degli insegnamenti acquisiti strada facendo.</p>
-      <p>Questa traccia visibile del pensiero è ciò che dovremmo imparare a leggere, a valutare, a riconoscere come fondamentale nel panorama educativo che sta cambiando.</p>
-    </section>
-
-    <section id="sezione-1">
-      <h2>Il cambio di paradigma</h2>
-      <p>Per decenni, abbiamo valutato l'apprendimento guardando al <strong>prodotto finale</strong>: il compito consegnato, l'esame superato, il voto ottenuto. Raramente il docente vedeva il processo: i tentativi falliti, le domande poste, i dubbi affrontati.</p>
-      <p>Con l'IA, il processo diventa visibile. Ogni prompt è una finestra sul pensiero dello studente. Ogni risposta è occasione di feedback immediato. Ogni correzione è traccia di apprendimento.</p>
-      
-      <div class="diagram">
-        <h4>Dal prodotto al processo</h4>
-        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-          <!-- Asse orizzontale -->
-          <line x1="50" y1="150" x2="550" y2="150" stroke="#ccc" stroke-width="2"/>
-          <!-- Asse verticale -->
-          <line x1="50" y1="30" x2="50" y2="150" stroke="#ccc" stroke-width="2"/>
-          
-          <!-- Etichette assi -->
-          <text x="560" y="155" font-size="14" fill="#666">Tempo</text>
-          <text x="15" y="20" font-size="14" fill="#666">Valore</text>
-          
-          <!-- Linea vecchio modello -->
-          <polyline points="80,130 200,130 300,130 400,130 520,50" fill="none" stroke="#ccc" stroke-width="3" stroke-dasharray="5,5"/>
-          <text x="300" y="170" font-size="12" fill="#999" text-anchor="middle">Vecchio: solo risultato finale</text>
-          
-          <!-- Linea nuovo modello -->
-          <polyline points="80,100 120,90 160,85 200,80 250,70 300,60 350,50 400,45 450,40 520,30" fill="none" stroke="#2a6b6b" stroke-width="3"/>
-          <circle cx="80" cy="100" r="4" fill="#2a6b6b"/>
-          <circle cx="120" cy="90" r="4" fill="#2a6b6b"/>
-          <circle cx="160" cy="85" r="4" fill="#2a6b6b"/>
-          <circle cx="200" cy="80" r="4" fill="#2a6b6b"/>
-          <circle cx="250" cy="70" r="4" fill="#2a6b6b"/>
-          <circle cx="300" cy="60" r="4" fill="#2a6b6b"/>
-          <circle cx="350" cy="50" r="4" fill="#2a6b6b"/>
-          <circle cx="400" cy="45" r="4" fill="#2a6b6b"/>
-          <circle cx="450" cy="40" r="4" fill="#2a6b6b"/>
-          <circle cx="520" cy="30" r="4" fill="#2a6b6b"/>
-          <text x="300" y="30" font-size="12" fill="#2a6b6b" text-anchor="middle" font-weight="bold">Nuovo: traccia visibile del processo</text>
-        </svg>
-        <p class="diagram-label">Il nuovo modello rende visibile la progressione dell'apprendimento nel tempo, non solo il risultato finale.</p>
-      </div>
-
-      <p>La domanda che ogni educatore deve porsi è: <em>come leggo e valuto questa traccia?</em></p>
-    </section>
-
-    <section id="sezione-2">
-      <h2>Elementi della traccia visibile</h2>
-      <p>Una conversazione fruttuosa tra studente e IA contiene segnali di apprendimento distribuiti nel tempo. Riconoscerli richiede una nuova alfabetizzazione da parte di docenti e genitori.</p>
-      
-      <h3>1. La qualità delle domande</h3>
-      <p>Le prime domande sono spesso generiche, formulate con parole prese da Wikipedia. Seguendo la conversazione, le domande diventano sempre più precise, specifiche, situate. Questo è apprendimento: passare dalla curiosità superficiale alla domanda profonda.</p>
-      
-      <h3>2. Il riconoscimento dell'errore</h3>
-      <p>Quando uno studente dice "Non avevo considerato questo aspetto" oppure "Ora capisco che la mia interpretazione era parziale", sta rivelando un momento di apprendimento vero. Non è fallimento, è progresso.</p>
-      
-      <h3>3. L'iterazione e il feedback</h3>
-      <p>Lo studente che chiede "Puoi farmi un esempio concreto?" oppure "Come potrei approfondire questo punto?" sta dimostrando metacognizione. Sa cosa non sa e sa come imparare.</p>
-      
-      <h3>4. La sintesi personale</h3>
-      <p>Quando lo studente scrive "Quindi il concetto è..." oppure "In altre parole...", sta dimostrando che ha interiorizzato il concetto. Non è semplice copia-incolla, è rielaborazione.</p>
-
-      <div class="carousel-container">
-        <h3 style="margin-top: 0;">Voci che raccontano la traccia</h3>
-        <div class="carousel-wrapper">
-          <div class="carousel-items">
-            <div class="carousel-item">
-              <h4>Domande progressive</h4>
-              <p>"Cos'è il cambiamento climatico?" → "Quali sono i meccanismi di feedback che amplificano il riscaldamento?" → "Come potremmo modellare gli scenari di decarbonizzazione per la mia regione?"</p>
-            </div>
-            <div class="carousel-item">
-              <h4>Riconoscimento dei limiti</h4>
-              <p>Lo studente dice: "Fino a oggi pensavo che il marketing fosse solo persuasione. Adesso capisco che c'è una dimensione etica." Questo è apprendimento reale.</p>
-            </div>
-            <div class="carousel-item">
-              <h4>Curiosità situata</h4>
-              <p>"Mi spieghi come questo concetto si collega a quello che abbiamo visto nella lezione di storia?" Mostra che lo studente sta costruendo connessioni, non accumula nozioni.</p>
-            </div>
-            <div class="carousel-item">
-              <h4>Rielaborazione personale</h4>
-              <p>"Quindi per il mio progetto, potrei applicare questo modello per..." Lo studente non ripete la lezione, la traduce nel suo contesto.</p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-nav">
-          <div class="carousel-dot active"></div>
-          <div class="carousel-dot"></div>
-          <div class="carousel-dot"></div>
-          <div class="carousel-dot"></div>
-        </div>
-        <button class="carousel-prev">❮</button>
-        <button class="carousel-next">❯</button>
-      </div>
-    </section>
-
-    <section id="sezione-3">
-      <h2>Criteri di valutazione</h2>
-      <p>Se vogliamo valutare il processo e non solo il prodotto, abbiamo bisogno di nuovi criteri. Eccone alcuni:</p>
-
-      <div class="diagram">
-        <h4>Matrice di valutazione della traccia</h4>
-        <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-          <!-- Griglia -->
-          <line x1="50" y1="30" x2="50" y2="270" stroke="#ccc" stroke-width="1"/>
-          <line x1="50" y1="270" x2="550" y2="270" stroke="#ccc" stroke-width="1"/>
-          
-          <!-- Assi -->
-          <text x="15" y="35" font-size="12" fill="#666" text-anchor="end">Profondità</text>
-          <text x="560" y="285" font-size="12" fill="#666">Iterazione</text>
-          
-          <!-- Quadranti -->
-          <!-- Top-left: Superficiale ma iterato -->
-          <rect x="50" y="30" width="250" height="120" fill="rgba(200,100,100,0.1)" stroke="none"/>
-          <text x="175" y="95" font-size="11" fill="#999" text-anchor="middle" font-weight="bold">Ampiezza senza profondità</text>
-          
-          <!-- Top-right: Profondo e iterato (ideale) -->
-          <rect x="300" y="30" width="250" height="120" fill="rgba(42,107,107,0.1)" stroke="none"/>
-          <text x="425" y="95" font-size="11" fill="#2a6b6b" text-anchor="middle" font-weight="bold">Apprendimento profondo</text>
-          
-          <!-- Bottom-left: Superficiale e poco iterato -->
-          <rect x="50" y="150" width="250" height="120" fill="rgba(200,100,100,0.2)" stroke="none"/>
-          <text x="175" y="215" font-size="11" fill="#999" text-anchor="middle" font-weight="bold">Passività</text>
-          
-          <!-- Bottom-right: Profondo ma poco iterato -->
-          <rect x="300" y="150" width="250" height="120" fill="rgba(200,150,100,0.1)" stroke="none"/>
-          <text x="425" y="215" font-size="11" fill="#999" text-anchor="middle" font-weight="bold">Intuizione non sviluppata</text>
-          
-          <!-- Etichette assi -->
-          <text x="35" y="150" font-size="11" fill="#666" text-anchor="end">Superficiale</text>
-          <text x="35" y="50" font-size="11" fill="#666" text-anchor="end">Profonda</text>
-          <text x="175" y="290" font-size="11" fill="#666" text-anchor="middle">Poca</text>
-          <text x="425" y="290" font-size="11" fill="#666" text-anchor="middle">Molta</text>
-        </svg>
-        <p class="diagram-label">La valutazione ideale premia sia la profondità concettuale che l'iterazione riflessiva.</p>
-      </div>
-
-      <h3>Criteri specifici</h3>
-      <ul>
-        <li><strong>Profondità concettuale:</strong> Le domande e le risposte toccano il nucleo del tema o rimangono superficiali?</li>
-        <li><strong>Iterazione:</strong> Lo studente ritorna sui concetti, approfondisce, rielabora? O consuma e scarta?</li>
-        <li><strong>Autonomia crescente:</strong> Lo studente diventa progressivamente più indipendente nel formulare domande e interpretazioni?</li>
-        <li><strong>Consapevolezza metacognitiva:</strong> Sa cosa sa e cosa non sa? Riconosce i suoi errori?</li>
-        <li><strong>Applicazione situata:</strong> Riesce a trasferire i concetti al suo contesto personale?</li>
-      </ul>
-    </section>
-
-    <section id="sezione-4">
-      <h2>La traccia come narrazione</h2>
-      <p>Una conversazione con l'IA non è una serie di domande e risposte isolate. È una narrazione di apprendimento: ha un inizio, uno sviluppo e una conclusione. Ha personaggi (lo studente e l'IA), conflitti (le difficoltà concettuali), risoluzioni (gli insight acquisiti).</p>
-
-      <div class="diagram">
-        <h4>Struttura narrativa della traccia</h4>
-        <svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
-          <!-- Timeline -->
-          <line x1="50" y1="75" x2="550" y2="75" stroke="#ccc" stroke-width="2"/>
-          
-          <!-- Punti -->
-          <circle cx="80" cy="75" r="8" fill="#2a6b6b"/>
-          <text x="80" y="100" font-size="12" fill="#2a6b6b" text-anchor="middle" font-weight="bold">Domanda iniziale</text>
-          
-          <circle cx="180" cy="75" r="6" fill="#e5e5e5"/>
-          <text x="180" y="100" font-size="11" fill="#666" text-anchor="middle">Primo sviluppo</text>
-          
-          <circle cx="300" cy="75" r="6" fill="#e5e5e5"/>
-          <text x="300" y="100" font-size="11" fill="#666" text-anchor="middle">Conflitto/Errore</text>
-          
-          <circle cx="420" cy="75" r="6" fill="#e5e5e5"/>
-          <text x="420" y="100" font-size="11" fill="#666" text-anchor="middle">Risoluzione</text>
-          
-          <circle cx="520" cy="75" r="8" fill="#2a6b6b"/>
-          <text x="520" y="100" font-size="12" fill="#2a6b6b" text-anchor="middle" font-weight="bold">Sintesi finale</text>
-          
-          <!-- Archi di sviluppo -->
-          <path d="M 80 70 Q 300 30 520 70" fill="none" stroke="rgba(42,107,107,0.3)" stroke-width="3"/>
-        </svg>
-        <p class="diagram-label">La traccia ha una struttura narrativa: inizio, sviluppo attraverso conflitti, risoluzione e sintesi.</p>
-      </div>
-
-      <p>Leggere la traccia significa riconoscere questa struttura. Non è un compito da "passare o fallire", ma una storia di come una mente impara, sbaglia, corregge, cresce.</p>
-    </section>
-
-    <section id="sezione-5">
-      <h2>Implicazioni per la scuola</h2>
-
-      <div class="callout">
-        <p><strong>La sfida principale:</strong> Come insegnare ai docenti a leggere queste tracce? Come trasformare una valutazione basata su punti in una valutazione basata su processi?</p>
-      </div>
-
-      <p>Alcune proposte concrete:</p>
-
-      <h3>1. Literacy per docenti</h3>
-      <p>I docenti devono imparare a riconoscere i segnali di apprendimento autentico dentro una conversazione con l'IA. Questo è diverso da insegnare a usare l'IA in classe.</p>
-
-      <h3>2. Portfolio di tracce</h3>
-      <p>Invece di raccogliere solo compiti finali, gli studenti potrebbero tenere portfolio di conversazioni con l'IA, commentate e auto-valutate. La traccia diventa strumento di apprendimento, non solo di valutazione.</p>
-
-      <h3>3. Feedback generativo</h3>
-      <p>I docenti potrebbero offrire feedback non sullo "sbagliato" ma su come proseguire l'indagine. "Ottima domanda. Adesso potresti considerare..." invece di "Sbagliato, la risposta giusta è..."</p>
-
-      <h3>4. Ridefinire il plagio</h3>
-      <p>Se la conversazione con l'IA è traccia visibile del pensiero, non è plagio. È un modo diverso di studiare. La sfida è distinguere tra uso genuino (che mostra il processo) e uso pigro (che nasconde il processo).</p>
-
-      <h3>5. Valutazione collaborativa</h3>
-      <p>Docenti e studenti potrebbero insieme analizzare una traccia e discutere: "Quali sono i momenti di apprendimento reale qui? Come potremmo approfondire ulteriormente?"</p>
-
-      <div class="radar-container">
-        <h3 style="margin-top: 0;">Dimensioni della nuova valutazione</h3>
-        <svg class="radar-chart" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-          <!-- Cerchi di sfondo -->
-          <circle class="radar-grid" cx="200" cy="200" r="150" fill="none"/>
-          <circle class="radar-grid" cx="200" cy="200" r="100" fill="none"/>
-          <circle class="radar-grid" cx="200" cy="200" r="50" fill="none"/>
-          
-          <!-- Assi -->
-          <line class="radar-axis" x1="200" y1="200" x2="200" y2="50"/>
-          <line class="radar-axis" x1="200" y1="200" x2="350" y2="200"/>
-          <line class="radar-axis" x1="200" y1="200" x2="125" y2="350"/>
-          <line class="radar-axis" x1="200" y1="200" x2="275" y2="350"/>
-          <line class="radar-axis" x1="200" y1="200" x2="50" y2="200"/>
-          <line class="radar-axis" x1="200" y1="200" x2="75" y2="50"/>
-          
-          <!-- Etichette -->
-          <text class="radar-label" x="200" y="35" text-anchor="middle">Profondità</text>
-          <text class="radar-label" x="360" y="205" text-anchor="start">Autonomia</text>
-          <text class="radar-label" x="295" y="365" text-anchor="middle">Iterazione</text>
-          <text class="radar-label" x="105" y="365" text-anchor="middle">Consapevolezza</text>
-          <text class="radar-label" x="35" y="205" text-anchor="end">Applicazione</text>
-          <text class="radar-label" x="65" y="50" text-anchor="middle">Riflessione</text>
-          
-          <!-- Poligono dati -->
-          <polygon class="radar-data" points="200,80 280,140 290,240 200,300 110,240 120,140"/>
-        </svg>
-      </div>
-    </section>
-
-    <section id="sezione-6">
-      <h2>Conclusione: leggere il pensiero</h2>
-      <p>La traccia visibile del pensiero è una rivoluzione silenziosa in educazione. Non è la tecnologia a essere importante, ma ciò che la tecnologia rende possibile: rendere visibile il processo di apprendimento.</p>
-
-      <p>Per decenni abbiamo insegnato come se il processo fosse invisibile, come se importasse solo il risultato. L'IA cambia questo. Improvvisamente, il processo è lì, registrato, leggibile, valutabile.</p>
-
-      <p>La sfida per educatori, genitori, e studenti stessi è imparare a leggere questa nuova letteratura del pensiero. Non con le vecchie lenti della valutazione numerica, ma con occhi abituati a riconoscere la crescita, l'errore come opportunità, la domanda come atto di coraggio intellettuale.</p>
-
-      <div class="callout">
-        <p><strong>Una domanda per chiudere:</strong> Se potessimo vedere il processo di apprendimento di ogni studente, renderebbe il nostro insegnamento più umano o più freddo? Dipende, probabilmente, da come scegliamo di leggerlo.</p>
-      </div>
-    </section>
-
-  </main>
-
-  <aside class="sidebar-content">
-    <div class="sidebar-section">
-      <h3>Indice</h3>
-      <ul>
-        <li><a href="#sezione-1">Il cambio di paradigma</a></li>
-        <li><a href="#sezione-2">Elementi della traccia visibile</a></li>
-        <li><a href="#sezione-3">Criteri di valutazione</a></li>
-        <li><a href="#sezione-4">La traccia come narrazione</a></li>
-        <li><a href="#sezione-5">Implicazioni per la scuola</a></li>
-        <li><a href="#sezione-6">Conclusione</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <h3>Concetti chiave</h3>
-      <ul>
-        <li>Visibilità del processo</li>
-        <li>Valutazione formativa</li>
-        <li>Metacognizione</li>
-        <li>Iterazione riflessiva</li>
-        <li>Narrazione dell'apprendimento</li>
-        <li>Autonomia crescente</li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <h3>Risorse</h3>
-      <ul>
-        <li><a href="#">Letteratura sulla valutazione</a></li>
-        <li><a href="#">Studi su AI e educazione</a></li>
-        <li><a href="#">Template per portfolio</a></li>
-        <li><a href="#">Linee guida per docenti</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <h3>Prossimi passi</h3>
-      <ul>
-        <li>Sviluppare un protocollo di lettura</li>
-        <li>Creare corsi di formazione per docenti</li>
-        <li>Testare il sistema in scuole pilota</li>
-        <li>Pubblicare case studies</li>
-        <li>Raccogliere feedback da studenti</li>
-      </ul>
-    </div>
-  </aside>
+<header>
+    <a href="./" class="logo"><span class="pulse-signal"></span>Andrea <em>Colamedici</em></a>
+    <nav><a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a><div class="lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div></nav>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a>
+    <div class="mobile-lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div>
 </div>
 
+<main>
+
+<!-- 1. HERO -->
+<section class="t-hero" id="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="t-hero-content">
+        <span class="t-hero-label">Saggio · 2026</span>
+        <h1 class="t-hero-title">La traccia <em>visibile</em> del pensiero</h1>
+        <p class="t-hero-subtitle">Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e macchina come documento del pensiero.</p>
+        <div class="t-hero-meta">
+            <span>Andrea Colamedici</span>
+            <span>13 pagine</span>
+            <span>5 assi di valutazione</span>
+        </div>
+    </div>
+    <div class="scroll-cue"><div class="scroll-cue-line"></div><span>Leggi</span></div>
+</section>
+
+<!-- 2. COUNTER STRIP -->
+<div class="counter-strip rv" id="counterStrip">
+    <div class="counter-item"><div class="counter-num" data-target="5">0</div><div class="counter-label">Assi di valutazione</div></div>
+    <div class="counter-item"><div class="counter-num" data-target="4">0</div><div class="counter-label">Livelli per asse</div></div>
+    <div class="counter-item"><div class="counter-num" data-target="1">0</div><div class="counter-label">Protocollo</div></div>
+</div>
+
+<div class="flow-div"><canvas id="flow1"></canvas></div>
+
+<!-- 3. IL BIVIO — animated SVG diagram -->
+<section class="bivio-section" id="bivioSection">
+    <div class="bivio-inner">
+        <h2 class="rv">Il bivio</h2>
+        <p class="bivio-subtitle rv">Di fronte all'intelligenza artificiale in aula, si aprono due strade.</p>
+        <div class="bivio-svg-wrap rv" id="bivioSvg"></div>
+        <p class="bivio-quote" id="bivioQuote">Il pensiero non scompare nella macchina. Si deposita nei prompt, nelle correzioni, nelle resistenze alla facilità.</p>
+    </div>
+</section>
+
+<div class="flow-div dark"><canvas id="flow2"></canvas></div>
+
+<!-- 4. CONVERSAZIONI -->
+<section class="convo-section" id="convoSection">
+    <div class="convo-inner">
+        <div class="convo-header rv">
+            <h2>Due conversazioni, due pensieri</h2>
+            <p>Lo stesso compito, due studenti. Il protocollo legge la differenza.</p>
+        </div>
+        <div class="convo-tabs">
+            <div class="convo-tab active" data-convo="delegate">Delega del pensiero</div>
+            <div class="convo-tab" data-convo="traverse">Attraversamento del pensiero</div>
+        </div>
+        <div class="convo-terminal">
+            <div class="convo-terminal-bar">
+                <div class="convo-terminal-dot"></div><div class="convo-terminal-dot"></div><div class="convo-terminal-dot"></div>
+                <span class="convo-terminal-title">conversazione.log</span>
+            </div>
+            <div class="convo-body" id="convoBody"></div>
+        </div>
+        <div class="convo-score" id="convoScore"></div>
+    </div>
+</section>
+
+<!-- 5. PROTOCOLLO — radar interattivo -->
+<section class="proto" id="protoSection">
+    <div class="proto-inner">
+        <div class="proto-header rv">
+            <h2>Il Protocollo</h2>
+            <p>Cinque assi di valutazione, ciascuno con il proprio peso. Passa il cursore sul grafico per esplorare.</p>
+        </div>
+        <div class="radar-wrap">
+            <div class="radar-svg-wrap rv"><svg id="radarChart" viewBox="0 0 400 400"></svg></div>
+            <div class="radar-info rv">
+                <div class="radar-info-title" id="radarTitle">Passa il cursore su un asse</div>
+                <div class="radar-info-desc" id="radarDesc">Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.</div>
+                <div class="radar-info-weight" id="radarWeight"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="flow-div"><canvas id="flow3"></canvas></div>
+
+<!-- 6. ASSI — diagramma radiale animato -->
+<section class="axes-radial" id="axesSection">
+    <div class="axes-radial-inner">
+        <h2 class="rv">I cinque assi</h2>
+        <p class="axes-radial-sub rv">Ogni dimensione misura un aspetto diverso del pensiero in azione. Passa il cursore per esplorare.</p>
+        <div class="axes-svg-wrap rv" id="axesSvg"></div>
+        <div class="axes-hover-info" id="axesHoverInfo">Esplora gli assi con il cursore</div>
+        <a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="axes-pdf-link" download>Vedi le rubriche complete nel PDF</a>
+    </div>
+</section>
+
+<div class="flow-div dark"><canvas id="flow4"></canvas></div>
+
+<!-- 7. LABORATORIO DEL PROMPT -->
+<section class="lab-section" id="labSection">
+    <div class="lab-inner">
+        <div class="lab-header rv">
+            <h2>Il laboratorio del prompt</h2>
+            <p>Cinque stadi di maturazione. Lo stesso studente, la stessa domanda, prompt sempre più consapevoli.</p>
+        </div>
+        <div class="lab-timeline" id="labTimeline"></div>
+        <div class="lab-gauges rv" id="labGauges"></div>
+        <div class="lab-verdict rv" id="labVerdict"></div>
+    </div>
+</section>
+
+<div class="flow-div"><canvas id="flow5"></canvas></div>
+
+<!-- 8. VOCI DAL DIBATTITO — carosello -->
+<section class="voices-section" id="voicesSection">
+    <div class="voices-inner">
+        <h2 class="rv">Voci dal dibattito</h2>
+        <p class="voices-sub rv">Posizioni diverse, un confronto aperto.</p>
+        <div class="voices-carousel rv" id="voicesCarousel"></div>
+        <div class="voices-nav rv">
+            <button class="voices-nav-btn" id="voicesPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="voices-nav-btn" id="voicesNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="voices-dots rv" id="voicesDots"></div>
+    </div>
+</section>
+
+<!-- 9. DOWNLOAD -->
+<section class="dl-section" id="dlSection">
+    <div class="dl-glow"></div>
+    <div class="dl-inner rv">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+        <h2>Scarica il saggio completo</h2>
+        <p>Il testo integrale del Protocollo di Valutazione del Processo, con le rubriche dettagliate, la discussione dei limiti e le indicazioni per la formazione dei docenti.</p>
+        <a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="dl-btn" download><span>Scarica PDF</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>
+        <p class="dl-meta">PDF, 13 pagine — Andrea Colamedici, 2026</p>
+    </div>
+</section>
+
+</main>
+
+<footer><div class="footer-content"><div class="footer-left">© 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contact.html">Contatti</a></div></div></footer>
+
 <script>
-// Cursor light effect
-const cursorLight = document.querySelector('.cursor-light');
-document.addEventListener('mousemove', (e) => {
-  cursorLight.style.left = e.clientX + 'px';
-  cursorLight.style.top = e.clientY + 'px';
-});
+/* ===== DATA ===== */
+const AXES = [
+    { name: 'Resistenza alla facilità', weight: 25, color: '#8a5a4a', desc: 'Misura la capacità dello studente di non accettare la prima risposta della macchina, di riconoscere la genericità e di cercare attivamente la complessità.', shortDesc: 'Non accettare la prima risposta' },
+    { name: 'Comportamento correttivo', weight: 25, color: '#7a9a5a', desc: 'Valuta la capacità dello studente di individuare errori, imprecisioni e genericità nelle risposte generate e di intervenire con correzioni specifiche.', shortDesc: 'Correggere la macchina' },
+    { name: "Qualità dell'interrogazione", weight: 20, color: '#2a6b6b', desc: 'La qualità della domanda determina la qualità della risposta. Valuta la capacità di formulare prompt precisi, contestualizzati, progressivi.', shortDesc: 'Saper chiedere bene' },
+    { name: 'Architettura del dialogo', weight: 15, color: '#5a7a9a', desc: 'La conversazione con la macchina ha una struttura. Valuta se quella struttura è caotica o governata, se i temi si sviluppano in modo coerente.', shortDesc: 'Governare la struttura' },
+    { name: 'Trasparenza metacognitiva', weight: 15, color: '#9a7a5a', desc: 'La capacità di riflettere sul proprio processo mentre lo si compie. Misura se lo studente annota le proprie scelte e riconosce i limiti.', shortDesc: 'Riflettere sul processo' }
+];
 
-// Reading progress bar
-window.addEventListener('scroll', () => {
-  const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (window.scrollY / windowHeight) * 100;
-  document.querySelector('.reading-progress').style.width = scrolled + '%';
-});
-
-// Side navigation
-const sideNavDots = document.querySelectorAll('.side-nav-dot');
-const sections = document.querySelectorAll('section');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-    if (pageYOffset >= sectionTop - 200) {
-      current = section.getAttribute('id');
+const CONVOS = {
+    delegate: {
+        msgs: [
+            { role: 'human', text: 'Scrivi un saggio sulla crisi climatica' },
+            { role: 'ai', text: 'La crisi climatica è una delle sfide più importanti del nostro tempo. Le temperature globali sono aumentate di circa 1,1°C rispetto ai livelli preindustriali...' },
+            { role: 'human', text: 'Ok va bene. Rendilo più lungo' },
+            { role: 'ai', text: "La crisi climatica rappresenta una sfida epocale per l'umanità. Secondo l'IPCC, le temperature medie globali sono aumentate significativamente..." },
+            { role: 'human', text: 'Aggiungi una conclusione' }
+        ],
+        scores: [{l:'Resistenza',v:'1/4',c:'low'},{l:'Correzione',v:'1/4',c:'low'},{l:'Interrogazione',v:'1/4',c:'low'},{l:'Architettura',v:'1/4',c:'low'},{l:'Metacognizione',v:'1/4',c:'low'}]
+    },
+    traverse: {
+        msgs: [
+            { role: 'human', text: "Sto lavorando a un saggio sulla crisi climatica. Vorrei concentrarmi su un aspetto specifico: <em>il rapporto tra linguaggio catastrofista e paralisi dell'azione</em>. Quali framework teorici posso usare?" },
+            { role: 'ai', text: 'Ci sono diversi framework rilevanti: la teoria del terrore (TMT), il concetto di "apocalypse fatigue" di Per Espen Stoknes, il framing theory di Lakoff applicato al clima...' },
+            { role: 'human', text: 'Stoknes è interessante. Però la sua proposta ha un punto debole: non considera la dimensione di classe nel modo in cui il catastrofismo viene recepito. Riformula tenendo conto di questa critica.' },
+            { role: 'ai', text: 'Hai ragione. Integrando la prospettiva di giustizia climatica, possiamo rileggere il framework di Stoknes attraverso la lente di...' },
+            { role: 'reflection', text: "[Nota: ho deciso di non usare il paragrafo generato dall'IA sulla giustizia climatica perché sovrappone concetti diversi. Riscrivo di mio pugno questa sezione.]" }
+        ],
+        scores: [{l:'Resistenza',v:'4/4',c:'high'},{l:'Correzione',v:'4/4',c:'high'},{l:'Interrogazione',v:'4/4',c:'high'},{l:'Architettura',v:'3/4',c:'high'},{l:'Metacognizione',v:'4/4',c:'high'}]
     }
-  });
+};
 
-  sideNavDots.forEach(dot => {
-    dot.classList.remove('active');
-    const href = dot.querySelector('.side-nav-tooltip')?.textContent.trim() || '';
-    if (href.includes(current)) {
-      dot.classList.add('active');
-    }
-  });
-});
+const STAGES = [
+    { label: 'Stadio 1 — Delega', prompt: 'Scrivi un saggio sulla crisi climatica', comment: 'Nessun contesto, nessun vincolo, nessuna direzione.' },
+    { label: 'Stadio 2 — Direzione', prompt: "Scrivi un saggio sulla crisi climatica focalizzato sul rapporto tra linguaggio catastrofista e paralisi dell'azione", comment: 'Un focus emerge, ma la domanda resta generica.' },
+    { label: 'Stadio 3 — Vincolo', prompt: "Usando il framework di Stoknes sull'apocalypse fatigue, analizza come il linguaggio catastrofista genera paralisi dell'azione. 2000 parole, registro accademico, con fonti.", comment: 'Vincoli espliciti: framework, lunghezza, registro.' },
+    { label: 'Stadio 4 — Critica', prompt: "Il framework di Stoknes non considera la dimensione di classe. Chi vive in zone a rischio non ha il privilegio della fatica apocalittica. Riformula l'analisi integrando questa critica.", comment: 'Lo studente corregge la macchina con un argomento proprio.' },
+    { label: 'Stadio 5 — Metacognizione', prompt: '[Nota: non uso il paragrafo generato. La macchina sovrappone concetti diversi. Riscrivo di mio pugno, uso solo il riferimento bibliografico.]', comment: 'Rifiuto consapevole, riflessione sul processo.' }
+];
 
-// Carousel functionality
-const carouselContainers = document.querySelectorAll('.carousel-container');
-carouselContainers.forEach(container => {
-  const items = container.querySelector('.carousel-items');
-  const dots = container.querySelectorAll('.carousel-dot');
-  const prevBtn = container.querySelector('.carousel-prev');
-  const nextBtn = container.querySelector('.carousel-next');
-  let currentIndex = 0;
+const VOICES = [
+    { author: 'Il docente scettico', role: 'Scuola superiore', quote: 'Se lo studente può far scrivere tutto alla macchina, che senso ha valutare?', response: "Il senso sta proprio nel cambiamento dell'oggetto di valutazione. Il protocollo non valuta il testo finale, ma la conversazione che lo ha prodotto: i prompt, le correzioni, le scelte. La delega totale è essa stessa una risposta valutabile, e il punteggio che ne risulta lo riflette con precisione." },
+    { author: 'La ricercatrice', role: "Scienze dell'educazione", quote: 'Servirebbero dati empirici. Cinque assi e quattro livelli sono una struttura elegante, ma è stata validata sul campo?', response: "La critica è legittima. Il protocollo è una proposta teorica che attende validazione empirica. Le rubriche sono costruite su fondamenti pedagogici solidi, ma la calibrazione dei pesi e l'affidabilità inter-valutatore richiedono sperimentazione." },
+    { author: 'Lo studente', role: 'Università', quote: "Finalmente qualcuno che non parte dal presupposto che usare l'IA sia barare. Però mi chiedo: e la privacy delle mie conversazioni?", response: 'La questione è cruciale. Il protocollo richiede la condivisione del log della conversazione, il che solleva problemi di privacy che vanno affrontati con protocolli etici rigorosi, anonimizzazione e consenso informato.' },
+    { author: 'Il filosofo della tecnica', role: 'Accademia', quote: "L'idea che il processo sia più rivelatore del prodotto è antica. Bergson direbbe che state finalmente guardando la durée.", response: 'Il riferimento è pertinente. La novità non è il principio, ma lo strumento: per la prima volta, la conversazione con la macchina produce un log completo del processo di pensiero, rendendo leggibile ciò che prima era invisibile.' },
+    { author: 'La dirigente scolastica', role: 'Istituto comprensivo', quote: 'Come faccio ad applicarlo con 25 studenti per classe e colleghi che faticano ad aprire un PDF?', response: "La scalabilità è il limite più onesto del protocollo. Richiede formazione dei docenti e tempo di valutazione significativo. È pensato per essere introdotto gradualmente, forse a partire da progetti specifici, non come sostituzione universale." },
+    { author: "L'ingegnere AI", role: 'Industria tech', quote: 'State valutando il prompt engineering, in pratica. Ma i modelli cambiano ogni sei mesi. Il protocollo regge?', response: 'Il protocollo non valuta la competenza tecnica nel prompting, ma la qualità del pensiero che il prompting rivela. La resistenza alla facilità, la capacità correttiva, la riflessione metacognitiva sono competenze che prescindono dal modello specifico.' }
+];
 
-  function updateCarousel() {
-    items.style.transform = `translateX(-${currentIndex * 100}%)`;
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
-    });
-  }
-
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + dots.length) % dots.length;
-    updateCarousel();
-  });
-
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % dots.length;
-    updateCarousel();
-  });
-
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
-      updateCarousel();
-    });
-  });
-});
-
-// Create side navigation dots dynamically
-const sideNav = document.querySelector('.side-nav') || (() => {
-  const nav = document.createElement('div');
-  nav.className = 'side-nav';
-  document.body.appendChild(nav);
-  return nav;
+/* ===== HERO CANVAS ===== */
+(function(){
+    const c=document.getElementById('heroCanvas'),x=c.getContext('2d');
+    let w,h,pts=[],mouse={x:-1e3,y:-1e3};
+    function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
+    resize();window.addEventListener('resize',resize);
+    c.parentElement.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+    for(let i=0;i<80;i++)pts.push({x:Math.random()*2e3,y:Math.random()*2e3,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.3,ph:Math.random()*Math.PI*2});
+    function draw(){
+        x.clearRect(0,0,w,h);const t=Date.now()*.001;
+        pts.forEach((p,i)=>{
+            p.x+=p.vx+Math.sin(t+p.ph)*.12;p.y+=p.vy+Math.cos(t*.7+p.ph)*.12;
+            if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+            const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<180){p.x-=dx*.015;p.y-=dy*.015;}
+            x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle='rgba(42,107,107,0.5)';x.fill();
+            for(let j=i+1;j<pts.length;j++){const d2=pts[j].x-p.x,d3=pts[j].y-p.y,d=Math.sqrt(d2*d2+d3*d3);if(d<130){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(pts[j].x,pts[j].y);x.strokeStyle=`rgba(42,107,107,${(1-d/130)*.15})`;x.lineWidth=.5;x.stroke();}}
+        });requestAnimationFrame(draw);
+    }draw();
 })();
 
-sections.forEach((section, index) => {
-  const dot = document.createElement('div');
-  dot.className = 'side-nav-dot';
-  dot.innerHTML = '<div class="side-nav-tooltip">' + (section.querySelector('h2')?.textContent || 'Sezione ' + (index + 1)) + '</div>';
-  dot.addEventListener('click', () => {
-    const target = section.querySelector('h2');
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-  if (index === 0) dot.classList.add('active');
-  sideNav.appendChild(dot);
-});
+/* ===== FLOW CANVASES ===== */
+function initFlow(id){
+    const c=document.getElementById(id);if(!c)return;const x=c.getContext('2d');let w,h;
+    function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}r();window.addEventListener('resize',r);
+    function d(){x.clearRect(0,0,w,h);const t=Date.now()*.0004;
+        for(let l=0;l<4;l++){x.beginPath();x.strokeStyle=`rgba(42,107,107,${.06+l*.03})`;x.lineWidth=.8;
+            for(let i=0;i<=100;i++){const px=(i/100)*w,py=h/2+Math.sin(i*.07+t+l*1.2)*25+Math.sin(i*.025+t*1.4+l)*18+Math.cos(i*.04+t*.8+l*2)*10;
+                if(i===0)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();}requestAnimationFrame(d);}d();
+}
+['flow1','flow2','flow3','flow4','flow5'].forEach(initFlow);
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
+/* ===== CURSOR LIGHT ===== */
+const cursorLight=document.getElementById('cursorLight');
+document.addEventListener('mousemove',e=>{cursorLight.style.left=e.clientX+'px';cursorLight.style.top=e.clientY+'px';});
+
+/* ===== READING PROGRESS ===== */
+const progressBar=document.getElementById('readingProgress');
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;progressBar.style.width=(window.scrollY/h*100)+'%';});
+
+/* ===== COUNTERS ===== */
+const counterObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');en.target.querySelectorAll('.counter-num').forEach(el=>{const target=parseInt(el.dataset.target);let current=0;const step=Math.max(1,Math.floor(target/40));const interval=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(interval);}el.textContent=current;},30);});counterObs.unobserve(en.target);}});},{threshold:0.3});
+const cs=document.getElementById('counterStrip');if(cs)counterObs.observe(cs);
+
+/* ===== REVEAL ===== */
+const rvObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+
+/* ===== SIDE NAV ===== */
+const sections=document.querySelectorAll('section[id]');
+const sideNavDots=document.querySelectorAll('.side-nav-dot');
+const secObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){sideNavDots.forEach(d=>d.classList.remove('active'));const dot=document.querySelector(`.side-nav-dot[data-target="${en.target.id}"]`);if(dot)dot.classList.add('active');}});},{threshold:0.3,rootMargin:'-20% 0px -50% 0px'});
+sections.forEach(s=>secObs.observe(s));
+sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getElementById(d.dataset.target);if(t)t.scrollIntoView({behavior:'smooth'});}));
+
+/* ===== BIVIO DIAGRAM ===== */
+(function(){
+    const wrap=document.getElementById('bivioSvg');
+    const svgNS='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(svgNS,'svg');
+    svg.setAttribute('viewBox','0 0 760 340');
+    svg.setAttribute('fill','none');
+
+    // Center starting node
+    const startX=380, startY=30;
+
+    // Left path: Proibire -> dead end
+    const leftPath=document.createElementNS(svgNS,'path');
+    leftPath.setAttribute('d',`M${startX},${startY+20} C${startX},80 200,100 180,160 S140,240 160,280`);
+    leftPath.setAttribute('stroke','#8a5a4a');leftPath.setAttribute('stroke-width','2.5');leftPath.setAttribute('stroke-linecap','round');
+    leftPath.classList.add('draw-path');leftPath.id='pathLeft';
+
+    // Right path: Valutare il processo -> trace
+    const rightPath=document.createElementNS(svgNS,'path');
+    rightPath.setAttribute('d',`M${startX},${startY+20} C${startX},80 560,100 580,160 S620,240 600,280`);
+    rightPath.setAttribute('stroke','var(--ottanio)');rightPath.setAttribute('stroke-width','2.5');rightPath.setAttribute('stroke-linecap','round');
+    rightPath.classList.add('draw-path');rightPath.id='pathRight';
+
+    // Start node
+    const startG=document.createElementNS(svgNS,'g');startG.classList.add('svg-node');startG.id='nodeStart';
+    const startCirc=document.createElementNS(svgNS,'circle');startCirc.setAttribute('cx',startX);startCirc.setAttribute('cy',startY);startCirc.setAttribute('r','16');startCirc.setAttribute('fill','var(--nero)');startCirc.setAttribute('stroke','var(--ottanio)');startCirc.setAttribute('stroke-width','2');
+    const startLabel=document.createElementNS(svgNS,'text');startLabel.setAttribute('x',startX);startLabel.setAttribute('y',startY+1);startLabel.setAttribute('text-anchor','middle');startLabel.setAttribute('dominant-baseline','middle');startLabel.setAttribute('fill','var(--ottanio)');startLabel.setAttribute('font-size','11');startLabel.setAttribute('font-family','Inter');startLabel.textContent='?';
+    startG.appendChild(startCirc);startG.appendChild(startLabel);
+
+    // Left end node — lock
+    const leftG=document.createElementNS(svgNS,'g');leftG.classList.add('svg-node');leftG.id='nodeLeft';
+    const leftCirc=document.createElementNS(svgNS,'circle');leftCirc.setAttribute('cx','160');leftCirc.setAttribute('cy','290');leftCirc.setAttribute('r','22');leftCirc.setAttribute('fill','rgba(138,90,74,0.1)');leftCirc.setAttribute('stroke','#8a5a4a');leftCirc.setAttribute('stroke-width','2');
+    const lockPath=document.createElementNS(svgNS,'path');lockPath.setAttribute('d','M153,293v-5a7,7,0,0,1,14,0v5 M150,293h20v12a2,2,0,0,1-2,2h-16a2,2,0,0,1-2-2z');lockPath.setAttribute('stroke','#8a5a4a');lockPath.setAttribute('stroke-width','1.5');lockPath.setAttribute('fill','none');lockPath.setAttribute('stroke-linecap','round');lockPath.setAttribute('stroke-linejoin','round');
+    leftG.appendChild(leftCirc);leftG.appendChild(lockPath);
+
+    // Right end node — trace/footprint
+    const rightG=document.createElementNS(svgNS,'g');rightG.classList.add('svg-node');rightG.id='nodeRight';
+    const rightCirc=document.createElementNS(svgNS,'circle');rightCirc.setAttribute('cx','600');rightCirc.setAttribute('cy','290');rightCirc.setAttribute('r','22');rightCirc.setAttribute('fill','rgba(42,107,107,0.1)');rightCirc.setAttribute('stroke','var(--ottanio)');rightCirc.setAttribute('stroke-width','2');
+    const tracePath=document.createElementNS(svgNS,'path');tracePath.setAttribute('d','M592,296 l4,-8 l4,4 l4,-10 l4,6 l4,-4');tracePath.setAttribute('stroke','var(--ottanio)');tracePath.setAttribute('stroke-width','2');tracePath.setAttribute('fill','none');tracePath.setAttribute('stroke-linecap','round');tracePath.setAttribute('stroke-linejoin','round');
+    rightG.appendChild(rightCirc);rightG.appendChild(tracePath);
+
+    // Labels
+    function makeLabel(x,y,text,color,id){
+        const t=document.createElementNS(svgNS,'text');t.setAttribute('x',x);t.setAttribute('y',y);
+        t.setAttribute('text-anchor','middle');t.setAttribute('fill',color);t.setAttribute('font-size','13');
+        t.setAttribute('font-family','Instrument Serif');t.setAttribute('font-style','italic');
+        t.textContent=text;t.classList.add('svg-label');t.id=id;return t;
+    }
+
+    // Path labels
+    const lblLeft=makeLabel(100,175,'Proibire','#8a5a4a','lblLeft');
+    const lblRight=makeLabel(660,175,'Valutare il processo','#2a6b6b','lblRight');
+
+    // Bottom labels
+    const lblLeftBot=makeLabel(160,335,'Vicolo cieco','#8a5a4a','lblLeftBot');
+    const lblRightBot=makeLabel(600,335,'La traccia visibile','#2a6b6b','lblRightBot');
+
+    // Cross on left path
+    const crossG=document.createElementNS(svgNS,'g');crossG.classList.add('svg-node');crossG.id='crossLeft';
+    const cr1=document.createElementNS(svgNS,'line');cr1.setAttribute('x1','148');cr1.setAttribute('y1','218');cr1.setAttribute('x2','172');cr1.setAttribute('y2','242');cr1.setAttribute('stroke','#8a5a4a');cr1.setAttribute('stroke-width','2.5');cr1.setAttribute('stroke-linecap','round');
+    const cr2=document.createElementNS(svgNS,'line');cr2.setAttribute('x1','172');cr2.setAttribute('y1','218');cr2.setAttribute('x2','148');cr2.setAttribute('y2','242');cr2.setAttribute('stroke','#8a5a4a');cr2.setAttribute('stroke-width','2.5');cr2.setAttribute('stroke-linecap','round');
+    crossG.appendChild(cr1);crossG.appendChild(cr2);
+
+    // Checkmark on right path
+    const checkG=document.createElementNS(svgNS,'g');checkG.classList.add('svg-node');checkG.id='checkRight';
+    const chk=document.createElementNS(svgNS,'polyline');chk.setAttribute('points','588,230 598,240 612,220');chk.setAttribute('stroke','var(--ottanio)');chk.setAttribute('stroke-width','2.5');chk.setAttribute('fill','none');chk.setAttribute('stroke-linecap','round');chk.setAttribute('stroke-linejoin','round');
+    checkG.appendChild(chk);
+
+    // Assemble
+    svg.appendChild(leftPath);svg.appendChild(rightPath);
+    svg.appendChild(startG);svg.appendChild(leftG);svg.appendChild(rightG);
+    svg.appendChild(crossG);svg.appendChild(checkG);
+    svg.appendChild(lblLeft);svg.appendChild(lblRight);
+    svg.appendChild(lblLeftBot);svg.appendChild(lblRightBot);
+    wrap.appendChild(svg);
+
+    // Measure actual path lengths
+    const leftLen=leftPath.getTotalLength();
+    const rightLen=rightPath.getTotalLength();
+    leftPath.style.strokeDasharray=leftLen;leftPath.style.strokeDashoffset=leftLen;
+    rightPath.style.strokeDasharray=rightLen;rightPath.style.strokeDashoffset=rightLen;
+
+    // Animate on scroll
+    const bivioObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
+        // Show start node immediately
+        setTimeout(()=>document.getElementById('nodeStart').classList.add('shown'),100);
+        // Draw paths
+        setTimeout(()=>{leftPath.style.strokeDashoffset='0';rightPath.style.strokeDashoffset='0';},300);
+        // Show labels along paths
+        setTimeout(()=>{document.getElementById('lblLeft').classList.add('shown');document.getElementById('lblRight').classList.add('shown');},900);
+        // Show cross and check
+        setTimeout(()=>{document.getElementById('crossLeft').classList.add('shown');document.getElementById('checkRight').classList.add('shown');},1400);
+        // Show end nodes
+        setTimeout(()=>{document.getElementById('nodeLeft').classList.add('shown');document.getElementById('nodeRight').classList.add('shown');},1700);
+        // Show bottom labels
+        setTimeout(()=>{document.getElementById('lblLeftBot').classList.add('shown');document.getElementById('lblRightBot').classList.add('shown');},2000);
+        // Show quote
+        setTimeout(()=>document.getElementById('bivioQuote').classList.add('vis'),2300);
+        bivioObs.unobserve(en.target);
+    }});},{threshold:0.3});
+    bivioObs.observe(wrap);
+})();
+
+/* ===== CONVERSATION ===== */
+const convoBody=document.getElementById('convoBody');
+const convoScoreEl=document.getElementById('convoScore');
+const convoTabs=document.querySelectorAll('.convo-tab');
+function showConvo(key){
+    const data=CONVOS[key];convoBody.innerHTML='';convoScoreEl.innerHTML='';
+    data.msgs.forEach((m,i)=>{
+        const div=document.createElement('div');div.className='convo-msg';
+        div.innerHTML=`<div class="convo-role ${m.role}">${m.role==='human'?'Studente':m.role==='ai'?'IA':'Riflessione'}</div><div class="convo-text">${m.text}</div>`;
+        convoBody.appendChild(div);
+        setTimeout(()=>div.classList.add('show'),200+i*400);
+    });
+    data.scores.forEach(s=>{
+        convoScoreEl.innerHTML+=`<div class="convo-score-item"><div class="convo-score-val ${s.c}">${s.v}</div><div class="convo-score-lbl">${s.l}</div></div>`;
+    });
+}
+convoTabs.forEach(tab=>tab.addEventListener('click',()=>{convoTabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');showConvo(tab.dataset.convo);}));
+showConvo('delegate');
+
+/* ===== RADAR CHART (interactive, from v2) ===== */
+(function(){
+    const svg=document.getElementById('radarChart');
+    const cx=200,cy=200,R=160;const n=AXES.length;
+    const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
+    // Grid
+    for(let r=1;r<=4;r++){
+        let pts=[];angles.forEach(a=>{const rr=(R/4)*r;pts.push(`${cx+Math.cos(a)*rr},${cy+Math.sin(a)*rr}`);});
+        const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+        poly.setAttribute('points',pts.join(' '));poly.setAttribute('fill','none');poly.setAttribute('stroke','rgba(255,255,255,0.06)');poly.setAttribute('stroke-width','1');svg.appendChild(poly);
+    }
+    // Axis lines
+    angles.forEach(a=>{const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',cx+Math.cos(a)*R);line.setAttribute('y2',cy+Math.sin(a)*R);line.setAttribute('stroke','rgba(255,255,255,0.04)');line.setAttribute('stroke-width','1');svg.appendChild(line);});
+    // Data polygon
+    const vals=AXES.map(a=>a.weight/25);
+    let dataPts=[];vals.forEach((v,i)=>{const a=angles[i];dataPts.push(`${cx+Math.cos(a)*R*v},${cy+Math.sin(a)*R*v}`);});
+    const dataPoly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    dataPoly.setAttribute('points',dataPts.join(' '));dataPoly.setAttribute('fill','rgba(42,107,107,0.15)');dataPoly.setAttribute('stroke','rgba(42,107,107,0.6)');dataPoly.setAttribute('stroke-width','2');dataPoly.style.transition='all 0.6s ease';svg.appendChild(dataPoly);
+    // Interactive dots + labels
+    const titleEl=document.getElementById('radarTitle');
+    const descEl=document.getElementById('radarDesc');
+    const weightEl=document.getElementById('radarWeight');
+    AXES.forEach((ax,i)=>{
+        const a=angles[i];const x2=cx+Math.cos(a)*R*vals[i];const y2=cy+Math.sin(a)*R*vals[i];
+        const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        circle.setAttribute('cx',x2);circle.setAttribute('cy',y2);circle.setAttribute('r','6');
+        circle.setAttribute('fill',ax.color);circle.setAttribute('stroke','rgba(255,255,255,0.3)');circle.setAttribute('stroke-width','2');
+        circle.style.cursor='pointer';circle.style.transition='r 0.3s ease';
+        const hitArea=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        hitArea.setAttribute('cx',cx+Math.cos(a)*(R*0.6));hitArea.setAttribute('cy',cy+Math.sin(a)*(R*0.6));
+        hitArea.setAttribute('r','40');hitArea.setAttribute('fill','transparent');hitArea.style.cursor='pointer';
+        const lx=cx+Math.cos(a)*(R+25);const ly=cy+Math.sin(a)*(R+25);
+        const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+        txt.setAttribute('x',lx);txt.setAttribute('y',ly);txt.setAttribute('text-anchor','middle');
+        txt.setAttribute('dominant-baseline','middle');txt.setAttribute('fill','rgba(255,255,255,0.4)');
+        txt.setAttribute('font-size','10');txt.setAttribute('font-family','Inter');txt.setAttribute('letter-spacing','0.05em');
+        txt.textContent=ax.weight+'%';
+        function hover(){circle.setAttribute('r','10');titleEl.textContent=ax.name;descEl.textContent=ax.desc;weightEl.textContent=ax.weight+'%';}
+        function leave(){circle.setAttribute('r','6');titleEl.textContent='Passa il cursore su un asse';descEl.textContent='Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.';weightEl.textContent='';}
+        [circle,hitArea].forEach(el=>{el.addEventListener('mouseenter',hover);el.addEventListener('mouseleave',leave);});
+        svg.appendChild(hitArea);svg.appendChild(circle);svg.appendChild(txt);
+    });
+})();
+
+/* ===== AXES RADIAL DIAGRAM ===== */
+(function(){
+    const wrap=document.getElementById('axesSvg');
+    const info=document.getElementById('axesHoverInfo');
+    const svgNS='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(svgNS,'svg');
+    svg.setAttribute('viewBox','0 0 520 520');svg.setAttribute('fill','none');
+    const cx=260,cy=260,R=200;
+    const n=AXES.length;
+    const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
+
+    // Center circle
+    const centerC=document.createElementNS(svgNS,'circle');
+    centerC.setAttribute('cx',cx);centerC.setAttribute('cy',cy);centerC.setAttribute('r','30');
+    centerC.setAttribute('fill','rgba(42,107,107,0.08)');centerC.setAttribute('stroke','var(--ottanio)');centerC.setAttribute('stroke-width','1.5');
+    svg.appendChild(centerC);
+    const centerTxt=document.createElementNS(svgNS,'text');centerTxt.setAttribute('x',cx);centerTxt.setAttribute('y',cy+1);
+    centerTxt.setAttribute('text-anchor','middle');centerTxt.setAttribute('dominant-baseline','middle');
+    centerTxt.setAttribute('fill','var(--ottanio)');centerTxt.setAttribute('font-size','11');centerTxt.setAttribute('font-family','Inter');
+    centerTxt.setAttribute('font-weight','500');centerTxt.textContent='PVP';svg.appendChild(centerTxt);
+
+    AXES.forEach((ax,i)=>{
+        const a=angles[i];
+        const petalG=document.createElementNS(svgNS,'g');petalG.classList.add('axis-petal');petalG.id='petal'+i;
+        petalG.style.transitionDelay=(i*0.15)+'s';
+
+        // Ray line
+        const ray=document.createElementNS(svgNS,'line');
+        ray.setAttribute('x1',cx+Math.cos(a)*35);ray.setAttribute('y1',cy+Math.sin(a)*35);
+        const rayLen=40+(ax.weight/25)*R*0.55;
+        ray.setAttribute('x2',cx+Math.cos(a)*rayLen);ray.setAttribute('y2',cy+Math.sin(a)*rayLen);
+        ray.setAttribute('stroke',ax.color);ray.setAttribute('stroke-width','2');ray.setAttribute('stroke-linecap','round');
+        ray.setAttribute('opacity','0.6');
+
+        // End circle (size proportional to weight)
+        const endR=12+(ax.weight/25)*10;
+        const endX=cx+Math.cos(a)*(rayLen+endR+4);const endY=cy+Math.sin(a)*(rayLen+endR+4);
+        const endC=document.createElementNS(svgNS,'circle');
+        endC.setAttribute('cx',endX);endC.setAttribute('cy',endY);endC.setAttribute('r',endR);
+        endC.setAttribute('fill',ax.color);endC.setAttribute('opacity','0.12');endC.setAttribute('stroke',ax.color);endC.setAttribute('stroke-width','1.5');
+        endC.classList.add('axis-petal-fill');
+
+        // Weight text inside circle
+        const wTxt=document.createElementNS(svgNS,'text');
+        wTxt.setAttribute('x',endX);wTxt.setAttribute('y',endY+1);wTxt.setAttribute('text-anchor','middle');
+        wTxt.setAttribute('dominant-baseline','middle');wTxt.setAttribute('fill',ax.color);
+        wTxt.setAttribute('font-size','11');wTxt.setAttribute('font-family','Instrument Serif');
+        wTxt.setAttribute('font-style','italic');wTxt.textContent=ax.weight+'%';
+
+        // Name label outside
+        const lblX=cx+Math.cos(a)*(rayLen+endR*2+18);const lblY=cy+Math.sin(a)*(rayLen+endR*2+18);
+        const nameTxt=document.createElementNS(svgNS,'text');
+        nameTxt.setAttribute('x',lblX);nameTxt.setAttribute('y',lblY);nameTxt.setAttribute('text-anchor','middle');
+        nameTxt.setAttribute('dominant-baseline','middle');nameTxt.setAttribute('fill','#333');
+        nameTxt.setAttribute('font-size','10');nameTxt.setAttribute('font-family','Inter');
+        nameTxt.setAttribute('font-weight','500');nameTxt.setAttribute('letter-spacing','0.03em');
+
+        // Split long names
+        const words=ax.name.split(' ');
+        if(words.length>2){
+            const mid=Math.ceil(words.length/2);
+            const line1=words.slice(0,mid).join(' ');const line2=words.slice(mid).join(' ');
+            const ts1=document.createElementNS(svgNS,'tspan');ts1.setAttribute('x',lblX);ts1.setAttribute('dy','-0.5em');ts1.textContent=line1;
+            const ts2=document.createElementNS(svgNS,'tspan');ts2.setAttribute('x',lblX);ts2.setAttribute('dy','1.2em');ts2.textContent=line2;
+            nameTxt.appendChild(ts1);nameTxt.appendChild(ts2);
+        } else {
+            nameTxt.textContent=ax.name;
+        }
+
+        // Hover: invisible hit area
+        const hitR=rayLen+endR*2+10;
+        const hitArea=document.createElementNS(svgNS,'circle');
+        hitArea.setAttribute('cx',cx+Math.cos(a)*(hitR/2+15));hitArea.setAttribute('cy',cy+Math.sin(a)*(hitR/2+15));
+        hitArea.setAttribute('r',hitR/2);hitArea.setAttribute('fill','transparent');hitArea.style.cursor='pointer';
+
+        function hover(){
+            endC.setAttribute('opacity','0.25');ray.setAttribute('opacity','1');
+            info.textContent=ax.shortDesc+' — '+ax.weight+'%';
+        }
+        function leave(){
+            endC.setAttribute('opacity','0.12');ray.setAttribute('opacity','0.6');
+            info.textContent='Esplora gli assi con il cursore';
+        }
+        hitArea.addEventListener('mouseenter',hover);hitArea.addEventListener('mouseleave',leave);
+
+        petalG.appendChild(ray);petalG.appendChild(endC);petalG.appendChild(wTxt);petalG.appendChild(nameTxt);
+        svg.appendChild(petalG);svg.appendChild(hitArea);
+    });
+
+    wrap.appendChild(svg);
+
+    // Animate petals on scroll
+    const axesObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
+        AXES.forEach((_,i)=>setTimeout(()=>document.getElementById('petal'+i).classList.add('grown'),i*200));
+        axesObs.unobserve(en.target);
+    }});},{threshold:0.3});
+    axesObs.observe(wrap);
+})();
+
+/* ===== LAB ===== */
+(function(){
+    const timeline=document.getElementById('labTimeline');
+    const gaugesWrap=document.getElementById('labGauges');
+    const verdictWrap=document.getElementById('labVerdict');
+
+    STAGES.forEach((st,i)=>{
+        const stop=document.createElement('div');stop.className='lab-stop rv';
+        stop.innerHTML=`<div class="lab-stop-label">${st.label}</div><div class="lab-stop-prompt">${st.prompt}</div><div class="lab-stop-comment">${st.comment}</div>`;
+        stop.style.transitionDelay=(i*0.12)+'s';
+        timeline.appendChild(stop);
+        rvObs.observe(stop);
+    });
+
+    // Gauges for final evaluation
+    const gaugeData=[{name:'Resistenza',val:4},{name:'Correzione',val:4},{name:'Interrogazione',val:4},{name:'Architettura',val:3},{name:'Metacognizione',val:4}];
+    gaugeData.forEach(g=>{
+        const circ=2*Math.PI*32;const offset=circ-(g.val/4)*circ;
+        const div=document.createElement('div');div.className='lab-gauge';
+        div.innerHTML=`<svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/><circle cx="40" cy="40" r="32" fill="none" stroke="var(--ottanio)" stroke-width="4" stroke-linecap="round" class="lab-gauge-ring" stroke-dasharray="${circ}" stroke-dashoffset="${circ}" data-target="${offset}"/></svg><div class="lab-gauge-val">${g.val}/4</div><div class="lab-gauge-name">${g.name}</div>`;
+        gaugesWrap.appendChild(div);
+    });
+
+    // Animate gauges
+    const gaugeObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
+        en.target.querySelectorAll('.lab-gauge-ring').forEach(ring=>{ring.style.strokeDashoffset=ring.dataset.target;});
+        gaugeObs.unobserve(en.target);
+    }});},{threshold:0.3});
+    gaugeObs.observe(gaugesWrap);
+
+    // Verdict
+    const totalScore=Math.round(((4*25)+(4*25)+(4*20)+(3*15)+(4*15))/4);
+    verdictWrap.innerHTML=`<div class="lab-verdict-score">${totalScore}/100</div><div class="lab-verdict-label">Eccellente — Attraversamento del pensiero</div>`;
+})();
+
+/* ===== VOICES CAROUSEL ===== */
+(function(){
+    const carousel=document.getElementById('voicesCarousel');
+    const dotsWrap=document.getElementById('voicesDots');
+    let currentSlide=0;
+
+    VOICES.forEach((v,i)=>{
+        const slide=document.createElement('div');slide.className='voice-slide'+(i===0?' active':'');slide.dataset.idx=i;
+        slide.innerHTML=`<div class="voice-author">${v.author}</div><div class="voice-role">${v.role}</div><div class="voice-quote">${v.quote}</div><div class="voice-toggle" data-idx="${i}">Leggi la risposta</div><div class="voice-response" id="vResp${i}">${v.response}</div>`;
+        carousel.appendChild(slide);
+
+        const dot=document.createElement('div');dot.className='voices-dot'+(i===0?' active':'');dot.dataset.idx=i;
+        dotsWrap.appendChild(dot);
+    });
+
+    function goTo(idx){
+        const slides=carousel.querySelectorAll('.voice-slide');
+        const dots=dotsWrap.querySelectorAll('.voices-dot');
+        slides[currentSlide].classList.add('leaving');slides[currentSlide].classList.remove('active');
+        setTimeout(()=>{slides[currentSlide].classList.remove('leaving');
+            currentSlide=idx;
+            slides[currentSlide].classList.add('active');
+            dots.forEach(d=>d.classList.remove('active'));dots[currentSlide].classList.add('active');
+        },300);
+    }
+
+    document.getElementById('voicesNext').addEventListener('click',()=>goTo((currentSlide+1)%VOICES.length));
+    document.getElementById('voicesPrev').addEventListener('click',()=>goTo((currentSlide-1+VOICES.length)%VOICES.length));
+    dotsWrap.querySelectorAll('.voices-dot').forEach(d=>d.addEventListener('click',()=>goTo(parseInt(d.dataset.idx))));
+
+    // Toggle response
+    carousel.addEventListener('click',e=>{
+        const toggle=e.target.closest('.voice-toggle');
+        if(!toggle)return;
+        const resp=document.getElementById('vResp'+toggle.dataset.idx);
+        resp.classList.toggle('open');
+        toggle.textContent=resp.classList.contains('open')?'Chiudi':'Leggi la risposta';
+    });
+
+    // Autoplay
+    let autoplay=setInterval(()=>goTo((currentSlide+1)%VOICES.length),8000);
+    carousel.addEventListener('mouseenter',()=>clearInterval(autoplay));
+    carousel.addEventListener('mouseleave',()=>{autoplay=setInterval(()=>goTo((currentSlide+1)%VOICES.length),8000);});
+})();
+
+/* ===== HAMBURGER ===== */
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),hd=document.querySelector('header');
+if(hb&&mm){
+    hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('active');hd.classList.toggle('menu-open');document.body.style.overflow=mm.classList.contains('active')?'hidden':'';});
+    mm.querySelectorAll('a').forEach(l=>{l.addEventListener('click',()=>{hb.classList.remove('active');mm.classList.remove('active');hd.classList.remove('menu-open');document.body.style.overflow='';});});
+}
+
+/* ===== SMOOTH SCROLL ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});});});
 </script>
 </body>
 </html>

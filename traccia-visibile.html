@@ -19,409 +19,366 @@
 .side-nav { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 1.25rem; }
 .side-nav-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(42,107,107,0.3); background: transparent; cursor: pointer; transition: all 0.4s ease; position: relative; }
 .side-nav-dot.active { background: var(--ottanio); border-color: var(--ottanio); transform: scale(1.3); }
-.side-nav-dot::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--grigio); opacity: 0; pointer-events: none; white-space: nowrap; transition: opacity 0.3s ease; }
-.side-nav-dot:hover::after { opacity: 1; }
-/* MAIN LAYOUT */
-body { font-family: 'Inter', sans-serif; color: var(--nero); line-height: 1.6; overflow-x: hidden; }
-a { color: var(--ottanio); text-decoration: none; transition: opacity 0.2s; }
-a:hover { opacity: 0.7; }
-.container { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
-/* ARTICLE STYLING */
-article { }
-.article-meta { font-size: 0.875rem; color: var(--grigio); margin-bottom: 3rem; display: flex; gap: 2rem; flex-wrap: wrap; }
-.article-meta-item { display: flex; gap: 0.5rem; }
-.article-meta-label { font-weight: 600; }
-h1 { font-family: 'Instrument Serif', serif; font-size: 2.5rem; line-height: 1.2; margin-bottom: 1.5rem; }
-h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; }
-h3 { font-family: 'Instrument Serif', serif; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
-p { margin-bottom: 1.25rem; text-align: justify; }
-strong { font-weight: 600; }
-em { font-style: italic; }
-code { font-family: 'JetBrains Mono', monospace; background: var(--grigio-chiaro); padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.875em; }
-pre { background: var(--grigio-chiaro); padding: 1rem; border-radius: 6px; overflow-x: auto; margin-bottom: 1.25rem; }
-pre code { background: none; padding: 0; }
-blockquote { border-left: 3px solid var(--ottanio); padding-left: 1.5rem; margin-left: 0; margin-bottom: 1.25rem; color: var(--grigio); font-style: italic; }
-ul, ol { margin-bottom: 1.25rem; padding-left: 2rem; }
-li { margin-bottom: 0.5rem; }
-.section { margin-bottom: 3rem; }
-.section-number { color: var(--ottanio); font-weight: 600; }
+.side-nav-dot::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%; pointer-events: auto; cursor: pointer; }
+.side-nav-dot.active::before { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--ottanio); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+/* STICKY NAV */
+nav.sticky { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+nav { position: fixed; top: 0; left: 0; width: 100%; height: 4rem; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; z-index: 1000; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.4s ease; }
+nav::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--grigio-chiaro), transparent); }
+nav .logo { font-family: 'Instrument Serif'; font-weight: 400; font-size: 1rem; letter-spacing: 0.05em; color: var(--nero); text-decoration: none; font-style: italic; }
+nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+nav .nav-links a { color: var(--nero); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.3s ease; }
+nav .nav-links a:hover { color: var(--ottanio); }
+nav .nav-links a.active { color: var(--ottanio); border-bottom: 1px solid var(--ottanio); padding-bottom: 0.25rem; }
+nav .menu-toggle { display: none; width: 24px; height: 24px; flex-direction: column; justify-content: space-between; cursor: pointer; }
+nav .menu-toggle span { width: 100%; height: 2px; background: var(--nero); transition: all 0.3s ease; }
+/* HERO */
+.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%); pointer-events: none; }
+.hero-content { text-align: center; z-index: 1; max-width: 800px; }
+.hero h1 { font-family: 'Instrument Serif'; font-size: 3.5rem; font-weight: 400; color: var(--nero); margin-bottom: 1rem; line-height: 1.2; }
+.hero h1 em { font-style: italic; }
+.hero p { font-family: 'Inter'; font-size: 1.1rem; color: var(--grigio); margin-bottom: 2rem; line-height: 1.6; font-weight: 300; }
+.hero .cta { display: inline-block; padding: 1rem 2rem; background: var(--ottanio); color: white; text-decoration: none; border-radius: 4px; font-weight: 500; transition: all 0.3s ease; }
+.hero .cta:hover { background: #1f5555; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(42,107,107,0.2); }
+/* SECTIONS */
+section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
+section h2 { font-family: 'Instrument Serif'; font-size: 2.5rem; font-weight: 400; color: var(--nero); margin-bottom: 2rem; }
+section p { font-family: 'Inter'; font-size: 1rem; color: var(--grigio); line-height: 1.8; margin-bottom: 1.5rem; }
+section ul { margin-left: 1.5rem; }
+section li { margin-bottom: 1rem; color: var(--grigio); }
 /* INTERACTIVE ELEMENTS */
-.interactive-box { background: var(--grigio-chiaro); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; border-left: 4px solid var(--ottanio); }
-.interactive-box h4 { margin-top: 0; }
-button { background: var(--ottanio); color: var(--bianco); border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: background 0.3s ease; }
-button:hover { background: #1f4d4d; }
-button:active { transform: scale(0.98); }
-/* FORM ELEMENTS */
-input, textarea, select { font-family: 'Inter', sans-serif; padding: 0.75rem; border: 1px solid var(--grigio-chiaro); border-radius: 4px; font-size: 0.95rem; }
-input:focus, textarea:focus, select:focus { outline: none; border-color: var(--ottanio); box-shadow: 0 0 0 2px rgba(42, 107, 107, 0.1); }
-textarea { resize: vertical; min-height: 120px; }
-label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-.form-group { margin-bottom: 1.5rem; }
-/* TABLE STYLING */
-table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; }
-th { background: var(--grigio-chiaro); padding: 0.75rem; text-align: left; font-weight: 600; }
-td { padding: 0.75rem; border-bottom: 1px solid var(--grigio-chiaro); }
+.accordion { margin: 2rem 0; }
+.accordion-item { border-bottom: 1px solid var(--grigio-chiaro); }
+.accordion-item-header { padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: color 0.3s ease; }
+.accordion-item-header:hover { color: var(--ottanio); }
+.accordion-item-header.active { color: var(--ottanio); }
+.accordion-item-header::after { content: '+'; font-size: 1.5rem; transition: transform 0.3s ease; }
+.accordion-item-header.active::after { transform: rotate(45deg); }
+.accordion-item-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0; }
+.accordion-item-content.active { max-height: 1000px; padding-bottom: 1.5rem; }
+.accordion-item-content p { margin-bottom: 1rem; }
+/* GRID */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+.grid-item { padding: 2rem; border: 1px solid var(--grigio-chiaro); border-radius: 4px; transition: all 0.3s ease; }
+.grid-item:hover { border-color: var(--ottanio); box-shadow: 0 5px 20px rgba(42,107,107,0.1); }
+.grid-item h3 { font-family: 'Instrument Serif'; font-size: 1.5rem; margin-bottom: 1rem; color: var(--nero); }
+.grid-item p { font-size: 0.95rem; }
+/* CODE BLOCKS */
+code { font-family: 'JetBrains Mono'; background: var(--grigio-chiaro); padding: 0.2em 0.4em; border-radius: 2px; color: var(--ottanio); }
+pre { background: var(--grigio-chiaro); padding: 1.5rem; border-radius: 4px; overflow-x: auto; margin: 1.5rem 0; }
+pre code { background: none; padding: 0; color: var(--nero); }
 /* FOOTER */
-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--grigio-chiaro); color: var(--grigio); font-size: 0.875rem; text-align: center; }
+footer { background: var(--nero); color: white; padding: 3rem 2rem; text-align: center; }
+footer p { margin-bottom: 0.5rem; }
+footer a { color: var(--ottanio); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .side-nav { right: 1rem; gap: 1rem; }
-  .side-nav-dot::after { display: none; }
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.25rem; }
-  .container { padding: 2rem 1rem; }
-  .article-meta { flex-direction: column; gap: 0.5rem; }
+nav { height: auto; padding: 1rem 2rem; flex-direction: column; gap: 1rem; }
+nav .nav-links { display: none; flex-direction: column; gap: 1rem; width: 100%; }
+nav .nav-links.active { display: flex; }
+nav .menu-toggle { display: flex; }
+.hero h1 { font-size: 2.5rem; }
+.hero p { font-size: 1rem; }
+section { padding: 2rem 1rem; }
+section h2 { font-size: 2rem; }
+.side-nav { right: 1rem; gap: 0.75rem; }
+.side-nav-dot { width: 6px; height: 6px; }
+.grid { grid-template-columns: 1fr; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .cursor-light, .reading-progress, .side-nav-dot, a, button { transition: none !important; }
-}
-/* PRINT */
-@media print {
-  .side-nav, .cursor-light, .reading-progress { display: none; }
-  a { color: inherit; text-decoration: underline; }
+@media (max-width: 480px) {
+.hero h1 { font-size: 2rem; }
+.hero p { font-size: 0.9rem; }
+section h2 { font-size: 1.5rem; }
+nav .logo { font-size: 0.9rem; }
+nav .nav-links { gap: 0.5rem; }
 }
 </style>
 </head>
 <body>
-<div class="cursor-light"></div>
-<div class="reading-progress"></div>
-<nav class="side-nav">
-  <div class="side-nav-dot active" data-label="Inizio" data-section="0"></div>
-  <div class="side-nav-dot" data-label="Il problema" data-section="1"></div>
-  <div class="side-nav-dot" data-label="La soluzione" data-section="2"></div>
-  <div class="side-nav-dot" data-label="Come funziona" data-section="3"></div>
-  <div class="side-nav-dot" data-label="Applicazioni" data-section="4"></div>
-  <div class="side-nav-dot" data-label="Il futuro" data-section="5"></div>
-  <div class="side-nav-dot" data-label="Risorse" data-section="6"></div>
+<div class="cursor-light" id="cursorLight"></div>
+<div class="reading-progress" id="readingProgress"></div>
+<nav id="nav">
+<a href="#home" class="logo">Andrea Colamedici</a>
+<div class="nav-links" id="navLinks">
+<a href="#home" class="nav-link">Home</a>
+<a href="#traccia" class="nav-link">La Traccia</a>
+<a href="#uso" class="nav-link">Come Usarla</a>
+<a href="#esempi" class="nav-link">Esempi</a>
+<a href="#contatti" class="nav-link">Contatti</a>
+</div>
+<div class="menu-toggle" id="menuToggle">
+<span></span>
+<span></span>
+<span></span>
+</div>
 </nav>
-<div class="container">
-<article>
-<div class="article-meta">
-<div class="article-meta-item"><span class="article-meta-label">Data:</span> <time datetime="2026-03-01">1 marzo 2026</time></div>
-<div class="article-meta-item"><span class="article-meta-label">Argomento:</span> Valutazione educativa</div>
-<div class="article-meta-item"><span class="article-meta-label">Lettura:</span> <span class="reading-time">8 minuti</span></div>
+<section id="home" class="hero">
+<div class="hero-content">
+<h1>La traccia <em>visibile</em> del pensiero</h1>
+<p>Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e intelligenza artificiale come documento del pensiero.</p>
+<a href="#traccia" class="cta">Scopri il protocollo</a>
 </div>
-<h1>La traccia visibile del pensiero</h1>
-<p>Un protocollo per valutare il <strong>processo</strong>, non il prodotto. Come leggere la conversazione tra studente e intelligenza artificiale come documento del pensiero.</p>
-<div class="interactive-box">
-<h4>Laboratorio del Prompt</h4>
-<p>Questo articolo include un <strong>laboratorio interattivo</strong> dove puoi testare il protocollo in tempo reale. Scorri verso il basso per provare gli strumenti.</p>
+</section>
+<section id="traccia">
+<h2>Il Protocollo</h2>
+<p>La "traccia visibile" è un metodo per analizzare e valutare il processo di apprendimento attraverso le conversazioni tra studenti e sistemi di intelligenza artificiale.</p>
+<h3>Principi Fondamentali</h3>
+<div class="accordion" id="accordion">
+<div class="accordion-item">
+<div class="accordion-item-header" onclick="toggleAccordion(event)">
+<h4>1. Visibilità del Processo</h4>
 </div>
-<section class="section" id="section-0">
-<h2><span class="section-number">00.</span> Il problema della valutazione</h2>
-<p>La valutazione tradizionale si concentra sul risultato finale: un voto, un punteggio, un giudizio. Ma il risultato non racconta tutta la storia. Specie quando lo studente lavora con l'intelligenza artificiale, emerge un problema cruciale:</p>
-<p><strong>Come distinguere tra ciò che lo studente ha pensato e ciò che ha ottenuto?</strong></p>
-<p>Quando uno studente consegna un saggio perfetto, una ricerca impeccabile, una presentazione brillante, il docente si chiede: è opera sua? Ha coinvolto un'IA? Se sì, fino a che punto? Lo ha usata come ricerca, come bozza, come correzione?</p>
-<p>La traccia del processo di pensiero scompare. Resta solo il prodotto.</p>
-<p>Questo crea una distanza insormontabile tra ciò che è stato imparato e ciò che è stato consegnato.</p>
-<blockquote>
-<p>"La qualità del pensiero non si vede nel risultato, ma nel cammino che lo precede. Eppure oggi il cammino è nascosto."</p>
-</blockquote>
-</section>
-<section class="section" id="section-1">
-<h2><span class="section-number">01.</span> Una soluzione: rendere visibile la traccia</h2>
-<p>La proposta è semplice ma radicale: <strong>rendere la conversazione con l'IA parte del documento di valutazione</strong>.</p>
-<p>Non è un nuovo genere di compito. È una reinterpretazione di uno strumento già noto in pedagogia: <strong>il portfolio processuale</strong>, aggiornato all'era dell'IA.</p>
-<p>Quando uno studente lavora con Claude, ChatGPT o un altro strumento di IA, la conversazione è già lì. È una traccia. Il sistema operativo del pensiero è visibile, registrato, archiviabile.</p>
-<p>La proposta è:</p>
-<ul>
-<li>Lo studente esegue il lavoro in conversazione con l'IA</li>
-<li>Condivide lo screenshot, l'esportazione, oppure copia la conversazione</li>
-<li>La conversazione diventa parte della valutazione, insieme al risultato finale</li>
-<li>Il docente valuta sia il processo che il prodotto</li>
-</ul>
-<p>Questo non significa:</p>
-<ul>
-<li>Proibire l'uso dell'IA (sarebbe come proibire la penna)</li>
-<li>Assegnare lo stesso peso al processo e al prodotto per ogni compito</li>
-<li>Valutare solo la qualità della conversazione (il risultato conta ancora)</li>
-<li>Creare una nuova forma di controllo totalitario</li>
-</ul>
-<p>Significa, invece, creare <strong>trasparenza</strong> e <strong>responsabilità</strong> nel nuovo ecosistema educativo.</p>
-</section>
-<section class="section" id="section-2">
-<h2><span class="section-number">02.</span> Come leggere una conversazione con l'IA</h2>
-<p>Se la traccia diventa visibile, come la interpretiamo? Quali sono gli indicatori di una buona conversazione con l'IA?</p>
-<p>Ecco un protocollo di lettura.</p>
-<h3>Chiarezza della domanda iniziale</h3>
-<p>Tutto inizia con una domanda. È un buon punto di partenza se:</p>
-<ul>
-<li>È specifica (non generica)</li>
-<li>Indica una direzione (non aspetta solo risposta)</li>
-<li>Rivela cosa lo studente sa e cosa vuole imparare</li>
-<li>Non è una riformulazione di un prompt su internet</li>
-</ul>
-<p><strong>Esempio debole:</strong> "Scrivi un saggio sulla Rivoluzione Francese"</p>
-<p><strong>Esempio forte:</strong> "Ho letto che la Rivoluzione Francese ha cambiato l'idea di cittadinanza. Mi spiega qual era il concetto prima e come è cambiato? Mi interessa capire se è davvero un cambiamento o solo una reinterpretazione."</p>
-<h3>Uso iterativo dell'IA</h3>
-<p>Una buona conversazione non è lineare. Lo studente:</p>
-<ul>
-<li>Riceve una risposta</li>
-<li>Fa domande di approfondimento</li>
-<li>Corregge la rotta se la risposta non è quello che cercava</li>
-<li>Combina più risposte per costruire una sintesi</li>
-<li>Testa le idee con ulteriori domande</li>
-</ul>
-<p>È il dialogo che costruisce il pensiero, non la prima risposta.</p>
-<h3>Rielaborazione consapevole</h3>
-<p>Tra la conversazione e il prodotto finale, cosa è cambiato?</p>
-<ul>
-<li>Lo studente ha riscritto? Riorganizzato? Aggiunto esempio personali?</li>
-<li>Ha cambiato la struttura per adattarla al suo contesto?</li>
-<li>Ha scartato parti della risposta dell'IA perché non rilevanti?</li>
-<li>Ha fatto scelte consapevoli, oppure ha copiato tutto?</li>
-</ul>
-<p>La rielaborazione è il segnale che il pensiero è passato attraverso la mente dello studente.</p>
-<h3>Collocazione nel contesto</h3>
-<p>La conversazione non è mai neutra. Rivela:</p>
-<ul>
-<li>Quale IA lo studente ha scelto e perché</li>
-<li>Quale livello di dettaglio ha richiesto</li>
-<li>Se ha cercato diverse prospettive oppure una sola risposta</li>
-<li>Se ha incrociato le informazioni con altre fonti</li>
-<li>Se ha usato l'IA per controllare il suo lavoro o per farlo al suo posto</li>
-</ul>
-</section>
-<section class="section" id="section-3">
-<h2><span class="section-number">03.</span> Un protocollo di valutazione</h2>
-<p>Sulla base di questi indicatori, si può costruire un protocollo di valutazione. Non è un rubric chiuso, ma uno schema aperto che ogni docente può adattare.</p>
-<div class="interactive-box">
-<h4>Protocollo di lettura della traccia</h4>
-<table>
-<thead>
-<tr>
-<th>Aspetto</th>
-<th>Indicatori di debolezza</th>
-<th>Indicatori di forza</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Domanda iniziale</strong></td>
-<td>Generica, ricopiata, senza direzione</td>
-<td>Specifica, personale, che rivela curiosità</td>
-</tr>
-<tr>
-<td><strong>Iterazione</strong></td>
-<td>Una sola domanda, una sola risposta</td>
-<td>Più turni, approfondimenti, correzioni di rotta</td>
-</tr>
-<tr>
-<td><strong>Rielaborazione</strong></td>
-<td>Copia diretta della risposta dell'IA</td>
-<td>Riscrittura consapevole, adattamento, sintesi</td>
-</tr>
-<tr>
-<td><strong>Contesto</strong></td>
-<td>Nessuna esplicazione del percorso</td>
-<td>Chiara consapevolezza di come e perché l'IA è stata usata</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Questo protocollo può essere usato in vari modi:</p>
-<p><strong>Per la valutazione formativa:</strong> Il docente lo usa per dare feedback durante il processo di apprendimento.</p>
-<p><strong>Per la valutazione sommativa:</strong> Diventa parte della rubrica finale insieme ad altri criteri.</p>
-<p><strong>Per l'autovalutazione:</strong> Lo studente lo usa per riflettere sul proprio lavoro.</p>
-<p><strong>Per la discussione collegiale:</strong> I docenti lo usano per discutere come integrare l'IA nella valutazione.</p>
-</section>
-<section class="section" id="section-4">
-<h2><span class="section-number">04.</span> Applicazioni pratiche</h2>
-<p>Dove si applica concretamente questo protocollo?</p>
-<h3>Saggio breve</h3>
-<p>Lo studente mostra la conversazione dove ha esplorato tre diverse tesi su un argomento, ha chiesto all'IA di contrapporre le prospettive, e poi ha scritto il saggio con la sua sintesi. Il docente vede il pensiero dialogico, non solo il risultato.</p>
-<h3>Ricerca</h3>
-<p>La conversazione mostra come lo studente ha usato l'IA per mappare il tema, trovare fonti, e poi ha verificato in modo critico le informazioni. Non è stata la ricerca per lui, ma uno strumento nel processo.</p>
-<h3>Problem solving</h3>
-<p>In matematica, fisica, programmazione: la conversazione mostra gli errori, i tentativi, le correzioni. Non solo la soluzione finale, ma il pensiero che vi arriva.</p>
-<h3>Riflessione critica</h3>
-<p>Lo studente conversa con l'IA sui limiti della risposta, sulle assunzioni non dichiarate, sugli spazi bianchi. La metacognizione diventa tracciabile.</p>
-<h3>Lavoro di gruppo</h3>
-<p>Un gruppo può usare l'IA per brainstorming, divisione del lavoro, controllo qualità. La conversazione mostra chi ha guidato il processo e quali erano le scelte collettive.</p>
-</section>
-<section class="section" id="section-5">
-<h2><span class="section-number">05.</span> Obiezioni e risposte</h2>
-<p><strong>Obiezione 1: "Ma così legittimo l'uso massivo dell'IA. Questo non incentiva lo studente a pensare da solo?"</strong></p>
-<p>Risposta: Dipende da come si progetta il compito. Se chiedi "Scrivi un saggio con l'IA", è ovvio che non penserà molto. Ma se chiedi "Prova a generare tre tesi diverse su questo tema, poi scrivi perché ritieni convincente una più delle altre", stai progettando il compito in modo che l'IA sia uno strumento, non una stampante. La traccia rende questo visibile.</p>
-<p><strong>Obiezione 2: "E se uno studente mi nasconde la conversazione, o ne costruisce una falsa?"</strong></p>
-<p>Risposta: È possibile. Ma oggi uno studente può copiare un saggio da internet e farti credere che è suo. La traccia non risolve completamente il problema della dishonesty, ma lo rende più difficile e chiaro. E crea uno spazio dove l'uso consapevole dell'IA diventa norma, rendendo più evidente l'abuso.</p>
-<p><strong>Obiezione 3: "Questo aumenta enormemente il carico di lavoro del docente nel valutare."</strong></p>
-<p>Risposta: Vero. Ma leggere una buona traccia è spesso più veloce che cercare di capire da un saggio scritto bene se lo studente ha capito davvero. Inoltre, il protocollo può essere usato in forma leggera: non serve una rubrica pesante, basta dare uno sguardo ai tre aspetti chiave (domanda, iterazione, rielaborazione).</p>
-<p><strong>Obiezione 4: "Non tutti hanno accesso alle IA avanzate. Questo crea ineguaglianze?"</strong></p>
-<p>Risposta: Sì, è un rischio. Ma anche oggi la scuola non ha accesso equo ai libri, ai computer, agli insegnanti preparati. Il protocollo non peggiora la situazione, semmai la rende visibile. E le IA gratuite stanno migliorando, rendendo l'accesso meno esclusivo.</p>
-<p><strong>Obiezione 5: "Questo è una rinuncia dei docenti al loro ruolo. Dovremmo insegnare senza IA."</strong></p>
-<p>Risposta: Il problema non è l'IA, è la forma di insegnamento. Se insegni facendo riempire moduli, l'IA è una minaccia. Se insegni creando dialogo, curiosità e pensiero critico, l'IA è uno strumento. La traccia visibile è una strategia per mantenere l'insegnamento umano anche quando lo strumento è artificiale.</p>
-</section>
-<section class="section" id="section-6">
-<h2><span class="section-number">06.</span> Il Laboratorio del Prompt: strumento interattivo</h2>
-<p>Di seguito troverai uno <strong>strumento interattivo</strong> dove puoi testare il protocollo. È un laboratorio per sperimentare come funziona la valutazione della traccia visibile.</p>
-<div class="interactive-box">
-<h4>Laboratorio del Prompt Interattivo</h4>
-<p>Carica il testo di una conversazione con un'IA (oppure scrivi una conversazione di esempio), e il laboratorio ti mostrerà come valutarla usando il protocollo.</p>
-<div class="form-group">
-<label for="prompt-textarea">Incolla qui la tua conversazione con l'IA:</label>
-<textarea id="prompt-textarea" placeholder="Domanda dello studente: ...&#10;Risposta dell'IA: ...&#10;Domanda di follow-up: ...&#10;Ecc."></textarea>
-</div>
-<button onclick="analyzePrompt()">Analizza la traccia</button>
-<div id="analysis-result" style="margin-top: 2rem; display: none;">
-<h4>Risultato dell'analisi</h4>
-<div id="analysis-content"></div>
+<div class="accordion-item-content">
+<p>La conversazione con l'IA diventa un documento visibile del pensiero. Ogni domanda, risposta e iterazione rappresenta un momento del processo cognitivo.</p>
 </div>
 </div>
-<p>Questo laboratorio non è un algoritmo di valutazione automatica (gli algoritmi sui processi mentali sono pericolosi). È uno <strong>specchio riflessivo</strong>: ti mostra come il protocollo legge la tua traccia, e tu decidere se concordi e come corregger la lettura.</p>
+<div class="accordion-item">
+<div class="accordion-item-header" onclick="toggleAccordion(event)">
+<h4>2. Valutazione del Percorso</h4>
+</div>
+<div class="accordion-item-content">
+<p>Invece di valutare solo il risultato finale, si valuta come lo studente ha ragionato, quali domande ha posto, come ha iterato su feedback e suggerimenti.</p>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-item-header" onclick="toggleAccordion(event)">
+<h4>3. Evidenza del Pensiero Critico</h4>
+</div>
+<div class="accordion-item-content">
+<p>La traccia mostra se lo studente ha fatto domande intelligenti, ha approfondito argomenti, ha riconosciuto limitazioni delle risposte dell'IA.</p>
+</div>
+</div>
+<div class="accordion-item">
+<div class="accordion-item-header" onclick="toggleAccordion(event)">
+<h4>4. Dialogo Consapevole</h4>
+</div>
+<div class="accordion-item-content">
+<p>Un buon dialogo con l'IA è quello in cui lo studente sa cosa chiede, comprende cosa riceve, e sa come usarlo nel suo lavoro.</p>
+</div>
+</div>
+</div>
 </section>
-<section class="section" id="section-7">
-<h2><span class="section-number">07.</span> Conclusione: una nuova trasparenza</h2>
-<p>La traccia visibile del pensiero non è una panaceia. Non risolve i problemi dell'educazione, della valutazione, dell'equità. Ma offre una cosa nuova:</p>
-<p><strong>Trasparenza sul rapporto tra l'uomo e la macchina nel processo di apprendimento.</strong></p>
-<p>Oggi, mentre lavoriamo con l'IA, nascondiamo il processo. Compariamo con l'IA di nascosto, prendiamo quello che ci serve, e poi fingiamo che sia tutto lavoro nostro. O cerchiamo di proibire l'IA, come se non esistesse.</p>
-<p>La traccia visibile propone un'altra via: <strong>essere trasparenti, consapevoli, e critici rispetto a come usiamo lo strumento</strong>.</p>
-<p>Non è un protocollo per sorvegliare gli studenti. È un protocollo per insegnargli a pensare in modo responsabile in un mondo dove il pensiero umano e artificiale lavorano insieme.</p>
-<p>La domanda non è più "Il compito è opera tua?" ma "Come hai usato gli strumenti a disposizione per pensare meglio?"</p>
-<p>Questa è una domanda più interessante. E più onesta.</p>
+<section id="uso">
+<h2>Come Usarla</h2>
+<div class="grid">
+<div class="grid-item">
+<h3>Per Docenti</h3>
+<p>Usate questa traccia per valutare il pensiero critico dei vostri studenti. Guardate come interagiscono con l'IA, non solo i risultati finali.</p>
+</div>
+<div class="grid-item">
+<h3>Per Studenti</h3>
+<p>Siate consapevoli che la vostra conversazione con l'IA sarà visibile. Questo incoraggia domande più intelligenti e ragionamenti più profondi.</p>
+</div>
+<div class="grid-item">
+<h3>Per Ricercatori</h3>
+<p>Analizzate come le persone usano l'IA. Le tracce visibili rivelano schemi di pensiero, difficoltà comuni, e strategie di apprendimento.</p>
+</div>
+</div>
+<h3>Checklist di Valutazione</h3>
+<ul>
+<li>Le domande mostrano curiosità e profondità?</li>
+<li>Lo studente verifica le risposte dell'IA?</li>
+<li>Ci sono iterazioni e miglioramenti del prompt?</li>
+<li>Il risultato finale integra il feedback ricevuto?</li>
+<li>Ci sono evidenze di pensiero critico indipendente?</li>
+</ul>
 </section>
-</article>
+<section id="esempi">
+<h2>Esempi di Traccia Visibile</h2>
+<p>Ecco come potrebbe essere una traccia visibile di un dialogo educativo:</p>
+<div class="example">
+<h3>Esempio 1: Analisi di un Testo</h3>
+<p><strong>Primo Prompt:</strong> "Analizza il tema della solitudine in questo passaggio di Calvino"</p>
+<p><strong>Risposta IA:</strong> [analisi generale]</p>
+<p><strong>Secondo Prompt (Raffinamento):</strong> "La tua analisi è utile, ma puoi approfondire gli aspetti linguistici? Come usa Calvino la sintassi per esprimere solitudine?"</p>
+<p><strong>Valutazione:</strong> Lo studente mostra capacità di iterare, di fare domande più specifiche, di voler approfondire aspetti particolari.</p>
+</div>
+<div class="example">
+<h3>Esempio 2: Risoluzione di un Problema</h3>
+<p><strong>Primo Prompt:</strong> "Come risolvo questa equazione differenziale?"</p>
+<p><strong>Risposta IA:</strong> [metodo risolutivo]</p>
+<p><strong>Secondo Prompt:</strong> "Capisco il metodo, ma perché funziona? Mi spieghi la teoria dietro?"</p>
+<p><strong>Terzo Prompt:</strong> "Grazie. Ora come modifico il metodo per questo caso particolare?"</p>
+<p><strong>Valutazione:</strong> Lo studente non accetta passivamente la risposta, ma va alla ricerca della comprensione profonda.</p>
+</div>
+</section>
+<section id="contatti">
+<h2>Contatti e Risorse</h2>
+<p>Per domande, feedback, o per contribuire al progetto:</p>
+<ul>
+<li><strong>Email:</strong> <a href="mailto:andrea@andreacolamedici.com">andrea@andreacolamedici.com</a></li>
+<li><strong>Web:</strong> <a href="https://andreacolamedici.com">andreacolamedici.com</a></li>
+<li><strong>Tlon:</strong> <a href="https://tlon.it">tlon.it</a></li>
+</ul>
+<p><em>La traccia visibile è un progetto ongoing. Continuiamo a evolverlo insieme a educatori, studenti e ricercatori.</em></p>
+</section>
 <footer>
-<p>© 2026 Andrea Colamedici. Questo articolo è parte del progetto <a href="https://tlon.it">Tlon</a>.</p>
-<p>Per commenti, suggerimenti o per discutere il protocollo, contatta <a href="mailto:andrea@tlon.it">andrea@tlon.it</a>.</p>
+<p>&copy; 2024 Andrea Colamedici. Tutti i diritti riservati.</p>
+<p><a href="https://tlon.it">Tlon</a> — Filosofia per la cultura contemporanea</p>
 </footer>
-</div>
 <script>
-const readingProgress = document.querySelector('.reading-progress');
-const cursorLight = document.querySelector('.cursor-light');
-const sideNavDots = document.querySelectorAll('.side-nav-dot');
-const sections = document.querySelectorAll('.section');
-const promptTextarea = document.getElementById('prompt-textarea');
-const analysisResult = document.getElementById('analysis-result');
-const analysisContent = document.getElementById('analysis-content');
-
-// Reading progress
-window.addEventListener('scroll', () => {
-  const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-  readingProgress.style.width = scrollPercentage + '%';
-});
-
-// Cursor light
+// Cursor Light Effect
+const cursorLight = document.getElementById('cursorLight');
 document.addEventListener('mousemove', (e) => {
-  cursorLight.style.left = e.clientX + 'px';
-  cursorLight.style.top = e.clientY + 'px';
+    cursorLight.style.left = e.clientX + 'px';
+    cursorLight.style.top = e.clientY + 'px';
 });
-
-// Side nav
+// Reading Progress
+const readingProgress = document.getElementById('readingProgress');
 window.addEventListener('scroll', () => {
-  let currentSection = 0;
-  sections.forEach((section, index) => {
-    if (section.getBoundingClientRect().top < window.innerHeight / 2) {
-      currentSection = index;
-    }
-  });
-  sideNavDots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === currentSection);
-  });
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+    const totalScroll = documentHeight - windowHeight;
+    const progress = (scrollTop / totalScroll) * 100;
+    readingProgress.style.width = progress + '%';
 });
-
-sideNavDots.forEach((dot, index) => {
-  dot.addEventListener('click', () => {
-    const sectionIndex = parseInt(dot.getAttribute('data-section'));
-    if (sectionIndex < sections.length) {
-      sections[sectionIndex].scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-// Analysis function
-function analyzePrompt() {
-  const text = promptTextarea.value.trim();
-  
-  if (!text) {
-    alert('Per favore, incolla una conversazione prima di analizzarla.');
-    return;
-  }
-  
-  // Simple analysis based on the protocol
-  const lines = text.split('\n').filter(l => l.trim());
-  const turnCount = lines.length;
-  const hasFollowUp = text.toLowerCase().includes('seguire') || text.toLowerCase().includes('però') || text.toLowerCase().includes('cioè') || turnCount > 5;
-  const hasReworking = text.length > 300 && text.toLowerCase().includes('cambiar') || text.toLowerCase().includes('riscriv') || text.toLowerCase().includes('ma');
-  const isSpecific = text.length > 150 && text.toLowerCase().includes('perché');
-  
-  let strengths = [];
-  let improvements = [];
-  
-  if (isSpecific) {
-    strengths.push('✓ La domanda iniziale è specifica e mostra curiosità');
-  } else {
-    improvements.push('→ Inizia con una domanda più precisa e personale');
-  }
-  
-  if (hasFollowUp) {
-    strengths.push('✓ Hai fatto domande di follow-up e hai iterato il dialogo');
-  } else {
-    improvements.push('→ Prova a fare più domande di approfondimento');
-  }
-  
-  if (hasReworking) {
-    strengths.push('✓ Sembra che tu abbia rielaborato consapevolmente il materiale');
-  } else {
-    improvements.push('→ Dopo la risposta dell\'IA, rielabora il contenuto con le tue parole');
-  }
-  
-  strengths.push(`✓ Hai coinvolto l'IA in ${turnCount} turni di conversazione`);
-  
-  let html = '<div style="background: var(--grigio-chiaro); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">';
-  html += '<h5 style="margin-top: 0;">Punti di forza:</h5>';
-  strengths.forEach(s => html += `<p style="margin: 0.5rem 0;">${s}</p>`);
-  html += '</div>';
-  
-  if (improvements.length > 0) {
-    html += '<div style="background: rgba(42, 107, 107, 0.05); padding: 1.5rem; border-radius: 8px;">';
-    html += '<h5 style="margin-top: 0;">Aree di miglioramento:</h5>';
-    improvements.forEach(i => html += `<p style="margin: 0.5rem 0;">${i}</p>`);
-    html += '</div>';
-  }
-  
-  analysisContent.innerHTML = html;
-  analysisResult.style.display = 'block';
-  analysisResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-// Menu toggle
-const menuBtn = document.querySelector('[data-menu-btn]');
-const mobileMenu = document.querySelector('[data-mobile-menu]');
-if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-  });
-}
-
-// Smooth scroll for internal links
+// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 });
-
-// Track reading time
-const readingTime = Math.ceil(document.body.innerText.split(/\s+/).length / 200);
-document.querySelector('.reading-time').textContent = readingTime + ' minuti';
-
-// Highlight on scroll
-const highlightElements = (entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
+// Sticky Nav
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('nav');
+    if (window.scrollY > 100) {
+        nav.classList.add('sticky');
+    } else {
+        nav.classList.remove('sticky');
     }
-  });
-};
-
-const observer = new IntersectionObserver(highlightElements, { threshold: 0.1 });
-document.querySelectorAll('.section').forEach(section => observer.observe(section));
-
-// Menu dropdown
-const menuLinks = document.querySelectorAll('[data-menu-link]');
-menuLinks.forEach(l=>{l.addEventListener('click',()=>{const hb=document.querySelector('[data-hamburger]');const mm=document.querySelector('[data-mobile-menu]');const hd=document.querySelector('[data-header]');hb.classList.remove('active');mm.classList.remove('active');hd.classList.remove('menu-open');document.body.style.overflow='';});});
+});
+// Nav Links Active
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+            link.classList.add('active');
+        }
+    });
+});
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+// Accordion Toggle
+function toggleAccordion(event) {
+    const header = event.currentTarget;
+    const content = header.nextElementSibling;
+    const allItems = document.querySelectorAll('.accordion-item');
+    allItems.forEach(item => {
+        if (item !== header.parentElement) {
+            item.querySelector('.accordion-item-header').classList.remove('active');
+            item.querySelector('.accordion-item-content').classList.remove('active');
+        }
+    });
+    header.classList.toggle('active');
+    content.classList.toggle('active');
+}
+// Side Nav Dots
+const sideNavDots = document.querySelectorAll('.side-nav-dot');
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    sideNavDots.forEach(dot => {
+        dot.classList.remove('active');
+    });
+    const activeDot = document.querySelector(`.side-nav-dot[data-section="${current}"]`);
+    if (activeDot) {
+        activeDot.classList.add('active');
+    }
+});
+// Add data-section to side nav dots
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const dotsContainer = document.querySelector('.side-nav');
+    if (!dotsContainer.innerHTML.includes('data-section')) {
+        dotsContainer.innerHTML = '';
+        sections.forEach(section => {
+            const dot = document.createElement('div');
+            dot.className = 'side-nav-dot';
+            dot.setAttribute('data-section', section.id);
+            dot.addEventListener('click', () => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+            dotsContainer.appendChild(dot);
+        });
+    }
+});
+// Initialize side nav after content loads
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const dotsContainer = document.querySelector('.side-nav');
+    sections.forEach(section => {
+        const existingDot = dotsContainer.querySelector(`[data-section="${section.id}"]`);
+        if (!existingDot) {
+            const dot = document.createElement('div');
+            dot.className = 'side-nav-dot';
+            dot.setAttribute('data-section', section.id);
+            dot.addEventListener('click', () => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+            dotsContainer.appendChild(dot);
+        }
+    });
+    // Trigger initial scroll event
+    const scrollEvent = new Event('scroll');
+    window.dispatchEvent(scrollEvent);
+});
+// Prevent menu toggle click from scrolling
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav')) {
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            document.body.style.overflow='';
+        }
+    }
+});
+// Toggle menu and body scroll
+const hd = document.getElementById('menuToggle');
+const nl = document.getElementById('navLinks');
+hd.addEventListener('click', function() {
+    nl.classList.toggle('active');
+    if (nl.classList.contains('active')) {
+        document.body.style.overflow='hidden';
+    } else {
+        hd.classList.remove('menu-open');
+        document.body.style.overflow='';
+    }
+});
+// Close menu on link click
+nl.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', function() {
+        nl.classList.remove('active');
+        hd.classList.remove('menu-open');
+        document.body.style.overflow='';
+    });
+});
 </script>
 </body>
 </html>

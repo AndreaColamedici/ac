@@ -11,17 +11,13 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
 :root { --ottanio: #2a6b6b; --nero: #0a0a0a; --bianco: #ffffff; --grigio: #6b6b6b; --grigio-chiaro: #e5e5e5; }
-/* READING PROGRESS */
 .reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--ottanio); z-index: 9999; transition: width 0.1s linear; }
-/* CURSOR LIGHT */
 .cursor-light { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(42,107,107,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; transform: translate(-50%,-50%); transition: left 0.3s ease-out, top 0.3s ease-out; }
-/* SIDE NAV */
 .side-nav { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 1.25rem; }
 .side-nav-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(42,107,107,0.3); background: transparent; cursor: pointer; transition: all 0.4s ease; position: relative; }
 .side-nav-dot.active { background: var(--ottanio); border-color: var(--ottanio); transform: scale(1.3); }
 .side-nav-dot::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); white-space: nowrap; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
 .side-nav-dot:hover::after { opacity: 1; }
-/* GRAIN */
 .grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 /* HERO */
 .t-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--nero); color: var(--bianco); }
@@ -56,12 +52,15 @@
 .essay-note.visible { opacity: 1; transform: translateX(0); }
 .text-highlight { background: linear-gradient(120deg, rgba(42,107,107,0) 0%, rgba(42,107,107,0.12) 100%); background-size: 0% 100%; background-repeat: no-repeat; transition: background-size 1.2s ease; padding: 0 0.15rem; }
 .text-highlight.active { background-size: 100% 100%; }
-/* CONVERSATION SIMULATION */
+.essay-section-title { font-family: 'Instrument Serif', serif; font-size: 1.6rem; font-weight: 400; color: var(--nero); margin: 5rem 0 2.5rem; padding-top: 2rem; border-top: 1px solid var(--grigio-chiaro); font-style: italic; }
+.essay-section-title:first-of-type { border-top: none; margin-top: 4rem; }
+.essay-section-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--ottanio); letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem; }
+/* CONVERSATION */
 .convo-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; overflow: hidden; }
 .convo-inner { max-width: 900px; margin: 0 auto; }
 .convo-header { text-align: center; margin-bottom: 4rem; }
 .convo-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
-.convo-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 550px; margin: 0 auto; line-height: 1.8; }
+.convo-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto; line-height: 1.8; }
 .convo-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 3rem; }
 .convo-tab { padding: 0.75rem 2.5rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; color: rgba(255,255,255,0.4); }
 .convo-tab:first-child { border-radius: 2px 0 0 2px; }
@@ -74,7 +73,9 @@
 .convo-terminal-dot:nth-child(2) { background: #febc2e; }
 .convo-terminal-dot:nth-child(3) { background: #28c840; }
 .convo-terminal-title { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-left: 0.75rem; font-family: 'JetBrains Mono', monospace; }
-.convo-body { padding: 2rem; max-height: 420px; overflow-y: auto; }
+.convo-body { padding: 2rem; max-height: 600px; overflow-y: auto; }
+.convo-body::-webkit-scrollbar { width: 4px; }
+.convo-body::-webkit-scrollbar-thumb { background: rgba(42,107,107,0.3); border-radius: 2px; }
 .convo-msg { margin-bottom: 1.5rem; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
 .convo-msg.show { opacity: 1; transform: translateY(0); }
 .convo-role { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
@@ -83,7 +84,8 @@
 .convo-role.reflection { color: #9a7a5a; }
 .convo-text { font-size: 0.92rem; line-height: 1.8; color: rgba(255,255,255,0.7); padding-left: 1rem; border-left: 2px solid rgba(255,255,255,0.06); }
 .convo-text em { color: var(--ottanio); font-style: italic; }
-.convo-score { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; padding: 1.5rem; background: rgba(42,107,107,0.08); border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; }
+.convo-annotation { font-size: 0.78rem; line-height: 1.7; color: rgba(42,107,107,0.7); padding: 0.75rem 1rem; margin: 0.5rem 0 0 1rem; background: rgba(42,107,107,0.05); border-left: 2px solid rgba(42,107,107,0.3); font-style: italic; }
+.convo-score { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; padding: 1.5rem; background: rgba(42,107,107,0.08); border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; flex-wrap: wrap; }
 .convo-score-item { text-align: center; }
 .convo-score-val { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; }
 .convo-score-val.high { color: var(--ottanio); }
@@ -102,29 +104,54 @@
 .radar-info-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-style: italic; color: var(--ottanio); margin-bottom: 1rem; min-height: 2.5rem; transition: all 0.4s ease; }
 .radar-info-desc { font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 2rem; min-height: 5rem; transition: all 0.4s ease; }
 .radar-info-weight { font-family: 'Instrument Serif', serif; font-size: 3rem; font-style: italic; color: var(--ottanio); opacity: 0.4; }
-/* CALCULATOR */
-.calc-section { padding: 8rem 3rem; }
-.calc-inner { max-width: 900px; margin: 0 auto; }
-.calc-header { text-align: center; margin-bottom: 4rem; }
-.calc-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
-.calc-header p { color: var(--grigio); max-width: 550px; margin: 0 auto; line-height: 1.8; }
-.calc-grid { display: grid; grid-template-columns: 1fr 300px; gap: 4rem; align-items: start; }
-.calc-sliders { display: flex; flex-direction: column; gap: 2rem; }
-.calc-slider-row { display: flex; flex-direction: column; gap: 0.5rem; }
-.calc-slider-header { display: flex; justify-content: space-between; align-items: baseline; }
-.calc-slider-name { font-family: 'Instrument Serif', serif; font-size: 1.1rem; }
-.calc-slider-val { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ottanio); }
-.calc-slider-weight { font-size: 0.7rem; color: var(--grigio); letter-spacing: 0.1em; }
-.calc-range { -webkit-appearance: none; width: 100%; height: 3px; background: var(--grigio-chiaro); outline: none; border-radius: 2px; cursor: pointer; }
-.calc-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--ottanio); cursor: pointer; transition: transform 0.2s ease; }
-.calc-range::-webkit-slider-thumb:hover { transform: scale(1.3); }
-.calc-result { position: sticky; top: 8rem; text-align: center; padding: 3rem 2rem; border: 1px solid var(--grigio-chiaro); border-radius: 4px; }
-.calc-result-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grigio); margin-bottom: 1rem; }
-.calc-result-score { font-family: 'Instrument Serif', serif; font-size: 5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
-.calc-result-max { font-size: 0.85rem; color: var(--grigio); margin-top: 0.5rem; }
-.calc-result-bar { width: 100%; height: 4px; background: var(--grigio-chiaro); border-radius: 2px; margin-top: 2rem; overflow: hidden; }
-.calc-result-fill { height: 100%; background: var(--ottanio); border-radius: 2px; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
-.calc-result-level { font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; margin-top: 1rem; color: var(--nero); }
+/* PROMPT LABORATORY */
+.lab { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; overflow: hidden; }
+.lab-inner { max-width: 1000px; margin: 0 auto; }
+.lab-header { text-align: center; margin-bottom: 5rem; }
+.lab-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; margin-bottom: 1rem; }
+.lab-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+.lab-timeline { display: flex; align-items: center; justify-content: center; margin-bottom: 4rem; position: relative; padding: 0 2rem; }
+.lab-timeline-track { position: absolute; top: 50%; left: 2rem; right: 2rem; height: 2px; background: rgba(255,255,255,0.08); transform: translateY(-50%); }
+.lab-timeline-fill { position: absolute; top: 50%; left: 2rem; height: 2px; background: var(--ottanio); transform: translateY(-50%); transition: width 0.6s cubic-bezier(0.16,1,0.3,1); }
+.lab-stops { display: flex; justify-content: space-between; width: 100%; position: relative; z-index: 2; }
+.lab-stop { width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); background: var(--nero); cursor: pointer; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+.lab-stop.active { border-color: var(--ottanio); background: var(--ottanio); color: var(--bianco); transform: scale(1.15); box-shadow: 0 0 30px rgba(42,107,107,0.3); }
+.lab-stop.passed { border-color: var(--ottanio); color: var(--ottanio); }
+.lab-stop-label { position: absolute; top: 48px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.2); white-space: nowrap; transition: color 0.4s ease; }
+.lab-stop.active .lab-stop-label, .lab-stop.passed .lab-stop-label { color: var(--ottanio); }
+.lab-prompt-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 2.5rem; margin-bottom: 3rem; min-height: 140px; position: relative; overflow: hidden; }
+.lab-prompt-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 1rem; }
+.lab-prompt-text { font-size: 1.1rem; line-height: 1.9; color: rgba(255,255,255,0.8); transition: opacity 0.3s ease; }
+.lab-prompt-text em { color: var(--ottanio); font-style: italic; }
+.lab-prompt-cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--ottanio); margin-left: 2px; vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.lab-gauges { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.lab-gauge { text-align: center; width: 120px; }
+.lab-gauge-ring { width: 90px; height: 90px; margin: 0 auto 0.75rem; position: relative; }
+.lab-gauge-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.lab-gauge-ring circle { fill: none; stroke-width: 3; }
+.lab-gauge-ring .track { stroke: rgba(255,255,255,0.06); }
+.lab-gauge-ring .fill { stroke-dasharray: 251.2; stroke-dashoffset: 251.2; transition: stroke-dashoffset 0.8s cubic-bezier(0.16,1,0.3,1), stroke 0.4s ease; stroke-linecap: round; }
+.lab-gauge-score { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-style: italic; color: var(--ottanio); transition: all 0.4s ease; }
+.lab-gauge-name { font-size: 0.68rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); line-height: 1.4; }
+.lab-verdict { text-align: center; padding: 2.5rem; border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; background: rgba(42,107,107,0.05); transition: all 0.5s ease; }
+.lab-verdict-score { font-family: 'Instrument Serif', serif; font-size: 4rem; font-style: italic; color: var(--ottanio); line-height: 1; transition: all 0.5s ease; }
+.lab-verdict-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.5rem; }
+.lab-verdict-level { font-family: 'Instrument Serif', serif; font-size: 1.3rem; font-style: italic; color: rgba(255,255,255,0.5); margin-top: 0.75rem; transition: all 0.4s ease; }
+.lab-comment { font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.35); max-width: 600px; margin: 2rem auto 0; text-align: center; font-style: italic; transition: all 0.5s ease; min-height: 3rem; }
+/* VOICES */
+.voices { padding: 8rem 3rem; position: relative; overflow: hidden; }
+.voices-inner { max-width: 800px; margin: 0 auto; }
+.voices-header { text-align: center; margin-bottom: 5rem; }
+.voices-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
+.voices-header p { color: var(--grigio); max-width: 550px; margin: 0 auto; line-height: 1.8; }
+.voice-item { margin-bottom: 3.5rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--grigio-chiaro); }
+.voice-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.voice-text { font-family: 'Instrument Serif', serif; font-size: 1.25rem; font-style: italic; line-height: 1.7; color: var(--nero); margin-bottom: 1rem; }
+.voice-text::before { content: open-quote; color: var(--ottanio); font-size: 1.5em; }
+.voice-text::after { content: close-quote; color: var(--ottanio); font-size: 1.5em; }
+.voice-author { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--grigio); }
+.voice-response { font-size: 1.05rem; line-height: 2; color: var(--nero); margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(42,107,107,0.15); }
 /* AXES */
 .axes { padding: 8rem 3rem; background: #fafafa; }
 .axes-inner { max-width: 1000px; margin: 0 auto; }
@@ -175,13 +202,12 @@
 @media (max-width: 900px) {
     .side-nav { display: none; }
     .t-hero-content { padding: 4rem 1.5rem; }
-    .essay, .convo-section, .proto, .calc-section, .axes, .dl-section { padding: 5rem 1.5rem; }
+    .essay, .convo-section, .proto, .lab, .voices, .axes, .dl-section { padding: 5rem 1.5rem; }
     .radar-wrap { flex-direction: column; gap: 3rem; }
     .radar-svg-wrap { width: 300px; height: 300px; }
-    .calc-grid { grid-template-columns: 1fr; }
-    .calc-result { position: static; }
+    .lab-gauges { gap: 1.5rem; }
     .counter-strip { gap: 3rem; }
-    .convo-score { gap: 1rem; flex-wrap: wrap; }
+    .convo-score { gap: 1rem; }
     .t-hero-meta { gap: 1.5rem; }
 }
 @media (max-width: 600px) {
@@ -203,7 +229,8 @@
     <div class="side-nav-dot" data-label="Saggio" data-target="essaySection"></div>
     <div class="side-nav-dot" data-label="Dialogo" data-target="convoSection"></div>
     <div class="side-nav-dot" data-label="Protocollo" data-target="protoSection"></div>
-    <div class="side-nav-dot" data-label="Calcola" data-target="calcSection"></div>
+    <div class="side-nav-dot" data-label="Laboratorio" data-target="labSection"></div>
+    <div class="side-nav-dot" data-label="Voci" data-target="voicesSection"></div>
     <div class="side-nav-dot" data-label="Assi" data-target="axesSection"></div>
     <div class="side-nav-dot" data-label="Scarica" data-target="dlSection"></div>
 </nav>
@@ -223,9 +250,9 @@
 <section class="t-hero" id="hero">
     <canvas id="heroCanvas"></canvas>
     <div class="t-hero-content">
-        <span class="t-hero-label">Saggio · 2026</span>
+        <span class="t-hero-label">Saggio &middot; 2026</span>
         <h1 class="t-hero-title">La traccia <em>visibile</em> del pensiero</h1>
-        <p class="t-hero-subtitle">Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e macchina come documento del pensiero.</p>
+        <p class="t-hero-subtitle">Il pensiero lascia una traccia visibile, leggibile, analizzabile &ndash; e quella traccia &egrave;, paradossalmente, la conversazione con la macchina.</p>
         <div class="t-hero-meta">
             <span>Andrea Colamedici</span>
             <span>13 pagine</span>
@@ -246,19 +273,61 @@
 
 <section class="essay" id="essaySection">
     <div class="essay-inner">
-        <p class="essay-dropcap rv">C'è un momento preciso in cui la domanda sulla valutazione scolastica cambia natura. Arriva quando ci si accorge che il testo consegnato dallo studente potrebbe essere stato generato da un'intelligenza artificiale, e che non esiste più alcun modo affidabile per distinguerlo da un testo scritto interamente di proprio pugno. In quel momento il problema smette di essere tecnico e diventa filosofico: <span class="text-highlight">se la macchina sa produrre un buon testo, dove si è spostato il pensiero?</span> Che cosa, esattamente, stiamo valutando quando valutiamo?</p>
 
-        <div class="essay-note" style="top: 0;" data-note="1">La domanda non è se lo studente ha usato l'IA, ma come l'ha usata: questo spostamento è il cuore della proposta.</div>
+        <p class="essay-dropcap rv">C&#8217;&egrave; un momento preciso in cui la domanda sulla valutazione scolastica cambia natura. Arriva quando ci si accorge che il testo consegnato dallo studente potrebbe essere stato generato da un&#8217;intelligenza artificiale, e che non esiste pi&ugrave; alcun modo affidabile per distinguerlo da un testo scritto interamente di proprio pugno. In quel momento il problema smette di essere tecnico e diventa filosofico: <span class="text-highlight">se la macchina sa produrre un buon testo, dove si &egrave; spostato il pensiero?</span> Che cosa, esattamente, stiamo valutando quando valutiamo?</p>
 
-        <p class="rv">Questo saggio nasce dalla convinzione che la risposta non stia nel proibire l'uso dell'intelligenza artificiale, né nel tentare di smascherarlo con strumenti di rilevamento che sono già strutturalmente inadeguati. La risposta sta nel cambiare radicalmente l'oggetto della valutazione: dal prodotto al processo, dal testo finito alla conversazione che lo ha generato. Quando uno studente lavora con un modello di linguaggio, il suo pensiero non scompare: si sposta. Si deposita nei prompt che formula, nelle correzioni che apporta, nelle resistenze che oppone alla facilità della risposta automatica, nella capacità di riconoscere quando la macchina sta producendo qualcosa di generico e di costringerla a fare meglio, o di abbandonare la sua proposta per seguire un'intuizione propria.</p>
+        <div class="essay-note" style="top: 0;" data-note="1">La domanda non &egrave; se lo studente ha usato l&#8217;IA, ma come l&#8217;ha usata: questo spostamento &egrave; il cuore della proposta.</div>
 
-        <div class="essay-pullquote rv">L'intelligenza artificiale non ha eliminato la necessità di pensare. Ha reso il pensiero, per chi lo esercita, visibile come non lo è mai stato.</div>
+        <p class="rv">La tentazione immediata &egrave; quella della proibizione, o della sorveglianza: vietare l&#8217;uso dei modelli di linguaggio, installare software di rilevamento, tornare alla scrittura a mano in classe. Sono risposte comprensibili, ma strutturalmente inadeguate. I sistemi di rilevamento producono gi&agrave; oggi una quantit&agrave; inaccettabile di falsi positivi e falsi negativi; la proibizione &egrave; inapplicabile in un contesto in cui gli strumenti sono disponibili ovunque; la nostalgia della penna e del foglio confonde il mezzo con il fine, come se la qualit&agrave; del pensiero dipendesse dall&#8217;attrito fisico della scrittura e non dalla disciplina intellettuale che la governa. Il problema &egrave; altrove, ed &egrave; pi&ugrave; profondo di quanto queste soluzioni lascino intendere.</p>
 
-        <p class="rv">Il Protocollo di Valutazione del Processo che questo saggio propone è uno strumento costruito per leggere quella conversazione come un documento del pensiero. Cinque assi di valutazione, ciascuno con il proprio peso specifico, ciascuno con quattro livelli che descrivono altrettante qualità dell'interazione tra la mente dello studente e la mente della macchina. L'idea di fondo è che <span class="text-highlight">il log della conversazione – l'intera sequenza di prompt, risposte, revisioni, abbandoni – sia un testo a tutti gli effetti</span>: un testo che racconta come lo studente ha pensato, non solo cosa ha prodotto. E che quel testo, per chi sa leggerlo, sia più rivelatore di qualsiasi elaborato finale.</p>
+        <div class="essay-pullquote rv">L&#8217;intelligenza artificiale non ha eliminato la necessit&agrave; di pensare. Ha reso il pensiero, per chi lo esercita, visibile come non lo &egrave; mai stato.</div>
 
-        <div class="essay-note" style="top: 480px;" data-note="2">Il cambio di paradigma: non cercare tracce di autenticità nel prodotto, ma tracce del pensiero nel processo.</div>
+        <p class="rv">La risposta che questo saggio propone &egrave; di natura diversa: cambiare radicalmente l&#8217;oggetto della valutazione. Dal prodotto al processo, dal testo finito alla conversazione che lo ha generato. Quando uno studente lavora con un modello di linguaggio, il suo pensiero non scompare: si sposta. Si deposita nei prompt che formula, nelle correzioni che apporta, nelle resistenze che oppone alla facilit&agrave; della risposta automatica, nella capacit&agrave; di riconoscere quando la macchina sta producendo qualcosa di generico e di costringerla a fare meglio, o di abbandonare la sua proposta per seguire un&#8217;intuizione propria. Il log della conversazione &ndash; l&#8217;intera sequenza di prompt, risposte, revisioni, abbandoni &ndash; &egrave; un testo a tutti gli effetti: un testo che racconta come lo studente ha pensato, non solo cosa ha prodotto.</p>
 
-        <p class="rv">Il protocollo non pretende di risolvere tutti i problemi della valutazione nell'era dell'intelligenza artificiale. Ne riconosce i limiti – di scalabilità, di copertura disciplinare, di formazione dei docenti – e li discute apertamente. Ciò che propone è un cambio di prospettiva: smettere di cercare tracce di autenticità nel prodotto e cominciare a riconoscere le tracce del pensiero nel processo. Perché è lì, nella domanda ben posta, nella correzione consapevole, nel rifiuto della prima risposta, che il pensiero si rende visibile.</p>
+        <div class="essay-note" style="top: 480px;" data-note="2">Il cambio di paradigma: non cercare tracce di autenticit&agrave; nel prodotto, ma tracce del pensiero nel processo.</div>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">II</span>Perch&eacute; il processo &egrave; il luogo del pensiero</h3>
+
+        <p class="rv">L&#8217;idea che il valore di un&#8217;operazione intellettuale risieda nel processo e non nel risultato non &egrave; nuova. Hegel osservava che il vero &egrave; l&#8217;intero, e che l&#8217;intero include il percorso attraverso cui la coscienza arriva a s&eacute; stessa; Dewey costruiva la sua filosofia dell&#8217;educazione sull&#8217;idea che l&#8217;apprendimento &egrave; esperienza trasformata attraverso la riflessione, non informazione depositata in un contenitore. Ci&ograve; che &egrave; nuovo, e radicalmente nuovo, &egrave; che per la prima volta nella storia dell&#8217;istruzione esiste uno strumento che rende quel processo leggibile. La conversazione con un modello di linguaggio &egrave; un documento: ha un inizio, uno sviluppo, delle svolte, dei punti morti, dei ripensamenti. Tutto ci&ograve; che prima poteva essere solo inferito &ndash; lo studente ha capito? ha riflettuto? ha corretto il proprio percorso? &ndash; adesso &egrave; scritto, nero su bianco, nella sequenza dei prompt e delle risposte.</p>
+
+        <p class="rv">Questo cambiamento &egrave; paradossale. Lo strumento che sembrava rendere obsoleto il pensiero &ndash; perch&eacute; capace di produrre testi, sintesi, analisi senza che chi lo usa debba pensare affatto &ndash; &egrave; anche lo strumento che, per chi lo usa pensando, <span class="text-highlight">rende il pensiero visibile come mai nessun altro mezzo nella storia della didattica</span>. Un tema scritto a mano non dice quasi nulla su come sia stato concepito: pu&ograve; essere stato copiato, dettato da un genitore, frutto di un lampo notturno o di un&#8217;agonia di ore. La conversazione con la macchina dice tutto: dice quali domande lo studente ha posto, in che ordine, con quanta precisione; dice se ha accettato la prima risposta o l&#8217;ha messa in discussione; dice se ha riconosciuto un errore nella risposta generata e come ha provato a correggerlo; dice se ha riflettuto sul proprio percorso o si &egrave; limitato a delegare.</p>
+
+        <div class="essay-pullquote rv">Il log della conversazione &egrave; il primo documento nella storia dell&#8217;istruzione che rende visibile l&#8217;atto del pensiero nel momento stesso in cui si compie.</div>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">III</span>Il Protocollo di Valutazione del Processo</h3>
+
+        <p class="rv">Il Protocollo di Valutazione del Processo &egrave; costruito attorno a cinque assi, ciascuno dei quali misura una dimensione specifica del pensiero in azione. Ogni asse prevede quattro livelli &ndash; eccellente, buono, sufficiente, insufficiente &ndash; descritti con rubriche analitiche. I pesi sono distribuiti in modo non uniforme, perch&eacute; non tutte le dimensioni hanno lo stesso valore epistemico: la resistenza alla facilit&agrave; e il comportamento correttivo, che insieme pesano per il cinquanta per cento del punteggio totale, sono le dimensioni che pi&ugrave; nettamente separano chi usa la macchina come protesi del pensiero da chi la usa come occasione di pensiero.</p>
+
+        <p class="rv">Il primo asse, la qualit&agrave; dell&#8217;interrogazione iniziale, misura la capacit&agrave; dello studente di formulare domande precise, contestualizzate, progressive. Chi sa interrogare bene una macchina dimostra di possedere gi&agrave; una mappa del problema, di sapere cosa cerca e di saper tradurre quel sapere in vincoli per la generazione. Il secondo asse, il comportamento correttivo, valuta la capacit&agrave; di individuare errori, imprecisioni, genericit&agrave; nelle risposte generate e di intervenire con correzioni specifiche e fondate. Chi sa correggere una macchina dimostra di possedere la competenza che la macchina simula. Il terzo asse, l&#8217;architettura del dialogo, osserva se la conversazione ha una struttura governata o caotica, se i temi si sviluppano in modo coerente o si disperdono. Il quarto asse &ndash; la resistenza alla facilit&agrave; &ndash; &egrave; il cuore concettuale del protocollo: misura la capacit&agrave; dello studente di non accettare la prima risposta, di riconoscere la genericit&agrave;, di cercare attivamente la complessit&agrave;, di costringere la macchina oltre il suo punto di equilibrio. Il quinto asse, la trasparenza metacognitiva, valuta la capacit&agrave; di riflettere sul proprio processo mentre lo si compie: annotare le proprie scelte, spiegare perch&eacute; si &egrave; cambiata direzione, riconoscere i limiti di ci&ograve; che la macchina ha prodotto.</p>
+
+        <div class="essay-note" style="top: 1580px;" data-note="3">I pesi non sono arbitrari: resistenza alla facilit&agrave; e comportamento correttivo valgono insieme il 50% perch&eacute; sono i marcatori pi&ugrave; affidabili del pensiero critico.</div>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">IV</span>Cosa consegna lo studente</h3>
+
+        <p class="rv">Lo studente che lavora all&#8217;interno di questo protocollo consegna tre elementi: il testo finale, l&#8217;intera conversazione con il modello di linguaggio, e una nota metodologica in cui racconta le proprie scelte, i momenti di svolta, le difficolt&agrave; incontrate. La nota metodologica non &egrave; un optional decorativo: &egrave; parte integrante della valutazione. Lo studente vi dichiara quali parti del testo finale provengono dalla macchina e quali dalla propria elaborazione, perch&eacute; ha scartato certi suggerimenti e ne ha accolti altri, dove ha deciso di procedere da solo. Il docente valuta la coerenza tra ci&ograve; che la conversazione mostra e ci&ograve; che la nota dichiara: una discrepanza sistematica tra le due &egrave; essa stessa un dato valutativo, perch&eacute; rivela un deficit di consapevolezza metacognitiva o, peggio, un tentativo di dissimulazione.</p>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">V</span>Il colloquio come dispositivo di verifica</h3>
+
+        <p class="rv">Il protocollo prevede un momento che nessun artificio tecnologico pu&ograve; falsificare: il colloquio orale. Lo studente &egrave; chiamato a discutere la propria conversazione con il docente, a riattraversare le scelte compiute, a spiegare perch&eacute; in un certo punto ha cambiato strategia o ha rifiutato una risposta della macchina. In quel momento si rivela ci&ograve; che nessun log pu&ograve; documentare con certezza: la memoria del percorso. Chi ha davvero attraversato un processo di pensiero ricorda i passaggi, le esitazioni, i punti di svolta; chi ha delegato senza pensare ricorder&agrave; solo il risultato.</p>
+
+        <div class="essay-pullquote rv">Chi ha davvero attraversato un processo di pensiero ricorda i passaggi, le esitazioni, i punti di svolta; chi ha delegato senza pensare ricorder&agrave; solo il risultato.</div>
+
+        <p class="rv">Qui emerge un punto decisivo, che il dibattito pubblico tende a sottovalutare: il colloquio &egrave; l&#8217;unico momento non falsificabile dell&#8217;intero percorso valutativo. Lo studente pu&ograve; chiedere a qualcun altro di condurre la conversazione con la macchina al posto suo; pu&ograve; copiare la nota metodologica; pu&ograve; acquistare un intero pacchetto di materiali preconfezionati. Al colloquio, per&ograve;, deve essere lui a parlare. E il docente che conosce la conversazione &ndash; perch&eacute; l&#8217;ha letta, perch&eacute; ne individua i nodi critici &ndash; pu&ograve; verificare, con domande mirate, se lo studente possiede la competenza che la conversazione sembra documentare.</p>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">VI</span>La condizione necessaria: la formazione dei docenti</h3>
+
+        <p class="rv">Il protocollo non funziona se il docente non &egrave; formato a usare gli strumenti che chiede agli studenti di padroneggiare. Un docente che non ha mai lavorato con un modello di linguaggio non &egrave; in grado di leggere una conversazione tra studente e macchina, perch&eacute; non conosce i pattern tipici della generazione, non sa distinguere un prompt sofisticato da uno superficiale, non riconosce la genericit&agrave; dell&#8217;output quando la vede. La formazione dei docenti deve essere pratica, esperienziale, calibrante: devono usare gli strumenti in prima persona, devono confrontarsi con i propri errori di prompting, devono imparare a riconoscere nella conversazione altrui ci&ograve; che hanno riconosciuto nella propria.</p>
+
+        <div class="essay-note" style="top: 2780px;" data-note="4">Qui casca l&#8217;asino: senza formazione pratica dei docenti, il protocollo resta lettera morta.</div>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">VII</span>I limiti del protocollo</h3>
+
+        <p class="rv">Il protocollo non pretende di essere universale. La scalabilit&agrave; &egrave; il primo limite: leggere e valutare intere conversazioni richiede un tempo incomparabile con quello necessario a correggere un tema tradizionale. La copertura disciplinare &egrave; il secondo: il protocollo nasce nel contesto delle discipline umanistiche, e la sua applicabilit&agrave; alle discipline scientifiche e tecniche richiede adattamenti che questo saggio non affronta. Il terzo limite &egrave; di natura etica: accedere all&#8217;intera conversazione di uno studente con un modello di linguaggio significa accedere a un documento del suo processo cognitivo con una profondit&agrave; che nessun altro strumento valutativo ha mai consentito, e questo pone questioni delicate sull&#8217;asimmetria di potere tra chi valuta e chi &egrave; valutato. Il quarto &egrave; la dipendenza dallo strumento: il protocollo funziona solo con studenti che usano modelli di linguaggio. Il quinto, infine, &egrave; che la capacit&agrave; di leggere una conversazione come documento del pensiero presuppone nel docente una competenza disciplinare solida: senza quella competenza, il protocollo si riduce a una rubrica formale svuotata di contenuto.</p>
+
+        <h3 class="essay-section-title rv"><span class="essay-section-num">VIII</span>Conclusione</h3>
+
+        <p class="rv">L&#8217;intelligenza artificiale non ha eliminato la necessit&agrave; di pensare. Ha reso il pensiero, per chi lo esercita, visibile come non lo &egrave; mai stato. Ha fatto di ogni conversazione tra uno studente e una macchina un documento leggibile, analizzabile, valutabile &ndash; un documento che rivela la qualit&agrave; del percorso intellettuale con una trasparenza che nessun elaborato scritto, nessun tema in classe, nessun compito a casa ha mai potuto offrire. Il Protocollo di Valutazione del Processo che questo saggio propone &egrave; un tentativo di prendere sul serio questa trasparenza: di costruire strumenti per leggerla, criteri per misurarla, condizioni per renderla significativa. <span class="text-highlight">La sfida, adesso, &egrave; trasformare questa possibilit&agrave; in pratica</span> &ndash; nelle aule, nella formazione dei docenti, nel ripensamento complessivo di ci&ograve; che chiamiamo valutazione.</p>
+
     </div>
 </section>
 
@@ -268,7 +337,7 @@
     <div class="convo-inner">
         <div class="convo-header rv">
             <h2>Due conversazioni, due pensieri</h2>
-            <p>Lo stesso compito, due studenti. Il protocollo legge la differenza.</p>
+            <p>Lo stesso compito assegnato a due studenti. Il protocollo legge nel processo ci&ograve; che il prodotto finale non pu&ograve; rivelare.</p>
         </div>
         <div class="convo-tabs">
             <div class="convo-tab active" data-convo="delegate">Delega del pensiero</div>
@@ -304,22 +373,38 @@
 
 <div class="flow-div"><canvas id="flow3"></canvas></div>
 
-<section class="calc-section" id="calcSection">
-    <div class="calc-inner">
-        <div class="calc-header rv">
-            <h2>Calcola il punteggio</h2>
-            <p>Simula una valutazione muovendo i cursori. Il punteggio composito si aggiorna in tempo reale.</p>
+<section class="lab" id="labSection">
+    <div class="lab-inner">
+        <div class="lab-header rv">
+            <h2>Il laboratorio del prompt</h2>
+            <p>La stessa domanda, cinque livelli di profondit&agrave;. Osserva come cambia la valutazione del protocollo quando il pensiero si fa pi&ugrave; esigente.</p>
         </div>
-        <div class="calc-grid rv">
-            <div class="calc-sliders" id="calcSliders"></div>
-            <div class="calc-result">
-                <div class="calc-result-label">Punteggio composito</div>
-                <div class="calc-result-score" id="calcScore">0</div>
-                <div class="calc-result-max">/ 100</div>
-                <div class="calc-result-bar"><div class="calc-result-fill" id="calcFill"></div></div>
-                <div class="calc-result-level" id="calcLevel">Muovi i cursori</div>
-            </div>
+        <div class="lab-timeline rv">
+            <div class="lab-timeline-track"></div>
+            <div class="lab-timeline-fill" id="labFill"></div>
+            <div class="lab-stops" id="labStops"></div>
         </div>
+        <div class="lab-prompt-box rv">
+            <div class="lab-prompt-label">Prompt dello studente</div>
+            <div class="lab-prompt-text" id="labPrompt"></div>
+        </div>
+        <div class="lab-gauges rv" id="labGauges"></div>
+        <div class="lab-verdict rv">
+            <div class="lab-verdict-score" id="labScore">0</div>
+            <div class="lab-verdict-label">Punteggio composito / 100</div>
+            <div class="lab-verdict-level" id="labLevel"></div>
+        </div>
+        <div class="lab-comment" id="labComment"></div>
+    </div>
+</section>
+
+<section class="voices" id="voicesSection">
+    <div class="voices-inner">
+        <div class="voices-header rv">
+            <h2>Voci dal dibattito</h2>
+            <p>Il protocollo nasce dentro una conversazione che &egrave; gi&agrave; in corso. Queste sono alcune delle voci che la attraversano.</p>
+        </div>
+        <div id="voicesContainer"></div>
     </div>
 </section>
 
@@ -337,227 +422,789 @@
         <h2>Scarica il saggio completo</h2>
         <p>Il testo integrale del Protocollo di Valutazione del Processo, con le rubriche dettagliate, la discussione dei limiti e le indicazioni per la formazione dei docenti.</p>
         <a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="dl-btn" download><span>Scarica PDF</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>
-        <p class="dl-meta">PDF, 13 pagine — Andrea Colamedici, 2026</p>
+        <p class="dl-meta">PDF, 13 pagine &mdash; Andrea Colamedici, 2026</p>
     </div>
 </section>
 </main>
 
-<footer><div class="footer-content"><div class="footer-left">© 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contact.html">Contatti</a></div></div></footer>
+<footer><div class="footer-content"><div class="footer-left">&copy; 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contact.html">Contatti</a></div></div></footer>
 
 <script>
-/* ===== DATA ===== */
+// ═══ DATA ═══
 const AXES = [
-    { name: 'Resistenza alla facilità', weight: 25, color: '#8a5a4a', desc: 'Misura la capacità dello studente di non accettare la prima risposta della macchina, di riconoscere la genericità e di cercare attivamente la complessità. È la differenza tra chi delega il pensiero e chi lo attraversa.', levels: ['Rifiuta risposte generiche, riformula, introduce complessità propria', 'Chiede approfondimenti, confronta con fonti esterne', 'Modifica parzialmente gli output, chiede chiarimenti', 'Accetta gli output senza intervento critico'] },
-    { name: 'Comportamento correttivo', weight: 25, color: '#7a9a5a', desc: 'Valuta la capacità dello studente di individuare errori, imprecisioni e genericità nelle risposte generate e di intervenire con correzioni specifiche. Chi sa correggere una macchina dimostra di possedere la competenza che la macchina simula.', levels: ['Identifica errori specifici, corregge con fonti, migliora la qualità complessiva', 'Riconosce imprecisioni, chiede verifiche puntuali', 'Interviene su errori evidenti, tralascia le sfumature', 'Non individua errori, accetta tutto come corretto'] },
-    { name: 'Qualità dell\'interrogazione', weight: 20, color: '#2a6b6b', desc: 'La qualità della domanda determina la qualità della risposta. Questo asse valuta la capacità dello studente di formulare prompt precisi, contestualizzati, progressivi – di chiedere bene, che è il primo e più decisivo atto del pensiero.', levels: ['Prompt precisi, contestualizzati, con vincoli espliciti e progressione logica', 'Prompt chiari con qualche vincolo, buona specificità', 'Prompt generici ma pertinenti al tema', 'Prompt vaghi, senza contesto né direzione'] },
-    { name: 'Architettura del dialogo', weight: 15, color: '#5a7a9a', desc: 'La conversazione con la macchina ha una struttura. Questo asse valuta se quella struttura è caotica o governata, se i temi si sviluppano in modo coerente, se c\'è un progetto dietro la sequenza dei prompt.', levels: ['Struttura chiara, progressione tematica governata, coerenza complessiva', 'Buona organizzazione, qualche digressione controllata', 'Struttura riconoscibile ma con dispersioni frequenti', 'Nessuna struttura, sequenza casuale di prompt'] },
-    { name: 'Trasparenza metacognitiva', weight: 15, color: '#9a7a5a', desc: 'La capacità di riflettere sul proprio processo mentre lo si compie. Misura se lo studente annota le proprie scelte, spiega perché ha cambiato direzione, riconosce i limiti di ciò che la macchina ha prodotto.', levels: ['Riflessione continua, annotazioni sulle scelte, consapevolezza dei limiti', 'Commenti occasionali sul processo, alcune giustificazioni', 'Rari cenni metacognitivi, consapevolezza minima', 'Nessuna riflessione sul processo, uso puramente meccanico'] }
+  {
+    id: 'interrogazione',
+    title: 'Qualità dell\'interrogazione iniziale',
+    weight: 20,
+    shortTitle: 'Interrogazione',
+    desc: 'Come lo studente formula la domanda iniziale rivolta all\'IA: il grado di specificità, la presenza di vincoli, la consapevolezza del contesto disciplinare.',
+    levels: [
+      { level: 'Insufficiente', range: '0–3', desc: 'Prompt generico, privo di contesto disciplinare e di vincoli significativi. Nessun tentativo di circoscrivere il campo.' },
+      { level: 'Base', range: '4–5', desc: 'Prompt con contesto minimo. Qualche vincolo presente ma formulato in modo vago o incompleto.' },
+      { level: 'Intermedio', range: '6–7', desc: 'Prompt contestualizzato con vincoli espliciti. La domanda mostra consapevolezza del campo disciplinare.' },
+      { level: 'Avanzato', range: '8–9', desc: 'Prompt sofisticato che anticipa possibili derive, delimita il campo con precisione e include meta-istruzioni.' },
+      { level: 'Eccellente', range: '10', desc: 'Prompt che rivela padronanza epistemologica: formula la domanda come un ricercatore formulerebbe un protocollo sperimentale.' }
+    ]
+  },
+  {
+    id: 'correttivo',
+    title: 'Comportamento correttivo',
+    weight: 25,
+    shortTitle: 'Correzione',
+    desc: 'La capacità dello studente di intervenire sulle risposte dell\'IA: identificare errori, imprecisioni, generalizzazioni indebite, e riformulare di conseguenza.',
+    levels: [
+      { level: 'Insufficiente', range: '0–3', desc: 'Accettazione passiva della risposta. Nessun intervento correttivo, nessuna verifica.' },
+      { level: 'Base', range: '4–5', desc: 'Correzioni sporadiche, prevalentemente su aspetti formali. Scarsa verifica del contenuto.' },
+      { level: 'Intermedio', range: '6–7', desc: 'Identificazione di errori sostanziali. Richiesta di chiarimenti mirati e riformulazione parziale.' },
+      { level: 'Avanzato', range: '8–9', desc: 'Intervento sistematico: verifica delle fonti, contestazione delle generalizzazioni, richiesta di alternative.' },
+      { level: 'Eccellente', range: '10', desc: 'Comportamento correttivo integrato nel processo: ogni risposta viene trattata come ipotesi da verificare.' }
+    ]
+  },
+  {
+    id: 'architettura',
+    title: 'Architettura del dialogo',
+    weight: 15,
+    shortTitle: 'Architettura',
+    desc: 'La struttura complessiva della conversazione: progressione logica, coerenza tematica, capacità di costruire un percorso argomentativo attraverso i turni.',
+    levels: [
+      { level: 'Insufficiente', range: '0–3', desc: 'Sequenza frammentaria, senza progressione logica. Turni scollegati tra loro.' },
+      { level: 'Base', range: '4–5', desc: 'Sequenza lineare ma piatta. Qualche collegamento tra i turni, senza approfondimento.' },
+      { level: 'Intermedio', range: '6–7', desc: 'Struttura riconoscibile con progressione tematica. I turni costruiscono l\'uno sull\'altro.' },
+      { level: 'Avanzato', range: '8–9', desc: 'Architettura deliberata: il dialogo procede per fasi, con momenti di sintesi e rilancio.' },
+      { level: 'Eccellente', range: '10', desc: 'Il dialogo ha una struttura argomentativa complessa, con digressioni funzionali e ritorno al tema.' }
+    ]
+  },
+  {
+    id: 'resistenza',
+    title: 'Resistenza alla facilità',
+    weight: 25,
+    shortTitle: 'Resistenza',
+    desc: 'Il rifiuto di accontentarsi della prima risposta, la ricerca della complessità, la capacità di non cedere alla tentazione della soluzione immediata.',
+    levels: [
+      { level: 'Insufficiente', range: '0–3', desc: 'Accettazione immediata della prima risposta. Nessuna esplorazione ulteriore.' },
+      { level: 'Base', range: '4–5', desc: 'Qualche tentativo di approfondimento, ma rinuncia rapida di fronte alla complessità.' },
+      { level: 'Intermedio', range: '6–7', desc: 'Richiesta sistematica di alternative e approfondimenti. Rifiuto delle semplificazioni evidenti.' },
+      { level: 'Avanzato', range: '8–9', desc: 'Ricerca attiva della complessità: introduce obiezioni, chiede controesempi, esplora i limiti.' },
+      { level: 'Eccellente', range: '10', desc: 'La resistenza alla facilità è il motore del dialogo: ogni risposta diventa occasione per scavare più a fondo.' }
+    ]
+  },
+  {
+    id: 'trasparenza',
+    title: 'Trasparenza metacognitiva',
+    weight: 15,
+    shortTitle: 'Trasparenza',
+    desc: 'La capacità di rendere esplicito il proprio processo di pensiero: dichiarare le scelte, motivare i cambiamenti di direzione, riflettere sul percorso.',
+    levels: [
+      { level: 'Insufficiente', range: '0–3', desc: 'Nessuna riflessione sul processo. Il percorso di pensiero resta completamente implicito.' },
+      { level: 'Base', range: '4–5', desc: 'Qualche commento occasionale sul processo, senza sistematicità.' },
+      { level: 'Intermedio', range: '6–7', desc: 'Dichiarazione esplicita delle scelte principali. Motivazione dei cambiamenti di direzione.' },
+      { level: 'Avanzato', range: '8–9', desc: 'Riflessione metacognitiva integrata: il processo di pensiero è documentato lungo tutto il dialogo.' },
+      { level: 'Eccellente', range: '10', desc: 'Il dialogo stesso diventa un documento metacognitivo: ogni mossa è accompagnata dalla sua giustificazione.' }
+    ]
+  }
 ];
 
 const CONVOS = {
-    delegate: {
-        msgs: [
-            { role: 'human', text: 'Scrivi un saggio sulla crisi climatica' },
-            { role: 'ai', text: 'La crisi climatica è una delle sfide più importanti del nostro tempo. Le temperature globali sono aumentate di circa 1,1°C rispetto ai livelli preindustriali...' },
-            { role: 'human', text: 'Ok va bene. Rendilo più lungo' },
-            { role: 'ai', text: 'La crisi climatica rappresenta una sfida epocale per l\'umanità. Secondo l\'IPCC, le temperature medie globali sono aumentate significativamente...' },
-            { role: 'human', text: 'Aggiungi una conclusione' }
-        ],
-        scores: [{l:'Resistenza',v:'1/4',c:'low'},{l:'Correzione',v:'1/4',c:'low'},{l:'Interrogazione',v:'1/4',c:'low'},{l:'Architettura',v:'1/4',c:'low'},{l:'Metacognizione',v:'1/4',c:'low'}]
-    },
-    traverse: {
-        msgs: [
-            { role: 'human', text: 'Sto lavorando a un saggio sulla crisi climatica. Vorrei concentrarmi su un aspetto specifico: <em>il rapporto tra linguaggio catastrofista e paralisi dell\'azione</em>. Quali framework teorici posso usare?' },
-            { role: 'ai', text: 'Ci sono diversi framework rilevanti: la teoria del terrore (TMT), il concetto di "apocalypse fatigue" di Per Espen Stoknes, il framing theory di Lakoff applicato al clima...' },
-            { role: 'human', text: 'Stoknes è interessante. Però la sua proposta ha un punto debole: non considera la dimensione di classe nel modo in cui il catastrofismo viene recepito. Chi vive in zone a rischio non ha il privilegio della "fatica apocalittica". Riformula tenendo conto di questa critica.' },
-            { role: 'ai', text: 'Hai ragione. Integrando la prospettiva di giustizia climatica, possiamo rileggere il framework di Stoknes attraverso la lente di...' },
-            { role: 'reflection', text: '[Nota: ho deciso di non usare il paragrafo generato dall\'IA sulla giustizia climatica perché sovrappone concetti diversi. Riscrivo di mio pugno questa sezione, usando solo il riferimento bibliografico suggerito.]' }
-        ],
-        scores: [{l:'Resistenza',v:'4/4',c:'high'},{l:'Correzione',v:'4/4',c:'high'},{l:'Interrogazione',v:'4/4',c:'high'},{l:'Architettura',v:'3/4',c:'high'},{l:'Metacognizione',v:'4/4',c:'high'}]
-    }
+  delegate: {
+    label: 'Delegare',
+    messages: [
+      { role: 'user', text: 'Fammi un riassunto della Critica della ragion pura di Kant.' },
+      { role: 'ai', text: 'La Critica della ragion pura (1781/1787) è l\'opera fondamentale di Immanuel Kant. In essa, Kant si propone di stabilire i limiti e le possibilità della conoscenza umana. L\'opera si divide in due parti principali: l\'Estetica trascendentale, dove Kant analizza le forme pure della sensibilità (spazio e tempo), e l\'Analitica trascendentale, dove esamina le categorie dell\'intelletto...' },
+      { role: 'user', text: 'Ok, grazie. Puoi anche farmi un riassunto della Fenomenologia dello spirito di Hegel?' },
+      { role: 'ai', text: 'La Fenomenologia dello spirito (1807) di Hegel descrive il percorso della coscienza dalla certezza sensibile al sapere assoluto. Attraverso figure come la dialettica servo-padrone, la coscienza infelice e la ragione, Hegel mostra come lo spirito raggiunga progressivamente la piena consapevolezza di sé...' },
+      { role: 'user', text: 'Perfetto. Adesso scrivi un confronto tra le due opere per il mio esame.' },
+      { role: 'ai', text: 'Confronto tra la Critica della ragion pura e la Fenomenologia dello spirito:\n\n1. Metodo: Kant procede per analisi trascendentale, Hegel per dialettica.\n2. Soggetto: Per Kant il soggetto è dotato di strutture a priori stabili, per Hegel è in continuo divenimento.\n3. Conoscenza: Kant pone limiti alla ragione, Hegel mira al sapere assoluto...' },
+      { role: 'user', text: 'Aggiungi anche una conclusione.' },
+      { role: 'ai', text: 'In conclusione, entrambe le opere rappresentano momenti fondamentali della filosofia moderna. Mentre Kant stabilisce i confini della ragione, Hegel li supera attraverso il movimento dialettico dello spirito. La tensione tra limite e superamento del limite resta uno dei nodi centrali della filosofia post-kantiana.' },
+      { role: 'user', text: 'Perfetto, grazie. Lo uso così.' },
+      { role: 'annotation', text: 'In sette turni lo studente non ha posto una sola domanda genuina. Ha usato l\'IA come un distributore automatico di contenuti, senza mai interrogare, verificare, contestare. Il testo finale è formalmente corretto ma intellettualmente vuoto: non contiene un solo pensiero che lo studente possa dire suo.' },
+      { role: 'ai', text: 'Prego! In bocca al lupo per l\'esame. Se hai bisogno di altri chiarimenti, non esitare a chiedere.' }
+    ]
+  },
+  traverse: {
+    label: 'Attraversare',
+    messages: [
+      { role: 'user', text: 'Sto lavorando su Kant e Hegel per un esame di filosofia teoretica. Vorrei capire se ha senso leggere la Fenomenologia come una risposta alla prima Critica, o se questa è una semplificazione storiografica. Puoi aiutarmi a ragionare su questo?' },
+      { role: 'ai', text: 'È una domanda che tocca uno dei nodi più discussi della storiografia filosofica. La lettura della Fenomenologia come "risposta" a Kant ha una lunga tradizione — da Kroner a Hyppolite — ma comporta il rischio di linearizzare un rapporto molto più complesso. Hegel conosceva la prima Critica, certo, ma il suo interlocutore privilegiato era spesso Fichte, e il problema da cui partiva era diverso...' },
+      { role: 'user', text: 'Aspetta. Quando dici che il problema era diverso, cosa intendi esattamente? Kant parte dal problema della fondazione della conoscenza, e Hegel?' },
+      { role: 'ai', text: 'Buona domanda. Per semplificare — e dovrò poi complicare — si potrebbe dire che Kant parte dal problema "cosa posso conoscere?", mentre Hegel parte dal problema "come la coscienza arriva a sapere ciò che sa?". La differenza è sottile ma decisiva: Kant cerca le condizioni di possibilità, Hegel descrive un percorso effettivo...' },
+      { role: 'user', text: 'Questa distinzione mi convince solo in parte. Se Kant nella Deduzione trascendentale descrive come le categorie si applicano all\'esperienza, non sta anche lui descrivendo un percorso? Forse la differenza è meno netta di come la presenti.' },
+      { role: 'annotation', text: 'Il comportamento correttivo è qui evidente: lo studente non accetta la distinzione proposta, la mette alla prova con un controesempio interno al testo kantiano. L\'IA è costretta a raffinare la propria posizione.' },
+      { role: 'ai', text: 'Hai ragione a problematizzare. In effetti la Deduzione trascendentale — soprattutto nella versione del 1787, la cosiddetta Deduzione B — ha una struttura quasi narrativa. Kant stesso parla di un "cammino" dall\'appercezione all\'esperienza. La differenza, però, sta nello statuto di quel percorso: per Kant è una ricostruzione delle condizioni logiche, per Hegel è un\'esperienza reale della coscienza...' },
+      { role: 'user', text: 'Qui però mi viene un dubbio: quando Hegel nella Fenomenologia descrive la dialettica servo-padrone, sta davvero descrivendo un\'esperienza "reale"? O non è anche quella un\'astrazione, solo di tipo diverso? Forse entrambi costruiscono modelli, ma con finalità diverse.' },
+      { role: 'ai', text: 'Questa è un\'osservazione molto acuta che intercetta un dibattito tuttora aperto. Kojève leggeva la dialettica servo-padrone come un\'esperienza quasi storica, quasi antropologica. Pippin, al contrario, la legge come una struttura puramente normativa. Se segui Pippin — e ci sono buone ragioni per farlo — allora la distanza tra Kant e Hegel si riduce notevolmente...' },
+      { role: 'user', text: 'Mi interessa la lettura di Pippin. Ma vorrei capire: se la Fenomenologia non descrive esperienze reali ma strutture normative, cosa la distingue davvero da un\'analitica trascendentale? Perché Hegel non si accontenta del metodo kantiano?' },
+      { role: 'ai', text: 'Ecco, questa è forse la domanda centrale. Per Hegel il problema dell\'analitica trascendentale è che presuppone ciò che dovrebbe dimostrare: parte già da un soggetto costituito, con le sue categorie in ordine. La Fenomenologia, invece, vuole mostrare come quel soggetto si costituisca. Non parte dalle categorie: ci arriva...' },
+      { role: 'user', text: 'Ok, credo di cominciare a vedere la differenza. Non è tanto nel metodo in sé, ma nel punto di partenza: Kant presuppone il soggetto trascendentale, Hegel lo genera. Però a questo punto mi chiedo: la critica di Hegel è davvero giusta? Kant non avrebbe potuto rispondere che il soggetto trascendentale non ha bisogno di genesi perché è una condizione logica, non storica?' },
+      { role: 'annotation', text: 'La resistenza alla facilità è qui al suo massimo: lo studente ha compreso la posizione hegeliana ma rifiuta di accettarla senza metterla alla prova. Ricostruisce la possibile obiezione kantiana dall\'interno. Il dialogo diventa un autentico esercizio filosofico.' },
+      { role: 'ai', text: 'Esattamente: questa è la risposta che la tradizione neo-kantiana ha effettivamente dato. Hermann Cohen e poi, in modo diverso, Strawson hanno sostenuto che la deduzione trascendentale non ha bisogno di una genesi perché opera su un piano diverso — il piano delle condizioni di possibilità, non quello della storia della coscienza. La questione, in fondo, è se si possa fondare la conoscenza senza raccontarne la storia...' }
+    ]
+  }
 };
 
-/* ===== HERO CANVAS ===== */
-(function(){
-    const c=document.getElementById('heroCanvas'),x=c.getContext('2d');
-    let w,h,pts=[],mouse={x:-1e3,y:-1e3};
-    function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
-    resize();window.addEventListener('resize',resize);
-    c.parentElement.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-    for(let i=0;i<80;i++)pts.push({x:Math.random()*2e3,y:Math.random()*2e3,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.3,ph:Math.random()*Math.PI*2});
-    function draw(){
-        x.clearRect(0,0,w,h);const t=Date.now()*.001;
-        pts.forEach((p,i)=>{
-            p.x+=p.vx+Math.sin(t+p.ph)*.12;p.y+=p.vy+Math.cos(t*.7+p.ph)*.12;
-            if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-            const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);
-            if(dist<180){p.x-=dx*.015;p.y-=dy*.015;}
-            x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle='rgba(42,107,107,0.5)';x.fill();
-            for(let j=i+1;j<pts.length;j++){const d2=pts[j].x-p.x,d3=pts[j].y-p.y,d=Math.sqrt(d2*d2+d3*d3);if(d<130){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(pts[j].x,pts[j].y);x.strokeStyle=`rgba(42,107,107,${(1-d/130)*.15})`;x.lineWidth=.5;x.stroke();}}
-        });requestAnimationFrame(draw);
-    }draw();
-})();
 
-/* ===== FLOW CANVASES ===== */
-function initFlow(id){
-    const c=document.getElementById(id);if(!c)return;const x=c.getContext('2d');let w,h;
-    function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}r();window.addEventListener('resize',r);
-    function d(){x.clearRect(0,0,w,h);const t=Date.now()*.0004;
-        for(let l=0;l<4;l++){x.beginPath();x.strokeStyle=`rgba(42,107,107,${.06+l*.03})`;x.lineWidth=.8;
-            for(let i=0;i<=100;i++){const px=(i/100)*w,py=h/2+Math.sin(i*.07+t+l*1.2)*25+Math.sin(i*.025+t*1.4+l)*18+Math.cos(i*.04+t*.8+l*2)*10;
-                if(i===0)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();}requestAnimationFrame(d);}d();
-}
-initFlow('flow1');initFlow('flow2');initFlow('flow3');
+const STAGES = [
+  {
+    num: 1,
+    title: 'Il prompt ingenuo',
+    prompt: 'Spiegami la filosofia di Kant.',
+    analysis: 'Nessun contesto disciplinare, nessun vincolo, nessuna direzione. Il prompt delega interamente all\'IA la selezione di cosa sia rilevante. Il risultato sarà inevitabilmente generico.',
+    scores: { interrogazione: 2, correttivo: 0, architettura: 1, resistenza: 1, trasparenza: 0 }
+  },
+  {
+    num: 2,
+    title: 'Il prompt contestualizzato',
+    prompt: 'Sto preparando un esame di filosofia teoretica. Puoi spiegarmi la distinzione tra giudizi analitici e sintetici nella Critica della ragion pura?',
+    analysis: 'Il contesto è presente (esame, disciplina), il tema è circoscritto. Manca però qualsiasi indicazione su cosa lo studente già sa, su quale aspetto della distinzione lo interessa, su come intende usare la risposta.',
+    scores: { interrogazione: 5, correttivo: 1, architettura: 3, resistenza: 2, trasparenza: 2 }
+  },
+  {
+    num: 3,
+    title: 'Il prompt strutturato',
+    prompt: 'Sto lavorando su Kant per un esame di filosofia teoretica. Ho capito la distinzione analitico/sintetico, ma non mi è chiaro perché Kant consideri i giudizi matematici sintetici a priori. Puoi spiegarmelo con un esempio, evitando di ripetere la definizione generale?',
+    analysis: 'Il prompt dichiara una conoscenza pregressa, isola un nodo specifico, include una meta-istruzione ("evitando di ripetere"). Lo studente sta già pensando, e chiede all\'IA di pensare con lui.',
+    scores: { interrogazione: 7, correttivo: 3, architettura: 5, resistenza: 5, trasparenza: 4 }
+  },
+  {
+    num: 4,
+    title: 'Il prompt critico',
+    prompt: 'Nella Critica della ragion pura, Kant sostiene che "7+5=12" è un giudizio sintetico a priori. Frege, nel § 88 dei Fondamenti dell\'aritmetica, obietta che è analitico. Ho letto entrambi i passaggi. Secondo me Kant ha ragione se ci si limita alla sua definizione di analiticità, ma Frege ha ragione se la si amplia. Puoi aiutarmi a verificare questa ipotesi? Dove potrebbe essere sbagliata?',
+    analysis: 'Il prompt è un micro-saggio: contiene una tesi, le sue fonti, e una richiesta di falsificazione. Lo studente non cerca una risposta: cerca un interlocutore critico. L\'IA è chiamata a funzionare come un tutor socratico.',
+    scores: { interrogazione: 9, correttivo: 6, architettura: 7, resistenza: 8, trasparenza: 7 }
+  },
+  {
+    num: 5,
+    title: 'Il prompt metacognitivo',
+    prompt: 'Ho chiesto a tre IA diverse di spiegarmi la distinzione analitico/sintetico di Kant. Tutte e tre hanno dato risposte leggermente diverse, soprattutto sulla questione dei giudizi matematici. Questo mi fa pensare che il problema sia nella formulazione della mia domanda, non nelle risposte. Puoi aiutarmi a capire cosa nella mia domanda originale ("i giudizi matematici sono sintetici a priori?") genera ambiguità? Vorrei riformularla in modo che la risposta sia più vincolata.',
+    analysis: 'Il prompt è un atto di trasparenza metacognitiva: lo studente riflette non sul contenuto ma sul processo, identificando nella propria domanda – e non nelle risposte dell\'IA – la fonte del problema. Qui la traccia del pensiero è pienamente visibile.',
+    scores: { interrogazione: 10, correttivo: 8, architettura: 9, resistenza: 9, trasparenza: 10 }
+  }
+];
 
-/* ===== CURSOR LIGHT ===== */
-const cursorLight=document.getElementById('cursorLight');
-document.addEventListener('mousemove',e=>{cursorLight.style.left=e.clientX+'px';cursorLight.style.top=e.clientY+'px';});
+const VOICES = [
+  {
+    text: 'Ma non si rischia di valutare la capacità di usare uno strumento piuttosto che la competenza disciplinare vera e propria?',
+    author: 'Docente di lettere, liceo classico',
+    response: 'Il protocollo valuta entrambe le cose, perché le ritiene inseparabili. Un prompt ben formulato su Kant richiede di conoscere Kant; un comportamento correttivo efficace richiede di saper riconoscere dove l\'IA semplifica. La competenza disciplinare non scompare: diventa la condizione necessaria per usare lo strumento in modo non banale.'
+  },
+  {
+    text: 'Mi chiedo come si possano valutare cinque assi diversi per ogni studente. Il carico di lavoro sarebbe insostenibile.',
+    author: 'Dirigente scolastico',
+    response: 'Il protocollo non richiede di assegnare punteggi puntuali per ogni turno di conversazione. Prevede una valutazione olistica su ciascun asse, supportata dalla rubrica. Un docente esperto, dopo qualche settimana di familiarizzazione, impiega tra i dieci e i quindici minuti per valutare un dialogo completo. Non è più del tempo richiesto da un tema ben corretto.'
+  },
+  {
+    text: 'Se insegniamo agli studenti a interrogare l\'IA, non rischiamo di renderli ancora più dipendenti dalla tecnologia?',
+    author: 'Professore associato, scienze dell\'educazione',
+    response: 'Il rischio esiste solo se si confonde la dipendenza con la competenza. Un musicista che sa usare un metronomo non dipende dal metronomo: ha imparato a interiorizzare il tempo. Allo stesso modo, un\'educazione all\'uso critico dell\'IA sviluppa abitudini intellettuali – precisione nella domanda, verifica delle fonti, resistenza alla semplificazione – che rimangono valide anche senza lo strumento.'
+  },
+  {
+    text: 'Ma i ragazzi con difficoltà di apprendimento non verrebbero penalizzati? Scrivere un buon prompt richiede competenze linguistiche avanzate.',
+    author: 'Insegnante di sostegno',
+    response: 'È un\'obiezione seria, e il saggio la affronta esplicitamente nella sezione sui limiti. Il protocollo richiede adattamenti per gli studenti con BES, proprio come qualsiasi altro strumento di valutazione. La qualità dell\'interrogazione non si misura dalla complessità sintattica ma dalla pertinenza concettuale: un prompt breve ma preciso può valere più di uno elaborato ma generico.'
+  },
+  {
+    text: 'Questo approccio presuppone che tutti gli studenti abbiano accesso agli stessi strumenti di IA. E il divario digitale?',
+    author: 'Ricercatore, politiche educative',
+    response: 'Il divario digitale è un problema reale che precede e trascende questo protocollo. Il PVP presuppone un contesto in cui l\'IA sia disponibile per tutti gli studenti – e propone che questa disponibilità sia garantita dall\'istituzione, non lasciata all\'iniziativa individuale. Detto questo: il protocollo funziona con qualsiasi IA generativa, anche quelle gratuite.'
+  },
+  {
+    text: 'Interessante, ma mi sembra che manchi un sesto asse: la capacità di sapere quando non usare l\'IA.',
+    author: 'Filosofo della tecnologia',
+    response: 'È un\'osservazione che tocca un punto delicato. Il saggio ne discute nella conclusione: sapere quando lo strumento non serve è forse la competenza più alta. Nel protocollo questa capacità è distribuita trasversalmente, soprattutto nell\'asse della resistenza alla facilità e in quello della trasparenza metacognitiva. Ma un asse dedicato potrebbe essere un\'evoluzione futura interessante.'
+  }
+];
 
-/* ===== READING PROGRESS ===== */
-const progressBar=document.getElementById('readingProgress');
-window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;const s=window.scrollY;progressBar.style.width=(s/h*100)+'%';});
 
-/* ===== COUNTERS ===== */
-const counterObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');en.target.querySelectorAll('.counter-num').forEach(el=>{const target=parseInt(el.dataset.target);let current=0;const step=Math.max(1,Math.floor(target/40));const interval=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(interval);}el.textContent=current;},30);});counterObs.unobserve(en.target);}});},{threshold:0.3});
-const cs=document.getElementById('counterStrip');if(cs)counterObs.observe(cs);
-
-/* ===== REVEAL ===== */
-const rvObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
-
-/* ===== TEXT HIGHLIGHT ===== */
-const hlObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('active');hlObs.unobserve(en.target);}});},{threshold:0.5});
-document.querySelectorAll('.text-highlight').forEach(el=>hlObs.observe(el));
-
-/* ===== ESSAY NOTES ===== */
-const noteObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.1});
-document.querySelectorAll('.essay-note').forEach(el=>noteObs.observe(el));
-
-/* ===== SIDE NAV ===== */
-const sections=document.querySelectorAll('section[id]');
-const sideNavDots=document.querySelectorAll('.side-nav-dot');
-const secObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){sideNavDots.forEach(d=>d.classList.remove('active'));const dot=document.querySelector(`.side-nav-dot[data-target="${en.target.id}"]`);if(dot)dot.classList.add('active');}});},{threshold:0.3,rootMargin:'-20% 0px -50% 0px'});
-sections.forEach(s=>secObs.observe(s));
-sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getElementById(d.dataset.target);if(t)t.scrollIntoView({behavior:'smooth'});}));
-
-/* ===== CONVERSATION ===== */
-const convoBody=document.getElementById('convoBody');
-const convoScoreEl=document.getElementById('convoScore');
-const convoTabs=document.querySelectorAll('.convo-tab');
-function showConvo(key){
-    const data=CONVOS[key];convoBody.innerHTML='';convoScoreEl.innerHTML='';
-    data.msgs.forEach((m,i)=>{
-        const div=document.createElement('div');div.className='convo-msg';
-        div.innerHTML=`<div class="convo-role ${m.role}">${m.role==='human'?'Studente':m.role==='ai'?'IA':'Riflessione'}</div><div class="convo-text">${m.text}</div>`;
-        convoBody.appendChild(div);
-        setTimeout(()=>div.classList.add('show'),200+i*400);
-    });
-    data.scores.forEach(s=>{
-        convoScoreEl.innerHTML+=`<div class="convo-score-item"><div class="convo-score-val ${s.c}">${s.v}</div><div class="convo-score-lbl">${s.l}</div></div>`;
-    });
-}
-convoTabs.forEach(tab=>tab.addEventListener('click',()=>{convoTabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');showConvo(tab.dataset.convo);}));
-showConvo('delegate');
-
-/* ===== RADAR CHART ===== */
-(function(){
-    const svg=document.getElementById('radarChart');
-    const cx=200,cy=200,R=160;const n=AXES.length;
-    const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
-    // Grid
-    for(let r=1;r<=4;r++){
-        let pts=[];angles.forEach(a=>{const rr=(R/4)*r;pts.push(`${cx+Math.cos(a)*rr},${cy+Math.sin(a)*rr}`);});
-        const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-        poly.setAttribute('points',pts.join(' '));poly.setAttribute('fill','none');poly.setAttribute('stroke','rgba(255,255,255,0.06)');poly.setAttribute('stroke-width','1');svg.appendChild(poly);
+// ═══ HERO CANVAS ═══
+(function initHeroCanvas() {
+  const c = document.getElementById('heroCanvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let w, h, particles = [], mouse = { x: -1000, y: -1000 };
+  function resize() {
+    w = c.width = c.offsetWidth;
+    h = c.height = c.offsetHeight;
+    particles = [];
+    const count = Math.floor((w * h) / 8000);
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5
+      });
     }
-    // Axis lines
-    angles.forEach(a=>{const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',cx+Math.cos(a)*R);line.setAttribute('y2',cy+Math.sin(a)*R);line.setAttribute('stroke','rgba(255,255,255,0.04)');line.setAttribute('stroke-width','1');svg.appendChild(line);});
-    // Data polygon
-    const vals=AXES.map(a=>a.weight/25);
-    let dataPts=[];vals.forEach((v,i)=>{const a=angles[i];dataPts.push(`${cx+Math.cos(a)*R*v},${cy+Math.sin(a)*R*v}`);});
-    const dataPoly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
-    dataPoly.setAttribute('points',dataPts.join(' '));dataPoly.setAttribute('fill','rgba(42,107,107,0.15)');dataPoly.setAttribute('stroke','rgba(42,107,107,0.6)');dataPoly.setAttribute('stroke-width','2');dataPoly.style.transition='all 0.6s ease';svg.appendChild(dataPoly);
-    // Interactive dots + labels
-    const titleEl=document.getElementById('radarTitle');
-    const descEl=document.getElementById('radarDesc');
-    const weightEl=document.getElementById('radarWeight');
-    AXES.forEach((ax,i)=>{
-        const a=angles[i];const x2=cx+Math.cos(a)*R*vals[i];const y2=cy+Math.sin(a)*R*vals[i];
-        // Dot
-        const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        circle.setAttribute('cx',x2);circle.setAttribute('cy',y2);circle.setAttribute('r','6');
-        circle.setAttribute('fill',ax.color);circle.setAttribute('stroke','rgba(255,255,255,0.3)');circle.setAttribute('stroke-width','2');
-        circle.style.cursor='pointer';circle.style.transition='r 0.3s ease';
-        // Hover area
-        const hitArea=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        hitArea.setAttribute('cx',cx+Math.cos(a)*(R*0.6));hitArea.setAttribute('cy',cy+Math.sin(a)*(R*0.6));
-        hitArea.setAttribute('r','40');hitArea.setAttribute('fill','transparent');hitArea.style.cursor='pointer';
-        // Label
-        const lx=cx+Math.cos(a)*(R+25);const ly=cy+Math.sin(a)*(R+25);
-        const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
-        txt.setAttribute('x',lx);txt.setAttribute('y',ly);txt.setAttribute('text-anchor','middle');
-        txt.setAttribute('dominant-baseline','middle');txt.setAttribute('fill','rgba(255,255,255,0.4)');
-        txt.setAttribute('font-size','10');txt.setAttribute('font-family','Inter');txt.setAttribute('letter-spacing','0.05em');
-        txt.textContent=ax.weight+'%';
-        function hover(){circle.setAttribute('r','10');titleEl.textContent=ax.name;descEl.textContent=ax.desc;weightEl.textContent=ax.weight+'%';}
-        function leave(){circle.setAttribute('r','6');titleEl.textContent='Passa il cursore su un asse';descEl.textContent='Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.';weightEl.textContent='';}
-        [circle,hitArea].forEach(el=>{el.addEventListener('mouseenter',hover);el.addEventListener('mouseleave',leave);});
-        svg.appendChild(hitArea);svg.appendChild(circle);svg.appendChild(txt);
-    });
-})();
-
-/* ===== CALCULATOR ===== */
-(function(){
-    const container=document.getElementById('calcSliders');
-    const scoreEl=document.getElementById('calcScore');
-    const fillEl=document.getElementById('calcFill');
-    const levelEl=document.getElementById('calcLevel');
-    const sliders=[];
-    AXES.forEach((ax,i)=>{
-        const row=document.createElement('div');row.className='calc-slider-row';
-        row.innerHTML=`<div class="calc-slider-header"><span class="calc-slider-name">${ax.name}</span><span class="calc-slider-val" id="sv${i}">0</span></div><div class="calc-slider-weight">Peso: ${ax.weight}%</div><input type="range" min="0" max="4" value="0" step="1" class="calc-range" data-idx="${i}">`;
-        container.appendChild(row);
-        const input=row.querySelector('input');
-        sliders.push(input);
-        input.addEventListener('input',updateCalc);
-    });
-    function updateCalc(){
-        let total=0;
-        sliders.forEach((s,i)=>{
-            const v=parseInt(s.value);
-            document.getElementById('sv'+i).textContent=v+'/4';
-            total+=(v/4)*AXES[i].weight;
-        });
-        const score=Math.round(total);
-        scoreEl.textContent=score;
-        fillEl.style.width=score+'%';
-        if(score===0)levelEl.textContent='Muovi i cursori';
-        else if(score<30)levelEl.textContent='Insufficiente';
-        else if(score<50)levelEl.textContent='Sufficiente';
-        else if(score<75)levelEl.textContent='Buono';
-        else levelEl.textContent='Eccellente';
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+      const dm = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+      const alpha = dm < 200 ? 0.25 + (1 - dm / 200) * 0.5 : 0.25;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(42,107,107,${alpha})`;
+      ctx.fill();
+      for (let j = i + 1; j < particles.length; j++) {
+        const q = particles[j];
+        const d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < 120) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(42,107,107,${0.08 * (1 - d / 120)})`;
+          ctx.stroke();
+        }
+      }
     }
+    requestAnimationFrame(draw);
+  }
+  resize();
+  draw();
+  window.addEventListener('resize', resize);
+  c.addEventListener('mousemove', e => {
+    const r = c.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  });
 })();
 
-/* ===== AXES CARDS ===== */
-(function(){
-    const container=document.getElementById('axesCards');
-    const levelNames=['Eccellente','Buono','Sufficiente','Insufficiente'];
-    const levelClasses=['exc','good','suf','ins'];
-    AXES.forEach((ax,i)=>{
-        const card=document.createElement('div');card.className='axis-card rv';
-        let levelsHtml='';ax.levels.forEach((l,j)=>{levelsHtml+=`<div class="axis-level"><span class="axis-level-name ${levelClasses[j]}">${levelNames[j]}</span><p>${l}</p></div>`;});
-        card.innerHTML=`<div class="axis-card-head"><span class="axis-card-num">0${i+1}</span><span class="axis-card-title">${ax.name}</span><span class="axis-card-percent">${ax.weight}%</span><div class="axis-card-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="axis-card-body"><div class="axis-card-content"><div class="axis-card-desc">${ax.desc}</div><div class="axis-levels-grid">${levelsHtml}</div></div></div>`;
-        card.querySelector('.axis-card-head').addEventListener('click',()=>card.classList.toggle('open'));
-        container.appendChild(card);
-        rvObs.observe(card);
+// ═══ FLOW CANVASES ═══
+document.querySelectorAll('.flow-canvas').forEach(c => {
+  const ctx = c.getContext('2d');
+  let w, h, offset = 0;
+  function resize() { w = c.width = c.offsetWidth; h = c.height = c.offsetHeight; }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.beginPath();
+    for (let x = 0; x <= w; x++) {
+      const y = h / 2 + Math.sin((x + offset) * 0.015) * (h * 0.3) + Math.sin((x + offset) * 0.008) * (h * 0.15);
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = 'rgba(42,107,107,0.15)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    offset += 0.5;
+    requestAnimationFrame(draw);
+  }
+  resize(); draw();
+  window.addEventListener('resize', resize);
+});
+
+// ═══ CURSOR LIGHT ═══
+const cursorLight = document.querySelector('.cursor-light');
+if (cursorLight) {
+  document.addEventListener('mousemove', e => {
+    cursorLight.style.left = e.clientX + 'px';
+    cursorLight.style.top = e.clientY + 'px';
+  });
+}
+
+// ═══ READING PROGRESS ═══
+const progressBar = document.querySelector('.reading-progress');
+if (progressBar) {
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    progressBar.style.transform = `scaleX(${Math.min(pct, 1)})`;
+  });
+}
+
+// ═══ COUNTERS ═══
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const start = performance.now();
+  function update(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * ease) + suffix;
+    if (t < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter-num').forEach(animateCounter);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const counterStrip = document.querySelector('.counter-strip');
+if (counterStrip) counterObs.observe(counterStrip);
+
+// ═══ REVEAL OBSERVER ═══
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.rv').forEach(el => revealObs.observe(el));
+
+// ═══ TEXT HIGHLIGHT ═══
+const hlObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('is-visible');
+      hlObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.text-hl').forEach(el => hlObs.observe(el));
+
+// ═══ ESSAY MARGIN NOTES ═══
+const noteObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('note-visible');
+      noteObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.essay-note').forEach(el => noteObs.observe(el));
+
+
+// ═══ SIDE NAV ═══
+const sections = ['heroSection','essaySection','convoSection','radarSection','labSection','voicesSection','axesSection','dlSection'];
+const dots = document.querySelectorAll('.side-nav a');
+const sectionEls = sections.map(id => document.getElementById(id));
+
+function updateSideNav() {
+  let current = 0;
+  const scrollY = window.scrollY + window.innerHeight / 3;
+  sectionEls.forEach((s, i) => {
+    if (s && s.offsetTop <= scrollY) current = i;
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+}
+window.addEventListener('scroll', updateSideNav);
+updateSideNav();
+
+dots.forEach(d => {
+  d.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(d.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ═══ HAMBURGER ═══
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
     });
+  });
+}
+
+// ═══ CONVERSATION SIMULATOR ═══
+(function initConvo() {
+  const tabs = document.querySelectorAll('.convo-tab');
+  const container = document.getElementById('convoMessages');
+  if (!tabs.length || !container) return;
+
+  let currentConvo = 'delegate';
+  let messageIndex = 0;
+  let isAnimating = false;
+
+  function renderConversation(key) {
+    container.innerHTML = '';
+    messageIndex = 0;
+    currentConvo = key;
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.convo === key));
+    showNextMessage();
+  }
+
+  function showNextMessage() {
+    const msgs = CONVOS[currentConvo].messages;
+    if (messageIndex >= msgs.length) return;
+    isAnimating = true;
+    const m = msgs[messageIndex];
+
+    if (m.role === 'annotation') {
+      const div = document.createElement('div');
+      div.className = 'convo-annotation';
+      div.style.opacity = '0';
+      div.style.transform = 'translateY(10px)';
+      div.textContent = m.text;
+      container.appendChild(div);
+      requestAnimationFrame(() => {
+        div.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        div.style.opacity = '1';
+        div.style.transform = 'translateY(0)';
+      });
+      messageIndex++;
+      setTimeout(() => { isAnimating = false; showNextMessage(); }, 1200);
+      return;
+    }
+
+    const div = document.createElement('div');
+    div.className = `msg msg-${m.role}`;
+    div.style.opacity = '0';
+    div.style.transform = 'translateY(15px)';
+
+    const label = document.createElement('div');
+    label.className = 'msg-label';
+    label.textContent = m.role === 'user' ? 'Studente' : 'IA';
+    div.appendChild(label);
+
+    const text = document.createElement('div');
+    text.className = 'msg-text';
+    div.appendChild(text);
+
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+
+    requestAnimationFrame(() => {
+      div.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      div.style.opacity = '1';
+      div.style.transform = 'translateY(0)';
+    });
+
+    // Typewriter effect
+    let charIndex = 0;
+    const fullText = m.text;
+    const speed = m.role === 'ai' ? 8 : 15;
+    function typeChar() {
+      if (charIndex < fullText.length) {
+        text.textContent = fullText.substring(0, charIndex + 1);
+        charIndex++;
+        container.scrollTop = container.scrollHeight;
+        setTimeout(typeChar, speed);
+      } else {
+        messageIndex++;
+        setTimeout(() => { isAnimating = false; showNextMessage(); }, m.role === 'ai' ? 800 : 500);
+      }
+    }
+    setTimeout(typeChar, 300);
+  }
+
+  tabs.forEach(t => {
+    t.addEventListener('click', () => renderConversation(t.dataset.convo));
+  });
+
+  // Start on scroll
+  const convoSection = document.getElementById('convoSection');
+  const convoObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      renderConversation('delegate');
+      convoObs.unobserve(convoSection);
+    }
+  }, { threshold: 0.3 });
+  if (convoSection) convoObs.observe(convoSection);
 })();
 
-/* ===== HAMBURGER ===== */
-const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),hd=document.querySelector('header');
-hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('active');hd.classList.toggle('menu-open');document.body.style.overflow=mm.classList.contains('active')?'hidden':'';});
-mm.querySelectorAll('a').forEach(l=>{l.addEventListener('click',()=>{hb.classList.remove('active');mm.classList.remove('active');hd.classList.remove('menu-open');document.body.style.overflow='';});});
+
+// ═══ RADAR CHART ═══
+(function initRadar() {
+  const svg = document.getElementById('radarChart');
+  if (!svg) return;
+  const cx = 200, cy = 200, maxR = 160;
+  const n = AXES.length;
+  const angleStep = (Math.PI * 2) / n;
+  const startAngle = -Math.PI / 2;
+
+  // Grid
+  [0.2, 0.4, 0.6, 0.8, 1].forEach(s => {
+    let pts = [];
+    for (let i = 0; i < n; i++) {
+      const a = startAngle + i * angleStep;
+      pts.push(`${cx + Math.cos(a) * maxR * s},${cy + Math.sin(a) * maxR * s}`);
+    }
+    const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', '#e5e5e5');
+    poly.setAttribute('stroke-width', '1');
+    svg.appendChild(poly);
+  });
+
+  // Axes lines + labels
+  AXES.forEach((ax, i) => {
+    const a = startAngle + i * angleStep;
+    const lx = cx + Math.cos(a) * maxR;
+    const ly = cy + Math.sin(a) * maxR;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+    line.setAttribute('x2', lx); line.setAttribute('y2', ly);
+    line.setAttribute('stroke', '#e5e5e5'); line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+
+    const tlx = cx + Math.cos(a) * (maxR + 25);
+    const tly = cy + Math.sin(a) * (maxR + 25);
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', tlx); text.setAttribute('y', tly);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('font-size', '10');
+    text.setAttribute('font-family', 'Inter, sans-serif');
+    text.setAttribute('fill', '#6b6b6b');
+    text.textContent = ax.shortTitle + ' (' + ax.weight + '%)';
+    svg.appendChild(text);
+  });
+
+  // Data polygon (animated)
+  const dataPoly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  dataPoly.setAttribute('fill', 'rgba(42,107,107,0.12)');
+  dataPoly.setAttribute('stroke', '#2a6b6b');
+  dataPoly.setAttribute('stroke-width', '2');
+  svg.appendChild(dataPoly);
+
+  // Data dots
+  const dataDots = [];
+  AXES.forEach(() => {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', '4');
+    circle.setAttribute('fill', '#2a6b6b');
+    svg.appendChild(circle);
+    dataDots.push(circle);
+  });
+
+  window.updateRadar = function(scores) {
+    let pts = [];
+    scores.forEach((s, i) => {
+      const a = startAngle + i * angleStep;
+      const r = (s / 10) * maxR;
+      const px = cx + Math.cos(a) * r;
+      const py = cy + Math.sin(a) * r;
+      pts.push(`${px},${py}`);
+      dataDots[i].setAttribute('cx', px);
+      dataDots[i].setAttribute('cy', py);
+    });
+    dataPoly.setAttribute('points', pts.join(' '));
+  };
+
+  // Default
+  updateRadar([7, 8, 6, 8, 7]);
+})();
+
+// ═══ LAB ═══
+(function initLab() {
+  const stops = document.querySelectorAll('.stop');
+  const promptText = document.getElementById('labPromptText');
+  const analysisText = document.getElementById('labAnalysisText');
+  const gauges = document.querySelectorAll('.gauge-ring');
+  const gaugeLabels = document.querySelectorAll('.gauge-label');
+  const gaugeValues = document.querySelectorAll('.gauge-value');
+  const verdictScore = document.getElementById('verdictScore');
+  const verdictLabel = document.getElementById('verdictLabel');
+  const verdictFill = document.querySelector('.verdict-fill');
+
+  if (!stops.length || !promptText) return;
+
+  let currentStage = 0;
+  let autoTimer = null;
+
+  function showStage(idx) {
+    currentStage = idx;
+    const stage = STAGES[idx];
+    stops.forEach((s, i) => {
+      s.classList.toggle('active', i === idx);
+      s.classList.toggle('completed', i < idx);
+    });
+
+    promptText.style.opacity = '0';
+    analysisText.style.opacity = '0';
+
+    setTimeout(() => {
+      promptText.textContent = stage.prompt;
+      analysisText.textContent = stage.analysis;
+      promptText.style.opacity = '1';
+      analysisText.style.opacity = '1';
+    }, 300);
+
+    // Update gauges
+    const scoreKeys = ['interrogazione', 'correttivo', 'architettura', 'resistenza', 'trasparenza'];
+    const radarScores = [];
+    scoreKeys.forEach((key, i) => {
+      const val = stage.scores[key];
+      radarScores.push(val);
+      const pct = val / 10;
+      const circumference = 2 * Math.PI * 36;
+      const offset = circumference * (1 - pct);
+
+      if (gauges[i]) {
+        gauges[i].style.transition = 'stroke-dashoffset 1s ease';
+        gauges[i].style.strokeDasharray = circumference;
+        gauges[i].style.strokeDashoffset = offset;
+      }
+      if (gaugeValues[i]) gaugeValues[i].textContent = val;
+      if (gaugeLabels[i]) gaugeLabels[i].textContent = AXES[i].shortTitle;
+    });
+
+    // Update radar
+    if (window.updateRadar) updateRadar(radarScores);
+
+    // Verdict
+    const weights = [0.20, 0.25, 0.15, 0.25, 0.15];
+    let total = 0;
+    radarScores.forEach((s, i) => total += s * weights[i]);
+    const finalScore = total.toFixed(1);
+
+    if (verdictScore) verdictScore.textContent = finalScore;
+    if (verdictFill) {
+      verdictFill.style.transition = 'width 1s ease';
+      verdictFill.style.width = (total * 10) + '%';
+    }
+    if (verdictLabel) {
+      if (total >= 8.5) verdictLabel.textContent = 'Eccellente';
+      else if (total >= 7) verdictLabel.textContent = 'Avanzato';
+      else if (total >= 5.5) verdictLabel.textContent = 'Intermedio';
+      else if (total >= 4) verdictLabel.textContent = 'Base';
+      else verdictLabel.textContent = 'Insufficiente';
+    }
+  }
+
+  stops.forEach((s, i) => {
+    s.addEventListener('click', () => {
+      clearInterval(autoTimer);
+      showStage(i);
+    });
+  });
+
+  function autoAdvance() {
+    autoTimer = setInterval(() => {
+      const next = (currentStage + 1) % STAGES.length;
+      showStage(next);
+    }, 6000);
+  }
+
+  // Start on scroll
+  const labSection = document.getElementById('labSection');
+  const labObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      showStage(0);
+      autoAdvance();
+      labObs.unobserve(labSection);
+    }
+  }, { threshold: 0.2 });
+  if (labSection) labObs.observe(labSection);
+})();
+
+
+// ═══ VOICES SECTION ═══
+(function initVoices() {
+  const container = document.getElementById('voicesContainer');
+  if (!container) return;
+
+  VOICES.forEach((v, i) => {
+    const item = document.createElement('div');
+    item.className = 'voice-item rv';
+    item.style.transitionDelay = (i * 0.1) + 's';
+
+    const text = document.createElement('div');
+    text.className = 'voice-text';
+    text.textContent = '\\u00AB' + v.text + '\\u00BB';
+    item.appendChild(text);
+
+    const author = document.createElement('div');
+    author.className = 'voice-author';
+    author.textContent = '\\u2014 ' + v.author;
+    item.appendChild(author);
+
+    const response = document.createElement('div');
+    response.className = 'voice-response';
+    response.textContent = v.response;
+    item.appendChild(response);
+
+    container.appendChild(item);
+  });
+
+  // Re-observe new elements
+  document.querySelectorAll('.voices .rv').forEach(el => revealObs.observe(el));
+})();
+
+// ═══ AXES CARDS ═══
+(function initAxes() {
+  const container = document.getElementById('axesCards');
+  if (!container) return;
+
+  AXES.forEach((ax, i) => {
+    const card = document.createElement('div');
+    card.className = 'axis-card rv';
+    card.style.transitionDelay = (i * 0.08) + 's';
+
+    const header = document.createElement('div');
+    header.className = 'axis-header';
+    header.innerHTML = `<span class="axis-num">${String(i + 1).padStart(2, '0')}</span>
+      <div class="axis-title">${ax.title}</div>
+      <div class="axis-weight">${ax.weight}%</div>`;
+    card.appendChild(header);
+
+    const desc = document.createElement('div');
+    desc.className = 'axis-desc';
+    desc.textContent = ax.desc;
+    card.appendChild(desc);
+
+    const toggle = document.createElement('button');
+    toggle.className = 'axis-toggle';
+    toggle.textContent = 'Mostra rubrica';
+    toggle.setAttribute('aria-expanded', 'false');
+
+    const rubric = document.createElement('div');
+    rubric.className = 'axis-rubric';
+    rubric.style.display = 'none';
+
+    ax.levels.forEach(lv => {
+      const row = document.createElement('div');
+      row.className = 'rubric-row';
+      row.innerHTML = `<div class="rubric-level"><span class="rubric-badge">${lv.level}</span><span class="rubric-range">${lv.range}</span></div><div class="rubric-desc">${lv.desc}</div>`;
+      rubric.appendChild(row);
+    });
+
+    toggle.addEventListener('click', () => {
+      const open = rubric.style.display !== 'none';
+      rubric.style.display = open ? 'none' : 'block';
+      toggle.textContent = open ? 'Mostra rubrica' : 'Nascondi rubrica';
+      toggle.setAttribute('aria-expanded', !open);
+    });
+
+    card.appendChild(toggle);
+    card.appendChild(rubric);
+    container.appendChild(card);
+  });
+
+  document.querySelectorAll('.axes .rv').forEach(el => revealObs.observe(el));
+})();
+
+// ═══ DL GLOW ═══
+const dlSection = document.querySelector('.dl-section');
+if (dlSection) {
+  dlSection.addEventListener('mousemove', e => {
+    const glow = dlSection.querySelector('.dl-glow');
+    if (glow) {
+      const r = dlSection.getBoundingClientRect();
+      glow.style.left = (e.clientX - r.left) + 'px';
+      glow.style.top = (e.clientY - r.top) + 'px';
+    }
+  });
+}
+
+// ═══ SMOOTH SCROLL NAV ═══
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
 </script>
 </body>
 </html>

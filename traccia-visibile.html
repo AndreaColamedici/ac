@@ -1,1 +1,563 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>La traccia visibile del pensiero — Andrea Colamedici</title><meta name="description" content="Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e intelligenza artificiale come documento del pensiero."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css"><style> .thought-hero {min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--nero);color:var(--bianco);} .thought-hero-canvas {position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;} .thought-hero-content {position:relative;z-index:1;text-align:center;max-width:800px;padding:6rem 3rem;} .thought-hero-label {display:inline-block;font-size:0.7rem;font-weight:500;letter-spacing:0.4em;text-transform:uppercase;color:var(--ottanio);margin-bottom:3rem;padding:0.75rem 2rem;border:1px solid rgba(42,107,107,0.5);} .thought-hero-title {font-family:'Instrument Serif',serif;font-size:clamp(3rem,8vw,6rem);font-weight:400;line-height:1;letter-spacing:-0.03em;margin-bottom:2rem;} .thought-hero-title em {font-style:italic;color:var(--ottanio);} .thought-hero-subtitle {font-family:'Instrument Serif',serif;font-size:clamp(1.1rem,2vw,1.5rem);font-style:italic;color:rgba(255,255,255,0.4);margin-bottom:3rem;line-height:1.6;} .scroll-indicator {position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.75rem;color:rgba(255,255,255,0.3);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;} .scroll-line {width:1px;height:40px;background:linear-gradient(to bottom,var(--ottanio),transparent);animation:scrollPulse 2s ease-in-out infinite;} @keyframes scrollPulse {0%,100% {opacity:0.3;transform:scaleY(1);} 50% {opacity:1;transform:scaleY(1.3);}} .essay-section {padding:8rem 3rem;} .essay-content {max-width:720px;margin:0 auto;} .essay-content p {font-size:1.15rem;line-height:2;margin-bottom:1.5rem;color:var(--nero);} .essay-content p:last-child {margin-bottom:0;} .essay-dropcap::first-letter {font-family:'Instrument Serif',serif;font-size:4rem;float:left;line-height:1;padding-right:0.75rem;color:var(--ottanio);} .essay-pullquote {font-family:'Instrument Serif',serif;font-size:1.75rem;font-style:italic;line-height:1.5;color:var(--ottanio);border-left:2px solid var(--ottanio);padding:1.5rem 0 1.5rem 2rem;margin:3rem 0;max-width:600px;} .protocol-section {padding:8rem 3rem;background:var(--nero);color:var(--bianco);position:relative;overflow:hidden;} .protocol-inner {max-width:1100px;margin:0 auto;} .protocol-header {text-align:center;margin-bottom:5rem;} .protocol-header h2 {font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:1rem;} .protocol-header p {font-size:1.1rem;color:rgba(255,255,255,0.5);max-width:600px;margin:0 auto;line-height:1.8;} .radial-container {display:flex;align-items:center;justify-content:center;gap:4rem;flex-wrap:wrap;margin-bottom:6rem;} .radial-chart {width:380px;height:380px;position:relative;flex-shrink:0;} .radial-chart svg {width:100%;height:100%;transform:rotate(-90deg);} .radial-chart svg circle {fill:none;stroke-linecap:round;transition:stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1);} .radial-center {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;} .radial-center-label {font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;} .radial-center-value {font-family:'Instrument Serif',serif;font-size:3rem;font-style:italic;color:var(--ottanio);} .radial-legend {display:flex;flex-direction:column;gap:1.5rem;max-width:380px;} .legend-item {display:flex;align-items:flex-start;gap:1rem;opacity:0;transform:translateX(20px);transition:all 0.6s cubic-bezier(0.16,1,0.3,1);} .legend-item.visible {opacity:1;transform:translateX(0);} .legend-color {width:3px;height:100%;min-height:48px;border-radius:2px;flex-shrink:0;} .legend-percent {font-family:'Instrument Serif',serif;font-size:1.75rem;font-style:italic;line-height:1;min-width:55px;flex-shrink:0;} .legend-text h4 {font-family:'Instrument Serif',serif;font-size:1.1rem;font-weight:400;margin-bottom:0.25rem;} .legend-text p {font-size:0.85rem;line-height:1.6;color:rgba(255,255,255,0.5);} .axes-section {padding:8rem 3rem;} .axes-inner {max-width:1000px;margin:0 auto;} .axes-header {text-align:center;margin-bottom:5rem;} .axes-header h2 {font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:1rem;} .axis-card {display:grid;grid-template-columns:80px 1fr;gap:2.5rem;padding:3rem 0;border-bottom:1px solid var(--grigio-chiaro);opacity:0;transform:translateY(30px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);} .axis-card.visible {opacity:1;transform:translateY(0);} .axis-card:last-child {border-bottom:none;} .axis-number {position:relative;} .axis-percent-ring {width:72px;height:72px;} .axis-percent-ring svg {width:100%;height:100%;transform:rotate(-90deg);} .axis-percent-ring svg circle {fill:none;} .axis-percent-ring svg .ring-bg {stroke:var(--grigio-chiaro);stroke-width:2;} .axis-percent-ring svg .ring-fill {stroke:var(--ottanio);stroke-width:2.5;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1);} .axis-percent-value {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Instrument Serif',serif;font-size:1.1rem;font-style:italic;color:var(--ottanio);} .axis-body h3 {font-family:'Instrument Serif',serif;font-size:1.5rem;font-weight:400;margin-bottom:0.75rem;} .axis-body > p {font-size:1.05rem;line-height:1.9;color:var(--grigio);margin-bottom:1.5rem;} .axis-levels {display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--grigio-chiaro);border:1px solid var(--grigio-chiaro);margin-top:1rem;} .axis-level {padding:1rem;background:var(--bianco);transition:all 0.4s ease;} .axis-level:hover {background:rgba(42,107,107,0.04);} .axis-level-name {font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;} .axis-level-name.excellent {color:var(--ottanio);} .axis-level-name.good {color:#4a8f8f;} .axis-level-name.sufficient {color:#8a8a4a;} .axis-level-name.insufficient {color:#8a5a4a;} .axis-level-desc {font-size:0.8rem;line-height:1.6;color:var(--grigio);} .download-section {padding:8rem 3rem;background:var(--nero);color:var(--bianco);text-align:center;position:relative;overflow:hidden;} .download-glow {position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(42,107,107,0.15) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:glowPulse 6s ease-in-out infinite;pointer-events:none;} .download-inner {position:relative;z-index:1;max-width:600px;margin:0 auto;} .download-icon {width:80px;height:80px;margin:0 auto 2rem;border:1px solid rgba(42,107,107,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:floatIcon 4s ease-in-out infinite;} @keyframes floatIcon {0%,100% {transform:translateY(0);} 50% {transform:translateY(-8px);}} .download-icon svg {width:28px;height:28px;stroke:var(--ottanio);} .download-inner h2 {font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:1.5rem;} .download-inner > p {font-size:1.05rem;line-height:1.8;color:rgba(255,255,255,0.5);margin-bottom:3rem;} .download-btn {display:inline-flex;align-items:center;gap:1rem;padding:1.25rem 3rem;font-size:0.85rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--bianco);background:var(--ottanio);border:1px solid var(--ottanio);text-decoration:none;position:relative;overflow:hidden;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);} .download-btn:hover {background:transparent;color:var(--ottanio);} .download-btn svg {transition:transform 0.4s ease;} .download-btn:hover svg {transform:translateY(3px);} .download-meta {margin-top:2rem;font-size:0.8rem;color:rgba(255,255,255,0.3);} .flow-divider {height:200px;position:relative;overflow:hidden;} .flow-divider canvas {width:100%;height:100%;} @media (max-width:900px) {.thought-hero-content {padding:4rem 1.5rem;} .essay-section {padding:5rem 1.5rem;} .protocol-section {padding:5rem 1.5rem;} .axes-section {padding:5rem 1.5rem;} .download-section {padding:5rem 1.5rem;} .radial-container {flex-direction:column;gap:3rem;} .radial-chart {width:280px;height:280px;} .axis-card {grid-template-columns:1fr;gap:1.5rem;} .axis-number {display:flex;align-items:center;gap:1rem;} .axis-levels {grid-template-columns:repeat(2,1fr);}} @media (max-width:500px) {.axis-levels {grid-template-columns:1fr;}} </style></head><body><header><a href="./" class="logo"><span class="pulse-signal"></span>Andrea <em>Colamedici</em></a><nav><a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a><div class="lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div></nav><div class="lang-switch" style="position:absolute;right:4rem;top:50%;transform:translateY(-50%);"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></header><div class="mobile-menu" id="mobileMenu"><a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a><div class="mobile-lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div></div><main><section class="thought-hero"><canvas class="thought-hero-canvas" id="thoughtCanvas"></canvas><div class="thought-hero-content"><span class="thought-hero-label">Saggio</span><h1 class="thought-hero-title">La traccia <em>visibile</em> del pensiero</h1><p class="thought-hero-subtitle">Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e macchina come documento del pensiero.</p></div><div class="scroll-indicator"><div class="scroll-line"></div><span>Leggi</span></div></section><div class="flow-divider"><canvas id="flowCanvas1"></canvas></div><section class="essay-section"><div class="essay-content"><p class="essay-dropcap reveal">C'è un momento preciso in cui la domanda sulla valutazione scolastica cambia natura. Arriva quando ci si accorge che il testo consegnato dallo studente potrebbe essere stato generato da un'intelligenza artificiale, e che non esiste più alcun modo affidabile per distinguerlo da un testo scritto interamente di proprio pugno. In quel momento il problema smette di essere tecnico e diventa filosofico: se la macchina sa produrre un buon testo, dove si è spostato il pensiero? Che cosa, esattamente, stiamo valutando quando valutiamo?</p><p class="reveal">Questo saggio nasce dalla convinzione che la risposta non stia nel proibire l'uso dell'intelligenza artificiale, né nel tentare di smascherarlo con strumenti di rilevamento che sono già strutturalmente inadeguati. La risposta sta nel cambiare radicalmente l'oggetto della valutazione: dal prodotto al processo, dal testo finito alla conversazione che lo ha generato. Quando uno studente lavora con un modello di linguaggio, il suo pensiero non scompare: si sposta. Si deposita nei prompt che formula, nelle correzioni che apporta, nelle resistenze che oppone alla facilità della risposta automatica, nella capacità di riconoscere quando la macchina sta producendo qualcosa di generico e di costringerla a fare meglio, o di abbandonare la sua proposta per seguire un'intuizione propria.</p><div class="essay-pullquote reveal">L'intelligenza artificiale non ha eliminato la necessità di pensare. Ha reso il pensiero, per chi lo esercita, visibile come non lo è mai stato.</div><p class="reveal">Il Protocollo di Valutazione del Processo che questo saggio propone è uno strumento costruito per leggere quella conversazione come un documento del pensiero. Cinque assi di valutazione, ciascuno con il proprio peso specifico, ciascuno con quattro livelli che descrivono altrettante qualità dell'interazione tra la mente dello studente e la mente della macchina. L'idea di fondo è che il log della conversazione – l'intera sequenza di prompt, risposte, revisioni, abbandoni – sia un testo a tutti gli effetti: un testo che racconta come lo studente ha pensato, non solo cosa ha prodotto. E che quel testo, per chi sa leggerlo, sia più rivelatore di qualsiasi elaborato finale.</p><p class="reveal">Il protocollo non pretende di risolvere tutti i problemi della valutazione nell'era dell'intelligenza artificiale. Ne riconosce i limiti – di scalabilità, di copertura disciplinare, di formazione dei docenti – e li discute apertamente. Ciò che propone è un cambio di prospettiva: smettere di cercare tracce di autenticità nel prodotto e cominciare a riconoscere le tracce del pensiero nel processo. Perché è lì, nella domanda ben posta, nella correzione consapevole, nel rifiuto della prima risposta, che il pensiero si rende visibile.</p></div></section><div class="flow-divider"><canvas id="flowCanvas2"></canvas></div><section class="protocol-section" id="protocolSection"><div class="protocol-inner"><div class="protocol-header reveal"><h2>Il Protocollo</h2><p>Cinque assi di valutazione, ciascuno con il proprio peso nel giudizio complessivo. Insieme, compongono una mappa del pensiero in azione.</p></div><div class="radial-container"><div class="radial-chart" id="radialChart"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,0.05)" stroke-width="20" /><circle cx="100" cy="100" r="90" stroke="#8a5a4a" stroke-width="20" stroke-dasharray="0 565.48" class="ring" data-percent="25" data-delay="0" /><circle cx="100" cy="100" r="70" stroke="rgba(255,255,255,0.05)" stroke-width="16" /><circle cx="100" cy="100" r="70" stroke="#7a9a5a" stroke-width="16" stroke-dasharray="0 439.82" class="ring" data-percent="25" data-delay="200" /><circle cx="100" cy="100" r="52" stroke="rgba(255,255,255,0.05)" stroke-width="13" /><circle cx="100" cy="100" r="52" stroke="#2a6b6b" stroke-width="13" stroke-dasharray="0 326.72" class="ring" data-percent="20" data-delay="400" /><circle cx="100" cy="100" r="37" stroke="rgba(255,255,255,0.05)" stroke-width="10" /><circle cx="100" cy="100" r="37" stroke="#5a7a9a" stroke-width="10" stroke-dasharray="0 232.47" class="ring" data-percent="15" data-delay="600" /><circle cx="100" cy="100" r="24" stroke="rgba(255,255,255,0.05)" stroke-width="8" /><circle cx="100" cy="100" r="24" stroke="#9a7a5a" stroke-width="8" stroke-dasharray="0 150.79" class="ring" data-percent="15" data-delay="800" /></svg><div class="radial-center"><div class="radial-center-label">PVP</div><div class="radial-center-value">5</div></div></div><div class="radial-legend" id="radialLegend"><div class="legend-item" data-delay="0"><div class="legend-color" style="background:#8a5a4a;"></div><div class="legend-percent" style="color:#8a5a4a;">25%</div><div class="legend-text"><h4>Resistenza alla facilità</h4><p>Rifiuto dell'output immediato, rielaborazione critica, ricerca della complessità</p></div></div><div class="legend-item" data-delay="200"><div class="legend-color" style="background:#7a9a5a;"></div><div class="legend-percent" style="color:#7a9a5a;">25%</div><div class="legend-text"><h4>Comportamento correttivo</h4><p>Capacità di identificare errori, imprecisioni, genericità nelle risposte e intervenire</p></div></div><div class="legend-item" data-delay="400"><div class="legend-color" style="background:#2a6b6b;"></div><div class="legend-percent" style="color:#2a6b6b;">20%</div><div class="legend-text"><h4>Qualità dell'interrogazione</h4><p>Precisione, profondità e progressione dei prompt iniziali</p></div></div><div class="legend-item" data-delay="600"><div class="legend-color" style="background:#5a7a9a;"></div><div class="legend-percent" style="color:#5a7a9a;">15%</div><div class="legend-text"><h4>Architettura del dialogo</h4><p>Struttura complessiva della conversazione, coerenza e progressione tematica</p></div></div><div class="legend-item" data-delay="800"><div class="legend-color" style="background:#9a7a5a;"></div><div class="legend-percent" style="color:#9a7a5a;">15%</div><div class="legend-text"><h4>Trasparenza metacognitiva</h4><p>Consapevolezza esplicita del proprio processo, annotazioni e riflessioni</p></div></div></div></div></div></section><section class="axes-section"><div class="axes-inner"><div class="axes-header reveal"><h2>I cinque assi nel dettaglio</h2></div><div class="axis-card" data-percent="25"><div class="axis-number"><div class="axis-percent-ring"><svg viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="17" /><circle class="ring-fill" cx="20" cy="20" r="17" stroke-dasharray="0 106.81" data-fill="25" /></svg></div><span class="axis-percent-value">25%</span></div><div class="axis-body"><h3>Resistenza alla facilità</h3><p>Il cuore del protocollo. Misura la capacità dello studente di non accettare la prima risposta della macchina, di riconoscere la genericità e di cercare attivamente la complessità. È la differenza tra chi delega il pensiero e chi lo attraversa.</p><div class="axis-levels"><div class="axis-level"><span class="axis-level-name excellent">Eccellente</span><p class="axis-level-desc">Rifiuta risposte generiche, riformula, introduce complessità propria</p></div><div class="axis-level"><span class="axis-level-name good">Buono</span><p class="axis-level-desc">Chiede approfondimenti, confronta con fonti esterne</p></div><div class="axis-level"><span class="axis-level-name sufficient">Sufficiente</span><p class="axis-level-desc">Modifica parzialmente gli output, chiede chiarimenti</p></div><div class="axis-level"><span class="axis-level-name insufficient">Insufficiente</span><p class="axis-level-desc">Accetta gli output senza intervento critico</p></div></div></div></div><div class="axis-card" data-percent="25"><div class="axis-number"><div class="axis-percent-ring"><svg viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="17" /><circle class="ring-fill" cx="20" cy="20" r="17" stroke-dasharray="0 106.81" data-fill="25" /></svg></div><span class="axis-percent-value">25%</span></div><div class="axis-body"><h3>Comportamento correttivo</h3><p>Valuta la capacità dello studente di individuare errori, imprecisioni e genericità nelle risposte generate e di intervenire con correzioni specifiche. Chi sa correggere una macchina dimostra di possedere la competenza che la macchina simula.</p><div class="axis-levels"><div class="axis-level"><span class="axis-level-name excellent">Eccellente</span><p class="axis-level-desc">Identifica errori specifici, corregge con fonti, migliora la qualità complessiva</p></div><div class="axis-level"><span class="axis-level-name good">Buono</span><p class="axis-level-desc">Riconosce imprecisioni, chiede verifiche puntuali</p></div><div class="axis-level"><span class="axis-level-name sufficient">Sufficiente</span><p class="axis-level-desc">Interviene su errori evidenti, tralascia le sfumature</p></div><div class="axis-level"><span class="axis-level-name insufficient">Insufficiente</span><p class="axis-level-desc">Non individua errori, accetta tutto come corretto</p></div></div></div></div><div class="axis-card" data-percent="20"><div class="axis-number"><div class="axis-percent-ring"><svg viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="17" /><circle class="ring-fill" cx="20" cy="20" r="17" stroke-dasharray="0 106.81" data-fill="20" /></svg></div><span class="axis-percent-value">20%</span></div><div class="axis-body"><h3>Qualità dell'interrogazione iniziale</h3><p>La qualità della domanda determina la qualità della risposta. Questo asse valuta la capacità dello studente di formulare prompt precisi, contestualizzati, progressivi – di chiedere bene, che è il primo e più decisivo atto del pensiero.</p><div class="axis-levels"><div class="axis-level"><span class="axis-level-name excellent">Eccellente</span><p class="axis-level-desc">Prompt precisi, contestualizzati, con vincoli espliciti e progressione logica</p></div><div class="axis-level"><span class="axis-level-name good">Buono</span><p class="axis-level-desc">Prompt chiari con qualche vincolo, buona specificità</p></div><div class="axis-level"><span class="axis-level-name sufficient">Sufficiente</span><p class="axis-level-desc">Prompt generici ma pertinenti al tema</p></div><div class="axis-level"><span class="axis-level-name insufficient">Insufficiente</span><p class="axis-level-desc">Prompt vaghi, senza contesto né direzione</p></div></div></div></div><div class="axis-card" data-percent="15"><div class="axis-number"><div class="axis-percent-ring"><svg viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="17" /><circle class="ring-fill" cx="20" cy="20" r="17" stroke-dasharray="0 106.81" data-fill="15" /></svg></div><span class="axis-percent-value">15%</span></div><div class="axis-body"><h3>Architettura del dialogo</h3><p>La conversazione con la macchina ha una struttura. Questo asse valuta se quella struttura è caotica o governata, se i temi si sviluppano in modo coerente, se c'è un progetto dietro la sequenza dei prompt – se, in altre parole, il dialogo rivela un'intenzione.</p><div class="axis-levels"><div class="axis-level"><span class="axis-level-name excellent">Eccellente</span><p class="axis-level-desc">Struttura chiara, progressione tematica governata, coerenza complessiva</p></div><div class="axis-level"><span class="axis-level-name good">Buono</span><p class="axis-level-desc">Buona organizzazione, qualche digressione controllata</p></div><div class="axis-level"><span class="axis-level-name sufficient">Sufficiente</span><p class="axis-level-desc">Struttura riconoscibile ma con dispersioni frequenti</p></div><div class="axis-level"><span class="axis-level-name insufficient">Insufficiente</span><p class="axis-level-desc">Nessuna struttura, sequenza casuale di prompt</p></div></div></div></div><div class="axis-card" data-percent="15"><div class="axis-number"><div class="axis-percent-ring"><svg viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="17" /><circle class="ring-fill" cx="20" cy="20" r="17" stroke-dasharray="0 106.81" data-fill="15" /></svg></div><span class="axis-percent-value">15%</span></div><div class="axis-body"><h3>Trasparenza metacognitiva</h3><p>La capacità di riflettere sul proprio processo mentre lo si compie. Questo asse misura se lo studente annota le proprie scelte, spiega perché ha cambiato direzione, riconosce i limiti di ciò che la macchina ha prodotto – se, insomma, è consapevole di ciò che sta facendo e sa renderne conto.</p><div class="axis-levels"><div class="axis-level"><span class="axis-level-name excellent">Eccellente</span><p class="axis-level-desc">Riflessione continua, annotazioni sulle scelte, consapevolezza dei limiti</p></div><div class="axis-level"><span class="axis-level-name good">Buono</span><p class="axis-level-desc">Commenti occasionali sul processo, alcune giustificazioni</p></div><div class="axis-level"><span class="axis-level-name sufficient">Sufficiente</span><p class="axis-level-desc">Rari cenni metacognitivi, consapevolezza minima</p></div><div class="axis-level"><span class="axis-level-name insufficient">Insufficiente</span><p class="axis-level-desc">Nessuna riflessione sul processo, uso puramente meccanico</p></div></div></div></div></div></section><section class="download-section"><div class="download-glow"></div><div class="download-inner reveal"><div class="download-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><h2>Scarica il saggio completo</h2><p>Il testo integrale del Protocollo di Valutazione del Processo, con le rubriche dettagliate, la discussione dei limiti e le indicazioni per la formazione dei docenti.</p><a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="download-btn" download><span>Scarica PDF</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a><p class="download-meta">PDF, 13 pagine — Andrea Colamedici, 2026</p></div></section></main><footer><div class="footer-content"><div class="footer-left">© 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contact.html">Contatti</a></div></div></footer><script>(function(){const canvas=document.getElementById('thoughtCanvas');const ctx=canvas.getContext('2d');let w,h,particles=[],mouse={x:-1000,y:-1000};function resize(){w=canvas.width=canvas.offsetWidth;h=canvas.height=canvas.offsetHeight;}resize();window.addEventListener('resize',resize);canvas.parentElement.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});for(let i=0;i<60;i++){particles.push({x:Math.random()*2000,y:Math.random()*2000,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*1.5+0.5,phase:Math.random()*Math.PI*2});}function draw(){ctx.clearRect(0,0,w,h);const t=Date.now()*0.001;particles.forEach((p,i)=>{p.x+=p.vx+Math.sin(t+p.phase)*0.15;p.y+=p.vy+Math.cos(t*0.7+p.phase)*0.15;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;const dx=mouse.x-p.x,dy=mouse.y-p.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){p.x-=dx*0.02;p.y-=dy*0.02;}ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(42,107,107,0.6)';ctx.fill();for(let j=i+1;j<particles.length;j++){const dx2=particles[j].x-p.x;const dy2=particles[j].y-p.y;const d=Math.sqrt(dx2*dx2+dy2*dy2);if(d<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(42,107,107,${(1-d/120)*0.2})`;ctx.lineWidth=0.5;ctx.stroke();}}});requestAnimationFrame(draw);}draw();})();function initFlowCanvas(id){const canvas=document.getElementById(id);if(!canvas)return;const ctx=canvas.getContext('2d');let w,h;function resize(){w=canvas.width=canvas.offsetWidth;h=canvas.height=canvas.offsetHeight;}resize();window.addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,w,h);const t=Date.now()*0.0005;const points=80;for(let line=0;line<3;line++){ctx.beginPath();const opacity=0.08+line*0.04;ctx.strokeStyle=`rgba(42,107,107,${opacity})`;ctx.lineWidth=1;for(let i=0;i<=points;i++){const x=(i/points)*w;const y=h/2+Math.sin(i*0.08+t+line*1.5)*30+Math.sin(i*0.03+t*1.3+line)*20;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}requestAnimationFrame(draw);}draw();}initFlowCanvas('flowCanvas1');initFlowCanvas('flowCanvas2');const reveals=document.querySelectorAll('.reveal');const axisCards=document.querySelectorAll('.axis-card');const legendItems=document.querySelectorAll('.legend-item');const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});reveals.forEach(el=>observer.observe(el));const axisObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');const ring=entry.target.querySelector('.ring-fill');if(ring){const percent=parseFloat(ring.dataset.fill);const circumference=2*Math.PI*17;const dashLen=(percent/100)*circumference;ring.style.strokeDasharray=`${dashLen} ${circumference}`;}}});},{threshold:0.2});axisCards.forEach(el=>axisObserver.observe(el));const legendObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){const delay=parseInt(entry.target.dataset.delay)||0;setTimeout(()=>entry.target.classList.add('visible'),delay);}});},{threshold:0.1});legendItems.forEach(el=>legendObserver.observe(el));const radialObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){const rings=entry.target.querySelectorAll('.ring');rings.forEach(ring=>{const percent=parseFloat(ring.dataset.percent);const delay=parseInt(ring.dataset.delay)||0;const r=parseFloat(ring.getAttribute('r'));const circumference=2*Math.PI*r;setTimeout(()=>{const dashLen=(percent/100)*circumference;ring.style.strokeDasharray=`${dashLen} ${circumference}`;ring.style.transition=`stroke-dasharray 1.5s cubic-bezier(0.16,1,0.3,1) ${delay}ms`;},100);});radialObserver.unobserve(entry.target);}});},{threshold:0.3});const radialChart=document.getElementById('radialChart');if(radialChart)radialObserver.observe(radialChart);const hamburger=document.getElementById('hamburger');const mobileMenu=document.getElementById('mobileMenu');const header=document.querySelector('header');hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('active');header.classList.toggle('menu-open');document.body.style.overflow=mobileMenu.classList.contains('active')?'hidden':'';});mobileMenu.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{hamburger.classList.remove('active');mobileMenu.classList.remove('active');header.classList.remove('menu-open');document.body.style.overflow='';});});</script></body></html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>La traccia visibile del pensiero — Andrea Colamedici</title>
+<meta name="description" content="Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e intelligenza artificiale come documento del pensiero.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+:root { --ottanio: #2a6b6b; --nero: #0a0a0a; --bianco: #ffffff; --grigio: #6b6b6b; --grigio-chiaro: #e5e5e5; }
+/* READING PROGRESS */
+.reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: var(--ottanio); z-index: 9999; transition: width 0.1s linear; }
+/* CURSOR LIGHT */
+.cursor-light { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(42,107,107,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; transform: translate(-50%,-50%); transition: left 0.3s ease-out, top 0.3s ease-out; }
+/* SIDE NAV */
+.side-nav { position: fixed; right: 2rem; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 1.25rem; }
+.side-nav-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(42,107,107,0.3); background: transparent; cursor: pointer; transition: all 0.4s ease; position: relative; }
+.side-nav-dot.active { background: var(--ottanio); border-color: var(--ottanio); transform: scale(1.3); }
+.side-nav-dot::after { content: attr(data-label); position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); white-space: nowrap; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.side-nav-dot:hover::after { opacity: 1; }
+/* GRAIN */
+.grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* HERO */
+.t-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--nero); color: var(--bianco); }
+.t-hero canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.t-hero-content { position: relative; z-index: 2; text-align: center; max-width: 860px; padding: 6rem 3rem; }
+.t-hero-label { display: inline-block; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.5em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 3rem; padding: 0.6rem 2rem; border: 1px solid rgba(42,107,107,0.4); opacity: 0; animation: fadeUp 1s 0.3s forwards; }
+.t-hero-title { font-family: 'Instrument Serif', serif; font-size: clamp(3.2rem, 9vw, 6.5rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
+.t-hero-title em { font-style: italic; color: var(--ottanio); }
+.t-hero-subtitle { font-family: 'Instrument Serif', serif; font-size: clamp(1rem, 2vw, 1.4rem); font-style: italic; color: rgba(255,255,255,0.35); line-height: 1.7; max-width: 600px; margin: 0 auto 3rem; opacity: 0; animation: fadeUp 1s 0.9s forwards; }
+.t-hero-meta { display: flex; justify-content: center; gap: 3rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.2); opacity: 0; animation: fadeUp 1s 1.2s forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.scroll-cue { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.25); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.scroll-cue-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--ottanio), transparent); animation: scrollPulse 2.5s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: 0.2; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.4); } }
+@keyframes glowPulse { 0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
+/* FLOW DIVIDERS */
+.flow-div { height: 180px; position: relative; overflow: hidden; }
+.flow-div canvas { width: 100%; height: 100%; }
+.flow-div.dark { background: var(--nero); }
+/* COUNTER STRIP */
+.counter-strip { padding: 4rem 3rem; background: var(--nero); color: var(--bianco); display: flex; justify-content: center; gap: 6rem; flex-wrap: wrap; }
+.counter-item { text-align: center; }
+.counter-num { font-family: 'Instrument Serif', serif; font-size: 3.5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
+.counter-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 0.5rem; }
+/* ESSAY */
+.essay { padding: 8rem 3rem; position: relative; }
+.essay-inner { max-width: 720px; margin: 0 auto; position: relative; }
+.essay p { font-size: 1.15rem; line-height: 2.1; margin-bottom: 1.8rem; color: var(--nero); }
+.essay-dropcap::first-letter { font-family: 'Instrument Serif', serif; font-size: 4.5rem; float: left; line-height: 0.8; padding-right: 0.75rem; padding-top: 0.1rem; color: var(--ottanio); }
+.essay-pullquote { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-style: italic; line-height: 1.5; color: var(--ottanio); border-left: 2px solid var(--ottanio); padding: 2rem 0 2rem 2.5rem; margin: 4rem 0 4rem -2rem; max-width: 640px; }
+.essay-note { position: absolute; right: -220px; width: 180px; font-size: 0.78rem; line-height: 1.7; color: var(--grigio); border-left: 1px solid var(--grigio-chiaro); padding-left: 1rem; opacity: 0; transform: translateX(10px); transition: all 0.8s ease; }
+.essay-note.visible { opacity: 1; transform: translateX(0); }
+.text-highlight { background: linear-gradient(120deg, rgba(42,107,107,0) 0%, rgba(42,107,107,0.12) 100%); background-size: 0% 100%; background-repeat: no-repeat; transition: background-size 1.2s ease; padding: 0 0.15rem; }
+.text-highlight.active { background-size: 100% 100%; }
+/* CONVERSATION SIMULATION */
+.convo-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; overflow: hidden; }
+.convo-inner { max-width: 900px; margin: 0 auto; }
+.convo-header { text-align: center; margin-bottom: 4rem; }
+.convo-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
+.convo-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 550px; margin: 0 auto; line-height: 1.8; }
+.convo-tabs { display: flex; justify-content: center; gap: 0; margin-bottom: 3rem; }
+.convo-tab { padding: 0.75rem 2.5rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; color: rgba(255,255,255,0.4); }
+.convo-tab:first-child { border-radius: 2px 0 0 2px; }
+.convo-tab:last-child { border-radius: 0 2px 2px 0; }
+.convo-tab.active { background: var(--ottanio); border-color: var(--ottanio); color: var(--bianco); }
+.convo-terminal { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+.convo-terminal-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.convo-terminal-dot { width: 8px; height: 8px; border-radius: 50%; }
+.convo-terminal-dot:nth-child(1) { background: #ff5f57; }
+.convo-terminal-dot:nth-child(2) { background: #febc2e; }
+.convo-terminal-dot:nth-child(3) { background: #28c840; }
+.convo-terminal-title { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-left: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.convo-body { padding: 2rem; max-height: 420px; overflow-y: auto; }
+.convo-msg { margin-bottom: 1.5rem; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
+.convo-msg.show { opacity: 1; transform: translateY(0); }
+.convo-role { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.convo-role.human { color: var(--ottanio); }
+.convo-role.ai { color: rgba(255,255,255,0.3); }
+.convo-role.reflection { color: #9a7a5a; }
+.convo-text { font-size: 0.92rem; line-height: 1.8; color: rgba(255,255,255,0.7); padding-left: 1rem; border-left: 2px solid rgba(255,255,255,0.06); }
+.convo-text em { color: var(--ottanio); font-style: italic; }
+.convo-score { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; padding: 1.5rem; background: rgba(42,107,107,0.08); border: 1px solid rgba(42,107,107,0.2); border-radius: 4px; }
+.convo-score-item { text-align: center; }
+.convo-score-val { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; }
+.convo-score-val.high { color: var(--ottanio); }
+.convo-score-val.low { color: #8a5a4a; }
+.convo-score-lbl { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.25rem; }
+/* PROTOCOL: RADAR */
+.proto { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); position: relative; }
+.proto-inner { max-width: 1100px; margin: 0 auto; }
+.proto-header { text-align: center; margin-bottom: 5rem; }
+.proto-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1rem; }
+.proto-header p { font-size: 1.05rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+.radar-wrap { display: flex; align-items: center; justify-content: center; gap: 5rem; flex-wrap: wrap; margin-bottom: 5rem; }
+.radar-svg-wrap { width: 420px; height: 420px; flex-shrink: 0; position: relative; }
+.radar-svg-wrap svg { width: 100%; height: 100%; }
+.radar-info { max-width: 400px; }
+.radar-info-title { font-family: 'Instrument Serif', serif; font-size: 1.8rem; font-style: italic; color: var(--ottanio); margin-bottom: 1rem; min-height: 2.5rem; transition: all 0.4s ease; }
+.radar-info-desc { font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 2rem; min-height: 5rem; transition: all 0.4s ease; }
+.radar-info-weight { font-family: 'Instrument Serif', serif; font-size: 3rem; font-style: italic; color: var(--ottanio); opacity: 0.4; }
+/* CALCULATOR */
+.calc-section { padding: 8rem 3rem; }
+.calc-inner { max-width: 900px; margin: 0 auto; }
+.calc-header { text-align: center; margin-bottom: 4rem; }
+.calc-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
+.calc-header p { color: var(--grigio); max-width: 550px; margin: 0 auto; line-height: 1.8; }
+.calc-grid { display: grid; grid-template-columns: 1fr 300px; gap: 4rem; align-items: start; }
+.calc-sliders { display: flex; flex-direction: column; gap: 2rem; }
+.calc-slider-row { display: flex; flex-direction: column; gap: 0.5rem; }
+.calc-slider-header { display: flex; justify-content: space-between; align-items: baseline; }
+.calc-slider-name { font-family: 'Instrument Serif', serif; font-size: 1.1rem; }
+.calc-slider-val { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ottanio); }
+.calc-slider-weight { font-size: 0.7rem; color: var(--grigio); letter-spacing: 0.1em; }
+.calc-range { -webkit-appearance: none; width: 100%; height: 3px; background: var(--grigio-chiaro); outline: none; border-radius: 2px; cursor: pointer; }
+.calc-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--ottanio); cursor: pointer; transition: transform 0.2s ease; }
+.calc-range::-webkit-slider-thumb:hover { transform: scale(1.3); }
+.calc-result { position: sticky; top: 8rem; text-align: center; padding: 3rem 2rem; border: 1px solid var(--grigio-chiaro); border-radius: 4px; }
+.calc-result-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grigio); margin-bottom: 1rem; }
+.calc-result-score { font-family: 'Instrument Serif', serif; font-size: 5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
+.calc-result-max { font-size: 0.85rem; color: var(--grigio); margin-top: 0.5rem; }
+.calc-result-bar { width: 100%; height: 4px; background: var(--grigio-chiaro); border-radius: 2px; margin-top: 2rem; overflow: hidden; }
+.calc-result-fill { height: 100%; background: var(--ottanio); border-radius: 2px; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
+.calc-result-level { font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; margin-top: 1rem; color: var(--nero); }
+/* AXES */
+.axes { padding: 8rem 3rem; background: #fafafa; }
+.axes-inner { max-width: 1000px; margin: 0 auto; }
+.axes-header { text-align: center; margin-bottom: 5rem; }
+.axes-header h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; }
+.axis-card { padding: 2.5rem 0; border-bottom: 1px solid var(--grigio-chiaro); cursor: pointer; }
+.axis-card:last-child { border-bottom: none; }
+.axis-card-head { display: flex; align-items: center; gap: 2rem; }
+.axis-card-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--ottanio); min-width: 24px; }
+.axis-card-title { font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-weight: 400; flex: 1; }
+.axis-card-percent { font-family: 'Instrument Serif', serif; font-size: 1.3rem; font-style: italic; color: var(--ottanio); }
+.axis-card-toggle { width: 28px; height: 28px; border: 1px solid var(--grigio-chiaro); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; flex-shrink: 0; }
+.axis-card-toggle svg { width: 12px; height: 12px; stroke: var(--grigio); transition: transform 0.4s ease; }
+.axis-card.open .axis-card-toggle { background: var(--ottanio); border-color: var(--ottanio); }
+.axis-card.open .axis-card-toggle svg { stroke: var(--bianco); transform: rotate(180deg); }
+.axis-card-body { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1); }
+.axis-card.open .axis-card-body { max-height: 600px; }
+.axis-card-content { padding: 2rem 0 1rem 3.5rem; }
+.axis-card-desc { font-size: 1.05rem; line-height: 1.9; color: var(--grigio); margin-bottom: 2rem; }
+.axis-levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--grigio-chiaro); border: 1px solid var(--grigio-chiaro); }
+.axis-level { padding: 1.25rem; background: var(--bianco); transition: all 0.4s ease; }
+.axis-level:hover { background: rgba(42,107,107,0.04); }
+.axis-level-name { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.axis-level-name.exc { color: var(--ottanio); }
+.axis-level-name.good { color: #4a8f8f; }
+.axis-level-name.suf { color: #8a8a4a; }
+.axis-level-name.ins { color: #8a5a4a; }
+.axis-level p { font-size: 0.8rem; line-height: 1.7; color: var(--grigio); }
+/* DOWNLOAD */
+.dl-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); text-align: center; position: relative; overflow: hidden; }
+.dl-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(42,107,107,0.12) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: glowPulse 6s ease-in-out infinite; pointer-events: none; }
+.dl-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+.dl-icon { width: 90px; height: 90px; margin: 0 auto 2.5rem; border: 1px solid rgba(42,107,107,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: floatIcon 4s ease-in-out infinite; }
+@keyframes floatIcon { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.dl-icon svg { width: 30px; height: 30px; stroke: var(--ottanio); }
+.dl-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1.5rem; }
+.dl-inner > p { font-size: 1.05rem; line-height: 1.8; color: rgba(255,255,255,0.4); margin-bottom: 3rem; }
+.dl-btn { display: inline-flex; align-items: center; gap: 1rem; padding: 1.25rem 3.5rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--bianco); background: var(--ottanio); border: 1px solid var(--ottanio); text-decoration: none; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
+.dl-btn:hover { background: transparent; color: var(--ottanio); }
+.dl-btn svg { transition: transform 0.4s ease; }
+.dl-btn:hover svg { transform: translateY(3px); }
+.dl-meta { margin-top: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(25px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+.rv.vis { opacity: 1; transform: translateY(0); }
+/* RESPONSIVE */
+@media (max-width: 1100px) { .essay-note { display: none; } }
+@media (max-width: 900px) {
+    .side-nav { display: none; }
+    .t-hero-content { padding: 4rem 1.5rem; }
+    .essay, .convo-section, .proto, .calc-section, .axes, .dl-section { padding: 5rem 1.5rem; }
+    .radar-wrap { flex-direction: column; gap: 3rem; }
+    .radar-svg-wrap { width: 300px; height: 300px; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .calc-result { position: static; }
+    .counter-strip { gap: 3rem; }
+    .convo-score { gap: 1rem; flex-wrap: wrap; }
+    .t-hero-meta { gap: 1.5rem; }
+}
+@media (max-width: 600px) {
+    .axis-levels-grid { grid-template-columns: repeat(2, 1fr); }
+    .convo-tabs { flex-direction: column; gap: 0; }
+    .convo-tab:first-child { border-radius: 2px 2px 0 0; }
+    .convo-tab:last-child { border-radius: 0 0 2px 2px; }
+}
+@media (max-width: 450px) { .axis-levels-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+<div class="cursor-light" id="cursorLight"></div>
+<div class="grain"></div>
+
+<nav class="side-nav" id="sideNav">
+    <div class="side-nav-dot active" data-label="Inizio" data-target="hero"></div>
+    <div class="side-nav-dot" data-label="Saggio" data-target="essaySection"></div>
+    <div class="side-nav-dot" data-label="Dialogo" data-target="convoSection"></div>
+    <div class="side-nav-dot" data-label="Protocollo" data-target="protoSection"></div>
+    <div class="side-nav-dot" data-label="Calcola" data-target="calcSection"></div>
+    <div class="side-nav-dot" data-label="Assi" data-target="axesSection"></div>
+    <div class="side-nav-dot" data-label="Scarica" data-target="dlSection"></div>
+</nav>
+
+<header>
+    <a href="./" class="logo"><span class="pulse-signal"></span>Andrea <em>Colamedici</em></a>
+    <nav><a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a><div class="lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div></nav>
+    <div class="lang-switch" style="position:absolute;right:4rem;top:50%;transform:translateY(-50%);"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Libri</a><a href="research.html">Ricerca</a><a href="press.html">Press</a><a href="contact.html">Contatti</a>
+    <div class="mobile-lang-switch"><a href="traccia-visibile.html" class="active">IT</a><a href="en/visible-trace.html">EN</a></div>
+</div>
+
+<main>
+<section class="t-hero" id="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="t-hero-content">
+        <span class="t-hero-label">Saggio · 2026</span>
+        <h1 class="t-hero-title">La traccia <em>visibile</em> del pensiero</h1>
+        <p class="t-hero-subtitle">Un protocollo per valutare il processo, non il prodotto. Come leggere la conversazione tra studente e macchina come documento del pensiero.</p>
+        <div class="t-hero-meta">
+            <span>Andrea Colamedici</span>
+            <span>13 pagine</span>
+            <span>5 assi di valutazione</span>
+        </div>
+    </div>
+    <div class="scroll-cue"><div class="scroll-cue-line"></div><span>Leggi</span></div>
+</section>
+
+<div class="counter-strip rv" id="counterStrip">
+    <div class="counter-item"><div class="counter-num" data-target="5">0</div><div class="counter-label">Assi di valutazione</div></div>
+    <div class="counter-item"><div class="counter-num" data-target="4">0</div><div class="counter-label">Livelli per asse</div></div>
+    <div class="counter-item"><div class="counter-num" data-target="20">0</div><div class="counter-label">Descrittori</div></div>
+    <div class="counter-item"><div class="counter-num" data-target="100">0</div><div class="counter-label">Punteggio max</div></div>
+</div>
+
+<div class="flow-div"><canvas id="flow1"></canvas></div>
+
+<section class="essay" id="essaySection">
+    <div class="essay-inner">
+        <p class="essay-dropcap rv">C'è un momento preciso in cui la domanda sulla valutazione scolastica cambia natura. Arriva quando ci si accorge che il testo consegnato dallo studente potrebbe essere stato generato da un'intelligenza artificiale, e che non esiste più alcun modo affidabile per distinguerlo da un testo scritto interamente di proprio pugno. In quel momento il problema smette di essere tecnico e diventa filosofico: <span class="text-highlight">se la macchina sa produrre un buon testo, dove si è spostato il pensiero?</span> Che cosa, esattamente, stiamo valutando quando valutiamo?</p>
+
+        <div class="essay-note" style="top: 0;" data-note="1">La domanda non è se lo studente ha usato l'IA, ma come l'ha usata: questo spostamento è il cuore della proposta.</div>
+
+        <p class="rv">Questo saggio nasce dalla convinzione che la risposta non stia nel proibire l'uso dell'intelligenza artificiale, né nel tentare di smascherarlo con strumenti di rilevamento che sono già strutturalmente inadeguati. La risposta sta nel cambiare radicalmente l'oggetto della valutazione: dal prodotto al processo, dal testo finito alla conversazione che lo ha generato. Quando uno studente lavora con un modello di linguaggio, il suo pensiero non scompare: si sposta. Si deposita nei prompt che formula, nelle correzioni che apporta, nelle resistenze che oppone alla facilità della risposta automatica, nella capacità di riconoscere quando la macchina sta producendo qualcosa di generico e di costringerla a fare meglio, o di abbandonare la sua proposta per seguire un'intuizione propria.</p>
+
+        <div class="essay-pullquote rv">L'intelligenza artificiale non ha eliminato la necessità di pensare. Ha reso il pensiero, per chi lo esercita, visibile come non lo è mai stato.</div>
+
+        <p class="rv">Il Protocollo di Valutazione del Processo che questo saggio propone è uno strumento costruito per leggere quella conversazione come un documento del pensiero. Cinque assi di valutazione, ciascuno con il proprio peso specifico, ciascuno con quattro livelli che descrivono altrettante qualità dell'interazione tra la mente dello studente e la mente della macchina. L'idea di fondo è che <span class="text-highlight">il log della conversazione – l'intera sequenza di prompt, risposte, revisioni, abbandoni – sia un testo a tutti gli effetti</span>: un testo che racconta come lo studente ha pensato, non solo cosa ha prodotto. E che quel testo, per chi sa leggerlo, sia più rivelatore di qualsiasi elaborato finale.</p>
+
+        <div class="essay-note" style="top: 480px;" data-note="2">Il cambio di paradigma: non cercare tracce di autenticità nel prodotto, ma tracce del pensiero nel processo.</div>
+
+        <p class="rv">Il protocollo non pretende di risolvere tutti i problemi della valutazione nell'era dell'intelligenza artificiale. Ne riconosce i limiti – di scalabilità, di copertura disciplinare, di formazione dei docenti – e li discute apertamente. Ciò che propone è un cambio di prospettiva: smettere di cercare tracce di autenticità nel prodotto e cominciare a riconoscere le tracce del pensiero nel processo. Perché è lì, nella domanda ben posta, nella correzione consapevole, nel rifiuto della prima risposta, che il pensiero si rende visibile.</p>
+    </div>
+</section>
+
+<div class="flow-div dark"><canvas id="flow2"></canvas></div>
+
+<section class="convo-section" id="convoSection">
+    <div class="convo-inner">
+        <div class="convo-header rv">
+            <h2>Due conversazioni, due pensieri</h2>
+            <p>Lo stesso compito, due studenti. Il protocollo legge la differenza.</p>
+        </div>
+        <div class="convo-tabs">
+            <div class="convo-tab active" data-convo="delegate">Delega del pensiero</div>
+            <div class="convo-tab" data-convo="traverse">Attraversamento del pensiero</div>
+        </div>
+        <div class="convo-terminal">
+            <div class="convo-terminal-bar">
+                <div class="convo-terminal-dot"></div><div class="convo-terminal-dot"></div><div class="convo-terminal-dot"></div>
+                <span class="convo-terminal-title">conversazione.log</span>
+            </div>
+            <div class="convo-body" id="convoBody"></div>
+        </div>
+        <div class="convo-score" id="convoScore"></div>
+    </div>
+</section>
+
+<section class="proto" id="protoSection">
+    <div class="proto-inner">
+        <div class="proto-header rv">
+            <h2>Il Protocollo</h2>
+            <p>Cinque assi di valutazione, ciascuno con il proprio peso. Passa il cursore sul grafico per esplorare.</p>
+        </div>
+        <div class="radar-wrap">
+            <div class="radar-svg-wrap rv"><svg id="radarChart" viewBox="0 0 400 400"></svg></div>
+            <div class="radar-info rv">
+                <div class="radar-info-title" id="radarTitle">Passa il cursore su un asse</div>
+                <div class="radar-info-desc" id="radarDesc">Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.</div>
+                <div class="radar-info-weight" id="radarWeight"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="flow-div"><canvas id="flow3"></canvas></div>
+
+<section class="calc-section" id="calcSection">
+    <div class="calc-inner">
+        <div class="calc-header rv">
+            <h2>Calcola il punteggio</h2>
+            <p>Simula una valutazione muovendo i cursori. Il punteggio composito si aggiorna in tempo reale.</p>
+        </div>
+        <div class="calc-grid rv">
+            <div class="calc-sliders" id="calcSliders"></div>
+            <div class="calc-result">
+                <div class="calc-result-label">Punteggio composito</div>
+                <div class="calc-result-score" id="calcScore">0</div>
+                <div class="calc-result-max">/ 100</div>
+                <div class="calc-result-bar"><div class="calc-result-fill" id="calcFill"></div></div>
+                <div class="calc-result-level" id="calcLevel">Muovi i cursori</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="axes" id="axesSection">
+    <div class="axes-inner">
+        <div class="axes-header rv"><h2>I cinque assi nel dettaglio</h2></div>
+        <div id="axesCards"></div>
+    </div>
+</section>
+
+<section class="dl-section" id="dlSection">
+    <div class="dl-glow"></div>
+    <div class="dl-inner rv">
+        <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+        <h2>Scarica il saggio completo</h2>
+        <p>Il testo integrale del Protocollo di Valutazione del Processo, con le rubriche dettagliate, la discussione dei limiti e le indicazioni per la formazione dei docenti.</p>
+        <a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="dl-btn" download><span>Scarica PDF</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>
+        <p class="dl-meta">PDF, 13 pagine — Andrea Colamedici, 2026</p>
+    </div>
+</section>
+</main>
+
+<footer><div class="footer-content"><div class="footer-left">© 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contact.html">Contatti</a></div></div></footer>
+
+<script>
+/* ===== DATA ===== */
+const AXES = [
+    { name: 'Resistenza alla facilità', weight: 25, color: '#8a5a4a', desc: 'Misura la capacità dello studente di non accettare la prima risposta della macchina, di riconoscere la genericità e di cercare attivamente la complessità. È la differenza tra chi delega il pensiero e chi lo attraversa.', levels: ['Rifiuta risposte generiche, riformula, introduce complessità propria', 'Chiede approfondimenti, confronta con fonti esterne', 'Modifica parzialmente gli output, chiede chiarimenti', 'Accetta gli output senza intervento critico'] },
+    { name: 'Comportamento correttivo', weight: 25, color: '#7a9a5a', desc: 'Valuta la capacità dello studente di individuare errori, imprecisioni e genericità nelle risposte generate e di intervenire con correzioni specifiche. Chi sa correggere una macchina dimostra di possedere la competenza che la macchina simula.', levels: ['Identifica errori specifici, corregge con fonti, migliora la qualità complessiva', 'Riconosce imprecisioni, chiede verifiche puntuali', 'Interviene su errori evidenti, tralascia le sfumature', 'Non individua errori, accetta tutto come corretto'] },
+    { name: "Qualità dell'interrogazione", weight: 20, color: '#2a6b6b', desc: 'La qualità della domanda determina la qualità della risposta. Questo asse valuta la capacità dello studente di formulare prompt precisi, contestualizzati, progressivi – di chiedere bene, che è il primo e più decisivo atto del pensiero.', levels: ['Prompt precisi, contestualizzati, con vincoli espliciti e progressione logica', 'Prompt chiari con qualche vincolo, buona specificità', 'Prompt generici ma pertinenti al tema', 'Prompt vaghi, senza contesto né direzione'] },
+    { name: 'Architettura del dialogo', weight: 15, color: '#5a7a9a', desc: "La conversazione con la macchina ha una struttura. Questo asse valuta se quella struttura è caotica o governata, se i temi si sviluppano in modo coerente, se c'è un progetto dietro la sequenza dei prompt.", levels: ['Struttura chiara, progressione tematica governata, coerenza complessiva', 'Buona organizzazione, qualche digressione controllata', 'Struttura riconoscibile ma con dispersioni frequenti', 'Nessuna struttura, sequenza casuale di prompt'] },
+    { name: 'Trasparenza metacognitiva', weight: 15, color: '#9a7a5a', desc: 'La capacità di riflettere sul proprio processo mentre lo si compie. Misura se lo studente annota le proprie scelte, spiega perché ha cambiato direzione, riconosce i limiti di ciò che la macchina ha prodotto.', levels: ['Riflessione continua, annotazioni sulle scelte, consapevolezza dei limiti', 'Commenti occasionali sul processo, alcune giustificazioni', 'Rari cenni metacognitivi, consapevolezza minima', 'Nessuna riflessione sul processo, uso puramente meccanico'] }
+];
+
+const CONVOS = {
+    delegate: {
+        msgs: [
+            { role: 'human', text: 'Scrivi un saggio sulla crisi climatica' },
+            { role: 'ai', text: "La crisi climatica è una delle sfide più importanti del nostro tempo. Le temperature globali sono aumentate di circa 1,1°C rispetto ai livelli preindustriali..." },
+            { role: 'human', text: 'Ok va bene. Rendilo più lungo' },
+            { role: 'ai', text: "La crisi climatica rappresenta una sfida epocale per l'umanità. Secondo l'IPCC, le temperature medie globali sono aumentate significativamente..." },
+            { role: 'human', text: 'Aggiungi una conclusione' }
+        ],
+        scores: [{l:'Resistenza',v:'1/4',c:'low'},{l:'Correzione',v:'1/4',c:'low'},{l:'Interrogazione',v:'1/4',c:'low'},{l:'Architettura',v:'1/4',c:'low'},{l:'Metacognizione',v:'1/4',c:'low'}]
+    },
+    traverse: {
+        msgs: [
+            { role: 'human', text: "Sto lavorando a un saggio sulla crisi climatica. Vorrei concentrarmi su un aspetto specifico: <em>il rapporto tra linguaggio catastrofista e paralisi dell'azione</em>. Quali framework teorici posso usare?" },
+            { role: 'ai', text: 'Ci sono diversi framework rilevanti: la teoria del terrore (TMT), il concetto di "apocalypse fatigue" di Per Espen Stoknes, il framing theory di Lakoff applicato al clima...' },
+            { role: 'human', text: "Stoknes è interessante. Però la sua proposta ha un punto debole: non considera la dimensione di classe nel modo in cui il catastrofismo viene recepito. Chi vive in zone a rischio non ha il privilegio della \"fatica apocalittica\". Riformula tenendo conto di questa critica." },
+            { role: 'ai', text: 'Hai ragione. Integrando la prospettiva di giustizia climatica, possiamo rileggere il framework di Stoknes attraverso la lente di...' },
+            { role: 'reflection', text: "[Nota: ho deciso di non usare il paragrafo generato dall'IA sulla giustizia climatica perché sovrappone concetti diversi. Riscrivo di mio pugno questa sezione, usando solo il riferimento bibliografico suggerito.]" }
+        ],
+        scores: [{l:'Resistenza',v:'4/4',c:'high'},{l:'Correzione',v:'4/4',c:'high'},{l:'Interrogazione',v:'4/4',c:'high'},{l:'Architettura',v:'3/4',c:'high'},{l:'Metacognizione',v:'4/4',c:'high'}]
+    }
+};
+
+/* ===== HERO CANVAS ===== */
+(function(){
+    const c=document.getElementById('heroCanvas'),x=c.getContext('2d');
+    let w,h,pts=[],mouse={x:-1e3,y:-1e3};
+    function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
+    resize();window.addEventListener('resize',resize);
+    c.parentElement.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+    for(let i=0;i<80;i++)pts.push({x:Math.random()*2e3,y:Math.random()*2e3,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.3,ph:Math.random()*Math.PI*2});
+    function draw(){
+        x.clearRect(0,0,w,h);const t=Date.now()*.001;
+        pts.forEach((p,i)=>{
+            p.x+=p.vx+Math.sin(t+p.ph)*.12;p.y+=p.vy+Math.cos(t*.7+p.ph)*.12;
+            if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+            const dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<180){p.x-=dx*.015;p.y-=dy*.015;}
+            x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle='rgba(42,107,107,0.5)';x.fill();
+            for(let j=i+1;j<pts.length;j++){const d2=pts[j].x-p.x,d3=pts[j].y-p.y,d=Math.sqrt(d2*d2+d3*d3);if(d<130){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(pts[j].x,pts[j].y);x.strokeStyle=`rgba(42,107,107,${(1-d/130)*.15})`;x.lineWidth=.5;x.stroke();}}
+        });requestAnimationFrame(draw);
+    }draw();
+})();
+
+/* ===== FLOW CANVASES ===== */
+function initFlow(id){
+    const c=document.getElementById(id);if(!c)return;const x=c.getContext('2d');let w,h;
+    function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}r();window.addEventListener('resize',r);
+    function d(){x.clearRect(0,0,w,h);const t=Date.now()*.0004;
+        for(let l=0;l<4;l++){x.beginPath();x.strokeStyle=`rgba(42,107,107,${.06+l*.03})`;x.lineWidth=.8;
+            for(let i=0;i<=100;i++){const px=(i/100)*w,py=h/2+Math.sin(i*.07+t+l*1.2)*25+Math.sin(i*.025+t*1.4+l)*18+Math.cos(i*.04+t*.8+l*2)*10;
+                if(i===0)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();}requestAnimationFrame(d);}d();
+}
+initFlow('flow1');initFlow('flow2');initFlow('flow3');
+
+/* ===== CURSOR LIGHT ===== */
+const cursorLight=document.getElementById('cursorLight');
+document.addEventListener('mousemove',e=>{cursorLight.style.left=e.clientX+'px';cursorLight.style.top=e.clientY+'px';});
+
+/* ===== READING PROGRESS ===== */
+const progressBar=document.getElementById('readingProgress');
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;const s=window.scrollY;progressBar.style.width=(s/h*100)+'%';});
+
+/* ===== COUNTERS ===== */
+const counterObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vis');en.target.querySelectorAll('.counter-num').forEach(el=>{const target=parseInt(el.dataset.target);let current=0;const step=Math.max(1,Math.floor(target/40));const interval=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(interval);}el.textContent=current;},30);});counterObs.unobserve(en.target);}});},{threshold:0.3});
+const cs=document.getElementById('counterStrip');if(cs)counterObs.observe(cs);
+
+/* ===== REVEAL ===== */
+const rvObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+
+/* ===== TEXT HIGHLIGHT ===== */
+const hlObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('active');hlObs.unobserve(en.target);}});},{threshold:0.5});
+document.querySelectorAll('.text-highlight').forEach(el=>hlObs.observe(el));
+
+/* ===== ESSAY NOTES ===== */
+const noteObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.essay-note').forEach(el=>noteObs.observe(el));
+
+/* ===== SIDE NAV ===== */
+const sections=document.querySelectorAll('section[id]');
+const sideNavDots=document.querySelectorAll('.side-nav-dot');
+const secObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){sideNavDots.forEach(d=>d.classList.remove('active'));const dot=document.querySelector(`.side-nav-dot[data-target="${en.target.id}"]`);if(dot)dot.classList.add('active');}});},{threshold:0.3,rootMargin:'-20% 0px -50% 0px'});
+sections.forEach(s=>secObs.observe(s));
+sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getElementById(d.dataset.target);if(t)t.scrollIntoView({behavior:'smooth'});}));
+
+/* ===== CONVERSATION ===== */
+const convoBody=document.getElementById('convoBody');
+const convoScoreEl=document.getElementById('convoScore');
+const convoTabs=document.querySelectorAll('.convo-tab');
+function showConvo(key){
+    const data=CONVOS[key];convoBody.innerHTML='';convoScoreEl.innerHTML='';
+    data.msgs.forEach((m,i)=>{
+        const div=document.createElement('div');div.className='convo-msg';
+        div.innerHTML=`<div class="convo-role ${m.role}">${m.role==='human'?'Studente':m.role==='ai'?'IA':'Riflessione'}</div><div class="convo-text">${m.text}</div>`;
+        convoBody.appendChild(div);
+        setTimeout(()=>div.classList.add('show'),200+i*400);
+    });
+    data.scores.forEach(s=>{
+        convoScoreEl.innerHTML+=`<div class="convo-score-item"><div class="convo-score-val ${s.c}">${s.v}</div><div class="convo-score-lbl">${s.l}</div></div>`;
+    });
+}
+convoTabs.forEach(tab=>tab.addEventListener('click',()=>{convoTabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');showConvo(tab.dataset.convo);}));
+showConvo('delegate');
+
+/* ===== RADAR CHART ===== */
+(function(){
+    const svg=document.getElementById('radarChart');
+    const cx=200,cy=200,R=160;const n=AXES.length;
+    const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
+    // Grid
+    for(let r=1;r<=4;r++){
+        let pts=[];angles.forEach(a=>{const rr=(R/4)*r;pts.push(`${cx+Math.cos(a)*rr},${cy+Math.sin(a)*rr}`);});
+        const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+        poly.setAttribute('points',pts.join(' '));poly.setAttribute('fill','none');poly.setAttribute('stroke','rgba(255,255,255,0.06)');poly.setAttribute('stroke-width','1');svg.appendChild(poly);
+    }
+    // Axis lines
+    angles.forEach(a=>{const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',cx+Math.cos(a)*R);line.setAttribute('y2',cy+Math.sin(a)*R);line.setAttribute('stroke','rgba(255,255,255,0.04)');line.setAttribute('stroke-width','1');svg.appendChild(line);});
+    // Data polygon
+    const vals=AXES.map(a=>a.weight/25);
+    let dataPts=[];vals.forEach((v,i)=>{const a=angles[i];dataPts.push(`${cx+Math.cos(a)*R*v},${cy+Math.sin(a)*R*v}`);});
+    const dataPoly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    dataPoly.setAttribute('points',dataPts.join(' '));dataPoly.setAttribute('fill','rgba(42,107,107,0.15)');dataPoly.setAttribute('stroke','rgba(42,107,107,0.6)');dataPoly.setAttribute('stroke-width','2');dataPoly.style.transition='all 0.6s ease';svg.appendChild(dataPoly);
+    // Interactive dots + labels
+    const titleEl=document.getElementById('radarTitle');
+    const descEl=document.getElementById('radarDesc');
+    const weightEl=document.getElementById('radarWeight');
+    AXES.forEach((ax,i)=>{
+        const a=angles[i];const x2=cx+Math.cos(a)*R*vals[i];const y2=cy+Math.sin(a)*R*vals[i];
+        // Dot
+        const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        circle.setAttribute('cx',x2);circle.setAttribute('cy',y2);circle.setAttribute('r','6');
+        circle.setAttribute('fill',ax.color);circle.setAttribute('stroke','rgba(255,255,255,0.3)');circle.setAttribute('stroke-width','2');
+        circle.style.cursor='pointer';circle.style.transition='r 0.3s ease';
+        // Hover area
+        const hitArea=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        hitArea.setAttribute('cx',cx+Math.cos(a)*(R*0.6));hitArea.setAttribute('cy',cy+Math.sin(a)*(R*0.6));
+        hitArea.setAttribute('r','40');hitArea.setAttribute('fill','transparent');hitArea.style.cursor='pointer';
+        // Label
+        const lx=cx+Math.cos(a)*(R+25);const ly=cy+Math.sin(a)*(R+25);
+        const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+        txt.setAttribute('x',lx);txt.setAttribute('y',ly);txt.setAttribute('text-anchor','middle');
+        txt.setAttribute('dominant-baseline','middle');txt.setAttribute('fill','rgba(255,255,255,0.4)');
+        txt.setAttribute('font-size','10');txt.setAttribute('font-family','Inter');txt.setAttribute('letter-spacing','0.05em');
+        txt.textContent=ax.weight+'%';
+        function hover(){circle.setAttribute('r','10');titleEl.textContent=ax.name;descEl.textContent=ax.desc;weightEl.textContent=ax.weight+'%';}
+        function leave(){circle.setAttribute('r','6');titleEl.textContent='Passa il cursore su un asse';descEl.textContent='Il diagramma radar mostra i cinque assi del protocollo con i rispettivi pesi. Ogni asse misura una dimensione specifica del pensiero in azione.';weightEl.textContent='';}
+        [circle,hitArea].forEach(el=>{el.addEventListener('mouseenter',hover);el.addEventListener('mouseleave',leave);});
+        svg.appendChild(hitArea);svg.appendChild(circle);svg.appendChild(txt);
+    });
+})();
+
+/* ===== CALCULATOR ===== */
+(function(){
+    const container=document.getElementById('calcSliders');
+    const scoreEl=document.getElementById('calcScore');
+    const fillEl=document.getElementById('calcFill');
+    const levelEl=document.getElementById('calcLevel');
+    const sliders=[];
+    AXES.forEach((ax,i)=>{
+        const row=document.createElement('div');row.className='calc-slider-row';
+        row.innerHTML=`<div class="calc-slider-header"><span class="calc-slider-name">${ax.name}</span><span class="calc-slider-val" id="sv${i}">0</span></div><div class="calc-slider-weight">Peso: ${ax.weight}%</div><input type="range" min="0" max="4" value="0" step="1" class="calc-range" data-idx="${i}">`;
+        container.appendChild(row);
+        const input=row.querySelector('input');
+        sliders.push(input);
+        input.addEventListener('input',updateCalc);
+    });
+    function updateCalc(){
+        let total=0;
+        sliders.forEach((s,i)=>{
+            const v=parseInt(s.value);
+            document.getElementById('sv'+i).textContent=v+'/4';
+            total+=(v/4)*AXES[i].weight;
+        });
+        const score=Math.round(total);
+        scoreEl.textContent=score;
+        fillEl.style.width=score+'%';
+        if(score===0)levelEl.textContent='Muovi i cursori';
+        else if(score<30)levelEl.textContent='Insufficiente';
+        else if(score<50)levelEl.textContent='Sufficiente';
+        else if(score<75)levelEl.textContent='Buono';
+        else levelEl.textContent='Eccellente';
+    }
+})();
+
+/* ===== AXES CARDS ===== */
+(function(){
+    const container=document.getElementById('axesCards');
+    const levelNames=['Eccellente','Buono','Sufficiente','Insufficiente'];
+    const levelClasses=['exc','good','suf','ins'];
+    AXES.forEach((ax,i)=>{
+        const card=document.createElement('div');card.className='axis-card rv';
+        let levelsHtml='';ax.levels.forEach((l,j)=>{levelsHtml+=`<div class="axis-level"><span class="axis-level-name ${levelClasses[j]}">${levelNames[j]}</span><p>${l}</p></div>`;});
+        card.innerHTML=`<div class="axis-card-head"><span class="axis-card-num">0${i+1}</span><span class="axis-card-title">${ax.name}</span><span class="axis-card-percent">${ax.weight}%</span><div class="axis-card-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="axis-card-body"><div class="axis-card-content"><div class="axis-card-desc">${ax.desc}</div><div class="axis-levels-grid">${levelsHtml}</div></div></div>`;
+        card.querySelector('.axis-card-head').addEventListener('click',()=>card.classList.toggle('open'));
+        container.appendChild(card);
+        rvObs.observe(card);
+    });
+})();
+
+/* ===== HAMBURGER ===== */
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),hd=document.querySelector('header');
+hb.addEventListener('click',()=>{hb.classList.toggle('active');mm.classList.toggle('active');hd.classList.toggle('menu-open');document.body.style.overflow=mm.classList.contains('active')?'hidden':'';});
+mm.querySelectorAll('a').forEach(l=>{l.addEventListener('click',()=>{hb.classList.remove('active');mm.classList.remove('active');hd.classList.remove('menu-open');document.body.style.overflow='';});});
+</script>
+</body>
+</html>

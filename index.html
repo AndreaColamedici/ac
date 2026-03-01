@@ -409,7 +409,7 @@
         }
 
         /* ———————————————————————————————————————————————————————————————
-           FIELD NOTE SECTION - Santiago Story
+           FIELD NOTE SECTION
            ——————————————————————————————————————————————————————————————— */
         .field-note {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
@@ -426,6 +426,9 @@
             font-size: 15rem;
             opacity: 0.03;
             pointer-events: none;
+        }
+        .field-note.field-note--traccia::before {
+            content: '✍';
         }
         .field-note-content {
             max-width: 1200px;
@@ -732,6 +735,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Field Note: The Visible Trace of Thought -->
+        <section class="field-note field-note--traccia reveal">
+            <div class="field-note-content">
+                <div class="field-note-badge">Field Note</div>
+                <div class="field-note-main">
+                    <p class="field-note-date">New York · March 1, 2026</p>
+                    <h2 class="field-note-title">The Visible Trace of <em>Thought</em></h2>
+                    <p class="field-note-excerpt">A protocol for evaluating the process. Reading the conversation between student and machine as a document of thought: five axes to measure not the answer, but the quality of the question.</p>
+                </div>
+                <div class="field-note-cta">
+                    <a href="traccia-visibile.html" class="magnetic">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <span>Read</span>
                 </div>
             </div>
         </section>

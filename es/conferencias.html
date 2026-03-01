@@ -10,411 +10,123 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        .event-grid {
-            display: grid;
-            gap: 1px;
-            background: var(--grigio-chiaro);
-            border: 1px solid var(--grigio-chiaro);
-        }
-        .event-item {
-            display: grid;
-            grid-template-columns: 140px 1fr auto;
-            gap: 2rem;
-            padding: 1.5rem 2rem;
-            background: var(--bianco);
-            align-items: center;
-            transition: all 0.4s ease;
-        }
-        .event-item:hover {
-            background: rgba(42, 107, 107, 0.03);
-        }
-        .event-item.past {
-            opacity: 0.6;
-        }
-        .event-item.past:hover {
-            opacity: 0.85;
-        }
-        .event-date {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1rem;
-            font-style: italic;
-            color: var(--ottanio);
-        }
-        .event-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.15rem;
-            margin-bottom: 0.25rem;
-        }
-        .event-desc {
-            font-size: 0.9rem;
-            color: var(--grigio);
-        }
-        .event-location {
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--grigio);
-            white-space: nowrap;
-        }
-
-        .festival-card {
-            padding: 2.5rem;
-            border: 1px solid var(--grigio-chiaro);
-            margin-bottom: 1.5rem;
-            transition: all 0.4s ease;
-        }
-        .festival-card:hover {
-            border-color: var(--ottanio);
-        }
-        .festival-role {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-            margin-bottom: 0.75rem;
-        }
-        .festival-name {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .festival-desc {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: var(--grigio);
-        }
-        .festival-stats {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--ottanio);
-        }
-
-        .training-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-        .training-item {
-            padding: 1.5rem;
-            border: 1px solid var(--grigio-chiaro);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .training-item:hover {
-            border-color: var(--ottanio);
-        }
-        .training-name {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.1rem;
-            font-style: italic;
-        }
-
-        @media (max-width: 900px) {
-            .event-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            .event-location {
-                justify-self: start;
-            }
-            .training-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .event-grid { display: grid; gap: 1px; background: var(--grigio-chiaro); border: 1px solid var(--grigio-chiaro); }
+        .event-item { display: grid; grid-template-columns: 140px 1fr auto; gap: 2rem; padding: 1.5rem 2rem; background: var(--bianco); align-items: center; transition: all 0.4s ease; }
+        .event-item:hover { background: rgba(42, 107, 107, 0.03); }
+        .event-item.past { opacity: 0.6; }
+        .event-item.past:hover { opacity: 0.85; }
+        .event-date { font-family: 'Instrument Serif', serif; font-size: 1rem; font-style: italic; color: var(--ottanio); }
+        .event-title { font-family: 'Instrument Serif', serif; font-size: 1.15rem; margin-bottom: 0.25rem; }
+        .event-desc { font-size: 0.9rem; color: var(--grigio); }
+        .event-location { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grigio); white-space: nowrap; }
+        .festival-card { padding: 2.5rem; border: 1px solid var(--grigio-chiaro); margin-bottom: 1.5rem; transition: all 0.4s ease; }
+        .festival-card:hover { border-color: var(--ottanio); }
+        .festival-role { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 0.75rem; }
+        .festival-name { font-family: 'Instrument Serif', serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .festival-desc { font-size: 1rem; line-height: 1.7; color: var(--grigio); }
+        .festival-stats { margin-top: 1rem; font-size: 0.85rem; color: var(--ottanio); }
+        .training-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .training-item { padding: 1.5rem; border: 1px solid var(--grigio-chiaro); text-align: center; transition: all 0.3s ease; }
+        .training-item:hover { border-color: var(--ottanio); }
+        .training-name { font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-style: italic; }
+        @media (max-width: 900px) { .event-item { grid-template-columns: 1fr; gap: 0.5rem; } .event-location { justify-self: start; } .training-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
-
     <header>
-        <a href="./" class="logo">
-            <span class="pulse-signal"></span>
-            Andrea <em>Colamedici</em>
-        </a>
+        <a href="./" class="logo"><span class="pulse-signal"></span>Andrea <em>Colamedici</em></a>
         <nav>
             <a href="libros.html">Libros</a>
             <a href="investigacion.html">Investigación</a>
             <a href="conferencias.html" class="active">Conferencias</a>
             <a href="prensa.html">Prensa</a>
             <a href="contacto.html">Contacto</a>
-            <div class="lang-switch">
-                <a href="../speaking.html">EN</a>
-                <a href="conferencias.html" class="active">ES</a>
-            </div>
+            <div class="lang-switch"><a href="../speaking.html">EN</a><a href="conferencias.html" class="active">ES</a></div>
         </nav>
-        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
-            <a href="../speaking.html">EN</a>
-            <a href="conferencias.html" class="active">ES</a>
-        </div>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);"><a href="../speaking.html">EN</a><a href="conferencias.html" class="active">ES</a></div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </header>
-
     <div class="mobile-menu" id="mobileMenu">
         <a href="libros.html">Libros</a>
         <a href="investigacion.html">Investigación</a>
         <a href="conferencias.html">Conferencias</a>
         <a href="prensa.html">Prensa</a>
         <a href="contacto.html">Contacto</a>
-        <div class="mobile-lang-switch">
-            <a href="../speaking.html">EN</a>
-            <a href="conferencias.html" class="active">ES</a>
-        </div>
+        <div class="mobile-lang-switch"><a href="../speaking.html">EN</a><a href="conferencias.html" class="active">ES</a></div>
     </div>
-
     <main>
         <div class="page-header">
             <h1 class="page-title">Conferencias</h1>
             <p class="page-subtitle">Conferencias internacionales, festivales y formación corporativa</p>
         </div>
-
         <section class="section">
             <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Próximos</h2>
-                    <span class="section-num">2026</span>
-                </div>
-
+                <div class="section-header reveal"><h2 class="section-title">Próximos</h2><span class="section-num">2026</span></div>
                 <div class="event-grid reveal">
-                    <div class="event-item">
-                        <span class="event-date">4–5 marzo</span>
-                        <div>
-                            <div class="event-title">Diálogos de Futuro · Pensando el Futuro</div>
-                            <div class="event-desc">Conferencia sobre IA, ética y manipulación de la información. <a href="https://www.dialogosdefuturo.com/" target="_blank">Congreso Futuro ARG2026</a>.</div>
-                        </div>
-                        <span class="event-location">Mendoza, Argentina</span>
-                    </div>
-                    <div class="event-item">
-                        <span class="event-date">Marzo</span>
-                        <div>
-                            <div class="event-title">IA y Política Internacional</div>
-                            <div class="event-desc">Conferencia sobre soberanía algorítmica</div>
-                        </div>
-                        <span class="event-location">Oslo</span>
-                    </div>
-                    <div class="event-item">
-                        <span class="event-date">Marzo</span>
-                        <div>
-                            <div class="event-title">Peligros Cognitivos de la IA</div>
-                            <div class="event-desc">Conferencia sobre riesgos para el pensamiento</div>
-                        </div>
-                        <span class="event-location">Madrid</span>
-                    </div>
-                    <div class="event-item">
-                        <span class="event-date">23 marzo</span>
-                        <div>
-                            <div class="event-title">Hipnocracia · Teatro Carcano</div>
-                            <div class="event-desc">Jianwei Xun entrevistado por Maura Gancitano y Andrea Colamedici</div>
-                        </div>
-                        <span class="event-location">Milán</span>
-                    </div>
-                    <div class="event-item">
-                        <span class="event-date">Abril</span>
-                        <div>
-                            <div class="event-title">El asalto a la ilusión</div>
-                            <div class="event-desc">Conferencia en Arts Centre Santa Mònica</div>
-                        </div>
-                        <span class="event-location">Barcelona</span>
-                    </div>
-                    <div class="event-item">
-                        <span class="event-date">Primavera</span>
-                        <div>
-                            <div class="event-title">Universidad Tsinghua</div>
-                            <div class="event-desc">Concurso internacional sobre escritura e IA</div>
-                        </div>
-                        <span class="event-location">China</span>
-                    </div>
+                    <div class="event-item"><span class="event-date">4–5 marzo</span><div><div class="event-title">Diálogos de Futuro · Pensando el Futuro</div><div class="event-desc">Conferencia sobre IA, ética y manipulación de la información. <a href="https://www.dialogosdefuturo.com/" target="_blank">Congreso Futuro ARG2026</a>.</div></div><span class="event-location">Mendoza, Argentina</span></div>
+                    <div class="event-item"><span class="event-date">Marzo</span><div><div class="event-title">IA y Política Internacional</div><div class="event-desc">Conferencia sobre soberanía algorítmica</div></div><span class="event-location">Oslo</span></div>
+                    <div class="event-item"><span class="event-date">Marzo</span><div><div class="event-title">Peligros Cognitivos de la IA</div><div class="event-desc">Conferencia sobre riesgos para el pensamiento</div></div><span class="event-location">Madrid</span></div>
+                    <div class="event-item"><span class="event-date">23 marzo</span><div><div class="event-title">Hipnocracia · Teatro Carcano</div><div class="event-desc">Jianwei Xun entrevistado por Maura Gancitano y Andrea Colamedici</div></div><span class="event-location">Milán</span></div>
+                    <div class="event-item"><span class="event-date">Abril</span><div><div class="event-title">El asalto a la ilusión</div><div class="event-desc">Conferencia en Arts Centre Santa Mònica</div></div><span class="event-location">Barcelona</span></div>
+                    <div class="event-item"><span class="event-date">Primavera</span><div><div class="event-title">Universidad Tsinghua</div><div class="event-desc">Concurso internacional sobre escritura e IA</div></div><span class="event-location">China</span></div>
                 </div>
             </div>
         </section>
-
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Recientes</h2>
-                    <span class="section-num">Principios de 2026</span>
-                </div>
-
+                <div class="section-header reveal"><h2 class="section-title">Recientes</h2><span class="section-num">Principios de 2026</span></div>
                 <div class="event-grid reveal">
-                    <div class="event-item past">
-                        <span class="event-date">26 febrero</span>
-                        <div>
-                            <div class="event-title">The Botany of Wonder · Salotto NYC</div>
-                            <div class="event-desc">Con Maura Gancitano. Conferencia sobre cultivar el asombro al final del mundo.</div>
-                        </div>
-                        <span class="event-location">Nueva York</span>
-                    </div>
-                    <div class="event-item past">
-                        <span class="event-date">Febrero</span>
-                        <div>
-                            <div class="event-title">Naciones Unidas</div>
-                            <div class="event-desc">Presentación en la sede de la ONU, como parte del programa internacional de Pensar con prompts.</div>
-                        </div>
-                        <span class="event-location">Nueva York</span>
-                    </div>
-                    <div class="event-item past">
-                        <span class="event-date">19 febrero</span>
-                        <div>
-                            <div class="event-title">Observatorio Konkoly · Seminario</div>
-                            <div class="event-desc">Tlon en el instituto húngaro de investigación astronómica. La filosofía encuentra la astrofísica.</div>
-                        </div>
-                        <span class="event-location">Budapest</span>
-                    </div>
-                    <div class="event-item past">
-                        <span class="event-date">22 enero</span>
-                        <div>
-                            <div class="event-title">AI Festival · El Oltresujeto</div>
-                            <div class="event-desc">Conferencia plenaria sobre agencia híbrida en la era de las inteligencias autónomas.</div>
-                        </div>
-                        <span class="event-location">Milán, Bocconi</span>
-                    </div>
-                    <div class="event-item past">
-                        <span class="event-date">13–14 enero</span>
-                        <div>
-                            <div class="event-title">Congreso Futuro · Cumbre de la Filosofía</div>
-                            <div class="event-desc">Conferencia sobre Hipnocracia y trance algorítmico. Panel con Lassalle, Lestel, Salecl, Taguchi, Ferraris, Guardiola.</div>
-                        </div>
-                        <span class="event-location">Santiago, Chile</span>
-                    </div>
+                    <div class="event-item past"><span class="event-date">26 febrero</span><div><div class="event-title">The Botany of Wonder · Salotto NYC</div><div class="event-desc">Con Maura Gancitano. Conferencia sobre cultivar el asombro al final del mundo.</div></div><span class="event-location">Nueva York</span></div>
+                    <div class="event-item past"><span class="event-date">19 febrero</span><div><div class="event-title">Observatorio Konkoly · Seminario</div><div class="event-desc">Tlon en el instituto húngaro de investigación astronómica. La filosofía encuentra la astrofísica.</div></div><span class="event-location">Budapest</span></div>
+                    <div class="event-item past"><span class="event-date">22 enero</span><div><div class="event-title">AI Festival · El Oltresujeto</div><div class="event-desc">Conferencia plenaria sobre agencia híbrida en la era de las inteligencias autónomas.</div></div><span class="event-location">Milán, Bocconi</span></div>
+                    <div class="event-item past"><span class="event-date">13–14 enero</span><div><div class="event-title">Congreso Futuro · Cumbre de la Filosofía</div><div class="event-desc">Conferencia sobre Hipnocracia y trance algorítmico. Panel con Lassalle, Lestel, Salecl, Taguchi, Ferraris, Guardiola.</div></div><span class="event-location">Santiago, Chile</span></div>
                 </div>
             </div>
         </section>
-
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Festivales</h2>
-                    <span class="section-num">Dirección</span>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Director Filosófico</span>
-                    <h3 class="festival-name">Festival del Pensare Contemporaneo</h3>
-                    <p class="festival-desc">Uno de los principales festivales de filosofía de Italia, celebrado anualmente en Piacenza. Cuatro días, más de 100 intervenciones y 50 eventos. En 2024, asistió el Presidente Mattarella.</p>
-                    <p class="festival-stats">19.000 asistentes (2023) – 24.000 asistentes (2024)</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Director Filosófico</span>
-                    <h3 class="festival-name">Carnevale di Putignano</h3>
-                    <p class="festival-desc">Dirección filosófica de uno de los carnavales más antiguos de Italia, integrando pensamiento contemporáneo en la celebración tradicional.</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Creador</span>
-                    <h3 class="festival-name">Festa della Filosofia</h3>
-                    <p class="festival-desc">Triennale Milán y Roma. Festival dedicado a hacer la filosofía accesible y atractiva para públicos amplios. Organizado en media-partnership con Rai Scuola.</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Creador</span>
-                    <h3 class="festival-name">Concerti Filosofici</h3>
-                    <p class="festival-desc">Performances en vivo combinando músicos con diálogo filosófico. Artistas destacados incluyen La Rappresentante di Lista, Niccolò Fabi, Vinicio Capossela.</p>
-                </div>
-
-                <div class="festival-card reveal">
-                    <span class="festival-role">Creador</span>
-                    <h3 class="festival-name">ilPod – Italian Podcast Awards</h3>
-                    <p class="festival-desc">Premios anuales que celebran los mejores podcasts italianos. Creado para apoyar el creciente ecosistema de podcasts en Italia.</p>
-                </div>
+                <div class="section-header reveal"><h2 class="section-title">Festivales</h2><span class="section-num">Dirección</span></div>
+                <div class="festival-card reveal"><span class="festival-role">Director Filosófico</span><h3 class="festival-name">Festival del Pensare Contemporaneo</h3><p class="festival-desc">Uno de los principales festivales de filosofía de Italia, celebrado anualmente en Piacenza. Cuatro días, más de 100 intervenciones y 50 eventos. En 2024, asistió el Presidente Mattarella.</p><p class="festival-stats">19.000 asistentes (2023) – 24.000 asistentes (2024)</p></div>
+                <div class="festival-card reveal"><span class="festival-role">Director Filosófico</span><h3 class="festival-name">Carnevale di Putignano</h3><p class="festival-desc">Dirección filosófica de uno de los carnavales más antiguos de Italia, integrando pensamiento contemporáneo en la celebración tradicional.</p></div>
+                <div class="festival-card reveal"><span class="festival-role">Creador</span><h3 class="festival-name">Festa della Filosofia</h3><p class="festival-desc">Triennale Milán y Roma. Festival dedicado a hacer la filosofía accesible y atractiva para públicos amplios.</p></div>
+                <div class="festival-card reveal"><span class="festival-role">Creador</span><h3 class="festival-name">Concerti Filosofici</h3><p class="festival-desc">Performances en vivo combinando músicos con diálogo filosófico. Artistas destacados incluyen La Rappresentante di Lista, Niccolò Fabi, Vinicio Capossela.</p></div>
+                <div class="festival-card reveal"><span class="festival-role">Creador</span><h3 class="festival-name">ilPod – Italian Podcast Awards</h3><p class="festival-desc">Premios anuales que celebran los mejores podcasts italianos.</p></div>
             </div>
         </section>
-
         <section class="section" style="background: var(--nero); color: var(--bianco);">
             <div class="section-content">
-                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
-                    <h2 class="section-title">Formación Corporativa</h2>
-                </div>
-
-                <div class="text-content reveal" style="margin-bottom: 2rem;">
-                    <p style="color: rgba(255,255,255,0.7);">Talleres y programas de formación sobre filosofía de la IA, pensar con prompts, diversidad e inclusión, alfabetización digital y navegación de la complejidad. Clientes incluyen:</p>
-                </div>
-
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);"><h2 class="section-title">Formación Corporativa</h2></div>
+                <div class="text-content reveal" style="margin-bottom: 2rem;"><p style="color: rgba(255,255,255,0.7);">Talleres y programas de formación sobre filosofía de la IA, pensar con prompts, diversidad e inclusión, alfabetización digital y navegación de la complejidad. Clientes incluyen:</p></div>
                 <div class="training-grid reveal">
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Google</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Amazon</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Ferrero</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Lamborghini</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">UniCredit</span>
-                    </div>
-                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
-                        <span class="training-name" style="color: var(--bianco);">Parlamento Europeo</span>
-                    </div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);"><span class="training-name" style="color: var(--bianco);">Google</span></div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);"><span class="training-name" style="color: var(--bianco);">Amazon</span></div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);"><span class="training-name" style="color: var(--bianco);">Ferrero</span></div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);"><span class="training-name" style="color: var(--bianco);">Lamborghini</span></div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);"><span class="training-name" style="color: var(--bianco);">UniCredit</span></div>
+                    <div class="training-item" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);"><span class="training-name" style="color: var(--bianco);">Parlamento Europeo</span></div>
                 </div>
             </div>
         </section>
-
         <section class="section">
             <div class="section-content">
-                <div class="section-header reveal">
-                    <h2 class="section-title">Reservas</h2>
-                </div>
-
+                <div class="section-header reveal"><h2 class="section-title">Reservas</h2></div>
                 <div class="text-content reveal">
                     <p>Para conferencias, keynotes, talleres y formación corporativa, contactar Tlon o escribir directamente.</p>
-                    <div style="margin-top: 2rem;">
-                        <a href="contacto.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
-                            <span>Contacto</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </div>
+                    <div style="margin-top: 2rem;"><a href="contacto.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);"><span>Contacto</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
                 </div>
             </div>
         </section>
     </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-left">© 2026 Andrea Colamedici</div>
-            <div class="footer-links">
-                <a href="https://tlon.it" target="_blank">Tlon</a>
-                <a href="contacto.html">Contacto</a>
-            </div>
-        </div>
-    </footer>
-
+    <footer><div class="footer-content"><div class="footer-left">© 2026 Andrea Colamedici</div><div class="footer-links"><a href="https://tlon.it" target="_blank">Tlon</a><a href="contacto.html">Contacto</a></div></div></footer>
     <script>
         const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         reveals.forEach(el => observer.observe(el));
-
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
         const header = document.querySelector('header');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            header.classList.toggle('menu-open');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                header.classList.remove('menu-open');
-                document.body.style.overflow = '';
-            });
-        });
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileMenu.classList.toggle('active'); header.classList.toggle('menu-open'); document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : ''; });
+        mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); header.classList.remove('menu-open'); document.body.style.overflow = ''; }); });
     </script>
-
 </body>
 </html>

@@ -54,7 +54,7 @@
 .counter-num { font-family: 'Instrument Serif', serif; font-size: 3.5rem; font-style: italic; color: var(--ottanio); line-height: 1; }
 .counter-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 0.5rem; }
 
-/* BIVIO SECTION — the fork diagram */
+/* BIVIO SECTION */
 .bivio-section { padding: 8rem 3rem; position: relative; }
 .bivio-inner { max-width: 900px; margin: 0 auto; text-align: center; }
 .bivio-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400; margin-bottom: 1rem; }
@@ -120,7 +120,7 @@
 .radar-info-desc { font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 2rem; min-height: 5rem; transition: all 0.4s ease; }
 .radar-info-weight { font-family: 'Instrument Serif', serif; font-size: 3rem; font-style: italic; color: var(--ottanio); opacity: 0.4; }
 
-/* AXES RADIAL — animated flower */
+/* AXES RADIAL */
 .axes-radial { padding: 8rem 3rem; background: #fafafa; }
 .axes-radial-inner { max-width: 900px; margin: 0 auto; text-align: center; }
 .axes-radial-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
@@ -135,7 +135,7 @@
 .axes-pdf-link { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); text-decoration: none; border-bottom: 1px solid rgba(42,107,107,0.3); padding-bottom: 0.15rem; transition: border-color 0.3s ease; }
 .axes-pdf-link:hover { border-color: var(--ottanio); }
 
-/* LAB — prompt timeline */
+/* LAB */
 .lab-section { padding: 8rem 3rem; background: var(--nero); color: var(--bianco); }
 .lab-inner { max-width: 900px; margin: 0 auto; }
 .lab-header { text-align: center; margin-bottom: 5rem; }
@@ -172,10 +172,7 @@
 .voice-author { font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-style: italic; color: var(--ottanio); margin-bottom: 0.25rem; }
 .voice-role { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grigio); margin-bottom: 2rem; }
 .voice-quote { font-family: 'Instrument Serif', serif; font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-style: italic; line-height: 1.6; color: var(--nero); margin-bottom: 2rem; position: relative; }
-.voice-quote::before { content: '\201C'; position: absolute; top: -0.4em; left: -0.6em; font-size: 3rem; color: rgba(42,107,107,0.15); }
-.voice-response { font-size: 0.95rem; line-height: 1.8; color: var(--grigio); max-width: 600px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid var(--grigio-chiaro); max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; }
-.voice-response.open { max-height: 400px; opacity: 1; padding-top: 1.5rem; }
-.voice-toggle { display: inline-block; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); cursor: pointer; margin-top: 1rem; border-bottom: 1px solid rgba(42,107,107,0.3); padding-bottom: 0.1rem; }
+.voice-quote::before { display: none; }
 .voices-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
 .voices-nav-btn { width: 40px; height: 40px; border: 1px solid var(--grigio-chiaro); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; background: transparent; transition: all 0.3s ease; }
 .voices-nav-btn:hover { border-color: var(--ottanio); }
@@ -276,7 +273,7 @@
 
 <div class="flow-div"><canvas id="flow1"></canvas></div>
 
-<!-- 3. IL BIVIO — animated SVG diagram -->
+<!-- 3. IL BIVIO -->
 <section class="bivio-section" id="bivioSection">
     <div class="bivio-inner">
         <h2 class="rv">Il bivio</h2>
@@ -310,7 +307,7 @@
     </div>
 </section>
 
-<!-- 5. PROTOCOLLO — radar interattivo -->
+<!-- 5. PROTOCOLLO -->
 <section class="proto" id="protoSection">
     <div class="proto-inner">
         <div class="proto-header rv">
@@ -330,7 +327,7 @@
 
 <div class="flow-div"><canvas id="flow3"></canvas></div>
 
-<!-- 6. ASSI — diagramma radiale animato -->
+<!-- 6. ASSI -->
 <section class="axes-radial" id="axesSection">
     <div class="axes-radial-inner">
         <h2 class="rv">I cinque assi</h2>
@@ -358,11 +355,11 @@
 
 <div class="flow-div"><canvas id="flow5"></canvas></div>
 
-<!-- 8. VOCI DAL DIBATTITO — carosello -->
+<!-- 8. VOCI DAL DIBATTITO -->
 <section class="voices-section" id="voicesSection">
     <div class="voices-inner">
         <h2 class="rv">Voci dal dibattito</h2>
-        <p class="voices-sub rv">Posizioni diverse, un confronto aperto.</p>
+        <p class="voices-sub rv">Commenti reali al post su LinkedIn.</p>
         <div class="voices-carousel rv" id="voicesCarousel"></div>
         <div class="voices-nav rv">
             <button class="voices-nav-btn" id="voicesPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -404,18 +401,18 @@ const CONVOS = {
             { role: 'human', text: 'Scrivi un saggio sulla crisi climatica' },
             { role: 'ai', text: 'La crisi climatica è una delle sfide più importanti del nostro tempo. Le temperature globali sono aumentate di circa 1,1°C rispetto ai livelli preindustriali...' },
             { role: 'human', text: 'Ok va bene. Rendilo più lungo' },
-            { role: 'ai', text: "La crisi climatica rappresenta una sfida epocale per l'umanità. Secondo l'IPCC, le temperature medie globali sono aumentate significativamente..." },
+            { role: 'ai', text: 'La crisi climatica rappresenta una sfida epocale per l\'umanità. Secondo l\'IPCC, le temperature medie globali sono aumentate significativamente...' },
             { role: 'human', text: 'Aggiungi una conclusione' }
         ],
         scores: [{l:'Resistenza',v:'1/4',c:'low'},{l:'Correzione',v:'1/4',c:'low'},{l:'Interrogazione',v:'1/4',c:'low'},{l:'Architettura',v:'1/4',c:'low'},{l:'Metacognizione',v:'1/4',c:'low'}]
     },
     traverse: {
         msgs: [
-            { role: 'human', text: "Sto lavorando a un saggio sulla crisi climatica. Vorrei concentrarmi su un aspetto specifico: <em>il rapporto tra linguaggio catastrofista e paralisi dell'azione</em>. Quali framework teorici posso usare?" },
+            { role: 'human', text: 'Sto lavorando a un saggio sulla crisi climatica. Vorrei concentrarmi su un aspetto specifico: <em>il rapporto tra linguaggio catastrofista e paralisi dell\'azione</em>. Quali framework teorici posso usare?' },
             { role: 'ai', text: 'Ci sono diversi framework rilevanti: la teoria del terrore (TMT), il concetto di "apocalypse fatigue" di Per Espen Stoknes, il framing theory di Lakoff applicato al clima...' },
             { role: 'human', text: 'Stoknes è interessante. Però la sua proposta ha un punto debole: non considera la dimensione di classe nel modo in cui il catastrofismo viene recepito. Riformula tenendo conto di questa critica.' },
             { role: 'ai', text: 'Hai ragione. Integrando la prospettiva di giustizia climatica, possiamo rileggere il framework di Stoknes attraverso la lente di...' },
-            { role: 'reflection', text: "[Nota: ho deciso di non usare il paragrafo generato dall'IA sulla giustizia climatica perché sovrappone concetti diversi. Riscrivo di mio pugno questa sezione.]" }
+            { role: 'reflection', text: '[Nota: ho deciso di non usare il paragrafo generato dall\'IA sulla giustizia climatica perché sovrappone concetti diversi. Riscrivo di mio pugno questa sezione.]' }
         ],
         scores: [{l:'Resistenza',v:'4/4',c:'high'},{l:'Correzione',v:'4/4',c:'high'},{l:'Interrogazione',v:'4/4',c:'high'},{l:'Architettura',v:'3/4',c:'high'},{l:'Metacognizione',v:'4/4',c:'high'}]
     }
@@ -423,19 +420,21 @@ const CONVOS = {
 
 const STAGES = [
     { label: 'Stadio 1 — Delega', prompt: 'Scrivi un saggio sulla crisi climatica', comment: 'Nessun contesto, nessun vincolo, nessuna direzione.' },
-    { label: 'Stadio 2 — Direzione', prompt: "Scrivi un saggio sulla crisi climatica focalizzato sul rapporto tra linguaggio catastrofista e paralisi dell'azione", comment: 'Un focus emerge, ma la domanda resta generica.' },
-    { label: 'Stadio 3 — Vincolo', prompt: "Usando il framework di Stoknes sull'apocalypse fatigue, analizza come il linguaggio catastrofista genera paralisi dell'azione. 2000 parole, registro accademico, con fonti.", comment: 'Vincoli espliciti: framework, lunghezza, registro.' },
-    { label: 'Stadio 4 — Critica', prompt: "Il framework di Stoknes non considera la dimensione di classe. Chi vive in zone a rischio non ha il privilegio della fatica apocalittica. Riformula l'analisi integrando questa critica.", comment: 'Lo studente corregge la macchina con un argomento proprio.' },
+    { label: 'Stadio 2 — Direzione', prompt: 'Scrivi un saggio sulla crisi climatica focalizzato sul rapporto tra linguaggio catastrofista e paralisi dell\'azione', comment: 'Un focus emerge, ma la domanda resta generica.' },
+    { label: 'Stadio 3 — Vincolo', prompt: 'Usando il framework di Stoknes sull\'apocalypse fatigue, analizza come il linguaggio catastrofista genera paralisi dell\'azione. 2000 parole, registro accademico, con fonti.', comment: 'Vincoli espliciti: framework, lunghezza, registro.' },
+    { label: 'Stadio 4 — Critica', prompt: 'Il framework di Stoknes non considera la dimensione di classe. Chi vive in zone a rischio non ha il privilegio della fatica apocalittica. Riformula l\'analisi integrando questa critica.', comment: 'Lo studente corregge la macchina con un argomento proprio.' },
     { label: 'Stadio 5 — Metacognizione', prompt: '[Nota: non uso il paragrafo generato. La macchina sovrappone concetti diversi. Riscrivo di mio pugno, uso solo il riferimento bibliografico.]', comment: 'Rifiuto consapevole, riflessione sul processo.' }
 ];
 
 const VOICES = [
-    { author: 'Il docente scettico', role: 'Scuola superiore', quote: 'Se lo studente può far scrivere tutto alla macchina, che senso ha valutare?', response: "Il senso sta proprio nel cambiamento dell'oggetto di valutazione. Il protocollo non valuta il testo finale, ma la conversazione che lo ha prodotto: i prompt, le correzioni, le scelte. La delega totale è essa stessa una risposta valutabile, e il punteggio che ne risulta lo riflette con precisione." },
-    { author: 'La ricercatrice', role: "Scienze dell'educazione", quote: 'Servirebbero dati empirici. Cinque assi e quattro livelli sono una struttura elegante, ma è stata validata sul campo?', response: "La critica è legittima. Il protocollo è una proposta teorica che attende validazione empirica. Le rubriche sono costruite su fondamenti pedagogici solidi, ma la calibrazione dei pesi e l'affidabilità inter-valutatore richiedono sperimentazione." },
-    { author: 'Lo studente', role: 'Università', quote: "Finalmente qualcuno che non parte dal presupposto che usare l'IA sia barare. Però mi chiedo: e la privacy delle mie conversazioni?", response: 'La questione è cruciale. Il protocollo richiede la condivisione del log della conversazione, il che solleva problemi di privacy che vanno affrontati con protocolli etici rigorosi, anonimizzazione e consenso informato.' },
-    { author: 'Il filosofo della tecnica', role: 'Accademia', quote: "L'idea che il processo sia più rivelatore del prodotto è antica. Bergson direbbe che state finalmente guardando la durée.", response: 'Il riferimento è pertinente. La novità non è il principio, ma lo strumento: per la prima volta, la conversazione con la macchina produce un log completo del processo di pensiero, rendendo leggibile ciò che prima era invisibile.' },
-    { author: 'La dirigente scolastica', role: 'Istituto comprensivo', quote: 'Come faccio ad applicarlo con 25 studenti per classe e colleghi che faticano ad aprire un PDF?', response: "La scalabilità è il limite più onesto del protocollo. Richiede formazione dei docenti e tempo di valutazione significativo. È pensato per essere introdotto gradualmente, forse a partire da progetti specifici, non come sostituzione universale." },
-    { author: "L'ingegnere AI", role: 'Industria tech', quote: 'State valutando il prompt engineering, in pratica. Ma i modelli cambiano ogni sei mesi. Il protocollo regge?', response: 'Il protocollo non valuta la competenza tecnica nel prompting, ma la qualità del pensiero che il prompting rivela. La resistenza alla facilità, la capacità correttiva, la riflessione metacognitiva sono competenze che prescindono dal modello specifico.' }
+    { author: 'Roberto I.', role: 'Neuropsicologo e Psicoanalista', quote: 'Mai come oggi emerge la differenza tra chi sa usare gli strumenti e chi ne è usato. L\'AI amplifica chi ragiona — e smaschera chi delega.' },
+    { author: 'Gabriele D.M.', role: 'Professore di Diritto Internazionale', quote: 'C\'è però il pericolo che lo studente chieda di generare un testo con dei prompt e delle risposte che siano la simulazione, la mimesis, di quel dialogo. La mia non è una provocazione. Solo un interrogativo a voce alta.' },
+    { author: 'Alessandro B.', role: 'Quality and Project Manager', quote: 'Valutare un processo, per di più mentale, mediato da uno strumento, significa adottare un metodo molto complesso. Un buon processo può portare a un cattivo risultato, e viceversa. Quando processo ed esito diranno cose diverse, quale dei due prevarrà?' },
+    { author: 'Lorenzo G.', role: 'Co-founder di Steelitalia', quote: 'Credo sia importante mantenere spazi in cui il pensiero possa nascere senza alcuna mediazione tecnologica. Se abituiamo gli studenti fin dall\'inizio a ragionare sempre in dialogo con una macchina, rischiamo di trasformarli in ottimi correttori e raffinatori di idee… ma non necessariamente in generatori di pensiero autonomo.' },
+    { author: 'Ester M.', role: 'Founder & CEO @Podstar', quote: 'Non resistere alla tecnologia ma neanche diventarne fruitori passivi. Questo approccio dovrebbe valere anche per chi oggi lo usa per lavoro. Il processo, la capacità di capire cosa va e cosa non funziona nella risposta e perché, la voglia di andare a fondo, di non accontentarsi.' },
+    { author: 'Flavio G.', role: 'Senior Product Manager', quote: 'Le domande e le sfide dell\'istruzione devono diventare meno «qual è la risposta, il numero?» e sempre più «cosa stiamo cercando di ottenere qui?»' },
+    { author: 'Giovanni B.G.', role: 'Training Specialist & Content Creator', quote: 'Mettendomi nei panni dello studente più furbo, se chiedo all\'AI come aggirare il metodo che proponi, si ottengono soluzioni che fanno ancora più paura. Forse l\'interrogazione orale è l\'ultima spiaggia non ancora colonizzata?' },
+    { author: 'Giancarlo P.', role: 'Leadership, Coaching & Training', quote: 'Quali parametri possono, o meglio dovrebbero, essere codificati per una valutazione di questo processo che sia il più possibile omogenea?' }
 ];
 
 /* ===== HERO CANVAS ===== */
@@ -501,40 +500,33 @@ sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getEleme
     svg.setAttribute('viewBox','0 0 760 340');
     svg.setAttribute('fill','none');
 
-    // Center starting node
     const startX=380, startY=30;
 
-    // Left path: Proibire -> dead end
     const leftPath=document.createElementNS(svgNS,'path');
     leftPath.setAttribute('d',`M${startX},${startY+20} C${startX},80 200,100 180,160 S140,240 160,280`);
     leftPath.setAttribute('stroke','#8a5a4a');leftPath.setAttribute('stroke-width','2.5');leftPath.setAttribute('stroke-linecap','round');
     leftPath.classList.add('draw-path');leftPath.id='pathLeft';
 
-    // Right path: Valutare il processo -> trace
     const rightPath=document.createElementNS(svgNS,'path');
     rightPath.setAttribute('d',`M${startX},${startY+20} C${startX},80 560,100 580,160 S620,240 600,280`);
     rightPath.setAttribute('stroke','var(--ottanio)');rightPath.setAttribute('stroke-width','2.5');rightPath.setAttribute('stroke-linecap','round');
     rightPath.classList.add('draw-path');rightPath.id='pathRight';
 
-    // Start node
     const startG=document.createElementNS(svgNS,'g');startG.classList.add('svg-node');startG.id='nodeStart';
     const startCirc=document.createElementNS(svgNS,'circle');startCirc.setAttribute('cx',startX);startCirc.setAttribute('cy',startY);startCirc.setAttribute('r','16');startCirc.setAttribute('fill','var(--nero)');startCirc.setAttribute('stroke','var(--ottanio)');startCirc.setAttribute('stroke-width','2');
     const startLabel=document.createElementNS(svgNS,'text');startLabel.setAttribute('x',startX);startLabel.setAttribute('y',startY+1);startLabel.setAttribute('text-anchor','middle');startLabel.setAttribute('dominant-baseline','middle');startLabel.setAttribute('fill','var(--ottanio)');startLabel.setAttribute('font-size','11');startLabel.setAttribute('font-family','Inter');startLabel.textContent='?';
     startG.appendChild(startCirc);startG.appendChild(startLabel);
 
-    // Left end node — lock
     const leftG=document.createElementNS(svgNS,'g');leftG.classList.add('svg-node');leftG.id='nodeLeft';
     const leftCirc=document.createElementNS(svgNS,'circle');leftCirc.setAttribute('cx','160');leftCirc.setAttribute('cy','290');leftCirc.setAttribute('r','22');leftCirc.setAttribute('fill','rgba(138,90,74,0.1)');leftCirc.setAttribute('stroke','#8a5a4a');leftCirc.setAttribute('stroke-width','2');
     const lockPath=document.createElementNS(svgNS,'path');lockPath.setAttribute('d','M153,293v-5a7,7,0,0,1,14,0v5 M150,293h20v12a2,2,0,0,1-2,2h-16a2,2,0,0,1-2-2z');lockPath.setAttribute('stroke','#8a5a4a');lockPath.setAttribute('stroke-width','1.5');lockPath.setAttribute('fill','none');lockPath.setAttribute('stroke-linecap','round');lockPath.setAttribute('stroke-linejoin','round');
     leftG.appendChild(leftCirc);leftG.appendChild(lockPath);
 
-    // Right end node — trace/footprint
     const rightG=document.createElementNS(svgNS,'g');rightG.classList.add('svg-node');rightG.id='nodeRight';
     const rightCirc=document.createElementNS(svgNS,'circle');rightCirc.setAttribute('cx','600');rightCirc.setAttribute('cy','290');rightCirc.setAttribute('r','22');rightCirc.setAttribute('fill','rgba(42,107,107,0.1)');rightCirc.setAttribute('stroke','var(--ottanio)');rightCirc.setAttribute('stroke-width','2');
     const tracePath=document.createElementNS(svgNS,'path');tracePath.setAttribute('d','M592,296 l4,-8 l4,4 l4,-10 l4,6 l4,-4');tracePath.setAttribute('stroke','var(--ottanio)');tracePath.setAttribute('stroke-width','2');tracePath.setAttribute('fill','none');tracePath.setAttribute('stroke-linecap','round');tracePath.setAttribute('stroke-linejoin','round');
     rightG.appendChild(rightCirc);rightG.appendChild(tracePath);
 
-    // Labels
     function makeLabel(x,y,text,color,id){
         const t=document.createElementNS(svgNS,'text');t.setAttribute('x',x);t.setAttribute('y',y);
         t.setAttribute('text-anchor','middle');t.setAttribute('fill',color);t.setAttribute('font-size','13');
@@ -542,26 +534,20 @@ sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getEleme
         t.textContent=text;t.classList.add('svg-label');t.id=id;return t;
     }
 
-    // Path labels
     const lblLeft=makeLabel(100,175,'Proibire','#8a5a4a','lblLeft');
     const lblRight=makeLabel(660,175,'Valutare il processo','#2a6b6b','lblRight');
-
-    // Bottom labels
     const lblLeftBot=makeLabel(160,335,'Vicolo cieco','#8a5a4a','lblLeftBot');
     const lblRightBot=makeLabel(600,335,'La traccia visibile','#2a6b6b','lblRightBot');
 
-    // Cross on left path
     const crossG=document.createElementNS(svgNS,'g');crossG.classList.add('svg-node');crossG.id='crossLeft';
     const cr1=document.createElementNS(svgNS,'line');cr1.setAttribute('x1','148');cr1.setAttribute('y1','218');cr1.setAttribute('x2','172');cr1.setAttribute('y2','242');cr1.setAttribute('stroke','#8a5a4a');cr1.setAttribute('stroke-width','2.5');cr1.setAttribute('stroke-linecap','round');
     const cr2=document.createElementNS(svgNS,'line');cr2.setAttribute('x1','172');cr2.setAttribute('y1','218');cr2.setAttribute('x2','148');cr2.setAttribute('y2','242');cr2.setAttribute('stroke','#8a5a4a');cr2.setAttribute('stroke-width','2.5');cr2.setAttribute('stroke-linecap','round');
     crossG.appendChild(cr1);crossG.appendChild(cr2);
 
-    // Checkmark on right path
     const checkG=document.createElementNS(svgNS,'g');checkG.classList.add('svg-node');checkG.id='checkRight';
     const chk=document.createElementNS(svgNS,'polyline');chk.setAttribute('points','588,230 598,240 612,220');chk.setAttribute('stroke','var(--ottanio)');chk.setAttribute('stroke-width','2.5');chk.setAttribute('fill','none');chk.setAttribute('stroke-linecap','round');chk.setAttribute('stroke-linejoin','round');
     checkG.appendChild(chk);
 
-    // Assemble
     svg.appendChild(leftPath);svg.appendChild(rightPath);
     svg.appendChild(startG);svg.appendChild(leftG);svg.appendChild(rightG);
     svg.appendChild(crossG);svg.appendChild(checkG);
@@ -569,27 +555,18 @@ sideNavDots.forEach(d=>d.addEventListener('click',()=>{const t=document.getEleme
     svg.appendChild(lblLeftBot);svg.appendChild(lblRightBot);
     wrap.appendChild(svg);
 
-    // Measure actual path lengths
     const leftLen=leftPath.getTotalLength();
     const rightLen=rightPath.getTotalLength();
     leftPath.style.strokeDasharray=leftLen;leftPath.style.strokeDashoffset=leftLen;
     rightPath.style.strokeDasharray=rightLen;rightPath.style.strokeDashoffset=rightLen;
 
-    // Animate on scroll
     const bivioObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
-        // Show start node immediately
         setTimeout(()=>document.getElementById('nodeStart').classList.add('shown'),100);
-        // Draw paths
         setTimeout(()=>{leftPath.style.strokeDashoffset='0';rightPath.style.strokeDashoffset='0';},300);
-        // Show labels along paths
         setTimeout(()=>{document.getElementById('lblLeft').classList.add('shown');document.getElementById('lblRight').classList.add('shown');},900);
-        // Show cross and check
         setTimeout(()=>{document.getElementById('crossLeft').classList.add('shown');document.getElementById('checkRight').classList.add('shown');},1400);
-        // Show end nodes
         setTimeout(()=>{document.getElementById('nodeLeft').classList.add('shown');document.getElementById('nodeRight').classList.add('shown');},1700);
-        // Show bottom labels
         setTimeout(()=>{document.getElementById('lblLeftBot').classList.add('shown');document.getElementById('lblRightBot').classList.add('shown');},2000);
-        // Show quote
         setTimeout(()=>document.getElementById('bivioQuote').classList.add('vis'),2300);
         bivioObs.unobserve(en.target);
     }});},{threshold:0.3});
@@ -615,25 +592,21 @@ function showConvo(key){
 convoTabs.forEach(tab=>tab.addEventListener('click',()=>{convoTabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');showConvo(tab.dataset.convo);}));
 showConvo('delegate');
 
-/* ===== RADAR CHART (interactive, from v2) ===== */
+/* ===== RADAR CHART ===== */
 (function(){
     const svg=document.getElementById('radarChart');
     const cx=200,cy=200,R=160;const n=AXES.length;
     const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
-    // Grid
     for(let r=1;r<=4;r++){
         let pts=[];angles.forEach(a=>{const rr=(R/4)*r;pts.push(`${cx+Math.cos(a)*rr},${cy+Math.sin(a)*rr}`);});
         const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
         poly.setAttribute('points',pts.join(' '));poly.setAttribute('fill','none');poly.setAttribute('stroke','rgba(255,255,255,0.06)');poly.setAttribute('stroke-width','1');svg.appendChild(poly);
     }
-    // Axis lines
     angles.forEach(a=>{const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',cx+Math.cos(a)*R);line.setAttribute('y2',cy+Math.sin(a)*R);line.setAttribute('stroke','rgba(255,255,255,0.04)');line.setAttribute('stroke-width','1');svg.appendChild(line);});
-    // Data polygon
     const vals=AXES.map(a=>a.weight/25);
     let dataPts=[];vals.forEach((v,i)=>{const a=angles[i];dataPts.push(`${cx+Math.cos(a)*R*v},${cy+Math.sin(a)*R*v}`);});
     const dataPoly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
     dataPoly.setAttribute('points',dataPts.join(' '));dataPoly.setAttribute('fill','rgba(42,107,107,0.15)');dataPoly.setAttribute('stroke','rgba(42,107,107,0.6)');dataPoly.setAttribute('stroke-width','2');dataPoly.style.transition='all 0.6s ease';svg.appendChild(dataPoly);
-    // Interactive dots + labels
     const titleEl=document.getElementById('radarTitle');
     const descEl=document.getElementById('radarDesc');
     const weightEl=document.getElementById('radarWeight');
@@ -670,7 +643,6 @@ showConvo('delegate');
     const n=AXES.length;
     const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
 
-    // Center circle
     const centerC=document.createElementNS(svgNS,'circle');
     centerC.setAttribute('cx',cx);centerC.setAttribute('cy',cy);centerC.setAttribute('r','30');
     centerC.setAttribute('fill','rgba(42,107,107,0.08)');centerC.setAttribute('stroke','var(--ottanio)');centerC.setAttribute('stroke-width','1.5');
@@ -685,7 +657,6 @@ showConvo('delegate');
         const petalG=document.createElementNS(svgNS,'g');petalG.classList.add('axis-petal');petalG.id='petal'+i;
         petalG.style.transitionDelay=(i*0.15)+'s';
 
-        // Ray line
         const ray=document.createElementNS(svgNS,'line');
         ray.setAttribute('x1',cx+Math.cos(a)*35);ray.setAttribute('y1',cy+Math.sin(a)*35);
         const rayLen=40+(ax.weight/25)*R*0.55;
@@ -693,7 +664,6 @@ showConvo('delegate');
         ray.setAttribute('stroke',ax.color);ray.setAttribute('stroke-width','2');ray.setAttribute('stroke-linecap','round');
         ray.setAttribute('opacity','0.6');
 
-        // End circle (size proportional to weight)
         const endR=12+(ax.weight/25)*10;
         const endX=cx+Math.cos(a)*(rayLen+endR+4);const endY=cy+Math.sin(a)*(rayLen+endR+4);
         const endC=document.createElementNS(svgNS,'circle');
@@ -701,14 +671,12 @@ showConvo('delegate');
         endC.setAttribute('fill',ax.color);endC.setAttribute('opacity','0.12');endC.setAttribute('stroke',ax.color);endC.setAttribute('stroke-width','1.5');
         endC.classList.add('axis-petal-fill');
 
-        // Weight text inside circle
         const wTxt=document.createElementNS(svgNS,'text');
         wTxt.setAttribute('x',endX);wTxt.setAttribute('y',endY+1);wTxt.setAttribute('text-anchor','middle');
         wTxt.setAttribute('dominant-baseline','middle');wTxt.setAttribute('fill',ax.color);
         wTxt.setAttribute('font-size','11');wTxt.setAttribute('font-family','Instrument Serif');
         wTxt.setAttribute('font-style','italic');wTxt.textContent=ax.weight+'%';
 
-        // Name label outside
         const lblX=cx+Math.cos(a)*(rayLen+endR*2+18);const lblY=cy+Math.sin(a)*(rayLen+endR*2+18);
         const nameTxt=document.createElementNS(svgNS,'text');
         nameTxt.setAttribute('x',lblX);nameTxt.setAttribute('y',lblY);nameTxt.setAttribute('text-anchor','middle');
@@ -716,7 +684,6 @@ showConvo('delegate');
         nameTxt.setAttribute('font-size','10');nameTxt.setAttribute('font-family','Inter');
         nameTxt.setAttribute('font-weight','500');nameTxt.setAttribute('letter-spacing','0.03em');
 
-        // Split long names
         const words=ax.name.split(' ');
         if(words.length>2){
             const mid=Math.ceil(words.length/2);
@@ -728,7 +695,6 @@ showConvo('delegate');
             nameTxt.textContent=ax.name;
         }
 
-        // Hover: invisible hit area
         const hitR=rayLen+endR*2+10;
         const hitArea=document.createElementNS(svgNS,'circle');
         hitArea.setAttribute('cx',cx+Math.cos(a)*(hitR/2+15));hitArea.setAttribute('cy',cy+Math.sin(a)*(hitR/2+15));
@@ -750,7 +716,6 @@ showConvo('delegate');
 
     wrap.appendChild(svg);
 
-    // Animate petals on scroll
     const axesObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
         AXES.forEach((_,i)=>setTimeout(()=>document.getElementById('petal'+i).classList.add('grown'),i*200));
         axesObs.unobserve(en.target);
@@ -772,7 +737,6 @@ showConvo('delegate');
         rvObs.observe(stop);
     });
 
-    // Gauges for final evaluation
     const gaugeData=[{name:'Resistenza',val:4},{name:'Correzione',val:4},{name:'Interrogazione',val:4},{name:'Architettura',val:3},{name:'Metacognizione',val:4}];
     gaugeData.forEach(g=>{
         const circ=2*Math.PI*32;const offset=circ-(g.val/4)*circ;
@@ -781,14 +745,12 @@ showConvo('delegate');
         gaugesWrap.appendChild(div);
     });
 
-    // Animate gauges
     const gaugeObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
         en.target.querySelectorAll('.lab-gauge-ring').forEach(ring=>{ring.style.strokeDashoffset=ring.dataset.target;});
         gaugeObs.unobserve(en.target);
     }});},{threshold:0.3});
     gaugeObs.observe(gaugesWrap);
 
-    // Verdict
     const totalScore=Math.round(((4*25)+(4*25)+(4*20)+(3*15)+(4*15))/4);
     verdictWrap.innerHTML=`<div class="lab-verdict-score">${totalScore}/100</div><div class="lab-verdict-label">Eccellente — Attraversamento del pensiero</div>`;
 })();
@@ -801,7 +763,7 @@ showConvo('delegate');
 
     VOICES.forEach((v,i)=>{
         const slide=document.createElement('div');slide.className='voice-slide'+(i===0?' active':'');slide.dataset.idx=i;
-        slide.innerHTML=`<div class="voice-author">${v.author}</div><div class="voice-role">${v.role}</div><div class="voice-quote">${v.quote}</div><div class="voice-toggle" data-idx="${i}">Leggi la risposta</div><div class="voice-response" id="vResp${i}">${v.response}</div>`;
+        slide.innerHTML=`<div class="voice-author">${v.author}</div><div class="voice-role">${v.role}</div><div class="voice-quote">\u201C${v.quote}\u201D</div>`;
         carousel.appendChild(slide);
 
         const dot=document.createElement('div');dot.className='voices-dot'+(i===0?' active':'');dot.dataset.idx=i;
@@ -822,15 +784,6 @@ showConvo('delegate');
     document.getElementById('voicesNext').addEventListener('click',()=>goTo((currentSlide+1)%VOICES.length));
     document.getElementById('voicesPrev').addEventListener('click',()=>goTo((currentSlide-1+VOICES.length)%VOICES.length));
     dotsWrap.querySelectorAll('.voices-dot').forEach(d=>d.addEventListener('click',()=>goTo(parseInt(d.dataset.idx))));
-
-    // Toggle response
-    carousel.addEventListener('click',e=>{
-        const toggle=e.target.closest('.voice-toggle');
-        if(!toggle)return;
-        const resp=document.getElementById('vResp'+toggle.dataset.idx);
-        resp.classList.toggle('open');
-        toggle.textContent=resp.classList.contains('open')?'Chiudi':'Leggi la risposta';
-    });
 
     // Autoplay
     let autoplay=setInterval(()=>goTo((currentSlide+1)%VOICES.length),8000);

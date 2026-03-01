@@ -236,7 +236,7 @@
 @media (max-width: 900px) {
     .side-nav { display: none; }
     .t-hero-content { padding: 4rem 1.5rem; }
-    .bivio-section, .convo-section, .proto, .axes-radial, .lab-section, .linkedin-section, .voices-section, .dl-section { padding: 5rem 1.5rem; }
+    .bivio-section, .convo-section, .proto, .linkedin-section, .voices-section, .dl-section { padding: 5rem 1.5rem; }
     .pt-section { padding: 4rem 1.5rem; }
     .pt-inner { flex-direction: column; text-align: center; }
     .pt-cover { width: 120px; }
@@ -264,8 +264,6 @@
     <div class="side-nav-dot" data-label="Il bivio" data-target="bivioSection"></div>
     <div class="side-nav-dot" data-label="Dialogo" data-target="convoSection"></div>
     <div class="side-nav-dot" data-label="Protocollo" data-target="protoSection"></div>
-    <div class="side-nav-dot" data-label="Assi" data-target="axesSection"></div>
-    <div class="side-nav-dot" data-label="Laboratorio" data-target="labSection"></div>
     <div class="side-nav-dot" data-label="Post" data-target="linkedinSection"></div>
     <div class="side-nav-dot" data-label="Voci" data-target="voicesSection"></div>
     <div class="side-nav-dot" data-label="Scarica" data-target="dlSection"></div>
@@ -362,33 +360,7 @@
 
 <div class="flow-div"><canvas id="flow3"></canvas></div>
 
-<!-- 6. ASSI -->
-<section class="axes-radial" id="axesSection">
-    <div class="axes-radial-inner">
-        <h2 class="rv">I cinque assi</h2>
-        <p class="axes-radial-sub rv">Ogni dimensione misura un aspetto diverso del pensiero in azione. Passa il cursore per esplorare.</p>
-        <div class="axes-svg-wrap rv" id="axesSvg"></div>
-        <div class="axes-hover-info" id="axesHoverInfo">Esplora gli assi con il cursore</div>
-        <a href="assets/docs/la-traccia-visibile-del-pensiero.pdf" class="axes-pdf-link" download>Vedi le rubriche complete nel PDF</a>
-    </div>
-</section>
-
-<div class="flow-div dark"><canvas id="flow4"></canvas></div>
-
-<!-- 7. LABORATORIO DEL PROMPT -->
-<section class="lab-section" id="labSection">
-    <div class="lab-inner">
-        <div class="lab-header rv">
-            <h2>Il laboratorio del prompt</h2>
-            <p>Cinque stadi di maturazione. Lo stesso studente, la stessa domanda, prompt sempre più consapevoli.</p>
-        </div>
-        <div class="lab-timeline" id="labTimeline"></div>
-        <div class="lab-gauges rv" id="labGauges"></div>
-        <div class="lab-verdict rv" id="labVerdict"></div>
-    </div>
-</section>
-
-<div class="flow-div"><canvas id="flow5"></canvas></div>
+<div class="flow-div"><canvas id="flow4"></canvas></div>
 
 <!-- 8. IL POST SU LINKEDIN -->
 <section class="linkedin-section" id="linkedinSection">
@@ -407,7 +379,7 @@
             </div>
             <div class="linkedin-card-text">La valutazione del testo consegnato, il compito finito, l'elaborato a casa, da solo, nella sua forma definitiva, ha perso buona parte della sua funzione diagnostica. Bisogna farsene una ragione. La conseguenza è una sola, ed è radicale: <em>bisogna spostare la valutazione dal prodotto al processo</em>. E il processo che va valutato è l'uso dell'intelligenza artificiale stessa. Uno studente che discute con la macchina, che la corregge, che la costringe a riformulare, che rifiuta le semplificazioni e insiste sulle distinzioni, è uno studente che sta pensando — e sta pensando in un modo che il testo finale, da solo, non può mostrare. <em>Il pensiero lascia una traccia visibile, leggibile, analizzabile, e quella traccia è la conversazione con la macchina.</em></div>
             <div class="linkedin-card-footer">
-                <span class="linkedin-card-stats">23+ commenti · Professionisti, docenti, imprenditori</span>
+                <span class="linkedin-card-stats">Centinaia di commenti · Professionisti, docenti, imprenditori</span>
                 <a href="https://www.linkedin.com/posts/andrea-colamedici-77751b53_sono-a-new-york-in-questi-giorni-e-anche-share-7433578898686316545-6E7o" class="linkedin-card-link" target="_blank" rel="noopener">Leggi il post →</a>
             </div>
         </div>
@@ -490,14 +462,6 @@ const CONVOS = {
     }
 };
 
-const STAGES = [
-    { label: 'Stadio 1 — Delega', prompt: 'Scrivi un saggio sulla crisi climatica', comment: 'Nessun contesto, nessun vincolo, nessuna direzione.' },
-    { label: 'Stadio 2 — Direzione', prompt: 'Scrivi un saggio sulla crisi climatica focalizzato sul rapporto tra linguaggio catastrofista e paralisi dell\'azione', comment: 'Un focus emerge, ma la domanda resta generica.' },
-    { label: 'Stadio 3 — Vincolo', prompt: 'Usando il framework di Stoknes sull\'apocalypse fatigue, analizza come il linguaggio catastrofista genera paralisi dell\'azione. 2000 parole, registro accademico, con fonti.', comment: 'Vincoli espliciti: framework, lunghezza, registro.' },
-    { label: 'Stadio 4 — Critica', prompt: 'Il framework di Stoknes non considera la dimensione di classe. Chi vive in zone a rischio non ha il privilegio della fatica apocalittica. Riformula l\'analisi integrando questa critica.', comment: 'Lo studente corregge la macchina con un argomento proprio.' },
-    { label: 'Stadio 5 — Metacognizione', prompt: '[Nota: non uso il paragrafo generato. La macchina sovrappone concetti diversi. Riscrivo di mio pugno, uso solo il riferimento bibliografico.]', comment: 'Rifiuto consapevole, riflessione sul processo.' }
-];
-
 const VOICES = [
     { author: 'Roberto I.', role: 'Neuropsicologo e Psicoanalista', quote: 'Mai come oggi emerge la differenza tra chi sa usare gli strumenti e chi ne è usato. L\'AI amplifica chi ragiona — e smaschera chi delega.' },
     { author: 'Gabriele D.M.', role: 'Professore di Diritto Internazionale', quote: 'C\'è però il pericolo che lo studente chieda di generare un testo con dei prompt e delle risposte che siano la simulazione, la mimesis, di quel dialogo. La mia non è una provocazione. Solo un interrogativo a voce alta.' },
@@ -539,7 +503,7 @@ function initFlow(id){
             for(let i=0;i<=100;i++){const px=(i/100)*w,py=h/2+Math.sin(i*.07+t+l*1.2)*25+Math.sin(i*.025+t*1.4+l)*18+Math.cos(i*.04+t*.8+l*2)*10;
                 if(i===0)x.moveTo(px,py);else x.lineTo(px,py);}x.stroke();}requestAnimationFrame(d);}d();
 }
-['flow1','flow2','flow3','flow4','flow5'].forEach(initFlow);
+['flow1','flow2','flow3','flow4'].forEach(initFlow);
 
 /* ===== CURSOR LIGHT ===== */
 const cursorLight=document.getElementById('cursorLight');
@@ -702,129 +666,6 @@ showConvo('delegate');
         [circle,hitArea].forEach(el=>{el.addEventListener('mouseenter',hover);el.addEventListener('mouseleave',leave);});
         svg.appendChild(hitArea);svg.appendChild(circle);svg.appendChild(txt);
     });
-})();
-
-/* ===== AXES RADIAL DIAGRAM ===== */
-(function(){
-    const wrap=document.getElementById('axesSvg');
-    const info=document.getElementById('axesHoverInfo');
-    const svgNS='http://www.w3.org/2000/svg';
-    const svg=document.createElementNS(svgNS,'svg');
-    svg.setAttribute('viewBox','0 0 520 520');svg.setAttribute('fill','none');
-    const cx=260,cy=260,R=200;
-    const n=AXES.length;
-    const angles=AXES.map((_,i)=>((Math.PI*2*i)/n)-Math.PI/2);
-
-    const centerC=document.createElementNS(svgNS,'circle');
-    centerC.setAttribute('cx',cx);centerC.setAttribute('cy',cy);centerC.setAttribute('r','30');
-    centerC.setAttribute('fill','rgba(42,107,107,0.08)');centerC.setAttribute('stroke','var(--ottanio)');centerC.setAttribute('stroke-width','1.5');
-    svg.appendChild(centerC);
-    const centerTxt=document.createElementNS(svgNS,'text');centerTxt.setAttribute('x',cx);centerTxt.setAttribute('y',cy+1);
-    centerTxt.setAttribute('text-anchor','middle');centerTxt.setAttribute('dominant-baseline','middle');
-    centerTxt.setAttribute('fill','var(--ottanio)');centerTxt.setAttribute('font-size','11');centerTxt.setAttribute('font-family','Inter');
-    centerTxt.setAttribute('font-weight','500');centerTxt.textContent='PVP';svg.appendChild(centerTxt);
-
-    AXES.forEach((ax,i)=>{
-        const a=angles[i];
-        const petalG=document.createElementNS(svgNS,'g');petalG.classList.add('axis-petal');petalG.id='petal'+i;
-        petalG.style.transitionDelay=(i*0.15)+'s';
-
-        const ray=document.createElementNS(svgNS,'line');
-        ray.setAttribute('x1',cx+Math.cos(a)*35);ray.setAttribute('y1',cy+Math.sin(a)*35);
-        const rayLen=40+(ax.weight/25)*R*0.55;
-        ray.setAttribute('x2',cx+Math.cos(a)*rayLen);ray.setAttribute('y2',cy+Math.sin(a)*rayLen);
-        ray.setAttribute('stroke',ax.color);ray.setAttribute('stroke-width','2');ray.setAttribute('stroke-linecap','round');
-        ray.setAttribute('opacity','0.6');
-
-        const endR=12+(ax.weight/25)*10;
-        const endX=cx+Math.cos(a)*(rayLen+endR+4);const endY=cy+Math.sin(a)*(rayLen+endR+4);
-        const endC=document.createElementNS(svgNS,'circle');
-        endC.setAttribute('cx',endX);endC.setAttribute('cy',endY);endC.setAttribute('r',endR);
-        endC.setAttribute('fill',ax.color);endC.setAttribute('opacity','0.12');endC.setAttribute('stroke',ax.color);endC.setAttribute('stroke-width','1.5');
-        endC.classList.add('axis-petal-fill');
-
-        const wTxt=document.createElementNS(svgNS,'text');
-        wTxt.setAttribute('x',endX);wTxt.setAttribute('y',endY+1);wTxt.setAttribute('text-anchor','middle');
-        wTxt.setAttribute('dominant-baseline','middle');wTxt.setAttribute('fill',ax.color);
-        wTxt.setAttribute('font-size','11');wTxt.setAttribute('font-family','Instrument Serif');
-        wTxt.setAttribute('font-style','italic');wTxt.textContent=ax.weight+'%';
-
-        const lblX=cx+Math.cos(a)*(rayLen+endR*2+18);const lblY=cy+Math.sin(a)*(rayLen+endR*2+18);
-        const nameTxt=document.createElementNS(svgNS,'text');
-        nameTxt.setAttribute('x',lblX);nameTxt.setAttribute('y',lblY);nameTxt.setAttribute('text-anchor','middle');
-        nameTxt.setAttribute('dominant-baseline','middle');nameTxt.setAttribute('fill','#333');
-        nameTxt.setAttribute('font-size','10');nameTxt.setAttribute('font-family','Inter');
-        nameTxt.setAttribute('font-weight','500');nameTxt.setAttribute('letter-spacing','0.03em');
-
-        const words=ax.name.split(' ');
-        if(words.length>2){
-            const mid=Math.ceil(words.length/2);
-            const line1=words.slice(0,mid).join(' ');const line2=words.slice(mid).join(' ');
-            const ts1=document.createElementNS(svgNS,'tspan');ts1.setAttribute('x',lblX);ts1.setAttribute('dy','-0.5em');ts1.textContent=line1;
-            const ts2=document.createElementNS(svgNS,'tspan');ts2.setAttribute('x',lblX);ts2.setAttribute('dy','1.2em');ts2.textContent=line2;
-            nameTxt.appendChild(ts1);nameTxt.appendChild(ts2);
-        } else {
-            nameTxt.textContent=ax.name;
-        }
-
-        const hitR=rayLen+endR*2+10;
-        const hitArea=document.createElementNS(svgNS,'circle');
-        hitArea.setAttribute('cx',cx+Math.cos(a)*(hitR/2+15));hitArea.setAttribute('cy',cy+Math.sin(a)*(hitR/2+15));
-        hitArea.setAttribute('r',hitR/2);hitArea.setAttribute('fill','transparent');hitArea.style.cursor='pointer';
-
-        function hover(){
-            endC.setAttribute('opacity','0.25');ray.setAttribute('opacity','1');
-            info.textContent=ax.shortDesc+' — '+ax.weight+'%';
-        }
-        function leave(){
-            endC.setAttribute('opacity','0.12');ray.setAttribute('opacity','0.6');
-            info.textContent='Esplora gli assi con il cursore';
-        }
-        hitArea.addEventListener('mouseenter',hover);hitArea.addEventListener('mouseleave',leave);
-
-        petalG.appendChild(ray);petalG.appendChild(endC);petalG.appendChild(wTxt);petalG.appendChild(nameTxt);
-        svg.appendChild(petalG);svg.appendChild(hitArea);
-    });
-
-    wrap.appendChild(svg);
-
-    const axesObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
-        AXES.forEach((_,i)=>setTimeout(()=>document.getElementById('petal'+i).classList.add('grown'),i*200));
-        axesObs.unobserve(en.target);
-    }});},{threshold:0.3});
-    axesObs.observe(wrap);
-})();
-
-/* ===== LAB ===== */
-(function(){
-    const timeline=document.getElementById('labTimeline');
-    const gaugesWrap=document.getElementById('labGauges');
-    const verdictWrap=document.getElementById('labVerdict');
-
-    STAGES.forEach((st,i)=>{
-        const stop=document.createElement('div');stop.className='lab-stop rv';
-        stop.innerHTML=`<div class="lab-stop-label">${st.label}</div><div class="lab-stop-prompt">${st.prompt}</div><div class="lab-stop-comment">${st.comment}</div>`;
-        stop.style.transitionDelay=(i*0.12)+'s';
-        timeline.appendChild(stop);
-        rvObs.observe(stop);
-    });
-
-    const gaugeData=[{name:'Resistenza',val:4},{name:'Correzione',val:4},{name:'Interrogazione',val:4},{name:'Architettura',val:3},{name:'Metacognizione',val:4}];
-    gaugeData.forEach(g=>{
-        const circ=2*Math.PI*32;const offset=circ-(g.val/4)*circ;
-        const div=document.createElement('div');div.className='lab-gauge';
-        div.innerHTML=`<svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/><circle cx="40" cy="40" r="32" fill="none" stroke="var(--ottanio)" stroke-width="4" stroke-linecap="round" class="lab-gauge-ring" stroke-dasharray="${circ}" stroke-dashoffset="${circ}" data-target="${offset}"/></svg><div class="lab-gauge-val">${g.val}/4</div><div class="lab-gauge-name">${g.name}</div>`;
-        gaugesWrap.appendChild(div);
-    });
-
-    const gaugeObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){
-        en.target.querySelectorAll('.lab-gauge-ring').forEach(ring=>{ring.style.strokeDashoffset=ring.dataset.target;});
-        gaugeObs.unobserve(en.target);
-    }});},{threshold:0.3});
-    gaugeObs.observe(gaugesWrap);
-
-    const totalScore=Math.round(((4*25)+(4*25)+(4*20)+(3*15)+(4*15))/4);
-    verdictWrap.innerHTML=`<div class="lab-verdict-score">${totalScore}/100</div><div class="lab-verdict-label">Eccellente — Attraversamento del pensiero</div>`;
 })();
 
 /* ===== VOICES CAROUSEL ===== */

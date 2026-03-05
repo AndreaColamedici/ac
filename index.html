@@ -60,15 +60,15 @@
         @keyframes glitch-1 {
             0% {
                 clip-path: inset(40% 0 61% 0);
-                transform: translate(-2px, -2px);
+                transform: translate(0);
             }
             20% {
                 clip-path: inset(92% 0 1% 0);
-                transform: translate(2px, 2px);
+                transform: translate(-2px, 2px);
             }
             40% {
                 clip-path: inset(43% 0 1% 0);
-                transform: translate(-2px, 2px);
+                transform: translate(-2px, -2px);
             }
             60% {
                 clip-path: inset(25% 0 58% 0);
@@ -76,44 +76,37 @@
             }
             80% {
                 clip-path: inset(54% 0 7% 0);
-                transform: translate(-2px, -2px);
+                transform: translate(2px, 2px);
             }
             100% {
                 clip-path: inset(58% 0 43% 0);
-                transform: translate(2px, 2px);
+                transform: translate(0);
             }
         }
         @keyframes glitch-2 {
             0% {
-                clip-path: inset(88% 0 12% 0);
-                transform: translate(2px, 2px);
+                clip-path: inset(27% 0 58% 0);
+                transform: translate(0);
             }
             20% {
-                clip-path: inset(45% 0 58% 0);
-                transform: translate(-2px, -2px);
-            }
-            40% {
-                clip-path: inset(80% 0 10% 0);
+                clip-path: inset(1% 0 60% 0);
                 transform: translate(2px, -2px);
             }
+            40% {
+                clip-path: inset(65% 0 25% 0);
+                transform: translate(2px, 2px);
+            }
             60% {
-                clip-path: inset(90% 0 9% 0);
+                clip-path: inset(86% 0 12% 0);
                 transform: translate(-2px, 2px);
             }
             80% {
-                clip-path: inset(73% 0 27% 0);
-                transform: translate(2px, 2px);
-            }
-            100% {
-                clip-path: inset(58% 0 43% 0);
+                clip-path: inset(63% 0 22% 0);
                 transform: translate(-2px, -2px);
             }
-        }
-
-        @media (max-width: 768px) {
-            .glitch::before,
-            .glitch::after {
-                display: none;
+            100% {
+                clip-path: inset(81% 0 18% 0);
+                transform: translate(0);
             }
         }
     </style>
@@ -121,100 +114,186 @@
 <body>
     <canvas id="neural-canvas"></canvas>
     
-    <div class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Andrea Colamedici</h1>
-                <p class="tagline">Philosopher, publisher, writer</p>
-                <p class="intro">Co-founder of <a href="https://tlon.it" target="_blank">Tlon</a>. Working on philosophy of artificial intelligence, media theory, and contemporary thought. Also writes for <a href="https://vanity.fair.it" target="_blank">Vanity Fair</a>, hosts conferences, produces content on <a href="https://www.linkedin.com/in/andreacolamedici/" target="_blank">LinkedIn</a>, <a href="https://www.tiktok.com/@andreacolamedici" target="_blank">TikTok</a>, and <a href="https://www.youtube.com/@TlonOfficial" target="_blank">YouTube</a>.</p>
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="index.html" class="logo">Andrea Colamedici</a>
+                </div>
+                
+                <button class="hamburger" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="nav-menu" id="mobileMenu">
+                    <a href="#chi-sono" class="nav-link">Chi sono</a>
+                    <a href="#libri" class="nav-link">Libri</a>
+                    <a href="#conferenze" class="nav-link">Conferenze</a>
+                    <a href="#media" class="nav-link">Media</a>
+                    <a href="#progetti" class="nav-link">Progetti</a>
+                    <a href="https://tlon.it" class="nav-link" target="_blank">Tlon</a>
+                </div>
             </div>
-        </div>
-    </div>
+        </nav>
+    </header>
 
-    <!-- Navigation Dots (floating) -->
-    <div class="nav-dots">
-        <a href="#upcoming" class="nav-dot" data-section="upcoming"></a>
-        <a href="#recent" class="nav-dot" data-section="recent"></a>
-        <a href="#about" class="nav-dot" data-section="about"></a>
-    </div>
-
-    <!-- UPCOMING SECTION -->
-    <section id="upcoming" class="section upcoming-section">
-        <div class="section-header">
-            <h2>Upcoming</h2>
-        </div>
-        <div class="events-grid">
-            <div class="event-card">
-                <a href="https://www.uncuyo.edu.ar" target="_blank" class="card-link">
-                    <h3>Universidad Nacional de Cuyo</h3>
-                    <p class="event-date">Mendoza, Argentina</p>
-                    <p class="event-info">Lecture</p>
-                </a>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="Andrea Colamedici">Andrea Colamedici</h1>
+                <p class="subtitle glitch" data-text="Filosofo, editori, scrittore">Filosofo, editori, scrittore</p>
+                <div class="cta-buttons">
+                    <a href="#libri" class="btn btn-primary">Scopri i miei libri</a>
+                    <a href="https://tlon.it" class="btn btn-secondary" target="_blank">Visita Tlon</a>
+                </div>
             </div>
-            <div class="event-card">
-                <a href="https://parixconference.com" target="_blank" class="card-link">
-                    <h3>PARIX IA 2026</h3>
-                    <p class="event-date">Paris, France</p>
-                    <p class="event-info">Speaker</p>
-                </a>
-            </div>
-            <div class="event-card">
-                <a href="https://www.slg.se" target="_blank" class="card-link">
-                    <h3>Spektrum & Gallery</h3>
-                    <p class="event-date">Oslo, Norway</p>
-                    <p class="event-info">Conference</p>
-                </a>
-            </div>
-            <div class="event-card">
-                <a href="https://www.carcano.org" target="_blank" class="card-link">
-                    <h3>Carcano</h3>
-                    <p class="event-date">Milan, Italy</p>
-                    <p class="event-info">Presentation</p>
-                </a>
+            <div class="hero-photo">
+                <img src="assets/images/andrea.jpg" alt="Andrea Colamedici">
             </div>
         </div>
     </section>
 
-    <!-- RECENT SECTION -->
-    <section id="recent" class="section recent-section">
-        <div class="section-header">
-            <h2>Recent</h2>
+    <!-- Chi Sono Section -->
+    <section id="chi-sono" class="section">
+        <div class="container">
+            <h2>Chi Sono</h2>
+            <p>Sono un filosofo, editore e scrittore. Cofondatore di Tlon, studio la filosofia dell'intelligenza artificiale, la teoria dei media e il pensiero contemporaneo.</p>
+            <p>I miei interessi spaziano dalla fenomenologia digitale all'etica dell'IA, dalle pratiche editoriali innovative alla politica della conoscenza.</p>
         </div>
-        <div class="recent-items">
-            <div class="recent-item">
-                <a href="https://www.youtube.com/@TlonOfficial" target="_blank" class="item-link">
-                    <h3>Mendoza</h3>
-                    <p class="item-description">University lecture series on philosophy and technology</p>
-                    <p class="item-date">2026</p>
-                </a>
+    </section>
+
+    <!-- Libri Section -->
+    <section id="libri" class="section section-alt">
+        <div class="container">
+            <h2>Libri</h2>
+            <div class="books-grid">
+                <div class="book-card">
+                    <img src="assets/images/prompt-thinking.jpg" alt="Prompt Thinking">
+                    <h3>Prompt Thinking</h3>
+                    <p class="year">Polity Press, febbraio 2026</p>
+                    <p>Una riflessione filosofica sulle implicazioni culturali e etiche dei sistemi di prompt engineering.</p>
+                    <a href="https://www.politybooks.com" class="book-link" target="_blank">Leggi di più</a>
+                </div>
+                <div class="book-card">
+                    <img src="assets/images/libro2.jpg" alt="Il Libro Secondo">
+                    <h3>Titolo Libro 2</h3>
+                    <p class="year">Anno e editore</p>
+                    <p>Descrizione del libro.</p>
+                    <a href="#" class="book-link">Leggi di più</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="section about-section">
-        <div class="section-header">
-            <h2>About</h2>
-        </div>
-        <div class="about-content">
-            <p>Andrea Colamedici is a philosopher and writer based in Milan. He is the co-founder of Tlon, an independent publishing house and research center dedicated to contemporary philosophy. His work explores the intersection of technology, culture, and human thought.</p>
-            <p>He has published books on philosophy, artificial intelligence, and media theory. His writing appears regularly in major Italian publications and on digital platforms. He speaks internationally about technology, philosophy, and the future of human knowledge.</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/andreacolamedici/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="https://www.tiktok.com/@andreacolamedici" target="_blank" rel="noopener noreferrer">TikTok</a>
-                <a href="https://www.youtube.com/@TlonOfficial" target="_blank" rel="noopener noreferrer">YouTube</a>
-                <a href="https://twitter.com/colamedici" target="_blank" rel="noopener noreferrer">Twitter</a>
+    <!-- Conferenze Section -->
+    <section id="conferenze" class="section">
+        <div class="container">
+            <h2>Conferenze e Eventi</h2>
+            <div class="upcoming-grid">
+                <article class="event-card">
+                    <div class="event-date">
+                        <span class="month">MAR</span>
+                        <span class="day">15</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>PARIX IA 2026</h3>
+                        <p class="event-location">Parigi, Francia</p>
+                        <p class="event-description">Una conferenza internazionale sulla filosofia dell'intelligenza artificiale.</p>
+                        <a href="https://pensarecontemporaneo.it" class="event-link" target="_blank">Dettagli evento</a>
+                    </div>
+                </article>
+                
+                <article class="event-card">
+                    <div class="event-date">
+                        <span class="month">APR</span>
+                        <span class="day">22</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Seminario Tlon</h3>
+                        <p class="event-location">Milano, Italia</p>
+                        <p class="event-description">Nuovo seminario su etica dell'IA e pratica filosofica.</p>
+                        <a href="https://tlon.it" class="event-link" target="_blank">Scopri di più</a>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <div class="event-date">
+                        <span class="month">MAG</span>
+                        <span class="day">10</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Workshop Prompt Thinking</h3>
+                        <p class="event-location">Online</p>
+                        <p class="event-description">Workshop interattivo sul pensiero generativo e AI.</p>
+                        <a href="https://tlon.it" class="event-link" target="_blank">Iscriviti</a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Media Section -->
+    <section id="media" class="section section-alt">
+        <div class="container">
+            <h2>Media</h2>
+            <div class="media-grid">
+                <div class="media-card">
+                    <img src="assets/images/vanity-fair.jpg" alt="Vanity Fair">
+                    <p>Articoli per Vanity Fair su filosofia e cultura digitale</p>
+                </div>
+                <div class="media-card">
+                    <img src="assets/images/linkedin.jpg" alt="LinkedIn">
+                    <p>Riflessioni quotidiane su LinkedIn riguardanti AI e filosofia</p>
+                </div>
+                <div class="media-card">
+                    <img src="assets/images/tiktok.jpg" alt="TikTok">
+                    <p>Video brevi su concetti filosofici per nuovi pubblici</p>
+                </div>
+                <div class="media-card">
+                    <img src="assets/images/youtube.jpg" alt="YouTube">
+                    <p>Conferenze e discussioni approfondite su YouTube</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progetti Section -->
+    <section id="progetti" class="section">
+        <div class="container">
+            <h2>Progetti</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Tlon</h3>
+                    <p>Una piattaforma di ricerca filosofica e una casa editrice indipendente dedicata al pensiero contemporaneo.</p>
+                    <a href="https://tlon.it" class="project-link" target="_blank">Visita Tlon</a>
+                </div>
+                <div class="project-card">
+                    <h3>GLAST</h3>
+                    <p>Un progetto di life assessment filosofico che esplora come la filosofia può aiutare nella valutazione della propria vita.</p>
+                    <a href="#" class="project-link">Scopri di più</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Andrea Colamedici. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2026 Andrea Colamedici. Tutti i diritti riservati.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://twitter.com" target="_blank" aria-label="Twitter">Twitter</a>
+                <a href="https://tlon.it" target="_blank" aria-label="Tlon">Tlon</a>
+            </div>
+        </div>
     </footer>
 
+    <!-- Canvas script -->
     <script>
-        // Neural network canvas animation
         const canvas = document.getElementById('neural-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -222,64 +301,32 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-        // Particles for neural network effect
-        let particles = [];
-        const particleCount = 50;
+        // Simple neural network visualization
+        const nodes = [];
+        const connections = [];
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2;
-                this.radius = Math.random() * 2 + 1;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-                if (this.x < 0) this.x = 0;
-                if (this.x > canvas.width) this.x = canvas.width;
-                if (this.y < 0) this.y = 0;
-                if (this.y > canvas.height) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(100, 150, 255, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        // Create random nodes
+        for (let i = 0; i < 30; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2 + 1
+            });
         }
 
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function drawConnections() {
-            const maxDistance = 150;
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < maxDistance) {
-                        ctx.strokeStyle = `rgba(100, 150, 255, ${1 - distance / maxDistance})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
+        // Connect nearby nodes
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 200) {
+                    connections.push({ from: i, to: j, distance: distance });
                 }
             }
         }
@@ -287,59 +334,71 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+            // Update node positions
+            nodes.forEach(node => {
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Bounce off walls
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
             });
 
-            drawConnections();
+            // Draw connections
+            ctx.strokeStyle = 'rgba(100, 150, 255, 0.3)';
+            ctx.lineWidth = 0.5;
+            connections.forEach(connection => {
+                const from = nodes[connection.from];
+                const to = nodes[connection.to];
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(to.x, to.y);
+                ctx.stroke();
+            });
+
+            // Draw nodes
+            ctx.fillStyle = 'rgba(100, 150, 255, 0.6)';
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        initParticles();
         animate();
+    </script>
 
-        // Glitch effect on interaction
-        document.addEventListener('mousemove', () => {
-            const glitch = document.querySelector('.glitch');
-            if (glitch) {
-                glitch.classList.remove('active');
-                void glitch.offsetWidth; // Trigger reflow
-                glitch.classList.add('active');
-            }
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+    <!-- Glitch effect script -->
+    <script>
+        const glitchElements = document.querySelectorAll('.glitch');
+        glitchElements.forEach(element => {
+            element.addEventListener('mouseover', function() {
+                this.classList.add('active');
+            });
+            element.addEventListener('mouseout', function() {
+                this.classList.remove('active');
             });
         });
+    </script>
 
-        // Update nav dots on scroll
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('.section');
-            const navDots = document.querySelectorAll('.nav-dot');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navDots.forEach(dot => {
-                dot.classList.remove('active');
-                if (dot.dataset.section === current) {
-                    dot.classList.add('active');
-                }
+    <!-- Mobile menu toggle -->
+    <script>
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
     </script>

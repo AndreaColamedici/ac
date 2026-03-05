@@ -58,242 +58,273 @@
             opacity: 0.8;
         }
         @keyframes glitch-1 {
-            0% {
-                clip-path: inset(40% 0 61% 0);
-                transform: translate(0);
-            }
-            20% {
-                clip-path: inset(92% 0 1% 0);
-                transform: translate(-2px, 2px);
-            }
-            40% {
-                clip-path: inset(43% 0 1% 0);
-                transform: translate(-2px, -2px);
-            }
-            60% {
-                clip-path: inset(25% 0 58% 0);
-                transform: translate(2px, -2px);
-            }
-            80% {
-                clip-path: inset(54% 0 7% 0);
-                transform: translate(2px, 2px);
-            }
-            100% {
-                clip-path: inset(58% 0 43% 0);
-                transform: translate(0);
-            }
+            0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, -2px); }
+            20% { clip-path: inset(92% 0 1% 0); transform: translate(2px, 2px); }
+            40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -2px); }
+            80% { clip-path: inset(54% 0 7% 0); transform: translate(-2px, -2px); }
+            100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, 2px); }
         }
         @keyframes glitch-2 {
-            0% {
-                clip-path: inset(27% 0 58% 0);
-                transform: translate(0);
+            0% { clip-path: inset(25% 0 58% 0); transform: translate(2px, 2px); }
+            20% { clip-path: inset(1% 0 92% 0); transform: translate(-2px, -2px); }
+            40% { clip-path: inset(1% 0 43% 0); transform: translate(-2px, -2px); }
+            60% { clip-path: inset(58% 0 25% 0); transform: translate(2px, 2px); }
+            80% { clip-path: inset(7% 0 54% 0); transform: translate(-2px, 2px); }
+            100% { clip-path: inset(43% 0 58% 0); transform: translate(2px, -2px); }
+        }
+
+        /* Bubble container styling */
+        .bubble-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Particle system for floating elements */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8), rgba(255,255,255,0));
+        }
+
+        /* Hero Title Animation */
+        .hero-title {
+            animation: fadeInScale 1.5s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
             }
-            20% {
-                clip-path: inset(1% 0 60% 0);
-                transform: translate(2px, -2px);
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
-            40% {
-                clip-path: inset(65% 0 25% 0);
-                transform: translate(2px, 2px);
-            }
-            60% {
-                clip-path: inset(86% 0 12% 0);
-                transform: translate(-2px, 2px);
-            }
-            80% {
-                clip-path: inset(63% 0 22% 0);
-                transform: translate(-2px, -2px);
-            }
-            100% {
-                clip-path: inset(81% 0 18% 0);
-                transform: translate(0);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .glitch::before,
+            .glitch::after {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Neural Network Canvas Background -->
     <canvas id="neural-canvas"></canvas>
-    
+
     <!-- Header Navigation -->
-    <header>
+    <header class="header">
         <nav class="navbar">
-            <div class="container">
-                <div class="nav-brand">
-                    <a href="index.html" class="logo">Andrea Colamedici</a>
-                </div>
-                
-                <button class="hamburger" id="hamburgerBtn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <div class="nav-menu" id="mobileMenu">
-                    <a href="#chi-sono" class="nav-link">Chi sono</a>
-                    <a href="#libri" class="nav-link">Libri</a>
-                    <a href="#conferenze" class="nav-link">Conferenze</a>
-                    <a href="#media" class="nav-link">Media</a>
-                    <a href="#progetti" class="nav-link">Progetti</a>
-                    <a href="https://tlon.it" class="nav-link" target="_blank">Tlon</a>
-                </div>
+            <div class="logo">
+                <a href="/">AC</a>
             </div>
+            <ul class="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#upcoming">Upcoming</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="glitch" data-text="Andrea Colamedici">Andrea Colamedici</h1>
-                <p class="subtitle glitch" data-text="Filosofo, editori, scrittore">Filosofo, editori, scrittore</p>
-                <div class="cta-buttons">
-                    <a href="#libri" class="btn btn-primary">Scopri i miei libri</a>
-                    <a href="https://tlon.it" class="btn btn-secondary" target="_blank">Visita Tlon</a>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="bubble-container">
+                <div class="glitch hero-title" data-text="PARIX IA 2026">
+                    PARIX IA 2026
                 </div>
             </div>
-            <div class="hero-photo">
-                <img src="assets/images/andrea.jpg" alt="Andrea Colamedici">
+            <p class="hero-subtitle">Exploring the intersection of philosophy, artificial intelligence, and contemporary culture.</p>
+            
+            <div class="hero-photo-frame">
+                <img src="assets/images/hero-image.jpg" alt="Andrea Colamedici">
+                <div class="frame-overlay"></div>
             </div>
         </div>
     </section>
 
-    <!-- Chi Sono Section -->
-    <section id="chi-sono" class="section">
+    <!-- About Section -->
+    <section id="about" class="about">
         <div class="container">
-            <h2>Chi Sono</h2>
-            <p>Sono un filosofo, editore e scrittore. Cofondatore di Tlon, studio la filosofia dell'intelligenza artificiale, la teoria dei media e il pensiero contemporaneo.</p>
-            <p>I miei interessi spaziano dalla fenomenologia digitale all'etica dell'IA, dalle pratiche editoriali innovative alla politica della conoscenza.</p>
+            <h2>About Andrea</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Andrea Colamedici is a philosopher, publisher, and writer. Co-founder of <strong>Tlon</strong>, an independent publishing house exploring AI philosophy and culture.</p>
+                    <p>His work spans:</p>
+                    <ul>
+                        <li>Philosophy of Artificial Intelligence</li>
+                        <li>Media Theory & Digital Culture</li>
+                        <li>Contemporary Thought & Society</li>
+                        <li>Publishing & Intellectual Infrastructure</li>
+                    </ul>
+                    <p>Currently developing <strong>GLAST</strong>, a philosophical life assessment system, and leading research initiatives at Tlon.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h3>Books</h3>
+                        <p>Multiple published works on philosophy and AI</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Tlon</h3>
+                        <p>Independent publishing house & research collective</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Speaking</h3>
+                        <p>International conferences and institutions</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Libri Section -->
-    <section id="libri" class="section section-alt">
+    <!-- Work Section -->
+    <section id="work" class="work">
         <div class="container">
-            <h2>Libri</h2>
-            <div class="books-grid">
-                <div class="book-card">
-                    <img src="assets/images/prompt-thinking.jpg" alt="Prompt Thinking">
+            <h2>Featured Work</h2>
+            <div class="work-grid">
+                <article class="work-item">
+                    <div class="work-image">
+                        <img src="assets/images/prompt-thinking.jpg" alt="Prompt Thinking">
+                    </div>
                     <h3>Prompt Thinking</h3>
-                    <p class="year">Polity Press, febbraio 2026</p>
-                    <p>Una riflessione filosofica sulle implicazioni culturali e etiche dei sistemi di prompt engineering.</p>
-                    <a href="https://www.politybooks.com" class="book-link" target="_blank">Leggi di più</a>
-                </div>
-                <div class="book-card">
-                    <img src="assets/images/libro2.jpg" alt="Il Libro Secondo">
-                    <h3>Titolo Libro 2</h3>
-                    <p class="year">Anno e editore</p>
-                    <p>Descrizione del libro.</p>
-                    <a href="#" class="book-link">Leggi di più</a>
-                </div>
+                    <p class="work-meta">Book • Polity Press • 2026</p>
+                    <p>A philosophical exploration of prompt engineering and AI interaction as a new literacy for the 21st century.</p>
+                    <a href="#" class="work-link">Learn More →</a>
+                </article>
+
+                <article class="work-item">
+                    <div class="work-image">
+                        <img src="assets/images/glast.jpg" alt="GLAST">
+                    </div>
+                    <h3>GLAST</h3>
+                    <p class="work-meta">Project • Research Initiative</p>
+                    <p>A comprehensive philosophical life assessment system designed for contemporary individuals navigating AI-integrated futures.</p>
+                    <a href="#" class="work-link">Explore →</a>
+                </article>
+
+                <article class="work-item">
+                    <div class="work-image">
+                        <img src="assets/images/tlon.jpg" alt="Tlon">
+                    </div>
+                    <h3>Tlon</h3>
+                    <p class="work-meta">Publisher • Independent House</p>
+                    <p>An independent publishing collective exploring philosophy, artificial intelligence, and contemporary culture through books, research, and digital initiatives.</p>
+                    <a href="https://tlon.it" class="work-link">Visit →</a>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Conferenze Section -->
-    <section id="conferenze" class="section">
+    <!-- Upcoming Events Section -->
+    <section id="upcoming" class="upcoming">
         <div class="container">
-            <h2>Conferenze e Eventi</h2>
+            <h2>Upcoming</h2>
             <div class="upcoming-grid">
-                <article class="event-card">
+                <article class="upcoming-item">
                     <div class="event-date">
-                        <span class="month">MAR</span>
+                        <span class="month">JUN</span>
                         <span class="day">15</span>
                     </div>
-                    <div class="event-content">
-                        <h3>PARIX IA 2026</h3>
-                        <p class="event-location">Parigi, Francia</p>
-                        <p class="event-description">Una conferenza internazionale sulla filosofia dell'intelligenza artificiale.</p>
-                        <a href="https://pensarecontemporaneo.it" class="event-link" target="_blank">Dettagli evento</a>
+                    <div class="event-details">
+                        <h3>The Future of AI Philosophy</h3>
+                        <p class="event-location">Berlin, Germany</p>
+                        <p class="event-description">A keynote exploring philosophical frameworks for understanding AI's role in contemporary society.</p>
+                        <a href="#" class="event-link">Register →</a>
                     </div>
                 </article>
-                
-                <article class="event-card">
+
+                <article class="upcoming-item">
                     <div class="event-date">
-                        <span class="month">APR</span>
+                        <span class="month">JUL</span>
                         <span class="day">22</span>
                     </div>
-                    <div class="event-content">
-                        <h3>Seminario Tlon</h3>
-                        <p class="event-location">Milano, Italia</p>
-                        <p class="event-description">Nuovo seminario su etica dell'IA e pratica filosofica.</p>
-                        <a href="https://tlon.it" class="event-link" target="_blank">Scopri di più</a>
+                    <div class="event-details">
+                        <h3>Prompt Thinking Workshop</h3>
+                        <p class="event-location">Milan, Italy</p>
+                        <p class="event-description">An intensive workshop on prompt engineering as a philosophical practice and contemporary literacy.</p>
+                        <a href="#" class="event-link">Register →</a>
                     </div>
                 </article>
 
-                <article class="event-card">
+                <article class="upcoming-item">
                     <div class="event-date">
-                        <span class="month">MAG</span>
+                        <span class="month">AUG</span>
                         <span class="day">10</span>
                     </div>
-                    <div class="event-content">
-                        <h3>Workshop Prompt Thinking</h3>
+                    <div class="event-details">
+                        <h3>GLAST Launch Event</h3>
                         <p class="event-location">Online</p>
-                        <p class="event-description">Workshop interattivo sul pensiero generativo e AI.</p>
-                        <a href="https://tlon.it" class="event-link" target="_blank">Iscriviti</a>
+                        <p class="event-description">Launching GLAST, a comprehensive philosophical assessment system for the age of AI.</p>
+                        <a href="#" class="event-link">Register →</a>
                     </div>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- Media Section -->
-    <section id="media" class="section section-alt">
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
         <div class="container">
-            <h2>Media</h2>
-            <div class="media-grid">
-                <div class="media-card">
-                    <img src="assets/images/vanity-fair.jpg" alt="Vanity Fair">
-                    <p>Articoli per Vanity Fair su filosofia e cultura digitale</p>
-                </div>
-                <div class="media-card">
-                    <img src="assets/images/linkedin.jpg" alt="LinkedIn">
-                    <p>Riflessioni quotidiane su LinkedIn riguardanti AI e filosofia</p>
-                </div>
-                <div class="media-card">
-                    <img src="assets/images/tiktok.jpg" alt="TikTok">
-                    <p>Video brevi su concetti filosofici per nuovi pubblici</p>
-                </div>
-                <div class="media-card">
-                    <img src="assets/images/youtube.jpg" alt="YouTube">
-                    <p>Conferenze e discussioni approfondite su YouTube</p>
-                </div>
+            <h2>Get in Touch</h2>
+            <p class="contact-intro">Interested in collaboration, speaking engagements, or learning more about my work?</p>
+            
+            <div class="contact-methods">
+                <a href="mailto:info@andreacolamedici.com" class="contact-link">
+                    <span class="contact-icon">✉</span>
+                    <span>Email</span>
+                </a>
+                <a href="https://twitter.com" class="contact-link" target="_blank">
+                    <span class="contact-icon">𝕏</span>
+                    <span>Twitter</span>
+                </a>
+                <a href="https://linkedin.com" class="contact-link" target="_blank">
+                    <span class="contact-icon">in</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://instagram.com" class="contact-link" target="_blank">
+                    <span class="contact-icon">📷</span>
+                    <span>Instagram</span>
+                </a>
             </div>
-        </div>
-    </section>
 
-    <!-- Progetti Section -->
-    <section id="progetti" class="section">
-        <div class="container">
-            <h2>Progetti</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Tlon</h3>
-                    <p>Una piattaforma di ricerca filosofica e una casa editrice indipendente dedicata al pensiero contemporaneo.</p>
-                    <a href="https://tlon.it" class="project-link" target="_blank">Visita Tlon</a>
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-                <div class="project-card">
-                    <h3>GLAST</h3>
-                    <p>Un progetto di life assessment filosofico che esplora come la filosofia può aiutare nella valutazione della propria vita.</p>
-                    <a href="#" class="project-link">Scopri di più</a>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 Andrea Colamedici. Tutti i diritti riservati.</p>
-            <div class="social-links">
-                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">LinkedIn</a>
-                <a href="https://twitter.com" target="_blank" aria-label="Twitter">Twitter</a>
-                <a href="https://tlon.it" target="_blank" aria-label="Tlon">Tlon</a>
+            <p>&copy; 2026 Andrea Colamedici. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
             </div>
         </div>
     </footer>
 
-    <!-- Canvas script -->
     <script>
+        // Neural Network Canvas Background
         const canvas = document.getElementById('neural-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -304,29 +335,59 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Simple neural network visualization
+        // Neural network nodes and connections
         const nodes = [];
-        const connections = [];
+        const nodeCount = 50;
 
-        // Create random nodes
-        for (let i = 0; i < 30; i++) {
-            nodes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                radius: Math.random() * 2 + 1
-            });
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        // Connect nearby nodes
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[i].x - nodes[j].x;
-                const dy = nodes[i].y - nodes[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 200) {
-                    connections.push({ from: i, to: j, distance: distance });
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new Node());
+        }
+
+        function drawConnections() {
+            const connectionDistance = 150;
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = 1 - (distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.2})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
                 }
             }
         }
@@ -334,72 +395,116 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Update node positions
             nodes.forEach(node => {
-                node.x += node.vx;
-                node.y += node.vy;
-
-                // Bounce off walls
-                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+                node.update();
+                node.draw();
             });
 
-            // Draw connections
-            ctx.strokeStyle = 'rgba(100, 150, 255, 0.3)';
-            ctx.lineWidth = 0.5;
-            connections.forEach(connection => {
-                const from = nodes[connection.from];
-                const to = nodes[connection.to];
-                ctx.beginPath();
-                ctx.moveTo(from.x, from.y);
-                ctx.lineTo(to.x, to.y);
-                ctx.stroke();
-            });
-
-            // Draw nodes
-            ctx.fillStyle = 'rgba(100, 150, 255, 0.6)';
-            nodes.forEach(node => {
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
+            drawConnections();
             requestAnimationFrame(animate);
         }
 
         animate();
-    </script>
 
-    <!-- Glitch effect script -->
-    <script>
-        const glitchElements = document.querySelectorAll('.glitch');
-        glitchElements.forEach(element => {
-            element.addEventListener('mouseover', function() {
-                this.classList.add('active');
-            });
-            element.addEventListener('mouseout', function() {
-                this.classList.remove('active');
+        // Glitch effect trigger
+        const glitchElement = document.querySelector('.glitch');
+        if (glitchElement) {
+            setInterval(() => {
+                glitchElement.classList.add('active');
+                setTimeout(() => {
+                    glitchElement.classList.remove('active');
+                }, 300);
+            }, 4000);
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
-    </script>
 
-    <!-- Mobile menu toggle -->
-    <script>
-        const hamburger = document.getElementById('hamburgerBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        // Contact form handling
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            console.log('Form submitted:', data);
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
         });
 
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
+        // Hamburger menu for mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.classList.toggle('active');
             });
+        }
+
+        // Add scroll indicator animation
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight);
+            document.documentElement.style.setProperty('--scroll', scrolled);
+        });
+
+        // Particle effect on hero section
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', function(e) {
+                const particleCount = 5;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = e.clientX + 'px';
+                    particle.style.top = e.clientY + 'px';
+                    particle.style.width = (Math.random() * 20 + 10) + 'px';
+                    particle.style.height = particle.style.width;
+                    document.body.appendChild(particle);
+
+                    const duration = Math.random() * 1000 + 500;
+                    const tx = (Math.random() - 0.5) * 100;
+                    const ty = (Math.random() - 0.5) * 100;
+
+                    particle.animate([
+                        { transform: 'translate(0, 0)', opacity: 1 },
+                        { transform: `translate(${tx}px, ${ty}px)`, opacity: 0 }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    });
+
+                    setTimeout(() => particle.remove(), duration);
+                }
+            });
+        }
+
+        // Prevent body overflow on mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for mobile menu interactions
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.nav-menu') && !e.target.closest('.hamburger')) {
+                    if (navMenu && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        if (hamburger) hamburger.classList.remove('active');
+                    }
+                }
+            });
+
+            // Reset overflow on load
+            document.body.style.overflow = '';
         });
     </script>
 

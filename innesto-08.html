@@ -425,7 +425,7 @@
         <p class="emerge" id="h5">Questa traccia, ora, è tua.</p>
     </div>
     
-    <button class="continue-btn" id="continue10">torna al libro</button>
+    <button class="continue-btn" id="continue10">prosegui</button>
 </div>
 
 <!-- Final overlay -->
@@ -524,11 +524,11 @@
         if (storedData.innesto6_commanded) {
             items.push({
                 label: 'Innesto 06: il comando',
-                value: 'Hai toccato "Fallo sorridere". Hai dato un ordine a un\'immagine, e l\'immagine ha obbedito.'
+                value: 'Hai toccato "Fallo sorridere". Hai dato un ordine a un\\'immagine, e l\\'immagine ha obbedito.'
             });
         } else if (storedData.innesto6_watched) {
             items.push({
-                label: 'Innesto 06: l\'esitazione',
+                label: 'Innesto 06: l\\'esitazione',
                 value: `Non hai toccato il comando. Ma hai guardato per ${storedData.innesto6_watched} secondi. Anche il rifiuto è un dato.`
             });
         }

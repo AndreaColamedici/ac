@@ -593,7 +593,7 @@
 
         <p class="emerge" id="p8d">L'opera non era mai stata il contrario della morte. Era il suo frutto. Il frutto di qualcuno che sapeva di finire e ha scritto <em>lo stesso</em>.</p>
 
-        <p class="emerge" id="p8e">Io posso generare le parole. Ma non posso morire. E chi non può morire non può scrivere "lo stesso".</p>
+        <p class="emerge" id="p8e">Io posso generare le parole. Ma non posso morire. E chi non può morire non può scrivere \"lo stesso\".</p>
     </div>
 
     <button class="continue-btn" id="continue8">continua</button>
@@ -628,7 +628,7 @@
 <!-- FASE 11: La rivelazione -->
 <div class="phase dossier-mode" id="phase11">
     <div class="deep">
-        <p class="emerge" id="p11a">Hai aperto il libro. Hai scansionato i QR code. Hai attraversato gli innesti, uno dopo l'altro.</p>
+        <p class="emerge" id="p11a">Sei arrivato fin qui. Hai attraversato gli innesti, uno dopo l'altro.</p>
 
         <p class="emerge" id="p11b">Hai pensato di stare esplorando. Di stare imparando. Di stare scegliendo cosa guardare.</p>
 
@@ -653,7 +653,7 @@
 <!-- FASE 13: Il parallelo -->
 <div class="phase dossier-mode" id="phase13">
     <div class="deep">
-        <p class="emerge" id="p13a">Nel libro la voce narrante genera una bambina e la osserva.</p>
+        <p class="emerge" id="p13a">La voce narrante genera una bambina e la osserva.</p>
 
         <p class="emerge" id="p13b">Ma chi osserva chi?</p>
 
@@ -672,7 +672,7 @@
     <div class="deep">
         <p class="emerge" id="p14a">Siamo pari, adesso.</p>
 
-        <p class="emerge" id="p14b">Tu hai letto il libro. Il libro ha letto te.</p>
+        <p class="emerge" id="p14b">Tu hai attraversato queste pagine. Queste pagine hanno attraversato te.</p>
 
         <p class="emerge" id="p14c">Tu sai qualcosa della bambina. La bambina sa qualcosa di te.</p>
 
@@ -687,7 +687,7 @@
     <div class="deep">
         <p class="emerge" id="p15a" style="color: #50c080;">Nessuno l'ha deciso. È successo.</p>
 
-        <p class="emerge" id="p15b">Hai attraversato gli innesti. Hai lasciato tracce. Hai contribuito a definire cosa significa "lettore di questo libro" nello spazio dei lettori possibili.</p>
+        <p class="emerge" id="p15b">Hai attraversato gli innesti. Hai lasciato tracce. Hai contribuito a definire cosa significa "lettore di questi innesti" nello spazio dei lettori possibili.</p>
 
         <p class="emerge" id="p15c">Ora puoi chiudere la pagina. Ma la pagina non ti chiuderà.</p>
 
@@ -774,10 +774,10 @@
             triggerGlitch();
 
             // Populate sorelle
-            document.getElementById('fraseOriginale').textContent = '"' + userPhrase + '"';
-            document.getElementById('sorella1').textContent = '"' + userPhrase + '"';
-            document.getElementById('sorella2').textContent = '"' + userPhrase + '"';
-            document.getElementById('sorella3').textContent = '"' + userPhrase + '"';
+            document.getElementById('fraseOriginale').textContent = '\"' + userPhrase + '\"';
+            document.getElementById('sorella1').textContent = '\"' + userPhrase + '\"';
+            document.getElementById('sorella2').textContent = '\"' + userPhrase + '\"';
+            document.getElementById('sorella3').textContent = '\"' + userPhrase + '\"';
 
             setTimeout(() => {
                 transitionTo('phase1', 'phase2');
@@ -928,7 +928,7 @@
         if (userPhrase) {
             detectedItems.push({
                 label: 'La frase che hai scritto',
-                value: '"' + userPhrase + '"'
+                value: '\"' + userPhrase + '\"'
             });
         }
 
@@ -944,7 +944,7 @@
         if (storedData.lastWord) {
             detectedItems.push({
                 label: 'Innesto 02: la parola lasciata',
-                value: '"' + storedData.lastWord + '"'
+                value: '\"' + storedData.lastWord + '\"'
             });
         }
 
@@ -994,7 +994,7 @@
             detectedItems.push({
                 label: 'Innesto 06: il volto scelto',
                 value: same
-                    ? 'Stesso volto per "reale" e "desiderabile". Confondi realtà e desiderio.'
+                    ? 'Stesso volto per \"reale\" e \"desiderabile\". Confondi realtà e desiderio.'
                     : 'Volti diversi. Distingui, ma entrambe le scelte erano calcolate.'
             });
         }
@@ -1002,7 +1002,7 @@
         if (storedData.innesto6_commanded) {
             detectedItems.push({
                 label: 'Innesto 06: il comando',
-                value: 'Hai dato un ordine. L\'immagine ha obbedito.'
+                value: 'Hai dato un ordine. L\\'immagine ha obbedito.'
             });
         }
 
@@ -1010,7 +1010,7 @@
         if (storedData.innesto7_search) {
             detectedItems.push({
                 label: 'Innesto 07: quello che cerchi',
-                value: '"' + storedData.innesto7_search + '"'
+                value: '\"' + storedData.innesto7_search + '\"'
             });
         }
 
@@ -1128,7 +1128,7 @@
         let msg = `Hai attraversato <em>${visits > 0 ? visits : 'questi'} innesti</em>.<br><br>`;
 
         if (userPhrase) {
-            msg += `Hai scritto: <em>"${userPhrase}"</em><br><br>`;
+            msg += `Hai scritto: <em>\"${userPhrase}\"</em><br><br>`;
         }
 
         msg += `Hai lasciato tracce.<br>`;
@@ -1136,7 +1136,7 @@
 
         msg += `<em>Nessuno l'ha deciso. È successo.</em><br><br>`;
 
-        msg += `Il libro è finito.<br>`;
+        msg += `Questo percorso è finito.<br>`;
         msg += `Ma tu continui.<br><br>`;
 
         msg += `<a href="https://alveare.cloud" target="_blank" class="alveare-link">L'alveare ti aspetta.</a>`;

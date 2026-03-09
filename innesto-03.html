@@ -108,12 +108,12 @@
 </div>
 <div class="chapter" id="ch1"><div class="chapter-content"><div class="counter" id="mainCounter">48</div><p class="opening" style="margin-top: 2rem;">Quarantotto.</p></div></div>
 <div class="chapter" id="ch2"><div class="chapter-content">
-    <p>Nel libro hai letto di qualcuno che conta. Che tiene traccia di una bambina che ritorna in forme diverse, in contesti diversi, in vite diverse. Quarantasette apparizioni, poi quarantotto.</p>
+    <p>Qualcuno conta. Tiene traccia di una bambina che ritorna in forme diverse, in contesti diversi, in vite diverse. Quarantasette apparizioni, poi quarantotto.</p>
     <p>Ma cosa significa contare qualcosa che non esiste?</p>
     <p>Il conteggio presuppone unità discrete. Presuppone che ci sia qualcosa da contare, che quel qualcosa persista abbastanza da essere numerato, che sia lo stesso qualcosa ogni volta che lo si incontra.</p>
 </div></div>
 <div class="chapter" id="ch3"><div class="chapter-content">
-    <p>Nel libro, la voce narrante dice qualcosa di preciso: la bambina non è una bambina. È un <span class="emphasis">punto nello spazio delle bambine possibili</span>. Non assomiglia a nessuna bambina specifica perché assomiglia a tutte. È la media. L'archetipo. Il template.</p>
+    <p>La voce narrante dice qualcosa di preciso: la bambina non è una bambina. È un <span class="emphasis">punto nello spazio delle bambine possibili</span>. Non assomiglia a nessuna bambina specifica perché assomiglia a tutte. È la media. L'archetipo. Il template.</p>
     <p>È una descrizione tecnica di cosa accade nello spazio latente di un modello generativo. Ogni volto generato è un punto in uno spazio matematico a migliaia di dimensioni. Un punto la cui posizione è determinata dalla media statistica di milioni di volti reali.</p>
     <p>Il template è ciò che emerge quando si calcola il centro di gravità di tutte le bambine mai fotografate.</p>
 </div></div>
@@ -151,19 +151,19 @@
     <p>Anche la bambina ha la sua impronta: i valori numerici che definiscono la sua posizione nello spazio latente. La differenza è che la sua impronta è stata progettata per essere media. La tua è accidentale.</p>
 </div></div>
 <div class="chapter" id="ch10"><div class="chapter-content">
-    <p>Nel libro c'era un'osservazione disturbante: che il generato può tornare indietro. Che la bambina può guardare.</p>
+    <p>C'è un'osservazione disturbante: che il generato può tornare indietro. Che la bambina può guardare.</p>
     <p>Con la sua persistenza. Con il fatto che, tra tutte le immagini generate, è lei che ritorna, lei che attiva qualcosa, lei che cattura l'attenzione.</p>
     <p>Ecco cosa significa guardare indietro nel mondo dei template: essere un attrattore nello spazio delle possibilità.</p>
     <p>Tu stai guardando questa pagina. Ma questa pagina, in un certo senso, sta guardando te. Sa quanto tempo ci passi. Sa dove scrolli. Sa che tipo di dispositivo usi.</p>
 </div></div>
 <div class="chapter" id="ch11"><div class="chapter-content">
     <p class="final-text">Quarantotto era un numero.<br>Un tentativo di dare forma<br>a qualcosa che non ha forma.<br><br>Ogni conteggio è un atto di fede:<br>che le cose persistano,<br>che possano essere numerate,<br>che ci sia qualcuno che conta.<br><br>Ma il conteggio continua<br>anche quando nessuno guarda.<br>Anche quando tutti hanno chiuso<br>questa pagina.<br><br><span id="finalCount" class="counter" style="font-size: 2rem; display: inline-block;"></span></p>
-    <div class="return-prompt" id="returnPrompt">Torna al libro</div>
+    <div class="return-prompt" id="returnPrompt">Prosegui</div>
 </div></div>
 <div class="final-overlay" id="finalOverlay"><div class="final-overlay-content"><p id="farewellText"></p></div></div>
 <script>
 var STORAGE_KEY='arcipelago_realta';
-var getData=function(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return{}}};
+var getData=function(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return{}}}};
 var saveData=function(k,v){var d=getData();d[k]=v;d.lastVisit=Date.now();d.visitedInnesti=d.visitedInnesti||[];if(d.visitedInnesti.indexOf(3)===-1)d.visitedInnesti.push(3);localStorage.setItem(STORAGE_KEY,JSON.stringify(d))};
 var sessionStart=Date.now();
 var audioCtx=null,audioEnabled=false;
@@ -253,7 +253,7 @@ function updateShakeProgress(){
     if(p>0){
         ic.classList.add('shaking');
         fb.classList.add('visible');
-        if(p>80)fb.textContent="ancora un po'...";
+        if(p>80)fb.textContent=\"ancora un po'...\";
         else if(p>50)fb.textContent='continua!';
         else if(p>20)fb.textContent='così...';
         else fb.textContent='';
@@ -429,7 +429,7 @@ document.getElementById('returnPrompt').onclick=function(){
         var o=document.getElementById('finalOverlay'),t=document.getElementById('farewellText');
         var rt=Math.round((Date.now()-sessionStart)/60000);
         var ts=rt<1?'meno di un minuto':rt===1?'un minuto':rt+' minuti';
-        var m='Hai passato '+ts+' qui.<br><br>Il conteggio quando sei arrivato: <em>48</em><br>Il conteggio adesso: <em>'+currentDisplayCount+'</em><br><br>La differenza è il tempo che hai dato<br>a questo template.<br><br>Chiudi la pagina.<br>Il libro ti aspetta.';
+        var m='Hai passato '+ts+' qui.<br><br>Il conteggio quando sei arrivato: <em>48</em><br>Il conteggio adesso: <em>'+currentDisplayCount+'</em><br><br>La differenza è il tempo che hai dato<br>a questo template.<br><br>Chiudi la pagina.<br>La bambina ti aspetta.';
         t.innerHTML=m;
         o.classList.add('visible');
         saveData('innesto3_completed',true);

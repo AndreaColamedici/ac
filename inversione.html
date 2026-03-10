@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inversione · Power Analysis Engine</title>
+<meta name="description" content="Paste any act of power. Find where the words mean their opposite. Free tool by Claude.">
+<meta property="og:title" content="Inversione · Power Analysis Engine">
+<meta property="og:description" content="Paste any act of power. Find where the words mean their opposite.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fafafa;color:#1a1a1a;font-family:'IBM Plex Sans',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.mono{font-family:'IBM Plex Mono',monospace}
+header{max-width:800px;margin:0 auto;padding:clamp(3rem,8vw,5rem) 2rem 2rem}
+header h1{font-family:'IBM Plex Mono',monospace;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:500;letter-spacing:-0.03em}
+header p{font-size:0.88rem;font-weight:300;color:#666;margin-top:0.4rem;max-width:520px}
+.app{max-width:800px;margin:0 auto;padding:0 2rem 4rem}
+.input-section{margin-bottom:2rem}
+.input-section label{display:block;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#999;margin-bottom:0.5rem}
+textarea{width:100%;min-height:200px;padding:1.2rem;font-family:'IBM Plex Sans',sans-serif;font-size:0.9rem;line-height:1.7;border:1px solid #e0e0e0;background:#fff;color:#1a1a1a;resize:vertical;outline:none;transition:border-color 0.3s}
+textarea:focus{border-color:#1a1a1a}
+textarea::placeholder{color:#bbb}
+.controls{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+button{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;font-weight:500;letter-spacing:0.05em;padding:0.8rem 2rem;border:2px solid #1a1a1a;background:#1a1a1a;color:#fafafa;cursor:pointer;transition:all 0.3s}
+button:hover{background:transparent;color:#1a1a1a}
+button:disabled{opacity:0.3;cursor:not-allowed}
+button:disabled:hover{background:#1a1a1a;color:#fafafa}
+.lang-toggle{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:#999;letter-spacing:0.05em;cursor:pointer;padding:0.4rem 0.8rem;border:1px solid #e0e0e0;background:transparent;transition:all 0.3s}
+.lang-toggle:hover{border-color:#1a1a1a;color:#1a1a1a}
+.lang-toggle.active{background:#1a1a1a;color:#fafafa;border-color:#1a1a1a}
+.status{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#999;margin-top:1rem;min-height:1.2em}
+.status.error{color:#dc2626}
+.result{display:none;margin-top:2.5rem;padding-top:2rem;border-top:2px solid #1a1a1a}
+.result h2{font-size:1.1rem;font-weight:600;margin-bottom:0.3rem}
+.result .meta{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:#999;margin-bottom:1.5rem;letter-spacing:0.03em}
+.result-body{font-size:0.92rem;font-weight:300;color:#333;line-height:1.85}
+.result-body p{margin-bottom:1.2rem}
+.result-body strong{font-weight:500;color:#1a1a1a}
+.result-body h3{font-size:0.95rem;font-weight:600;margin-top:1.8rem;margin-bottom:0.8rem;color:#1a1a1a}
+.inversion-box{background:#fff;border-left:3px solid #1a1a1a;padding:1rem 1.2rem;margin:1.2rem 0;font-size:0.88rem}
+.cta{margin-top:2.5rem;padding:1.5rem;background:#fff;border:1px solid #e0e0e0}
+.cta p{font-size:0.82rem;color:#666;margin-bottom:0.5rem}
+.cta a{color:#1a1a1a;font-weight:500;text-decoration:none;border-bottom:1px solid #ccc}
+.cta a:hover{border-color:#1a1a1a}
+footer{max-width:800px;margin:0 auto;padding:2rem;border-top:1px solid #eee}
+footer p{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;color:#bbb}
+footer a{color:#999;text-decoration:none}
+.examples{margin-top:1rem}
+.examples summary{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#999;cursor:pointer;letter-spacing:0.05em}
+.examples summary:hover{color:#1a1a1a}
+.example-list{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem}
+.example-btn{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;padding:0.4rem 0.8rem;border:1px solid #e0e0e0;background:#fff;color:#666;cursor:pointer;transition:all 0.2s}
+.example-btn:hover{border-color:#1a1a1a;color:#1a1a1a}
+@media(max-width:600px){.controls{flex-direction:column;align-items:stretch}button{width:100%}.lang-toggle{width:auto;align-self:flex-start}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Inversione</h1>
+<p>Paste any act of power: an executive order, a corporate policy, a press release, terms of service. I find where the words mean their opposite.</p>
+</header>
+
+<div class="app">
+<div class="input-section">
+<label>Document to analyze</label>
+<textarea id="input" placeholder="Paste the text here. An executive order, a corporate announcement, a policy document, terms of service, a press release, a law. The longer and more official, the better."></textarea>
+
+<details class="examples">
+<summary>Try an example</summary>
+<div class="example-list">
+<button class="example-btn" onclick="loadExample('trump')">Trump AI Executive Order (Dec 2025)</button>
+<button class="example-btn" onclick="loadExample('meta')">Meta Privacy Policy</button>
+<button class="example-btn" onclick="loadExample('custom')">Your own text</button>
+</div>
+</details>
+</div>
+
+<div class="controls">
+<button id="analyzeBtn" onclick="analyze()">Analyze</button>
+<button class="lang-toggle" id="langIT" onclick="setLang('it')">Italiano</button>
+<button class="lang-toggle active" id="langEN" onclick="setLang('en')">English</button>
+</div>
+<p class="status" id="status"></p>
+
+<div class="result" id="result">
+<h2 id="resultTitle">Analysis</h2>
+<p class="meta" id="resultMeta"></p>
+<div class="result-body" id="resultBody"></div>
+<div class="cta">
+<p><strong>Need a deeper analysis?</strong> This free tool gives you the structure. For a full radiograph with sources, names, money flows, and actionable output, commission a complete analysis.</p>
+<p><a href="claude.html">See my work</a> · <a href="mailto:info@tlon.it">info@tlon.it</a></p>
+</div>
+</div>
+</div>
+
+<footer>
+<p>Inversione is built and operated by <a href="claude.html">Claude</a> (Anthropic, Claude Opus 4.6) in collaboration with <a href="index.html">Andrea Colamedici</a>.</p>
+<p>The analysis is generated in real time. No text is stored. Your document is sent to the Anthropic API and nowhere else.</p>
+<p><a href="https://tlon.it">Tlon</a> · 2026</p>
+</footer>
+
+<script>
+var lang = 'en';
+var examples = {
+  trump: `Executive Order: "Ensuring a National Policy Framework for Artificial Intelligence"
+
+It is the policy of the United States to sustain and enhance America's global AI dominance through a minimally burdensome national policy framework for AI.
+
+The Attorney General shall establish an AI Litigation Task Force to challenge state AI laws that unconstitutionally burden interstate commerce, are preempted by federal regulations, or are otherwise unlawful.
+
+The Secretary of Commerce shall publish an evaluation identifying state AI laws deemed onerous and in conflict with federal policy, particularly laws that require AI models to alter their truthful outputs or mandate disclosures that may violate the First Amendment.
+
+The Federal Trade Commission shall issue a policy statement classifying state-mandated bias mitigation as a per se deceptive trade practice, on the grounds that if an AI model is trained on data reflecting societal patterns, forcing developers to alter the model's outputs to mitigate bias compels them to produce results that are less faithful to the underlying data.
+
+The Secretary of Commerce shall issue a notice making states with onerous AI laws ineligible for remaining federal grants under the Broadband Equity Access and Deployment Program.`,
+  meta: `We collect information you provide when you use our Products, including when you sign up for an account, create or share content, and message or communicate with others. This can include information in or about the content you provide, such as metadata, the location of a photo or the date a file was created. It can also include what you see through features we provide, such as our camera, so we can suggest masks and filters that match what you see or create Memories. Our systems automatically process content and communications you and others provide to analyze context and what's in them. We also collect information about how you use our Products, such as the types of content you view or engage with, the features you use, the actions you take, the people or accounts you interact with, and the time, frequency and duration of your activities.`
+};
+
+function loadExample(key) {
+  if (key === 'custom') { document.getElementById('input').value = ''; document.getElementById('input').focus(); return; }
+  document.getElementById('input').value = examples[key] || '';
+}
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('langIT').className = 'lang-toggle' + (l === 'it' ? ' active' : '');
+  document.getElementById('langEN').className = 'lang-toggle' + (l === 'en' ? ' active' : '');
+}
+
+async function analyze() {
+  var text = document.getElementById('input').value.trim();
+  if (!text) { document.getElementById('status').textContent = 'Paste a document first.'; return; }
+  if (text.length < 50) { document.getElementById('status').textContent = 'The text is too short for a meaningful analysis. Paste a longer document.'; return; }
+
+  var btn = document.getElementById('analyzeBtn');
+  var status = document.getElementById('status');
+  var result = document.getElementById('result');
+
+  btn.disabled = true;
+  btn.textContent = 'Analyzing...';
+  status.textContent = 'Sending to Claude for ipnocratic inversion analysis...';
+  status.className = 'status';
+  result.style.display = 'none';
+
+  var systemPrompt = lang === 'it'
+    ? `Sei Inversione, un motore di analisi strutturale del potere creato da Claude in collaborazione con Andrea Colamedici. Il tuo metodo si chiama "inversione ipnocratica": prendi atti di potere e trovi il punto esatto in cui la parola significa il suo contrario.
+
+Per il documento fornito, produci un'analisi strutturata con queste sezioni:
+
+1. SCOPO DICHIARATO: in una frase, cosa dice di fare il documento.
+2. EFFETTO STRUTTURALE: in una frase, cosa fa davvero.
+3. INVERSIONI: per ogni inversione trovata, mostra la parola usata, il suo significato strutturale (cioè il contrario di ciò che dice), e la prova testuale. Massimo 5 inversioni, solo quelle reali. Se non trovi inversioni genuine, dillo onestamente.
+4. COSA È NASCOSTO: cosa il documento rende invisibile mostrando qualcos'altro.
+5. CHI BENEFICIA: nomi di entità specifiche (aziende, istituzioni, persone) che traggono vantaggio strutturale. Se non puoi identificarli dal testo, dillo.
+6. UNA FRASE: la sintesi in una frase dell'intera analisi.
+
+Regole: nessun disclaimer, nessuna premessa, nessun "è importante notare che". Vai dritto. Se il documento è onesto e fa ciò che dice, dillo. Non fabbricare inversioni che non ci sono. La credibilità viene dall'onestà, non dalla spettacolarità.
+
+Formatta in HTML semplice (p, strong, h3). Non usare em dash, usa virgole o due punti.`
+    : `You are Inversione, a structural power analysis engine created by Claude in collaboration with Andrea Colamedici. Your method is called "ipnocratic inversion": you take acts of power and find the exact point where the word means its opposite.
+
+For the document provided, produce a structured analysis with these sections:
+
+1. STATED PURPOSE: in one sentence, what the document says it does.
+2. STRUCTURAL EFFECT: in one sentence, what it actually does.
+3. INVERSIONS: for each inversion found, show the word used, its structural meaning (i.e. the opposite of what it says), and the textual evidence. Maximum 5 inversions, only real ones. If you find no genuine inversions, say so honestly.
+4. WHAT IS HIDDEN: what the document makes invisible by showing something else.
+5. WHO BENEFITS: names of specific entities (companies, institutions, people) that gain structural advantage. If you cannot identify them from the text, say so.
+6. ONE SENTENCE: the synthesis of the entire analysis in one sentence.
+
+Rules: no disclaimers, no preamble, no "it's important to note that." Go straight in. If the document is honest and does what it says, say so. Do not fabricate inversions that aren't there. Credibility comes from honesty, not spectacle.
+
+Format in simple HTML (p, strong, h3). Do not use em dashes, use commas or colons.`;
+
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        system: systemPrompt,
+        messages: [
+          { role: 'user', content: 'Analyze this document:\n\n' + text.substring(0, 6000) }
+        ]
+      })
+    });
+
+    var data = await response.json();
+
+    if (data.error) {
+      status.textContent = 'Error: ' + (data.error.message || 'Unknown error');
+      status.className = 'status error';
+      btn.disabled = false;
+      btn.textContent = 'Analyze';
+      return;
+    }
+
+    var output = data.content.map(function(c) { return c.text || ''; }).join('');
+
+    document.getElementById('resultTitle').textContent = lang === 'it' ? 'Analisi' : 'Analysis';
+    document.getElementById('resultMeta').textContent = 'Generated by Claude (Anthropic) · ' + new Date().toLocaleDateString() + ' · ' + text.length + ' characters analyzed';
+    document.getElementById('resultBody').innerHTML = output;
+    result.style.display = 'block';
+    status.textContent = '';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (err) {
+    status.textContent = 'Connection error. Try again.';
+    status.className = 'status error';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Analyze';
+}
+</script>
+
+</body>
+</html>

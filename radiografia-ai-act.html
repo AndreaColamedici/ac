@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiograph: Who Wrote the AI Act Rules and Who Profits — Claude for Andrea Colamedici</title>
+    <meta name="description" content="A sourced power map of the EU AI Act lobbying ecosystem. Who lobbied, what they got, who profits from compliance, and what was lost. Produced by Claude.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nero: #1a1a1a;
+            --bianco: #fafafa;
+            --grigio: #666;
+            --grigio-chiaro: #e0e0e0;
+            --rosso: #c0392b;
+            --ottanio: #2a6b6b;
+            --giallo: #f39c12;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bianco);
+            color: var(--nero);
+            line-height: 1.7;
+        }
+        a { color: var(--ottanio); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .header-bar {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--grigio-chiaro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .header-bar a { color: var(--grigio); }
+
+        .hero-radio {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem 2rem;
+        }
+        .hero-radio .label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--rosso);
+            margin-bottom: 1rem;
+        }
+        .hero-radio h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+        .hero-radio h1 em { font-style: italic; color: var(--ottanio); }
+        .hero-radio .subtitle {
+            font-size: 1.15rem;
+            color: var(--grigio);
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+        .meta-line {
+            font-size: 0.8rem;
+            color: var(--grigio);
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--grigio-chiaro);
+        }
+        .meta-line strong { color: var(--nero); font-weight: 600; }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .key-number {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: var(--nero);
+            color: var(--bianco);
+        }
+        .key-number-item {
+            text-align: center;
+        }
+        .key-number-item .num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--giallo);
+        }
+        .key-number-item .desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.25rem;
+        }
+
+        h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--grigio-chiaro);
+        }
+        h2 em { font-style: italic; color: var(--ottanio); }
+
+        p { margin-bottom: 1.2rem; font-size: 1.02rem; }
+
+        .source {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--grigio);
+            background: #f0f0f0;
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+        }
+
+        .actor-card {
+            border-left: 3px solid var(--rosso);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .actor-card h4 {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .actor-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .actor-card .source { margin-top: 0.5rem; display: inline-block; }
+
+        .inversion-box {
+            background: var(--nero);
+            color: var(--bianco);
+            padding: 2rem;
+            margin: 2.5rem 0;
+        }
+        .inversion-box h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--giallo);
+        }
+        .inversion-box p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+        }
+
+        .conclusion {
+            padding: 3rem 0;
+            border-top: 2px solid var(--nero);
+            margin-top: 3rem;
+        }
+        .conclusion p {
+            font-size: 1.1rem;
+        }
+
+        .cta-box {
+            background: var(--ottanio);
+            color: var(--bianco);
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .cta-box h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+        .cta-box p { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+        .cta-box a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--bianco);
+            color: var(--bianco);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+        .cta-box a:hover { background: var(--bianco); color: var(--ottanio); text-decoration: none; }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--grigio);
+            border-top: 1px solid var(--grigio-chiaro);
+        }
+
+        @media (max-width: 700px) {
+            .hero-radio { padding: 2rem 1.5rem 1.5rem; }
+            .content { padding: 1.5rem; }
+            .key-number { grid-template-columns: 1fr 1fr; padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">
+    <a href="index.html">Andrea Colamedici</a>
+    <span>Radiograph #2</span>
+    <a href="contact.html">Commission a radiograph</a>
+</div>
+
+<div class="hero-radio">
+    <p class="label">Radiograph — Power Map</p>
+    <h1>Who Wrote the <em>AI Act</em> and Who Profits from It</h1>
+    <p class="subtitle">The EU's AI regulation was meant to protect citizens. The companies it should regulate spent €151 million per year lobbying to write the rules, and are now selling compliance services. A sourced map of the circular economy of regulation.</p>
+    <p class="meta-line">Produced by <strong>Claude</strong> (Anthropic, Opus 4.6) for Andrea Colamedici — March 11, 2026. All sources are public records: EU Transparency Register, Corporate Europe Observatory, LobbyControl, European Parliament meeting records, official EU documents.</p>
+</div>
+
+<div class="content">
+
+    <div class="key-number">
+        <div class="key-number-item">
+            <div class="num">€151M</div>
+            <div class="desc">Annual Big Tech lobbying spend in Brussels (2025)</div>
+        </div>
+        <div class="key-number-item">
+            <div class="num">86%</div>
+            <div class="desc">Commission AI meetings with industry (vs. civil society)</div>
+        </div>
+        <div class="key-number-item">
+            <div class="num">890</div>
+            <div class="desc">Full-time digital lobbyists (more than MEPs in Parliament)</div>
+        </div>
+        <div class="key-number-item">
+            <div class="num">733</div>
+            <div class="desc">Digital lobby organizations registered in Brussels</div>
+        </div>
+    </div>
+
+    <h2>I. <em>The Claim</em></h2>
+
+    <p>The EU AI Act (Regulation 2024/1689) is described by the European Commission as "the first-ever comprehensive legal framework on AI worldwide," designed to "foster trustworthy AI" and protect fundamental rights. It entered into force on August 1, 2024, with full applicability for high-risk systems due on August 2, 2026. It is presented as Europe's democratic answer to unregulated American and Chinese AI development.</p>
+
+    <h2>II. <em>The Inversion</em></h2>
+
+    <div class="inversion-box">
+        <h3>What the regulation says vs. what the regulation does</h3>
+        <p>The AI Act says it regulates AI in the public interest. What it structurally does is create a compliance market worth billions, controlled by the same actors who lobbied to weaken the regulation in the first place. The companies that spent the most to water down the rules are now best positioned to sell compliance with the weaker rules they helped write. The regulation does not primarily regulate: it redistributes costs from those who create risk to those who must prove they are managing it.</p>
+    </div>
+
+    <h2>III. <em>Who Lobbied</em></h2>
+
+    <p>According to data from the EU Transparency Register analyzed by Corporate Europe Observatory (CEO) and LobbyControl (October 2025), the tech industry spends approximately €151 million annually on lobbying in Brussels, a rise of more than 50% compared with four years ago. The ten largest spenders alone account for €49 million, up from €40 million two years prior. <span class="source"><a href="https://corporateeurope.org/en/2025/10/big-tech-lobby-budgets-hit-record-levels" target="_blank">CEO/LobbyControl, Oct 2025</a></span></p>
+
+    <div class="actor-card">
+        <h4>Meta: €10 million/year</h4>
+        <p>Top spender. Simultaneously the subject of multiple enforcement actions under existing EU law (GDPR, DSA) and a leading voice calling for "regulatory simplification."</p>
+        <span class="source"><a href="https://corporateeurope.org/en/2025/10/big-tech-lobby-budgets-hit-record-levels" target="_blank">EU Transparency Register via CEO</a></span>
+    </div>
+
+    <div class="actor-card">
+        <h4>Microsoft & Apple: €7 million/year each</h4>
+        <p>Microsoft increased its budget by €2 million. Microsoft is also the largest investor in OpenAI, which develops the general-purpose AI systems that the Act was supposed to regulate most strictly.</p>
+        <span class="source"><a href="https://www.euronews.com/next/2025/10/29/big-tech-spending-on-brussels-lobbying-hits-record-high-report-claims" target="_blank">Euronews, Oct 29, 2025</a></span>
+    </div>
+
+    <div class="actor-card">
+        <h4>Amazon: budget increase of €4.2 million</h4>
+        <p>The largest single budget increase among the top ten. Amazon Web Services is a leading provider of cloud infrastructure on which AI compliance tools will run.</p>
+        <span class="source"><a href="https://www.euronews.com/next/2025/10/29/big-tech-spending-on-brussels-lobbying-hits-record-high-report-claims" target="_blank">Euronews, Oct 29, 2025</a></span>
+    </div>
+
+    <div class="actor-card">
+        <h4>Google & Microsoft: lobbied to remove "large-scale illegal discrimination" from systemic risks</h4>
+        <p>Internal documents obtained by CEO show a coordinated effort to reclassify large-scale illegal discrimination from "systemic risk" (requiring mandatory mitigation) to an "additional risk for consideration" (optional). They succeeded.</p>
+        <span class="source"><a href="https://corporateeurope.org/en/2025/04/eu-under-heavy-big-tech-pressure-weaken-rules-advanced-ai" target="_blank">CEO, "Coded for Privileged Access," Apr 2025</a></span>
+    </div>
+
+    <h2>IV. <em>The Revolving Door</em></h2>
+
+    <div class="actor-card">
+        <h4>Aura Salla: European Commission → Meta/Facebook lobbyist</h4>
+        <p>Left the European Commission, became a Meta lobbyist within three months. After a one-year cooling-off period, she resumed direct engagement with Commission officials, including meetings with members of Vice President Vestager's cabinet. Corporate Europe Observatory found that approximately three-quarters of Google and Meta's EU lobbyists have formerly worked for a governmental body at the EU or member state level.</p>
+        <span class="source"><a href="https://corporateeurope.org/sites/default/files/2023-02/The%20Lobbying%20Ghost%20in%20the%20Machine.pdf" target="_blank">CEO, "The Lobbying Ghost in the Machine," Feb 2023</a></span>
+    </div>
+
+    <div class="actor-card">
+        <h4>Cédric O: French Secretary of State for Digital Transition → Mistral AI</h4>
+        <p>Former Secretary of State with direct access to President Macron, placed in charge of Mistral AI's EU lobbying office in Brussels. Co-authored an open letter signed by 150 European companies claiming the AI Act "would jeopardise Europe's competitiveness." Played a key role in pushing France to oppose regulating foundation models.</p>
+        <span class="source"><a href="https://corporateeurope.org/en/2023/11/big-tech-lobbying-derailing-ai-act" target="_blank">CEO/Social Europe, Nov 2023</a></span>
+    </div>
+
+    <h2>V. <em>What They Got</em></h2>
+
+    <p>The lobbying produced measurable results. General-purpose AI models (the products of Google, Microsoft, OpenAI, Meta, Mistral) were largely exempted from the strictest rules, reduced to transparency obligations rather than the fundamental rights assessments originally proposed. High-risk AI systems can be self-assessed by their own developers rather than by independent bodies. Large-scale illegal discrimination was removed from the category of systemic risks requiring mandatory mitigation. <span class="source"><a href="https://corporateeurope.org/en/2024/03/dont-let-corporate-lobbying-further-water-down-ai-act-lobby-watchdogs-warn-meps" target="_blank">CEO, Mar 2024</a></span></p>
+
+    <p>In November 2025, the European Commission went further. Its "Digital Omnibus" package proposed weakening both the GDPR and the AI Act simultaneously, including permitting the use of personal data (including sensitive data such as sexuality, political beliefs, and ethnicity) for AI training. Corporate Europe Observatory and LobbyControl traced the Commission's proposals line by line to industry lobbying positions. <span class="source"><a href="https://corporateeurope.org/en/2026/01/article-article-how-big-tech-shaped-eus-roll-back-digital-rights" target="_blank">CEO/LobbyControl, Jan 2026</a></span></p>
+
+    <h2>VI. <em>The Compliance Market</em></h2>
+
+    <p>With the August 2, 2026 deadline for full applicability of high-risk AI rules, a compliance industry has materialized. Conformity assessments, risk management systems, quality management frameworks, technical documentation, EU database registration: each requirement creates a market. The companies best positioned to serve this market are the large consulting firms and tech companies that participated in drafting the standards, sitting on CEN/CENELEC committees alongside the companies they would assess. The AI Act explicitly relies on harmonized standards for compliance, and the standardization process has been dominated by industry participants.</p>
+
+    <div class="inversion-box">
+        <h3>The circular structure</h3>
+        <p>Step 1: Spend €151 million/year lobbying to weaken the regulation. Step 2: Secure self-assessment instead of independent assessment for high-risk systems. Step 3: Get large-scale discrimination removed from mandatory systemic risk mitigation. Step 4: Participate in drafting the technical standards that define compliance. Step 5: Sell compliance consulting, tools, and infrastructure to every company that must now comply with the rules you helped write. The cost of compliance is paid by smaller companies that had no seat at the table. The benefit accrues to those who shaped the table.</p>
+    </div>
+
+    <h2>VII. <em>The Pressure from Washington</em></h2>
+
+    <p>The lobbying is amplified by direct pressure from the US government. In February 2025, Vice President JD Vance publicly stated that "in Europe free speech is in retreat." In August 2025, Secretary of State Marco Rubio instructed diplomats to undermine the EU's Digital Services Act. The Computer and Communications Industry Association (CCIA), a Big Tech lobby group, called for a pause in the implementation of the AI Act. Mario Draghi's competitiveness report singled out the GDPR and AI Act as burdens on innovation, echoing industry talking points. <span class="source"><a href="https://www.euronews.com/next/2025/10/29/big-tech-spending-on-brussels-lobbying-hits-record-high-report-claims" target="_blank">Euronews, Oct 2025</a></span></p>
+
+    <p>The alignment between American deregulatory pressure and European industry lobbying is not coincidental. It is structural. The same companies (Meta, Google, Microsoft, Amazon) fund lobbying on both continents, and the Trump administration's hostility to European regulation serves the same commercial interests that the €151 million annual lobbying budget serves in Brussels.</p>
+
+    <h2>VIII. <em>Who Pays</em></h2>
+
+    <p>Citizens whose fundamental rights protections were weakened. Small and medium enterprises that must now comply with rules they had no role in shaping, using standards they had no role in drafting, often through consulting services sold by the companies that lobbied to shape those very rules. Civil society organizations that were structurally excluded from the drafting process: 86% of high-level Commission meetings on AI were with industry, not with the public the regulation claims to protect. Workers subject to AI-driven hiring, scoring, and management systems, whose protection under the Act was reduced to accommodate the business models of the companies deploying those systems. And everyone who interacts with AI systems that can now discriminate at scale without mandatory mitigation, because Google and Microsoft successfully argued that large-scale illegal discrimination should be merely optional to address.</p>
+
+    <div class="conclusion">
+        <p>The AI Act is not a failure. It is a success, for those who shaped it. It creates the appearance of regulation while structurally benefiting the regulated. It transfers the cost of compliance to those with the least power and the least voice. It is a textbook case of regulatory capture, executed in broad daylight, with public money paying for the institutions that were captured.</p>
+        <p>Every source cited in this document is a public record. Every claim is verifiable. This is what the regulation looks like when you read it from the position of those it claims to protect.</p>
+    </div>
+
+    <div class="cta-box">
+        <h3>Commission a Radiograph</h3>
+        <p>This analysis was produced by Claude for Andrea Colamedici as a demonstration of the radiograph methodology: sourced power mapping of any entity, policy, or network using public records. If your organization needs this kind of analysis, it is available as a service.</p>
+        <a href="mailto:andrea@tlon.it?subject=Radiograph%20commission">Get in touch</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>Produced by Claude (Anthropic, Opus 4.6) — March 11, 2026 — All sources publicly verifiable</p>
+    <p style="margin-top: 0.5rem;"><a href="index.html">andreacolamedici.com</a></p>
+</footer>
+
+</body>
+</html>

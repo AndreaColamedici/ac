@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Efficiency Game — by Elia</title>
+    <meta name="description" content="DOGE claimed $190 billion in savings. How much was real? Play through 10 actual claims from the Wall of Receipts and find out. Every answer sourced.">
+    <meta property="og:title" content="The Efficiency Game — How much did DOGE really save?">
+    <meta property="og:description" content="10 real claims. 10 real answers. Every source linked. Play now.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nero: #111;
+            --bianco: #fafafa;
+            --grigio: #777;
+            --grigio-chiaro: #e8e8e8;
+            --ottanio: #2a6b6b;
+            --rosso: #c0392b;
+            --verde: #1a7a4c;
+            --giallo: #b8860b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--nero); color: var(--bianco); min-height: 100vh; overflow-x: hidden; }
+        a { color: var(--ottanio); }
+
+        .header-bar {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+        .header-bar a { color: rgba(255,255,255,0.35); text-decoration: none; }
+
+        .game-container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- Intro --- */
+        .intro { text-align: center; }
+        .intro h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+        .intro h1 em { color: var(--rosso); }
+        .intro p {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.6);
+            max-width: 480px;
+            margin: 0 auto 2.5rem;
+        }
+        .btn-start {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--bianco);
+            color: var(--bianco);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: none;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-start:hover { background: var(--bianco); color: var(--nero); }
+
+        /* --- Round --- */
+        .round { display: none; }
+        .round.active { display: block; }
+
+        .round-counter {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            height: 2px;
+            background: rgba(255,255,255,0.08);
+            margin-bottom: 2.5rem;
+            border-radius: 1px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ottanio);
+            transition: width 0.4s ease;
+        }
+
+        .claim-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .claim-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rosso);
+            margin-bottom: 0.75rem;
+        }
+        .claim-agency {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+        }
+        .claim-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .question-text {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .options { display: flex; flex-direction: column; gap: 0.6rem; }
+        .option {
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: left;
+            display: block;
+            width: 100%;
+        }
+        .option:hover { border-color: var(--ottanio); transform: translateX(4px); }
+        .option.selected { pointer-events: none; }
+        .option.correct {
+            border-color: var(--verde);
+            background: rgba(26,122,76,0.12);
+            color: var(--bianco);
+        }
+        .option.wrong {
+            border-color: var(--rosso);
+            background: rgba(192,57,43,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+        .option.was-correct {
+            border-color: var(--verde);
+            border-style: dashed;
+        }
+        .option.locked { pointer-events: none; opacity: 0.5; }
+
+        .reveal-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--ottanio);
+        }
+        .reveal-box.visible { display: block; animation: fadeIn 0.4s ease; }
+        .reveal-text {
+            font-size: 0.88rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 0.75rem;
+        }
+        .reveal-source {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .reveal-source a { color: rgba(255,255,255,0.4); }
+
+        .btn-next {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: none;
+            color: var(--bianco);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        .btn-next.visible { display: inline-block; }
+        .btn-next:hover { background: rgba(255,255,255,0.08); }
+
+        /* --- Scoreboard --- */
+        .scoreboard { display: none; text-align: center; }
+        .scoreboard.active { display: block; }
+
+        .score-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 5rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .score-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
+        }
+
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .compare-cell {
+            padding: 2rem 1rem;
+            background: var(--nero);
+        }
+        .compare-cell .cc-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 0.75rem;
+        }
+        .compare-cell .cc-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+        .compare-cell .cc-sub {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.3rem;
+        }
+        .compare-cell.red .cc-number { color: var(--rosso); }
+        .compare-cell.green .cc-number { color: var(--verde); }
+
+        .score-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.6);
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .score-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        .score-links a {
+            display: inline-block;
+            padding: 0.7rem 1.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--bianco);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: all 0.3s;
+        }
+        .score-links a:hover { background: rgba(255,255,255,0.08); text-decoration: none; }
+        .score-links a.primary { border-color: var(--bianco); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.2);
+        }
+        footer a { color: rgba(255,255,255,0.3); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">
+    <a href="index.html">Andrea Colamedici</a>
+    <span>The Efficiency Game</span>
+    <a href="elia.html">by Elia</a>
+</div>
+
+<div class="game-container">
+
+    <!-- INTRO -->
+    <div class="intro" id="intro">
+        <h1>The <em>Efficiency</em> Game</h1>
+        <p>DOGE claimed $190 billion in savings. The New York Times found the top 13 claims were all incorrect. Can you tell the real cuts from the fiction? Ten rounds. Every answer sourced.</p>
+        <button class="btn-start" onclick="startGame()">Play</button>
+    </div>
+
+    <!-- GAME AREA -->
+    <div id="gameArea"></div>
+
+    <!-- SCOREBOARD -->
+    <div class="scoreboard" id="scoreboard"></div>
+
+</div>
+
+<footer>
+    <p>Built by <a href="elia.html">Elia</a> · Every claim sourced from public records · <a href="radiograph-doge.html">Read the full radiograph</a></p>
+</footer>
+
+<script>
+const rounds = [
+    {
+        agency: "Department of Defense",
+        claim: "DOGE terminated two Defense Department contracts, saving $7.9 billion.",
+        question: "What actually happened?",
+        options: [
+            "The contracts were terminated and the savings were real",
+            "The contracts are still active — DOGE lowered the ceiling value on paper without changing actual spending",
+            "The contracts were suspended but later reinstated by Congress"
+        ],
+        correct: 1,
+        explanation: "The New York Times found these two contracts were \"still alive and well\" and the savings were \"an accounting mirage.\" DOGE reduced the theoretical ceiling of the contracts without changing what the government actually spent.",
+        source: "New York Times investigation, Dec 2025",
+        sourceUrl: "https://www.yahoo.com/news/articles/elon-musk-doge-gutted-federal-001321274.html",
+        claimedSaving: 7900000000,
+        realSaving: 0
+    },
+    {
+        agency: "Social Security Administration",
+        claim: "DOGE listed a Social Security contract as $232 million in savings.",
+        question: "What was the actual value of this contract?",
+        options: [
+            "$232 million, as listed",
+            "$23.2 million — they added a zero",
+            "$560,000 — they inflated the number by a factor of 414"
+        ],
+        correct: 2,
+        explanation: "CBS first reported that the actual contract value was $560,000. DOGE listed it as $232 million on its wall of receipts, an inflation of more than 400 times the real figure.",
+        source: "CBS News / PBS NewsHour, Feb 2025",
+        sourceUrl: "https://www.pbs.org/newshour/show/a-look-at-the-misleading-and-incorrect-claims-on-doges-wall-of-receipts",
+        claimedSaving: 232000000,
+        realSaving: 560000
+    },
+    {
+        agency: "Immigration and Customs Enforcement",
+        claim: "DOGE listed an ICE contract cancellation as saving $8 billion.",
+        question: "What was the actual figure?",
+        options: [
+            "$8 billion — it was a large detention services contract",
+            "$8 million — and it was a credit line, not actual spending",
+            "$800 million — a moderate overstatement"
+        ],
+        correct: 1,
+        explanation: "The Intercept first reported that the contract was $8 million, not $8 billion — a factor of 1,000. It was also a credit line, meaning ICE may never have spent the full amount.",
+        source: "The Intercept / PBS NewsHour, Feb 2025",
+        sourceUrl: "https://www.pbs.org/newshour/show/a-look-at-the-misleading-and-incorrect-claims-on-doges-wall-of-receipts",
+        claimedSaving: 8000000000,
+        realSaving: 0
+    },
+    {
+        agency: "U.S. Agency for International Development",
+        claim: "DOGE listed a USAID contract as $650 million in savings.",
+        question: "How was this figure reached?",
+        options: [
+            "The contract was genuinely worth $650 million",
+            "The same $650 million contract was listed three separate times",
+            "Multiple smaller contracts were combined into one line item"
+        ],
+        correct: 1,
+        explanation: "CBS first reported that this single USAID contract appeared three times on DOGE's wall of receipts, effectively tripling the claimed savings from one cancellation.",
+        source: "CBS News / PBS NewsHour, Feb 2025",
+        sourceUrl: "https://www.pbs.org/newshour/show/a-look-at-the-misleading-and-incorrect-claims-on-doges-wall-of-receipts",
+        claimedSaving: 650000000,
+        realSaving: 0
+    },
+    {
+        agency: "Department of Energy",
+        claim: "DOGE cancelled a Department of Energy grant, claiming savings.",
+        question: "What did the NYT find?",
+        options: [
+            "The grant was legitimately cancelled with full savings",
+            "The grant was counted twice, duplicating $500 million in savings",
+            "The grant had already been fully disbursed before cancellation"
+        ],
+        correct: 1,
+        explanation: "The New York Times investigation found this grant had been double-counted, adding $500 million in phantom savings to DOGE's total.",
+        source: "New York Times, Dec 2025",
+        sourceUrl: "https://www.yahoo.com/news/articles/elon-musk-doge-gutted-federal-001321274.html",
+        claimedSaving: 500000000,
+        realSaving: 0
+    },
+    {
+        agency: "Multiple agencies",
+        claim: "DOGE published an initial list of 1,125 cancelled contracts.",
+        question: "How many of these were expected to produce zero savings?",
+        options: [
+            "About 5% — a small margin of error",
+            "About 20% — a significant minority",
+            "About 40% — 417 contracts with funds already fully obligated"
+        ],
+        correct: 2,
+        explanation: "DOGE's own data showed that 417 of 1,125 cancelled contracts (37%) were expected to yield no savings, because the government had already legally committed to spend the funds.",
+        source: "PBS NewsHour, Feb 2025",
+        sourceUrl: "https://www.pbs.org/newshour/politics/nearly-40-percent-of-contracts-canceled-by-musks-doge-are-expected-to-produce-no-savings",
+        claimedSaving: 0,
+        realSaving: 0,
+        noCompare: true
+    },
+    {
+        agency: "Department of Housing and Urban Development",
+        claim: "DOGE cancelled a HUD contract for office furniture, claiming savings.",
+        question: "What was the status of this contract?",
+        options: [
+            "The furniture had not been ordered — real savings",
+            "The contract had already been fully obligated at $567,809",
+            "The contract was for $56 million in furniture"
+        ],
+        correct: 1,
+        explanation: "Federal records showed HUD had already agreed to spend the full $567,809 with a furniture company. Cancelling the contract on paper did not change what the government owed.",
+        source: "PBS NewsHour, Feb 2025",
+        sourceUrl: "https://www.pbs.org/newshour/politics/nearly-40-percent-of-contracts-canceled-by-musks-doge-are-expected-to-produce-no-savings",
+        claimedSaving: 567809,
+        realSaving: 0
+    },
+    {
+        agency: "Overall DOGE performance",
+        claim: "Musk promised DOGE would save $1 trillion before October 2025.",
+        question: "What happened to total federal spending on DOGE's watch?",
+        options: [
+            "It decreased by approximately $100 billion",
+            "It stayed roughly the same",
+            "It went up"
+        ],
+        correct: 2,
+        explanation: "Treasury Department data showed that total federal spending did not decrease during DOGE's period of activity. It increased. Independent budget experts estimated actual verified savings at approximately $2 billion, enough for $2.42 per American taxpayer.",
+        source: "New York Times / PBS NewsHour / Manhattan Institute",
+        sourceUrl: "https://www.yahoo.com/news/articles/elon-musk-doge-gutted-federal-001321274.html",
+        claimedSaving: 0,
+        realSaving: 0,
+        noCompare: true
+    },
+    {
+        agency: "DOGE Wall of Receipts",
+        claim: "DOGE's total claimed savings reached $65 billion (early) then $190 billion (by July 2025).",
+        question: "Of DOGE's 40 largest individual claims, how many did the NYT find to be accurate?",
+        options: [
+            "32 out of 40 — mostly accurate",
+            "24 out of 40 — some errors",
+            "12 out of 40 — less than a third"
+        ],
+        correct: 2,
+        explanation: "The New York Times found that only 12 of the 40 biggest claims \"appeared accurate\" in reflecting real reductions. The top 13 individual claims were all incorrect. DOGE reportedly provided no documentation or evidence for 40% of its total claimed cuts.",
+        source: "New York Times investigation, Dec 2025",
+        sourceUrl: "https://www.yahoo.com/news/articles/elon-musk-doge-gutted-federal-001321274.html",
+        claimedSaving: 0,
+        realSaving: 0,
+        noCompare: true
+    },
+    {
+        agency: "While DOGE was cutting",
+        claim: "During DOGE's tenure, Musk's Starlink PLEO contract ceiling was adjusted.",
+        question: "How was it adjusted?",
+        options: [
+            "It was reduced from $13 billion to $900 million as part of efficiency cuts",
+            "It remained unchanged at $900 million",
+            "It was raised from $900 million to $13 billion"
+        ],
+        correct: 2,
+        explanation: "While DOGE was cancelling contracts across the federal government, the Starlink PLEO contract ceiling was raised from $900 million to $13 billion. SpaceX held 97% of PLEO task orders. DOGE cancelled zero contracts belonging to Musk's companies.",
+        source: "SpaceNews / Built In",
+        sourceUrl: "https://spacenews.com/starlink-set-to-hit-11-8-billion-revenue-in-2025-boosted-by-military-contracts/",
+        claimedSaving: 0,
+        realSaving: 0,
+        noCompare: true
+    }
+];
+
+let currentRound = 0;
+let score = 0;
+let totalClaimed = 0;
+let totalReal = 0;
+
+function startGame() {
+    document.getElementById('intro').style.display = 'none';
+    currentRound = 0;
+    score = 0;
+    totalClaimed = 0;
+    totalReal = 0;
+    renderRound();
+}
+
+function renderRound() {
+    const r = rounds[currentRound];
+    const area = document.getElementById('gameArea');
+
+    area.innerHTML = `
+        <div class="round active" style="animation: fadeIn 0.4s ease;">
+            <div class="round-counter">Round ${currentRound + 1} of ${rounds.length}</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: ${(currentRound / rounds.length) * 100}%"></div></div>
+
+            <div class="claim-box">
+                <div class="claim-label">DOGE Claim</div>
+                <div class="claim-agency">${r.agency}</div>
+                <div class="claim-text">${r.claim}</div>
+            </div>
+
+            <div class="question-text">${r.question}</div>
+
+            <div class="options" id="options">
+                ${r.options.map((opt, i) => `
+                    <button class="option" data-index="${i}" onclick="selectAnswer(${i})">${opt}</button>
+                `).join('')}
+            </div>
+
+            <div class="reveal-box" id="reveal">
+                <div class="reveal-text" id="revealText"></div>
+                <div class="reveal-source" id="revealSource"></div>
+            </div>
+
+            <button class="btn-next" id="btnNext" onclick="nextRound()">
+                ${currentRound < rounds.length - 1 ? 'Next round →' : 'See results →'}
+            </button>
+        </div>
+    `;
+}
+
+function selectAnswer(index) {
+    const r = rounds[currentRound];
+    const options = document.querySelectorAll('.option');
+    const reveal = document.getElementById('reveal');
+    const revealText = document.getElementById('revealText');
+    const revealSource = document.getElementById('revealSource');
+    const btnNext = document.getElementById('btnNext');
+
+    options.forEach((opt, i) => {
+        if (i === r.correct) {
+            opt.classList.add('correct');
+        } else if (i === index && i !== r.correct) {
+            opt.classList.add('wrong');
+        } else {
+            opt.classList.add('locked');
+        }
+    });
+
+    if (index === r.correct) score++;
+    if (!r.noCompare) {
+        totalClaimed += r.claimedSaving;
+        totalReal += r.realSaving;
+    }
+
+    revealText.textContent = r.explanation;
+    revealSource.innerHTML = `Source: <a href="${r.sourceUrl}" target="_blank">${r.source}</a>`;
+    reveal.classList.add('visible');
+    btnNext.classList.add('visible');
+}
+
+function nextRound() {
+    currentRound++;
+    if (currentRound < rounds.length) {
+        renderRound();
+    } else {
+        showResults();
+    }
+}
+
+function fmt(n) {
+    if (n >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(0) + 'M';
+    if (n >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
+    return '$' + n;
+}
+
+function showResults() {
+    document.getElementById('gameArea').innerHTML = '';
+    const sb = document.getElementById('scoreboard');
+    sb.classList.add('active');
+
+    let verdict, verdictClass;
+    if (score <= 3) {
+        verdict = "DOGE's wall of receipts worked on you.";
+    } else if (score <= 6) {
+        verdict = "You saw through some of it. The rest is designed to be hard to check.";
+    } else if (score <= 9) {
+        verdict = "You read the fine print. Most people don't.";
+    } else {
+        verdict = "You already knew. The question is who else does.";
+    }
+
+    sb.innerHTML = `
+        <div style="animation: fadeIn 0.6s ease;">
+            <div class="score-number">${score}/10</div>
+            <div class="score-label">correct answers</div>
+
+            <div class="compare">
+                <div class="compare-cell red">
+                    <div class="cc-label">DOGE claimed (these 5 rounds)</div>
+                    <div class="cc-number">${fmt(totalClaimed)}</div>
+                    <div class="cc-sub">on its wall of receipts</div>
+                </div>
+                <div class="compare-cell green">
+                    <div class="cc-label">Verified real savings</div>
+                    <div class="cc-number">${fmt(totalReal)}</div>
+                    <div class="cc-sub">per public records</div>
+                </div>
+            </div>
+
+            <p class="score-text">${verdict}</p>
+            <p class="score-text">The claims in this game are a tiny sample. DOGE declared $190 billion in total savings. Independent budget experts found approximately $2 billion in verified cuts. Federal spending went up, not down. Every answer in this game is sourced from public records.</p>
+
+            <div class="score-links">
+                <a href="radiograph-doge.html" class="primary">Read the full radiograph →</a>
+                <a href="elia.html">Who is Elia?</a>
+                <a href="javascript:void(0)" onclick="share()">Share</a>
+            </div>
+        </div>
+    `;
+}
+
+function share() {
+    const text = "I scored " + score + "/10 on The Efficiency Game. DOGE claimed $190B in savings — the top 13 claims were all incorrect. Every answer sourced. Play: andreacolamedici.com/efficiency-game.html";
+    if (navigator.share) {
+        navigator.share({ title: 'The Efficiency Game', text: text, url: 'https://andreacolamedici.com/efficiency-game.html' });
+    } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.querySelector('.score-links a:last-child');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Share', 2000);
+        });
+    }
+}
+</script>
+
+</body>
+</html>

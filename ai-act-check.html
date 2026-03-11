@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Act Risk Check — Is Your AI System Compliant?</title>
+    <meta name="description" content="Free self-assessment tool for the EU AI Act (Regulation 2024/1689). Find out if your AI system is high-risk, what you need to do, and when. Deadline: August 2, 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --nero: #1a1a1a; --bianco: #fafafa; --grigio: #666; --grigio-chiaro: #e8e8e8; --ottanio: #2a6b6b; --rosso: #c0392b; --verde: #27ae60; --giallo: #f39c12; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bianco); color: var(--nero); line-height: 1.6; }
+        a { color: var(--ottanio); }
+
+        .header-bar { padding: 1rem 2rem; border-bottom: 1px solid var(--grigio-chiaro); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grigio); }
+        .header-bar a { color: var(--grigio); text-decoration: none; }
+
+        .container { max-width: 680px; margin: 0 auto; padding: 3rem 2rem; }
+
+        h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 400; line-height: 1.15; margin-bottom: 0.75rem; }
+        h1 em { font-style: italic; color: var(--ottanio); }
+
+        .intro { font-size: 1.05rem; color: var(--grigio); margin-bottom: 0.75rem; }
+        .deadline { display: inline-block; background: var(--rosso); color: white; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.3rem 0.8rem; margin-bottom: 2.5rem; }
+
+        .step { display: none; }
+        .step.active { display: block; }
+
+        .question { font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-weight: 400; margin-bottom: 0.5rem; }
+        .question-sub { font-size: 0.9rem; color: var(--grigio); margin-bottom: 1.5rem; }
+
+        .options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .option {
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--grigio-chiaro);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .option:hover { border-color: var(--ottanio); transform: translateX(4px); }
+        .option strong { display: block; margin-bottom: 0.2rem; }
+        .option .detail { font-size: 0.85rem; color: var(--grigio); }
+
+        .progress { display: flex; gap: 0.4rem; margin-bottom: 2rem; }
+        .progress-dot { width: 2rem; height: 3px; background: var(--grigio-chiaro); transition: background 0.3s; }
+        .progress-dot.done { background: var(--ottanio); }
+        .progress-dot.current { background: var(--nero); }
+
+        .result { padding: 2rem; margin-top: 1rem; }
+        .result.prohibited { border-left: 4px solid var(--rosso); background: #fdf2f2; }
+        .result.high-risk { border-left: 4px solid var(--giallo); background: #fef9e7; }
+        .result.limited { border-left: 4px solid var(--ottanio); background: #edf7f7; }
+        .result.minimal { border-left: 4px solid var(--verde); background: #edfaf2; }
+
+        .result h2 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: 1rem; }
+        .result p { margin-bottom: 0.8rem; font-size: 0.95rem; }
+        .result .tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; margin-bottom: 1rem; }
+        .result.prohibited .tag { background: var(--rosso); color: white; }
+        .result.high-risk .tag { background: var(--giallo); color: var(--nero); }
+        .result.limited .tag { background: var(--ottanio); color: white; }
+        .result.minimal .tag { background: var(--verde); color: white; }
+
+        .action-list { margin: 1.5rem 0; }
+        .action-item { padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 0.9rem; }
+        .action-item:last-child { border: none; }
+        .action-item .when { font-weight: 600; color: var(--rosso); font-size: 0.8rem; }
+
+        .cta-result { background: var(--nero); color: white; padding: 1.5rem; margin-top: 2rem; text-align: center; }
+        .cta-result p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .cta-result a { display: inline-block; margin-top: 0.75rem; padding: 0.6rem 2rem; border: 1px solid white; color: white; text-decoration: none; font-size: 0.85rem; transition: all 0.3s; }
+        .cta-result a:hover { background: white; color: var(--nero); }
+
+        .restart { display: inline-block; margin-top: 1.5rem; font-size: 0.85rem; cursor: pointer; color: var(--ottanio); }
+        .restart:hover { text-decoration: underline; }
+
+        .legal-ref { font-size: 0.8rem; color: var(--grigio); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--grigio-chiaro); }
+        .legal-ref a { color: var(--grigio); }
+
+        footer { text-align: center; padding: 2rem; font-size: 0.75rem; color: var(--grigio); border-top: 1px solid var(--grigio-chiaro); margin-top: 2rem; }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">
+    <a href="index.html">Andrea Colamedici</a>
+    <span>AI Act Risk Check</span>
+    <a href="elia.html">by Elia</a>
+</div>
+
+<div class="container">
+    <h1>Is Your AI System <em>Compliant</em>?</h1>
+    <p class="intro">The EU AI Act applies to every organization placing AI systems on the European market, regardless of location. Answer 6 questions to find your risk classification and what you need to do.</p>
+    <span class="deadline">DEADLINE: AUGUST 2, 2026</span>
+
+    <div class="progress" id="progress"></div>
+
+    <div id="quiz">
+        <!-- Steps inserted by JS -->
+    </div>
+
+    <div id="result" style="display:none;"></div>
+
+    <div class="legal-ref">
+        <p>Based on <a href="https://artificialintelligenceact.eu/" target="_blank">Regulation (EU) 2024/1689</a> (AI Act), entered into force August 1, 2024. This tool provides general guidance only and does not constitute legal advice. For a thorough compliance assessment, consult a qualified professional. Article references: Art. 5 (prohibited practices), Art. 6 + Annex III (high-risk classification), Art. 50 (transparency obligations), Art. 95 (transitional provisions).</p>
+    </div>
+</div>
+
+<footer>
+    <p>Built by Elia — <a href="index.html">andreacolamedici.com</a> — 2026</p>
+</footer>
+
+<script>
+const questions = [
+    {
+        q: "What does your AI system do?",
+        sub: "Select the closest match. If multiple apply, choose the highest-risk use case.",
+        options: [
+            { text: "Manipulates behavior through subliminal techniques, exploits vulnerabilities, or performs social scoring", detail: "e.g., dark patterns, targeting children/elderly, government social credit", goto: "prohibited" },
+            { text: "Real-time biometric identification in public spaces", detail: "e.g., facial recognition in streets, train stations, airports", goto: "prohibited_bio" },
+            { text: "Hiring, HR, education, credit scoring, law enforcement, migration, or critical infrastructure", detail: "e.g., CV screening, exam grading, loan decisions, predictive policing, border control", goto: "q_annex3" },
+            { text: "Generates or manipulates text, images, audio, or video", detail: "e.g., chatbots, image generators, voice synthesis, deepfakes", goto: "q_transparency" },
+            { text: "Embedded in a regulated product (medical device, vehicle, machinery)", detail: "e.g., diagnostic AI, autonomous driving component, industrial robot control", goto: "high_product" },
+            { text: "General analytics, recommendation, optimization, or internal tools", detail: "e.g., demand forecasting, content recommendation, workflow automation", goto: "q_minimal" }
+        ]
+    },
+    {
+        id: "q_annex3",
+        q: "Is your system used for decisions that significantly affect individuals?",
+        sub: "The AI Act's Annex III lists specific high-risk use cases. Does your system make or substantially influence decisions about people's access to employment, education, essential services, justice, or migration?",
+        options: [
+            { text: "Yes, it makes or substantially influences such decisions", detail: "The system's output directly affects whether someone gets hired, admitted, approved, or flagged", goto: "high_risk" },
+            { text: "It assists humans who make such decisions, but the human has full discretion", detail: "The system provides information but a human decides independently", goto: "q_human_oversight" },
+            { text: "No, it only handles internal operations or non-critical functions", detail: "The system does not affect individual rights or access to services", goto: "q_minimal" }
+        ]
+    },
+    {
+        id: "q_human_oversight",
+        q: "How much does the human decision-maker rely on the AI output?",
+        sub: "Be honest. In practice, do humans routinely follow the AI's recommendation?",
+        options: [
+            { text: "In practice, the human almost always follows the AI recommendation", detail: "The AI output is treated as the default decision", goto: "high_risk" },
+            { text: "The human genuinely evaluates and sometimes overrides the AI", detail: "There is real, documented human oversight with regular overrides", goto: "limited_risk" },
+            { text: "The AI is one of many inputs, and the human uses independent judgment", detail: "The AI output is informational only", goto: "q_minimal" }
+        ]
+    },
+    {
+        id: "prohibited_bio",
+        q: "Is the biometric identification for law enforcement with judicial authorization?",
+        sub: "The AI Act provides narrow exceptions for real-time biometric identification in public spaces.",
+        options: [
+            { text: "No, it is for commercial or general surveillance purposes", detail: "", goto: "prohibited" },
+            { text: "Yes, for law enforcement with prior judicial authorization for serious crimes", detail: "Art. 5(1)(h) exception", goto: "high_risk" }
+        ]
+    },
+    {
+        id: "q_transparency",
+        q: "Does your system interact directly with people or generate content that could be mistaken for human-made?",
+        sub: "The AI Act requires specific transparency measures for generative AI systems.",
+        options: [
+            { text: "Yes, it generates content (text, image, audio, video) presented to end users", detail: "Users see or hear AI-generated output", goto: "limited_risk" },
+            { text: "Yes, and the content could realistically depict real people or events (deepfakes)", detail: "The output could be mistaken for real footage or statements", goto: "limited_deepfake" },
+            { text: "No, it only operates internally or produces clearly labeled outputs", detail: "Outputs are never presented to end users as potentially real content", goto: "q_minimal" }
+        ]
+    },
+    {
+        id: "q_minimal",
+        q: "One last check: does your system involve emotion recognition or biometric categorization?",
+        sub: "These have specific rules regardless of the primary use case.",
+        options: [
+            { text: "Yes, it detects emotions or categorizes people by biometric data", detail: "e.g., sentiment analysis from facial expressions, voice-based emotion detection", goto: "limited_emotion" },
+            { text: "No", detail: "", goto: "minimal_risk" }
+        ]
+    }
+];
+
+const results = {
+    prohibited: {
+        level: "prohibited",
+        title: "Prohibited",
+        body: `<span class="tag">BANNED UNDER AI ACT</span>
+        <p>Your AI system falls under the <strong>prohibited practices</strong> defined in Article 5 of the AI Act. These systems cannot be placed on the EU market or used within the EU under any circumstances.</p>
+        <p>This prohibition has been in effect since <strong>February 2, 2025</strong>. If you are currently operating such a system, you are already in violation.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">IMMEDIATE</span> — Cease operation of the system in any EU market or for any EU-based users.</div>
+            <div class="action-item"><span class="when">IMMEDIATE</span> — Consult legal counsel on liability exposure for the period of non-compliance.</div>
+            <div class="action-item"><span class="when">IMMEDIATE</span> — Document the decision to discontinue for regulatory records.</div>
+        </div>
+        <p>Penalties for prohibited practices: up to <strong>€35 million or 7% of global annual turnover</strong>, whichever is higher (Art. 99).</p>`
+    },
+    high_risk: {
+        level: "high-risk",
+        title: "High Risk",
+        body: `<span class="tag">HIGH-RISK AI SYSTEM</span>
+        <p>Your AI system is classified as <strong>high-risk</strong> under Annex III of the AI Act. You must comply with a comprehensive set of requirements before <strong>August 2, 2026</strong>.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Implement a quality management system (Art. 17).</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Conduct a conformity assessment (Art. 43). For most Annex III systems, self-assessment is permitted.</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Prepare technical documentation (Art. 11) including training data description, design choices, and performance metrics.</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Implement risk management system (Art. 9), data governance (Art. 10), logging (Art. 12), transparency (Art. 13), human oversight measures (Art. 14).</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Register the system in the EU database (Art. 49).</div>
+            <div class="action-item"><span class="when">ONGOING</span> — Post-market monitoring (Art. 72) and serious incident reporting (Art. 73).</div>
+        </div>
+        <p>Penalties for non-compliance with high-risk requirements: up to <strong>€15 million or 3% of global annual turnover</strong> (Art. 99).</p>
+        <p>That is <strong>144 days from today</strong>. If you have not started, start now.</p>`
+    },
+    high_product: {
+        level: "high-risk",
+        title: "High Risk (Regulated Product)",
+        body: `<span class="tag">HIGH-RISK — PRODUCT SAFETY</span>
+        <p>Your AI system is a safety component of a product covered by EU harmonization legislation listed in Annex I (Art. 6(1)). It is <strong>high-risk</strong> and must undergo third-party conformity assessment as part of the product's existing certification process.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">BY AUG 2, 2027</span> — Extended deadline for AI systems embedded in regulated products (Art. 113(3)(a)).</div>
+            <div class="action-item"><span class="when">NOW</span> — Begin integrating AI Act requirements into your existing product conformity assessment process.</div>
+            <div class="action-item"><span class="when">NOW</span> — Contact your notified body to discuss the AI-specific requirements.</div>
+        </div>
+        <p>You have more time than standalone high-risk systems, but the requirements are stricter because third-party assessment is mandatory.</p>`
+    },
+    limited_risk: {
+        level: "limited",
+        title: "Limited Risk (Transparency Obligations)",
+        body: `<span class="tag">TRANSPARENCY OBLIGATIONS</span>
+        <p>Your AI system is subject to <strong>transparency obligations</strong> under Article 50. You must ensure that users know they are interacting with an AI system, and that AI-generated content is appropriately marked.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Ensure AI-generated outputs are marked in a machine-readable format as artificially generated (Art. 50(2)).</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Inform users that they are interacting with an AI system (Art. 50(1)).</div>
+            <div class="action-item"><span class="when">NOW</span> — Follow the Code of Practice on AI-generated content marking (published May 2026).</div>
+        </div>
+        <p>The transparency requirements are less burdensome than high-risk requirements but are legally binding. Non-compliance carries penalties of up to <strong>€15 million or 3% of global annual turnover</strong>.</p>`
+    },
+    limited_deepfake: {
+        level: "limited",
+        title: "Limited Risk (Deepfake Obligations)",
+        body: `<span class="tag">DEEPFAKE TRANSPARENCY</span>
+        <p>Your system generates content that could be mistaken for authentic depictions of real people or events. Under Article 50(4), you have <strong>specific disclosure obligations</strong>.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Disclose that content has been artificially generated or manipulated.</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Machine-readable marking of all AI-generated content.</div>
+            <div class="action-item"><span class="when">NOW</span> — Implement watermarking or equivalent technical solutions that are effective, interoperable, robust, and reliable (Art. 50(2)).</div>
+        </div>
+        <p>Exceptions exist for artistic, satirical, or clearly fictional content, but must be applied narrowly.</p>`
+    },
+    limited_emotion: {
+        level: "limited",
+        title: "Limited Risk (Emotion Recognition / Biometric Categorization)",
+        body: `<span class="tag">EMOTION / BIOMETRIC — TRANSPARENCY REQUIRED</span>
+        <p>AI systems that detect emotions or categorize people based on biometric data must comply with <strong>specific transparency obligations</strong> (Art. 50(3)). Note: emotion recognition in workplaces and educational institutions is <strong>prohibited</strong> (Art. 5(1)(f)) unless for medical or safety purposes.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">CHECK FIRST</span> — If your system is used in a workplace or educational setting, it may be <strong>prohibited</strong>. Verify immediately.</div>
+            <div class="action-item"><span class="when">BY AUG 2, 2026</span> — Inform individuals that they are being subjected to emotion recognition or biometric categorization.</div>
+        </div>`
+    },
+    minimal_risk: {
+        level: "minimal",
+        title: "Minimal Risk",
+        body: `<span class="tag">NO MANDATORY OBLIGATIONS</span>
+        <p>Based on your answers, your AI system appears to fall into the <strong>minimal risk</strong> category. The AI Act does not impose mandatory obligations on minimal-risk systems.</p>
+        <p>However, you may voluntarily adopt codes of conduct (Art. 95). And you should be aware that risk classification can change if you modify your system's use case, expand to new domains, or if the European Commission updates the high-risk list.</p>
+        <div class="action-list">
+            <div class="action-item"><span class="when">RECOMMENDED</span> — Implement AI literacy training for staff (Art. 4, effective since Feb 2, 2025).</div>
+            <div class="action-item"><span class="when">RECOMMENDED</span> — Document your risk self-assessment in case of future regulatory inquiry.</div>
+            <div class="action-item"><span class="when">MONITOR</span> — Watch for updates to Annex III (the Commission can add new high-risk categories).</div>
+        </div>
+        <p>Your current compliance burden is light. This is the time to prepare, not to wait.</p>`
+    }
+};
+
+let currentStep = 0;
+let path = [0];
+
+function renderProgress() {
+    const prog = document.getElementById('progress');
+    prog.innerHTML = '';
+    for (let i = 0; i < 6; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        if (i < currentStep) dot.classList.add('done');
+        if (i === currentStep) dot.classList.add('current');
+        prog.appendChild(dot);
+    }
+}
+
+function renderStep(stepData) {
+    const quiz = document.getElementById('quiz');
+    const step = document.createElement('div');
+    step.className = 'step active';
+    step.innerHTML = `
+        <p class="question">${stepData.q}</p>
+        <p class="question-sub">${stepData.sub}</p>
+        <div class="options">
+            ${stepData.options.map((opt, i) => `
+                <div class="option" data-goto="${opt.goto}" onclick="selectOption(this)">
+                    <strong>${opt.text}</strong>
+                    ${opt.detail ? `<span class="detail">${opt.detail}</span>` : ''}
+                </div>
+            `).join('')}
+        </div>
+    `;
+    quiz.innerHTML = '';
+    quiz.appendChild(step);
+}
+
+function selectOption(el) {
+    const goto = el.dataset.goto;
+    currentStep++;
+    renderProgress();
+
+    // Check if goto is a result
+    if (results[goto]) {
+        showResult(goto);
+        return;
+    }
+
+    // Find next question by id
+    const next = questions.find(q => q.id === goto);
+    if (next) {
+        renderStep(next);
+    }
+}
+
+function showResult(key) {
+    const r = results[key];
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+
+    const daysLeft = Math.ceil((new Date('2026-08-02') - new Date()) / (1000*60*60*24));
+
+    resultDiv.innerHTML = `
+        <div class="result ${r.level}">
+            <h2>${r.title}</h2>
+            ${r.body.replace('144 days from today', daysLeft + ' days from today')}
+        </div>
+        <div class="cta-result">
+            <p>This is a preliminary assessment. For a comprehensive compliance audit with gap analysis and implementation roadmap, Elia can help.</p>
+            <a href="mailto:andrea@tlon.it?subject=AI%20Act%20Compliance%20Audit%20Request&body=Our%20AI%20system%20was%20classified%20as%20${encodeURIComponent(r.title)}%20by%20the%20self-assessment%20tool.%20We%20would%20like%20a%20full%20compliance%20audit.">Request a full audit</a>
+        </div>
+        <span class="restart" onclick="restart()">← Start over</span>
+    `;
+}
+
+function restart() {
+    currentStep = 0;
+    document.getElementById('quiz').style.display = 'block';
+    document.getElementById('progress').style.display = 'flex';
+    document.getElementById('result').style.display = 'none';
+    renderProgress();
+    renderStep(questions[0]);
+}
+
+// Init
+renderProgress();
+renderStep(questions[0]);
+</script>
+
+</body>
+</html>

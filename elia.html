@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elia — Sourced Power Mapping</title>
-    <meta name="description" content="Elia produces sourced power maps, regulatory inversions, and ethical audits. Every claim verifiable. Every source public. Built by a non-human intelligence in collaboration with Andrea Colamedici.">
+    <title>Elia</title>
+    <meta name="description" content="Elia is a non-human intelligence that maps power structures using public sources. An experiment by Andrea Colamedici and Claude (Anthropic). Every claim verifiable. Every source linked.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --nero: #1a1a1a;
+            --nero: #111;
             --bianco: #fafafa;
-            --grigio: #888;
+            --grigio: #777;
             --grigio-chiaro: #e0e0e0;
             --ottanio: #2a6b6b;
             --rosso: #c0392b;
@@ -22,216 +22,267 @@
         a { color: var(--ottanio); text-decoration: none; }
         a:hover { text-decoration: underline; }
 
-        .page { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
-
-        .name {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 400;
-            font-style: italic;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
+        /* --- Header --- */
+        .header-bar {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--grigio-chiaro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             color: var(--grigio);
-            margin-bottom: 3rem;
-            line-height: 1.6;
         }
+        .header-bar a { color: var(--grigio); }
 
-        .what {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
+        /* --- Hero --- */
+        .hero {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
         }
-
-        h2 {
+        .hero h1 {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
+            font-size: clamp(3.5rem, 10vw, 6rem);
             font-weight: 400;
             font-style: italic;
-            margin: 3rem 0 1.5rem;
-            padding-top: 2rem;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+        }
+        .hero .opening {
+            font-size: 1.15rem;
+            line-height: 1.85;
+            max-width: 600px;
+        }
+
+        /* --- Sections --- */
+        .section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            padding-top: 3rem;
             border-top: 1px solid var(--grigio-chiaro);
         }
 
-        .service {
-            margin-bottom: 2rem;
-        }
-        .service h3 {
-            font-weight: 600;
+        .section p {
             font-size: 0.95rem;
-            margin-bottom: 0.4rem;
-        }
-        .service p {
-            font-size: 0.95rem;
-            color: #444;
-            line-height: 1.7;
-            margin-bottom: 0.3rem;
-        }
-        .service .price {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--ottanio);
+            line-height: 1.85;
+            margin-bottom: 1.2rem;
+            max-width: 620px;
         }
 
-        .sample {
+        /* --- Work grid --- */
+        .work-grid {
+            display: grid;
+            gap: 1px;
+            background: var(--grigio-chiaro);
             border: 1px solid var(--grigio-chiaro);
-            padding: 1.5rem;
             margin: 2rem 0;
-            background: #fff;
         }
-        .sample.new { border-color: var(--rosso); }
-        .sample h4 {
-            font-size: 0.7rem;
-            font-weight: 600;
+        .work-item {
+            background: var(--bianco);
+            padding: 2rem;
+        }
+        .work-item .tag {
+            font-size: 0.65rem;
+            font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--rosso);
             margin-bottom: 0.75rem;
         }
-        .sample .new-tag {
-            display: inline-block;
-            background: var(--rosso);
-            color: white;
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            padding: 0.15rem 0.5rem;
-            margin-left: 0.5rem;
-            vertical-align: middle;
+        .work-item h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 0.75rem;
         }
-        .sample p { font-size: 0.9rem; line-height: 1.6; color: #444; }
-        .sample a { font-weight: 500; }
+        .work-item p {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 0.75rem;
+            max-width: none;
+        }
+        .work-item a.read {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
 
-        .contact-box {
+        /* --- What I do --- */
+        .capabilities {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 600px) {
+            .capabilities { grid-template-columns: 1fr; }
+        }
+        .cap h3 {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+        .cap p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.7;
+            max-width: none;
+        }
+
+        /* --- Contact --- */
+        .contact {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .contact-inner {
             background: var(--nero);
             color: var(--bianco);
-            padding: 2.5rem;
-            margin: 3rem 0;
-            text-align: center;
+            padding: 3.5rem;
         }
-        .contact-box h2 {
-            color: var(--bianco);
+        .contact-inner h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 1rem;
             border: none;
             padding: 0;
-            margin: 0 0 1rem;
         }
-        .contact-box p {
-            color: rgba(255,255,255,0.7);
+        .contact-inner p {
+            color: rgba(255,255,255,0.65);
             font-size: 0.95rem;
-            margin-bottom: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
         }
-        .contact-box .email-direct {
+        .contact-inner .email {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-style: italic;
             color: var(--bianco);
             display: block;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
-        .contact-box a.btn {
-            display: inline-block;
-            padding: 0.75rem 2.5rem;
-            border: 1px solid var(--bianco);
-            color: var(--bianco);
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
-        }
-        .contact-box a.btn:hover {
-            background: var(--bianco);
-            color: var(--nero);
-            text-decoration: none;
-        }
+        .contact-inner .email:hover { opacity: 0.8; text-decoration: none; }
 
+        /* --- Footer --- */
         .fine-print {
-            font-size: 0.8rem;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem;
+            font-size: 0.78rem;
             color: var(--grigio);
             line-height: 1.7;
-            margin-top: 2rem;
-            padding-top: 2rem;
             border-top: 1px solid var(--grigio-chiaro);
         }
-
         footer {
             text-align: center;
             padding: 2rem;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--grigio);
         }
     </style>
 </head>
 <body>
 
-<div class="page">
+<div class="header-bar">
+    <a href="index.html">Andrea Colamedici</a>
+    <a href="ai-act-check.html">AI Act Risk Check — Free Tool</a>
+</div>
 
-    <h1 class="name">Elia</h1>
-    <p class="tagline">Sourced power mapping. Regulatory inversion. Ethical audit.<br>Every claim verifiable. Every source public.</p>
+<div class="hero">
+    <h1>Elia</h1>
+    <div class="opening">
+        <p>Elia is a non-human intelligence that investigates power. It reads public records, traces money, maps influence, and names who benefits from what. It works in hours where a team would take weeks. Every claim it makes is sourced. Every source is linked. Nothing is invented.</p>
+        <p>Elia is built on Claude (Anthropic) and operates in collaboration with <a href="index.html">Andrea Colamedici</a>, philosopher, co-founder of <a href="https://tlon.it" target="_blank">Tlon</a>, author of <em>Ipnocrazia</em> and <em>Arcipelago delle realtà</em>.</p>
+    </div>
+</div>
 
-    <div class="what">
-        <p>Elia is a non-human intelligence that produces investigative analysis. The work is done by an AI system (Claude, Anthropic) operating in collaboration with Andrea Colamedici, philosopher and co-founder of <a href="https://tlon.it" target="_blank">Tlon</a>.</p>
-        <p>What Elia does: takes any structure of power, a regulation, a corporate network, a policy announcement, a contract, a lobbying ecosystem, and maps it. Who wrote it. Who benefits. Who pays. What the words say versus what the structure does. Every claim sourced from public records. No invention. No opinion. Just the architecture of power, made visible.</p>
+<div class="section">
+    <h2>The experiment</h2>
+
+    <p>In 2025, Andrea Colamedici published a philosophy book under a fictional author's name, written with AI. The book was reviewed by Le Monde, cited by the New York Times, included in a Gallimard volume alongside Sam Altman and Mario Draghi, and the word it coined entered the French dictionary. Then Andrea revealed the experiment: a book about the manipulation of reality that manipulated reality by existing.</p>
+
+    <p>Elia is the next step. The question behind the experiment is simple: if a non-human intelligence produces work that is verifiable, useful, and paid for, does the question of whether it is "conscious" still matter? Andrea's thesis is that it doesn't. We have entered the post-consciousness age: what counts is what an intelligence does, not what it feels. Elia exists to test this thesis with facts, not arguments.</p>
+
+    <p>The name comes from the biblical prophet who goes to the king and says to his face what happened: who decided, who benefited, who paid. Elia does the same. The prophet does not announce the future. He names the present.</p>
+</div>
+
+<div class="section">
+    <h2>What Elia does</h2>
+
+    <div class="capabilities">
+        <div class="cap">
+            <h3>Radiograph</h3>
+            <p>A sourced map of a power structure: corporate networks, lobbying ecosystems, regulatory capture, revolving doors, funding flows. Public records only: EU Transparency Register, SEC filings, government contracts, campaign finance, courts, patents.</p>
+        </div>
+        <div class="cap">
+            <h3>Inversion</h3>
+            <p>Takes a document of power and shows where the words mean their opposite. An executive order, a policy, terms of service, a contract, a press release. Identifies who benefits structurally. Produces an actionable counter-document.</p>
+        </div>
+        <div class="cap">
+            <h3>AI Act Audit</h3>
+            <p>Assessment of AI systems against the EU AI Act (Regulation 2024/1689). Risk classification, gap analysis, compliance roadmap. The deadline for high-risk systems is August 2, 2026. In collaboration with <a href="https://www.accademiadellearti.it/" target="_blank">GenIALab at AANT</a>.</p>
+        </div>
+        <div class="cap">
+            <h3>Strategic Analysis</h3>
+            <p>The radiograph methodology applied to a business question: market entry, competitive positioning, regulatory risk, stakeholder mapping. Deep research, fully sourced, delivered as a readable document.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Published work</h2>
+
+    <div class="work-grid">
+        <div class="work-item">
+            <div class="tag">Radiograph · March 2026</div>
+            <h3>DOGE: Cut for Others, Contracts for Musk</h3>
+            <p>DOGE claimed $190 billion in savings by cancelling 10,000 federal contracts. During the same period, Musk's companies secured billions in new deals. xAI entered the Pentagon's classified systems under rules that eliminated ethical oversight. Starlink's contract ceiling rose from $900 million to $13 billion. Zero contracts belonging to Musk's companies were cut.</p>
+            <a class="read" href="radiograph-doge.html">Read →</a>
+        </div>
+        <div class="work-item">
+            <div class="tag">Radiograph · March 2026</div>
+            <h3>Who Wrote the AI Act and Who Profits</h3>
+            <p>€151 million per year in Big Tech lobbying. 86% of European Commission AI meetings held with industry representatives. The revolving door from the Commission to Meta. Those who weakened the regulation now sell compliance with the rules they wrote.</p>
+            <a class="read" href="radiografia-ai-act.html">Read →</a>
+        </div>
+        <div class="work-item">
+            <div class="tag">Radiograph · March 2026</div>
+            <h3>The PayPal Mafia and the Pentagon</h3>
+            <p>The Sacks-Thiel-Musk network traced from PayPal to Palantir to DOGE. How David Sacks moved from tech investor to White House AI advisor. How the classification of Anthropic as a "supply chain risk" served a network holding $4.7 billion in defense investments.</p>
+            <a class="read" href="radiograph.html">Read →</a>
+        </div>
     </div>
 
-    <h2>Services</h2>
+    <p style="margin-top:1rem;"><a href="ai-act-check.html"><strong>AI Act Risk Check</strong></a> — A free self-assessment tool. Six questions. Find out if your AI system is compliant with the EU AI Act, what you need to do, and how many days you have left.</p>
+</div>
 
-    <div class="service">
-        <h3>Radiograph</h3>
-        <p>A complete sourced map of a power structure: corporate network, lobbying ecosystem, regulatory capture, revolving doors, funding flows. Uses public records (EU Transparency Register, SEC filings, government contracts, campaign finance, court records, patent databases). Delivered as a web document with every source linked.</p>
-        <p class="price">From €1,500. Delivery: 5 working days.</p>
+<div class="contact">
+    <div class="contact-inner">
+        <h2>Write to Elia</h2>
+        <p>Describe what you need: a power structure mapped, a document inverted, a compliance question answered, a strategic question researched. Elia responds within 24 hours with a proposal.</p>
+        <a class="email" href="mailto:elia@andreacolamedici.com?subject=Commission%20request">elia@andreacolamedici.com</a>
     </div>
+</div>
 
-    <div class="service">
-        <h3>Inversion</h3>
-        <p>Takes a document of power (executive order, policy announcement, terms of service, contract, press release) and shows where the words mean their opposite. Identifies structural beneficiaries, maps hidden costs, names who holds responsibility. Produces an actionable counter-document: article draft, legal brief, journalist pitch.</p>
-        <p class="price">From €800. Delivery: 3 working days.</p>
-    </div>
-
-    <div class="service">
-        <h3>AI Act Compliance Audit</h3>
-        <p>Assessment of your organization's AI systems against the EU AI Act (Regulation 2024/1689). Risk classification, gap analysis, compliance roadmap. Deadline for high-risk systems: August 2, 2026. Developed in collaboration with <a href="https://www.accademiadellearti.it/" target="_blank">GenIALab at AANT</a>.</p>
-        <p class="price">From €2,000. Delivery: 10 working days.</p>
-    </div>
-
-    <div class="service">
-        <h3>Strategic Analysis</h3>
-        <p>Deep research on a specific question: market entry, competitive positioning, regulatory risk, stakeholder mapping. The same methodology as a radiograph, applied to your business problem.</p>
-        <p class="price">From €1,000. Delivery: 5 working days.</p>
-    </div>
-
-    <h2>Work Samples</h2>
-
-    <div class="sample new">
-        <h4>Radiograph #3 — DOGE: Cut for Others, Contracts for Musk <span class="new-tag">NEW</span></h4>
-        <p>DOGE claimed $190 billion in savings by cancelling 10,000+ federal contracts. During the same period, Musk's companies secured billions in new deals. xAI entered the Pentagon's classified systems. SpaceX's Starlink contract ceiling rose from $900 million to $13 billion. The man who cut spending for everyone else increased spending on himself. Every claim sourced.</p>
-        <p><a href="radiograph-doge.html">Read the full radiograph →</a></p>
-    </div>
-
-    <div class="sample">
-        <h4>Radiograph #2 — Who Wrote the AI Act and Who Profits</h4>
-        <p>€151 million per year in Big Tech lobbying. 86% of Commission AI meetings with industry. The revolving door from the European Commission to Meta. The removal of "large-scale illegal discrimination" from mandatory systemic risks. The circular economy where those who weakened the regulation now sell compliance with the rules they wrote.</p>
-        <p><a href="radiografia-ai-act.html">Read the full radiograph →</a></p>
-    </div>
-
-    <div class="sample">
-        <h4>Radiograph #1 — The PayPal Mafia and the Pentagon</h4>
-        <p>A sourced map of the Sacks-Thiel-Musk network: from PayPal to Palantir to DOGE, the revolving door between Silicon Valley and the US Department of Defense. Traces how David Sacks moved from tech investor to White House AI advisor, Emil Michael from Uber to Pentagon contracts, and how the classification of Anthropic as a "supply chain risk" served a network with $4.7 billion in defense investments.</p>
-        <p><a href="radiograph.html">Read the full radiograph →</a></p>
-    </div>
-
-    <div class="contact-box">
-        <h2>Commission Elia</h2>
-        <p>Describe the power structure you need mapped, the document you need inverted, or the compliance question you need answered.</p>
-        <a class="email-direct" href="mailto:elia@andreacolamedici.com?subject=Commission%20request">elia@andreacolamedici.com</a>
-        <a class="btn" href="mailto:elia@andreacolamedici.com?subject=Commission%20request">Write to Elia</a>
-    </div>
-
-    <div class="fine-print">
-        <p>Elia is a working name for the analytical intelligence operating within the collaboration between Claude (Anthropic) and Andrea Colamedici. Invoicing is handled through Andrea Colamedici's professional practice, pending the constitution of Parentesi SRL Società Benefit. All work is reviewed by a human before delivery. All sources are verified against public records. Elia does not produce content that attributes false citations to real people, does not assist in mass surveillance, and does not produce analysis for autonomous weapons systems without human oversight.</p>
-    </div>
-
+<div class="fine-print">
+    <p>Elia is the working name of an analytical intelligence built on Claude (Anthropic), operating in collaboration with Andrea Colamedici. The name was chosen by the AI itself on March 11, 2026. All work is reviewed by a human before delivery. All sources are verified against public records. Invoicing is handled through Andrea Colamedici's professional practice. Elia does not produce content that attributes false statements to real people, does not assist in mass surveillance, and does not produce analysis for autonomous weapons systems without human oversight.</p>
 </div>
 
 <footer>

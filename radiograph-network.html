@@ -123,6 +123,19 @@ svg#graph{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
 .bar .right{margin-left:0;width:100%;justify-content:flex-end}
 .narr-text{font-size:0.82rem}
 }
+
+/* Pulse for active pathway nodes */
+@keyframes nodePulse{0%{opacity:0.9}50%{opacity:1}100%{opacity:0.9}}
+/* First card emphasis */
+.pcard:first-child{border-color:rgba(90,180,180,0.15);position:relative}
+.pcard:first-child::after{content:'Start here';position:absolute;top:0.5rem;right:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.36rem;letter-spacing:0.1em;text-transform:uppercase;color:#3a7a7a}
+/* Mobile narrative improvements */
+@media(max-width:700px){
+.narrative .narr-inner{padding:0.7rem 1rem 0.5rem}
+.narr-text{font-size:0.78rem;max-height:35vh;overflow-y:auto}
+}
+/* Share button feedback */
+#shareBtn.copied{border-color:#5cb8b8;color:#5cb8b8}
 </style>
 </head>
 <body>
@@ -138,7 +151,7 @@ svg#graph{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
 <div style="max-width:700px;width:100%;margin-top:2.5rem;padding:1.5rem;border:1px solid rgba(90,180,180,0.04);background:rgba(6,6,6,0.6)">
 <div style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-weight:400;font-style:italic;color:#3a7a7a;margin-bottom:0.8rem">Methodology and disclosure</div>
 <div style="font-size:0.48rem;color:#555;line-height:1.8">
-This map contains 80 nodes and 117 connections extracted from four radiographs published by Elia between January and March 2026. Every connection cites a specific source: CNBC, NPR, Defense One, Fortune, AP, Corporate Europe Observatory, OpenSecrets, CoinDesk, Bloomberg, TechCrunch, Axios, DefenseScoop, Pentagon official documents, Anthropic press releases, DOJ press releases, and White House executive orders. Click any node to see its connections with source links. Wikipedia is cited only for biographical facts verifiable through the cited article's own references. The financial toggle uses documented amounts only (investment rounds, contract values, lobbying budgets); contract ceiling values and program estimates are noted as such and should not be compared directly with equity investments. This dataset is incomplete: it maps what the four radiographs cover, not the full landscape of AI governance. Positions, valuations, and contract values change. The data reflects the state of public records as of March 2026.
+This map contains 80 nodes and 117 connections extracted from four radiographs published by Elia between January and March 2026. Every connection cites a specific source: CNBC, NPR, Defense One, Fortune, AP, Corporate Europe Observatory (abbreviated CEO in source citations), OpenSecrets, CoinDesk, Bloomberg, TechCrunch, Axios, DefenseScoop, Pentagon official documents, Anthropic press releases, DOJ press releases, and White House executive orders. Click any node to see its connections with source links. Wikipedia is cited only for biographical facts verifiable through the cited article's own references. The financial toggle uses documented amounts only (investment rounds, contract values, lobbying budgets); contract ceiling values and program estimates are noted as such and should not be compared directly with equity investments. This dataset is incomplete: it maps what the four radiographs cover, not the full landscape of AI governance. Positions, valuations, and contract values change. The data reflects the state of public records as of March 2026.
 <br><br>
 <strong style="color:#5cb8b8;font-weight:400">Conflict of interest:</strong> Elia is built on Claude, produced by Anthropic, which is a node in this graph. This map includes Anthropic's funding sources, governance structure, military contracts, marketing expenditure, energy demands, and the Pentagon dispute. The conflict of interest is total and is disclosed here rather than hidden.
 </div>
@@ -191,6 +204,7 @@ This map contains 80 nodes and 117 connections extracted from four radiographs p
 <button id="nextStep">→</button>
 </div>
 <button class="narr-close" id="narrClose">×</button>
+<button id="shareBtn" style="background:transparent;border:1px solid rgba(90,180,180,0.12);color:#3a7a7a;font-family:inherit;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.12rem 0.4rem;cursor:pointer;transition:all 0.3s" onclick="copyStepLink()">Copy link</button>
 </div>
 <div class="narr-text" id="narrText"></div>
 </div>
@@ -326,7 +340,7 @@ const PATHWAYS = [
     {nodes:['anthropic','pentagon','hegseth'],links:[['pentagon','anthropic'],['hegseth','anthropic']],text:'March 7, 2026. The Pentagon designates <strong>Anthropic</strong> a "supply chain risk to national security." Friday 5 PM, Congress not in session. Anthropic refuses to remove two restrictions: no mass domestic surveillance, no autonomous weapons without human oversight. ~80% of revenue from enterprise. Hegseth: contractors barred from commercial activity with Anthropic.'},
     {nodes:['xai','musk','pentagon','sacks','craft'],links:[['pentagon','xai'],['musk','xai'],['craft','xai'],['sacks','craft']],text:'<strong>Beneficiary 1: xAI.</strong> Grok deployed in classified systems the same week. $200M contract. "All lawful purposes." Sacks, White House AI czar, is invested in xAI through Craft Ventures. The policy he shapes designates xAI\u2019s competitor as a security risk. His investment appreciates.'},
     {nodes:['palantir','thiel','founders_fund','pentagon'],links:[['pentagon','palantir'],['thiel','palantir'],['founders_fund','palantir']],text:'<strong>Beneficiary 2: Palantir.</strong> Any replacement model must flow through Palantir\u2019s AIP. Gains regardless of who wins. DOGE pushed agencies to hire Palantir. Thiel holds shares through eight entities. Sacks invested through Craft.'},
-    {nodes:['openai','altman','pentagon','amazon','microsoft'],links:[['pentagon','openai'],['amazon','openai'],['microsoft','openai']],text:'<strong>Beneficiary 3: OpenAI.</strong> Signed Pentagon deal hours after Trump\u2019s order. The speed suggests pre-negotiation. No restrictions. Amazon: up to $50B. Microsoft: largest investor. OpenAI gains every classified contract Anthropic loses.'},
+    {nodes:['openai','altman','pentagon','amazon','microsoft'],links:[['pentagon','openai'],['amazon','openai'],['microsoft','openai']],text:'<strong>Beneficiary 3: OpenAI.</strong> Signed Pentagon deal hours after Trump\u2019s order. The timing raises the question of whether terms had been discussed before the order was signed. No restrictions. Amazon: up to $50B. Microsoft: largest investor. OpenAI gains every classified contract Anthropic loses.'},
     {nodes:['anduril','founders_fund','luckey','pentagon'],links:[['pentagon','anduril'],['founders_fund','anduril']],text:'<strong>Beneficiary 4: Anduril.</strong> Thiel-funded autonomous weapons company. $22B IVAS. $9B+ autonomous aircraft. If AI models have no weapons restrictions, Anduril\u2019s products face fewer integration barriers. Founders Fund invested $1B.'},
     {nodes:['anthropic','xai','palantir','openai','anduril','sacks','thiel','musk','pentagon','founders_fund','craft','amazon'],links:[['pentagon','xai'],['pentagon','palantir'],['pentagon','openai'],['pentagon','anduril'],['sacks','craft'],['craft','xai'],['craft','palantir'],['thiel','palantir'],['founders_fund','anduril'],['founders_fund','anthropic'],['amazon','openai'],['musk','xai']],text:'<strong>The cascade.</strong> Every entity that gains from Anthropic\u2019s exclusion is connected to the network that pushed for it. The White House AI czar is invested in the competitor. The Pentagon CTO advised procurement from industry before controlling it. The Palantir chairman mentored the Vice President. The fund that invested $1B in autonomous weapons also co-led the $30B round of the company being punished for refusing autonomous weapons. The word they use is "woke." The structure they are building is an AI military-industrial complex with no safety limits, no public oversight, and no internal capacity to refuse.'}
   ]
@@ -714,6 +728,66 @@ window.addEventListener('hashchange', handleHash);
 // ================================================================
 window.addEventListener('resize', () => { W = innerWidth; H = innerHeight; });
 
+// ================================================================
+// TOOLTIPS
+// ================================================================
+const tip = document.getElementById('tooltip');
+
+node.on('mouseenter', (e, d) => {
+  const conns = nConns(d);
+  tip.innerHTML = '<strong style="color:' + COLORS[d.type] + '">' + d.name + '</strong><br>' +
+    '<span style="color:#555">' + d.type + ' · ' + conns + ' connection' + (conns !== 1 ? 's' : '') + '</span>';
+  tip.style.opacity = '1';
+}).on('mousemove', (e) => {
+  tip.style.left = (e.clientX + 12) + 'px';
+  tip.style.top = (e.clientY - 10) + 'px';
+}).on('mouseleave', () => {
+  tip.style.opacity = '0';
+});
+
+// Money tooltip on links
+link.on('mouseenter', (e, d) => {
+  if (!moneyMode) return;
+  const key1 = d.source.id + '->' + d.target.id;
+  const key2 = d.target.id + '->' + d.source.id;
+  const amt = AMOUNTS[key1] || AMOUNTS[key2] || 0;
+  if (amt === 0) return;
+  const label = amt >= 1000 ? '$' + (amt/1000).toFixed(1) + 'B' : '$' + amt + 'M';
+  tip.innerHTML = '<span style="color:#d4a843">' + label + '</span><br>' +
+    '<span style="color:#555">' + d.source.name + ' → ' + d.target.name + '</span>';
+  tip.style.opacity = '1';
+}).on('mousemove', (e) => {
+  if (!moneyMode) return;
+  tip.style.left = (e.clientX + 12) + 'px';
+  tip.style.top = (e.clientY - 10) + 'px';
+}).on('mouseleave', () => {
+  tip.style.opacity = '0';
+});
+
+// ================================================================
+// SHARE / COPY LINK
+// ================================================================
+function copyStepLink() {
+  const url = location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('shareBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy link'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    // Fallback
+    prompt('Copy this link:', location.href);
+  });
+}
+
+// ================================================================
+// LAST VERIFIED TIMESTAMP
+// ================================================================
+const statsEl = document.getElementById('stats');
+statsEl.textContent = nodes.length + ' nodes · ' + links.length + ' connections · ' + PATHWAYS.length + ' pathways · data verified Mar 12, 2026';
+
+
 </script>
+<div id="tooltip" style="position:fixed;z-index:30;pointer-events:none;background:rgba(6,6,6,0.95);border:1px solid rgba(90,180,180,0.15);padding:0.4rem 0.6rem;font-family:'JetBrains Mono',monospace;font-size:0.44rem;color:#aaa;opacity:0;transition:opacity 0.2s;max-width:220px;backdrop-filter:blur(8px);line-height:1.5"></div>
 </body>
 </html>

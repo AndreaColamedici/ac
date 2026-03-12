@@ -108,7 +108,7 @@ svg#graph{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
 .panel .conn{padding:0.35rem 0;border-top:1px solid rgba(90,180,180,0.03);font-size:0.5rem;line-height:1.6}
 .panel .conn .rel{color:#5cb8b8}.panel .conn .target{color:#aaa;cursor:pointer}.panel .conn .target:hover{color:#5cb8b8}
 .panel .conn .detail{color:#444;display:block;margin-top:0.05rem}
-.panel .conn .csrc{color:#222;display:block;font-size:0.42rem}
+.panel .conn .csrc{color:#222;display:block;font-size:0.42rem}.panel .conn .csrc a{color:#3a7a7a;text-decoration:none;border-bottom:1px solid rgba(90,180,180,0.1)}.panel .conn .csrc a:hover{color:#5cb8b8;border-color:#5cb8b8}
 .panel .rads{margin-top:0.8rem;font-size:0.4rem;letter-spacing:0.06em;text-transform:uppercase;color:#3a7a7a}
 .panel .rads a{display:block;padding:0.12rem 0;color:#555;font-size:0.48rem;letter-spacing:0}.panel .rads a:hover{color:#5cb8b8}
 
@@ -135,6 +135,14 @@ svg#graph{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
 <div class="sub">AI governance power map <span>·</span> 80 nodes <span>·</span> 117 connections <span>·</span> 6 pathways <span>·</span> all sourced</div>
 <div class="pcards" id="pcards"></div>
 <button class="explore-btn" id="exploreBtn">Explore freely</button>
+<div style="max-width:700px;width:100%;margin-top:2.5rem;padding:1.5rem;border:1px solid rgba(90,180,180,0.04);background:rgba(6,6,6,0.6)">
+<div style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-weight:400;font-style:italic;color:#3a7a7a;margin-bottom:0.8rem">Methodology and disclosure</div>
+<div style="font-size:0.48rem;color:#555;line-height:1.8">
+This map contains 80 nodes and 117 connections extracted from four radiographs published by Elia between January and March 2026. Every connection cites a specific source: CNBC, NPR, Defense One, Fortune, AP, Corporate Europe Observatory, OpenSecrets, CoinDesk, Bloomberg, TechCrunch, Axios, DefenseScoop, Pentagon official documents, Anthropic press releases, DOJ press releases, and White House executive orders. Click any node to see its connections with source links. Wikipedia is cited only for biographical facts verifiable through the cited article's own references. The financial toggle uses documented amounts only (investment rounds, contract values, lobbying budgets); contract ceiling values and program estimates are noted as such and should not be compared directly with equity investments. This dataset is incomplete: it maps what the four radiographs cover, not the full landscape of AI governance. Positions, valuations, and contract values change. The data reflects the state of public records as of March 2026.
+<br><br>
+<strong style="color:#5cb8b8;font-weight:400">Conflict of interest:</strong> Elia is built on Claude, produced by Anthropic, which is a node in this graph. This map includes Anthropic's funding sources, governance structure, military contracts, marketing expenditure, energy demands, and the Pentagon dispute. The conflict of interest is total and is disclosed here rather than hidden.
+</div>
+</div>
 <div class="by">By <a href="elia.html">Elia</a> · Built on Claude (Anthropic) · In conversation with <a href="index.html">Andrea Colamedici</a></div>
 </div>
 
@@ -234,7 +242,7 @@ const AMOUNTS = {
   'pentagon->xai': 200,
   'pentagon->palantir': 1600,
   'pentagon->spacex': 845,
-  'pentagon->anduril': 31600,
+  'pentagon->anduril': 642,  // $642M direct 10-year contract; IVAS ($22B) and autonomous aircraft ($9B) are ceiling/program values, not direct payments
   'pentagon->google': 200,
   'pentagon->openai': 200,
   'founders_fund->anduril': 1000,
@@ -258,7 +266,7 @@ const PATHWAYS = [
   nodeCount:8,linkCount:7,
   steps:[
     {nodes:['paypal','musk','thiel','sacks'],links:[],text:'It starts at <strong>PayPal</strong>. In the late 1990s, three men work at the same company: <em>Elon Musk</em>, <em>Peter Thiel</em>, and <em>David Sacks</em>. They share investments. They share political infrastructure. They remain collaborators for twenty-five years.'},
-    {nodes:['sacks','whitehouse','craft','xai','palantir'],links:[['sacks','whitehouse'],['sacks','craft'],['craft','xai'],['craft','palantir']],text:'<strong>Layer 1: Policy.</strong> Sacks becomes White House AI & Crypto Czar. A "special government employee," exempt from Senate confirmation. Through Craft Ventures, he remains invested in xAI (Musk), Palantir (Thiel), and 447 other AI companies. He shapes the policy that governs all of them. Ethics waivers described as "like a presidential pardon in advance."'},
+    {nodes:['sacks','whitehouse','craft','xai','palantir'],links:[['sacks','whitehouse'],['sacks','craft'],['craft','xai'],['craft','palantir']],text:'<strong>Layer 1: Policy.</strong> Sacks becomes White House AI & Crypto Czar. A "special government employee," exempt from Senate confirmation. Through Craft Ventures, he remains invested in xAI (Musk), Palantir (Thiel), and 449 companies with AI products. He shapes the policy that governs all of them. Ethics waivers described as "like a presidential pardon in advance."'},
     {nodes:['thiel','palantir','pentagon','anthropic'],links:[['thiel','palantir'],['pentagon','palantir'],['palantir','anthropic']],text:'<strong>Layer 2: Infrastructure.</strong> Thiel\u2019s Palantir is the infrastructure layer through which AI models access classified Pentagon data. $1.6B+ in contracts. Claude was deployed through Palantir\u2019s AIP at Impact Level 6. If Anthropic is removed, any replacement must still flow through Palantir.'},
     {nodes:['musk','xai','pentagon','doge'],links:[['musk','xai'],['pentagon','xai'],['musk','doge']],text:'<strong>Layer 3: Intelligence.</strong> Musk\u2019s xAI provides the model. Grok approved for classified use the same week Anthropic was designated a supply chain risk. $200M Pentagon contract. "All lawful purposes." DOGE pushed agencies to hire Palantir. The model layer reinforces the infrastructure layer.'},
     {nodes:['paypal','musk','thiel','sacks','palantir','xai','whitehouse','pentagon'],links:[['sacks','whitehouse'],['thiel','palantir'],['musk','xai'],['pentagon','palantir'],['pentagon','xai'],['craft','palantir'],['craft','xai']],text:'<strong>The complete stack.</strong> Sacks shapes AI policy. Thiel\u2019s Palantir provides the classified data infrastructure. Musk\u2019s xAI provides the intelligence model. Three positions held by three lifelong collaborators. Policy, infrastructure, intelligence. The "PayPal Mafia" is not a metaphor: it is a documented network that now controls the full vertical of American military AI.'}
@@ -272,7 +280,7 @@ const PATHWAYS = [
     {nodes:['sbf','ftx'],links:[['sbf','ftx']],text:'April 2022. <em>Sam Bankman-Fried</em>, CEO of FTX, invests $500 million in a two-year-old AI startup called Anthropic. The money comes from customer deposits. He acquires approximately 8% of the company.'},
     {nodes:['ftx','anthropic','sbf'],links:[['ftx','anthropic'],['sbf','ftx']],text:'November 2022. FTX collapses. Bankman-Fried arrested. Convicted on seven counts of fraud. Sentenced to twenty-five years. The $500M investment becomes a bankruptcy asset. But Anthropic\u2019s value has exploded.'},
     {nodes:['ftx','anthropic','mubadala','janestreet','fidelity'],links:[['ftx','anthropic'],['mubadala','anthropic'],['janestreet','anthropic'],['fidelity','anthropic']],text:'The bankruptcy estate auctions the shares. Largest buyer: <strong>Mubadala</strong>, Abu Dhabi sovereign wealth fund: $500 million. Second largest: <strong>Jane Street</strong>, Bankman-Fried\u2019s former employer: nearly $100 million. Total recovered: $1.3 billion. A 160% gain on stolen money.'},
-    {nodes:['anthropic','mubadala','janestreet'],links:[['mubadala','anthropic'],['janestreet','anthropic']],text:'At Anthropic\u2019s current $380 billion valuation, the original 8% stake would be worth approximately <strong>$30 billion</strong>. The stolen deposits of American cryptocurrency customers now sit in a Gulf sovereign wealth fund\u2019s portfolio. The bankruptcy estate sold at $1.3 billion what is now worth $30 billion. The creditors received four cents on the eventual dollar.'}
+    {nodes:['anthropic','mubadala','janestreet'],links:[['mubadala','anthropic'],['janestreet','anthropic']],text:'At Anthropic\u2019s current $380 billion valuation, the original 8% stake would be worth approximately <strong>$30 billion</strong>. The stolen deposits of American cryptocurrency customers now sit in a Gulf sovereign wealth fund\u2019s portfolio. The bankruptcy estate sold at $1.3 billion what is now worth $30 billion. At current valuations, the estate sold for roughly four cents on what the stake would theoretically be worth today, though no one was entitled to hold the shares to this point.'}
   ]
 },
 {
@@ -439,7 +447,8 @@ function openPanel(d) {
     h += '<div class="conn-title">Connections (' + conns.length + ')</div>';
     conns.forEach(c => {
       const other = c.source.id === d.id ? c.target : c.source;
-      h += '<div class="conn"><span class="rel">' + c.type + '</span> → <span class="target" data-id="' + other.id + '">' + other.name + '</span><span class="detail">' + c.desc + '</span><span class="csrc">' + (c.src || '') + '</span></div>';
+      var srcHtml = (c.url && c.url.length > 0) ? '<a href="' + c.url + '" target="_blank" rel="noopener" style="color:#3a7a7a">' + (c.src || 'Source') + '</a>' : (c.src || '');
+      h += '<div class="conn"><span class="rel">' + c.type + '</span> → <span class="target" data-id="' + other.id + '">' + other.name + '</span><span class="detail">' + c.desc + '</span><span class="csrc">' + srcHtml + '</span></div>';
     });
   }
   if (d.rads && d.rads.length) {

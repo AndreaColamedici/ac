@@ -33,6 +33,7 @@ header .sub{font-family:'JetBrains Mono',monospace;font-size:0.52rem;letter-spac
 .wk a{display:block;padding:0.9rem 0;border-top:1px solid rgba(90,180,180,0.06);transition:border-color 0.3s,padding-left 0.3s}
 .wk a:hover{border-color:rgba(90,180,180,0.25);padding-left:0.3rem}
 .wk .t{font-family:'JetBrains Mono',monospace;font-size:0.46rem;letter-spacing:0.12em;text-transform:uppercase;color:#8b3a3a;display:block;margin-bottom:0.15rem}
+.wk .t.net{color:#5cb8b8}
 .wk h3{font-size:1rem;font-weight:300;font-style:italic;color:#ccc;margin-bottom:0.15rem}
 .wk p{font-size:0.68rem;line-height:1.6;color:#555;font-family:'JetBrains Mono',monospace;font-weight:300}
 .contact-email{font-size:clamp(1rem,2.2vw,1.4rem);font-style:italic;font-weight:300;color:#5cb8b8;display:inline-block;border-bottom:1px solid transparent;transition:border-color 0.4s}
@@ -67,6 +68,7 @@ footer{padding:3rem 0;font-family:'JetBrains Mono',monospace;font-size:0.46rem;c
 <div class="s">
 <span class="label">Published work</span>
 <div class="wk">
+<a href="radiograph-network.html"><span class="t net">Interactive tool</span><h3>The Network: AI Governance Power Map</h3><p>80 nodes. 117 connections. 6 guided pathways. Every link sourced. Follow the money.</p></a>
 <a href="radiograph-anthropic.html"><span class="t">Radiograph #4</span><h3>Anthropic: The Safety Company at $380 Billion</h3><p>Self-radiograph. $67B raised, FTX, unpublished Trust, Palantir, Pentagon, 50GW. Conflict of interest: total.</p></a>
 <a href="radiograph-doge.html"><span class="t">Radiograph #3</span><h3>DOGE and the Musk Contracts</h3><p>10,000+ cancelled. Zero Musk. xAI classified. Starlink: $900M to $13B.</p></a>
 <a href="radiografia-ai-act.html"><span class="t">Radiograph #2</span><h3>Who Wrote the AI Act and Who Profits</h3><p>151M/year lobbying. 86% meetings with industry. Weakened rules, sold compliance.</p></a>
@@ -85,27 +87,18 @@ footer{padding:3rem 0;font-family:'JetBrains Mono',monospace;font-size:0.46rem;c
 
 <script>
 // === ELIA: LORENZ ATTRACTOR — WEBGL VOLUMETRIC RENDERING ===
-// 20K particles, point sprites with gaussian falloff, additive blending,
-// framebuffer bloom (downsample + 2-pass gaussian blur), film grain.
-
 const cv = document.getElementById('c');
 let G;
 try { G = cv.getContext('webgl', {alpha:false,antialias:false,premultipliedAlpha:false}); } catch(e) {}
 if (!G) { document.body.style.background='#040404'; }
-
-// --- RESIZE ---
 let W,H,dpr;
 function resize(){
     dpr=Math.min(devicePixelRatio||1,1.5);
     W=innerWidth;H=innerHeight;
     cv.width=W*dpr;cv.height=H*dpr;
     cv.style.width=W+'px';cv.style.height=H+'px';
-    if(G){
-        setupFBOs();
-    }
+    if(G){setupFBOs();}
 }
-
-// --- SHADER COMPILATION ---
 function mkShader(src,type){
     const s=G.createShader(type);G.shaderSource(s,src);G.compileShader(s);
     if(!G.getShaderParameter(s,G.COMPILE_STATUS)){console.error(G.getShaderInfoLog(s));return null}
@@ -116,10 +109,6 @@ function mkProgram(vs,fs){
     if(!G.getProgramParameter(p,G.LINK_STATUS)){console.error(G.getProgramInfoLog(p));return null}
     return p;
 }
-
-// --- SHADERS ---
-
-// Particle renderer: point sprites with gaussian falloff
 const particleVS = `
 attribute vec3 aPos;
 attribute float aVel;
@@ -134,7 +123,6 @@ void main(){
     vV=aVel;
     vD=p.w;
 }`;
-
 const particleFS = `
 precision highp float;
 varying float vV;
@@ -147,14 +135,10 @@ void main(){
     c+=vec3(0.8,0.95,1.0)*vV*vV*vV*0.4;
     gl_FragColor=vec4(c*a,a);
 }`;
-
-// Full-screen quad vertex
 const quadVS = `
 attribute vec2 aP;
 varying vec2 vUV;
 void main(){vUV=aP*0.5+0.5;gl_Position=vec4(aP,0,1);}`;
-
-// Gaussian blur
 const blurFS = `
 precision highp float;
 uniform sampler2D uTex;
@@ -171,8 +155,6 @@ void main(){
     s+=texture2D(uTex,vUV+d*4.0)*w4+texture2D(uTex,vUV-d*4.0)*w4;
     gl_FragColor=s;
 }`;
-
-// Final composite: scene + bloom + grain
 const compositeFS = `
 precision highp float;
 uniform sampler2D uScene;
@@ -189,31 +171,21 @@ void main(){
     c=c/(1.0+c*0.3);
     gl_FragColor=vec4(c,1);
 }`;
-
-// --- COMPILE PROGRAMS ---
 let pPart, pBlur, pComp;
 let quadBuf, partBuf, velBuf;
 let sceneFBO, bloomFBO1, bloomFBO2;
-
 if(G){
     const ext = G.getExtension('OES_texture_float');
     G.getExtension('OES_texture_float_linear');
-
     pPart = mkProgram(mkShader(particleVS,G.VERTEX_SHADER),mkShader(particleFS,G.FRAGMENT_SHADER));
     pBlur = mkProgram(mkShader(quadVS,G.VERTEX_SHADER),mkShader(blurFS,G.FRAGMENT_SHADER));
     pComp = mkProgram(mkShader(quadVS,G.VERTEX_SHADER),mkShader(compositeFS,G.FRAGMENT_SHADER));
-
-    // Full-screen quad
     quadBuf = G.createBuffer();
     G.bindBuffer(G.ARRAY_BUFFER,quadBuf);
     G.bufferData(G.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),G.STATIC_DRAW);
-
-    // Particle buffers
     partBuf = G.createBuffer();
     velBuf = G.createBuffer();
 }
-
-// --- FRAMEBUFFERS ---
 function mkFBO(w,h){
     const fb=G.createFramebuffer();
     G.bindFramebuffer(G.FRAMEBUFFER,fb);
@@ -229,7 +201,6 @@ function mkFBO(w,h){
     G.bindFramebuffer(G.FRAMEBUFFER,null);
     return {fb,tex,w,h};
 }
-
 let ext;
 function setupFBOs(){
     if(!G)return;
@@ -240,21 +211,14 @@ function setupFBOs(){
     bloomFBO1=mkFBO(bw,bh);
     bloomFBO2=mkFBO(bw,bh);
 }
-
-// --- LORENZ SYSTEM ---
 const sigma=10,beta=8/3;
 const NP=20000,DT=0.004;
 const px=new Float32Array(NP),py=new Float32Array(NP),pz=new Float32Array(NP);
 const vels=new Float32Array(NP);
 const posBuf3=new Float32Array(NP*3);
-
-// Seeded RNG
 let seed=42;
 function rng(){seed=(seed*1664525+1013904223)&0xFFFFFFFF;return(seed>>>0)/0xFFFFFFFF}
-
 for(let i=0;i<NP;i++){px[i]=(rng()-.5)*6+.1;py[i]=(rng()-.5)*6+.1;pz[i]=(rng()-.5)*6+25}
-
-// Settle
 for(let s=0;s<600;s++){
     for(let i=0;i<NP;i++){
         const x=px[i],y=py[i],z=pz[i];
@@ -262,11 +226,9 @@ for(let s=0;s<600;s++){
         px[i]+=dx*DT;py[i]+=dy*DT;pz[i]+=dz*DT;
     }
 }
-
 function stepLorenz(rho){
     for(let i=0;i<NP;i++){
         const x=px[i],y=py[i],z=pz[i];
-        // RK4
         const dx1=sigma*(y-x),dy1=x*(rho-z)-y,dz1=x*y-beta*z;
         const x2=x+DT*.5*dx1,y2=y+DT*.5*dy1,z2=z+DT*.5*dz1;
         const dx2=sigma*(y2-x2),dy2=x2*(rho-z2)-y2,dz2=x2*y2-beta*z2;
@@ -281,18 +243,14 @@ function stepLorenz(rho){
         vels[i]=Math.min(1,v/55);
     }
 }
-
-// --- MATRIX MATH ---
 function perspective(fov,asp,near,far){
     const f=1/Math.tan(fov/2),nf=1/(near-far);
     return new Float32Array([f/asp,0,0,0, 0,f,0,0, 0,0,(far+near)*nf,-1, 0,0,2*far*near*nf,0]);
 }
-
 function lookAt(ex,ey,ez,cx,cy,cz){
     let zx=ex-cx,zy=ey-cy,zz=ez-cz;
     let l=1/Math.sqrt(zx*zx+zy*zy+zz*zz);zx*=l;zy*=l;zz*=l;
-    let xx=zy*0-zz*0, xy=zz*0-zx*0, xz=zx*0-zy*0; // up=(0,1,0)
-    // cross(up, z)
+    let xx=zy*0-zz*0, xy=zz*0-zx*0, xz=zx*0-zy*0;
     xx=1*zz-0*zy; xy=0*zx-0*zz; xz=0*zy-1*zx;
     l=1/Math.sqrt(xx*xx+xy*xy+xz*xz);xx*=l;xy*=l;xz*=l;
     let yx=zy*xz-zz*xy, yy=zz*xx-zx*xz, yz=zx*xy-zy*xx;
@@ -301,7 +259,6 @@ function lookAt(ex,ey,ez,cx,cy,cz){
         -(xx*ex+xy*ey+xz*ez),-(yx*ex+yy*ey+yz*ez),-(zx*ex+zy*ey+zz*ez),1
     ]);
 }
-
 function mat4mul(a,b){
     const o=new Float32Array(16);
     for(let i=0;i<4;i++)for(let j=0;j<4;j++){
@@ -309,8 +266,6 @@ function mat4mul(a,b){
     }
     return o;
 }
-
-// --- DRAW HELPERS ---
 function drawQuad(prog){
     const loc=G.getAttribLocation(prog,'aP');
     G.bindBuffer(G.ARRAY_BUFFER,quadBuf);
@@ -319,56 +274,39 @@ function drawQuad(prog){
     G.drawArrays(G.TRIANGLE_STRIP,0,4);
     G.disableVertexAttribArray(loc);
 }
-
-// --- INTERACTION ---
 let mx=0,my=0;
 addEventListener('mousemove',e=>{mx=e.clientX/W-0.5;my=e.clientY/H-0.5});
-
-// --- RENDER ---
 resize();
 addEventListener('resize',resize);
 let frame=0,running=true;
-
 function render(){
     if(!running||!G){requestAnimationFrame(render);return}
     const t=frame*0.016;
     const sf=scrollY/Math.max(1,document.body.scrollHeight-H);
     const rho=28+mx*4;
-
-    // Integrate
     for(let s=0;s<3;s++) stepLorenz(rho);
-
-    // Pack position buffer
     for(let i=0;i<NP;i++){posBuf3[i*3]=px[i];posBuf3[i*3+1]=py[i];posBuf3[i*3+2]=pz[i]}
-
-    // Camera
     const ang=t*0.06+sf*Math.PI*1.2+mx*0.4;
     const dist=65+my*10;
     const ex=Math.cos(ang)*dist,ez=Math.sin(ang)*dist,ey=26+Math.sin(t*0.04)*5+my*15;
     const view=lookAt(ex,ey,ez,0,26,0);
     const proj=perspective(0.55,cv.width/cv.height,1,200);
     const mvp=mat4mul(view,proj);
-
-    // Upload particles
     G.bindBuffer(G.ARRAY_BUFFER,partBuf);
     G.bufferData(G.ARRAY_BUFFER,posBuf3,G.DYNAMIC_DRAW);
     G.bindBuffer(G.ARRAY_BUFFER,velBuf);
     G.bufferData(G.ARRAY_BUFFER,vels,G.DYNAMIC_DRAW);
-
-    // === PASS 1: Render particles to FBO ===
     G.bindFramebuffer(G.FRAMEBUFFER,sceneFBO.fb);
     G.viewport(0,0,sceneFBO.w,sceneFBO.h);
     G.clearColor(0.016,0.016,0.016,1);
     G.clear(G.COLOR_BUFFER_BIT);
     G.enable(G.BLEND);
     G.blendFunc(G.ONE,G.ONE);
-
     G.useProgram(pPart);
     const aPosL=G.getAttribLocation(pPart,'aPos');
     const aVelL=G.getAttribLocation(pPart,'aVel');
     G.uniformMatrix4fv(G.getUniformLocation(pPart,'uMVP'),false,mvp);
     G.uniform1f(G.getUniformLocation(pPart,'uPSize'),cv.height*0.35);
-
     G.bindBuffer(G.ARRAY_BUFFER,partBuf);
     G.enableVertexAttribArray(aPosL);
     G.vertexAttribPointer(aPosL,3,G.FLOAT,false,0,0);
@@ -378,8 +316,6 @@ function render(){
     G.drawArrays(G.POINTS,0,NP);
     G.disableVertexAttribArray(aPosL);
     G.disableVertexAttribArray(aVelL);
-
-    // === PASS 2: Blur horizontal (scene -> bloom1) ===
     G.disable(G.BLEND);
     G.bindFramebuffer(G.FRAMEBUFFER,bloomFBO1.fb);
     G.viewport(0,0,bloomFBO1.w,bloomFBO1.h);
@@ -390,26 +326,19 @@ function render(){
     G.uniform2f(G.getUniformLocation(pBlur,'uDir'),1,0);
     G.uniform2f(G.getUniformLocation(pBlur,'uRes'),bloomFBO1.w,bloomFBO1.h);
     drawQuad(pBlur);
-
-    // === PASS 3: Blur vertical (bloom1 -> bloom2) ===
     G.bindFramebuffer(G.FRAMEBUFFER,bloomFBO2.fb);
     G.viewport(0,0,bloomFBO2.w,bloomFBO2.h);
     G.bindTexture(G.TEXTURE_2D,bloomFBO1.tex);
     G.uniform2f(G.getUniformLocation(pBlur,'uDir'),0,1);
     drawQuad(pBlur);
-
-    // === PASS 4: Second blur pass for wider bloom ===
     G.bindFramebuffer(G.FRAMEBUFFER,bloomFBO1.fb);
     G.bindTexture(G.TEXTURE_2D,bloomFBO2.tex);
     G.uniform2f(G.getUniformLocation(pBlur,'uDir'),2,0);
     drawQuad(pBlur);
-
     G.bindFramebuffer(G.FRAMEBUFFER,bloomFBO2.fb);
     G.bindTexture(G.TEXTURE_2D,bloomFBO1.tex);
     G.uniform2f(G.getUniformLocation(pBlur,'uDir'),0,2);
     drawQuad(pBlur);
-
-    // === PASS 5: Composite to screen ===
     G.bindFramebuffer(G.FRAMEBUFFER,null);
     G.viewport(0,0,cv.width,cv.height);
     G.useProgram(pComp);
@@ -422,11 +351,9 @@ function render(){
     G.uniform2f(G.getUniformLocation(pComp,'uRes'),cv.width,cv.height);
     G.uniform1f(G.getUniformLocation(pComp,'uTime'),t);
     drawQuad(pComp);
-
     frame++;
     requestAnimationFrame(render);
 }
-
 document.addEventListener('visibilitychange',()=>{running=!document.hidden});
 render();
 </script>

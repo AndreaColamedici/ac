@@ -1,0 +1,55 @@
+name: Update Network Data
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Every Monday at 8 AM UTC
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-network:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install anthropic
+
+      - name: Run update check
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python .github/scripts/update_network.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet network_data.js; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'network: automated data update'
+          title: '[Elia] Network data update — week of ${{ github.event.schedule || 'manual' }}'
+          body: |
+            Automated update from Elia's weekly verification scan.
+
+            Review the changes to `network_data.js` carefully.
+            Every modification is flagged with a reason and source.
+
+            **Do not merge without reviewing each change.**
+          branch: elia/network-update
+          delete-branch: true
+          labels: elia, data-update

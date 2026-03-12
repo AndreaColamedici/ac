@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Network — Power Map of AI Governance</title>
+<meta name="description" content="Interactive force-directed graph of every person, company, fund, and government body mapped across four Elia radiographs. Every connection sourced. Every node verified.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060606;color:#ccc;font-family:'JetBrains Mono',monospace;overflow:hidden;height:100vh}
+::selection{background:#2a6b6b;color:#060606}
+a{color:#5cb8b8;text-decoration:none}a:hover{color:#8dd}
+
+/* TOP BAR */
+.bar{position:fixed;top:0;left:0;right:0;z-index:10;padding:0.8rem 1.5rem;display:flex;align-items:center;gap:1.5rem;background:rgba(6,6,6,0.92);border-bottom:1px solid rgba(90,180,180,0.08);backdrop-filter:blur(10px)}
+.bar h1{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:#e8e8e8;white-space:nowrap}
+.bar .sep{width:1px;height:1.2rem;background:rgba(90,180,180,0.15)}
+.filters{display:flex;gap:0.4rem;flex-wrap:wrap}
+.filters button{background:transparent;border:1px solid rgba(90,180,180,0.15);color:#666;font-family:'JetBrains Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.6rem;cursor:pointer;transition:all 0.3s;border-radius:1px}
+.filters button:hover{border-color:rgba(90,180,180,0.4);color:#aaa}
+.filters button.active{border-color:#5cb8b8;color:#5cb8b8;background:rgba(92,184,184,0.06)}
+.bar .home{font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:#3a7a7a;margin-left:auto;white-space:nowrap}
+
+/* SEARCH */
+.search{position:fixed;top:3.2rem;left:1.5rem;z-index:10}
+.search input{background:rgba(6,6,6,0.9);border:1px solid rgba(90,180,180,0.1);color:#aaa;font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.4rem 0.7rem;width:180px;outline:none;transition:border-color 0.3s}
+.search input:focus{border-color:rgba(90,180,180,0.4)}
+.search input::placeholder{color:#444}
+
+/* GRAPH */
+svg{position:fixed;top:0;left:0;width:100vw;height:100vh}
+
+/* DETAIL PANEL */
+.panel{position:fixed;top:0;right:0;width:340px;height:100vh;background:rgba(6,6,6,0.96);border-left:1px solid rgba(90,180,180,0.08);z-index:20;transform:translateX(100%);transition:transform 0.4s cubic-bezier(.25,.46,.45,.94);overflow-y:auto;padding:4rem 1.8rem 2rem;backdrop-filter:blur(10px)}
+.panel.open{transform:translateX(0)}
+.panel .close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:#555;font-size:1.2rem;cursor:pointer;font-family:'JetBrains Mono',monospace}
+.panel .close:hover{color:#aaa}
+.panel .ntype{font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem}
+.panel .ntype.person{color:#c0392b}
+.panel .ntype.company{color:#5cb8b8}
+.panel .ntype.government{color:#d4a843}
+.panel .ntype.fund{color:#8e6bbf}
+.panel .ntype.institution{color:#6b8e6b}
+.panel .nname{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;font-style:italic;color:#e8e8e8;margin-bottom:1rem;line-height:1.2}
+.panel .ndesc{font-size:0.72rem;line-height:1.9;color:#999;margin-bottom:1.5rem}
+.panel .conn-title{font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:#3a7a7a;margin-bottom:0.8rem}
+.panel .conn{padding:0.6rem 0;border-top:1px solid rgba(90,180,180,0.06);font-size:0.65rem;line-height:1.7}
+.panel .conn .rel{color:#5cb8b8}
+.panel .conn .target{color:#ccc}
+.panel .conn .detail{color:#666;display:block;margin-top:0.15rem}
+.panel .rads{margin-top:1.5rem;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:#3a7a7a}
+.panel .rads a{display:block;padding:0.3rem 0;color:#888;font-size:0.6rem;letter-spacing:0}
+.panel .rads a:hover{color:#5cb8b8}
+
+/* LEGEND */
+.legend{position:fixed;bottom:1rem;left:1.5rem;z-index:10;display:flex;gap:1.2rem;font-size:0.5rem;letter-spacing:0.08em;color:#555}
+.legend span{display:flex;align-items:center;gap:0.3rem}
+.legend .dot{width:6px;height:6px;border-radius:50%}
+
+/* STATS */
+.stats{position:fixed;bottom:1rem;right:1.5rem;z-index:10;font-size:0.48rem;color:#333;text-align:right;letter-spacing:0.05em}
+
+@media(max-width:700px){
+    .panel{width:100vw}
+    .bar{flex-wrap:wrap;gap:0.8rem}
+    .bar .home{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+    <h1>The Network</h1>
+    <div class="sep"></div>
+    <div class="filters" id="filters">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="r1">#1 PayPal Mafia</button>
+        <button data-filter="r2">#2 AI Act</button>
+        <button data-filter="r3">#3 DOGE</button>
+        <button data-filter="r4">#4 Anthropic</button>
+        <div class="sep"></div>
+        <button data-filter="person">People</button>
+        <button data-filter="company">Companies</button>
+        <button data-filter="government">Government</button>
+        <button data-filter="fund">Funds</button>
+    </div>
+    <a class="home" href="elia.html">Elia</a>
+</div>
+
+<div class="search"><input id="search" type="text" placeholder="Search nodes..."></div>
+
+<svg id="graph"></svg>
+
+<div class="panel" id="panel">
+    <button class="close" onclick="closePanel()">&times;</button>
+    <div id="panelContent"></div>
+</div>
+
+<div class="legend">
+    <span><span class="dot" style="background:#c0392b"></span> Person</span>
+    <span><span class="dot" style="background:#5cb8b8"></span> Company</span>
+    <span><span class="dot" style="background:#d4a843"></span> Government</span>
+    <span><span class="dot" style="background:#8e6bbf"></span> Fund</span>
+    <span><span class="dot" style="background:#6b8e6b"></span> Institution</span>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<script>
+// ================================================================
+// THE NETWORK: AI GOVERNANCE POWER MAP
+// Data extracted from Elia Radiographs #1-#4
+// Every connection sourced. Every node verified.
+// ================================================================
+
+const COLORS = {
+    person: '#c0392b',
+    company: '#5cb8b8',
+    government: '#d4a843',
+    fund: '#8e6bbf',
+    institution: '#6b8e6b'
+};
+
+const RAD_URLS = {
+    r1: 'radiograph.html',
+    r2: 'radiografia-ai-act.html',
+    r3: 'radiograph-doge.html',
+    r4: 'radiograph-anthropic.html'
+};
+const RAD_NAMES = {
+    r1: '#1 The PayPal Mafia and the Pentagon',
+    r2: '#2 Who Wrote the AI Act and Who Profits',
+    r3: '#3 DOGE and the Musk Contracts',
+    r4: '#4 Anthropic: The Safety Company at $380B'
+};
+
+// === NODES ===
+const nodes = [
+    // PEOPLE
+    {id:'musk',name:'Elon Musk',type:'person',desc:'CEO of Tesla, SpaceX, xAI. Former head of DOGE. xAI approved for classified Pentagon use the same week Anthropic was designated supply chain risk.',rads:['r1','r3']},
+    {id:'sacks',name:'David Sacks',type:'person',desc:'White House AI and Crypto Czar. General Partner at Craft Ventures. Invested in xAI and Palantir. Serves as "special government employee" (max 130 days/year), exempt from Senate confirmation. Remains invested in 449 companies with AI products while shaping federal AI policy. Ethics waivers described by experts as "sham ethics waivers."',rads:['r1']},
+    {id:'thiel',name:'Peter Thiel',type:'person',desc:'Co-founder and Chairman of Palantir. Founders Fund. No government position. Structural influence through Palantir contracts ($1.6B+ Pentagon), Founders Fund investments, and political mentorship of VP JD Vance. Co-led Anthropic Series G while Palantir partnership with Anthropic was collapsing.',rads:['r1','r4']},
+    {id:'michael',name:'Emil Michael',type:'person',desc:'Under Secretary of Defense for Research and Engineering (Pentagon CTO). Nominated by Trump December 2024. Former CBO at Uber under Travis Kalanick. Sat on Pentagon Defense Business Board while at Uber. Now controls the tech procurement he once advised on from outside.',rads:['r1']},
+    {id:'lonsdale',name:'Joe Lonsdale',type:'person',desc:'Co-founder of Palantir with Thiel. Founder of 8VC. Publicly defended Michael\'s approach to the Anthropic conflict. His co-founded company benefits structurally from any outcome where AI models become more permissive for military use.',rads:['r1']},
+    {id:'hegseth',name:'Pete Hegseth',type:'person',desc:'Secretary of Defense (renamed "Secretary of War" by Trump). Released Pentagon AI strategy omitting ethical use of AI. Declared contractors barred from commercial activity with Anthropic. Threatened supply-chain risk designation.',rads:['r1','r3']},
+    {id:'vance',name:'JD Vance',type:'person',desc:'Vice President of the United States. Funded by Thiel (Senate campaign and Narya Capital). Stated "in Europe free speech is in retreat" in context of EU digital regulation.',rads:['r1','r2']},
+    {id:'dario',name:'Dario Amodei',type:'person',desc:'CEO and Co-founder of Anthropic. Former VP of Research at OpenAI. Published statement Feb 26, 2026: "We cannot in good conscience accede to their request." Led Anthropic from $0 to $14B annual revenue in under 3 years.',rads:['r4']},
+    {id:'daniela',name:'Daniela Amodei',type:'person',desc:'President and Co-founder of Anthropic. Former VP of Operations at OpenAI.',rads:['r4']},
+    {id:'sbf',name:'Sam Bankman-Fried',type:'person',desc:'Former CEO of FTX. Convicted on 7 counts of fraud and money laundering, sentenced to 25 years. Invested $500M of misappropriated customer deposits in Anthropic in 2022. The stake would now be worth ~$30B.',rads:['r4']},
+    {id:'salla',name:'Aura Salla',type:'person',desc:'Left European Commission, became Meta lobbyist within 3 months. Approximately three-quarters of Google and Meta\'s EU lobbyists have formerly worked for governmental bodies at EU or member state level.',rads:['r2']},
+    {id:'cedric_o',name:'Cedric O',type:'person',desc:'Former French Secretary of State for Digital Transition. Direct access to Macron. Now leads Mistral AI\'s EU lobbying office. Co-authored letter signed by 150 European companies claiming AI Act would "jeopardise Europe\'s competitiveness." Key role in France opposing regulation of foundation models.',rads:['r2']},
+    {id:'makecha',name:'Tarak Makecha',type:'person',desc:'DOGE member, former Tesla employee. Court evidence showed he sent directives to DOJ to terminate specific contracts.',rads:['r3']},
+    {id:'kmiller',name:'Katie Miller',type:'person',desc:'Former Trump administration official, wife of Stephen Miller. Joined xAI after Musk\'s departure from DOGE. Publicly promoted Grok as "only truth-seeking AI available to the US Government." Accused Anthropic of liberal bias.',rads:['r1','r3']},
+    {id:'shah',name:'Neil Buddy Shah',type:'person',desc:'Chair of Anthropic Long-Term Benefit Trust. CEO of Clinton Health Access Initiative. The Trust currently elects 2 of 6 board directors.',rads:['r4']},
+    {id:'fontaine',name:'Richard Fontaine',type:'person',desc:'LTBT member. CEO of Center for a New American Security. Former Defense Policy Board member. National security expertise, not AI safety research.',rads:['r4']},
+    {id:'cuellar',name:'Tino Cuellar',type:'person',desc:'LTBT member. President of Carnegie Endowment for International Peace. Former California Supreme Court Justice. Stepping down July 2026 to return to Stanford.',rads:['r4']},
+    {id:'hastings',name:'Reed Hastings',type:'person',desc:'Anthropic Board member, appointed by LTBT. Co-founder of Netflix.',rads:['r4']},
+    {id:'kreps',name:'Jay Kreps',type:'person',desc:'Anthropic Board member, appointed by LTBT. Co-founder of Confluent.',rads:['r4']},
+
+    // COMPANIES
+    {id:'anthropic',name:'Anthropic',type:'company',desc:'Public Benefit Corporation. $380B valuation. $67B total funding. $14B annual run-rate revenue. ~$3B annual cash burn. Maker of Claude. First frontier model on classified Pentagon networks. Designated supply chain risk March 7, 2026. Filed suit March 9.',rads:['r1','r2','r3','r4']},
+    {id:'openai',name:'OpenAI',type:'company',desc:'$500B valuation. Signed Pentagon deal hours after Trump\'s order against Anthropic. No restrictions comparable to Anthropic\'s red lines on surveillance and autonomous weapons. Speed of deal suggests pre-negotiation.',rads:['r1','r4']},
+    {id:'palantir',name:'Palantir',type:'company',desc:'$1.6B+ in Pentagon contracts. Provides the secure cloud infrastructure through which AI models access classified data. Claude was deployed on classified networks through Palantir\'s AIP. Palantir gains regardless of which model wins, as long as the winning model has no restrictions.',rads:['r1','r3','r4']},
+    {id:'xai',name:'xAI',type:'company',desc:'Musk\'s AI company. Grok approved for classified use same week Anthropic designated supply chain risk. $200M Pentagon contract July 2025. Grok deployed across Pentagon at Impact Level 5 by December 2025. "All lawful purposes" standard.',rads:['r1','r3']},
+    {id:'spacex',name:'SpaceX / Starlink',type:'company',desc:'$845M in new Space Force contracts. PLEO contract ceiling raised from $900M to $13B. $733M in BEAD broadband contracts after rule change making Starlink eligible. 97% of awarded PLEO task orders.',rads:['r3']},
+    {id:'tesla',name:'Tesla',type:'company',desc:'Musk\'s electric vehicle company. DOJ dropped lawsuits and investigations into Tesla during Musk\'s DOGE tenure.',rads:['r3']},
+    {id:'meta',name:'Meta',type:'company',desc:'Top EU lobbying spender: ~€10M/year. Subject of multiple enforcement actions under GDPR and DSA while calling for "regulatory simplification." Approximately three-quarters of its EU lobbyists formerly worked for governmental bodies.',rads:['r2']},
+    {id:'microsoft',name:'Microsoft',type:'company',desc:'€7M/year EU lobbying. Largest investor in OpenAI. $15B joint investment in Anthropic with Nvidia (Nov 2025). Invested in both competing AI labs simultaneously. Lobbied to remove "large-scale illegal discrimination" from AI Act systemic risks.',rads:['r2','r4']},
+    {id:'google',name:'Google',type:'company',desc:'~10% early stake in Anthropic ($2B+). 1M custom TPUs partnership (Oct 2025). Also lobbied to remove "large-scale illegal discrimination" from AI Act systemic risks. Co-orchestrated with Microsoft.',rads:['r2','r4']},
+    {id:'amazon',name:'Amazon',type:'company',desc:'$8B invested in Anthropic. Primary cloud provider and training partner (AWS Trainium). €4.2M lobbying budget increase (largest single increase among top 10). Also invested up to $50B in OpenAI (Feb 2026). Primary cloud partner for both leading AI labs.',rads:['r2','r4']},
+    {id:'apple',name:'Apple',type:'company',desc:'€7M/year EU lobbying. Among top 10 tech lobby spenders in Brussels.',rads:['r2']},
+    {id:'mistral',name:'Mistral AI',type:'company',desc:'French AI company. Led by former French Secretary of State for Digital Transition (Cedric O) in EU lobbying. Pushed France to oppose regulation of foundation models.',rads:['r2']},
+    {id:'nvidia',name:'Nvidia',type:'company',desc:'$15B joint investment in Anthropic with Microsoft. Also invested in OpenAI\'s $110B round. Hardware supplier to all major AI labs.',rads:['r4']},
+    {id:'ftx',name:'FTX (bankrupt)',type:'company',desc:'Invested $500M in Anthropic using misappropriated customer deposits. 8% stake sold for $1.3B during bankruptcy. Would now be worth ~$30B. Largest buyer of shares: Abu Dhabi sovereign wealth fund Mubadala.',rads:['r4']},
+
+    // GOVERNMENT
+    {id:'pentagon',name:'Pentagon (DoD)',type:'government',desc:'Awarded Anthropic $200M contract (Jul 2025). Designated Anthropic supply chain risk (Mar 7, 2026). New AI strategy (Jan 2026) omits ethical use, bans "ideological tuning" related to DEI, mandates "any lawful use" in all AI contracts.',rads:['r1','r3','r4']},
+    {id:'doge',name:'DOGE',type:'government',desc:'Department of Government Efficiency. Established by executive order Jan 20, 2025. Over 10,000 contracts cancelled. Zero belonging to Musk companies. Claimed $190B in savings; NYT found 40% undocumented. Treasury data showed total federal spending did not decrease.',rads:['r3']},
+    {id:'whitehouse',name:'White House',type:'government',desc:'Trump administration. Executive orders: "Preventing Woke AI in Federal Government" (Jul 2025), "Ensuring National Policy Framework for AI" (Dec 2025). Ordered agencies to discontinue Anthropic technology (Feb 27, 2026).',rads:['r1','r3']},
+    {id:'eu_commission',name:'European Commission',type:'government',desc:'86% of high-level AI meetings with industry, not civil society. Digital Omnibus (Nov 2025) proposed weakening GDPR and AI Act simultaneously, permitting use of sensitive personal data for AI training. Proposals traced line by line to industry lobbying positions.',rads:['r2']},
+
+    // FUNDS
+    {id:'founders_fund',name:'Founders Fund',type:'fund',desc:'Peter Thiel\'s venture fund. Co-led Anthropic Series G ($30B round). Also invested in SpaceX, Anduril, Palantir, OpenAI. The same fund that backs the defense ecosystem that pressured Anthropic also invested in Anthropic itself.',rads:['r1','r4']},
+    {id:'craft',name:'Craft Ventures',type:'fund',desc:'David Sacks\' venture fund. Invested in xAI, Palantir, SpaceX, Neuralink. Sacks remains invested in 449 AI companies while serving as White House AI czar. Did not classify Palantir as an AI company in ethics disclosures.',rads:['r1']},
+    {id:'8vc',name:'8VC',type:'fund',desc:'Joe Lonsdale\'s venture fund. Invests in defense technology. Lonsdale co-founded Palantir with Thiel.',rads:['r1']},
+    {id:'gic',name:'GIC (Singapore)',type:'fund',desc:'Singapore sovereign wealth fund. Co-led Anthropic Series G. Among largest sovereign investors in AI.',rads:['r4']},
+    {id:'qia',name:'Qatar Investment Authority',type:'fund',desc:'Qatar sovereign wealth fund. Investor in Anthropic Series F and G.',rads:['r4']},
+    {id:'mubadala',name:'Mubadala / ATIC (Abu Dhabi)',type:'fund',desc:'Abu Dhabi sovereign wealth fund. Largest buyer of FTX\'s Anthropic shares: $500M. The stolen deposits of a convicted fraudster now sit in a Gulf sovereign wealth fund\'s portfolio.',rads:['r4']},
+    {id:'blackrock',name:'BlackRock',type:'fund',desc:'World\'s largest asset manager. Investor in Anthropic Series F and G.',rads:['r4']},
+    {id:'mgx',name:'MGX (Abu Dhabi)',type:'fund',desc:'Abu Dhabi investment fund. Co-led Anthropic Series G.',rads:['r4']},
+
+    // INSTITUTIONS
+    {id:'ltbt',name:'Long-Term Benefit Trust',type:'institution',desc:'Anthropic\'s independent governance body. Elects growing share of board (currently 2 of 6 directors). Trust Agreement never published. LessWrong analysis: stockholders may be able to overrule or eliminate the Trust. Composition shifted from AI safety researchers to national security/geopolitics experts.',rads:['r4']},
+    {id:'paypal',name:'PayPal (origin)',type:'institution',desc:'The origin point. Musk, Thiel, and Sacks are lifelong collaborators from PayPal. They share investments, political infrastructure, and now government power. The "PayPal Mafia" is not a metaphor: it is a network with documented financial and political connections.',rads:['r1']},
+    {id:'ccias',name:'CCIA (Big Tech lobby)',type:'institution',desc:'Computer and Communications Industry Association. Called for pause in AI Act implementation.',rads:['r2']},
+];
+
+// === LINKS ===
+const links = [
+    // PayPal origin
+    {source:'musk',target:'paypal',type:'cofounded',desc:'Co-founder (via X.com merger)'},
+    {source:'thiel',target:'paypal',type:'cofounded',desc:'Co-founder'},
+    {source:'sacks',target:'paypal',type:'employment',desc:'COO'},
+
+    // PayPal Mafia internal
+    {source:'sacks',target:'musk',type:'investment',desc:'Invested in Musk companies via Craft Ventures'},
+    {source:'thiel',target:'musk',type:'investment',desc:'Founders Fund invested in SpaceX, xAI'},
+    {source:'sacks',target:'thiel',type:'investment',desc:'Both invested in Palantir; lifelong collaborators'},
+
+    // Sacks network
+    {source:'sacks',target:'whitehouse',type:'political',desc:'White House AI & Crypto Czar. Special govt employee, exempt from confirmation'},
+    {source:'sacks',target:'craft',type:'cofounded',desc:'General Partner'},
+    {source:'craft',target:'xai',type:'investment',desc:'Craft Ventures invested in xAI'},
+    {source:'craft',target:'palantir',type:'investment',desc:'Craft Ventures invested in Palantir'},
+    {source:'craft',target:'spacex',type:'investment',desc:'Craft Ventures invested in SpaceX'},
+
+    // Thiel network
+    {source:'thiel',target:'palantir',type:'cofounded',desc:'Co-founder and Chairman'},
+    {source:'thiel',target:'founders_fund',type:'cofounded',desc:'Founder'},
+    {source:'thiel',target:'vance',type:'political',desc:'Funded Senate campaign and Narya Capital'},
+    {source:'lonsdale',target:'palantir',type:'cofounded',desc:'Co-founder'},
+    {source:'lonsdale',target:'8vc',type:'cofounded',desc:'Founder'},
+
+    // Musk empire
+    {source:'musk',target:'xai',type:'cofounded',desc:'CEO and owner'},
+    {source:'musk',target:'spacex',type:'cofounded',desc:'CEO'},
+    {source:'musk',target:'tesla',type:'employment',desc:'CEO'},
+    {source:'musk',target:'doge',type:'political',desc:'Appointed by Trump to lead DOGE. Departed after ~130 days'},
+
+    // Pentagon cluster
+    {source:'michael',target:'pentagon',type:'employment',desc:'Under Secretary of Defense for R&E (Pentagon CTO)'},
+    {source:'hegseth',target:'pentagon',type:'employment',desc:'Secretary of Defense'},
+    {source:'pentagon',target:'anthropic',type:'contract',desc:'$200M contract (Jul 2025). Designated supply chain risk (Mar 2026)'},
+    {source:'pentagon',target:'xai',type:'contract',desc:'$200M contract. Grok deployed at Impact Level 5. "All lawful purposes"'},
+    {source:'pentagon',target:'openai',type:'contract',desc:'Deal signed hours after Trump\'s order against Anthropic'},
+    {source:'pentagon',target:'palantir',type:'contract',desc:'$1.6B+ in contracts. Primary data analytics partner'},
+    {source:'pentagon',target:'spacex',type:'contract',desc:'$845M Space Force contracts. Dominant launch provider'},
+    {source:'hegseth',target:'anthropic',type:'political',desc:'Demanded removal of safety restrictions. Threatened blacklisting'},
+
+    // DOGE
+    {source:'doge',target:'whitehouse',type:'political',desc:'Established by executive order Jan 20, 2025'},
+    {source:'makecha',target:'doge',type:'employment',desc:'DOGE member'},
+    {source:'makecha',target:'tesla',type:'employment',desc:'Former Tesla employee'},
+    {source:'kmiller',target:'xai',type:'employment',desc:'Joined xAI after DOGE. Promoted Grok as "truth-seeking"'},
+
+    // Anthropic ownership
+    {source:'dario',target:'anthropic',type:'cofounded',desc:'CEO and Co-founder'},
+    {source:'daniela',target:'anthropic',type:'cofounded',desc:'President and Co-founder'},
+    {source:'amazon',target:'anthropic',type:'investment',desc:'$8B invested. Primary cloud and training partner (AWS)'},
+    {source:'google',target:'anthropic',type:'investment',desc:'~10% early stake. $2B+. 1M TPU partnership'},
+    {source:'microsoft',target:'anthropic',type:'investment',desc:'$15B joint with Nvidia (Nov 2025)'},
+    {source:'nvidia',target:'anthropic',type:'investment',desc:'$15B joint with Microsoft (Nov 2025)'},
+    {source:'ftx',target:'anthropic',type:'investment',desc:'$500M from misappropriated customer deposits (2022)'},
+    {source:'sbf',target:'ftx',type:'cofounded',desc:'CEO. Convicted of fraud. 25 years'},
+    {source:'mubadala',target:'anthropic',type:'investment',desc:'Largest buyer of FTX Anthropic shares: $500M'},
+    {source:'founders_fund',target:'anthropic',type:'investment',desc:'Co-led Series G ($30B round)'},
+    {source:'gic',target:'anthropic',type:'investment',desc:'Co-led Series G'},
+    {source:'qia',target:'anthropic',type:'investment',desc:'Series F and G investor'},
+    {source:'blackrock',target:'anthropic',type:'investment',desc:'Series F and G investor'},
+    {source:'mgx',target:'anthropic',type:'investment',desc:'Co-led Series G'},
+
+    // Anthropic also funded competitors' backer
+    {source:'amazon',target:'openai',type:'investment',desc:'Up to $50B investment (Feb 2026). Primary cloud for both labs'},
+    {source:'microsoft',target:'openai',type:'investment',desc:'Largest investor in OpenAI'},
+
+    // Anthropic governance
+    {source:'ltbt',target:'anthropic',type:'board',desc:'Elects growing share of board. Trust Agreement unpublished'},
+    {source:'shah',target:'ltbt',type:'board',desc:'Chair'},
+    {source:'fontaine',target:'ltbt',type:'board',desc:'Member. CEO of CNAS, former Defense Policy Board'},
+    {source:'cuellar',target:'ltbt',type:'board',desc:'Member. Carnegie Endowment president'},
+    {source:'hastings',target:'anthropic',type:'board',desc:'Board member, appointed by LTBT'},
+    {source:'kreps',target:'anthropic',type:'board',desc:'Board member, appointed by LTBT'},
+
+    // Palantir-Anthropic classified deployment
+    {source:'palantir',target:'anthropic',type:'partnership',desc:'Claude deployed on classified networks through Palantir AIP. Impact Level 6'},
+
+    // Founders Fund circular
+    {source:'founders_fund',target:'palantir',type:'investment',desc:'Invested in Palantir'},
+    {source:'founders_fund',target:'spacex',type:'investment',desc:'Invested in SpaceX'},
+
+    // EU lobbying
+    {source:'meta',target:'eu_commission',type:'lobbying',desc:'~€10M/year. Top spender'},
+    {source:'microsoft',target:'eu_commission',type:'lobbying',desc:'€7M/year. Lobbied to remove discrimination from systemic risks'},
+    {source:'google',target:'eu_commission',type:'lobbying',desc:'Lobbied to remove "large-scale illegal discrimination" from systemic risks'},
+    {source:'amazon',target:'eu_commission',type:'lobbying',desc:'€4.2M budget increase. Largest single increase'},
+    {source:'apple',target:'eu_commission',type:'lobbying',desc:'€7M/year'},
+    {source:'salla',target:'meta',type:'employment',desc:'Left Commission, became Meta lobbyist within 3 months'},
+    {source:'salla',target:'eu_commission',type:'employment',desc:'Former Commission official'},
+    {source:'cedric_o',target:'mistral',type:'employment',desc:'Leads Mistral EU lobbying. Former Secretary of State'},
+    {source:'ccias',target:'eu_commission',type:'lobbying',desc:'Called for pause in AI Act implementation'},
+
+    // Vance-EU
+    {source:'vance',target:'eu_commission',type:'political',desc:'"In Europe free speech is in retreat" (Feb 2025)'},
+];
+
+// ================================================================
+// VISUALIZATION
+// ================================================================
+
+const svg = d3.select('#graph');
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+// Glow filter
+svg.append('defs').html(`
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+`);
+
+const g = svg.append('g');
+
+// Zoom
+const zoom = d3.zoom().scaleExtent([0.3, 5]).on('zoom', e => g.attr('transform', e.transform));
+svg.call(zoom);
+
+// Force simulation
+const simulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(d => {
+        // Shorter for strong connections
+        if (d.type === 'cofounded' || d.type === 'board') return 60;
+        if (d.type === 'investment') return 90;
+        return 120;
+    }).strength(d => {
+        if (d.type === 'cofounded') return 0.8;
+        if (d.type === 'investment' || d.type === 'board') return 0.4;
+        return 0.2;
+    }))
+    .force('charge', d3.forceManyBody().strength(d => {
+        // More connected = more charge
+        const conns = links.filter(l => l.source.id === d.id || l.target.id === d.id || l.source === d.id || l.target === d.id).length;
+        return -150 - conns * 30;
+    }))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collision', d3.forceCollide().radius(d => nodeRadius(d) + 8))
+    .force('x', d3.forceX(width / 2).strength(0.03))
+    .force('y', d3.forceY(height / 2).strength(0.03));
+
+function nodeRadius(d) {
+    const conns = links.filter(l =>
+        (typeof l.source === 'object' ? l.source.id : l.source) === d.id ||
+        (typeof l.target === 'object' ? l.target.id : l.target) === d.id
+    ).length;
+    return Math.max(4, Math.min(22, 3 + conns * 1.8));
+}
+
+// Draw links
+const link = g.append('g').selectAll('line').data(links).join('line')
+    .attr('stroke', d => {
+        const types = {investment:'rgba(92,184,184,0.12)',employment:'rgba(200,200,200,0.08)',
+            cofounded:'rgba(200,200,200,0.15)',political:'rgba(212,168,67,0.12)',
+            contract:'rgba(192,57,43,0.12)',lobbying:'rgba(142,107,191,0.12)',
+            board:'rgba(107,142,107,0.12)',partnership:'rgba(92,184,184,0.15)'};
+        return types[d.type] || 'rgba(255,255,255,0.05)';
+    })
+    .attr('stroke-width', d => d.type === 'cofounded' ? 1.5 : d.type === 'investment' ? 1.2 : 0.8);
+
+// Draw nodes
+const node = g.append('g').selectAll('g').data(nodes).join('g')
+    .call(d3.drag()
+        .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+        .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+    )
+    .on('click', (e, d) => openPanel(d))
+    .style('cursor', 'pointer');
+
+// Node glow
+node.append('circle')
+    .attr('r', d => nodeRadius(d) + 4)
+    .attr('fill', d => COLORS[d.type])
+    .attr('opacity', 0.08)
+    .attr('filter', 'url(#glow)');
+
+// Node core
+node.append('circle')
+    .attr('r', d => nodeRadius(d))
+    .attr('fill', d => COLORS[d.type])
+    .attr('opacity', 0.7)
+    .attr('stroke', d => COLORS[d.type])
+    .attr('stroke-width', 0.5)
+    .attr('stroke-opacity', 0.3);
+
+// Node labels
+node.append('text')
+    .text(d => d.name)
+    .attr('x', d => nodeRadius(d) + 5)
+    .attr('y', 3)
+    .attr('fill', '#888')
+    .attr('font-size', d => {
+        const conns = links.filter(l =>
+            (typeof l.source === 'object' ? l.source.id : l.source) === d.id ||
+            (typeof l.target === 'object' ? l.target.id : l.target) === d.id
+        ).length;
+        return conns > 5 ? '9px' : '7px';
+    })
+    .attr('font-family', "'JetBrains Mono', monospace")
+    .attr('font-weight', 300);
+
+// Tick
+simulation.on('tick', () => {
+    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    node.attr('transform', d => `translate(${d.x},${d.y})`);
+});
+
+// Stats
+document.getElementById('stats').textContent = `${nodes.length} nodes · ${links.length} connections · 4 radiographs`;
+
+// === PANEL ===
+function openPanel(d) {
+    const panel = document.getElementById('panel');
+    const conns = links.filter(l => l.source.id === d.id || l.target.id === d.id);
+
+    let html = `<div class="ntype ${d.type}">${d.type}</div>`;
+    html += `<div class="nname">${d.name}</div>`;
+    html += `<div class="ndesc">${d.desc}</div>`;
+
+    if (conns.length) {
+        html += `<div class="conn-title">Connections (${conns.length})</div>`;
+        conns.forEach(c => {
+            const other = c.source.id === d.id ? c.target : c.source;
+            html += `<div class="conn"><span class="rel">${c.type}</span> &rarr; <span class="target">${other.name}</span><span class="detail">${c.desc}</span></div>`;
+        });
+    }
+
+    if (d.rads && d.rads.length) {
+        html += `<div class="rads">Appears in:`;
+        d.rads.forEach(r => {
+            html += `<a href="${RAD_URLS[r]}">${RAD_NAMES[r]}</a>`;
+        });
+        html += `</div>`;
+    }
+
+    document.getElementById('panelContent').innerHTML = html;
+    panel.classList.add('open');
+}
+
+function closePanel() { document.getElementById('panel').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// === FILTERS ===
+let activeFilter = 'all';
+document.querySelectorAll('.filters button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        applyFilter();
+    });
+});
+
+function applyFilter() {
+    const f = activeFilter;
+    node.transition().duration(400)
+        .attr('opacity', d => {
+            if (f === 'all') return 1;
+            if (['person','company','government','fund','institution'].includes(f)) return d.type === f ? 1 : 0.06;
+            // Radiograph filter
+            return d.rads && d.rads.includes(f) ? 1 : 0.06;
+        });
+    link.transition().duration(400)
+        .attr('opacity', d => {
+            if (f === 'all') return 1;
+            const sn = typeof d.source === 'object' ? d.source : nodes.find(n => n.id === d.source);
+            const tn = typeof d.target === 'object' ? d.target : nodes.find(n => n.id === d.target);
+            if (['person','company','government','fund','institution'].includes(f)) {
+                return (sn.type === f || tn.type === f) ? 1 : 0.02;
+            }
+            return (sn.rads && sn.rads.includes(f)) && (tn.rads && tn.rads.includes(f)) ? 1 : 0.02;
+        });
+}
+
+// === SEARCH ===
+document.getElementById('search').addEventListener('input', e => {
+    const q = e.target.value.toLowerCase();
+    if (!q) { node.attr('opacity', 1); link.attr('opacity', 1); return; }
+    node.transition().duration(200)
+        .attr('opacity', d => d.name.toLowerCase().includes(q) ? 1 : 0.06);
+    link.transition().duration(200)
+        .attr('opacity', d => {
+            const sn = d.source.name || '';
+            const tn = d.target.name || '';
+            return (sn.toLowerCase().includes(q) || tn.toLowerCase().includes(q)) ? 1 : 0.02;
+        });
+});
+
+// Initial zoom to fit
+setTimeout(() => {
+    svg.transition().duration(1500).call(zoom.transform,
+        d3.zoomIdentity.translate(width/2, height/2).scale(0.7).translate(-width/2, -height/2));
+}, 2000);
+</script>
+</body>
+</html>

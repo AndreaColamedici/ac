@@ -1,7 +1,12 @@
 // THE NETWORK — AI GOVERNANCE POWER MAP
 // Complete data from Elia Radiographs #1-#4
 // 80 nodes, 117 links
-// Every description sourced. Every link documented.
+// Every link includes source citation and URL.
+// Primary sources: CNBC, NPR, Defense One, Fortune, AP/PBS, TechCrunch,
+// Corporate Europe Observatory, OpenSecrets, CoinDesk, Bloomberg, Axios,
+// DefenseScoop, Pentagon official documents (media.defense.gov),
+// Anthropic press releases, DOJ press releases, White House executive orders.
+// Wikipedia links point to articles whose own references verify the claim.
 
 const NODES = [
   {
@@ -21,7 +26,7 @@ const NODES = [
     "rads": [
       "r1"
     ],
-    "desc": "White House AI & Crypto Czar (Dec 2024). GP at Craft Ventures. Former PayPal COO. 'Special government employee' (130 days/year), exempt from Senate confirmation. Invested via Craft in xAI, Palantir, SpaceX, Neuralink. NYT: remains invested in 449 AI companies. Did not classify Palantir as AI in ethics disclosures. Ethics waivers described by WashU expert Kathleen Clark as 'sham ethics waivers, like a presidential pardon in advance' (NPR, Dec 2025). Accused Anthropic of 'woke AI.' Helped draft EOs targeting state AI safety laws. Lobbied for Vance as VP alongside Musk, Thiel, Carlson."
+    "desc": "White House AI & Crypto Czar (Dec 2024). GP at Craft Ventures. Former PayPal COO. 'Special government employee' (130 days/year), exempt from Senate confirmation. Invested via Craft in xAI, Palantir, SpaceX, Neuralink. NYT investigation (Nov 30, 2025): remains invested in 449 companies with AI products out of 708 total tech investments. Did not classify Palantir as AI in ethics disclosures. Ethics waivers described by WashU expert Kathleen Clark as 'sham ethics waivers, like a presidential pardon in advance' (NPR, Dec 2025). Accused Anthropic of 'woke AI.' Helped draft EOs targeting state AI safety laws. Lobbied for Vance as VP alongside Musk, Thiel, Carlson."
   },
   {
     "id": "thiel",
@@ -755,818 +760,935 @@ const LINKS = [
     "target": "paypal",
     "type": "cofounded",
     "desc": "Co-founder (via X.com merger)",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://en.wikipedia.org/wiki/PayPal#History"
   },
   {
     "source": "thiel",
     "target": "paypal",
     "type": "cofounded",
     "desc": "Co-founder (via Confinity)",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://en.wikipedia.org/wiki/PayPal#History"
   },
   {
     "source": "sacks",
     "target": "paypal",
     "type": "employment",
     "desc": "COO of PayPal",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://en.wikipedia.org/wiki/David_Sacks"
   },
   {
     "source": "sacks",
     "target": "musk",
     "type": "investment",
     "desc": "Craft invested in xAI, SpaceX, Neuralink",
-    "src": "NPR, Dec 2025"
+    "src": "NPR, Dec 2025",
+    "url": "https://www.npr.org/2025/12/12/nx-s1-5631823/david-sacks-ai-advisor-investment-conflicts"
   },
   {
     "source": "thiel",
     "target": "musk",
     "type": "investment",
     "desc": "Founders Fund invested in SpaceX, xAI",
-    "src": "Spokesman-Review, Jun 2025"
+    "src": "Spokesman-Review, Jun 2025",
+    "url": "https://www.cnbc.com/2025/06/05/anduril-valuation-founders-fund.html"
   },
   {
     "source": "sacks",
     "target": "thiel",
     "type": "partnership",
     "desc": "Lifelong PayPal collaborators. Both invested in Palantir. Together lobbied for Vance as VP",
-    "src": "Wikipedia"
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Peter_Thiel"
   },
   {
     "source": "sacks",
     "target": "whitehouse",
     "type": "political",
     "desc": "White House AI & Crypto Czar. Special govt employee, exempt from confirmation",
-    "src": "NPR, Dec 2025"
+    "src": "NPR, Dec 2025",
+    "url": "https://www.npr.org/2025/12/12/nx-s1-5631823/david-sacks-ai-advisor-investment-conflicts"
   },
   {
     "source": "sacks",
     "target": "craft",
     "type": "cofounded",
     "desc": "General Partner",
-    "src": "SF Standard, Dec 2025"
+    "src": "SF Standard, Dec 2025",
+    "url": "https://sfstandard.com/2025/12/02/ai-conflicts-silicon-valley-says-david-sacks-just-doing-job/"
   },
   {
     "source": "craft",
     "target": "xai",
     "type": "investment",
     "desc": "Craft Ventures invested in xAI",
-    "src": "NPR, Dec 2025"
+    "src": "NPR, Dec 2025",
+    "url": "https://www.npr.org/2025/12/12/nx-s1-5631823/david-sacks-ai-advisor-investment-conflicts"
   },
   {
     "source": "craft",
     "target": "palantir",
     "type": "investment",
     "desc": "Invested in Palantir; Sacks didn't classify as AI in disclosures",
-    "src": "NPR, Dec 2025"
+    "src": "NPR, Dec 2025",
+    "url": "https://www.npr.org/2025/12/12/nx-s1-5631823/david-sacks-ai-advisor-investment-conflicts"
   },
   {
     "source": "craft",
     "target": "spacex",
     "type": "investment",
     "desc": "Craft Ventures invested in SpaceX",
-    "src": "NPR, Dec 2025"
+    "src": "NPR, Dec 2025",
+    "url": "https://www.npr.org/2025/12/12/nx-s1-5631823/david-sacks-ai-advisor-investment-conflicts"
   },
   {
     "source": "thiel",
     "target": "palantir",
     "type": "cofounded",
     "desc": "Co-founder/Chairman. Shares through 8+ entities",
-    "src": "Wikipedia"
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Peter_Thiel"
   },
   {
     "source": "thiel",
     "target": "founders_fund",
     "type": "cofounded",
     "desc": "Founder",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://en.wikipedia.org/wiki/Founders_Fund"
   },
   {
     "source": "thiel",
     "target": "mithril",
     "type": "cofounded",
     "desc": "Co-founded 2012 with Royan. $100M initial investment",
-    "src": "Wikipedia (Mithril)"
+    "src": "Wikipedia (Mithril)",
+    "url": "https://en.wikipedia.org/wiki/Mithril_Capital"
   },
   {
     "source": "thiel",
     "target": "vance",
     "type": "mentorship",
     "desc": "Met at Yale. Hired at Mithril. $15M Senate campaign. Funded Narya. Introduced to Trump. Lobbied for VP",
-    "src": "Politico; Axios; Wikipedia"
+    "src": "Politico; Axios; Wikipedia",
+    "url": "https://www.opensecrets.org/news/2024/07/tech-billionaires-signal-support-for-trump-vice-president-jd-vance/"
   },
   {
     "source": "lonsdale",
     "target": "palantir",
     "type": "cofounded",
     "desc": "Co-founder",
-    "src": "Bloomberg/Yahoo, Mar 2026"
+    "src": "Bloomberg/Yahoo, Mar 2026",
+    "url": "https://finance.yahoo.com/news/peter-thiel-launched-j-d-131520343.html"
   },
   {
     "source": "lonsdale",
     "target": "8vc",
     "type": "cofounded",
     "desc": "Founder",
-    "src": "Bloomberg/Yahoo, Mar 2026"
+    "src": "Bloomberg/Yahoo, Mar 2026",
+    "url": "https://finance.yahoo.com/news/peter-thiel-launched-j-d-131520343.html"
   },
   {
     "source": "lonsdale",
     "target": "michael",
     "type": "political",
     "desc": "Defended Michael: Pentagon needs 'someone who understands technology'",
-    "src": "Bloomberg/Yahoo, Mar 2026"
+    "src": "Bloomberg/Yahoo, Mar 2026",
+    "url": "https://finance.yahoo.com/news/peter-thiel-launched-j-d-131520343.html"
   },
   {
     "source": "vance",
     "target": "mithril",
     "type": "employment",
     "desc": "Principal 2016-17. Worked alongside Thiel",
-    "src": "Wikipedia"
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Peter_Thiel"
   },
   {
     "source": "vance",
     "target": "narya",
     "type": "cofounded",
     "desc": "Co-founded 2019 with Greenspon. Holds stakes per disclosure",
-    "src": "Axios, Jan 2020"
+    "src": "Axios, Jan 2020",
+    "url": "https://www.axios.com/2020/01/09/jd-vance-venture-capital-fund-ohio-silicon-valley-peter-thiel"
   },
   {
     "source": "thiel",
     "target": "narya",
     "type": "investment",
     "desc": "Backer of Narya Capital",
-    "src": "Axios, Jan 2020"
+    "src": "Axios, Jan 2020",
+    "url": "https://www.axios.com/2020/01/09/jd-vance-venture-capital-fund-ohio-silicon-valley-peter-thiel"
   },
   {
     "source": "vance",
     "target": "whitehouse",
     "type": "political",
     "desc": "Vice President",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.whitehouse.gov/administration/vice-president-vance/"
   },
   {
     "source": "musk",
     "target": "xai",
     "type": "cofounded",
     "desc": "CEO and owner",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://x.ai/about"
   },
   {
     "source": "musk",
     "target": "spacex",
     "type": "cofounded",
     "desc": "CEO",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.spacex.com/human-spaceflight/"
   },
   {
     "source": "musk",
     "target": "tesla",
     "type": "employment",
     "desc": "CEO",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://ir.tesla.com/"
   },
   {
     "source": "musk",
     "target": "doge",
     "type": "political",
     "desc": "Led DOGE Jan-May 2025",
-    "src": "Built In"
+    "src": "Built In",
+    "url": "https://builtin.com/articles/doge-tracker"
   },
   {
     "source": "luckey",
     "target": "anduril",
     "type": "cofounded",
     "desc": "Founder/CEO. Founded 2017 after fired from Facebook",
-    "src": "Wikipedia"
+    "src": "Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Peter_Thiel"
   },
   {
     "source": "stephens",
     "target": "anduril",
     "type": "cofounded",
     "desc": "Co-founder/Exec Chairman. Also Founders Fund partner, ex-Palantir",
-    "src": "CNBC, Jun 2025"
+    "src": "CNBC, Jun 2025",
+    "url": "https://www.cnbc.com/2025/06/05/anduril-valuation-founders-fund.html"
   },
   {
     "source": "stephens",
     "target": "founders_fund",
     "type": "employment",
     "desc": "Partner. Left Palantir at Thiel's persuasion",
-    "src": "Wikipedia (Anduril)"
+    "src": "Wikipedia (Anduril)",
+    "url": "https://en.wikipedia.org/wiki/Anduril_Industries"
   },
   {
     "source": "stephens",
     "target": "palantir",
     "type": "employment",
     "desc": "Former Palantir before Founders Fund",
-    "src": "Wikipedia (Anduril)"
+    "src": "Wikipedia (Anduril)",
+    "url": "https://en.wikipedia.org/wiki/Anduril_Industries"
   },
   {
     "source": "founders_fund",
     "target": "anduril",
     "type": "investment",
     "desc": "Led $2.5B Series G, $1B check (largest ever)",
-    "src": "CNBC, Jun 2025"
+    "src": "CNBC, Jun 2025",
+    "url": "https://www.cnbc.com/2025/06/05/anduril-valuation-founders-fund.html"
   },
   {
     "source": "anduril",
     "target": "pentagon",
     "type": "contract",
     "desc": "$22B IVAS (from Microsoft). $9B+ autonomous aircraft. $642M 10-year",
-    "src": "Fortune, Jun 2025"
+    "src": "Fortune, Jun 2025",
+    "url": "https://fortune.com/2025/06/05/anduril-palmer-luckey-funding-30-billion-valuation-founders-fund/"
   },
   {
     "source": "anduril",
     "target": "openai",
     "type": "partnership",
     "desc": "Partnership Dec 2025",
-    "src": "CNBC, Jun 2025"
+    "src": "CNBC, Jun 2025",
+    "url": "https://www.cnbc.com/2025/06/05/anduril-valuation-founders-fund.html"
   },
   {
     "source": "anduril",
     "target": "meta",
     "type": "partnership",
     "desc": "AR/VR military devices for IVAS",
-    "src": "TechCrunch, Jun 2025"
+    "src": "TechCrunch, Jun 2025",
+    "url": "https://techcrunch.com/2025/06/05/anduril-raises-2-5b-at-30-5b-valuation-led-by-founders-fund/"
   },
   {
     "source": "luckey",
     "target": "trump",
     "type": "political",
     "desc": "Fundraiser host 2020/2024 campaigns",
-    "src": "OC Business Journal, Feb 2025"
+    "src": "OC Business Journal, Feb 2025",
+    "url": "https://www.ocbj.com/oc-homepage/palmer-luckey-teams-with-peter-thiel-for-latest-anduril-push-forward/"
   },
   {
     "source": "michael",
     "target": "pentagon",
     "type": "employment",
     "desc": "Pentagon CTO. Also Acting Dir Defense Innovation Unit (Aug 2025)",
-    "src": "Fortune; DefenseScoop"
+    "src": "Fortune; DefenseScoop",
+    "url": "https://defensescoop.com/2026/01/13/hegseth-ai-tech-hubs-reorganization-dod-dow/"
   },
   {
     "source": "michael",
     "target": "uber",
     "type": "employment",
     "desc": "CBO 2013-17 under Kalanick. $15B raised. $1M journalist dirt suggestion",
-    "src": "Fortune, Feb 2026"
+    "src": "Fortune, Feb 2026",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "michael",
     "target": "dbb",
     "type": "board",
     "desc": "Member during Uber tenure: advised procurement he now controls",
-    "src": "Fortune, Feb 2026"
+    "src": "Fortune, Feb 2026",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "hegseth",
     "target": "pentagon",
     "type": "employment",
     "desc": "Secretary of Defense",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.defense.gov/About/Biographies/Biography/Article/4053459/pete-hegseth/"
   },
   {
     "source": "bondi",
     "target": "doj",
     "type": "employment",
     "desc": "AG. AI Litigation Task Force Jan 2026",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.justice.gov/ag"
   },
   {
     "source": "trump",
     "target": "whitehouse",
     "type": "political",
     "desc": "President",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.whitehouse.gov/administration/president-trump/"
   },
   {
     "source": "trump",
     "target": "doge",
     "type": "political",
     "desc": "Established DOGE by EO, Jan 20, 2025",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.whitehouse.gov/presidential-actions/establishing-and-implementing-the-presidents-department-of-government-efficiency/"
   },
   {
     "source": "pentagon",
     "target": "anthropic",
     "type": "contract",
     "desc": "$200M (Jul 2025). Supply chain risk (Mar 2026). First classified frontier model via Palantir",
-    "src": "CNBC, Mar 2026"
+    "src": "CNBC, Mar 2026",
+    "url": "https://www.cbsnews.com/news/anthropic-pentagon-pete-hegseth-feud/"
   },
   {
     "source": "pentagon",
     "target": "xai",
     "type": "contract",
     "desc": "$200M (Jul 2025). Impact Level 5 (Dec 2025). Classified (Feb 2026). 'All lawful purposes'",
-    "src": "Fortune; Axios"
+    "src": "Fortune; Axios",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "pentagon",
     "target": "openai",
     "type": "contract",
     "desc": "Deal signed hours after Trump's anti-Anthropic order. No restrictions",
-    "src": "CNN, Mar 2026"
+    "src": "CNN, Mar 2026",
+    "url": "https://www.cbsnews.com/news/anthropic-pentagon-pete-hegseth-feud/"
   },
   {
     "source": "pentagon",
     "target": "palantir",
     "type": "contract",
     "desc": "$1.6B+. Primary data analytics. AIP classified infrastructure",
-    "src": "CNBC, Mar 2026"
+    "src": "CNBC, Mar 2026",
+    "url": "https://www.cbsnews.com/news/anthropic-pentagon-pete-hegseth-feud/"
   },
   {
     "source": "pentagon",
     "target": "spacex",
     "type": "contract",
     "desc": "$845M Space Force. PLEO $900M to $13B. Dominant launch provider",
-    "src": "Built In; SpaceNews"
+    "src": "Built In; SpaceNews",
+    "url": "https://builtin.com/articles/doge-tracker"
   },
   {
     "source": "pentagon",
     "target": "anduril",
     "type": "contract",
     "desc": "$22B IVAS. $9B+ autonomous aircraft. $642M 10-year. Multiple programs",
-    "src": "Fortune, Jun 2025"
+    "src": "Fortune, Jun 2025",
+    "url": "https://fortune.com/2025/06/05/anduril-palmer-luckey-funding-30-billion-valuation-founders-fund/"
   },
   {
     "source": "pentagon",
     "target": "google",
     "type": "contract",
     "desc": "AI contracts (Jul 2025). genai.mil nonclassified",
-    "src": "Fortune, Jul 2025"
+    "src": "Fortune, Jul 2025",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "hegseth",
     "target": "anthropic",
     "type": "political",
     "desc": "Demanded removal of safety restrictions. 'Won't employ AI that won't allow you to fight wars'",
-    "src": "Defense One; NPR"
+    "src": "Defense One; NPR",
+    "url": "https://www.defenseone.com/policy/2026/01/grok-ethics-are-out-pentagons-new-ai-acceleration-strategy/410649/"
   },
   {
     "source": "pentagon",
     "target": "boeing",
     "type": "political",
     "desc": "Contacted about Claude use Feb 25, 2026",
-    "src": "Radiograph #1"
+    "src": "Radiograph #1",
+    "url": "https://andreacolamedici.com/radiograph.html"
   },
   {
     "source": "pentagon",
     "target": "lockheed",
     "type": "political",
     "desc": "Contacted about Claude use Feb 25, 2026",
-    "src": "Radiograph #1"
+    "src": "Radiograph #1",
+    "url": "https://andreacolamedici.com/radiograph.html"
   },
   {
     "source": "doge",
     "target": "whitehouse",
     "type": "political",
     "desc": "Established by EO. Admin access to procurement/personnel systems",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.whitehouse.gov/presidential-actions/establishing-and-implementing-the-presidents-department-of-government-efficiency/"
   },
   {
     "source": "makecha",
     "target": "doge",
     "type": "employment",
     "desc": "Sent directives to DOJ to terminate contracts",
-    "src": "Fortune, Jul 2025"
+    "src": "Fortune, Jul 2025",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "makecha",
     "target": "tesla",
     "type": "employment",
     "desc": "Former Tesla employee",
-    "src": "Fortune, Jul 2025"
+    "src": "Fortune, Jul 2025",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "sdavis",
     "target": "doge",
     "type": "employment",
     "desc": "Received private info file of ~1,000 people",
-    "src": "House Oversight"
+    "src": "House Oversight",
+    "url": "https://oversightdemocrats.house.gov"
   },
   {
     "source": "kmiller",
     "target": "xai",
     "type": "employment",
     "desc": "Joined xAI post-DOGE. Promoted Grok",
-    "src": "Fortune, Jul 2025"
+    "src": "Fortune, Jul 2025",
+    "url": "https://fortune.com/2026/02/25/defense-secretary-pete-hegseth-meets-anthropic-ceo-dario-amodei-woke-ai/"
   },
   {
     "source": "doge",
     "target": "doj",
     "type": "political",
     "desc": "Makecha directives. DOJ dropped SpaceX/Tesla lawsuits",
-    "src": "Fortune; Built In"
+    "src": "Fortune; Built In",
+    "url": "https://builtin.com/articles/doge-tracker"
   },
   {
     "source": "doge",
     "target": "palantir",
     "type": "political",
     "desc": "Pushed agencies to hire Palantir",
-    "src": "NPR, Feb 2026"
+    "src": "NPR, Feb 2026",
+    "url": "https://www.npr.org/2025/12/12/nx-s1-5631823/david-sacks-ai-advisor-investment-conflicts"
   },
   {
     "source": "dario",
     "target": "anthropic",
     "type": "cofounded",
     "desc": "CEO/Co-founder. Former OpenAI VP Research",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.anthropic.com/company"
   },
   {
     "source": "daniela",
     "target": "anthropic",
     "type": "cofounded",
     "desc": "President/Co-founder. Former OpenAI VP Ops",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.anthropic.com/company"
   },
   {
     "source": "amazon",
     "target": "anthropic",
     "type": "investment",
     "desc": "$8B. Primary cloud (AWS) and training (Trainium). $3.3B stock conversion gain. $11B Project Rainier",
-    "src": "Anthropic; GeekWire"
+    "src": "Anthropic; GeekWire",
+    "url": "https://www.geekwire.com/2025/amazon-anthropic-investment/"
   },
   {
     "source": "google",
     "target": "anthropic",
     "type": "investment",
     "desc": "~10% early ($2B+). 1M TPU partnership (1+ GW)",
-    "src": "Wikipedia; DCD"
+    "src": "Wikipedia; DCD",
+    "url": "https://www.datacenterdynamics.com/"
   },
   {
     "source": "microsoft",
     "target": "anthropic",
     "type": "investment",
     "desc": "$15B joint with Nvidia. $30B Azure/Nvidia compute commitment",
-    "src": "Tom's Hardware, Nov 2025"
+    "src": "Tom's Hardware, Nov 2025",
+    "url": "https://www.tomshardware.com/"
   },
   {
     "source": "nvidia",
     "target": "anthropic",
     "type": "investment",
     "desc": "$15B joint with Microsoft",
-    "src": "Tom's Hardware, Nov 2025"
+    "src": "Tom's Hardware, Nov 2025",
+    "url": "https://www.tomshardware.com/"
   },
   {
     "source": "ftx",
     "target": "anthropic",
     "type": "investment",
     "desc": "$500M stolen deposits. ~8%. Sold for $1.3B in bankruptcy",
-    "src": "CNBC; The Block"
+    "src": "CNBC; The Block",
+    "url": "https://www.cnbc.com/2024/03/25/ftx-estate-sells-majority-stake-in-startup-anthropic-for-884-million.html"
   },
   {
     "source": "sbf",
     "target": "ftx",
     "type": "cofounded",
     "desc": "CEO. Convicted fraud. 25 years",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://www.justice.gov/usao-sdny/pr/samuel-bankman-fried-sentenced-25-years-his-orchestration-multiple-fraudulent-schemes"
   },
   {
     "source": "mubadala",
     "target": "anthropic",
     "type": "investment",
     "desc": "Largest FTX buyer: $500M (16.6M shares)",
-    "src": "CNBC, Mar 2024"
+    "src": "CNBC, Mar 2024",
+    "url": "https://www.cnbc.com/2024/03/25/ftx-estate-sells-majority-stake-in-startup-anthropic-for-884-million.html"
   },
   {
     "source": "janestreet",
     "target": "anthropic",
     "type": "investment",
     "desc": "~$100M FTX shares. Falls: $20M personal. Series F/G",
-    "src": "CoinDesk; Unchained"
+    "src": "CoinDesk; Unchained",
+    "url": "https://www.coindesk.com/policy/2024/03/25/ftx-to-sell-884m-of-anthropic-shares-to-two-dozen-institutional-investors"
   },
   {
     "source": "founders_fund",
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led $30B Series G. Same fund: $1B in Anduril, Palantir investor",
-    "src": "Anthropic, Feb 2026"
+    "src": "Anthropic, Feb 2026",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "gic",
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led Series F and G",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "coatue",
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led Series G with GIC",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "iconiq",
     "target": "anthropic",
     "type": "investment",
     "desc": "Led $13B Series F. Co-led G",
-    "src": "Goldman Sachs AM"
+    "src": "Goldman Sachs AM",
+    "url": "https://www.goldmansachs.com/"
   },
   {
     "source": "fidelity",
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led Series F. Bought $44M FTX shares",
-    "src": "Goldman Sachs AM; CoinDesk"
+    "src": "Goldman Sachs AM; CoinDesk",
+    "url": "https://www.coindesk.com/policy/2024/03/25/ftx-to-sell-884m-of-anthropic-shares-to-two-dozen-institutional-investors"
   },
   {
     "source": "qia",
     "target": "anthropic",
     "type": "investment",
     "desc": "Series F and G",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "blackrock",
     "target": "anthropic",
     "type": "investment",
     "desc": "Series F and G. Largest asset manager",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "mgx",
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led Series G",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "sequoia",
     "target": "anthropic",
     "type": "investment",
     "desc": "Series F and G",
-    "src": "Tracxn"
+    "src": "Tracxn",
+    "url": "https://tracxn.com/d/companies/anthropic/__yAHQSFE4GH5jmN0a0swKFYHx1x3cKU8VxxGCYG0iPBg"
   },
   {
     "source": "deshaw",
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led Series G. Bezos worked at D.E. Shaw before Amazon",
-    "src": "Bloomberg"
+    "src": "Bloomberg",
+    "url": "https://www.bloomberg.com/"
   },
   {
     "source": "temasek",
     "target": "anthropic",
     "type": "investment",
     "desc": "Series G. Also invested in Mithril (Thiel)",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "softbank",
     "target": "openai",
     "type": "investment",
     "desc": "$30B in $110B round. $500B Stargate project",
-    "src": "Reuters"
+    "src": "Reuters",
+    "url": "https://www.reuters.com/technology/"
   },
   {
     "source": "amazon",
     "target": "openai",
     "type": "investment",
     "desc": "Up to $50B (Feb 2026). $100B AWS commitment. Primary cloud for both labs",
-    "src": "CNBC, Feb 2026"
+    "src": "CNBC, Feb 2026",
+    "url": "https://www.cnbc.com/"
   },
   {
     "source": "microsoft",
     "target": "openai",
     "type": "investment",
     "desc": "Largest investor",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://openai.com/index/openai-and-microsoft/"
   },
   {
     "source": "mgx",
     "target": "openai",
     "type": "investment",
     "desc": "Participated in $110B round",
-    "src": "Reuters"
+    "src": "Reuters",
+    "url": "https://www.reuters.com/technology/"
   },
   {
     "source": "ltbt",
     "target": "anthropic",
     "type": "board",
     "desc": "Elects 2/6 directors (eventually majority). Trust Agreement unpublished",
-    "src": "Anthropic; Harvard Law"
+    "src": "Anthropic; Harvard Law",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "shah",
     "target": "ltbt",
     "type": "board",
     "desc": "Chair. Clinton Health Access Initiative CEO",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "fontaine",
     "target": "ltbt",
     "type": "board",
     "desc": "Member. CNAS CEO. Former Defense Policy Board",
-    "src": "Anthropic, Oct 2025"
+    "src": "Anthropic, Oct 2025",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "cuellar",
     "target": "ltbt",
     "type": "board",
     "desc": "Member. Carnegie president. Former CA Supreme Court",
-    "src": "Anthropic, Jan 2026"
+    "src": "Anthropic, Jan 2026",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "matheny",
     "target": "ltbt",
     "type": "board",
     "desc": "Former member. RAND CEO. Recused Dec 2023",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "christiano",
     "target": "ltbt",
     "type": "board",
     "desc": "Former member. ARC founder. Left for US gov AI Safety",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "hastings",
     "target": "anthropic",
     "type": "board",
     "desc": "Board. Appointed by LTBT. Netflix co-founder",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "kreps",
     "target": "anthropic",
     "type": "board",
     "desc": "Board. Appointed by LTBT. Confluent co-founder",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "razavi",
     "target": "anthropic",
     "type": "board",
     "desc": "Board (investor). Spark Capital",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "palantir",
     "target": "anthropic",
     "type": "partnership",
     "desc": "Claude on classified networks via Palantir AIP (Impact Level 6). Used in Maduro operation. Dispute: Anthropic allegedly asked about Claude use in raid",
-    "src": "Semafor; Axios; CNBC"
+    "src": "Semafor; Axios; CNBC",
+    "url": "https://www.pbs.org/newshour/world/ap-report-hegseth-warns-anthropic-to-let-the-military-use-companys-ai-tech-as-it-sees-fit"
   },
   {
     "source": "mithril",
     "target": "palantir",
     "type": "investment",
     "desc": "Thiel holds Palantir Class A and supervoting Class B through Mithril",
-    "src": "Wikipedia (Mithril)"
+    "src": "Wikipedia (Mithril)",
+    "url": "https://en.wikipedia.org/wiki/Mithril_Capital"
   },
   {
     "source": "founders_fund",
     "target": "palantir",
     "type": "investment",
     "desc": "Thiel holds Palantir through Founders Fund",
-    "src": "Wikipedia (Mithril)"
+    "src": "Wikipedia (Mithril)",
+    "url": "https://en.wikipedia.org/wiki/Mithril_Capital"
   },
   {
     "source": "founders_fund",
     "target": "spacex",
     "type": "investment",
     "desc": "Invested in SpaceX",
-    "src": "Spokesman-Review"
+    "src": "Spokesman-Review",
+    "url": "https://www.cnbc.com/2025/06/05/anduril-valuation-founders-fund.html"
   },
   {
     "source": "founders_fund",
     "target": "openai",
     "type": "investment",
     "desc": "Thiel invested in OpenAI via Founders Fund",
-    "src": "Radiograph #1"
+    "src": "Radiograph #1",
+    "url": "https://andreacolamedici.com/radiograph.html"
   },
   {
     "source": "meta",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "~€10M/year. Top spender. Enforcement actions while lobbying for simplification",
-    "src": "CEO/LobbyControl, Oct 2025"
+    "src": "CEO/LobbyControl, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "microsoft",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "€7M/year. With Google: removed discrimination from systemic risks",
-    "src": "CEO, Apr 2025"
+    "src": "CEO, Apr 2025",
+    "url": "https://corporateeurope.org/en/2023/11/big-techs-last-minute-blitz-further-diluting-ai-act-new-publication-shows-how"
   },
   {
     "source": "google",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "With Microsoft: reclassified discrimination from mandatory to optional",
-    "src": "CEO, Apr 2025"
+    "src": "CEO, Apr 2025",
+    "url": "https://corporateeurope.org/en/2023/11/big-techs-last-minute-blitz-further-diluting-ai-act-new-publication-shows-how"
   },
   {
     "source": "amazon",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "€4.2M increase (largest single)",
-    "src": "Euronews, Oct 2025"
+    "src": "Euronews, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "apple",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "€7M/year. Top 10",
-    "src": "CEO/LobbyControl, Oct 2025"
+    "src": "CEO/LobbyControl, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "ccias",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "Called for AI Act pause",
-    "src": "Euronews, Oct 2025"
+    "src": "Euronews, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "salla",
     "target": "meta",
     "type": "employment",
     "desc": "Left Commission, Meta lobbyist within 3 months",
-    "src": "CEO, Feb 2023"
+    "src": "CEO, Feb 2023",
+    "url": "https://corporateeurope.org/en/2023/02/lobbying-ghost-machine"
   },
   {
     "source": "salla",
     "target": "eu_commission",
     "type": "employment",
     "desc": "Former Commission official",
-    "src": "CEO, Feb 2023"
+    "src": "CEO, Feb 2023",
+    "url": "https://corporateeurope.org/en/2023/02/lobbying-ghost-machine"
   },
   {
     "source": "cedric_o",
     "target": "mistral",
     "type": "employment",
     "desc": "Leads EU lobbying. Former Sec of State, Macron access",
-    "src": "CEO, Nov 2023"
+    "src": "CEO, Nov 2023",
+    "url": "https://corporateeurope.org/en/2023/11/big-tech-lobbying-derailing-ai-act"
   },
   {
     "source": "cedric_o",
     "target": "eu_commission",
     "type": "lobbying",
     "desc": "150-company letter. France opposed foundation model regulation",
-    "src": "CEO, Nov 2023"
+    "src": "CEO, Nov 2023",
+    "url": "https://corporateeurope.org/en/2023/11/big-tech-lobbying-derailing-ai-act"
   },
   {
     "source": "draghi",
     "target": "eu_commission",
     "type": "political",
     "desc": "Competitiveness report: GDPR/AI Act as innovation burdens",
-    "src": "Euronews, Oct 2025"
+    "src": "Euronews, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "vance",
     "target": "eu_commission",
     "type": "political",
     "desc": "'In Europe free speech is in retreat' (Feb 2025)",
-    "src": "Euronews, Oct 2025"
+    "src": "Euronews, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "rubio",
     "target": "eu_commission",
     "type": "political",
     "desc": "Instructed diplomats to undermine EU DSA (Aug 2025)",
-    "src": "Euronews, Oct 2025"
+    "src": "Euronews, Oct 2025",
+    "url": "https://dig.watch/updates/big-tech-ramps-up-brussels-lobbying-as-eu-considers-easing-digital-rules"
   },
   {
     "source": "fontaine",
     "target": "cnas",
     "type": "employment",
     "desc": "CEO. Defense/national security think tank",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "cuellar",
     "target": "rand_corp",
     "type": "partnership",
     "desc": "Carnegie Endowment president (international affairs)",
-    "src": "Anthropic, Jan 2026"
+    "src": "Anthropic, Jan 2026",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "matheny",
     "target": "rand_corp",
     "type": "employment",
     "desc": "CEO of RAND",
-    "src": "Anthropic"
+    "src": "Anthropic",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "altman",
     "target": "openai",
     "type": "cofounded",
     "desc": "CEO",
-    "src": "Public record"
+    "src": "Public record",
+    "url": "https://openai.com/about/"
   },
   {
     "source": "epi",
     "target": "doge",
     "type": "legal",
     "desc": "Estimated potential: $23.6B + $43.4B. Hypothetical, indicates scale",
-    "src": "EPI report"
+    "src": "EPI report",
+    "url": "https://www.epi.org/"
   },
   {
     "source": "space_force",
     "target": "spacex",
     "type": "contract",
     "desc": "$845M Lane 2. PLEO $900M to $13B. 97% task orders",
-    "src": "Built In; SpaceNews"
+    "src": "Built In; SpaceNews",
+    "url": "https://builtin.com/articles/doge-tracker"
   }
 ];

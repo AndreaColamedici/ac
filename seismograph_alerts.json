@@ -11,17 +11,17 @@
       "what_moved": [
         {"date": "Mar 5", "event": "Financial Times and Bloomberg report Amodei resumed negotiations with Emil Michael. New prototype agreement with $200M ceiling awarded."},
         {"date": "Mar 9", "event": "Anthropic files second lawsuit against the Department of Defense."},
-        {"date": "Mar 11", "event": "Judge moves hearing from April 3 to March 24. TIME publishes 'How Anthropic Became the Most Disruptive Company in the World.'"},
-        {"date": "Mar 12", "event": "Anthropic's lawyers tell the court the designation could cost billions. Revenue hits $19B annualized, up from $14B weeks earlier."}
+        {"date": "Mar 11", "event": "Judge moves hearing from April 3 to March 24. TIME publishes profile of Anthropic."},
+        {"date": "Mar 12", "event": "Anthropic lawyers tell the court the designation could cost billions. Revenue hits $19B annualized, up from $14B weeks earlier."}
       ],
       "nodes": [
-        {"name": "Emil Michael", "role": "Undersecretary of Defense for R&E. Directly negotiating. Called Amodei 'a liar with a God complex' on X."},
+        {"name": "Emil Michael", "role": "Undersecretary of Defense for R&E. Directly negotiating with Amodei."},
         {"name": "Pete Hegseth", "role": "Secretary of Defense. Set the Friday 5PM deadline. Declared Anthropic a supply chain risk."},
         {"name": "David Sacks", "role": "White House AI Czar. Invested in xAI via Craft Ventures. xAI benefits if Anthropic excluded."},
-        {"name": "OpenAI", "role": "Secured $200M Pentagon deal hours after Anthropic's collapse. Altman later said they 'shouldn't have rushed.'"},
-        {"name": "Palantir", "role": "Classified AI infra for Pentagon. Now monitors Polymarket (as of Mar 10). Employee first raised Claude use in Venezuela raid."}
+        {"name": "OpenAI", "role": "Secured $200M Pentagon deal hours after Anthropic collapse. Direct competitor and beneficiary."},
+        {"name": "Palantir", "role": "Classified AI infra for Pentagon. Now monitors Polymarket (sports, as of Mar 10). Employee first raised Claude use in Venezuela raid."}
       ],
-      "assessment": "The market is pricing the reopened negotiations. The hearing acceleration to March 24 compresses the timeline. An independent forecaster (Nathan P.M. Young, Substack, March 12) estimates 7% via Monte Carlo, diverging from Polymarket's 14%. The delta between estimates is itself signal. The next data point is March 24: the court hearing. If the market moves significantly before the ruling becomes public, the Seismograph will register it."
+      "assessment": "The market is pricing the reopened negotiations. The hearing acceleration to March 24 compresses the timeline. An independent forecaster (Nathan P.M. Young, Substack, March 12) estimates 7% via Monte Carlo, diverging from Polymarket's 14%. The next data point is March 24: the court hearing."
     }
   ]
 }

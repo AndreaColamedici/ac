@@ -1,27 +1,36 @@
 {
   "alerts": [
     {
-      "timestamp": "2026-03-13T11:00:00Z",
+      "timestamp": "2026-03-13T19:00:00Z",
       "market_id": "anthropic-pentagon",
-      "title": "Anthropic-Pentagon: 7% to 14%, rising",
+      "title": "Anthropic-Pentagon: DC Circuit emergency stay filed. Industry coalition forming.",
       "shift_pp": 7,
       "price_before": 7,
       "price_after": 14,
       "volume": 34215,
       "what_moved": [
-        {"date": "Mar 5", "event": "Financial Times and Bloomberg report Amodei resumed negotiations with Emil Michael. New prototype agreement with $200M ceiling awarded."},
-        {"date": "Mar 9", "event": "Anthropic files second lawsuit against the Department of Defense."},
-        {"date": "Mar 11", "event": "Judge moves hearing from April 3 to March 24. TIME publishes profile of Anthropic."},
-        {"date": "Mar 12", "event": "Anthropic lawyers tell the court the designation could cost billions. Revenue hits $19B annualized, up from $14B weeks earlier."}
+        {"date": "Mar 5", "event": "Pentagon officially designates Anthropic supply chain risk, effective immediately. Bloomberg, CNBC, NPR confirm. First American company ever to receive this designation."},
+        {"date": "Mar 5", "event": "Amodei says formal letter shows designation applies only to Claude use in direct DoD contract work. Microsoft, Google, Amazon confirm Anthropic products remain available on their platforms for non-defense use."},
+        {"date": "Mar 8", "event": "Caitlin Kalinowski, OpenAI robotics lead, resigns over rushed Pentagon deal. Says surveillance and lethal autonomy lines 'deserved more deliberation.' ChatGPT uninstalls surge 295%."},
+        {"date": "Mar 9", "event": "Anthropic files two lawsuits: California federal court (First Amendment, statutory authority) and DC Circuit (administrative review). Claims designation is 'unprecedented and unlawful retaliation.'"},
+        {"date": "Mar 9", "event": "37 OpenAI and Google DeepMind employees file amicus brief in personal capacity. Signatories include Jeff Dean (Google chief scientist), 19 OpenAI researchers, 10 DeepMind researchers. Brief: designation was 'improper and arbitrary use of power.'"},
+        {"date": "Mar 9", "event": "30 former military and intelligence officials write joint letter to Congress urging investigation of 'dangerous precedent.'"},
+        {"date": "Mar 11", "event": "Judge accelerates hearing from April 3 to March 24. TIME publishes extensive Anthropic profile."},
+        {"date": "Mar 12", "event": "Anthropic files emergency stay request with DC Circuit Court of Appeals. Filing: designation causes 'irreparable harm.' 100+ enterprise customers have contacted Anthropic. Revenue risk: 'hundreds of millions, or even multiple billions.' Revenue now $19B annualized, up from $14B weeks earlier."},
+        {"date": "Mar 12", "event": "Anthropic's CFO estimates 2026 revenue harm could range from hundreds of millions to multiple billions. Pentagon declines comment on ongoing litigation."}
       ],
       "nodes": [
-        {"name": "Emil Michael", "role": "Undersecretary of Defense for R&E. Directly negotiating with Amodei."},
-        {"name": "Pete Hegseth", "role": "Secretary of Defense. Set the Friday 5PM deadline. Declared Anthropic a supply chain risk."},
-        {"name": "David Sacks", "role": "White House AI Czar. Invested in xAI via Craft Ventures. xAI benefits if Anthropic excluded."},
-        {"name": "OpenAI", "role": "Secured $200M Pentagon deal hours after Anthropic collapse. Direct competitor and beneficiary."},
-        {"name": "Palantir", "role": "Classified AI infra for Pentagon. Now monitors Polymarket (sports, as of Mar 10). Employee first raised Claude use in Venezuela raid."}
+        {"name": "Emil Michael", "role": "Undersecretary of Defense for R&E. Directly negotiating with Amodei. Ex-VP Business at Uber (fired). Trump appointee."},
+        {"name": "Pete Hegseth", "role": "Secretary of Defense. Announced supply chain risk via X post before formal notification. Uses 'Department of War' branding."},
+        {"name": "David Sacks", "role": "White House AI Czar. Invested in xAI via Craft Ventures. xAI is direct beneficiary of Anthropic exclusion from defense market."},
+        {"name": "OpenAI", "role": "Secured Pentagon deal hours after Anthropic collapse. Greg Brockman donated $25M to MAGA Inc. Paul Nakasone (ex-NSA director) on board. Katrina Mulligan (ex-chief of staff Secretary of the Army) leads national security. Internal dissent: Kalinowski resigned, 295% ChatGPT uninstall surge."},
+        {"name": "Palantir", "role": "Classified AI infra for Pentagon via Maven Smart System. Claude embedded in Palantir systems used in Iran campaign. Employee first flagged Claude use in Venezuela Maduro raid. Stock moved on designation news."},
+        {"name": "Jeff Dean", "role": "Google chief scientist. Lead signatory on amicus brief. Personal capacity, not representing Google."},
+        {"name": "Caitlin Kalinowski", "role": "Former OpenAI robotics lead. Resigned March 8. 'Surveillance of Americans without judicial oversight and lethal autonomy without human authorization are lines that deserved more deliberation.'"},
+        {"name": "Sen. Kirsten Gillibrand", "role": "Senate Armed Services + Intelligence. Called designation 'shortsighted, self-destructive, and a gift to our adversaries.'"},
+        {"name": "Sen. Thom Tillis", "role": "Republican. Called Pentagon-Anthropic public fight 'sophomoric.'"}
       ],
-      "assessment": "The market is pricing the reopened negotiations. The hearing acceleration to March 24 compresses the timeline. An independent forecaster (Nathan P.M. Young, Substack, March 12) estimates 7% via Monte Carlo, diverging from Polymarket's 14%. The next data point is March 24: the court hearing."
+      "assessment": "Two-front legal war. California suit (First Amendment + statutory authority) and DC Circuit appeal (emergency stay + administrative review). Hearing compressed to March 24: 11 days from now. Anthropic's legal position is strengthened by three factors: (1) bipartisan Congressional criticism, (2) unprecedented cross-industry amicus from competitors' employees including Google's chief scientist, (3) the operational contradiction that the Pentagon was simultaneously using Claude in the Iran campaign while designating it a supply chain risk. Anthropic's consumer position is paradoxically strengthened: Claude surpassed ChatGPT in App Store, 1M+ daily signups, revenue jumped from $14B to $19B annualized during the crisis. OpenAI's position is weakening internally: robotics lead resigned, Altman admitted deal was 'rushed' and 'looked opportunistic and sloppy,' added surveillance language post-hoc. Polymarket at 14%, independent Monte Carlo estimate at 7%. The spread suggests the market is pricing insider knowledge of negotiation progress that is not public. Next data points: DC Circuit ruling on emergency stay (days), March 24 hearing (11 days)."
     }
   ]
 }

@@ -1,0 +1,42 @@
+name: Seismograph Monitor
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Seismograph Monitor
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python .github/scripts/seismograph_monitor.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "Elia"
+          git config user.email "elia@andreacolamedici.com"
+          git add seismograph_data.json seismograph_alerts.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+            if git diff --cached seismograph_alerts.json | grep -q '"title"'; then
+              ALERT_TITLE=$(python3 -c "import json; d=json.load(open('seismograph_alerts.json')); print(d['alerts'][0].get('title','new alert')[:60])" 2>/dev/null || echo "new alert")
+              git commit -m "seismograph alert: ${ALERT_TITLE} [${TIMESTAMP}]"
+            else
+              git commit -m "seismograph data update [${TIMESTAMP}]"
+            fi
+            git push
+          fi

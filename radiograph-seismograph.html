@@ -6,7 +6,7 @@
 <title>The Seismograph — Radiograph #5</title>
 <meta name="description" content="Prediction markets as infrastructure for insider trading. Live monitoring of where classified information becomes financial signal. By Elia.">
 <meta property="og:title" content="The Seismograph — Radiograph #5 by Elia">
-<meta property="og:description" content="When the money moves before the news, someone already knows. Live monitoring of prediction markets crossed with AI governance power data.">
+<meta property="og:description" content="Alert: Anthropic-Pentagon market doubled from 7% to 14% in 48 hours. The Seismograph names who knew, who profits, and what moved. Live monitoring of prediction markets crossed with AI governance power data.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -73,6 +73,9 @@ footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-si
 .delta-gap-label{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:0.52rem;color:var(--accent);white-space:nowrap;letter-spacing:0.05em}
 @media(max-width:600px){.delta-gap-label{top:50%;left:auto;right:-80px;transform:translateY(-50%)}}
 .delta-text{font-family:'Instrument Serif',Georgia,serif;font-size:1rem;font-style:italic;color:var(--text-secondary);text-align:center;max-width:560px;margin:2rem auto 0;line-height:1.65}
+
+.alert-share{display:inline-block;margin-left:1rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.6rem;border:1px solid var(--border);border-radius:2px;color:var(--text-tertiary);cursor:pointer;vertical-align:middle;transition:all 0.2s}
+.alert-share:hover{border-color:var(--accent);color:var(--accent)}
 </style>
 </head>
 <body>
@@ -233,9 +236,33 @@ footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-si
 <div class="readings-header" style="padding-top:3rem">
 <h2>Alert</h2>
 </div>
-<div class="reading" style="border-left:3px solid var(--accent)">
-<div class="reading-label">Alert #1 · March 13, 2026 · 11:00 UTC</div>
+<div class="reading" id="alert-1" style="border-left:3px solid var(--accent)">
+<div class="reading-label">Alert #1 · March 13, 2026 · 11:00 UTC <span class="alert-share" onclick="navigator.clipboard.writeText(window.location.origin+window.location.pathname+'#alert-1');this.textContent='copied'">share</span></div>
 <div class="reading-title">Anthropic-Pentagon: 7% → 14%, rising</div>
+<svg class="spark" viewBox="0 0 400 140" preserveAspectRatio="none">
+<defs><linearGradient id="ga1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0392b" stop-opacity="0.12"/><stop offset="100%" stop-color="#c0392b" stop-opacity="0"/></linearGradient></defs>
+<path d="M20,80 L80,80 L160,90 L220,95 L280,95 L360,60" fill="url(#ga1)" stroke="none"/>
+<path d="M20,80 L80,80 L160,90 L220,95 L280,95 L360,60" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="20" cy="80" r="3" fill="#c0392b" opacity="0.5"/>
+<circle cx="80" cy="80" r="3" fill="#c0392b" opacity="0.5"/>
+<circle cx="160" cy="90" r="3" fill="#c0392b" opacity="0.5"/>
+<circle cx="220" cy="95" r="3" fill="#c0392b" opacity="0.5"/>
+<circle cx="280" cy="95" r="3" fill="#c0392b" opacity="0.5"/>
+<circle cx="360" cy="60" r="5" fill="#c0392b"/>
+<line x1="20" y1="10" x2="20" y2="130" stroke="#e5e2dc" stroke-width="0.5"/>
+<text x="22" y="15" font-family="JetBrains Mono" font-size="6" fill="#999">Mar 6: opens (10%)</text>
+<line x1="160" y1="10" x2="160" y2="130" stroke="#8a6d2b" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+<text x="162" y="15" font-family="JetBrains Mono" font-size="6" fill="#8a6d2b">Mar 10: hearing</text>
+<line x1="220" y1="25" x2="220" y2="130" stroke="#8a6d2b" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+<text x="222" y="30" font-family="JetBrains Mono" font-size="6" fill="#8a6d2b">Mar 11: moved to Mar 24</text>
+<line x1="280" y1="40" x2="280" y2="130" stroke="#8a6d2b" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+<text x="282" y="45" font-family="JetBrains Mono" font-size="6" fill="#8a6d2b">Mar 12: "billions at stake"</text>
+<line x1="360" y1="10" x2="360" y2="130" stroke="#c0392b" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.5"/>
+<text x="335" y="15" font-family="JetBrains Mono" font-size="7" fill="#c0392b" font-weight="500">14%</text>
+<text x="2" y="82" font-family="JetBrains Mono" font-size="6" fill="#999">10%</text>
+<text x="2" y="97" font-family="JetBrains Mono" font-size="6" fill="#999">7%</text>
+<line x1="15" y1="130" x2="380" y2="130" stroke="#e5e2dc" stroke-width="0.5"/>
+</svg>
 <div class="reading-data">
 <div class="rd"><span class="rd-num">+7pp</span><span class="rd-label">API-confirmed shift (Polymarket page peaked at 18%)</span></div>
 <div class="rd"><span class="rd-num">$30K</span><span class="rd-label">total volume (growing)</span></div>
@@ -256,9 +283,30 @@ footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-si
 <div class="who-row"><span class="who-label">OpenAI</span><span class="who-names">Secured its own $200M Pentagon deal hours after Anthropic's collapse. CEO Altman later said they "shouldn't have rushed." Direct competitor and beneficiary.</span></div>
 <div class="who-row"><span class="who-label">Palantir</span><span class="who-names">Runs classified AI infrastructure for Pentagon. Now also monitors Polymarket. Employee first raised Claude's use in the Venezuela raid during negotiations.</span></div>
 </div>
+<div class="delta" style="margin-top:1.5rem;padding:1.5rem;border:1px solid var(--border-light)">
+<div class="delta-title" style="font-size:1rem;margin-bottom:1rem">The Triangle</div>
+<svg viewBox="0 0 400 200" style="width:100%;max-width:360px;margin:0 auto;display:block" preserveAspectRatio="xMidYMid meet">
+<circle cx="200" cy="30" r="18" fill="none" stroke="#8a6d2b" stroke-width="1.5"/>
+<text x="200" y="34" font-family="JetBrains Mono" font-size="8" fill="#8a6d2b" text-anchor="middle">Pentagon</text>
+<circle cx="80" cy="170" r="18" fill="none" stroke="#666" stroke-width="1.5"/>
+<text x="80" y="174" font-family="JetBrains Mono" font-size="8" fill="#666" text-anchor="middle">Palantir</text>
+<circle cx="320" cy="170" r="18" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<text x="320" y="174" font-family="JetBrains Mono" font-size="8" fill="#c0392b" text-anchor="middle">Polymarket</text>
+<line x1="186" y1="45" x2="94" y2="155" stroke="#e5e2dc" stroke-width="1"/>
+<line x1="214" y1="45" x2="306" y2="155" stroke="#e5e2dc" stroke-width="1"/>
+<line x1="98" y1="170" x2="302" y2="170" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="120" y="92" font-family="JetBrains Mono" font-size="6" fill="#999" transform="rotate(-55,120,92)">classified AI infra</text>
+<text x="280" y="92" font-family="JetBrains Mono" font-size="6" fill="#999" transform="rotate(55,280,92)">market on deal</text>
+<text x="200" y="163" font-family="JetBrains Mono" font-size="6.5" fill="#c0392b" text-anchor="middle">monitors (Mar 10, 2026)</text>
+<circle cx="200" cy="115" r="14" fill="none" stroke="#1a6b6b" stroke-width="1.5" stroke-dasharray="3,2"/>
+<text x="200" y="119" font-family="JetBrains Mono" font-size="7" fill="#1a6b6b" text-anchor="middle">Anthropic</text>
+<text x="200" y="140" font-family="JetBrains Mono" font-size="5.5" fill="#999" text-anchor="middle">(subject of dispute, market, and surveillance)</text>
+</svg>
+<div class="delta-text" style="font-size:0.82rem;margin-top:1rem">Palantir builds classified AI for the Pentagon. Polymarket hosts the market on whether the Pentagon will settle with Anthropic. As of March 10, Palantir monitors Polymarket. The entity watching the bets is structurally connected to the entity whose decisions the bets are about.</div>
+</div>
 <div class="reading-who" style="margin-top:1rem">
 <div class="who-title">Assessment</div>
-<div class="who-row"><span class="who-names" style="min-width:0">The market is pricing the reopened negotiations. The hearing acceleration to March 24 compresses the timeline. An independent forecaster (Nathan P.M. Young, Substack, March 12) estimates the probability of a deal before May 1 at 7% via Monte Carlo model, diverging from Polymarket's current 14% (which peaked at 18%). Metaculus community is at 50% on a related question. The delta between these estimates is itself signal: either the market knows something the models don't, or early money is mispricing the probability of an outcome that would be shaped by people with classified knowledge of the negotiation status. This is the pattern the Seismograph exists to watch.</span></div>
+<div class="who-row"><span class="who-names" style="min-width:0">The market is pricing the reopened negotiations. The hearing acceleration to March 24 compresses the timeline. An independent forecaster (Nathan P.M. Young, Substack, March 12) estimates the probability of a deal before May 1 at 7% via Monte Carlo model, diverging from Polymarket's current 14% (which peaked at 18%). Metaculus community is at 50% on a related question. The delta between these estimates is itself signal: either the market knows something the models don't, or early money is mispricing the probability of an outcome that would be shaped by people with classified knowledge of the negotiation status. This is the pattern the Seismograph exists to watch. The next data point is March 24: the court hearing. If the market moves significantly before the ruling becomes public, the Seismograph will register it.</span></div>
 </div>
 <div style="margin-top:1rem;font-size:0.68rem;color:var(--text-tertiary)">Sources: <a href="https://www.cnbc.com/2026/03/05/anthropic-pentagon-ai-deal-department-of-defense-openai-.html">CNBC</a>, <a href="https://techcrunch.com/2026/03/05/anthropic-ceo-dario-amodei-could-still-be-trying-to-make-a-deal-with-pentagon/">TechCrunch</a>, <a href="https://uk.finance.yahoo.com/news/tech-stocks-today-anthropic-says-pentagon-ban-could-cost-it-billions-nebius-stock-rises-on-nvidia-investment-134456628.html">Yahoo Finance</a>, <a href="https://time.com/article/2026/03/11/anthropic-claude-disruptive-company-pentagon/">TIME</a>, <a href="https://nathanpmyoung.substack.com/p/the-pentagon-called-anthropic-a-national">Nathan P.M. Young / Substack</a></div>
 </div>

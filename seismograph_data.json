@@ -1,42 +1,29 @@
 {
-  "updated": "2026-03-13T00:30:00Z",
-  "source": "gamma-api.polymarket.com (manual snapshot)",
+  "updated": "2026-03-13T10:45:00Z",
+  "source": "gamma-api.polymarket.com (live via proxy)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
-      "yes": 7,
-      "volume": "3000000",
+      "yes": 14,
+      "volume": "34215",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
-      "history": [{"t": "2026-02-25T12:00:00Z", "p": 49}, {"t": "2026-02-26T12:00:00Z", "p": 34}, {"t": "2026-02-28T12:00:00Z", "p": 13}, {"t": "2026-03-07T12:00:00Z", "p": 10}, {"t": "2026-03-12T12:00:00Z", "p": 7}]
+      "history": [{"t": "2026-02-25T12:00:00Z", "p": 49}, {"t": "2026-02-26T12:00:00Z", "p": 34}, {"t": "2026-02-28T12:00:00Z", "p": 13}, {"t": "2026-03-07T12:00:00Z", "p": 10}, {"t": "2026-03-12T12:00:00Z", "p": 7}, {"t": "2026-03-13T10:45:00Z", "p": 14}]
     },
     "best-ai-model": {
       "question": "Which company has the best AI model end of March?",
       "yes": 88,
-      "volume": "4000000",
-      "slug": "which-company-has-the-best-ai-model-end-of-march",
+      "volume": "7700000",
+      "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [{"t": "2026-03-01T12:00:00Z", "p": 80}, {"t": "2026-03-07T12:00:00Z", "p": 83}, {"t": "2026-03-12T12:00:00Z", "p": 88}],
-      "note": "Anthropic share shown. Others: Google 9%, xAI 8%"
+      "note": "Anthropic share shown (88%). Google 4%, OpenAI 2%, xAI ~1%."
     },
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
-      "yes": null,
-      "volume": null,
-      "slug": "anthropic-or-openai-ipo-first",
-      "history": []
-    },
-    "anduril-ipo": {
-      "question": "Will Anduril file for IPO in 2026?",
-      "yes": null,
-      "volume": null,
-      "slug": "anduril-ipo-2026",
-      "history": []
-    },
-    "sacks-white-house": {
-      "question": "Will David Sacks leave his White House position in 2026?",
-      "yes": null,
-      "volume": null,
-      "slug": "david-sacks-out-2026",
-      "history": []
+      "yes": 56,
+      "volume": "37956",
+      "slug": "will-anthropic-or-openai-ipo-first",
+      "history": [{"t": "2026-03-13T10:45:00Z", "p": 56}],
+      "note": "Yes = Anthropic IPOs first (56%). No = OpenAI IPOs first (44%)."
     }
   }
 }

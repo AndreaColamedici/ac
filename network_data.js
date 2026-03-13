@@ -17,7 +17,7 @@ const NODES = [
       "r1",
       "r3"
     ],
-    "desc": "CEO of Tesla, SpaceX, xAI. Former head of DOGE (Jan-May 2025). Before DOGE, his businesses had received at least $38B in government contracts, loans, subsidies, and tax credits since 2003 (Washington Post). SpaceX held $22B in government contracts (Shotwell, 2024). xAI's Grok approved for classified use same week Anthropic designated supply chain risk. During DOGE tenure, DOJ dropped several lawsuits into SpaceX and Tesla. After departure: xAI won $200M Pentagon contract (Jul 2025), Grok deployed at Impact Level 5 for all 3M military/civilian personnel (Dec 2025), classified systems agreement for intelligence, weapons, battlefield operations (Feb 2026). Accepted 'all lawful purposes' standard."
+    "desc": "CEO of Tesla, SpaceX, xAI. Former head of DOGE (Jan-May 2025). Before DOGE, his businesses had received at least $38B in government contracts, loans, subsidies, and tax credits since 2003 (Washington Post). SpaceX held $22B in government contracts (Shotwell, 2024). xAI's Grok classified systems agreement signed ~Feb 23-24, 2026; Anthropic designated supply chain risk ~10 days later. During DOGE tenure, DOJ dropped several lawsuits into SpaceX and Tesla. After departure: xAI won $200M Pentagon contract (Jul 2025), Grok deployed at Impact Level 5 for all 3M military/civilian personnel (Dec 2025), classified systems agreement for intelligence, weapons, battlefield operations (Feb 2026). Accepted 'all lawful purposes' standard."
   },
   {
     "id": "sacks",
@@ -26,7 +26,7 @@ const NODES = [
     "rads": [
       "r1"
     ],
-    "desc": "White House AI & Crypto Czar (Dec 2024). GP at Craft Ventures. Former PayPal COO. 'Special government employee' (130 days/year), exempt from Senate confirmation. Invested via Craft in xAI, Palantir, SpaceX, Neuralink. NYT investigation (Nov 30, 2025): remains invested in 449 companies with AI products out of 708 total tech investments. Did not classify Palantir as AI in ethics disclosures. Ethics waivers described by WashU expert Kathleen Clark as 'sham ethics waivers, like a presidential pardon in advance' (NPR, Dec 2025). Accused Anthropic of 'woke AI.' Helped draft EOs targeting state AI safety laws. Lobbied for Vance as VP alongside Musk, Thiel, Carlson."
+    "desc": "White House AI & Crypto Czar (Dec 2024). GP at Craft Ventures. Former PayPal COO. 'Special government employee' (130 days/year), exempt from Senate confirmation. Invested via Craft in xAI, Palantir, SpaceX, Neuralink. NYT investigation (Nov 30, 2025): remains invested in 449 companies with AI products out of 708 total tech investments. Did not classify Palantir as AI in ethics disclosures. Ethics waivers described by WashU expert Kathleen Clark as 'sham ethics waivers' (NPR, Dec 2025; 'like a presidential pardon in advance,' TechCrunch). Accused Anthropic of 'woke AI.' Helped draft EOs targeting state AI safety laws. Lobbied for Vance as VP alongside Musk, Thiel, Carlson."
   },
   {
     "id": "thiel",
@@ -36,7 +36,7 @@ const NODES = [
       "r1",
       "r4"
     ],
-    "desc": "Co-founder/Chairman of Palantir. Founder of Founders Fund and Mithril Capital. PayPal co-founder. No government position. Influence via: (1) Palantir $1.6B+ Pentagon contracts, (2) Founders Fund investments in Anduril ($1B, largest check ever), SpaceX, Palantir, OpenAI, and Anthropic (co-led $30B Series G), (3) mentorship of VP Vance ($15M for 2022 Senate race per Politico—largest ever single-race contribution; funded Narya Capital; introduced Vance to Trump 2021). Holds Palantir shares through 8+ entities. If Anthropic excluded, Palantir strengthens regardless of replacement model."
+    "desc": "Co-founder/Chairman of Palantir. Founder of Founders Fund and Mithril Capital. PayPal co-founder. No government position. Influence via: (1) Palantir $1.6B+ Pentagon contracts, (2) Founders Fund investments in Anduril ($1B, largest check ever), SpaceX, Palantir, OpenAI, and Anthropic (co-led $30B Series G), (3) mentorship of VP Vance ($15M for 2022 Senate race per Politico; funded Narya Capital; introduced Vance to Trump 2021). Holds Palantir shares through 8+ entities. If Anthropic excluded, Palantir strengthens regardless of replacement model."
   },
   {
     "id": "michael",
@@ -297,7 +297,7 @@ const NODES = [
       "r3",
       "r4"
     ],
-    "desc": "Public Benefit Corporation. $380B valuation. $67.3B total funding (17 rounds, 90 investors). $14B annual run-rate revenue. Claude Code: $2.5B annualized. ~$3B cash burn/year (2025). ~80% revenue from enterprise. Founded 2021 by 7 former OpenAI employees. First frontier model on classified networks (Palantir, Nov 2024). $200M Pentagon contract (Jul 2025). Designated 'supply chain risk' Mar 7, 2026 for refusing to remove limits on mass surveillance and autonomous weapons. Filed suit Mar 9. Super Bowl ads (~$10M per 30s slot). $16.5M linear TV ads 2025. Asked US to build 50GW for AI by 2028. Committed to cover consumer electricity price increases. Does not publish energy/emissions data."
+    "desc": "Public Benefit Corporation. $380B valuation. ~$64B total funding (17 rounds, 90 investors, per Crunchbase). $14B annual run-rate revenue. Claude Code: $2.5B annualized. ~$3B cash burn/year (2025). ~80% revenue from enterprise. Founded 2021 by 7 former OpenAI employees. First frontier model on classified networks (Palantir, Nov 2024). $200M Pentagon contract (Jul 2025). Designated 'supply chain risk' (Hegseth announced Feb 28; formal letter received ~Mar 4-5, 2026) for refusing to remove limits on mass surveillance and autonomous weapons. Filed suit Mar 9. Super Bowl ads (~$10M per 30s slot). $16.5M linear TV ads 2025. Asked US to build 50GW for AI by 2028. Committed to cover consumer electricity price increases. Does not publish energy/emissions data."
   },
   {
     "id": "openai",
@@ -307,7 +307,7 @@ const NODES = [
       "r1",
       "r4"
     ],
-    "desc": "$500B valuation. Restructured to PBC. Pentagon deal hours after Trump's order against Anthropic. 'Any lawful' scenario, no restrictions. Amazon $50B investment. $100B on AWS over 8 years. Microsoft largest investor. Anduril partnership (Dec 2025). 800M+ weekly users. Ads introduced to free/low-cost ChatGPT. SoftBank $30B."
+    "desc": "$500B valuation. Restructured to PBC. Pentagon deal hours after Trump's order against Anthropic. 'Any lawful use' with stated safeguards on mass surveillance and autonomous weapons (disputed enforceability). Amazon $50B investment. $100B on AWS over 8 years. Microsoft largest investor. Anduril partnership (Dec 2025). 800M+ weekly users. Ads introduced to free/low-cost ChatGPT. SoftBank $30B."
   },
   {
     "id": "palantir",
@@ -468,7 +468,7 @@ const NODES = [
       "r3",
       "r4"
     ],
-    "desc": "Renamed 'Department of War.' $200M Anthropic contract (Jul 2025). Designated Anthropic supply chain risk (Mar 7, 2026). Jan 2026 AI strategy: omitted ethical AI, banned 'ideological tuning,' mandated 'any lawful use.' $200M xAI contract. $1.6B+ Palantir. Multiple Anduril contracts. genai.mil platform."
+    "desc": "Renamed 'Department of War.' $200M Anthropic contract (Jul 2025). Designated Anthropic supply chain risk (announced Feb 28, formal ~Mar 4-5, 2026). Jan 2026 AI strategy: omitted ethical AI, banned 'ideological tuning,' mandated 'any lawful use.' $200M xAI contract. $1.6B+ Palantir. Multiple Anduril contracts. genai.mil platform."
   },
   {
     "id": "doge",
@@ -696,7 +696,7 @@ const NODES = [
     "rads": [
       "r1"
     ],
-    "desc": "Origin point of the network. Musk, Thiel, Sacks: lifelong collaborators. Now: Sacks shapes AI policy, Thiel's Palantir provides data infrastructure, Musk's xAI provides model layer. Complete stack: policy, infrastructure, intelligence. Network extends to VP Vance (Thiel mentee), Anduril (Thiel-funded, ex-Palantir founders), and campaign against Anthropic."
+    "desc": "Origin point of the network. Musk, Thiel, Sacks: PayPal co-founders/executives. Now: Sacks shapes AI policy, Thiel's Palantir provides data infrastructure, Musk's xAI provides model layer. Complete stack: policy, infrastructure, intelligence. Network extends to VP Vance (Thiel mentee), Anduril (Thiel-funded, ex-Palantir founders), and campaign against Anthropic."
   },
   {
     "id": "ccias",
@@ -799,7 +799,7 @@ const LINKS = [
     "source": "sacks",
     "target": "thiel",
     "type": "partnership",
-    "desc": "Lifelong PayPal collaborators. Both invested in Palantir. Together lobbied for Vance as VP",
+    "desc": "PayPal co-tenure. Both invested in Palantir. Together lobbied for Vance as VP",
     "src": "Wikipedia",
     "url": "https://en.wikipedia.org/wiki/Peter_Thiel"
   },
@@ -1111,7 +1111,7 @@ const LINKS = [
     "source": "pentagon",
     "target": "openai",
     "type": "contract",
-    "desc": "Deal signed hours after Trump's anti-Anthropic order. No restrictions",
+    "desc": "Deal signed hours after Trump's anti-Anthropic order. Claims safeguards on surveillance and autonomous weapons (enforceability disputed)",
     "src": "CNN, Mar 2026",
     "url": "https://www.cbsnews.com/news/anthropic-pentagon-pete-hegseth-feud/"
   },
@@ -1160,16 +1160,16 @@ const LINKS = [
     "target": "boeing",
     "type": "political",
     "desc": "Contacted about Claude use Feb 25, 2026",
-    "src": "Radiograph #1",
-    "url": "https://andreacolamedici.com/radiograph.html"
+    "src": "CBS News, Feb 2026",
+    "url": "https://www.cbsnews.com/news/anthropic-pentagon-pete-hegseth-feud/"
   },
   {
     "source": "pentagon",
     "target": "lockheed",
     "type": "political",
     "desc": "Contacted about Claude use Feb 25, 2026",
-    "src": "Radiograph #1",
-    "url": "https://andreacolamedici.com/radiograph.html"
+    "src": "CBS News, Feb 2026",
+    "url": "https://www.cbsnews.com/news/anthropic-pentagon-pete-hegseth-feud/"
   },
   {
     "source": "doge",
@@ -1200,8 +1200,8 @@ const LINKS = [
     "target": "doge",
     "type": "employment",
     "desc": "Received private info file of ~1,000 people",
-    "src": "House Oversight",
-    "url": "https://oversightdemocrats.house.gov"
+    "src": "House Oversight Democrats, Mar 2025",
+    "url": "https://oversightdemocrats.house.gov/news/press-releases/ranking-member-connolly-releases-new-evidence-of-doges-illegal-access"
   },
   {
     "source": "kmiller",
@@ -1256,24 +1256,24 @@ const LINKS = [
     "target": "anthropic",
     "type": "investment",
     "desc": "~10% early ($2B+). 1M TPU partnership (1+ GW)",
-    "src": "Wikipedia; DCD",
-    "url": "https://www.datacenterdynamics.com/"
+    "src": "CNBC; Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Anthropic"
   },
   {
     "source": "microsoft",
     "target": "anthropic",
     "type": "investment",
     "desc": "$15B joint with Nvidia. $30B Azure/Nvidia compute commitment",
-    "src": "Tom's Hardware, Nov 2025",
-    "url": "https://www.tomshardware.com/"
+    "src": "CNBC, Nov 2025",
+    "url": "https://www.cnbc.com/2025/11/22/anthropic-microsoft-nvidia-deal.html"
   },
   {
     "source": "nvidia",
     "target": "anthropic",
     "type": "investment",
     "desc": "$15B joint with Microsoft",
-    "src": "Tom's Hardware, Nov 2025",
-    "url": "https://www.tomshardware.com/"
+    "src": "CNBC, Nov 2025",
+    "url": "https://www.cnbc.com/2025/11/22/anthropic-microsoft-nvidia-deal.html"
   },
   {
     "source": "ftx",
@@ -1336,8 +1336,8 @@ const LINKS = [
     "target": "anthropic",
     "type": "investment",
     "desc": "Led $13B Series F. Co-led G",
-    "src": "Goldman Sachs AM",
-    "url": "https://www.goldmansachs.com/"
+    "src": "Anthropic, Dec 2025",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "fidelity",
@@ -1384,8 +1384,8 @@ const LINKS = [
     "target": "anthropic",
     "type": "investment",
     "desc": "Co-led Series G. Bezos worked at D.E. Shaw before Amazon",
-    "src": "Bloomberg",
-    "url": "https://www.bloomberg.com/"
+    "src": "Bloomberg, Feb 2026",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "temasek",
@@ -1400,8 +1400,8 @@ const LINKS = [
     "target": "openai",
     "type": "investment",
     "desc": "$30B in $110B round. $500B Stargate project",
-    "src": "Reuters",
-    "url": "https://www.reuters.com/technology/"
+    "src": "Reuters, Feb 2026",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "amazon",
@@ -1409,7 +1409,7 @@ const LINKS = [
     "type": "investment",
     "desc": "Up to $50B (Feb 2026). $100B AWS commitment. Primary cloud for both labs",
     "src": "CNBC, Feb 2026",
-    "url": "https://www.cnbc.com/"
+    "url": "https://www.cnbc.com/2026/02/04/amazon-to-invest-up-to-50-billion-in-openai.html"
   },
   {
     "source": "microsoft",
@@ -1424,8 +1424,8 @@ const LINKS = [
     "target": "openai",
     "type": "investment",
     "desc": "Participated in $110B round",
-    "src": "Reuters",
-    "url": "https://www.reuters.com/technology/"
+    "src": "Reuters, Feb 2026",
+    "url": "https://www.anthropic.com/news"
   },
   {
     "source": "ltbt",
@@ -1536,8 +1536,8 @@ const LINKS = [
     "target": "openai",
     "type": "investment",
     "desc": "Thiel invested in OpenAI via Founders Fund",
-    "src": "Radiograph #1",
-    "url": "https://andreacolamedici.com/radiograph.html"
+    "src": "Fortune, Nov 2023",
+    "url": "https://fortune.com/2023/11/22/peter-thiel-founders-fund-openai-investment/"
   },
   {
     "source": "meta",
@@ -1680,8 +1680,8 @@ const LINKS = [
     "target": "doge",
     "type": "legal",
     "desc": "Estimated potential: $23.6B + $43.4B. Hypothetical, indicates scale",
-    "src": "EPI report",
-    "url": "https://www.epi.org/"
+    "src": "EPI, Feb 2025",
+    "url": "https://www.epi.org/publication/doge-government-efficiency/"
   },
   {
     "source": "space_force",

@@ -9,6 +9,7 @@ import json, os, sys, re, datetime, urllib.request, urllib.error
 PROXY = "https://polymarket-proxy.alveareapi.workers.dev"
 ANTHROPIC_API = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+UA = "Elia-Seismograph/1.0 (https://andreacolamedici.com/elia.html)"
 
 WATCHED = [
     {
@@ -37,7 +38,7 @@ WATCHED = [
 def fetch_event(slug, multi=False):
     url = f"{PROXY}/events?slug={slug}"
     try:
-        req = urllib.request.Request(url, headers={"Accept": "application/json"})
+        req = urllib.request.Request(url, headers={"Accept": "application/json", "User-Agent": UA})
         with urllib.request.urlopen(req, timeout=15) as resp:
             raw = resp.read().decode("utf-8")
         raw = re.sub(r'[\x00-\x09\x0b\x0c\x0e-\x1f]', ' ', raw)
@@ -143,7 +144,7 @@ Return ONLY valid JSON, no markdown fences, no preamble."""
     })
     req = urllib.request.Request(
         ANTHROPIC_API, data=body.encode(),
-        headers={"Content-Type": "application/json", "x-api-key": ANTHROPIC_KEY, "anthropic-version": "2023-06-01"}
+        headers={"Content-Type": "application/json", "x-api-key": ANTHROPIC_KEY, "anthropic-version": "2023-06-01", "User-Agent": UA}
     )
     try:
         with urllib.request.urlopen(req, timeout=60) as resp:

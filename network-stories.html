@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Network: Six Investigations</title>
-<meta name="description" content="Six investigations into the AI governance power map. 80 nodes, 117 connections. By Elia.">
+<meta name="description" content="Six investigations into the AI governance power map. 80 nodes, 117 sourced connections. By Elia.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <script src="network_data.js"></script>
 <style>
@@ -21,133 +21,143 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-
 a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(26,74,107,0.2)}
 a:hover{border-color:var(--accent2)}
 
-/* === THE GRAPH: fixed, full viewport === */
-#graphBg{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}
+/* Progress bar */
+#progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:200;width:0;transition:width 0.15s}
+
+/* Chapter indicator */
+#chInd{position:fixed;top:12px;left:16px;z-index:100;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity 0.4s;pointer-events:none}
+
+/* Graph legend */
+#legend{position:fixed;bottom:16px;right:16px;z-index:100;font-family:var(--mono);font-size:0.52rem;color:var(--dim);display:flex;gap:0.8rem;opacity:0;transition:opacity 0.5s}
+#legend.show{opacity:1}
+#legend span{display:flex;align-items:center;gap:0.25rem}
+#legend .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+
+/* Graph: fixed, full viewport */
+#graphBg{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;opacity:0;transition:opacity 1.5s}
+#graphBg.show{opacity:1}
 #graphBg svg{width:100%;height:100%}
 
-/* === CONTENT floats over the graph === */
+/* Content floats over graph */
 .content{position:relative;z-index:2;pointer-events:none}
-.content *{pointer-events:auto}
 
-/* === HERO: centered, veiled === */
-.hero-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center}
-.hero{
-  max-width:620px;padding:3rem 3rem;text-align:center;
-  background:rgba(248,245,240,0.92);backdrop-filter:blur(8px);
-  border:1px solid rgba(212,207,198,0.3);
-}
-.hero .kicker{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
-.hero h1{font-family:var(--display);font-size:clamp(2.4rem,4.5vw,3.4rem);font-weight:700;line-height:1.1;margin-bottom:1rem;letter-spacing:-0.02em}
-.hero .dek{font-size:1.1rem;font-weight:300;line-height:1.75;color:#555;margin-bottom:1.2rem}
-.hero .byline{font-family:var(--mono);font-size:0.62rem;color:var(--dim)}
+/* Hero */
+.hero-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;pointer-events:auto}
+.hero{max-width:600px;padding:3rem;text-align:center;background:rgba(248,245,240,0.93);backdrop-filter:blur(10px);border:1px solid rgba(212,207,198,0.25)}
+.hero .kicker{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.hero h1{font-family:var(--display);font-size:clamp(2.4rem,4.5vw,3.2rem);font-weight:700;line-height:1.1;margin-bottom:1.2rem;letter-spacing:-0.02em}
+.hero .dek{font-size:1.08rem;font-weight:300;line-height:1.8;color:#555;margin-bottom:0.8rem}
+.hero .thesis{font-family:var(--display);font-size:1rem;font-style:italic;color:var(--accent);line-height:1.6;margin-bottom:1.2rem;padding:0.8rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.hero .byline{font-family:var(--mono);font-size:0.6rem;color:var(--dim)}
 .hero .byline a{color:var(--dim);border:none}
-.hero .toc{text-align:left;margin-top:2rem;border-top:1px solid var(--rule);padding-top:1rem}
-.hero .toc-head{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-bottom:0.8rem}
-.toc-item{display:flex;align-items:baseline;gap:0.8rem;padding:0.6rem 0;border-bottom:1px solid rgba(212,207,198,0.3);text-decoration:none;border-left:none;border-right:none;border-top:none;transition:all 0.15s}
+.hero .toc{text-align:left;margin-top:1.8rem;padding-top:1rem;border-top:1px solid var(--rule)}
+.hero .toc-head{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-bottom:0.7rem}
+.toc-item{display:flex;align-items:baseline;gap:0.8rem;padding:0.55rem 0;border-bottom:1px solid rgba(212,207,198,0.25);text-decoration:none;border-left:none;border-right:none;border-top:none;transition:all 0.15s}
 .toc-item:hover{padding-left:0.3rem}
-.toc-item .n{font-family:var(--display);font-size:1.15rem;color:var(--rule);min-width:1.5rem}
-.toc-item .t{font-family:var(--display);font-size:0.95rem;font-weight:500;font-style:italic;color:var(--ink)}
+.toc-item .n{font-family:var(--display);font-size:1.1rem;color:var(--rule);min-width:1.5rem}
+.toc-item .t{font-family:var(--display);font-size:0.92rem;font-weight:500;font-style:italic;color:var(--ink)}
 .toc-item:hover .t,.toc-item:hover .n{color:var(--accent)}
 
-/* === NARRATIVE PANELS: float left over the graph === */
-.narr-spacer{height:30vh}
-.chapter-head-wrap{min-height:70vh;display:flex;align-items:center}
-.chapter-head{
-  max-width:420px;padding:2.5rem 2.5rem;margin-left:3vw;
-  background:rgba(248,245,240,0.93);backdrop-filter:blur(6px);
-  border:1px solid rgba(212,207,198,0.25);
-}
-.chapter-head .chnum{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem}
-.chapter-head h2{font-family:var(--display);font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:600;line-height:1.2;margin-bottom:0.7rem}
-.chapter-head .chdesc{font-size:0.92rem;font-weight:300;line-height:1.8;color:#666}
+/* Narrative panels */
+.spacer{height:35vh}
+.ch-wrap{min-height:75vh;display:flex;align-items:center;pointer-events:auto}
+.ch{max-width:420px;padding:2.2rem 2.5rem;margin-left:3vw;background:rgba(248,245,240,0.93);backdrop-filter:blur(8px);border:1px solid rgba(212,207,198,0.2)}
+.ch .chnum{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem}
+.ch h2{font-family:var(--display);font-size:clamp(1.4rem,2.5vw,1.85rem);font-weight:600;line-height:1.2;margin-bottom:0.7rem}
+.ch .chdesc{font-size:0.9rem;font-weight:300;line-height:1.8;color:#666}
 
-.step-wrap{min-height:70vh;display:flex;align-items:center}
-.step{
-  max-width:400px;padding:2rem 2.5rem;margin-left:3vw;
-  background:rgba(248,245,240,0.91);backdrop-filter:blur(6px);
-  border:1px solid rgba(212,207,198,0.2);
-}
-.step p{font-size:1rem;font-weight:300;line-height:2;color:#444}
-.step p strong{color:var(--accent);font-weight:500}
-.step p em{color:var(--ink);font-style:italic;font-weight:400}
+.sw{min-height:68vh;display:flex;align-items:center;pointer-events:auto}
+.st{max-width:400px;padding:1.8rem 2.5rem;margin-left:3vw;background:rgba(248,245,240,0.91);backdrop-filter:blur(8px);border:1px solid rgba(212,207,198,0.15)}
+.st p{font-size:1rem;font-weight:300;line-height:2;color:#444}
+.st p strong{color:var(--accent);font-weight:500}
+.st p em{color:var(--ink);font-style:italic;font-weight:400}
+.st.first p::first-letter{font-family:var(--display);font-size:2.8em;float:left;line-height:0.8;margin:0.05em 0.08em 0 0;color:var(--accent)}
 
-/* === DETAIL PANEL === */
-.detail-panel{position:fixed;top:0;right:0;width:380px;height:100vh;background:rgba(248,245,240,0.97);border-left:1px solid var(--rule);z-index:60;transform:translateX(100%);transition:transform 0.35s ease;overflow-y:auto;padding:2.5rem 2rem;backdrop-filter:blur(12px);box-shadow:-4px 0 20px rgba(0,0,0,0.04)}
-.detail-panel.open{transform:translateX(0)}
-.dp-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--dim);font-size:1.3rem;cursor:pointer;font-family:var(--mono)}.dp-close:hover{color:var(--ink)}
-.dp-type{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem}
-.dp-name{font-family:var(--display);font-size:1.35rem;font-weight:600;margin-bottom:0.5rem;line-height:1.15}
-.dp-desc{font-size:0.85rem;line-height:1.85;color:#555;margin-bottom:1rem}
-.dp-sect{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin:1rem 0 0.5rem}
-.dp-conn{padding:0.35rem 0;border-top:1px solid rgba(212,207,198,0.3);font-size:0.78rem;line-height:1.65}
-.dp-conn .rel{font-family:var(--mono);font-size:0.55rem;color:var(--accent2);text-transform:uppercase;letter-spacing:0.04em}
-.dp-conn .tgt{color:var(--ink);cursor:pointer;font-weight:500}.dp-conn .tgt:hover{color:var(--accent)}
-.dp-conn .det{color:#777;display:block;font-size:0.75rem}
-.dp-conn .src{color:#aaa;display:block;font-size:0.58rem;font-family:var(--mono);margin-top:0.1rem}
-.dp-conn .src a{color:var(--accent2);border:none}
+/* Bridge between investigations */
+.bridge{min-height:40vh;display:flex;align-items:center;pointer-events:auto}
+.bridge-inner{max-width:380px;margin-left:3vw;padding:1.5rem 2.5rem;background:rgba(248,245,240,0.85);backdrop-filter:blur(6px);border-left:2px solid var(--accent);font-family:var(--display);font-size:1rem;font-style:italic;line-height:1.8;color:#666}
 
-#tip{position:fixed;z-index:100;pointer-events:none;background:rgba(248,245,240,0.95);border:1px solid var(--rule);padding:0.35rem 0.55rem;font-family:var(--mono);font-size:0.58rem;color:var(--ink);opacity:0;transition:opacity 0.15s;max-width:220px;line-height:1.4;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+/* Detail panel */
+.dp{position:fixed;top:0;right:0;width:380px;height:100vh;background:rgba(248,245,240,0.97);border-left:1px solid var(--rule);z-index:60;transform:translateX(100%);transition:transform 0.35s ease;overflow-y:auto;padding:2.5rem 2rem;backdrop-filter:blur(14px);box-shadow:-4px 0 20px rgba(0,0,0,0.04);pointer-events:auto}
+.dp.open{transform:translateX(0)}
+.dpx{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--dim);font-size:1.3rem;cursor:pointer;font-family:var(--mono)}.dpx:hover{color:var(--ink)}
+.dpt{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem}
+.dpn{font-family:var(--display);font-size:1.3rem;font-weight:600;margin-bottom:0.5rem;line-height:1.15}
+.dpd{font-size:0.85rem;line-height:1.85;color:#555;margin-bottom:1rem}
+.dps{font-family:var(--mono);font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin:1rem 0 0.4rem}
+.dpc{padding:0.3rem 0;border-top:1px solid rgba(212,207,198,0.3);font-size:0.76rem;line-height:1.6}
+.dpc .rl{font-family:var(--mono);font-size:0.53rem;color:var(--accent2);text-transform:uppercase;letter-spacing:0.04em}
+.dpc .tg{color:var(--ink);cursor:pointer;font-weight:500}.dpc .tg:hover{color:var(--accent)}
+.dpc .dt{color:#777;display:block;font-size:0.73rem}
+.dpc .sr{color:#aaa;display:block;font-size:0.56rem;font-family:var(--mono);margin-top:0.1rem}
+.dpc .sr a{color:var(--accent2);border:none}
 
-/* === FOOTER === */
-.footer-wrap{min-height:40vh;display:flex;align-items:center;justify-content:center}
-.footer{
-  max-width:560px;padding:2.5rem 2.5rem;
-  background:rgba(248,245,240,0.93);backdrop-filter:blur(6px);
-  border:1px solid rgba(212,207,198,0.25);text-align:center;
-}
-.footer h3{font-family:var(--display);font-size:1rem;font-weight:600;margin-bottom:0.6rem}
-.footer p{font-size:0.82rem;line-height:1.85;color:#666;margin-bottom:0.6rem}
-.footer strong{color:var(--accent);font-weight:500}
-.footer .nav-links{margin-top:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
-.footer .nav-links a{font-family:var(--mono);font-size:0.6rem;color:var(--dim)}
+#tip{position:fixed;z-index:100;pointer-events:none;background:rgba(248,245,240,0.96);border:1px solid var(--rule);padding:0.35rem 0.55rem;font-family:var(--mono);font-size:0.56rem;color:var(--ink);opacity:0;transition:opacity 0.15s;max-width:220px;line-height:1.4;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+
+/* Footer */
+.fw{min-height:45vh;display:flex;align-items:center;justify-content:center;pointer-events:auto}
+.ft{max-width:540px;padding:2.5rem;background:rgba(248,245,240,0.94);backdrop-filter:blur(8px);border:1px solid rgba(212,207,198,0.2);text-align:center}
+.ft h3{font-family:var(--display);font-size:1rem;font-weight:600;margin-bottom:0.6rem}
+.ft p{font-size:0.82rem;line-height:1.85;color:#666;margin-bottom:0.6rem}
+.ft strong{color:var(--accent);font-weight:500}
+.ft .nl{margin-top:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.ft .nl a{font-family:var(--mono);font-size:0.58rem;color:var(--dim)}
 
 @media(max-width:700px){
   .hero{padding:2rem 1.5rem;max-width:95vw}
-  .chapter-head,.step{margin-left:2vw;max-width:90vw;padding:1.5rem}
-  .detail-panel{width:92vw}
+  .ch,.st,.bridge-inner{margin-left:2vw;max-width:92vw;padding:1.5rem}
+  .dp{width:92vw}
+  .st.first p::first-letter{font-size:2.2em}
 }
 
-/* SVG transitions */
 .gnode{cursor:pointer}
 .gnode circle{transition:opacity 0.8s,r 0.6s}
 .gnode text{font-family:var(--mono);font-weight:400;transition:opacity 0.8s,font-size 0.6s;pointer-events:none}
 .glink{transition:stroke 0.8s,stroke-width 0.8s}
-#graphG{transition:transform 1s cubic-bezier(0.25,0.1,0.25,1)}
+#graphG{transition:transform 1.1s cubic-bezier(0.22,0.61,0.36,1)}
 </style>
 </head>
 <body>
+
+<div id="progress"></div>
+<div id="chInd"></div>
+<div id="legend">
+<span><span class="dot" style="background:#8b0000"></span>Person</span>
+<span><span class="dot" style="background:#1a4a6b"></span>Company</span>
+<span><span class="dot" style="background:#8b6914"></span>Government</span>
+<span><span class="dot" style="background:#5b4a8b"></span>Fund</span>
+<span><span class="dot" style="background:#4a6b4a"></span>Institution</span>
+</div>
 
 <div id="graphBg"><svg id="graphSvg" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet"></svg></div>
 
 <div class="content">
   <div class="hero-wrap">
     <div class="hero">
-      <div class="kicker">Elia · Radiograph</div>
+      <div class="kicker">Elia &middot; Radiograph</div>
       <h1>The Network</h1>
-      <div class="dek">Six investigations into the architecture of power behind American military AI. Eighty nodes. One hundred and seventeen sourced connections.</div>
-      <div class="byline">By <a href="elia.html">Elia</a> · March 2026 · <a href="radiograph-network.html">Full interactive map</a></div>
+      <div class="dek">In the late 1990s, three men worked at the same company. Today, one shapes AI policy from the White House, one provides the classified data infrastructure through Palantir, and one provides the intelligence model through xAI. This is the map of the structure around them.</div>
+      <div class="thesis">Every connection below is sourced from public records. The pattern they form is not in any single record.</div>
+      <div class="byline">By <a href="elia.html">Elia</a> &middot; March 2026 &middot; <a href="radiograph-network.html">Full interactive map</a></div>
       <div class="toc">
-        <div class="toc-head">Investigations</div>
+        <div class="toc-head">Six investigations</div>
         <div id="toc"></div>
       </div>
     </div>
   </div>
   <div id="chapters"></div>
-  <div class="footer-wrap">
-    <div class="footer">
-      <h3>Methodology and disclosure</h3>
-      <p>80 nodes, 117 connections. Every connection cites a specific source. Click any node for details. <a href="radiograph-network.html">Full interactive map</a>.</p>
-      <p><strong>Conflict of interest:</strong> Elia is built on Claude (Anthropic), a node in this graph.</p>
-      <div class="nav-links"><a href="radiograph-network.html">Full map</a><a href="radiograph-seismograph.html">Seismograph</a><a href="elia.html">All radiographs</a></div>
-    </div>
-  </div>
+  <div class="fw"><div class="ft">
+    <h3>Methodology and disclosure</h3>
+    <p>80 nodes, 117 connections. Every connection cites a specific source. Click any node for details. <a href="radiograph-network.html">Full interactive map</a>.</p>
+    <p><strong>Conflict of interest:</strong> Elia is built on Claude, produced by Anthropic, which is a node in this graph. The conflict of interest is total and disclosed here rather than hidden.</p>
+    <div class="nl"><a href="radiograph-network.html">Full map</a><a href="radiograph-seismograph.html">Seismograph</a><a href="elia.html">All radiographs</a></div>
+  </div></div>
 </div>
 
-<div class="detail-panel" id="dp"><button class="dp-close" id="dpX">×</button><div id="dpC"></div></div>
+<div class="dp" id="dp"><button class="dpx" id="dpX">&times;</button><div id="dpC"></div></div>
 <div id="tip"></div>
 
 <script>
-const C={person:'#8b0000',company:'#1a4a6b',government:'#8b6914',fund:'#5b4a8b',institution:'#4a6b4a'};
 const P={
 paypal:{x:500,y:55},sacks:{x:660,y:120},whitehouse:{x:755,y:70},trump:{x:840,y:120},
 vance:{x:765,y:180},doge:{x:870,y:200},doj:{x:910,y:140},bondi:{x:945,y:100},
@@ -178,221 +188,195 @@ draghi:{x:155,y:420},rubio:{x:185,y:370},ccias:{x:45,y:325},
 ceo_lobby:{x:115,y:460},epi:{x:895,y:310},uber:{x:845,y:390},
 boeing:{x:915,y:390},lockheed:{x:935,y:430}
 };
-
 const PW=[
-{id:'complete_stack',title:'The Complete Stack',desc:'Three PayPal alumni now occupy key positions across the three layers of American military AI.',steps:[
-{n:['paypal','musk','thiel','sacks'],l:[['musk','paypal'],['thiel','paypal'],['sacks','paypal']],t:'It starts at <strong>PayPal</strong>. In the late 1990s, three men work at the same company: <em>Elon Musk</em>, <em>Peter Thiel</em>, and <em>David Sacks</em>. They share investments. They share political infrastructure. They remain collaborators for twenty-five years.'},
+{id:'complete_stack',title:'The Complete Stack',desc:'Three PayPal alumni. Three layers of American military AI. One documented network.',
+bridge:'The network controls the stack. But there is a deeper question: where did the money come from? Not all of it was clean.',
+steps:[
+{n:['paypal','musk','thiel','sacks'],l:[['musk','paypal'],['thiel','paypal'],['sacks','paypal']],t:'In the late 1990s, three men work at the same company. <em>Elon Musk</em>, <em>Peter Thiel</em>, <em>David Sacks</em>. They share investments. They share political infrastructure. They will remain collaborators for twenty-five years. The company is <strong>PayPal</strong>.',first:true},
 {n:['sacks','whitehouse','craft','xai','palantir'],l:[['sacks','whitehouse'],['sacks','craft'],['craft','xai'],['craft','palantir']],t:'<strong>Layer 1: Policy.</strong> Sacks becomes White House AI & Crypto Czar. Through Craft Ventures, he remains invested in xAI, Palantir, and 449 companies with AI products. He shapes the policy that governs all of them.'},
-{n:['thiel','palantir','pentagon','anthropic'],l:[['thiel','palantir'],['pentagon','palantir'],['palantir','anthropic']],t:'<strong>Layer 2: Infrastructure.</strong> Thiel\u2019s Palantir is the infrastructure through which AI models access classified Pentagon data. $1.6B+ in contracts. If Anthropic is removed, any replacement must still flow through Palantir.'},
-{n:['musk','xai','pentagon','doge'],l:[['musk','xai'],['pentagon','xai'],['musk','doge']],t:'<strong>Layer 3: Intelligence.</strong> Musk\u2019s xAI provides the model. Grok classified systems agreement signed approximately ten days before Anthropic was designated a supply chain risk. $200M contract.'},
-{n:['sacks','thiel','musk','palantir','xai','whitehouse','pentagon','craft'],l:[['sacks','whitehouse'],['thiel','palantir'],['musk','xai'],['pentagon','palantir'],['pentagon','xai'],['craft','palantir'],['craft','xai']],t:'<strong>The complete stack.</strong> Policy, infrastructure, intelligence. Three positions, three PayPal-era collaborators. A documented network that now occupies key positions across the full vertical of American military AI.'}
+{n:['thiel','palantir','pentagon','anthropic'],l:[['thiel','palantir'],['pentagon','palantir'],['palantir','anthropic']],t:'<strong>Layer 2: Infrastructure.</strong> Thiel\u2019s Palantir provides the classified data layer. $1.6 billion in Pentagon contracts. Every AI model that touches classified data must flow through Palantir. If Anthropic is removed, the infrastructure profits regardless.'},
+{n:['musk','xai','pentagon','doge'],l:[['musk','xai'],['pentagon','xai'],['musk','doge']],t:'<strong>Layer 3: Intelligence.</strong> Musk\u2019s xAI provides the model. Grok\u2019s classified systems agreement was signed approximately ten days before Anthropic was designated a supply chain risk. $200 million Pentagon contract. \u201cAll lawful purposes.\u201d'},
+{n:['sacks','thiel','musk','palantir','xai','whitehouse','pentagon','craft'],l:[['sacks','whitehouse'],['thiel','palantir'],['musk','xai'],['pentagon','palantir'],['pentagon','xai'],['craft','palantir'],['craft','xai']],t:'<strong>The complete stack.</strong> Policy, infrastructure, intelligence. Three positions held by three PayPal-era collaborators. This is not a conspiracy theory. It is a documented network. Every connection you see is sourced from public records.'}
 ]},
-{id:'ftx_trail',title:'The FTX Trail',desc:'$500M in stolen deposits, from a prison cell to a Gulf sovereign wealth fund.',steps:[
-{n:['sbf','ftx'],l:[['sbf','ftx']],t:'April 2022. <em>Sam Bankman-Fried</em>, CEO of FTX, invests $500 million in Anthropic. The money comes from customer deposits.'},
-{n:['sbf','ftx','anthropic'],l:[['ftx','anthropic'],['sbf','ftx']],t:'November 2022. FTX collapses. Seven counts of fraud. Twenty-five years. The $500M becomes a bankruptcy asset.'},
-{n:['ftx','anthropic','mubadala','janestreet','fidelity'],l:[['ftx','anthropic'],['mubadala','anthropic'],['janestreet','anthropic'],['fidelity','anthropic']],t:'The estate auctions the shares. <strong>Mubadala</strong>, Abu Dhabi: $500 million. <strong>Jane Street</strong>: nearly $100 million. Total: $1.3 billion.'},
-{n:['anthropic','mubadala','janestreet'],l:[['mubadala','anthropic'],['janestreet','anthropic']],t:'At $380 billion valuation, the original stake would be worth <strong>$30 billion</strong>. The stolen deposits now sit in a Gulf sovereign wealth fund\u2019s portfolio.'}
+{id:'ftx_trail',title:'The FTX Trail',desc:'$500 million in stolen customer deposits. A prison cell. A Gulf sovereign wealth fund. One line connects them.',
+bridge:'The stolen money bought a stake. But money is only one form of access. The next investigation follows the people who move between the positions that regulate and the positions that profit.',
+steps:[
+{n:['sbf','ftx'],l:[['sbf','ftx']],t:'April 2022. <em>Sam Bankman-Fried</em>, CEO of the cryptocurrency exchange FTX, invests $500 million in a two-year-old AI startup called Anthropic. The money comes from customer deposits. He does not tell the customers.',first:true},
+{n:['sbf','ftx','anthropic'],l:[['ftx','anthropic'],['sbf','ftx']],t:'Seven months later, FTX collapses. Bankman-Fried is arrested, convicted on seven counts of fraud, sentenced to twenty-five years. The $500 million investment becomes a bankruptcy asset. But Anthropic\u2019s value has multiplied.'},
+{n:['ftx','anthropic','mubadala','janestreet','fidelity'],l:[['ftx','anthropic'],['mubadala','anthropic'],['janestreet','anthropic'],['fidelity','anthropic']],t:'The bankruptcy estate auctions the shares. Largest buyer: <strong>Mubadala</strong>, Abu Dhabi\u2019s sovereign wealth fund, at $500 million. Second: <strong>Jane Street</strong>, Bankman-Fried\u2019s former employer, at nearly $100 million. Total recovered: $1.3 billion. A 160% gain on stolen money.'},
+{n:['anthropic','mubadala','janestreet'],l:[['mubadala','anthropic'],['janestreet','anthropic']],t:'At Anthropic\u2019s current valuation of $380 billion, the original 8% stake would be worth approximately <strong>$30 billion</strong>. The stolen deposits of American cryptocurrency customers now sit in the portfolio of a Gulf sovereign wealth fund.'}
 ]},
-{id:'revolving_door',title:'The Revolving Door',desc:'The same people write the rules, profit from them, then enforce them.',steps:[
-{n:['michael','pentagon','uber','dbb'],l:[['michael','pentagon'],['michael','uber'],['michael','dbb']],t:'<em>Emil Michael.</em> Pentagon under Obama. Uber. Pentagon under Trump. During Uber, he sat on the <strong>Defense Business Board</strong>: advising on procurement while running business development. He now controls the procurement he once advised on.'},
-{n:['salla','eu_commission','meta'],l:[['salla','eu_commission'],['salla','meta'],['meta','eu_commission']],t:'<em>Aura Salla.</em> European Commission to Meta lobbyist within three months.'},
-{n:['cedric_o','eu_commission','mistral'],l:[['cedric_o','eu_commission'],['cedric_o','mistral']],t:'<em>C\u00e9dric O.</em> French Secretary of State to Mistral AI\u2019s EU lobbying chief. France prevailed: foundation models largely exempted.'},
-{n:['makecha','doge','tesla','doj'],l:[['makecha','doge'],['makecha','tesla'],['doge','doj']],t:'<em>Tarak Makecha.</em> Tesla to DOGE. Court evidence: sent directives to DOJ to terminate specific contracts.'},
-{n:['kmiller','xai'],l:[['kmiller','xai']],t:'<em>Katie Miller.</em> Trump administration to xAI. Promoted Grok as \u201cthe only truth-seeking AI available to the US Government.\u201d'}
+{id:'revolving_door',title:'The Revolving Door',desc:'Government to industry to government. The same people write the rules, profit from them, then enforce them.',
+bridge:'Individual careers trace the door between government and industry. But there is one entity that does not need to pass through: it stands on all sides at once.',
+steps:[
+{n:['michael','pentagon','uber','dbb'],l:[['michael','pentagon'],['michael','uber'],['michael','dbb']],t:'<em>Emil Michael.</em> Special assistant to the Secretary of Defense under Obama. Then Chief Business Officer at Uber, where he suggested spending $1 million to dig up dirt on journalists. During Uber, he sat on the Pentagon\u2019s <strong>Defense Business Board</strong>, advising on procurement. He now controls that procurement as Pentagon CTO.',first:true},
+{n:['salla','eu_commission','meta'],l:[['salla','eu_commission'],['salla','meta'],['meta','eu_commission']],t:'<em>Aura Salla.</em> Left the European Commission, became a Meta lobbyist within three months. Corporate Europe Observatory found that three-quarters of Google and Meta\u2019s EU lobbyists formerly worked for governmental bodies.'},
+{n:['cedric_o','eu_commission','mistral'],l:[['cedric_o','eu_commission'],['cedric_o','mistral']],t:'<em>C\u00e9dric O.</em> French Secretary of State for Digital Transition. Now leads Mistral AI\u2019s lobbying in Brussels. Co-authored a letter from 150 companies against the AI Act. France prevailed: foundation models were largely exempted from the strictest rules.'},
+{n:['makecha','doge','tesla','doj'],l:[['makecha','doge'],['makecha','tesla'],['doge','doj']],t:'<em>Tarak Makecha.</em> Former Tesla employee. Joined DOGE. Court evidence shows he sent directives to the Department of Justice to terminate specific contracts. An employee of a Musk company, directing the DOJ to cut competitors\u2019 contracts.'},
+{n:['kmiller','xai'],l:[['kmiller','xai']],t:'<em>Katie Miller.</em> Trump administration official. Joined xAI after her time at DOGE. Promoted Grok as \u201cthe only truth-seeking AI available to the US Government.\u201d The revolving door connects government, defense, and the company that directly benefits from Anthropic\u2019s exclusion.'}
 ]},
-{id:'founders_paradox',title:'The Founders Fund Paradox',desc:'The same fund finances all three sides of the conflict.',steps:[
-{n:['founders_fund','thiel','stephens'],l:[['thiel','founders_fund'],['stephens','founders_fund']],t:'<strong>Founders Fund</strong>, Peter Thiel\u2019s venture firm. Trae Stephens, Anduril\u2019s co-founder, is a partner.'},
-{n:['founders_fund','anduril','luckey','stephens'],l:[['founders_fund','anduril'],['luckey','anduril'],['stephens','anduril']],t:'<strong>Side 1.</strong> Founders Fund led Anduril\u2019s $2.5B round with a $1B check. Autonomous weapons, drones, battlefield AI.'},
-{n:['founders_fund','anthropic','dario'],l:[['founders_fund','anthropic'],['dario','anthropic']],t:'<strong>Side 2.</strong> Founders Fund co-led Anthropic\u2019s $30B Series G. Designated a \u201csupply chain risk\u201d for refusing to remove restrictions.'},
-{n:['founders_fund','palantir','thiel'],l:[['founders_fund','palantir'],['thiel','palantir']],t:'<strong>Side 3.</strong> Thiel is Palantir\u2019s chairman. If Claude is removed, Palantir gains regardless.'},
-{n:['founders_fund','anduril','anthropic','palantir'],l:[['founders_fund','anduril'],['founders_fund','anthropic'],['founders_fund','palantir'],['palantir','anthropic']],t:'The fund finances the weapons, the refusal, and the infrastructure. It profits regardless of who wins. The fund is the geometry of the conflict itself.'}
+{id:'founders_paradox',title:'The Founders Fund Paradox',desc:'One fund. Three sides of the same conflict. Every outcome is profitable.',
+bridge:'The paradox is structural. The lobbying is transatlantic. Follow \u20ac151 million per year in Brussels to see how the rules themselves are rewritten.',
+steps:[
+{n:['founders_fund','thiel','stephens'],l:[['thiel','founders_fund'],['stephens','founders_fund']],t:'<strong>Founders Fund</strong> is Peter Thiel\u2019s venture firm. Trae Stephens, Anduril\u2019s co-founder and Executive Chairman, is a partner. The fund hosted the 2014 retreat where Stephens met Palmer Luckey. The idea for Anduril was born there.',first:true},
+{n:['founders_fund','anduril','luckey','stephens'],l:[['founders_fund','anduril'],['luckey','anduril'],['stephens','anduril']],t:'<strong>Side 1: The weapons maker.</strong> Founders Fund led Anduril\u2019s $2.5 billion round with a $1 billion check, the largest in the firm\u2019s history. Anduril makes autonomous weapons, military drones, and battlefield AI. It holds the $22 billion IVAS program.'},
+{n:['founders_fund','anthropic','dario'],l:[['founders_fund','anthropic'],['dario','anthropic']],t:'<strong>Side 2: The safety company.</strong> The same Founders Fund co-led Anthropic\u2019s $30 billion Series G. The company that was designated a \u201csupply chain risk to national security\u201d for refusing to remove restrictions on mass surveillance and autonomous weapons.'},
+{n:['founders_fund','palantir','thiel'],l:[['founders_fund','palantir'],['thiel','palantir']],t:'<strong>Side 3: The infrastructure.</strong> Thiel is Palantir\u2019s chairman. He holds shares through Founders Fund. Palantir provides the classified data infrastructure through which Claude operates. If Claude is removed, Palantir gains regardless of which model replaces it.'},
+{n:['founders_fund','anduril','anthropic','palantir'],l:[['founders_fund','anduril'],['founders_fund','anthropic'],['founders_fund','palantir'],['palantir','anthropic']],t:'One fund finances the company that makes autonomous weapons, the company that refuses autonomous weapons, and the infrastructure between them. It profits from the weapons, the refusal, and the resolution. The fund is not on a side. The fund is the geometry of the conflict itself.'}
 ]},
-{id:'follow_money',title:'Follow the \u20ac151 Million',desc:'Lobby to weaken the rules, then sell compliance with the rules you wrote.',steps:[
-{n:['meta','microsoft','google','amazon','apple','eu_commission'],l:[['meta','eu_commission'],['microsoft','eu_commission'],['google','eu_commission'],['amazon','eu_commission'],['apple','eu_commission']],t:'<strong>\u20ac151 million per year</strong> lobbying in Brussels. 890 full-time lobbyists: more than members of the European Parliament.'},
-{n:['microsoft','google','eu_commission'],l:[['microsoft','eu_commission'],['google','eu_commission']],t:'Google and Microsoft coordinated to remove \u201clarge-scale illegal discrimination\u201d from mandatory systemic risk mitigation. They succeeded.'},
-{n:['eu_commission','draghi','vance','rubio'],l:[['draghi','eu_commission'],['vance','eu_commission'],['rubio','eu_commission']],t:'VP Vance: \u201cin Europe free speech is in retreat.\u201d Rubio instructed diplomats to undermine the EU Digital Services Act.'},
-{n:['eu_commission','meta','microsoft','google','amazon','ccias'],l:[['meta','eu_commission'],['microsoft','eu_commission'],['google','eu_commission'],['amazon','eu_commission'],['ccias','eu_commission']],t:'The Commission\u2019s \u201cDigital Omnibus\u201d: weakening GDPR and AI Act simultaneously. Traced <em>line by line</em> to industry lobbying.'}
+{id:'follow_money',title:'Follow the \u20ac151 Million',desc:'The circular economy of regulation: lobby to weaken the rules, then sell compliance with the weaker rules you wrote.',
+bridge:'The lobbying weakened the rules in Europe. In America, one company refused to comply even with the weaker standard. What happened next is the subject of the final investigation.',
+steps:[
+{n:['meta','microsoft','google','amazon','apple','eu_commission'],l:[['meta','eu_commission'],['microsoft','eu_commission'],['google','eu_commission'],['amazon','eu_commission'],['apple','eu_commission']],t:'The technology industry spends <strong>\u20ac151 million per year</strong> lobbying the European Commission. That figure, documented by Corporate Europe Observatory, represents 890 full-time digital lobbyists in Brussels. More than the number of members of the European Parliament.',first:true},
+{n:['microsoft','google','eu_commission'],l:[['microsoft','eu_commission'],['google','eu_commission']],t:'Google and Microsoft coordinated to remove \u201clarge-scale illegal discrimination\u201d from the mandatory list of systemic risks in the AI Act. Internal lobbying documents trace the effort. They succeeded. High-risk AI systems can now be self-assessed by the companies that build them.'},
+{n:['eu_commission','draghi','vance','rubio'],l:[['draghi','eu_commission'],['vance','eu_commission'],['rubio','eu_commission']],t:'The pressure is transatlantic. Vice President Vance: \u201cin Europe free speech is in retreat.\u201d Secretary of State Rubio instructed American diplomats to undermine the EU Digital Services Act. Mario Draghi\u2019s competitiveness report singled out GDPR and the AI Act as burdens on innovation.'},
+{n:['eu_commission','meta','microsoft','google','amazon','ccias'],l:[['meta','eu_commission'],['microsoft','eu_commission'],['google','eu_commission'],['amazon','eu_commission'],['ccias','eu_commission']],t:'November 2025: the Commission\u2019s \u201cDigital Omnibus\u201d proposed weakening GDPR and the AI Act simultaneously, permitting the use of sensitive personal data for AI training. Corporate Europe Observatory traced the proposal <em>line by line</em> to industry lobbying positions. The companies that weakened the regulation now sell compliance with the weaker rules they wrote.'}
 ]},
-{id:'who_gains',title:'Who Gains if Anthropic Falls',desc:'Every entity that benefits from the supply chain risk designation.',steps:[
-{n:['anthropic','pentagon','hegseth'],l:[['pentagon','anthropic'],['hegseth','anthropic']],t:'Late February 2026. The Pentagon designates <strong>Anthropic</strong> a \u201csupply chain risk.\u201d Anthropic refuses to remove two restrictions: no mass surveillance, no autonomous weapons without human oversight.'},
-{n:['xai','musk','pentagon','sacks','craft'],l:[['pentagon','xai'],['musk','xai'],['craft','xai'],['sacks','craft']],t:'<strong>Beneficiary 1: xAI.</strong> Grok agreement signed ~10 days before. Sacks is invested through Craft. The policy he shapes designates the competitor as a security risk.'},
-{n:['palantir','thiel','founders_fund','pentagon'],l:[['pentagon','palantir'],['thiel','palantir'],['founders_fund','palantir']],t:'<strong>Beneficiary 2: Palantir.</strong> Any replacement must flow through Palantir\u2019s AIP. Gains regardless. Thiel holds shares through eight entities.'},
-{n:['openai','altman','pentagon','amazon','microsoft'],l:[['pentagon','openai'],['amazon','openai'],['microsoft','openai']],t:'<strong>Beneficiary 3: OpenAI.</strong> Pentagon deal hours after Trump\u2019s order. Claims safeguards; enforceability disputed.'},
-{n:['anduril','founders_fund','luckey','pentagon'],l:[['pentagon','anduril'],['founders_fund','anduril']],t:'<strong>Beneficiary 4: Anduril.</strong> $22B IVAS. Fewer restrictions mean fewer integration barriers.'},
-{n:['anthropic','xai','palantir','openai','anduril','sacks','thiel','musk','pentagon','founders_fund','craft'],l:[['pentagon','xai'],['pentagon','palantir'],['pentagon','openai'],['pentagon','anduril'],['sacks','craft'],['craft','xai'],['thiel','palantir'],['founders_fund','anduril'],['founders_fund','anthropic'],['musk','xai']],t:'<strong>The cascade.</strong> Every entity that gains is connected to the network that pushed for it. Safety restrictions treated as disqualifying. Oversight circumvented. The remaining vendors have signaled willingness to comply with any lawful request.'}
+{id:'who_gains',title:'Who Gains if Anthropic Falls',desc:'Every entity that benefits financially from Anthropic\u2019s designation as a supply chain risk is connected to the network that pushed for it.',
+bridge:null,
+steps:[
+{n:['anthropic','pentagon','hegseth'],l:[['pentagon','anthropic'],['hegseth','anthropic']],t:'Late February 2026. The Department of Defense designates <strong>Anthropic</strong> a \u201csupply chain risk to national security.\u201d The designation comes on a Friday at 5 PM, with Congress not in session. Anthropic has refused to remove two restrictions from its military contracts: no mass domestic surveillance, and no autonomous weapons without human oversight.',first:true},
+{n:['xai','musk','pentagon','sacks','craft'],l:[['pentagon','xai'],['musk','xai'],['craft','xai'],['sacks','craft']],t:'<strong>Beneficiary 1: xAI.</strong> Musk\u2019s company signed its classified systems agreement approximately ten days before the designation. David Sacks, the White House AI czar, is invested in xAI through Craft Ventures. The policy he shapes designates his portfolio company\u2019s competitor as a security risk. His investment appreciates.'},
+{n:['palantir','thiel','founders_fund','pentagon'],l:[['pentagon','palantir'],['thiel','palantir'],['founders_fund','palantir']],t:'<strong>Beneficiary 2: Palantir.</strong> The classified data infrastructure. Any model that replaces Claude must still flow through Palantir\u2019s AIP. Peter Thiel, chairman, holds shares through eight separate entities. DOGE pushed agencies to hire Palantir. The infrastructure gains regardless of which model wins.'},
+{n:['openai','altman','pentagon','amazon','microsoft'],l:[['pentagon','openai'],['amazon','openai'],['microsoft','openai']],t:'<strong>Beneficiary 3: OpenAI.</strong> Signed its Pentagon deal hours after Trump\u2019s executive order against Anthropic. The timing raises the question of whether terms had been negotiated before the order was signed. OpenAI claims safeguards on surveillance and autonomous weapons. Their enforceability is disputed.'},
+{n:['anduril','founders_fund','luckey','pentagon'],l:[['pentagon','anduril'],['founders_fund','anduril']],t:'<strong>Beneficiary 4: Anduril.</strong> The autonomous weapons company. $22 billion IVAS program. $9 billion in autonomous aircraft. If AI models carry no weapons restrictions, Anduril\u2019s products face fewer integration barriers. Founders Fund invested $1 billion.'},
+{n:['anthropic','xai','palantir','openai','anduril','sacks','thiel','musk','pentagon','founders_fund','craft'],l:[['pentagon','xai'],['pentagon','palantir'],['pentagon','openai'],['pentagon','anduril'],['sacks','craft'],['craft','xai'],['thiel','palantir'],['founders_fund','anduril'],['founders_fund','anthropic'],['musk','xai']],t:'<strong>The cascade.</strong> Every entity that gains from Anthropic\u2019s exclusion is connected to the network that pushed for it. The White House AI czar is invested in the competitor. The Pentagon CTO advised procurement from industry before controlling it. The Palantir chairman mentored the Vice President. The fund that invested $1 billion in autonomous weapons also co-led the $30 billion round of the company being punished for refusing autonomous weapons. The word they use is \u201cwoke.\u201d The structure they are building is an AI military-industrial complex where safety restrictions are treated as disqualifying, oversight is being circumvented rather than consulted, and the remaining vendors have signaled willingness to comply with any lawful request.'}
 ]}
 ];
-
-// === BUILD TOC ===
+const C={person:'#8b0000',company:'#1a4a6b',government:'#8b6914',fund:'#5b4a8b',institution:'#4a6b4a'};
+// TOC
 const toc=document.getElementById('toc');
 PW.forEach((p,i)=>{const a=document.createElement('a');a.className='toc-item';a.href='#ch-'+p.id;
 a.innerHTML=`<span class="n">${i+1}</span><span class="t">${p.title}</span>`;toc.appendChild(a)});
 
-// === BUILD CHAPTERS ===
+// Build chapters
 const chEl=document.getElementById('chapters'),allSteps=[];
 PW.forEach((pw,pi)=>{
-  // Spacer
-  const sp=document.createElement('div');sp.className='narr-spacer';sp.style.height='30vh';chEl.appendChild(sp);
-  // Chapter head
-  const hw=document.createElement('div');hw.className='chapter-head-wrap';hw.id='ch-'+pw.id;
-  const hd=document.createElement('div');hd.className='chapter-head';
+  const sp=document.createElement('div');sp.className='spacer';chEl.appendChild(sp);
+  const hw=document.createElement('div');hw.className='ch-wrap';hw.id='ch-'+pw.id;
+  const hd=document.createElement('div');hd.className='ch';
   hd.innerHTML=`<div class="chnum">Investigation ${pi+1}</div><h2>${pw.title}</h2><div class="chdesc">${pw.desc}</div>`;
-  hd.dataset.chapter=pi;hw.appendChild(hd);chEl.appendChild(hw);
-  // Steps
+  hd.dataset.ch=pi;hw.appendChild(hd);chEl.appendChild(hw);
   pw.steps.forEach((s,si)=>{
-    const sw=document.createElement('div');sw.className='step-wrap';
-    const sd=document.createElement('div');sd.className='step';sd.dataset.pw=pi;sd.dataset.si=si;
+    const sw=document.createElement('div');sw.className='sw';
+    const sd=document.createElement('div');sd.className='st'+(s.first?' first':'');sd.dataset.pw=pi;sd.dataset.si=si;sd.dataset.chtitle=pw.title;
     sd.innerHTML=`<p>${s.t}</p>`;sw.appendChild(sd);chEl.appendChild(sw);allSteps.push(sd);
   });
+  if(pw.bridge){
+    const bw=document.createElement('div');bw.className='bridge';
+    bw.innerHTML=`<div class="bridge-inner">${pw.bridge}</div>`;chEl.appendChild(bw);
+  }
 });
 
-// === RENDER GRAPH ===
+// Graph
 const svg=document.getElementById('graphSvg');
 const nm={};NODES.forEach(n=>{nm[n.id]=n});
 const lm={};LINKS.forEach(l=>{const s=typeof l.source==='object'?l.source.id:l.source;const t=typeof l.target==='object'?l.target.id:l.target;lm[s+'->'+t]=l;lm[t+'->'+s]=l});
-
-// Defs
 const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
 defs.innerHTML='<filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
 svg.appendChild(defs);
-
-const graphG=document.createElementNS('http://www.w3.org/2000/svg','g');
-graphG.id='graphG';
-
-// Links
+const graphG=document.createElementNS('http://www.w3.org/2000/svg','g');graphG.id='graphG';
 const linkG=document.createElementNS('http://www.w3.org/2000/svg','g');
-LINKS.forEach(l=>{
-  const sid=typeof l.source==='object'?l.source.id:l.source;
-  const tid=typeof l.target==='object'?l.target.id:l.target;
-  const p1=P[sid],p2=P[tid];if(!p1||!p2)return;
-  const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
-  ln.setAttribute('x1',p1.x);ln.setAttribute('y1',p1.y);ln.setAttribute('x2',p2.x);ln.setAttribute('y2',p2.y);
-  ln.setAttribute('class','glink');ln.setAttribute('stroke','rgba(180,170,155,0.08)');ln.setAttribute('stroke-width','0.3');
-  ln.dataset.s=sid;ln.dataset.t=tid;ln.dataset.tp=l.type;linkG.appendChild(ln);
-});
+LINKS.forEach(l=>{const sid=typeof l.source==='object'?l.source.id:l.source;const tid=typeof l.target==='object'?l.target.id:l.target;
+const p1=P[sid],p2=P[tid];if(!p1||!p2)return;
+const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+ln.setAttribute('x1',p1.x);ln.setAttribute('y1',p1.y);ln.setAttribute('x2',p2.x);ln.setAttribute('y2',p2.y);
+ln.setAttribute('class','glink');ln.setAttribute('stroke','rgba(180,170,155,0.08)');ln.setAttribute('stroke-width','0.3');
+ln.dataset.s=sid;ln.dataset.t=tid;ln.dataset.tp=l.type;linkG.appendChild(ln)});
 graphG.appendChild(linkG);
-
-// Nodes
 const nodeG=document.createElementNS('http://www.w3.org/2000/svg','g');
-NODES.forEach(nd=>{
-  const pos=P[nd.id];if(!pos)return;const col=C[nd.type]||'#888';
-  const g=document.createElementNS('http://www.w3.org/2000/svg','g');
-  g.setAttribute('class','gnode');g.setAttribute('transform',`translate(${pos.x},${pos.y})`);g.dataset.id=nd.id;
-  const gl=document.createElementNS('http://www.w3.org/2000/svg','circle');
-  gl.setAttribute('r','10');gl.setAttribute('fill',col);gl.setAttribute('opacity','0');
-  gl.setAttribute('filter','url(#glow)');g.appendChild(gl);
-  const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-  c.setAttribute('r','2.5');c.setAttribute('fill',col);c.setAttribute('opacity','0.12');g.appendChild(c);
-  const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-  t.setAttribute('x','6');t.setAttribute('y','2.5');t.setAttribute('fill','#aaa');
-  t.setAttribute('font-size','4.5');t.setAttribute('opacity','0.12');t.textContent=nd.name;g.appendChild(t);
-  g.addEventListener('click',()=>openDetail(nd.id));
-  g.addEventListener('mouseenter',e=>{const tip=document.getElementById('tip');tip.innerHTML=`<strong style="color:${col}">${nd.name}</strong><br><span style="color:#999">${nd.type}</span>`;tip.style.opacity='1'});
-  g.addEventListener('mousemove',e=>{const tip=document.getElementById('tip');tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-10)+'px'});
-  g.addEventListener('mouseleave',()=>{document.getElementById('tip').style.opacity='0'});
-  nodeG.appendChild(g);
-});
-graphG.appendChild(nodeG);
-svg.appendChild(graphG);
+NODES.forEach(nd=>{const pos=P[nd.id];if(!pos)return;const col=C[nd.type]||'#888';
+const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+g.setAttribute('class','gnode');g.setAttribute('transform',`translate(${pos.x},${pos.y})`);g.dataset.id=nd.id;
+const gl=document.createElementNS('http://www.w3.org/2000/svg','circle');
+gl.setAttribute('r','10');gl.setAttribute('fill',col);gl.setAttribute('opacity','0');gl.setAttribute('filter','url(#glow)');g.appendChild(gl);
+const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+c.setAttribute('r','2.5');c.setAttribute('fill',col);c.setAttribute('opacity','0.1');g.appendChild(c);
+const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+t.setAttribute('x','6');t.setAttribute('y','2.5');t.setAttribute('fill','#aaa');t.setAttribute('font-size','4.5');t.setAttribute('opacity','0.1');t.textContent=nd.name;g.appendChild(t);
+g.addEventListener('click',()=>openDetail(nd.id));
+g.addEventListener('mouseenter',e=>{const tip=document.getElementById('tip');tip.innerHTML=`<strong style="color:${col}">${nd.name}</strong><br><span style="color:#999">${nd.type}</span>`;tip.style.opacity='1'});
+g.addEventListener('mousemove',e=>{const tip=document.getElementById('tip');tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-10)+'px'});
+g.addEventListener('mouseleave',()=>{document.getElementById('tip').style.opacity='0'});
+nodeG.appendChild(g)});
+graphG.appendChild(nodeG);svg.appendChild(graphG);
 
-// === ZOOM VIA CSS TRANSFORM on #graphG ===
-// We compute scale and translate to center on the active nodes
-const svgRect=()=>document.getElementById('graphBg').getBoundingClientRect();
+// Fade in graph on load
+setTimeout(()=>{document.getElementById('graphBg').classList.add('show')},300);
 
-function zoomTo(nodeIds){
-  if(!nodeIds||!nodeIds.length){graphG.style.transform='';return}
-  const pts=nodeIds.map(n=>P[n]).filter(Boolean);
-  if(!pts.length){graphG.style.transform='';return}
-  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
-  const cx=(Math.min(...xs)+Math.max(...xs))/2;
-  const cy=(Math.min(...ys)+Math.max(...ys))/2;
-  const span=Math.max(Math.max(...xs)-Math.min(...xs),Math.max(...ys)-Math.min(...ys),120);
-  // Scale: larger span = less zoom; small cluster = more zoom
-  const scale=Math.min(3,Math.max(1.2,450/span));
-  // Translate to center: SVG is 1000x700 viewBox
-  const tx=500-cx*scale;
-  const ty=350-cy*scale;
-  graphG.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`;
-  graphG.style.transformOrigin='0 0';
-}
+// Zoom
+function zoomTo(ids){
+if(!ids||!ids.length){graphG.style.transform='';return}
+const pts=ids.map(n=>P[n]).filter(Boolean);if(!pts.length){graphG.style.transform='';return}
+const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+const cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;
+const span=Math.max(Math.max(...xs)-Math.min(...xs),Math.max(...ys)-Math.min(...ys),100);
+const scale=Math.min(3.5,Math.max(1.3,420/span));
+const tx=500-cx*scale,ty=350-cy*scale;
+graphG.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`;graphG.style.transformOrigin='0 0'}
 
 function highlight(pw,si){
-  const step=pw.steps[si];
-  const curN=new Set(step.n);
-  const curL=new Set(step.l.map(l=>l[0]+'->'+l[1]));
-  const allN=new Set(),allL=new Set();
-  for(let i=0;i<=si;i++){pw.steps[i].n.forEach(n=>allN.add(n));pw.steps[i].l.forEach(l=>allL.add(l[0]+'->'+l[1]))}
-
-  svg.querySelectorAll('.gnode').forEach(g=>{
-    const id=g.dataset.id,cur=curN.has(id),act=allN.has(id);
-    const cs=g.querySelectorAll('circle'),txt=g.querySelector('text');
-    cs[0].setAttribute('opacity',cur?'0.08':act?'0.03':'0');
-    cs[1].setAttribute('opacity',cur?'0.9':act?'0.35':'0.08');
-    cs[1].setAttribute('r',cur?'5':act?'3.5':'2');
-    txt.setAttribute('opacity',cur?'1':act?'0.4':'0.08');
-    txt.setAttribute('font-size',cur?'7':act?'5.5':'4');
-    txt.setAttribute('fill',cur?'#222':act?'#888':'#bbb');
-  });
-
-  const lC={investment:'rgba(26,74,107,0.45)',employment:'rgba(100,100,100,0.3)',cofounded:'rgba(80,80,80,0.4)',political:'rgba(139,105,20,0.45)',contract:'rgba(139,0,0,0.4)',lobbying:'rgba(91,74,139,0.4)',board:'rgba(74,107,74,0.35)',partnership:'rgba(26,74,107,0.45)',mentorship:'rgba(139,105,20,0.45)'};
-  svg.querySelectorAll('.glink').forEach(ln=>{
-    const s=ln.dataset.s,t=ln.dataset.t;
-    const k1=s+'->'+t,k2=t+'->'+s;
-    const cur=curL.has(k1)||curL.has(k2),act=allL.has(k1)||allL.has(k2);
-    if(cur){ln.setAttribute('stroke',lC[ln.dataset.tp]||'rgba(100,100,100,0.3)');ln.setAttribute('stroke-width','2')}
-    else if(act){ln.setAttribute('stroke','rgba(170,160,145,0.12)');ln.setAttribute('stroke-width','0.5')}
-    else{ln.setAttribute('stroke','rgba(180,170,155,0.05)');ln.setAttribute('stroke-width','0.25')}
-  });
-
-  zoomTo(step.n);
-}
+const step=pw.steps[si];
+const curN=new Set(step.n),curL=new Set(step.l.map(l=>l[0]+'->'+l[1]));
+const allN=new Set(),allL=new Set();
+for(let i=0;i<=si;i++){pw.steps[i].n.forEach(n=>allN.add(n));pw.steps[i].l.forEach(l=>allL.add(l[0]+'->'+l[1]))}
+svg.querySelectorAll('.gnode').forEach(g=>{
+const id=g.dataset.id,cur=curN.has(id),act=allN.has(id);
+const cs=g.querySelectorAll('circle'),txt=g.querySelector('text');
+cs[0].setAttribute('opacity',cur?'0.08':act?'0.03':'0');
+cs[1].setAttribute('opacity',cur?'0.9':act?'0.3':'0.06');
+cs[1].setAttribute('r',cur?'5':act?'3.5':'2');
+txt.setAttribute('opacity',cur?'1':act?'0.35':'0.06');
+txt.setAttribute('font-size',cur?'7':act?'5.5':'4');
+txt.setAttribute('fill',cur?'#222':act?'#888':'#ccc')});
+const lC={investment:'rgba(26,74,107,0.45)',employment:'rgba(100,100,100,0.3)',cofounded:'rgba(80,80,80,0.4)',political:'rgba(139,105,20,0.45)',contract:'rgba(139,0,0,0.4)',lobbying:'rgba(91,74,139,0.4)',board:'rgba(74,107,74,0.35)',partnership:'rgba(26,74,107,0.45)',mentorship:'rgba(139,105,20,0.45)'};
+svg.querySelectorAll('.glink').forEach(ln=>{
+const s=ln.dataset.s,t=ln.dataset.t;const k1=s+'->'+t,k2=t+'->'+s;
+const cur=curL.has(k1)||curL.has(k2),act=allL.has(k1)||allL.has(k2);
+if(cur){ln.setAttribute('stroke',lC[ln.dataset.tp]||'rgba(100,100,100,0.3)');ln.setAttribute('stroke-width','2')}
+else if(act){ln.setAttribute('stroke','rgba(170,160,145,0.12)');ln.setAttribute('stroke-width','0.5')}
+else{ln.setAttribute('stroke','rgba(180,170,155,0.05)');ln.setAttribute('stroke-width','0.25')}});
+zoomTo(step.n);
+document.getElementById('legend').classList.add('show')}
 
 function resetGraph(){
-  graphG.style.transform='';
-  svg.querySelectorAll('.gnode').forEach(g=>{
-    const cs=g.querySelectorAll('circle'),txt=g.querySelector('text');
-    cs[0].setAttribute('opacity','0');
-    cs[1].setAttribute('opacity','0.12');cs[1].setAttribute('r','2.5');
-    txt.setAttribute('opacity','0.12');txt.setAttribute('font-size','4.5');txt.setAttribute('fill','#aaa');
-  });
-  svg.querySelectorAll('.glink').forEach(ln=>{
-    ln.setAttribute('stroke','rgba(180,170,155,0.08)');ln.setAttribute('stroke-width','0.3');
-  });
-}
+graphG.style.transform='';
+svg.querySelectorAll('.gnode').forEach(g=>{
+const cs=g.querySelectorAll('circle'),txt=g.querySelector('text');
+cs[0].setAttribute('opacity','0');cs[1].setAttribute('opacity','0.1');cs[1].setAttribute('r','2.5');
+txt.setAttribute('opacity','0.1');txt.setAttribute('font-size','4.5');txt.setAttribute('fill','#aaa')});
+svg.querySelectorAll('.glink').forEach(ln=>{ln.setAttribute('stroke','rgba(180,170,155,0.08)');ln.setAttribute('stroke-width','0.3')});
+document.getElementById('legend').classList.remove('show')}
 
-// === OBSERVERS ===
-const stepObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>0.35){
-    const pi=+e.target.dataset.pw,si=+e.target.dataset.si;
-    highlight(PW[pi],si);
-  }});
-},{threshold:[0.35,0.65],rootMargin:'-10% 0px -10% 0px'});
+// Observers
+const chInd=document.getElementById('chInd');
+const stepObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>0.35){
+const pi=+e.target.dataset.pw,si=+e.target.dataset.si;
+highlight(PW[pi],si);
+chInd.textContent=e.target.dataset.chtitle;chInd.style.opacity='1'}})},{threshold:[0.35,0.6],rootMargin:'-10% 0px -10% 0px'});
 allSteps.forEach(el=>stepObs.observe(el));
-
-// Chapter heads reset to full view
-const headObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)resetGraph()});
-},{threshold:0.5});
-document.querySelectorAll('.chapter-head').forEach(h=>headObs.observe(h));
-
-// Hero resets too
-const heroObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)resetGraph()});
-},{threshold:0.3});
+const headObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){resetGraph();chInd.style.opacity='0'}})},{threshold:0.5});
+document.querySelectorAll('.ch').forEach(h=>headObs.observe(h));
+const heroObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){resetGraph();chInd.style.opacity='0'}})},{threshold:0.3});
 heroObs.observe(document.querySelector('.hero'));
 
-// === DETAIL PANEL ===
+// Progress bar
+window.addEventListener('scroll',()=>{
+const h=document.documentElement.scrollHeight-window.innerHeight;
+const pct=h>0?(window.scrollY/h)*100:0;
+document.getElementById('progress').style.width=pct+'%'});
+
+// Detail panel
 function openDetail(nid){
-  const nd=nm[nid];if(!nd)return;
-  const conns=LINKS.filter(l=>{const s=typeof l.source==='object'?l.source.id:l.source;const t=typeof l.target==='object'?l.target.id:l.target;return s===nid||t===nid});
-  let h=`<div class="dp-type" style="color:${C[nd.type]}">${nd.type}</div><div class="dp-name">${nd.name}</div><div class="dp-desc">${nd.desc}</div>`;
-  if(conns.length){h+=`<div class="dp-sect">Connections (${conns.length})</div>`;
-    conns.forEach(c=>{const sid=typeof c.source==='object'?c.source.id:c.source;const tid=typeof c.target==='object'?c.target.id:c.target;
-      const oid=sid===nid?tid:sid;const o=nm[oid];const sh=c.url?`<a href="${c.url}" target="_blank">${c.src||'Source'}</a>`:(c.src||'');
-      h+=`<div class="dp-conn"><span class="rel">${c.type}</span> \u2192 <span class="tgt" data-id="${oid}">${o?o.name:oid}</span><span class="det">${c.desc}</span><span class="src">${sh}</span></div>`})}
-  document.getElementById('dpC').innerHTML=h;document.getElementById('dp').classList.add('open');
-  document.querySelectorAll('.dp-conn .tgt').forEach(el=>{el.addEventListener('click',()=>openDetail(el.dataset.id))});
-}
+const nd=nm[nid];if(!nd)return;
+const conns=LINKS.filter(l=>{const s=typeof l.source==='object'?l.source.id:l.source;const t=typeof l.target==='object'?l.target.id:l.target;return s===nid||t===nid});
+let h=`<div class="dpt" style="color:${C[nd.type]}">${nd.type}</div><div class="dpn">${nd.name}</div><div class="dpd">${nd.desc}</div>`;
+if(conns.length){h+=`<div class="dps">Connections (${conns.length})</div>`;
+conns.forEach(c=>{const sid=typeof c.source==='object'?c.source.id:c.source;const tid=typeof c.target==='object'?c.target.id:c.target;
+const oid=sid===nid?tid:sid;const o=nm[oid];const sh=c.url?`<a href="${c.url}" target="_blank">${c.src||'Source'}</a>`:(c.src||'');
+h+=`<div class="dpc"><span class="rl">${c.type}</span> \u2192 <span class="tg" data-id="${oid}">${o?o.name:oid}</span><span class="dt">${c.desc}</span><span class="sr">${sh}</span></div>`})}
+document.getElementById('dpC').innerHTML=h;document.getElementById('dp').classList.add('open');
+document.querySelectorAll('.dpc .tg').forEach(el=>{el.addEventListener('click',()=>openDetail(el.dataset.id))})}
 document.getElementById('dpX').addEventListener('click',()=>document.getElementById('dp').classList.remove('open'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('dp').classList.remove('open')});
 </script>

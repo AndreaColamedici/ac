@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-15T02:47:41Z",
+  "updated": "2026-03-15T07:03:55Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
@@ -59,6 +59,10 @@
         {
           "t": "2026-03-15T02:47:40Z",
           "p": 14
+        },
+        {
+          "t": "2026-03-15T07:03:54Z",
+          "p": 14
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -66,7 +70,7 @@
     "best-ai-model": {
       "question": "Which company has the best AI model end of March?",
       "yes": 89,
-      "volume": "9109674.372835005",
+      "volume": "9200298.648718005",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
         {
@@ -112,6 +116,10 @@
         {
           "t": "2026-03-15T02:47:41Z",
           "p": 89
+        },
+        {
+          "t": "2026-03-15T07:03:54Z",
+          "p": 89
         }
       ],
       "note": "Will Anthropic have the best A 89%, Will Google have the best AI m 6%, Will OpenAI have the best AI m 1%"
@@ -152,6 +160,10 @@
         },
         {
           "t": "2026-03-15T02:47:41Z",
+          "p": 57
+        },
+        {
+          "t": "2026-03-15T07:03:55Z",
           "p": 57
         }
       ],

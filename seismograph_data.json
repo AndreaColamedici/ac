@@ -1,11 +1,11 @@
 {
-  "updated": "2026-03-16T02:48:18Z",
+  "updated": "2026-03-16T07:24:46Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
       "yes": 14,
-      "volume": "35236.93293299999",
+      "volume": "35241.58408999999",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
         {
@@ -75,6 +75,10 @@
         {
           "t": "2026-03-16T02:48:18Z",
           "p": 14
+        },
+        {
+          "t": "2026-03-16T07:24:46Z",
+          "p": 14
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -82,7 +86,7 @@
     "best-ai-model": {
       "question": "Which company has the best AI model end of March?",
       "yes": 90,
-      "volume": "9449534.53058801",
+      "volume": "9565056.090397013",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
         {
@@ -144,13 +148,17 @@
         {
           "t": "2026-03-16T02:48:18Z",
           "p": 90
+        },
+        {
+          "t": "2026-03-16T07:24:46Z",
+          "p": 90
         }
       ],
-      "note": "Will Anthropic have the best A 90%, Will Google have the best AI m 6%, Will xAI have the best AI mode 3%"
+      "note": "Will Anthropic have the best A 90%, Will Google have the best AI m 4%, Will xAI have the best AI mode 3%"
     },
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
-      "yes": 56,
+      "yes": 57,
       "volume": "38292.76808100001",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
@@ -201,6 +209,10 @@
         {
           "t": "2026-03-16T02:48:18Z",
           "p": 56
+        },
+        {
+          "t": "2026-03-16T07:24:46Z",
+          "p": 57
         }
       ],
       "note": "Yes = Anthropic IPOs first (56%). No = OpenAI first (44%). Pentagon designation may delay Anthropic. No IPO by Jun 30 at 95% on related market."

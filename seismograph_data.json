@@ -1,11 +1,11 @@
 {
-  "updated": "2026-03-17T19:08:06Z",
+  "updated": "2026-03-18T02:37:19Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
       "yes": 14,
-      "volume": "36164.014416999984",
+      "volume": "36177.597748999986",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
         {
@@ -103,6 +103,10 @@
         {
           "t": "2026-03-17T19:08:05Z",
           "p": 14
+        },
+        {
+          "t": "2026-03-18T02:37:18Z",
+          "p": 14
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -110,7 +114,7 @@
     "best-ai-model": {
       "question": "Which company has the best AI model end of March?",
       "yes": 92,
-      "volume": "9557690.309752015",
+      "volume": "9640553.384092014",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
         {
@@ -200,6 +204,10 @@
         {
           "t": "2026-03-17T19:08:05Z",
           "p": 92
+        },
+        {
+          "t": "2026-03-18T02:37:18Z",
+          "p": 92
         }
       ],
       "note": "Will Anthropic have the best A 92%, Will Google have the best AI m 4%, Will OpenAI have the best AI m 2%"
@@ -207,7 +215,7 @@
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
       "yes": 56,
-      "volume": "39873.18141300003",
+      "volume": "39904.05448800004",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
         {
@@ -284,6 +292,10 @@
         },
         {
           "t": "2026-03-17T19:08:06Z",
+          "p": 56
+        },
+        {
+          "t": "2026-03-18T02:37:19Z",
           "p": 56
         }
       ],

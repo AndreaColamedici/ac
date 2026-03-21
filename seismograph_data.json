@@ -1,11 +1,11 @@
 {
-  "updated": "2026-03-21T06:51:58Z",
+  "updated": "2026-03-21T12:58:42Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
       "yes": 14,
-      "volume": "37296.31068699999",
+      "volume": "37320.278586999986",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
         {
@@ -159,6 +159,10 @@
         {
           "t": "2026-03-21T06:51:57Z",
           "p": 14
+        },
+        {
+          "t": "2026-03-21T12:58:41Z",
+          "p": 14
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -166,7 +170,7 @@
     "best-ai-model": {
       "question": "Which company has the best AI model end of March?",
       "yes": 97,
-      "volume": "11159483.795275033",
+      "volume": "11836192.252754033",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
         {
@@ -312,14 +316,18 @@
         {
           "t": "2026-03-21T06:51:57Z",
           "p": 97
+        },
+        {
+          "t": "2026-03-21T12:58:41Z",
+          "p": 97
         }
       ],
       "note": "Will Anthropic have the best A 97%, Will Google have the best AI m 2%, Will xAI have the best AI mode 1%"
     },
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
-      "yes": 53,
-      "volume": "44549.63530700005",
+      "yes": 52,
+      "volume": "46800.63530700005",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
         {
@@ -453,6 +461,10 @@
         {
           "t": "2026-03-21T06:51:58Z",
           "p": 53
+        },
+        {
+          "t": "2026-03-21T12:58:42Z",
+          "p": 52
         }
       ],
       "note": "Yes = Anthropic IPOs first (56%). No = OpenAI first (44%). Pentagon designation may delay Anthropic. No IPO by Jun 30 at 95% on related market."

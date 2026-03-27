@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indagine Difesa / PSN / Leonardo — Mappa delle connessioni</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --surface-3: #222233;
+    --border: #2a2a3d;
+    --text: #e8e6e3;
+    --text-dim: #8a8899;
+    --text-muted: #5a5870;
+    --accent: #c9a84c;
+    --accent-dim: #8a7033;
+    --red: #c44040;
+    --red-dim: #6b2222;
+    --blue: #4a7fb5;
+    --green: #4a9960;
+    --orange: #c47a30;
+    --purple: #7a5ab5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'EB Garamond', Georgia, serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 40px 60px 30px;
+    background: linear-gradient(180deg, #0f0f18 0%, var(--bg) 100%);
+  }
+
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .header-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .nav-item:hover { color: var(--text); }
+  .nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .section {
+    display: none;
+    padding: 40px 60px;
+    max-width: 1400px;
+  }
+
+  .section.active { display: block; }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  /* Network Graph */
+  #network-container {
+    width: 100%;
+    height: 700px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #network-container svg { width: 100%; height: 100%; }
+
+  .node-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    fill: var(--text);
+    pointer-events: none;
+    font-weight: 500;
+  }
+
+  .link { stroke-opacity: 0.4; }
+  .link:hover { stroke-opacity: 0.9; }
+
+  .legend-box {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(18, 18, 26, 0.95);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    color: var(--text-dim);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--accent-dim); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .card-name {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .tag-indagato { background: var(--red-dim); color: #e88; }
+  .tag-military { background: #1a3344; color: #6ab8e0; }
+  .tag-corporate { background: #1a3322; color: #6ac880; }
+  .tag-structural { background: #332a1a; color: #c8a060; }
+
+  .card-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .card-detail {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .card-amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 10px;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -33px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .timeline-dot.red { background: var(--red); }
+  .timeline-dot.blue { background: var(--blue); }
+
+  .timeline-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* Tables */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    margin: 20px 0;
+  }
+
+  .data-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .data-table tr:hover td { background: var(--surface-2); }
+
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .text-accent { color: var(--accent); }
+  .text-red { color: var(--red); }
+  .text-dim { color: var(--text-dim); }
+
+  /* Charts */
+  .chart-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .chart-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  canvas { max-height: 320px; }
+
+  /* Thesis boxes */
+  .thesis {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .thesis-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .thesis-title {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .thesis-body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .thesis.red-border { border-left-color: var(--red); }
+  .thesis.red-border .thesis-number { color: var(--red); }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 200;
+    max-width: 280px;
+    line-height: 1.4;
+    display: none;
+  }
+
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 24px 0;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  .flow-step {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .flow-step strong { display: block; color: var(--accent); margin-bottom: 4px; font-size: 11px; letter-spacing: 0.5px; }
+
+  .flow-arrow {
+    color: var(--text-muted);
+    font-size: 18px;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .header, .nav, .section { padding-left: 20px; padding-right: 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    #network-container { height: 500px; }
+    .flow-diagram { flex-direction: column; align-items: stretch; }
+    .flow-arrow { transform: rotate(90deg); text-align: center; }
+  }
+
+  .pulsing {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .stamp {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 2px 8px;
+    transform: rotate(-2deg);
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Briefing investigativo / Ricerca primaria</div>
+  <h1>Corruzione Difesa, PSN, Terna, RFI <span class="stamp">26 indagati</span></h1>
+  <div class="header-meta">27 marzo 2026 &mdash; Inchiesta Procura di Roma, sviluppo caso Sogei (ott. 2024) &mdash; PM: Del Giudice, De Falco, Cascini, Gallo</div>
+</div>
+
+<div class="nav">
+  <div class="nav-item active" data-section="rete">Rete</div>
+  <div class="nav-item" data-section="indagati">Indagati</div>
+  <div class="nav-item" data-section="psn">PSN</div>
+  <div class="nav-item" data-section="leonardo">Leonardo</div>
+  <div class="nav-item" data-section="flussi">Flussi</div>
+  <div class="nav-item" data-section="timeline">Timeline</div>
+  <div class="nav-item" data-section="tesi">Tesi</div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<!-- SEZIONE: RETE -->
+<div class="section active" id="sec-rete">
+  <div class="section-title">Mappa delle connessioni</div>
+  <div class="section-subtitle">Grafo interattivo delle relazioni tra persone, enti e societ&agrave;. Trascina i nodi per esplorare.</div>
+  <div id="network-container">
+    <div class="legend-box">
+      <div class="legend-item"><div class="legend-dot" style="background:#c44040"></div> Indagato</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div> Ente / Societ&agrave;</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4a7fb5"></div> Militare</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4a9960"></div> Corporate</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7a5ab5"></div> Strutturale</div>
+      <div style="margin-top:8px;color:#5a5870;font-size:10px">Spessore linea = intensit&agrave; relazione</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEZIONE: INDAGATI -->
+<div class="section" id="sec-indagati">
+  <div class="section-title">I 26 indagati</div>
+  <div class="section-subtitle">Profili confermati da fonti giudiziarie e giornalistiche.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Francesco Dattola</div>
+        <div class="card-tag tag-indagato">Architetto del sistema</div>
+      </div>
+      <div class="card-role">Amministratore di fatto, NSR Srl &mdash; Roma</div>
+      <div class="card-detail">Organizzatore dell'intero sistema corruttivo. Attraverso NSR Srl (fatturato &euro;102M, +187% in 5 anni) e Data Care Srl (stessa sede, Via Ortigara 3 Roma) ha costruito un circuito di fatture false, riciclaggio via orologi Rolex e tangenti a militari, dirigenti pubblici e manager privati. Otteneva capitolati in anticipo, modificava i requisiti tecnici, cuciva le offerte su misura.</div>
+      <div class="card-amount">&euro;600.000+ in fondi neri documentati &middot; &euro;4,58M in fatture fittizie</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Emanuele Iannetti</div>
+        <div class="card-tag tag-indagato">AD del PSN</div>
+      </div>
+      <div class="card-role">Amministratore Delegato, Polo Strategico Nazionale</div>
+      <div class="card-detail">Indagato per turbativa d'asta. La direzione del PSN avrebbe fatto pressioni su ufficiali della Difesa per inserire nel catalogo servizi i prodotti Red Hat e le forniture NSR, "sebbene fossero stati espressamente esclusi dalla procedura". Trent'anni di carriera nel procurement IT: Telecom Italia, Nokia Siemens (CPO), Atos (CEO), Ericsson.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Angelo Gervasio</div>
+        <div class="card-tag tag-military">Magg. Gen.</div>
+      </div>
+      <div class="card-role">Direttore Generale TELEDIFE &mdash; Min. Difesa</div>
+      <div class="card-detail">Vertice dell'ufficio che progetta e gestisce tutti i sistemi IT delle forze armate. Visitò CY4GATE (controllata Elettronica/Leonardo) il 13/10/2021 per presentazione prodotti "con focus specifico sui Programmi della Difesa". Avrebbe consentito l'accesso di Dattola alla piattaforma CMDB dello Stato Maggiore.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Rodolfo Falcone</div>
+        <div class="card-tag tag-corporate">Red Hat</div>
+      </div>
+      <div class="card-role">Country Manager, Red Hat Italia</div>
+      <div class="card-detail">Avrebbe favorito le societ&agrave; di Dattola per la distribuzione esclusiva dei prodotti Red Hat presso grandi clienti istituzionali (TIM, Terna), in cambio di pagamenti diretti.</div>
+      <div class="card-amount">&euro;143.000 ricevuti da Dattola</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Pierfrancesco Coppola</div>
+        <div class="card-tag tag-military">Generale Aeronautica</div>
+      </div>
+      <div class="card-role">Capo Servizio Meteorologico, vicecapo AVIAMM</div>
+      <div class="card-detail">Avrebbe rivelato informazioni riservate su un bando per sensori meteorologici (>&euro;200M). Secondo l'accusa, la stessa promozione a generale sarebbe stata il corrispettivo della disponibilit&agrave; a manipolare le specifiche dei bandi. La corruzione non era solo denaro: era carriera.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Antonio Lanzillotti</div>
+        <div class="card-tag tag-military">Brig. Gen.</div>
+      </div>
+      <div class="card-role">Capo 1&deg; Reparto TELEDIFE</div>
+      <div class="card-detail">Insieme a Modesto, avrebbe fornito a Dattola accesso alla piattaforma CMDB dello Stato Maggiore della Difesa, il database con la mappa di tutti i sistemi informatici militari. Consentiva di confezionare offerte su misura prima della pubblicazione dei bandi.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Francesco Modesto</div>
+        <div class="card-tag tag-military">Generale Esercito</div>
+      </div>
+      <div class="card-role">IV Reparto Stato Maggiore della Difesa</div>
+      <div class="card-detail">Collabor&ograve; con Dattola nella definizione dei requisiti tecnici delle gare prima della loro pubblicazione ufficiale. Condivise informazioni riservate dalla piattaforma CMDB.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Antonio Angelo Masala</div>
+        <div class="card-tag tag-military">Marina Militare</div>
+      </div>
+      <div class="card-role">Ufficiale &mdash; connessione PSN/Innovery</div>
+      <div class="card-detail">Manipol&ograve; gare relative al catalogo servizi del PSN a favore di Innovery Spa, mettendo la propria posizione al servizio degli interessi commerciali dell'azienda. Innovery fu ceduta a Carlyle/Neverhack 17 giorni prima dell'esplosione dell'inchiesta Sogei.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Riccardo Barrile</div>
+        <div class="card-tag tag-corporate">RFI</div>
+      </div>
+      <div class="card-role">Responsabile Cybersecurity, RFI Spa</div>
+      <div class="card-detail">Pass&ograve; le bozze del capitolato tecnico della gara da &euro;400M per la cybersecurity ferroviaria a Carlo Antonello Bisi (TIM), che le trasmise a Dattola. Consegu&igrave; la manipolazione delle specifiche prima della pubblicazione.</div>
+      <div class="card-amount">Gara: &euro;400.000.000</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Carlo Antonello Bisi</div>
+        <div class="card-tag tag-corporate">TIM</div>
+      </div>
+      <div class="card-role">Responsabile TIM per la rete ferroviaria</div>
+      <div class="card-detail">Ricevette da Barrile (RFI) il capitolato riservato della gara da &euro;400M e lo trasmise a Dattola. TIM &egrave; azionista al 45% del PSN ed esprime il presidente del Polo.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Enrico Senatore</div>
+        <div class="card-tag tag-corporate">Terna</div>
+      </div>
+      <div class="card-role">Capo Tecnologie e Sistemi di Processo, Terna</div>
+      <div class="card-detail">Indusse Red Hat a pagare &euro;6.100 come sponsorizzazione simulata all'ASD Sporting Eur, di cui era vicepresidente. Data Care Srl (Dattola) fu il veicolo. Facili&ograve; contratti Terna per &euro;6M di cui &euro;2M a NSR.</div>
+      <div class="card-amount">&euro;6.000.000 in contratti Terna manipolati</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Antonio Spalletta</div>
+        <div class="card-tag tag-indagato">Intermediario</div>
+      </div>
+      <div class="card-role">62 anni, Latina &mdash; Faccendiere</div>
+      <div class="card-detail">"Fitta rete di relazioni" capace di "influenzare i processi decisionali di alcune pubbliche amministrazioni". Facilit&ograve; l'accesso di Dattola al PSN e alla Difesa. Operava all'interno del Ministero "con una disinvoltura difficilmente consentita a un privato cittadino".</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Stefano Tronelli</div>
+        <div class="card-tag tag-indagato">Riciclaggio</div>
+      </div>
+      <div class="card-role">Titolare, Tron Group Holding Srl</div>
+      <div class="card-detail">Emetteva fatture fittizie verso NSR (&euro;4,58M). Convertiva i bonifici in contante attraverso acquisto e rivendita di Rolex su mercati paralleli. Nel 2024 la sua societ&agrave; registra -&euro;2,75M: la macchina si &egrave; fermata.</div>
+      <div class="card-amount">&euro;4.580.000 in fatture fittizie</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Fabio Cerase</div>
+        <div class="card-tag tag-military">Colonnello</div>
+      </div>
+      <div class="card-role">1&ordf; Divisione Sistemi Informatici e Cyber, TELEDIFE</div>
+      <div class="card-detail">Sotto indagine per corruzione legata ai contratti IT della Difesa gestiti attraverso TELEDIFE.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">Marco Uggeri</div>
+        <div class="card-tag tag-corporate">Red Hat</div>
+      </div>
+      <div class="card-role">Enterprise Account Executive, Red Hat Italia</div>
+      <div class="card-detail">Aiut&ograve; le societ&agrave; di Dattola a vincere contratti tecnologici per Terna.</div>
+      <div class="card-amount">&euro;3.000 ricevuti da Dattola</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEZIONE: PSN -->
+<div class="section" id="sec-psn">
+  <div class="section-title">Polo Strategico Nazionale</div>
+  <div class="section-subtitle">Il cloud sovrano italiano: &euro;2,8 miliardi in contratti, quattro soci, tre toccati dall'indagine.</div>
+
+  <div class="two-col">
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Socio</th><th>Quota</th><th>Coinvolgimento</th></tr></thead>
+        <tbody>
+          <tr><td>TIM</td><td class="mono">45%</td><td class="text-red">Dirigente Bisi indagato. Esprime il presidente.</td></tr>
+          <tr><td>Leonardo</td><td class="mono">25%</td><td class="text-red">Gestisce SOC cybersecurity. Formalmente "estranea".</td></tr>
+          <tr><td>CDP Equity</td><td class="mono">20%</td><td class="text-dim">Non coinvolta</td></tr>
+          <tr><td>Sogei</td><td class="mono">10%</td><td class="text-red">DG Iorio arrestato ott. 2024.</td></tr>
+        </tbody>
+      </table>
+
+      <table class="data-table" style="margin-top:24px">
+        <thead><tr><th>Ruolo PSN</th><th>Nome</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><td>Presidente</td><td>Elio Schiavo</td><td class="text-red">Contemporaneamente Chief Enterprise TIM</td></tr>
+          <tr><td>AD</td><td>Emanuele Iannetti</td><td class="text-red">Indagato per turbativa d'asta</td></tr>
+          <tr><td>Ex Presidente</td><td>Massimo Mancini</td><td class="text-dim">Poi AD Noovle (cloud TIM)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Azionariato PSN &mdash; Coinvolgimento nell'indagine</div>
+        <canvas id="chart-psn"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="thesis" style="margin-top:32px">
+    <div class="thesis-number">Il paradosso strutturale</div>
+    <div class="thesis-body">Il presidente del PSN (Schiavo) &egrave; dirigente del socio di maggioranza (TIM). L'AD (Iannetti) &egrave; indagato. Il SOC di sicurezza &egrave; gestito da Leonardo (socio 25%). Il DG di Sogei (socio 10%) &egrave; stato arrestato. Tre soci su quattro sono toccati dall'indagine, eppure il PSN custodisce i dati della Presidenza della Repubblica, del Senato, dei ministeri della Difesa, dell'Interno e degli Esteri. Chi controlla il controllore?</div>
+  </div>
+</div>
+
+<!-- SEZIONE: LEONARDO -->
+<div class="section" id="sec-leonardo">
+  <div class="section-title">Leonardo &mdash; L'elefante nella stanza</div>
+  <div class="section-subtitle">Formalmente "estranea all'inchiesta". Strutturalmente al centro di ogni snodo.</div>
+
+  <div class="thesis">
+    <div class="thesis-number">Posizione formale vs. sostanziale</div>
+    <div class="thesis-body">Leonardo &egrave; azionista al 25% del PSN (il cui AD &egrave; indagato). Gestisce il SOC di Chieti che protegge la cybersecurity del Polo. &Egrave; il principale fornitore IT della Difesa tramite TELEDIFE. Controlla il 31,33% di Elettronica, che a sua volta controlla CY4GATE (cyber intelligence). Il DG di TELEDIFE (Gervasio, indagato) ha visitato CY4GATE nell'ottobre 2021 per una presentazione su programmi della Difesa. Eppure Leonardo &egrave; dichiarata "estranea".</div>
+  </div>
+
+  <div class="flow-diagram">
+    <div class="flow-step"><strong>Leonardo</strong>31,33%</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step"><strong>Elettronica Spa</strong>Benigni 35,3% &middot; Thales 33,3%</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step"><strong>CY4GATE</strong>Cyber intelligence<br>Euronext Milan</div>
+    <div class="flow-arrow">&larr;</div>
+    <div class="flow-step" style="border-color:var(--red)"><strong>Gervasio (TELEDIFE)</strong>Visita 13/10/2021<br><span class="text-red">INDAGATO</span></div>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:32px">Il rapporto Crosetto-Leonardo</div>
+
+  <table class="data-table">
+    <thead><tr><th>Anno</th><th>Compenso Leonardo</th><th>Compenso Orizzonte S.N.</th><th>Ruolo</th></tr></thead>
+    <tbody>
+      <tr><td>2018</td><td class="mono text-accent">&euro;432.000</td><td class="mono">&mdash;</td><td>Presidente AIAD</td></tr>
+      <tr><td>2019</td><td class="mono text-accent">&euro;177.000</td><td class="mono">&mdash;</td><td>Presidente AIAD</td></tr>
+      <tr><td>2020</td><td class="mono text-accent">&euro;593.000</td><td class="mono">&euro;70.000</td><td>Pres. AIAD + Pres. Orizzonte (JV Leonardo/Fincantieri)</td></tr>
+      <tr><td>2021</td><td class="mono text-accent">&euro;618.000</td><td class="mono">&euro;152.000</td><td>Pres. AIAD + Pres. Orizzonte</td></tr>
+      <tr style="background:var(--surface-2)"><td><strong>Totale</strong></td><td class="mono text-accent"><strong>&euro;1.820.000</strong></td><td class="mono"><strong>&euro;222.000</strong></td><td><strong>Ottobre 2022: diventa Ministro della Difesa</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="thesis red-border" style="margin-top:24px">
+    <div class="thesis-number">L'esposto come firewall</div>
+    <div class="thesis-body">L'esposto &egrave; partito dal Ministero della Difesa di Crosetto. Ha colpito generali e imprenditori. L'architettura dei contratti Leonardo-Difesa non &egrave; stata toccata. Il ministro ex consulente milionario di Leonardo ha circoscritto il danno alla periferia del sistema &mdash; un imprenditore da &euro;95M di fatturato, qualche generale corruttibile, un intermediario di provincia &mdash; proteggendo il nucleo.</div>
+  </div>
+
+  <div class="thesis" style="margin-top:16px">
+    <div class="thesis-number">La domanda sul SOC</div>
+    <div class="thesis-body">Il Security Operations Center di Chieti, gestito da Leonardo, monitora 7.000 reti e 100.000 utenti cyber in 130 Paesi. Ha il mandato di proteggere il PSN. La piattaforma CMDB dello Stato Maggiore &egrave; stata accessibile a privati corrotti. Il SOC ha rilevato gli accessi anomali? Se s&igrave;, perch&eacute; non ha agito? Se no, perch&eacute;?</div>
+  </div>
+</div>
+
+<!-- SEZIONE: FLUSSI -->
+<div class="section" id="sec-flussi">
+  <div class="section-title">Flussi finanziari e riciclaggio</div>
+  <div class="section-subtitle">Il meccanismo: fatture false &rarr; Rolex &rarr; mercati paralleli &rarr; contante &rarr; tangenti.</div>
+
+  <div class="flow-diagram">
+    <div class="flow-step"><strong>1. Fatture fittizie</strong>Tron Group &rarr; NSR<br>&euro;4,58M</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step"><strong>2. Bonifici</strong>NSR paga Tronelli<br>operazioni inesistenti</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step"><strong>3. Acquisto Rolex</strong>Tronelli compra<br>orologi di lusso</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step"><strong>4. Rivendita</strong>Mercati paralleli<br>prezzi gonfiati</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--red)"><strong>5. Contante</strong>Ritorna a Dattola<br>&euro;600.000+</div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--red)"><strong>6. Tangenti</strong>Generali, manager<br>dirigenti Red Hat</div>
+  </div>
+
+  <div class="two-col" style="margin-top:24px">
+    <div class="chart-container">
+      <div class="chart-title">Crescita fatturato NSR Srl (2019&ndash;2024)</div>
+      <canvas id="chart-nsr"></canvas>
+    </div>
+    <div class="chart-container">
+      <div class="chart-title">Fatturato Tron Group Holding (2020&ndash;2024)</div>
+      <canvas id="chart-tron"></canvas>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:32px">Gare sotto indagine</div>
+
+  <table class="data-table">
+    <thead><tr><th>Gara</th><th>Ente</th><th>Importo</th><th>Periodo</th><th>Meccanismo</th></tr></thead>
+    <tbody>
+      <tr><td>Cybersecurity ferroviaria</td><td>RFI</td><td class="mono text-accent">&euro;400M</td><td>Apr 2024</td><td>Capitolato anticipato via Barrile&rarr;Bisi(TIM)&rarr;Dattola</td></tr>
+      <tr><td>SDAPA (Cisco)</td><td>TELEDIFE</td><td class="mono text-accent">&euro;180M</td><td>Ott 2023</td><td>Accesso CMDB via generali TELEDIFE</td></tr>
+      <tr><td>Sensori meteo</td><td>Aeronautica</td><td class="mono text-accent">>&euro;200M</td><td>&mdash;</td><td>Info riservate da Gen. Coppola</td></tr>
+      <tr><td>Forniture IT</td><td>Terna</td><td class="mono text-accent">&euro;6M</td><td>Dic 23&ndash;Apr 24</td><td>Corruzione Senatore + Red Hat</td></tr>
+      <tr><td>Licenze Nutanix</td><td>TELEDIFE</td><td class="mono text-accent">&euro;3M</td><td>Feb 2024</td><td>Specifiche anticipate</td></tr>
+      <tr><td>Catalogo servizi</td><td>PSN/Difesa</td><td class="mono text-dim">N/Q</td><td>2023&ndash;24</td><td>Pressioni direzione PSN per Red Hat</td></tr>
+    </tbody>
+  </table>
+
+  <div class="thesis" style="margin-top:24px">
+    <div class="thesis-number">Data Care e Sporting Eur</div>
+    <div class="thesis-body">Data Care Srl ha sede in Via Ortigara 3, Roma: lo stesso identico indirizzo di NSR Srl. &Egrave; il veicolo che Dattola ha usato per la sponsorizzazione fittizia (&euro;6.100) all'ASD Sporting Eur, l'associazione sportiva di cui Enrico Senatore (Terna) era vicepresidente. Due societ&agrave;, stesso domicilio, funzioni complementari: NSR per i contratti, Data Care per le coperture.</div>
+  </div>
+</div>
+
+<!-- SEZIONE: TIMELINE -->
+<div class="section" id="sec-timeline">
+  <div class="section-title">Cronologia</div>
+  <div class="section-subtitle">Dall'inchiesta Sogei al secondo atto: 18 mesi di sviluppi.</div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot blue"></div>
+      <div class="timeline-date">1992 &mdash; 2019</div>
+      <div class="timeline-title">Fondazione e crescita di NSR Srl</div>
+      <div class="timeline-desc">NSR nasce nel 1992 a Roma. Nel 2019 fattura &euro;35,6M con 56 dipendenti.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot blue"></div>
+      <div class="timeline-date">2018 &mdash; 2021</div>
+      <div class="timeline-title">Crosetto incassa &euro;1,82M da Leonardo</div>
+      <div class="timeline-desc">Consulenze annuali da &euro;177.000 a &euro;618.000. Contemporaneamente presidente AIAD e Orizzonte Sistemi Navali.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2020 &mdash; 2024</div>
+      <div class="timeline-title">NSR cresce del 187%</div>
+      <div class="timeline-desc">Da &euro;35,6M a &euro;102,2M. Periodo coincidente con le corruttele documentate.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot blue"></div>
+      <div class="timeline-date">13 ottobre 2021</div>
+      <div class="timeline-title">Gervasio (TELEDIFE) visita CY4GATE</div>
+      <div class="timeline-desc">Presentazione prodotti "con focus specifico sui Programmi in corso con la Difesa". CY4GATE &egrave; controllata Elettronica/Leonardo.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Ottobre 2022</div>
+      <div class="timeline-title">Crosetto diventa Ministro della Difesa</div>
+      <div class="timeline-desc">Governo Meloni. Dichiara di aver ceduto tutte le cariche precedenti.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2022</div>
+      <div class="timeline-title">Nasce il PSN</div>
+      <div class="timeline-desc">TIM 45%, Leonardo 25%, CDP 20%, Sogei 10%. Iannetti nominato AD.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Ottobre 2023</div>
+      <div class="timeline-title">Gara SDAPA &euro;180M (TELEDIFE)</div>
+      <div class="timeline-desc">Prodotto Cisco. Sotto indagine per accesso anticipato alle specifiche via CMDB.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Dicembre 2023 &mdash; Aprile 2024</div>
+      <div class="timeline-title">Penetrazione Terna via Red Hat</div>
+      <div class="timeline-desc">Dattola si associa con Red Hat. Contratti Terna &euro;6M di cui &euro;2M a NSR. Tangente Senatore via Sporting Eur.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Febbraio 2024</div>
+      <div class="timeline-title">Gara Nutanix &euro;3M (TELEDIFE)</div>
+      <div class="timeline-desc">Licenze software. Specifiche anticipate ai soliti canali.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Aprile 2024</div>
+      <div class="timeline-title">Gara RFI &euro;400M</div>
+      <div class="timeline-desc">Barrile (RFI) &rarr; Bisi (TIM) &rarr; Dattola. Capitolato anticipato, specifiche modificate.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot red"></div>
+      <div class="timeline-date">27 settembre 2024</div>
+      <div class="timeline-title">Carlyle/Neverhack acquisisce Innovery</div>
+      <div class="timeline-desc">Exit per Wise Equity. Assistenza Proskauer Rose. 17 giorni prima dell'esplosione Sogei.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot red"></div>
+      <div class="timeline-date">14 ottobre 2024</div>
+      <div class="timeline-title">Arresto Iorio (DG Sogei)</div>
+      <div class="timeline-desc">Colto in flagrante con &euro;15.000. &euro;100.000 trovati in casa. 18 indagati, 14 societ&agrave;. Digital Value, Olidata, Innovery coinvolte.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot red"></div>
+      <div class="timeline-date">26 marzo 2026</div>
+      <div class="timeline-title">Secondo atto: perquisizioni Difesa, RFI, Terna, PSN</div>
+      <div class="timeline-desc">26 indagati. Generali, manager, imprenditori. L'esposto &egrave; partito dal Ministero della Difesa.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEZIONE: TESI -->
+<div class="section" id="sec-tesi">
+  <div class="section-title">Connessioni non palesate</div>
+  <div class="section-subtitle">Cinque tesi emerse dall'incrocio di fonti primarie, visure, bilanci e cronologie.</div>
+
+  <div class="thesis red-border">
+    <div class="thesis-number">Tesi I</div>
+    <div class="thesis-title">Il PSN come sistema chiuso</div>
+    <div class="thesis-body">Tre dei quattro soci del Polo Strategico Nazionale sono direttamente coinvolti o toccati dall'indagine. TIM (45%) ha un dirigente indagato e il suo ex CEO sedeva nel CDA di Digital Value (CEO arrestato). Leonardo (25%) gestisce la sicurezza del Polo e &egrave; legata a TELEDIFE attraverso CY4GATE. Sogei (10%) ha avuto il DG arrestato. Il presidente del PSN &egrave; contemporaneamente dirigente TIM. L'AD del PSN &egrave; indagato. Il PSN &egrave; un sistema in cui controllore, controllato, fornitore e beneficiario della corruzione sono le stesse entit&agrave; o le stesse persone.</div>
+  </div>
+
+  <div class="thesis red-border">
+    <div class="thesis-number">Tesi II</div>
+    <div class="thesis-title">Leonardo: estraneit&agrave; formale, centralit&agrave; strutturale</div>
+    <div class="thesis-body">Leonardo &egrave; azionista PSN, gestore del SOC, controllante di Elettronica/CY4GATE, fornitrice IT della Difesa via TELEDIFE. Il DG di TELEDIFE (indagato) visitava CY4GATE. Il SOC non ha rilevato (o non ha segnalato) le fughe dalla CMDB. L'inserimento di Red Hat nel catalogo PSN danneggiava potenzialmente gli interessi commerciali di Leonardo. Se non sapeva, &egrave; un fallimento di governance. Se sapeva, il quadro &egrave; diverso.</div>
+  </div>
+
+  <div class="thesis red-border">
+    <div class="thesis-number">Tesi III</div>
+    <div class="thesis-title">L'esposto Crosetto come operazione di contenimento</div>
+    <div class="thesis-body">Il ministro che ha presentato l'esposto &egrave; un ex consulente che ha incassato &euro;2.042.000 da Leonardo e dalle sue partecipate tra il 2018 e il 2021. L'esposto ha colpito generali e piccoli imprenditori. Non ha toccato i contratti Leonardo-Difesa, n&eacute; il circuito TIM-PSN, n&eacute; la catena di conflitti di interessi che governa il Polo. I pesci piccoli finiscono nell'inchiesta. L'architettura resta in piedi.</div>
+  </div>
+
+  <div class="thesis">
+    <div class="thesis-number">Tesi IV</div>
+    <div class="thesis-title">La cessione Innovery: tempistica e due diligence</div>
+    <div class="thesis-body">Innovery viene ceduta a Carlyle/Neverhack il 27 settembre 2024, assistita da Proskauer Rose. L'inchiesta Sogei esplode il 14 ottobre 2024 (17 giorni dopo). Innovery &egrave; tra le 14 societ&agrave; coinvolte. A marzo 2026 emerge che un ufficiale della Marina manipolava gare PSN a suo favore. Se la cessione fosse avvenuta dopo ottobre, il valore sarebbe crollato. La due diligence di Proskauer/Carlyle ha rilevato il rischio? O l'operazione &egrave; stata accelerata proprio per questo?</div>
+  </div>
+
+  <div class="thesis">
+    <div class="thesis-number">Tesi V</div>
+    <div class="thesis-title">La crescita anomala di NSR come indicatore</div>
+    <div class="thesis-body">NSR Srl &egrave; passata da &euro;35,6M di fatturato (2019) a &euro;102,2M (2024): +187% in cinque anni, con un organico che &egrave; passato da 56 a 107 dipendenti. La crescita coincide esattamente con il periodo delle corruttele documentate (2020-2024). Specularmente, Tron Group Holding &mdash; il veicolo delle fatture fittizie &mdash; registra nel 2024 un crollo del 47% e una perdita di &euro;2,75M: la macchina del riciclaggio si &egrave; fermata.</div>
+  </div>
+</div>
+
+<script>
+// Navigation
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('sec-' + item.dataset.section).classList.add('active');
+  });
+});
+
+// Network Graph
+const nodes = [
+  // Persone - Indagati
+  {id:'dattola', label:'Dattola', group:'indagato', r:18},
+  {id:'tronelli', label:'Tronelli', group:'indagato', r:10},
+  {id:'spalletta', label:'Spalletta', group:'indagato', r:12},
+  {id:'iannetti', label:'Iannetti', group:'indagato', r:14},
+  {id:'gervasio', label:'Gervasio', group:'military', r:13},
+  {id:'lanzillotti', label:'Lanzillotti', group:'military', r:10},
+  {id:'modesto', label:'Modesto', group:'military', r:10},
+  {id:'coppola', label:'Coppola', group:'military', r:10},
+  {id:'cerase', label:'Cerase', group:'military', r:9},
+  {id:'masala', label:'Masala', group:'military', r:11},
+  {id:'falcone', label:'Falcone', group:'corporate', r:11},
+  {id:'uggeri', label:'Uggeri', group:'corporate', r:8},
+  {id:'barrile', label:'Barrile', group:'corporate', r:11},
+  {id:'bisi', label:'Bisi', group:'corporate', r:11},
+  {id:'senatore', label:'Senatore', group:'corporate', r:11},
+  // Entità
+  {id:'nsr', label:'NSR Srl', group:'entity', r:16},
+  {id:'datacare', label:'Data Care Srl', group:'entity', r:9},
+  {id:'trongroup', label:'Tron Group', group:'entity', r:10},
+  {id:'psn', label:'PSN', group:'structural', r:20},
+  {id:'leonardo', label:'Leonardo', group:'structural', r:22},
+  {id:'tim', label:'TIM', group:'structural', r:18},
+  {id:'sogei', label:'Sogei', group:'structural', r:14},
+  {id:'cdp', label:'CDP Equity', group:'structural', r:10},
+  {id:'teledife', label:'TELEDIFE', group:'entity', r:15},
+  {id:'redhat', label:'Red Hat', group:'entity', r:13},
+  {id:'rfi', label:'RFI', group:'entity', r:13},
+  {id:'terna', label:'Terna', group:'entity', r:13},
+  {id:'innovery', label:'Innovery', group:'entity', r:11},
+  {id:'cy4gate', label:'CY4GATE', group:'entity', r:10},
+  {id:'elettronica', label:'Elettronica', group:'entity', r:10},
+  {id:'crosetto', label:'Crosetto', group:'structural', r:14},
+  {id:'cmdb', label:'CMDB', group:'entity', r:9},
+  {id:'soc', label:'SOC Chieti', group:'entity', r:10},
+  {id:'digitalvalue', label:'Digital Value', group:'entity', r:11},
+  {id:'iorio', label:'Iorio (arrestato)', group:'indagato', r:10},
+  {id:'patuano', label:'Patuano', group:'corporate', r:9},
+  {id:'schiavo', label:'Schiavo', group:'corporate', r:10},
+  {id:'carlyle', label:'Carlyle/Neverhack', group:'entity', r:10},
+];
+
+const links = [
+  // Dattola network
+  {source:'dattola', target:'nsr', type:'control', w:4},
+  {source:'dattola', target:'datacare', type:'control', w:2},
+  {source:'dattola', target:'tronelli', type:'money', w:3},
+  {source:'tronelli', target:'trongroup', type:'control', w:2},
+  {source:'dattola', target:'spalletta', type:'corruption', w:3},
+  {source:'dattola', target:'falcone', type:'corruption', w:3},
+  {source:'dattola', target:'uggeri', type:'corruption', w:1},
+  {source:'dattola', target:'gervasio', type:'corruption', w:2},
+  {source:'dattola', target:'modesto', type:'corruption', w:2},
+  {source:'dattola', target:'lanzillotti', type:'corruption', w:2},
+  {source:'dattola', target:'barrile', type:'corruption', w:2},
+  {source:'dattola', target:'senatore', type:'corruption', w:2},
+  {source:'bisi', target:'dattola', type:'corruption', w:2},
+  {source:'barrile', target:'bisi', type:'info', w:3},
+  // Military - TELEDIFE
+  {source:'gervasio', target:'teledife', type:'role', w:3},
+  {source:'lanzillotti', target:'teledife', type:'role', w:2},
+  {source:'cerase', target:'teledife', type:'role', w:2},
+  {source:'gervasio', target:'cy4gate', type:'visit', w:2},
+  {source:'gervasio', target:'cmdb', type:'access', w:2},
+  {source:'lanzillotti', target:'cmdb', type:'access', w:2},
+  {source:'modesto', target:'cmdb', type:'access', w:2},
+  // PSN structure
+  {source:'tim', target:'psn', type:'ownership', w:4},
+  {source:'leonardo', target:'psn', type:'ownership', w:3},
+  {source:'cdp', target:'psn', type:'ownership', w:2},
+  {source:'sogei', target:'psn', type:'ownership', w:1},
+  {source:'iannetti', target:'psn', type:'role', w:3},
+  {source:'schiavo', target:'psn', type:'role', w:2},
+  {source:'schiavo', target:'tim', type:'role', w:3},
+  // Leonardo chain
+  {source:'leonardo', target:'elettronica', type:'ownership', w:2},
+  {source:'elettronica', target:'cy4gate', type:'ownership', w:2},
+  {source:'leonardo', target:'soc', type:'control', w:3},
+  {source:'soc', target:'psn', type:'protection', w:3},
+  {source:'leonardo', target:'teledife', type:'contract', w:3},
+  {source:'crosetto', target:'leonardo', type:'money', w:4},
+  // Red Hat
+  {source:'falcone', target:'redhat', type:'role', w:2},
+  {source:'uggeri', target:'redhat', type:'role', w:1},
+  {source:'nsr', target:'redhat', type:'distribution', w:3},
+  {source:'redhat', target:'psn', type:'catalog', w:2},
+  {source:'redhat', target:'terna', type:'contract', w:2},
+  // RFI / Terna
+  {source:'barrile', target:'rfi', type:'role', w:2},
+  {source:'bisi', target:'tim', type:'role', w:2},
+  {source:'senatore', target:'terna', type:'role', w:2},
+  {source:'datacare', target:'senatore', type:'corruption', w:2},
+  {source:'coppola', target:'teledife', type:'role', w:1},
+  // Innovery / Masala
+  {source:'masala', target:'psn', type:'corruption', w:2},
+  {source:'masala', target:'innovery', type:'corruption', w:2},
+  {source:'innovery', target:'carlyle', type:'acquisition', w:2},
+  {source:'spalletta', target:'psn', type:'access', w:2},
+  {source:'spalletta', target:'teledife', type:'access', w:2},
+  // Digital Value / Sogei
+  {source:'iorio', target:'sogei', type:'role', w:2},
+  {source:'digitalvalue', target:'iorio', type:'corruption', w:3},
+  {source:'patuano', target:'digitalvalue', type:'role', w:2},
+  {source:'patuano', target:'tim', type:'former', w:2},
+  // NSR entities
+  {source:'nsr', target:'rfi', type:'bid', w:2},
+  {source:'nsr', target:'terna', type:'bid', w:2},
+  {source:'nsr', target:'teledife', type:'bid', w:2},
+];
+
+const colorMap = {
+  indagato: '#c44040',
+  military: '#4a7fb5',
+  corporate: '#4a9960',
+  entity: '#c9a84c',
+  structural: '#7a5ab5'
+};
+
+const linkColorMap = {
+  corruption: '#c44040',
+  money: '#c9a84c',
+  ownership: '#7a5ab5',
+  role: '#4a7fb5',
+  control: '#4a9960',
+  info: '#c47a30',
+  contract: '#6a6a8a',
+  visit: '#c47a30',
+  access: '#c44040',
+  protection: '#4a9960',
+  catalog: '#c9a84c',
+  distribution: '#c9a84c',
+  bid: '#6a6a8a',
+  acquisition: '#7a5ab5',
+  former: '#3a3a5a'
+};
+
+const container = document.getElementById('network-container');
+const width = container.clientWidth;
+const height = container.clientHeight;
+
+const svg = d3.select('#network-container').append('svg')
+  .attr('width', width)
+  .attr('height', height);
+
+const g = svg.append('g');
+
+const zoom = d3.zoom()
+  .scaleExtent([0.3, 4])
+  .on('zoom', (e) => g.attr('transform', e.transform));
+
+svg.call(zoom);
+
+const simulation = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(d => d.id).distance(d => 100 / (d.w || 1) + 60))
+  .force('charge', d3.forceManyBody().strength(-300))
+  .force('center', d3.forceCenter(width / 2, height / 2))
+  .force('collision', d3.forceCollide().radius(d => d.r + 15));
+
+const link = g.selectAll('.link')
+  .data(links)
+  .join('line')
+  .attr('class', 'link')
+  .attr('stroke', d => linkColorMap[d.type] || '#3a3a5a')
+  .attr('stroke-width', d => d.w || 1);
+
+const node = g.selectAll('.node')
+  .data(nodes)
+  .join('g')
+  .attr('class', 'node')
+  .call(d3.drag()
+    .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+    .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+  );
+
+node.append('circle')
+  .attr('r', d => d.r)
+  .attr('fill', d => colorMap[d.group])
+  .attr('fill-opacity', 0.85)
+  .attr('stroke', d => colorMap[d.group])
+  .attr('stroke-width', 1.5)
+  .attr('stroke-opacity', 0.4);
+
+node.append('text')
+  .attr('class', 'node-label')
+  .attr('dy', d => d.r + 14)
+  .attr('text-anchor', 'middle')
+  .text(d => d.label);
+
+const tooltip = document.getElementById('tooltip');
+
+node.on('mouseover', (e, d) => {
+  const connections = links.filter(l => l.source.id === d.id || l.target.id === d.id);
+  tooltip.innerHTML = `<strong>${d.label}</strong><br>${d.group}<br>${connections.length} connessioni`;
+  tooltip.style.display = 'block';
+  tooltip.style.left = (e.pageX + 12) + 'px';
+  tooltip.style.top = (e.pageY - 12) + 'px';
+}).on('mouseout', () => {
+  tooltip.style.display = 'none';
+});
+
+simulation.on('tick', () => {
+  link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+  node.attr('transform', d => `translate(${d.x},${d.y})`);
+});
+
+// Charts
+const chartDefaults = {
+  color: '#e8e6e3',
+  borderColor: '#2a2a3d',
+  plugins: {
+    legend: { display: false },
+  },
+  scales: {
+    x: { ticks: { color: '#8a8899', font: { family: 'JetBrains Mono', size: 11 } }, grid: { color: '#1a1a26' } },
+    y: { ticks: { color: '#8a8899', font: { family: 'JetBrains Mono', size: 11 }, callback: v => (v/1e6).toFixed(0) + 'M' }, grid: { color: '#1a1a26' } }
+  }
+};
+
+// NSR Chart
+new Chart(document.getElementById('chart-nsr'), {
+  type: 'bar',
+  data: {
+    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+    datasets: [{
+      data: [35572397, 50957552, 61475267, 82764778, 95565813, 102151202],
+      backgroundColor: ['#4a4a60','#c9a84c','#c9a84c','#c9a84c','#c9a84c','#c44040'],
+      borderRadius: 2,
+    }]
+  },
+  options: { ...chartDefaults, responsive: true, maintainAspectRatio: false }
+});
+
+// Tron Chart
+new Chart(document.getElementById('chart-tron'), {
+  type: 'bar',
+  data: {
+    labels: ['2020', '2021', '2022', '2023', '2024'],
+    datasets: [{
+      data: [9020781, 6661220, 8406942, 13503581, 7101046],
+      backgroundColor: ['#4a4a60','#4a4a60','#4a4a60','#c9a84c','#c44040'],
+      borderRadius: 2,
+    }]
+  },
+  options: { ...chartDefaults, responsive: true, maintainAspectRatio: false }
+});
+
+// PSN Chart
+new Chart(document.getElementById('chart-psn'), {
+  type: 'doughnut',
+  data: {
+    labels: ['TIM (45%)', 'Leonardo (25%)', 'CDP Equity (20%)', 'Sogei (10%)'],
+    datasets: [{
+      data: [45, 25, 20, 10],
+      backgroundColor: ['#c44040', '#c44040', '#4a4a60', '#c44040'],
+      borderColor: '#12121a',
+      borderWidth: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#8a8899', font: { family: 'Inter', size: 12 }, padding: 16 }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

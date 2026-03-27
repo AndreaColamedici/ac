@@ -57,6 +57,15 @@ Il collegamento è indiziario. Ma la coincidenza tra la specializzazione di NSR,
 Il Messaggero riporta che Giorgio Mulè (Forza Italia), già Sottosegretario alla Difesa, ha dichiarato di essere "estraneo" all'indagine, aggiungendo: "dopo il referendum me l'aspettavo". L'osservazione suggerisce che l'inchiesta ha anche una dimensione politica, o almeno che viene percepita come tale.
 
 
+## Il contratto NDR: Cerase RUP, TIM aggiudicataria
+
+Il contratto per la piattaforma Network Detection and Response (CIG Z7B3C29216), autorizzato dalla DaC 156 del 7 agosto 2023 (periodo Gervasio), è stato aggiudicato. L'esito, pubblicato il 3 novembre 2025 e firmato da Francesco Proietto (Capo 9ª Divisione), rivela che l'aggiudicatario è il RTI Telecom Italia S.p.A. mandataria, con Almaviva S.p.A., KPMG Advisory S.p.A., Netgroup S.p.A. e ReeVo S.p.A. Lo stesso identico consorzio dell'AQ Consip 2296 che ha ottenuto la Cybersecurity Awareness (€2,65M) e il Red Teaming (€4M). Il valore è di €983.528,62 IVA inclusa. La procedura è l'adesione all'Accordo Quadro Consip. Il contratto esecutivo (n. 9.2 25-037) è stato stipulato il 14 luglio 2025.
+
+Il dato decisivo è al punto 18 dell'esito: "Responsabile del procedimento: Capo della 1ª Divisione del I Reparto di TELEDIFE". Quella posizione è di Fabio Cerase, l'indagato accusato dalla Procura di aver consegnato a privati le specifiche della piattaforma CMDB prima della pubblicazione del bando. Cerase è dunque il RUP sia della Digitalizzazione PNRR sia del contratto NDR non-PNRR. Due piattaforme di sicurezza informatica, stesso RUP indagato, stesso framework Consip, stesso RTI aggiudicatario.
+
+Il documento contiene una clausola di subappalto: "il fornitore si è riservato di affidare in subappalto parte delle attività oggetto del contratto esecutivo in oggetto, previa autorizzazione dell'Amministrazione". NSR, la società di Dattola specializzata in NDR, potrebbe operare come subfornitore di TIM nell'erogazione del servizio. Il collegamento resta indiziario, ma l'intera catena (Cerase come RUP, TIM come aggiudicataria con possibilità di subappalto, NSR come specialista NDR) è coerente con lo schema corruttivo descritto dalla Procura.
+
+
 ## Le 112 procedure TELEDIFE
 
 La pagina Amministrazione Trasparente di TELEDIFE contiene 112 procedure di affidamento, di cui i 27 contratti PNRR analizzati in questa sessione sono una frazione. L'attività contrattuale di TELEDIFE include ricerca militare (PNRM), connettività, sistemi di comando e controllo (CIS/C4I), telecomunicazioni satellitari (SICRAL-R1, oltre al SICRAL 3), telefonia, e decine di altre acquisizioni. L'ANAC (Autorità Nazionale Anticorruzione) ha un database pubblico dei CIG, ma la dashboard web restituisce un errore di accesso ("Request Rejected"). I CIG TELEDIFE sono registrati e potrebbero essere verificati con strumenti diversi dal browser.

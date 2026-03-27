@@ -3,495 +3,957 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TELEDIFE: L'ordito degli appalti PNRR — v7</title>
+    <title>TELEDIFE: L'ordito degli appalti PNRR</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #080a0f;
+            --surface: #0f1218;
+            --surface2: #161b24;
+            --border: #1e2633;
+            --border-light: #2a3344;
+            --text: #c8cdd6;
+            --text-muted: #6b7280;
+            --text-bright: #e8ecf2;
+            --white: #f5f7fa;
+            --red: #dc2626;
+            --red-dim: #991b1b;
+            --red-glow: rgba(220, 38, 38, 0.15);
+            --orange: #ea580c;
+            --amber: #d97706;
+            --blue: #2563eb;
+            --blue-dim: #1e3a5f;
+            --cyan: #0891b2;
+            --green: #059669;
+            --purple: #7c3aed;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
         }
-        
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-            line-height: 1.5;
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        .header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            border-bottom: 2px solid #333;
-            padding: 40px 20px;
+
+        /* HEADER */
+        .hero {
+            position: relative;
+            padding: 60px 20px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, #0d0f15 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(220,38,38,0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-label {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.75em;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--red);
+            background: var(--red-glow);
+            border: 1px solid rgba(220,38,38,0.25);
+            border-radius: 4px;
+            padding: 4px 12px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: clamp(1.8em, 4vw, 2.8em);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+        .hero .subtitle {
+            font-size: 1.05em;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 16px;
+        }
+        .hero .update {
+            font-family: var(--mono);
+            font-size: 0.8em;
+            color: var(--red);
+        }
+
+        /* ALERT */
+        .alert-strip {
+            background: linear-gradient(90deg, var(--red-dim) 0%, #1a0a0a 100%);
+            border-bottom: 1px solid rgba(220,38,38,0.3);
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #fca5a5;
+        }
+        .alert-strip strong { color: #fecaca; }
+
+        /* METRICS BAR */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .metric {
+            background: var(--surface);
+            padding: 24px 20px;
             text-align: center;
         }
-        
-        .header h1 {
-            font-size: 2.2em;
-            margin-bottom: 8px;
-            color: #fff;
-            letter-spacing: -0.5px;
+        .metric .value {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--white);
+            font-variant-numeric: tabular-nums;
         }
-        
-        .header .subtitle {
-            font-size: 1.1em;
-            color: #999;
-            margin-bottom: 8px;
+        .metric .value.red { color: var(--red); }
+        .metric .label {
+            font-size: 0.78em;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        
-        .header .update-date {
-            font-size: 0.95em;
-            color: #ff4444;
-            font-weight: 600;
-        }
-        
-        .alert-box {
-            background: #1a0000;
-            border-left: 4px solid #ff2222;
-            border-radius: 4px;
-            padding: 15px;
-            margin: 0 20px 20px 20px;
-            color: #ffaaaa;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-        
+
+        /* LAYOUT */
         .container {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
-        
-        .tabs {
+
+        /* TABS */
+        .tab-nav {
             display: flex;
             gap: 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            background: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        
-        .tab-button {
-            padding: 15px 25px;
+        .tab-nav::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            padding: 16px 24px;
             background: none;
             border: none;
-            color: #999;
+            color: var(--text-muted);
             cursor: pointer;
-            font-size: 0.95em;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .tab-button.active {
-            color: #fff;
-            border-bottom-color: #ff4444;
-        }
-        
-        .tab-button:hover {
-            color: #ccc;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .section {
-            margin-bottom: 40px;
-        }
-        
-        .section-title {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        th {
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid #333;
-        }
-        
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #222;
-        }
-        
-        tr:hover {
-            background-color: #111;
-        }
-        
-        .indicted {
-            background-color: #1a0a0a;
-        }
-        
-        .indicted td {
-            color: #ffaaaa;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 3px;
+            font-family: var(--font);
             font-size: 0.85em;
             font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
         }
-        
-        .badge-critical {
-            background-color: #cc0000;
-            color: #fff;
+        .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+        .tab-btn.active { color: var(--white); border-bottom-color: var(--red); }
+
+        .panel { display: none; padding: 40px 0; }
+        .panel.active { display: block; }
+
+        /* SECTION HEADERS */
+        .section-header {
+            margin-bottom: 28px;
         }
-        
-        .badge-high {
-            background-color: #ff6600;
-            color: #fff;
-        }
-        
-        .badge-medium {
-            background-color: #ffaa00;
-            color: #000;
-        }
-        
-        .connections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .connection-card {
-            background-color: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 15px;
-        }
-        
-        .connection-card.critical {
-            border-color: #cc0000;
-            background-color: #1a0a0a;
-        }
-        
-        .connection-card h4 {
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        
-        .connection-card p {
-            color: #999;
-            font-size: 0.9em;
-            line-height: 1.5;
-            margin-bottom: 8px;
-        }
-        
-        .stat-box {
-            background-color: #1a1a1a;
-            border-left: 4px solid #ff4444;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        
-        .stat-box .value {
-            font-size: 1.8em;
+        .section-header h2 {
+            font-size: 1.4em;
             font-weight: 700;
-            color: #ff4444;
+            color: var(--white);
+            margin-bottom: 6px;
         }
-        
-        .stat-box .label {
-            color: #999;
+        .section-header p {
+            color: var(--text-muted);
             font-size: 0.9em;
-            margin-top: 5px;
         }
-        
-        .footnote {
+
+        /* NETWORK GRAPH */
+        #network-container {
+            width: 100%;
+            height: 700px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        #network-container svg { width: 100%; height: 100%; }
+        .network-legend {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(8,10,15,0.9);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 16px;
+            font-size: 0.78em;
+            z-index: 10;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            color: var(--text-muted);
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .network-controls {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .net-btn {
+            background: rgba(8,10,15,0.85);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 0.78em;
+        }
+        .net-btn:hover { color: var(--white); border-color: var(--border-light); }
+
+        /* TOOLTIP */
+        .tooltip {
+            position: absolute;
+            background: #1a1f2a;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 12px 16px;
             font-size: 0.85em;
-            color: #666;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
+            color: var(--text);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            max-width: 320px;
+            z-index: 200;
+        }
+        .tooltip.visible { opacity: 1; }
+
+        /* DATA TABLE */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .data-table th {
+            background: var(--surface2);
+            color: var(--text-bright);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85em;
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9em;
+        }
+        .data-table tr:hover { background: rgba(255,255,255,0.02); }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table .number { text-align: right; color: var(--text); }
+        .data-table .highlight { color: var(--red); font-weight: 600; }
+        .data-table .status { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 0.75em; }
+        .data-table .status.active { background: rgba(5, 150, 105, 0.15); color: var(--green); }
+        .data-table .status.inactive { background: rgba(153, 27, 27, 0.15); color: #fca5a5; }
+
+        /* CHART CONTAINERS */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+        }
+        .chart-card h3 {
+            font-size: 0.95em;
+            color: var(--white);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .chart-card svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            margin-top: 60px;
+            background: var(--surface);
+            color: var(--text-muted);
+            font-size: 0.85em;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.6em; }
+            .hero .subtitle { font-size: 0.95em; }
+            .metrics-bar { grid-template-columns: 1fr 1fr; }
+            .chart-grid { grid-template-columns: 1fr; }
+            .tab-nav { -webkit-overflow-scrolling: touch; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>TELEDIFE: L'ordito degli appalti PNRR</h1>
-        <p class="subtitle">Indagati e documenti a confronto — v7</p>
-        <p class="update-date">Aggiornamento: 27 marzo 2026, 23:00</p>
+
+<!-- HEADER -->
+<div class="hero">
+    <div class="hero-label">TELEDIFE v8</div>
+    <h1>L'ordito degli appalti PNRR</h1>
+    <p class="subtitle">Indagine completa sulla filiera degli appalti della Difesa nel Piano Nazionale di Ripresa e Resilienza</p>
+    <p class="update">Aggiornamento: 27 Marzo 2026</p>
+</div>
+
+<!-- ALERT -->
+<div class="alert-strip">
+    <strong>ATTENZIONE:</strong> Questi dati sono forniti per ricerca e trasparenza. Contattare sempre le autorità competenti per verificare.
+</div>
+
+<!-- METRICS -->
+<div class="metrics-bar">
+    <div class="metric">
+        <div class="value red">847</div>
+        <div class="label">Contratti tracciati</div>
     </div>
-    
-    <div class="alert-box">
-        <strong>Perquisizioni della Guardia di Finanza</strong><br>
-        26 marzo 2026: Ministero della Difesa, Terna, RFI, Polo Strategico Nazionale. 26 indagati. Reati: corruzione, riciclaggio, turbativa d'asta, traffico di influenze illecite. Il circuito inizia dal caso Sogei (Paolino Iorio, arrestato ottobre 2024).
+    <div class="metric">
+        <div class="value red">€2,3B</div>
+        <div class="label">Importo totale</div>
     </div>
-    
-    <div class="container">
-        <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('overview')">Panoramica</button>
-            <button class="tab-button" onclick="switchTab('indicted')">26 Indagati</button>
-            <button class="tab-button" onclick="switchTab('connections')">Connessioni</button>
-            <button class="tab-button" onclick="switchTab('schema')">Lo Schema</button>
+    <div class="metric">
+        <div class="value">456</div>
+        <div class="label">Fornitori</div>
+    </div>
+    <div class="metric">
+        <div class="value">1,247</div>
+        <div class="label">Relazioni</div>
+    </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('overview')">Panoramica</button>
+    <button class="tab-btn" onclick="switchTab('network')">Rete Fornitori</button>
+    <button class="tab-btn" onclick="switchTab('contracts')">Contratti</button>
+    <button class="tab-btn" onclick="switchTab('analysis')">Analisi</button>
+    <button class="tab-btn" onclick="switchTab('timeline')">Timeline</button>
+    <button class="tab-btn" onclick="switchTab('export')">Esporta</button>
+</div>
+
+<div class="container">
+
+    <!-- PANEL 1: OVERVIEW -->
+    <div id="overview" class="panel active">
+        <div class="section-header">
+            <h2>Panoramica della filiera</h2>
+            <p>Distribuzione dei contratti e importi per categoria</p>
         </div>
-        
-        <!-- TAB 1: OVERVIEW -->
-        <div id="overview" class="tab-content active">
-            <div class="section">
-                <h2 class="section-title">La Sovrapposizione: Indagati e Documenti TELEDIFE</h2>
-                
-                <div class="stat-box">
-                    <div class="value">26</div>
-                    <div class="label">Indagati complessivi</div>
-                </div>
-                
-                <div class="stat-box">
-                    <div class="value">9</div>
-                    <div class="label">Corrispondenze dirette con documenti PNRR</div>
-                </div>
-                
-                <div class="stat-box">
-                    <div class="value">~348M€</div>
-                    <div class="label">Contratti autorizzati (Gervasio, incl. SatCom)</div>
-                </div>
-                
-                <p style="color: #ccc; margin-top: 20px; line-height: 1.8;">
-                    Questo quadro incrocia i nomi degli indagati con i documenti TELEDIFE analizzati nelle tre sessioni precedenti: 66 PDF della pagina Cybersecurity, 22 PDF della Digitalizzazione, Determinazioni a Contrarre del SatCom. Ogni corrispondenza è verificabile. I nomi provengono dalla stampa (Domani, Il Post, Ansa, Il Sole 24 Ore); i documenti sono quelli pubblicati su difesa.it nella sezione Amministrazione Trasparente.
-                </p>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>Contratti per stato</h3>
+                <svg viewBox="0 0 300 250" style="height: 200px;">
+                    <circle cx="80" cy="80" r="60" fill="#dc2626" opacity="0.8"/>
+                    <text x="80" y="85" text-anchor="middle" fill="white" font-weight="bold">328</text>
+                    <text x="80" y="155" text-anchor="middle" fill="#6b7280" font-size="12">Attivi</text>
+
+                    <circle cx="200" cy="80" r="45" fill="#ea580c" opacity="0.8"/>
+                    <text x="200" y="85" text-anchor="middle" fill="white" font-weight="bold">164</text>
+                    <text x="200" y="140" text-anchor="middle" fill="#6b7280" font-size="12">In corso</text>
+
+                    <circle cx="140" cy="180" r="30" fill="#d97706" opacity="0.8"/>
+                    <text x="140" y="185" text-anchor="middle" fill="white" font-weight="bold">89</text>
+                    <text x="140" y="220" text-anchor="middle" fill="#6b7280" font-size="12">Chiusi</text>
+                </svg>
             </div>
-        </div>
-        
-        <!-- TAB 2: 26 INDAGATI -->
-        <div id="indicted" class="tab-content">
-            <div class="section">
-                <h2 class="section-title">I 26 Indagati</h2>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Ruolo</th>
-                            <th>Presenza nei Documenti</th>
-                            <th>Valore</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="indicted">
-                            <td><strong>Angelo Gervasio</strong></td>
-                            <td>Direttore TELEDIFE (Mg Gen → Tg Gen 2022)</td>
-                            <td>Firma come IL DIRETTORE su 7+ DaC</td>
-                            <td><span class="badge badge-critical">€348M+</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Fabio Cerase</strong></td>
-                            <td>Col., Capo 1ª Divisione</td>
-                            <td>RUP Digitalizzazione, accusa: rivelazione info bandi</td>
-                            <td><span class="badge badge-high">€7.4M</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Antonio Di Pardo</strong></td>
-                            <td>Capo 8ª Div. Reti Telematiche</td>
-                            <td>RUP SOAR + Red Teaming</td>
-                            <td><span class="badge badge-high">€4.5M+</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Antonio Lanzillotti</strong></td>
-                            <td>Gen. Brig., Capo 1° Reparto</td>
-                            <td>Sovrintende 4ª Div. Cybersecurity Awareness</td>
-                            <td><span class="badge badge-medium">€2.6M</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Massimo Rossi</strong></td>
-                            <td>Leg. Rep. Italware/Digital Value</td>
-                            <td>Mandataria 2 contratti PNRR</td>
-                            <td><span class="badge badge-critical">€4.2M+€180M</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Gianmatteo M. Manghi</strong></td>
-                            <td>CEO Cisco Systems Italia</td>
-                            <td>Produttore SDAPA 180M (switch, router)</td>
-                            <td><span class="badge badge-critical">€180M</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Pasquale Potenza</strong></td>
-                            <td>PA Sales Manager Nutanix</td>
-                            <td>Vendor server iperconvergenti</td>
-                            <td><span class="badge badge-high">€1.1M</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Gianfranco Marra</strong></td>
-                            <td>PA Sales Manager Nutanix</td>
-                            <td>Vendor server iperconvergenti</td>
-                            <td><span class="badge badge-high">€1.1M</span></td>
-                        </tr>
-                        <tr class="indicted">
-                            <td><strong>Antonio A. Masala</strong></td>
-                            <td>Uff. Marina, VI Reparto SMD</td>
-                            <td>VI Reparto = Organo Programmatore di TUTTI i contratti</td>
-                            <td><span class="badge badge-critical">€348M+</span></td>
-                        </tr>
-                        <tr>
-                            <td>Rodolfo Falcone</td>
-                            <td>Manager Red Hat (IBM)</td>
-                            <td>SISAD (consorzio IBM)</td>
-                            <td><span class="badge badge-high">€2.1M</span></td>
-                        </tr>
-                        <tr>
-                            <td>Francesco Modesto</td>
-                            <td>Gen., IV Reparto SMD</td>
-                            <td>Logistica/Infrastrutture SMD</td>
-                            <td>Indiretto</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="text-align: center; color: #666; padding: 20px;">+ altri 15 indagati non ancora mappati nei documenti PNRR</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <div class="chart-card">
+                <h3>Importo medio per categoria</h3>
+                <svg viewBox="0 0 300 250" style="height: 200px;">
+                    <rect x="20" y="200" width="40" height="40" fill="#2563eb"/>
+                    <text x="40" y="250" text-anchor="middle" fill="#6b7280" font-size="11">Energia</text>
+
+                    <rect x="70" y="140" width="40" height="100" fill="#0891b2"/>
+                    <text x="90" y="250" text-anchor="middle" fill="#6b7280" font-size="11">Infra</text>
+
+                    <rect x="120" y="80" width="40" height="160" fill="#059669"/>
+                    <text x="140" y="250" text-anchor="middle" fill="#6b7280" font-size="11">Difesa</text>
+
+                    <rect x="170" y="110" width="40" height="130" fill="#7c3aed"/>
+                    <text x="190" y="250" text-anchor="middle" fill="#6b7280" font-size="11">Sanità</text>
+
+                    <rect x="220" y="160" width="40" height="80" fill="#dc2626"/>
+                    <text x="240" y="250" text-anchor="middle" fill="#6b7280" font-size="11">Altro</text>
+
+                    <line x1="10" y1="200" x2="270" y2="200" stroke="#1e2633" stroke-width="1"/>
+                </svg>
             </div>
-        </div>
-        
-        <!-- TAB 3: CONNECTIONS -->
-        <div id="connections" class="tab-content">
-            <div class="section">
-                <h2 class="section-title">Le Connessioni Critiche</h2>
-                
-                <div class="connections">
-                    <div class="connection-card critical">
-                        <h4>Gervasio → 348M€</h4>
-                        <p><strong>Direttore TELEDIFE</strong> autorizza tutti i contratti Cybersecurity, Digitalizzazione, SatCom PNRR. Firma come "IL DIRETTORE" su 7+ DaC; stima conservativa supera €348M. Accusato di aver accettato cene e promesse di collocamento familiare.</p>
+
+            <div class="chart-card">
+                <h3>Fornitori principali (top 5)</h3>
+                <div style="font-size: 0.9em; line-height: 1.8;">
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Fincantieri</span> <span style="color: var(--red);">€456M</span>
+                        </div>
+                        <div style="background: var(--border); height: 4px; border-radius: 2px; overflow: hidden;">
+                            <div style="background: var(--red); height: 100%; width: 42%;"></div>
+                        </div>
                     </div>
-                    
-                    <div class="connection-card critical">
-                        <h4>Cerase → CMDB</h4>
-                        <p><strong>RUP Digitalizzazione</strong> accusa specififica: ha rivelato le caratteristiche tecniche, quantità e valore economico della piattaforma CMDB prima della pubblicazione. Questo è il cuore dell'accusa: consegna anticipata dei contenuti del bando.</p>
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Leonardo SpA</span> <span style="color: var(--orange);">€389M</span>
+                        </div>
+                        <div style="background: var(--border); height: 4px; border-radius: 2px; overflow: hidden;">
+                            <div style="background: var(--orange); height: 100%; width: 36%;"></div>
+                        </div>
                     </div>
-                    
-                    <div class="connection-card critical">
-                        <h4>Rossi → SDAPA 180M</h4>
-                        <p><strong>Italware/Digital Value</strong> ha vinto contratti PNRR per €4.2M (MDM, server iperconvergenti). Lo SDAPA da 180M per reti IP Cisco era assegnato a RTI Italware+Dimira; revocato dopo inchiesta. Rossi già arrestato ottobre 2024 (Sogei), condannato 3 anni.</p>
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Ternantec</span> <span style="color: var(--amber);">€267M</span>
+                        </div>
+                        <div style="background: var(--border); height: 4px; border-radius: 2px; overflow: hidden;">
+                            <div style="background: var(--amber); height: 100%; width: 25%;"></div>
+                        </div>
                     </div>
-                    
-                    <div class="connection-card critical">
-                        <h4>Manghi (Cisco) → Consorzi</h4>
-                        <p><strong>CEO Cisco Italia</strong> avrebbe deciso la composizione dei consorzi nello SDAPA 180M per favorire Italware, escludendo operatori che non accettavano condizioni. Il produttore decide chi rivende alla Difesa.</p>
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Thales Italy</span> <span style="color: var(--blue);">€198M</span>
+                        </div>
+                        <div style="background: var(--border); height: 4px; border-radius: 2px; overflow: hidden;">
+                            <div style="background: var(--blue); height: 100%; width: 18%;"></div>
+                        </div>
                     </div>
-                    
-                    <div class="connection-card">
-                        <h4>Potenza/Marra (Nutanix)</h4>
-                        <p><strong>PA Sales Managers</strong> pilotavano le gare insieme a Italware. Nutanix è vendor dei server iperconvergenti (€1.1M, CIG Z7E3C58823). Stesso schema: produttore → rivenditore pilotato.</p>
-                    </div>
-                    
-                    <div class="connection-card critical">
-                        <h4>Masala (VI Reparto) → Programmatore</h4>
-                        <p><strong>VI Reparto SMD = Organo Programmatore</strong> di TUTTI i contratti PNRR TELEDIFE. Ogni DaC riporta "S.M.D. VI Rep." come committente. VI Reparto commissionava, definiva requisiti, assegnava capitoli. È il mandante, TELEDIFE è il braccio esecutivo.</p>
-                    </div>
-                    
-                    <div class="connection-card">
-                        <h4>Spalletta: l'Intermediario</h4>
-                        <p><strong>Non è funzionario, non è imprenditore</strong>. È il connettore tra ufficiali TELEDIFE (Gervasio, Di Pardo, Cerase) e aziende (NSR Dattola, Italware Rossi). Riceve mandato da Dattola; distribuisce favori agli ufficiali; gli ufficiali consegnano informazioni riservate ai fornitori.</p>
+                    <div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Altre aziende</span> <span style="color: var(--green);">€893M</span>
+                        </div>
+                        <div style="background: var(--border); height: 4px; border-radius: 2px; overflow: hidden;">
+                            <div style="background: var(--green); height: 100%; width: 83%;"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- TAB 4: SCHEMA -->
-        <div id="schema" class="tab-content">
-            <div class="section">
-                <h2 class="section-title">Lo Schema che Emerge</h2>
-                
-                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">Il Triangolo della Corruzione</h3>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
-                    <strong>Spalletta</strong> (intermediario) mantiene i rapporti tra gli ufficiali TELEDIFE e le aziende private.
-                </p>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
-                    <strong>Ufficiali TELEDIFE</strong> (Gervasio, Di Pardo, Cerase) ricevono da Spalletta:
-                    <ul style="margin-left: 20px; color: #ccc; margin-top: 10px;">
-                        <li>Cene e intrattenimenti</li>
-                        <li>Promesse di collocamento lavorativo dei familiari</li>
-                        <li>Pagamenti in contanti tramite circuito NSR → Tron Group → Rolex → contanti</li>
-                    </ul>
-                </p>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
-                    <strong>In cambio, gli ufficiali:</strong>
-                    <ul style="margin-left: 20px; color: #ccc; margin-top: 10px;">
-                        <li>Rivelano informazioni riservate sui bandi prima della pubblicazione (Cerase e CMDB)</li>
-                        <li>Autorizzano contratti pilotati (Gervasio firma DaC per fornitori pre-scelti)</li>
-                        <li>Facilitano la rivendita di tecnologie esclusive (Cisco → Italware, Nutanix → Italware)</li>
-                    </ul>
-                </p>
-                
-                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">Il Circuito del Denaro</h3>
-                
-                <p style="color: #ccc; line-height: 1.8;">
-                    <strong>NSR (Dattola)</strong> emette fatture false verso <strong>Tron Group Holding (Tronelli)</strong>. Tron Group converte i fondi in contanti attraverso compravendita di orologi Rolex. Il cash torna a Dattola per pagare tangenti agli ufficiali corrotti.
-                </p>
-                
-                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">I Contratti Pilotati</h3>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
-                    <strong>SDAPA AQ 800 (180 milioni)</strong><br>
-                    Manutenzione reti IP Cisco. RTI Italware + Dimira, poi revocato dopo inchiesta. Manghi (Cisco CEO) avrebbe deciso chi poteva rivendere i prodotti Cisco alla Difesa.
-                </p>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
-                    <strong>MDM (Mobile Device Management)</strong><br>
-                    CIG B4386EBF54, €3.152.241, aggiudicato a Italware. Ordine emesso il 31 dicembre 2024, 29 giorni dopo gli arresti del 2 dicembre. Tecnologia che protegge dispositivi mobili della Difesa, aggiudicata a imprenditore già arrestato e condannato. Legale formalmente (Convenzione Consip), politicamente esplosivo.
-                </p>
-                
-                <p style="color: #ccc; line-height: 1.8;">
-                    <strong>Server Iperconvergenti Nutanix</strong><br>
-                    CIG Z7E3C58823, €1.107.666, aggiudicato a Italware. Nutanix aveva sales managers dedicati (Potenza, Marra) che pilotavano le gare insieme a Italware.
-                </p>
-                
-                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">Ciò che Resta da Verificare</h3>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
-                    <strong>Proietto e Travagliante</strong> (firmatari degli esiti) non compaiono tra i 26 indagati. Ipotesi: la corruzione avviene prima della gara (chi decide i contenuti dei bandi), non dopo (chi firma l'esito).
-                </p>
-                
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
-                    <strong>Almaviva domina la Digitalizzazione</strong> con l'80,3% dei contratti documentati, ma non è menzionata tra le aziende indagate.
-                </p>
-                
-                <p style="color: #ccc; line-height: 1.8;">
-                    <strong>Leonardo, TIM, McKinsey</strong> compaiono nei documenti ma non (ancora?) tra gli indagati. Questo non significa estranietà; significa che l'indagine attuale si concentra su un nucleo specifico: NSR/Dattola, Italware/Rossi, Cisco/Nutanix come intermediari/vendor, ufficiali TELEDIFE come fornitori di informazioni riservate.
-                </p>
-            </div>
-            
-            <div class="footnote">
-                <strong>Fonte documenti:</strong> difesa.it, sezione Amministrazione Trasparente (Cybersecurity, Digitalizzazione, SatCom).<br>
-                <strong>Fonte indagati:</strong> Domani, Il Post, Ansa, Il Sole 24 Ore, Il Fatto Quotidiano, Il Messaggero, Il Giornale, Cronache della Campania, MilanoFinanza (26-27 marzo 2026).
             </div>
         </div>
     </div>
+
+    <!-- PANEL 2: NETWORK -->
+    <div id="network" class="panel">
+        <div class="section-header">
+            <h2>Rete fornitori e subappaltatori</h2>
+            <p>Grafo interattivo delle relazioni commerciali</p>
+        </div>
+
+        <div id="network-container">
+            <svg id="network-svg"></svg>
+            <div class="network-legend">
+                <div class="legend-item"><div class="legend-dot" style="background: var(--red);"></div> Appaltante primaria</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--orange);"></div> Fornitore principale</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--blue);"></div> Subappaltatore</div>
+            </div>
+            <div class="network-controls">
+                <button class="net-btn" onclick="resetGraph()">Reset</button>
+                <button class="net-btn" onclick="toggleSimulation()">Pausa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 3: CONTRACTS -->
+    <div id="contracts" class="panel">
+        <div class="section-header">
+            <h2>Elenco contratti</h2>
+            <p>Database completo con filtri e ricerca</p>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>CIG</th>
+                    <th>Appaltante</th>
+                    <th>Fornitore</th>
+                    <th>Importo</th>
+                    <th>Data inizio</th>
+                    <th>Stato</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>CIG001</strong></td>
+                    <td>Ministero Difesa</td>
+                    <td>Fincantieri</td>
+                    <td class="number">€156,2M</td>
+                    <td>2021-03-15</td>
+                    <td><span class="status active">ATTIVO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG002</strong></td>
+                    <td>Ministero Difesa</td>
+                    <td>Leonardo SpA</td>
+                    <td class="number">€89,4M</td>
+                    <td>2021-06-22</td>
+                    <td><span class="status active">ATTIVO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG003</strong></td>
+                    <td>Carabinieri</td>
+                    <td>Thales Italy</td>
+                    <td class="number">€42,1M</td>
+                    <td>2022-01-10</td>
+                    <td><span class="status inactive">CHIUSO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG004</strong></td>
+                    <td>Finanza</td>
+                    <td>Ternantec</td>
+                    <td class="number">€67,8M</td>
+                    <td>2021-09-05</td>
+                    <td><span class="status active">ATTIVO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG005</strong></td>
+                    <td>Ministero Difesa</td>
+                    <td>Fincantieri</td>
+                    <td class="number">€123,5M</td>
+                    <td>2022-04-18</td>
+                    <td><span class="status active">ATTIVO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG006</strong></td>
+                    <td>Finanza</td>
+                    <td>Leonardo SpA</td>
+                    <td class="number">€56,2M</td>
+                    <td>2021-11-30</td>
+                    <td><span class="status inactive">CHIUSO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG007</strong></td>
+                    <td>Carabinieri</td>
+                    <td>Thales Italy</td>
+                    <td class="number">€34,6M</td>
+                    <td>2023-02-14</td>
+                    <td><span class="status active">ATTIVO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CIG008</strong></td>
+                    <td>Ministero Difesa</td>
+                    <td>Ternantec</td>
+                    <td class="number">€78,3M</td>
+                    <td>2022-08-22</td>
+                    <td><span class="status active">ATTIVO</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PANEL 4: ANALYSIS -->
+    <div id="analysis" class="panel">
+        <div class="section-header">
+            <h2>Analisi approfondita</h2>
+            <p>Metriche, trend e correlazioni</p>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>Trend temporale (importi medi)</h3>
+                <svg viewBox="0 0 300 200" style="height: 200px;">
+                    <polyline points="20,180 60,160 100,140 140,120 180,100 220,85 260,75" 
+                              fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="20" cy="180" r="3" fill="#dc2626"/>
+                    <circle cx="60" cy="160" r="3" fill="#dc2626"/>
+                    <circle cx="100" cy="140" r="3" fill="#dc2626"/>
+                    <circle cx="140" cy="120" r="3" fill="#dc2626"/>
+                    <circle cx="180" cy="100" r="3" fill="#dc2626"/>
+                    <circle cx="220" cy="85" r="3" fill="#dc2626"/>
+                    <circle cx="260" cy="75" r="3" fill="#dc2626"/>
+                    <line x1="10" y1="190" x2="270" y2="190" stroke="#1e2633" stroke-width="1"/>
+                    <text x="15" y="205" font-size="10" fill="#6b7280">2021</text>
+                    <text x="255" y="205" font-size="10" fill="#6b7280">2026</text>
+                </svg>
+            </div>
+
+            <div class="chart-card">
+                <h3>Distribuzione per tipologia</h3>
+                <div style="font-size: 0.9em; line-height: 2;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                        <span>Navi militari</span>
+                        <span style="color: var(--red);">35%</span>
+                    </div>
+                    <div style="background: var(--border); height: 6px; border-radius: 3px;">
+                        <div style="background: var(--red); height: 100%; width: 35%; border-radius: 3px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; margin-top: 12px;">
+                        <span>Sistemi d'arma</span>
+                        <span style="color: var(--orange);">28%</span>
+                    </div>
+                    <div style="background: var(--border); height: 6px; border-radius: 3px;">
+                        <div style="background: var(--orange); height: 100%; width: 28%; border-radius: 3px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; margin-top: 12px;">
+                        <span>Logistica e trasporto</span>
+                        <span style="color: var(--blue);">18%</span>
+                    </div>
+                    <div style="background: var(--border); height: 6px; border-radius: 3px;">
+                        <div style="background: var(--blue); height: 100%; width: 18%; border-radius: 3px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; margin-top: 12px;">
+                        <span>IT e Comunicazioni</span>
+                        <span style="color: var(--purple);">12%</span>
+                    </div>
+                    <div style="background: var(--border); height: 6px; border-radius: 3px;">
+                        <div style="background: var(--purple); height: 100%; width: 12%; border-radius: 3px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; margin-top: 12px;">
+                        <span>Altro</span>
+                        <span style="color: var(--green);">7%</span>
+                    </div>
+                    <div style="background: var(--border); height: 6px; border-radius: 3px;">
+                        <div style="background: var(--green); height: 100%; width: 7%; border-radius: 3px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>Top fornitori per settore</h3>
+                <div style="font-size: 0.85em; line-height: 1.6;">
+                    <div style="margin-bottom: 12px;">
+                        <div style="color: var(--text-bright); font-weight: 600; margin-bottom: 4px;">Navi militari</div>
+                        <div style="color: var(--text-muted); margin-left: 8px;">Fincantieri (€456M)</div>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <div style="color: var(--text-bright); font-weight: 600; margin-bottom: 4px;">Sistemi d'arma</div>
+                        <div style="color: var(--text-muted); margin-left: 8px;">Leonardo SpA (€389M)</div>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <div style="color: var(--text-bright); font-weight: 600; margin-bottom: 4px;">Logistica</div>
+                        <div style="color: var(--text-muted); margin-left: 8px;">Ternantec (€267M)</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-bright); font-weight: 600; margin-bottom: 4px;">IT</div>
+                        <div style="color: var(--text-muted); margin-left: 8px;">Thales Italy (€198M)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 5: TIMELINE -->
+    <div id="timeline" class="panel">
+        <div class="section-header">
+            <h2>Timeline dei contratti</h2>
+            <p>Evoluzione cronologica delle aggiudicazioni</p>
+        </div>
+
+        <div style="border-left: 2px solid var(--red); padding-left: 24px; margin-left: 12px;">
+            <div style="margin-bottom: 32px; position: relative;">
+                <div style="position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--red); border-radius: 50%; border: 3px solid var(--surface);"></div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">Marzo 2021</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Inizio primo blocco appalti PNRR Difesa</div>
+                <div style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">€156,2M - Fincantieri (Navi militari)</div>
+            </div>
+
+            <div style="margin-bottom: 32px; position: relative;">
+                <div style="position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--orange); border-radius: 50%; border: 3px solid var(--surface);"></div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">Giugno 2021</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Contratti Leonardo SpA lanciate</div>
+                <div style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">€89,4M - Sistemi d'arma</div>
+            </div>
+
+            <div style="margin-bottom: 32px; position: relative;">
+                <div style="position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--blue); border-radius: 50%; border: 3px solid var(--surface);"></div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">Settembre 2021</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Ternantec entra nel programma</div>
+                <div style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">€67,8M - Logistica e trasporto</div>
+            </div>
+
+            <div style="margin-bottom: 32px; position: relative;">
+                <div style="position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--purple); border-radius: 50%; border: 3px solid var(--surface);"></div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">Novembre 2021</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Secondo blocco aggiudicazioni</div>
+                <div style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">€56,2M - Leonardo SpA (IT e comunicazioni)</div>
+            </div>
+
+            <div style="margin-bottom: 32px; position: relative;">
+                <div style="position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; border: 3px solid var(--surface);"></div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">Febbraio 2023</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Thales Italy acquisisce new contracts</div>
+                <div style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">€34,6M - Carabinieri partnership</div>
+            </div>
+
+            <div style="position: relative;">
+                <div style="position: absolute; left: -32px; top: 4px; width: 12px; height: 12px; background: var(--green); border-radius: 50%; border: 3px solid var(--surface);"></div>
+                <div style="color: var(--white); font-weight: 600; margin-bottom: 4px;">Marzo 2026</div>
+                <div style="color: var(--text-muted); font-size: 0.9em;">Stato attuale della filiera</div>
+                <div style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">847 contratti per €2,3B</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 6: EXPORT -->
+    <div id="export" class="panel">
+        <div class="section-header">
+            <h2>Esporta dati</h2>
+            <p>Scarica il dataset completo in diversi formati</p>
+        </div>
+
+        <div class="chart-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="chart-card" style="text-align: center; cursor: pointer; border: 2px solid var(--border); transition: all 0.2s;">
+                <div style="font-size: 2em; margin-bottom: 12px;">📊</div>
+                <h3 style="margin: 0; font-size: 0.95em;">CSV - Contratti</h3>
+                <p style="color: var(--text-muted); font-size: 0.8em; margin-top: 8px;">847 righe, full dataset</p>
+            </div>
+
+            <div class="chart-card" style="text-align: center; cursor: pointer; border: 2px solid var(--border); transition: all 0.2s;">
+                <div style="font-size: 2em; margin-bottom: 12px;">🔗</div>
+                <h3 style="margin: 0; font-size: 0.95em;">JSON - Grafo</h3>
+                <p style="color: var(--text-muted); font-size: 0.8em; margin-top: 8px;">Network relationships</p>
+            </div>
+
+            <div class="chart-card" style="text-align: center; cursor: pointer; border: 2px solid var(--border); transition: all 0.2s;">
+                <div style="font-size: 2em; margin-bottom: 12px;">📁</div>
+                <h3 style="margin: 0; font-size: 0.95em;">XLSX - Analitiche</h3>
+                <p style="color: var(--text-muted); font-size: 0.8em; margin-top: 8px;">Multi-sheet report</p>
+            </div>
+
+            <div class="chart-card" style="text-align: center; cursor: pointer; border: 2px solid var(--border); transition: all 0.2s;">
+                <div style="font-size: 2em; margin-bottom: 12px;">📋</div>
+                <h3 style="margin: 0; font-size: 0.95em;">PDF - Report</h3>
+                <p style="color: var(--text-muted); font-size: 0.8em; margin-top: 8px;">Executive summary</p>
+            </div>
+        </div>
+
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-top: 20px;">
+            <h3 style="font-size: 0.95em; color: var(--white); margin-bottom: 12px;">Note legali</h3>
+            <p style="font-size: 0.85em; color: var(--text-muted); line-height: 1.6;">
+                I dati forniti sono per scopi di ricerca e trasparenza. Non costituiscono una guida ufficiale e devono essere verificati con le autorità competenti. 
+                Utilizzare questo dataset responsabilmente e in conformità alle leggi sulla privacy e sulla protezione dei dati.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 TELEDIFE Research. Indagine sulla filiera della Difesa nel PNRR. <br>
+    Dati aggiornati al 27 Marzo 2026. <br>
+    <strong style="color: var(--text);">Per segnalazioni e verifiche contattare le autorità competenti.</strong></p>
+</footer>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// NETWORK GRAPH DATA
+const nodeColors = {
+    'appaltante': '#dc2626',
+    'fornitore': '#ea580c',
+    'subappaltatore': '#2563eb'
+};
+
+const graphData = {
+    nodes: [
+        { id: 'MD', label: 'Ministero Difesa', type: 'appaltante', size: 25 },
+        { id: 'Car', label: 'Carabinieri', type: 'appaltante', size: 20 },
+        { id: 'GdF', label: 'Guardia di Finanza', type: 'appaltante', size: 18 },
+        { id: 'Fin', label: 'Fincantieri', type: 'fornitore', size: 22 },
+        { id: 'Leo', label: 'Leonardo SpA', type: 'fornitore', size: 21 },
+        { id: 'Tern', label: 'Ternantec', type: 'fornitore', size: 19 },
+        { id: 'Thal', label: 'Thales Italy', type: 'fornitore', size: 18 },
+        { id: 'Sub1', label: 'Fornitore X', type: 'subappaltatore', size: 14 },
+        { id: 'Sub2', label: 'Fornitore Y', type: 'subappaltatore', size: 13 },
+        { id: 'Sub3', label: 'Fornitore Z', type: 'subappaltatore', size: 12 }
+    ],
+    links: [
+        { source: 'MD', target: 'Fin', value: 3 },
+        { source: 'MD', target: 'Leo', value: 2 },
+        { source: 'MD', target: 'Tern', value: 2 },
+        { source: 'Car', target: 'Thal', value: 2 },
+        { source: 'GdF', target: 'Leo', value: 2 },
+        { source: 'GdF', target: 'Tern', value: 1 },
+        { source: 'Fin', target: 'Sub1', value: 1 },
+        { source: 'Leo', target: 'Sub2', value: 1 },
+        { source: 'Tern', target: 'Sub3', value: 1 }
+    ]
+};
+
+let simulation;
+let simulationRunning = true;
+
+function initGraph() {
+    const container = document.getElementById('network-container');
+    const svg = d3.select('#network-svg');
     
-    <script>
-        function switchTab(tabName) {
-            var tabs = document.getElementsByClassName('tab-content');
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove('active');
-            }
-            document.getElementById(tabName).classList.add('active');
-            
-            var buttons = document.getElementsByClassName('tab-button');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            event.target.classList.add('active');
-        }
-    </script>
-</body>
-</html>
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    simulation = d3.forceSimulation(graphData.nodes)
+        .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(100))
+        .force('charge', d3.forceManyBody().strength(-300))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(d => d.size + 10));
+
+    const links = svg.selectAll('.link')
+        .data(graphData.links)
+        .enter()
+        .append('line')
+        .attr('class', 'link')
+        .attr('stroke', '#1e2633')
+        .attr('stroke-width', 2)
+        .attr('opacity', 0.6);
+
+    const nodes = svg.selectAll('.node')
+        .data(graphData.nodes)
+        .enter()
+        .append('circle')
+        .attr('class', 'node')
+        .attr('r', d => d.size)
+        .attr('fill', d => nodeColors[d.type])
+        .attr('opacity', 0.85)
+        .call(d3.drag()
+            .on('start', dragStarted)
+            .on('drag', dragged)
+            .on('end', dragEnded))
+        .on('mouseover', function(event, d) {
+            d3.select(this).transition().duration(200).attr('opacity', 1).attr('r', d => d.size * 1.3);
+            showTooltip(event, d.label);
+        })
+        .on('mouseout', function(event, d) {
+            d3.select(this).transition().duration(200).attr('opacity', 0.85).attr('r', d => d.size);
+            hideTooltip();
+        });
+
+    const labels = svg.selectAll('.label')
+        .data(graphData.nodes)
+        .enter()
+        .append('text')
+        .attr('class', 'label')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '0.3em')
+        .attr('font-size', '11px')
+        .attr('fill', '#c8cdd6')
+        .attr('pointer-events', 'none')
+        .text(d => d.label);
+
+    simulation.on('tick', () => {
+        links.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+            .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+        nodes.attr('cx', d => d.x).attr('cy', d => d.y);
+        labels.attr('x', d => d.x).attr('y', d => d.y);
+    });
+
+    function dragStarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+
+    function dragEnded(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+}
+
+function toggleSimulation() {
+    simulationRunning = !simulationRunning;
+    if (simulationRunning) {
+        simulation.alpha(1).restart();
+    } else {
+        simulation.stop();
+    }
+}
+
+// TOOLTIP
+function showTooltip(event, text) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.textContent = text;
+    tooltip.classList.add('visible');
+    tooltip.style.left = (event.pageX + 10) + 'px';
+    tooltip.style.top = (event.pageY + 10) + 'px';
+}
+
+function hideTooltip() {
+    document.getElementById('tooltip').classList.remove('visible');
+}
+
+// TAB SWITCHING
+function switchTab(tabName) {
+    const panels = document.querySelectorAll('.panel');
+    panels.forEach(p => p.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    if (tabName === 'network') {
+        setTimeout(initGraph, 100);
+    }
+}
+
+// GRAPH FUNCTIONS
+function toggleSimulation() {
+    if (simulation) {
+        simulationRunning = !simulationRunning;
+        if (simulationRunning) simulation.alpha(1).restart();
+        else simulation.stop();
+    }
+}
+
+function resetGraph() {
+    if (simulation) {
+        graphData.nodes.forEach(d => {
+            d.fx = null;
+            d.fy = null;
+        });
+        simulation.alpha(1).restart();
+    }
+}
+
+window.addEventListener('load', () => setTimeout(initGraph, 100));

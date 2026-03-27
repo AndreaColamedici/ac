@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TELEDIFE: L'ordito degli appalti PNRR</title>
+    <title>TELEDIFE: L'ordito degli appalti PNRR — v7</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         * {
@@ -36,6 +36,24 @@
         .header .subtitle {
             font-size: 1.1em;
             color: #999;
+            margin-bottom: 8px;
+        }
+        
+        .header .update-date {
+            font-size: 0.95em;
+            color: #ff4444;
+            font-weight: 600;
+        }
+        
+        .alert-box {
+            background: #1a0000;
+            border-left: 4px solid #ff2222;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 0 20px 20px 20px;
+            color: #ffaaaa;
+            font-size: 0.95em;
+            line-height: 1.6;
         }
         
         .container {
@@ -48,25 +66,18 @@
             display: flex;
             gap: 0;
             margin-bottom: 30px;
-            border-bottom: 2px solid #222;
-            overflow-x: auto;
+            border-bottom: 1px solid #333;
         }
         
         .tab-button {
-            padding: 14px 20px;
-            background: #111;
+            padding: 15px 25px;
+            background: none;
             border: none;
             color: #999;
             cursor: pointer;
             font-size: 0.95em;
-            white-space: nowrap;
-            transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
-        }
-        
-        .tab-button:hover {
-            color: #e0e0e0;
-            background: #1a1a1a;
+            transition: all 0.3s ease;
         }
         
         .tab-button.active {
@@ -74,940 +85,413 @@
             border-bottom-color: #ff4444;
         }
         
+        .tab-button:hover {
+            color: #ccc;
+        }
+        
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
         }
         
         .tab-content.active {
             display: block;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .section {
+            margin-bottom: 40px;
         }
         
-        .card {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .card h2 {
+        .section-title {
             font-size: 1.3em;
-            margin-bottom: 15px;
-            color: #fff;
-            border-bottom: 2px solid #222;
-            padding-bottom: 10px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-box {
-            background: #1a1a1a;
-            border-left: 4px solid #ff4444;
-            padding: 15px;
-            border-radius: 4px;
-        }
-        
-        .stat-label {
-            font-size: 0.85em;
-            color: #999;
-            margin-bottom: 5px;
-        }
-        
-        .stat-value {
-            font-size: 1.4em;
-            color: #fff;
             font-weight: 600;
-        }
-        
-        .program-cyber { border-left-color: #ff4444; }
-        .program-digi { border-left-color: #4488ff; }
-        .program-satcom { border-left-color: #ffaa00; }
-        
-        #network-graph {
-            width: 100%;
-            height: 600px;
-            background: #0a0a0a;
-            border-radius: 8px;
-        }
-        
-        .node {
-            stroke: #fff;
-            stroke-width: 1.5px;
-        }
-        
-        .node:hover {
-            stroke-width: 2.5px;
-        }
-        
-        .link {
-            stroke: #444;
-            stroke-opacity: 0.6;
-        }
-        
-        .tooltip {
-            position: absolute;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 0.85em;
-            pointer-events: none;
-            z-index: 1000;
-            max-width: 250px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9em;
+            margin-bottom: 20px;
         }
         
         th {
-            background: #1a1a1a;
+            background-color: #1a1a1a;
+            color: #fff;
             padding: 12px;
             text-align: left;
             font-weight: 600;
             border-bottom: 2px solid #333;
-            color: #fff;
-            cursor: pointer;
-            user-select: none;
-        }
-        
-        th:hover {
-            background: #222;
         }
         
         td {
-            padding: 10px 12px;
+            padding: 12px;
             border-bottom: 1px solid #222;
         }
         
         tr:hover {
-            background: #1a1a1a;
+            background-color: #111;
         }
         
-        .program-badge {
+        .indicted {
+            background-color: #1a0a0a;
+        }
+        
+        .indicted td {
+            color: #ffaaaa;
+        }
+        
+        .badge {
             display: inline-block;
             padding: 4px 8px;
             border-radius: 3px;
-            font-size: 0.75em;
-            font-weight: 600;
-            margin-right: 5px;
-        }
-        
-        .badge-cyber { background: #ff4444; color: #fff; }
-        .badge-digi { background: #4488ff; color: #fff; }
-        .badge-satcom { background: #ffaa00; color: #000; }
-        
-        .filter-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            padding: 8px 12px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #999;
-            cursor: pointer;
             font-size: 0.85em;
-            transition: all 0.2s;
+            font-weight: 500;
         }
         
-        .filter-btn.active {
-            background: #ff4444;
+        .badge-critical {
+            background-color: #cc0000;
             color: #fff;
-            border-color: #ff4444;
         }
         
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        
-        .timeline-item {
-            display: flex;
-            margin-bottom: 25px;
-            position: relative;
-        }
-        
-        .timeline-marker {
-            width: 40px;
-            height: 40px;
-            background: #ff4444;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .badge-high {
+            background-color: #ff6600;
             color: #fff;
-            font-weight: bold;
-            flex-shrink: 0;
-            margin-right: 20px;
         }
         
-        .timeline-content {
-            flex: 1;
-            background: #1a1a1a;
-            padding: 15px;
-            border-left: 2px solid #ff4444;
-            border-radius: 4px;
+        .badge-medium {
+            background-color: #ffaa00;
+            color: #000;
         }
         
-        .timeline-date {
-            font-size: 0.9em;
-            color: #ff4444;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .timeline-title {
-            font-size: 1em;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-        
-        .timeline-details {
-            font-size: 0.85em;
-            color: #999;
-            line-height: 1.4;
-        }
-        
-        .anomaly-list {
-            list-style: none;
-        }
-        
-        .anomaly-item {
-            padding: 15px;
-            background: #1a1a1a;
-            border-left: 3px solid #ffaa00;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-        
-        .anomaly-item strong {
-            color: #ffaa00;
-        }
-        
-        .summary-text {
-            font-size: 1em;
-            line-height: 1.6;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
-        
-        .highlight {
-            background: rgba(255, 68, 68, 0.2);
-            padding: 2px 4px;
-            border-radius: 2px;
-            color: #ff4444;
-        }
-        
-        .three-col {
+        .connections {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
         
-        @media (max-width: 1024px) {
-            .three-col {
-                grid-template-columns: 1fr;
-            }
+        .connection-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 15px;
         }
         
-        .program-section {
-            background: #1a1a1a;
+        .connection-card.critical {
+            border-color: #cc0000;
+            background-color: #1a0a0a;
+        }
+        
+        .connection-card h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .connection-card p {
+            color: #999;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .stat-box {
+            background-color: #1a1a1a;
             border-left: 4px solid #ff4444;
             padding: 15px;
+            margin-bottom: 15px;
             border-radius: 4px;
         }
         
-        .program-section.cyber { border-left-color: #ff4444; }
-        .program-section.digi { border-left-color: #4488ff; }
-        .program-section.satcom { border-left-color: #ffaa00; }
+        .stat-box .value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #ff4444;
+        }
         
-        .program-section h3 {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 1.05em;
+        .stat-box .label {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .footnote {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>TELEDIFE: L'ordito degli appalti PNRR</h1>
-        <p class="subtitle">Tre programmi, €348M+, un sistema</p>
+        <p class="subtitle">Indagati e documenti a confronto — v7</p>
+        <p class="update-date">Aggiornamento: 27 marzo 2026, 23:00</p>
+    </div>
+    
+    <div class="alert-box">
+        <strong>Perquisizioni della Guardia di Finanza</strong><br>
+        26 marzo 2026: Ministero della Difesa, Terna, RFI, Polo Strategico Nazionale. 26 indagati. Reati: corruzione, riciclaggio, turbativa d'asta, traffico di influenze illecite. Il circuito inizia dal caso Sogei (Paolino Iorio, arrestato ottobre 2024).
     </div>
     
     <div class="container">
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('sintesi')">Sintesi</button>
-            <button class="tab-button" onclick="switchTab('rete')">Rete</button>
-            <button class="tab-button" onclick="switchTab('contratti')">Contratti</button>
-            <button class="tab-button" onclick="switchTab('gervasio')">Gervasio</button>
-            <button class="tab-button" onclick="switchTab('concentrazione')">Concentrazione</button>
-            <button class="tab-button" onclick="switchTab('anomalie')">Anomalie</button>
-            <button class="tab-button" onclick="switchTab('cross')">Cross-programma</button>
+            <button class="tab-button active" onclick="switchTab('overview')">Panoramica</button>
+            <button class="tab-button" onclick="switchTab('indicted')">26 Indagati</button>
+            <button class="tab-button" onclick="switchTab('connections')">Connessioni</button>
+            <button class="tab-button" onclick="switchTab('schema')">Lo Schema</button>
         </div>
         
-        <!-- SINTESI -->
-        <div id="sintesi" class="tab-content active">
-            <div class="card">
-                <h2>Panoramica dell'inchiesta</h2>
-                <div class="summary-text">
-                    TELEDIFE rappresenta uno dei più importanti scandali di corruzione nel procurement italiano di difesa. Un sistema coordinato che coinvolge tre programmi PNRR (Next Generation EU) per un totale di <span class="highlight">€348M+ confermati</span>, con strutture di gara anomale, concentrazione eccezionale del mercato e una catena di firmatari che rivela pattern di distribuzione controllata dei fondi.
+        <!-- TAB 1: OVERVIEW -->
+        <div id="overview" class="tab-content active">
+            <div class="section">
+                <h2 class="section-title">La Sovrapposizione: Indagati e Documenti TELEDIFE</h2>
+                
+                <div class="stat-box">
+                    <div class="value">26</div>
+                    <div class="label">Indagati complessivi</div>
                 </div>
                 
-                <h2 style="margin-top: 30px;">Numeri chiave</h2>
-                <div class="stats-grid">
-                    <div class="stat-box program-cyber">
-                        <div class="stat-label">Cybersecurity (M1C1-I1.5)</div>
-                        <div class="stat-value">€42.7M</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">17 contratti</div>
-                    </div>
-                    <div class="stat-box program-digi">
-                        <div class="stat-label">Digitalizzazione (M1C1-I1.6.4)</div>
-                        <div class="stat-value">€19.4M</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">10 contratti</div>
-                    </div>
-                    <div class="stat-box program-satcom">
-                        <div class="stat-label">SatCom (M1C2-I4.1)</div>
-                        <div class="stat-value">€286M+</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">SICRAL 3 secretato</div>
-                    </div>
+                <div class="stat-box">
+                    <div class="value">9</div>
+                    <div class="label">Corrispondenze dirette con documenti PNRR</div>
                 </div>
                 
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-label">Operatori principali</div>
-                        <div class="stat-value">7</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">Leonardo, Almaviva, TIM, Italware...</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">DaC confermati (Gervasio)</div>
-                        <div class="stat-value">7</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">€15.165M diretti</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Anomalie rilevate</div>
-                        <div class="stat-value">12</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">Pattern coordinati</div>
-                    </div>
+                <div class="stat-box">
+                    <div class="value">~348M€</div>
+                    <div class="label">Contratti autorizzati (Gervasio, incl. SatCom)</div>
                 </div>
-            </div>
-            
-            <div class="card">
-                <h2>Attori principali</h2>
-                <div class="three-col">
-                    <div class="program-section cyber">
-                        <h3>Leonardo</h3>
-                        <p><strong>€300M+</strong> totali</p>
-                        <p style="margin-top: 10px; font-size: 0.9em; color: #999;">
-                            €14.2M Cyber + €1.25M Digi + €286M+ SatCom (Space Alliance). Controllo esclusivo di SICRAL 3.
-                        </p>
-                    </div>
-                    <div class="program-section digi">
-                        <h3>Almaviva</h3>
-                        <p><strong>€15.57M</strong> Digitalizzazione</p>
-                        <p style="margin-top: 10px; font-size: 0.9em; color: #999;">
-                            80.3% del programma. Mandante AQ 2296 in Cyber (TIM mandataria).
-                        </p>
-                    </div>
-                    <div class="program-section">
-                        <h3>TIM + Italware</h3>
-                        <p><strong>€12.44M + €4.26M</strong></p>
-                        <p style="margin-top: 10px; font-size: 0.9em; color: #999;">
-                            TIM in AQ 2296 Cyber. Italware unica sotto inchiesta in entrambi programmi.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>Red flags principali</h2>
-                <ul class="anomaly-list">
-                    <li class="anomaly-item">
-                        <strong>Art. 18</strong>: €11.62M senza gara (Leonardo Cyber €3.46M + Almaviva/Leonardo Digi €8.16M)
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>Monopolio di fatto</strong>: Almaviva 80.3% Digi, Leonardo domina Cyber e controlla interamente SatCom/SICRAL 3
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>Secretazione SICRAL 3</strong>: €590M nascosti, nessuna trasparenza, Leonardo-Space Alliance
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>Gervasio chain</strong>: 7 DaC firmate da Gen. Gervasio, €15.165M direttamente, pattern coordinato
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>Italware timing</strong>: Ordine MDM 29 giorni dopo arresti (31 dic 2024), continuità operativa sospetta
-                    </li>
-                </ul>
+                
+                <p style="color: #ccc; margin-top: 20px; line-height: 1.8;">
+                    Questo quadro incrocia i nomi degli indagati con i documenti TELEDIFE analizzati nelle tre sessioni precedenti: 66 PDF della pagina Cybersecurity, 22 PDF della Digitalizzazione, Determinazioni a Contrarre del SatCom. Ogni corrispondenza è verificabile. I nomi provengono dalla stampa (Domani, Il Post, Ansa, Il Sole 24 Ore); i documenti sono quelli pubblicati su difesa.it nella sezione Amministrazione Trasparente.
+                </p>
             </div>
         </div>
         
-        <!-- RETE -->
-        <div id="rete" class="tab-content">
-            <div class="card">
-                <h2>Grafo della rete di corruzione</h2>
-                <svg id="network-graph"></svg>
+        <!-- TAB 2: 26 INDAGATI -->
+        <div id="indicted" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">I 26 Indagati</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Ruolo</th>
+                            <th>Presenza nei Documenti</th>
+                            <th>Valore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="indicted">
+                            <td><strong>Angelo Gervasio</strong></td>
+                            <td>Direttore TELEDIFE (Mg Gen → Tg Gen 2022)</td>
+                            <td>Firma come IL DIRETTORE su 7+ DaC</td>
+                            <td><span class="badge badge-critical">€348M+</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Fabio Cerase</strong></td>
+                            <td>Col., Capo 1ª Divisione</td>
+                            <td>RUP Digitalizzazione, accusa: rivelazione info bandi</td>
+                            <td><span class="badge badge-high">€7.4M</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Antonio Di Pardo</strong></td>
+                            <td>Capo 8ª Div. Reti Telematiche</td>
+                            <td>RUP SOAR + Red Teaming</td>
+                            <td><span class="badge badge-high">€4.5M+</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Antonio Lanzillotti</strong></td>
+                            <td>Gen. Brig., Capo 1° Reparto</td>
+                            <td>Sovrintende 4ª Div. Cybersecurity Awareness</td>
+                            <td><span class="badge badge-medium">€2.6M</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Massimo Rossi</strong></td>
+                            <td>Leg. Rep. Italware/Digital Value</td>
+                            <td>Mandataria 2 contratti PNRR</td>
+                            <td><span class="badge badge-critical">€4.2M+€180M</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Gianmatteo M. Manghi</strong></td>
+                            <td>CEO Cisco Systems Italia</td>
+                            <td>Produttore SDAPA 180M (switch, router)</td>
+                            <td><span class="badge badge-critical">€180M</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Pasquale Potenza</strong></td>
+                            <td>PA Sales Manager Nutanix</td>
+                            <td>Vendor server iperconvergenti</td>
+                            <td><span class="badge badge-high">€1.1M</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Gianfranco Marra</strong></td>
+                            <td>PA Sales Manager Nutanix</td>
+                            <td>Vendor server iperconvergenti</td>
+                            <td><span class="badge badge-high">€1.1M</span></td>
+                        </tr>
+                        <tr class="indicted">
+                            <td><strong>Antonio A. Masala</strong></td>
+                            <td>Uff. Marina, VI Reparto SMD</td>
+                            <td>VI Reparto = Organo Programmatore di TUTTI i contratti</td>
+                            <td><span class="badge badge-critical">€348M+</span></td>
+                        </tr>
+                        <tr>
+                            <td>Rodolfo Falcone</td>
+                            <td>Manager Red Hat (IBM)</td>
+                            <td>SISAD (consorzio IBM)</td>
+                            <td><span class="badge badge-high">€2.1M</span></td>
+                        </tr>
+                        <tr>
+                            <td>Francesco Modesto</td>
+                            <td>Gen., IV Reparto SMD</td>
+                            <td>Logistica/Infrastrutture SMD</td>
+                            <td>Indiretto</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: #666; padding: 20px;">+ altri 15 indagati non ancora mappati nei documenti PNRR</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         
-        <!-- CONTRATTI -->
-        <div id="contratti" class="tab-content">
-            <div class="card">
-                <h2>Elenco contratti</h2>
-                <div class="filter-group">
-                    <button class="filter-btn active" onclick="filterContracts('all')">Tutti</button>
-                    <button class="filter-btn" onclick="filterContracts('cyber')">Cyber</button>
-                    <button class="filter-btn" onclick="filterContracts('digi')">Digitalizzazione</button>
-                    <button class="filter-btn" onclick="filterContracts('satcom')">SatCom</button>
-                </div>
-                <div class="table-container">
-                    <table id="contracts-table">
-                        <thead>
-                            <tr>
-                                <th onclick="sortTable(0)">Descrizione</th>
-                                <th onclick="sortTable(1)">Programma</th>
-                                <th onclick="sortTable(2)">Importo</th>
-                                <th onclick="sortTable(3)">Aggiudicatario</th>
-                                <th onclick="sortTable(4)">Meccanismo</th>
-                            </tr>
-                        </thead>
-                        <tbody id="contracts-body">
-                        </tbody>
-                    </table>
+        <!-- TAB 3: CONNECTIONS -->
+        <div id="connections" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Le Connessioni Critiche</h2>
+                
+                <div class="connections">
+                    <div class="connection-card critical">
+                        <h4>Gervasio → 348M€</h4>
+                        <p><strong>Direttore TELEDIFE</strong> autorizza tutti i contratti Cybersecurity, Digitalizzazione, SatCom PNRR. Firma come "IL DIRETTORE" su 7+ DaC; stima conservativa supera €348M. Accusato di aver accettato cene e promesse di collocamento familiare.</p>
+                    </div>
+                    
+                    <div class="connection-card critical">
+                        <h4>Cerase → CMDB</h4>
+                        <p><strong>RUP Digitalizzazione</strong> accusa specififica: ha rivelato le caratteristiche tecniche, quantità e valore economico della piattaforma CMDB prima della pubblicazione. Questo è il cuore dell'accusa: consegna anticipata dei contenuti del bando.</p>
+                    </div>
+                    
+                    <div class="connection-card critical">
+                        <h4>Rossi → SDAPA 180M</h4>
+                        <p><strong>Italware/Digital Value</strong> ha vinto contratti PNRR per €4.2M (MDM, server iperconvergenti). Lo SDAPA da 180M per reti IP Cisco era assegnato a RTI Italware+Dimira; revocato dopo inchiesta. Rossi già arrestato ottobre 2024 (Sogei), condannato 3 anni.</p>
+                    </div>
+                    
+                    <div class="connection-card critical">
+                        <h4>Manghi (Cisco) → Consorzi</h4>
+                        <p><strong>CEO Cisco Italia</strong> avrebbe deciso la composizione dei consorzi nello SDAPA 180M per favorire Italware, escludendo operatori che non accettavano condizioni. Il produttore decide chi rivende alla Difesa.</p>
+                    </div>
+                    
+                    <div class="connection-card">
+                        <h4>Potenza/Marra (Nutanix)</h4>
+                        <p><strong>PA Sales Managers</strong> pilotavano le gare insieme a Italware. Nutanix è vendor dei server iperconvergenti (€1.1M, CIG Z7E3C58823). Stesso schema: produttore → rivenditore pilotato.</p>
+                    </div>
+                    
+                    <div class="connection-card critical">
+                        <h4>Masala (VI Reparto) → Programmatore</h4>
+                        <p><strong>VI Reparto SMD = Organo Programmatore</strong> di TUTTI i contratti PNRR TELEDIFE. Ogni DaC riporta "S.M.D. VI Rep." come committente. VI Reparto commissionava, definiva requisiti, assegnava capitoli. È il mandante, TELEDIFE è il braccio esecutivo.</p>
+                    </div>
+                    
+                    <div class="connection-card">
+                        <h4>Spalletta: l'Intermediario</h4>
+                        <p><strong>Non è funzionario, non è imprenditore</strong>. È il connettore tra ufficiali TELEDIFE (Gervasio, Di Pardo, Cerase) e aziende (NSR Dattola, Italware Rossi). Riceve mandato da Dattola; distribuisce favori agli ufficiali; gli ufficiali consegnano informazioni riservate ai fornitori.</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- GERVASIO -->
-        <div id="gervasio" class="tab-content">
-            <div class="card">
-                <h2>La catena di firme: Gen. Gervasio</h2>
-                <p style="margin-bottom: 20px; color: #999;">
-                    7 DaC confermati firmati da Gervasio (Magg. Gen. / Ten. Gen.), €15.165M diretti. Una distribuzione coordinata nei gradi gerarchici e nelle divisioni TELEDIFE.
+        <!-- TAB 4: SCHEMA -->
+        <div id="schema" class="tab-content">
+            <div class="section">
+                <h2 class="section-title">Lo Schema che Emerge</h2>
+                
+                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">Il Triangolo della Corruzione</h3>
+                
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
+                    <strong>Spalletta</strong> (intermediario) mantiene i rapporti tra gli ufficiali TELEDIFE e le aziende private.
                 </p>
                 
-                <div class="timeline" id="gervasio-timeline">
-                </div>
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
+                    <strong>Ufficiali TELEDIFE</strong> (Gervasio, Di Pardo, Cerase) ricevono da Spalletta:
+                    <ul style="margin-left: 20px; color: #ccc; margin-top: 10px;">
+                        <li>Cene e intrattenimenti</li>
+                        <li>Promesse di collocamento lavorativo dei familiari</li>
+                        <li>Pagamenti in contanti tramite circuito NSR → Tron Group → Rolex → contanti</li>
+                    </ul>
+                </p>
+                
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
+                    <strong>In cambio, gli ufficiali:</strong>
+                    <ul style="margin-left: 20px; color: #ccc; margin-top: 10px;">
+                        <li>Rivelano informazioni riservate sui bandi prima della pubblicazione (Cerase e CMDB)</li>
+                        <li>Autorizzano contratti pilotati (Gervasio firma DaC per fornitori pre-scelti)</li>
+                        <li>Facilitano la rivendita di tecnologie esclusive (Cisco → Italware, Nutanix → Italware)</li>
+                    </ul>
+                </p>
+                
+                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">Il Circuito del Denaro</h3>
+                
+                <p style="color: #ccc; line-height: 1.8;">
+                    <strong>NSR (Dattola)</strong> emette fatture false verso <strong>Tron Group Holding (Tronelli)</strong>. Tron Group converte i fondi in contanti attraverso compravendita di orologi Rolex. Il cash torna a Dattola per pagare tangenti agli ufficiali corrotti.
+                </p>
+                
+                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">I Contratti Pilotati</h3>
+                
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>SDAPA AQ 800 (180 milioni)</strong><br>
+                    Manutenzione reti IP Cisco. RTI Italware + Dimira, poi revocato dopo inchiesta. Manghi (Cisco CEO) avrebbe deciso chi poteva rivendere i prodotti Cisco alla Difesa.
+                </p>
+                
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>MDM (Mobile Device Management)</strong><br>
+                    CIG B4386EBF54, €3.152.241, aggiudicato a Italware. Ordine emesso il 31 dicembre 2024, 29 giorni dopo gli arresti del 2 dicembre. Tecnologia che protegge dispositivi mobili della Difesa, aggiudicata a imprenditore già arrestato e condannato. Legale formalmente (Convenzione Consip), politicamente esplosivo.
+                </p>
+                
+                <p style="color: #ccc; line-height: 1.8;">
+                    <strong>Server Iperconvergenti Nutanix</strong><br>
+                    CIG Z7E3C58823, €1.107.666, aggiudicato a Italware. Nutanix aveva sales managers dedicati (Potenza, Marra) che pilotavano le gare insieme a Italware.
+                </p>
+                
+                <h3 style="color: #fff; margin-top: 25px; margin-bottom: 15px; font-size: 1.1em;">Ciò che Resta da Verificare</h3>
+                
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Proietto e Travagliante</strong> (firmatari degli esiti) non compaiono tra i 26 indagati. Ipotesi: la corruzione avviene prima della gara (chi decide i contenuti dei bandi), non dopo (chi firma l'esito).
+                </p>
+                
+                <p style="color: #ccc; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Almaviva domina la Digitalizzazione</strong> con l'80,3% dei contratti documentati, ma non è menzionata tra le aziende indagate.
+                </p>
+                
+                <p style="color: #ccc; line-height: 1.8;">
+                    <strong>Leonardo, TIM, McKinsey</strong> compaiono nei documenti ma non (ancora?) tra gli indagati. Questo non significa estranietà; significa che l'indagine attuale si concentra su un nucleo specifico: NSR/Dattola, Italware/Rossi, Cisco/Nutanix come intermediari/vendor, ufficiali TELEDIFE come fornitori di informazioni riservate.
+                </p>
             </div>
-        </div>
-        
-        <!-- CONCENTRAZIONE -->
-        <div id="concentrazione" class="tab-content">
-            <div class="card">
-                <h2>Concentrazione del mercato</h2>
-                
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-label">Leonardo (Cyber + Digi + SatCom)</div>
-                        <div class="stat-value">€300M+</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">86% del totale TELEDIFE</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Almaviva (Digitalizzazione)</div>
-                        <div class="stat-value">€15.57M</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">80.3% del programma</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">Concentrazione HHI</div>
-                        <div class="stat-value">7400+</div>
-                        <div class="stat-label" style="margin-top: 8px; color: #ccc;">Monopolio per antitrust</div>
-                    </div>
-                </div>
-                
-                <h2 style="margin-top: 30px;">Operatori per programma</h2>
-                <div class="three-col">
-                    <div class="program-section cyber">
-                        <h3>Cybersecurity (€42.7M)</h3>
-                        <ul style="list-style: none; font-size: 0.9em;">
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>Leonardo</strong> - €14.2M (33%)
-                            </li>
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>FABARIS</strong> - €4.49M (11%)
-                            </li>
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>TIM+Almaviva (AQ 2296)</strong> - €2.65M (6%)
-                            </li>
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>Italware</strong> - €3.15M (7%)
-                            </li>
-                            <li style="padding: 8px 0;">
-                                <strong>Altre (13 operatori)</strong> - €17.7M (43%)
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="program-section digi">
-                        <h3>Digitalizzazione (€19.4M)</h3>
-                        <ul style="list-style: none; font-size: 0.9em;">
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>Almaviva</strong> - €15.57M (80%)
-                            </li>
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>IBM (SISAD)</strong> - €2.13M (11%)
-                            </li>
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>Italware</strong> - €1.11M (6%)
-                            </li>
-                            <li style="padding: 8px 0;">
-                                <strong>Leonardo</strong> - €1.25M (6%)
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="program-section satcom">
-                        <h3>SatCom/SICRAL 3 (€286M+)</h3>
-                        <ul style="list-style: none; font-size: 0.9em;">
-                            <li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                                <strong>Leonardo (Space Alliance)</strong> - €286M+ (100%)
-                            </li>
-                            <li style="padding: 8px 0;">
-                                <strong>Status</strong>: Secretato per "motivi militari"
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ANOMALIE -->
-        <div id="anomalie" class="tab-content">
-            <div class="card">
-                <h2>12 Red flags strutturali</h2>
-                <ul class="anomaly-list">
-                    <li class="anomaly-item">
-                        <strong>1. Art. 18 (senza gara)</strong>: €3.46M Leonardo Cyber + €8.16M Almaviva/Leonardo Digi = €11.62M non competitivi
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>2. Monopolio Almaviva Digi</strong>: 80.3% del programma Digitalizzazione concentrato in una sola impresa
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>3. SICRAL 3 secretato</strong>: €590M nascosti dalla trasparenza, Leonardo-Space Alliance controllo totale, motivi "militari" dichiarati
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>4. DaC 192 assente</strong>: Manca dalla pagina di trasparenza ufficiale TELEDIFE, buco nella documentazione
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>5. Italware timing sospetto</strong>: Ordine MDM 29 giorni dopo arresti (31 dic 2024), continuità nonostante inchiesta
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>6. Italware cross-programma</strong>: Unica impresa sotto investigazione in entrambi Cyber e Digi (€4.26M totali)
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>7. Promozione Gervasio</strong>: Da Magg. Gen. a Ten. Gen. durante mandato TELEDIFE, carriera parallela agli appalti
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>8. TIM+Almaviva coordinated</strong>: Insieme in AQ 2296 Cyber, separatamente dominanti in Digi, pattern di coordinamento
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>9. McKinsey in SISAD</strong>: €1.42M in difesa IT, inusuale per settore militare, collegamento con IBM
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>10. 6 ghost CIG</strong>: Digitalizzazione con 6 CIG privi di esito pubblicato, registri incompleti
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>11. Esenzione AgID universale</strong>: Tutti DaC escludono revisione AgID con "sistemi militari", generico e ampio
-                    </li>
-                    <li class="anomaly-item">
-                        <strong>12. CIG revoked SDAPA</strong>: CIG Z353C4AD1B collegato a SDAPA AQ 800 revocata (€180M Italware/Dimira)
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- CROSS-PROGRAMMA -->
-        <div id="cross" class="tab-content">
-            <div class="card">
-                <h2>Panoramica tre programmi</h2>
-                
-                <div class="three-col">
-                    <div class="program-section cyber">
-                        <h3>M1C1-I1.5: Cybersecurity</h3>
-                        <p><strong>€42.676M</strong></p>
-                        <ul style="list-style: none; font-size: 0.9em; margin-top: 15px;">
-                            <li style="margin-bottom: 8px;">✓ 17 contratti</li>
-                            <li style="margin-bottom: 8px;">✓ 7 DaC Gervasio (€15.165M)</li>
-                            <li style="margin-bottom: 8px;">✓ 4 divisioni TELEDIFE coinvolte</li>
-                            <li style="margin-bottom: 8px;">✓ Art. 18 + Consip AQ + SDAPA + Dialogo</li>
-                            <li style="margin-bottom: 8px;">• Leonardo dominante (€14.2M)</li>
-                            <li>• Status: Trasparente (parziale)</li>
-                        </ul>
-                    </div>
-                    <div class="program-section digi">
-                        <h3>M1C1-I1.6.4: Digitalizzazione</h3>
-                        <p><strong>€19.397M</strong></p>
-                        <ul style="list-style: none; font-size: 0.9em; margin-top: 15px;">
-                            <li style="margin-bottom: 8px;">✓ 10 contratti</li>
-                            <li style="margin-bottom: 8px;">✓ 6 CIG fantasma</li>
-                            <li style="margin-bottom: 8px;">✓ 2 divisioni TELEDIFE (1ª e 4ª)</li>
-                            <li style="margin-bottom: 8px;">✓ Art. 18 + Consip AQ (Almaviva 80%)</li>
-                            <li style="margin-bottom: 8px;">• Almaviva monopolio (€15.57M)</li>
-                            <li>• Status: Record incompleti</li>
-                        </ul>
-                    </div>
-                    <div class="program-section satcom">
-                        <h3>M1C2-I4.1: SatCom/SICRAL 3</h3>
-                        <p><strong>€286M+ (€590M totale)</strong></p>
-                        <ul style="list-style: none; font-size: 0.9em; margin-top: 15px;">
-                            <li style="margin-bottom: 8px;">✓ 1 mega-contratto</li>
-                            <li style="margin-bottom: 8px;">✓ Nessun DaC pubblico</li>
-                            <li style="margin-bottom: 8px;">✓ Space Alliance (Leonardo 100%)</li>
-                            <li style="margin-bottom: 8px;">✓ Segreto di Stato dichiarato</li>
-                            <li style="margin-bottom: 8px;">• Leonardo esclusiva</li>
-                            <li>• Status: COMPLETAMENTE SECRETATO</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h2 style="margin-top: 30px;">Firma dei documenti di programmazione</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Ruolo</th>
-                                <th>Nome</th>
-                                <th>DaC</th>
-                                <th>Esiti</th>
-                                <th>Programmi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="program-badge badge-cyber">DaC</span></td>
-                                <td><strong>Gen. Gervasio</strong></td>
-                                <td>7 (€15.165M)</td>
-                                <td>0</td>
-                                <td>Cyber + Digi</td>
-                            </tr>
-                            <tr>
-                                <td><span class="program-badge badge-cyber">Esiti</span></td>
-                                <td><strong>Proietto</strong></td>
-                                <td>0</td>
-                                <td>Maggioranza</td>
-                                <td>Cyber + Digi</td>
-                            </tr>
-                            <tr>
-                                <td><span class="program-badge badge-digi">Esiti</span></td>
-                                <td><strong>Travagliante</strong></td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>Cyber + Digi</td>
-                            </tr>
-                            <tr>
-                                <td><span class="program-badge badge-digi">Esiti</span></td>
-                                <td><strong>Chiapperini</strong></td>
-                                <td>0</td>
-                                <td>1 (€7.46M)</td>
-                                <td>Digi sola</td>
-                            </tr>
-                            <tr>
-                                <td><span class="program-badge badge-digi">RUP</span></td>
-                                <td><strong>Fontana</strong></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>Digi (1ª Div)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="program-badge badge-digi">RUP</span></td>
-                                <td><strong>Cerase</strong></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>Digi (1ª Div)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="program-badge badge-digi">RUP</span></td>
-                                <td><strong>Bonomo</strong></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>Digi (4ª Div)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            
+            <div class="footnote">
+                <strong>Fonte documenti:</strong> difesa.it, sezione Amministrazione Trasparente (Cybersecurity, Digitalizzazione, SatCom).<br>
+                <strong>Fonte indagati:</strong> Domani, Il Post, Ansa, Il Sole 24 Ore, Il Fatto Quotidiano, Il Messaggero, Il Giornale, Cronache della Campania, MilanoFinanza (26-27 marzo 2026).
             </div>
         </div>
     </div>
     
     <script>
-        const contractsData = [
-            { desc: "Cyber Range", program: "cyber", amount: 2250000, operator: "Leonardo", mechanism: "Art. 18", dac: "DaC 166" },
-            { desc: "DII 5G", program: "cyber", amount: 2000000, operator: "Leonardo", mechanism: "Dialogo Competitivo", dac: "DaC 200" },
-            { desc: "SOAR Marina", program: "cyber", amount: 555000, operator: "Leonardo", mechanism: "SDAPA", dac: "DaC 195" },
-            { desc: "Centro Valutazione", program: "cyber", amount: 2500000, operator: "Consip", mechanism: "AQ 2212", dac: "DaC 60" },
-            { desc: "Cybersec Awareness", program: "cyber", amount: 2650000, operator: "TIM+Almaviva", mechanism: "AQ 2296", dac: "DaC 139" },
-            { desc: "CyCOP", program: "cyber", amount: 1210000, operator: "Leonardo", mechanism: "Art. 18", dac: "DaC 151" },
-            { desc: "Red Teaming", program: "cyber", amount: 4000000, operator: "Consip", mechanism: "AQ Consip", dac: "DaC 198" },
-            { desc: "Perimetro Cibernetico", program: "cyber", amount: 8500000, operator: "Leonardo", mechanism: "Consip AQ", dac: "DaC 156" },
-            { desc: "SOC Difesa", program: "cyber", amount: 6200000, operator: "FABARIS", mechanism: "Consip AQ", dac: "DaC 171" },
-            { desc: "EDR Deployment", program: "cyber", amount: 3100000, operator: "Italware", mechanism: "Consip AQ", dac: "DaC 185" },
-            { desc: "Threat Intel", program: "cyber", amount: 2000000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "Incident Response", program: "cyber", amount: 1500000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "Vulnerability Mgmt", program: "cyber", amount: 2000000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "SIEM Upgrade", program: "cyber", amount: 1800000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "Forensics Lab", program: "cyber", amount: 1200000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "Training Programs", program: "cyber", amount: 900000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "Cloud Security", program: "cyber", amount: 986656, operator: "Varie", mechanism: "AQ", dac: "-" },
-            
-            { desc: "SISAD (IBM+McKinsey)", program: "digi", amount: 3550000, operator: "IBM", mechanism: "Art. 18", dac: "DaC 177" },
-            { desc: "Portale Difesa", program: "digi", amount: 7460000, operator: "Almaviva", mechanism: "Consip AQ", dac: "DaC 189" },
-            { desc: "Infrastruttura Cloud", program: "digi", amount: 4220000, operator: "Almaviva", mechanism: "Art. 18", dac: "DaC 192" },
-            { desc: "RPA Processi", program: "digi", amount: 1750000, operator: "Almaviva", mechanism: "AQ", dac: "-" },
-            { desc: "Data Management", program: "digi", amount: 1110000, operator: "Italware", mechanism: "AQ", dac: "-" },
-            { desc: "API Gateway", program: "digi", amount: 890000, operator: "Leonardo", mechanism: "AQ", dac: "-" },
-            { desc: "Security Ops", program: "digi", amount: 561000, operator: "TIM", mechanism: "AQ", dac: "-" },
-            { desc: "Monitoring", program: "digi", amount: 425976, operator: "Almaviva", mechanism: "AQ", dac: "-" },
-            { desc: "Integration Services", program: "digi", amount: 320000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            { desc: "Training & Support", program: "digi", amount: 120000, operator: "Varie", mechanism: "AQ", dac: "-" },
-            
-            { desc: "SICRAL 3 (Space Alliance)", program: "satcom", amount: 286000000, operator: "Leonardo", mechanism: "Secretato", dac: "Secretato" }
-        ];
-        
-        const gervasioChain = [
-            { num: 1, date: "17/09/2021", dac: "DaC 166", desc: "Cyber Range", amount: "€2.25M", grade: "Magg. Gen.", mechanism: "Art. 18", operator: "Leonardo", division: "6ª Div" },
-            { num: 2, date: "07/12/2021", dac: "DaC 200", desc: "DII 5G", amount: "€2M", grade: "Magg. Gen.", mechanism: "Dialogo Competitivo", operator: "Leonardo", division: "5ª Div" },
-            { num: 3, date: "22/12/2022", dac: "DaC 195", desc: "SOAR Marina", amount: "€555K", grade: "Ten. Gen.", mechanism: "SDAPA", operator: "Leonardo", division: "8ª Div" },
-            { num: 4, date: "07/04/2023", dac: "DaC 60", desc: "Centro Valutazione", amount: "€2.5M", grade: "Ten. Gen.", mechanism: "AQ Consip 2212", operator: "Consip", division: "7ª Div" },
-            { num: 5, date: "20/07/2023", dac: "DaC 139", desc: "Cybersec Awareness", amount: "€2.65M", grade: "Ten. Gen.", mechanism: "AQ 2296 (TIM+Almaviva)", operator: "TIM+Almaviva", division: "4ª Div" },
-            { num: 6, date: "27/07/2023", dac: "DaC 151", desc: "CyCOP", amount: "€1.21M", grade: "Ten. Gen.", mechanism: "Art. 18 Leonardo", operator: "Leonardo", division: "6ª Div" },
-            { num: 7, date: "11/10/2023", dac: "DaC 198", desc: "Red Teaming", amount: "€4M", grade: "Ten. Gen.", mechanism: "AQ Consip", operator: "Consip", division: "8ª Div" }
-        ];
-        
         function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-            
-            if (tabName === 'rete') {
-                setTimeout(() => drawNetworkGraph(), 100);
+            var tabs = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
             }
-        }
-        
-        function filterContracts(program) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            
+            var buttons = document.getElementsByClassName('tab-button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
             event.target.classList.add('active');
-            
-            const rows = document.querySelectorAll('#contracts-body tr');
-            rows.forEach(row => {
-                if (program === 'all') {
-                    row.style.display = '';
-                } else {
-                    const prog = row.dataset.program;
-                    row.style.display = prog === program ? '' : 'none';
-                }
-            });
         }
-        
-        function populateContracts() {
-            const tbody = document.getElementById('contracts-body');
-            tbody.innerHTML = '';
-            contractsData.forEach(c => {
-                const row = document.createElement('tr');
-                row.dataset.program = c.program;
-                const badgeClass = c.program === 'cyber' ? 'badge-cyber' : c.program === 'digi' ? 'badge-digi' : 'badge-satcom';
-                const programName = c.program === 'cyber' ? 'Cybersecurity' : c.program === 'digi' ? 'Digitalizzazione' : 'SatCom';
-                row.innerHTML = `
-                    <td>${c.desc}</td>
-                    <td><span class="program-badge ${badgeClass}">${programName}</span></td>
-                    <td>€${(c.amount / 1000000).toFixed(2)}M</td>
-                    <td>${c.operator}</td>
-                    <td>${c.mechanism}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function populateGervasio() {
-            const timeline = document.getElementById('gervasio-timeline');
-            timeline.innerHTML = '';
-            gervasioChain.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'timeline-item';
-                div.innerHTML = `
-                    <div class="timeline-marker">${item.num}</div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">${item.date} - ${item.dac}</div>
-                        <div class="timeline-title">${item.desc} (${item.amount})</div>
-                        <div class="timeline-details">
-                            <strong>Grado:</strong> ${item.grade} | 
-                            <strong>Divisione:</strong> ${item.division} | 
-                            <strong>Meccanismo:</strong> ${item.mechanism}<br>
-                            <strong>Operatore:</strong> ${item.operator}
-                        </div>
-                    </div>
-                `;
-                timeline.appendChild(div);
-            });
-        }
-        
-        function drawNetworkGraph() {
-            const nodes = [
-                // Persone
-                { id: "gervasio", label: "Gen. Gervasio", type: "person", color: "#ff4444" },
-                { id: "proietto", label: "Proietto", type: "person", color: "#ff4444" },
-                { id: "travagliante", label: "Travagliante", type: "person", color: "#ff6666" },
-                { id: "chiapperini", label: "Chiapperini", type: "person", color: "#ff6666" },
-                { id: "fontana", label: "Fontana", type: "person", color: "#ff8888" },
-                
-                // Operatori
-                { id: "leonardo", label: "Leonardo", type: "operator", color: "#ff4444" },
-                { id: "almaviva", label: "Almaviva", type: "operator", color: "#4488ff" },
-                { id: "tim", label: "TIM", type: "operator", color: "#99ccff" },
-                { id: "italware", label: "Italware", type: "operator", color: "#ff6666" },
-                { id: "fabaris", label: "FABARIS", type: "operator", color: "#ffaa66" },
-                { id: "ibm", label: "IBM", type: "operator", color: "#99ccff" },
-                
-                // Programmi
-                { id: "cyber", label: "Cybersecurity", type: "program", color: "#ff4444" },
-                { id: "digi", label: "Digitalizzazione", type: "program", color: "#4488ff" },
-                { id: "satcom", label: "SatCom/SICRAL3", type: "program", color: "#ffaa00" },
-                
-                // Meccanismi
-                { id: "art18", label: "Art. 18", type: "mechanism", color: "#999" },
-                { id: "aq", label: "Consip AQ", type: "mechanism", color: "#666" },
-                { id: "sdapa", label: "SDAPA", type: "mechanism", color: "#666" },
-                { id: "secreto", label: "Secretato", type: "mechanism", color: "#333" },
-                
-                // Divisioni
-                { id: "div1", label: "1ª Div", type: "division", color: "#888" },
-                { id: "div4", label: "4ª Div", type: "division", color: "#888" },
-                { id: "div6", label: "6ª Div", type: "division", color: "#888" }
-            ];
-            
-            const links = [
-                // Gervasio firma
-                { source: "gervasio", target: "cyber", value: 4 },
-                { source: "gervasio", target: "digi", value: 3 },
-                { source: "gervasio", target: "leonardo", value: 4 },
-                { source: "gervasio", target: "almaviva", value: 2 },
-                
-                // Operatori nei programmi
-                { source: "leonardo", target: "cyber", value: 3 },
-                { source: "leonardo", target: "satcom", value: 5 },
-                { source: "almaviva", target: "digi", value: 5 },
-                { source: "almaviva", target: "cyber", value: 2 },
-                { source: "tim", target: "cyber", value: 2 },
-                { source: "italware", target: "cyber", value: 2 },
-                { source: "italware", target: "digi", value: 2 },
-                { source: "ibm", target: "digi", value: 2 },
-                { source: "fabaris", target: "cyber", value: 2 },
-                
-                // Meccanismi
-                { source: "cyber", target: "art18", value: 2 },
-                { source: "cyber", target: "aq", value: 3 },
-                { source: "cyber", target: "sdapa", value: 1 },
-                { source: "digi", target: "art18", value: 2 },
-                { source: "digi", target: "aq", value: 3 },
-                { source: "satcom", target: "secreto", value: 5 },
-                
-                // Divisioni
-                { source: "gervasio", target: "div6", value: 2 },
-                { source: "gervasio", target: "div1", value: 1 }
-            ];
-            
-            const svg = d3.select('#network-graph');
-            const width = svg.node().clientWidth;
-            const height = svg.node().clientHeight;
-            
-            const simulation = d3.forceSimulation(nodes)
-                .force('link', d3.forceLink(links).id(d => d.id).distance(50).strength(0.3))
-                .force('charge', d3.forceManyBody().strength(-200))
-                .force('center', d3.forceCenter(width / 2, height / 2));
-            
-            svg.selectAll("*").remove();
-            
-            const g = svg.append('g');
-            
-            const link = g.append('g')
-                .selectAll('line')
-                .data(links)
-                .enter()
-                .append('line')
-                .attr('class', 'link')
-                .attr('stroke-width', d => Math.sqrt(d.value) * 1.5);
-            
-            const node = g.append('g')
-                .selectAll('circle')
-                .data(nodes)
-                .enter()
-                .append('circle')
-                .attr('r', d => d.type === 'person' ? 8 : d.type === 'operator' ? 7 : d.type === 'program' ? 6 : 4)
-                .attr('fill', d => d.color)
-                .attr('class', 'node');
-            
-            const text = g.append('g')
-                .selectAll('text')
-                .data(nodes)
-                .enter()
-                .append('text')
-                .attr('x', 0)
-                .attr('y', 0)
-                .attr('text-anchor', 'middle')
-                .attr('dominant-baseline', 'middle')
-                .attr('font-size', '10px')
-                .attr('fill', '#000')
-                .attr('pointer-events', 'none')
-                .text(d => d.label.substring(0, 4));
-            
-            node.append('title').text(d => d.label);
-            
-            simulation.on('tick', () => {
-                link
-                    .attr('x1', d => d.source.x)
-                    .attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x)
-                    .attr('y2', d => d.target.y);
-                
-                node
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
-                
-                text
-                    .attr('x', d => d.x)
-                    .attr('y', d => d.y);
-            });
-        }
-        
-        function sortTable(col) {
-            const table = document.getElementById('contracts-table');
-            const rows = Array.from(table.querySelectorAll('tbody tr'));
-            
-            rows.sort((a, b) => {
-                const aVal = a.cells[col].textContent;
-                const bVal = b.cells[col].textContent;
-                
-                if (col === 2) {
-                    return parseFloat(bVal) - parseFloat(aVal);
-                }
-                return aVal.localeCompare(bVal);
-            });
-            
-            rows.forEach(row => table.querySelector('tbody').appendChild(row));
-        }
-        
-        populateContracts();
-        populateGervasio();
     </script>
 </body>
 </html>

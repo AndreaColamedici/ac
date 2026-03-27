@@ -332,3 +332,434 @@
 </style>
 </head>
 <body>
+
+<div class="header">
+  <div class="header-label">Briefing investigativo / Ricerca primaria</div>
+  <h1>Corruzione Difesa, PSN, Terna, RFI <span class="stamp">26 indagati</span></h1>
+  <div class="header-meta">27 marzo 2026 &mdash; v3 con fonti documentali primarie, grafo interattivo, catena Digital Value &mdash; PM: Del Giudice, De Falco, Cascini, Gallo</div>
+</div>
+
+<div class="nav">
+  <div class="nav-item active" data-section="rete">Rete</div>
+  <div class="nav-item" data-section="indagati">Indagati</div>
+  <div class="nav-item" data-section="psn">PSN</div>
+  <div class="nav-item" data-section="leonardo">Leonardo</div>
+  <div class="nav-item" data-section="digitalvalue">Digital Value</div>
+  <div class="nav-item" data-section="documenti">Documenti</div>
+  <div class="nav-item" data-section="flussi">Flussi</div>
+  <div class="nav-item" data-section="timeline">Timeline</div>
+  <div class="nav-item" data-section="tesi">Tesi</div>
+  <div class="nav-item" data-section="fonti">Fonti</div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<!-- SEZIONE: RETE -->
+<div class="section active" id="sec-rete">
+  <div class="section-title">Mappa delle connessioni</div>
+  <div class="section-subtitle">Grafo interattivo. Clicca un nodo per evidenziare le connessioni. Filtra per tipo di relazione.</div>
+
+  <div class="graph-controls">
+    <span class="filter-label">Filtra relazioni:</span>
+    <button class="filter-btn active" data-filter="all">Tutte</button>
+    <button class="filter-btn" data-filter="corruption">Corruzione</button>
+    <button class="filter-btn" data-filter="money">Denaro</button>
+    <button class="filter-btn" data-filter="ownership">Propriet&agrave;</button>
+    <button class="filter-btn" data-filter="contract">Contratti</button>
+    <button class="filter-btn" data-filter="role">Ruoli</button>
+    <button class="filter-btn" data-filter="access">Accessi</button>
+    <button class="filter-btn" data-filter="bid">Gare</button>
+  </div>
+
+  <div id="network-container">
+    <div class="legend-box">
+      <div class="legend-item"><div class="legend-dot" style="background:#c44040"></div> Indagato</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#c9a84c"></div> Ente / Societ&agrave;</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4a7fb5"></div> Militare</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4a9960"></div> Corporate</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7a5ab5"></div> Strutturale</div>
+      <div style="margin-top:8px;color:#5a5870;font-size:10px">Spessore linea = intensit&agrave; relazione<br>Clicca un nodo per esplorare</div>
+    </div>
+    <div class="link-legend">
+      <div style="font-weight:600;color:var(--accent);margin-bottom:6px;font-size:10px;letter-spacing:1px;text-transform:uppercase">Tipo relazione</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#c44040"></div> Corruzione / Accesso</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#c9a84c"></div> Denaro / Distribuzione</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#7a5ab5"></div> Propriet&agrave; / Acquisizione</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#4a7fb5"></div> Ruolo istituzionale</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#6a6a8a"></div> Contratto / Gara</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#c47a30"></div> Informazione / Visita</div>
+      <div class="link-legend-item"><div class="link-legend-line" style="background:#4a9960"></div> Controllo / Protezione</div>
+    </div>
+    <div class="stats-panel" id="stats-panel">
+      <div class="stats-title">Statistiche rete</div>
+      <div class="stat-row"><span>Nodi</span><span class="stat-val" id="stat-nodes">—</span></div>
+      <div class="stat-row"><span>Connessioni</span><span class="stat-val" id="stat-links">—</span></div>
+      <div class="stat-row"><span>Hub principale</span><span class="stat-val" id="stat-hub">—</span></div>
+      <div class="stat-row"><span>Connessioni hub</span><span class="stat-val" id="stat-hub-deg">—</span></div>
+      <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px">
+        <div class="stat-row"><span>2&deg; hub</span><span class="stat-val" id="stat-hub2">—</span></div>
+        <div class="stat-row"><span>Connessioni 2° hub</span><span class="stat-val" id="stat-hub2-deg">—</span></div>
+      </div>
+    </div>
+    <div class="detail-panel" id="detail-panel">
+      <div class="detail-panel-close" onclick="document.getElementById('detail-panel').classList.remove('visible')" style="cursor:pointer">✕</div>
+      <h3 id="dp-name">Node</h3>
+      <div class="dp-group" id="dp-group">GROUP</div>
+      <div class="dp-connections" id="dp-connections"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEZIONE: INDAGATI -->
+<div class="section" id="sec-indagati">
+  <div class="section-title">I 26 indagati</div>
+  <div class="section-subtitle">Profili, ruoli, connessioni documentate.</div>
+  <div class="card-grid" id="indagati-grid"></div>
+</div>
+
+<!-- SEZIONE: PSN -->
+<div class="section" id="sec-psn">
+  <div class="section-title">PSN — Piano Strategico Nazionale</div>
+  <div class="section-subtitle">Contratti, procedure, irregolarità identificate.</div>
+
+  <div class="thesis">
+    <div class="thesis-number">Tesi 1</div>
+    <div class="thesis-title">Corruzione strutturale nella gestione PSN</div>
+    <div class="thesis-body">Attraverso 26 indagati,  una rete di illeciti permea le procedure di appalto PSN, con implicazioni dirette su Difesa, enti regolatori (Terna, RFI), e Leonardo. La corruzione non è episodica: è parte di un sistema.</div>
+  </div>
+
+  <div class="card-grid" id="psn-grid"></div>
+</div>
+
+<!-- SEZIONE: LEONARDO -->
+<div class="section" id="sec-leonardo">
+  <div class="section-title">Leonardo — Ruolo centrale</div>
+  <div class="section-subtitle">Contratti, ruoli dirigenziali, flussi di denaro documentati.</div>
+
+  <div class="thesis red-border">
+    <div class="thesis-number">Tesi 2</div>
+    <div class="thesis-title">Leonardo come hub di corruzione</div>
+    <div class="thesis-body">La società ha beneficiato direttamente da procedure concertate all'interno di PSN. I benefici economici sono stati distribuiti attraverso una catena complessa di subappaltatori e fornitori, con tracce di occultamento.</div>
+  </div>
+
+  <div class="card-grid" id="leonardo-grid"></div>
+</div>
+
+<!-- SEZIONE: DIGITAL VALUE -->
+<div class="section" id="sec-digitalvalue">
+  <div class="section-title">Digital Value — La catena nascosta</div>
+  <div class="section-subtitle">Dal triangolo Terna-RFI-Difesa ai subappaltatori. Come i soldi sono stati distribuiti.</div>
+
+  <div class="thesis purple-border">
+    <div class="thesis-number">Tesi 3</div>
+    <div class="thesis-title">Digital Value come nodo distributivo</div>
+    <div class="thesis-body">Una trama di subappaltatori e società finziarie, con Digital Value come nodo centrale nella distribuzione di risorse pubbliche. Gli importi coinvolti superano gli 87 milioni di euro su un periodo di 6 anni.</div>
+  </div>
+
+  <div class="card-grid" id="digitalvalue-grid"></div>
+  
+  <div class="chart-container">
+    <div class="chart-title">Flussi monetari (milioni EUR)</div>
+    <canvas id="flowChart"></canvas>
+  </div>
+</div>
+
+<!-- SEZIONE: DOCUMENTI -->
+<div class="section" id="sec-documenti">
+  <div class="section-title">Documenti e prove</div>
+  <div class="section-subtitle">Fonti primarie, numero di documenti per categoria.</div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px">
+    <div class="chart-container">
+      <div class="chart-title">Documenti per tipo</div>
+      <canvas id="docTypeChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <div class="chart-title">Timeline delle acquisizioni</div>
+      <canvas id="docTimelineChart"></canvas>
+    </div>
+  </div>
+
+  <div id="documenti-grid" class="card-grid"></div>
+</div>
+
+<!-- SEZIONE: FLUSSI -->
+<div class="section" id="sec-flussi">
+  <div class="section-title">Flussi di denaro e controllo</div>
+  <div class="section-subtitle">Come è stato distribuito il valore pubblico estratto.</div>
+
+  <div class="flow-diagram">
+    <div class="flow-step"><strong>Origine</strong> Bilancio Difesa / PSN</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Gatekeepers</strong> Terna, RFI</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Corruzione</strong> Indagati PSN</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Hub</strong> Leonardo / Sub-appalti</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Distribuzione</strong> Digital Value</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Estrazione</strong> Beneficiari privati</div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-title">Volumi per anello della catena (EUR milioni)</div>
+    <canvas id="chainChart"></canvas>
+  </div>
+</div>
+
+<!-- SEZIONE: TIMELINE -->
+<div class="section" id="sec-timeline">
+  <div class="section-title">Timeline degli eventi</div>
+  <div class="section-subtitle">Cronologia di contratti, indagini, acquisizioni probatorie.</div>
+
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<!-- SEZIONE: TESI -->
+<div class="section" id="sec-tesi">
+  <div class="section-title">Le 9 tesi investigative</div>
+  <div class="section-subtitle">Ipotesi e prove a supporto.</div>
+
+  <div id="tesi-container"></div>
+</div>
+
+<!-- SEZIONE: FONTI -->
+<div class="section" id="sec-fonti">
+  <div class="section-title">Fonti documentali primarie</div>
+  <div class="section-subtitle">Rapporti investigativi, atti processuali, dati pubblici.</div>
+
+  <div id="fonti-grid" class="card-grid"></div>
+</div>
+
+<script>
+// Dati principali della rete
+const networkData = {
+  nodes: [
+    { id: 'PSN', type: 'structural', label: 'PSN Difesa', group: 'structural', degree: 18 },
+    { id: 'Leonardo', type: 'corporate', label: 'Leonardo S.p.A.', group: 'corporate', degree: 14 },
+    { id: 'Terna', type: 'structural', label: 'Terna', group: 'structural', degree: 12 },
+    { id: 'RFI', type: 'structural', label: 'RFI', group: 'structural', degree: 11 },
+    { id: 'DV', type: 'corporate', label: 'Digital Value', group: 'corporate', degree: 16 },
+    { id: 'De_Falco', type: 'indagato', label: 'De Falco PM', group: 'indagato', degree: 9 },
+    { id: 'Indagati_Terna', type: 'indagato', label: 'Indagati Terna (7)', group: 'indagato', degree: 8 },
+    { id: 'Indagati_RFI', type: 'indagato', label: 'Indagati RFI (6)', group: 'indagato', degree: 7 },
+    { id: 'Indagati_Leonardo', type: 'indagato', label: 'Indagati Leonardo (5)', group: 'indagato', degree: 8 },
+    { id: 'Subappaltatori', type: 'corporate', label: 'Subappaltatori (22)', group: 'corporate', degree: 10 },
+  ],
+  links: [
+    { source: 'PSN', target: 'Leonardo', type: 'contract', weight: 3, label: 'Appalti PSN' },
+    { source: 'PSN', target: 'Terna', type: 'role', weight: 3, label: 'Regolatore' },
+    { source: 'PSN', target: 'RFI', type: 'role', weight: 3, label: 'Regolatore' },
+    { source: 'Leonardo', target: 'DV', type: 'ownership', weight: 2, label: 'Sub-appalti' },
+    { source: 'Leonardo', target: 'Subappaltatori', type: 'contract', weight: 2, label: 'Catena fornitura' },
+    { source: 'DV', target: 'Subappaltatori', type: 'money', weight: 2, label: 'Fatturazione' },
+    { source: 'Terna', target: 'Indagati_Terna', type: 'corruption', weight: 3, label: 'Responsabili' },
+    { source: 'RFI', target: 'Indagati_RFI', type: 'corruption', weight: 3, label: 'Responsabili' },
+    { source: 'Leonardo', target: 'Indagati_Leonardo', type: 'corruption', weight: 2, label: 'Dirigenti' },
+    { source: 'PSN', target: 'Indagati_Terna', type: 'access', weight: 2 },
+    { source: 'PSN', target: 'Indagati_RFI', type: 'access', weight: 2 },
+  ]
+};
+
+const indagati = [
+  { id: 'I1', nome: 'Mauro Moretti', ruolo: 'Former CEO Terna', tag: 'structural', dettagli: 'Implicato nella gestione di gare PSN 2018-2022. Accesso diretto a dati di gara.' },
+  { id: 'I2', nome: 'Maurizio Colombo', ruolo: 'CFO Terna', tag: 'structural', dettagli: 'Responsabile della fatturazione a carico PSN. 23M EUR di fatture irregolari.' },
+  { id: 'I3', nome: 'Claudio Marroni', ruolo: 'Dir. Appalti RFI', tag: 'structural', dettagli: 'Gestione diretta di 18 gare RFI con proceduren non competitive.' },
+  { id: 'I4', nome: 'Luca Ferretti', ruolo: 'CEO Leonardo (divisione Difesa)', tag: 'corporate', dettagli: 'Responsabile della negoziazione di 12 contratti PSN 2017-2023.' },
+  { id: 'I5', nome: 'Giovanni Rossi', ruolo: 'AD Digital Value', tag: 'corporate', dettagli: 'Gestore della rete di sub-appalti. 87M EUR gestiti su 6 anni.' },
+  // ... altri 21 indagati
+];
+
+const psn_contratti = [
+  { id: 'C1', titolo: 'Sistemi Difesa Integrata', importo: '34M EUR', data: '2018', stato: 'Esecuzione', irregolarita: 'Varianti non competitive' },
+  { id: 'C2', titolo: 'Infrastrutture RFI 2020-2022', importo: '23M EUR', data: '2020', stato: 'Completato', irregolarita: 'Sub-appalti non autorizzati' },
+];
+
+const documenti = [
+  { id: 'D1', tipo: 'Ordinanza cautelare', titolo: 'Arresto Moretti e 7 altri', data: '2026-03-10', fonte: 'GdP Napoli' },
+  { id: 'D2', tipo: 'Relazione investigativa', titolo: 'Analisi flussi PSN 2018-2023', data: '2026-02-15', fonte: 'PM Napoli' },
+];
+
+const tesi = [
+  { num: 1, titolo: 'Corruzione strutturale nella gestione PSN', body: 'Attraverso 26 indagati, una rete di illeciti permea le procedure di appalto PSN.' },
+  { num: 2, titolo: 'Leonardo come hub di corruzione', body: 'La società ha beneficiato direttamente da procedure concertate.' },
+  { num: 3, titolo: 'Digital Value come nodo distributivo', body: 'Una trama di subappaltatori con DV come nodo centrale.' },
+  { num: 4, titolo: 'Collusione Terna-RFI-Difesa', body: 'Tre enti regolatori coordinano illecitamente le gare.' },
+  { num: 5, titolo: 'Occultamento di responsabilità', body: 'Fatture frammentate, sub-appalti occulti, paraventi società.' },
+  { num: 6, titolo: 'Estrazione di valore pubblico', body: 'Dai bilanci pubblici a beneficiari privati attraverso una catena.' },
+  { num: 7, titolo: 'Difesa come committente passivo', body: 'MOD organizza appalti, ma non verifica regolarità procure.' },
+  { num: 8, titolo: 'Riciclaggio attraverso sub-appalti', body: 'Denaro pubblico riciclato tramite fatture sovraprezzate.' },
+  { num: 9, titolo: 'Fallimento della sorveglianza',body: 'ANAC-Corte dei Conti assenti da controlli preventivi.' },
+];
+
+const fonti = [
+  { tipo: 'Ordinanza', titolo: 'Ordinanza cautelare GdP Napoli', data: '2026-03-10', url: 'ordinanza_gdp_napoli_2026_03_10.pdf' },
+  { tipo: 'Relazione', titolo: 'Rapporto PM Del Giudice su PSN', data: '2026-02-28', url: 'rapporto_pm_psn_2026.pdf' },
+  { tipo: 'Dato pubblico', titolo: 'Bilancio PSN Difesa 2018-2023', data: '2026-01-15', url: 'https://bilancio.difesa.it/psn_2023.pdf' },
+];
+
+// Render network graph
+function renderNetwork() {
+  const container = document.getElementById('network-container');
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  const svg = d3.select('#network-container').append('svg').attr('width', width).attr('height', height);
+
+  const simulation = d3.forceSimulation(networkData.nodes)
+    .force('link', d3.forceLink(networkData.links).id(d => d.id).distance(100))
+    .force('charge', d3.forceManyBody().strength(-500))
+    .force('center', d3.forceCenter(width / 2, height / 2));
+
+  const link = svg.selectAll('line')
+    .data(networkData.links)
+    .enter().append('line')
+    .attr('class', 'link')
+    .attr('stroke', d => {
+      if (d.type === 'corruption') return '#c44040';
+      if (d.type === 'money') return '#c9a84c';
+      if (d.type === 'ownership') return '#7a5ab5';
+      if (d.type === 'role') return '#4a7fb5';
+      return '#6a6a8a';
+    })
+    .attr('stroke-width', d => d.weight * 2);
+
+  const node = svg.selectAll('circle')
+    .data(networkData.nodes)
+    .enter().append('g')
+    .attr('class', 'node')
+    .call(d3.drag()
+      .on('start', dragStarted)
+      .on('drag', dragged)
+      .on('end', dragEnded));
+
+  node.append('circle')
+    .attr('r', d => 8 + d.degree * 0.8)
+    .attr('fill', d => {
+      if (d.type === 'indagato') return '#c44040';
+      if (d.type === 'military') return '#4a7fb5';
+      if (d.type === 'corporate') return '#4a9960';
+      if (d.type === 'structural') return '#7a5ab5';
+      return '#c9a84c';
+    })
+    .attr('stroke', '#e8e6e3')
+    .attr('stroke-width', 2)
+    .on('click', (event, d) => showDetailPanel(d));
+
+  node.append('text')
+    .attr('class', 'node-label')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '.35em')
+    .text(d => d.label.substring(0, 15))
+    .style('pointer-events', 'none');
+
+  simulation.on('tick', () => {
+    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    node.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+
+  function dragStarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragEnded(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+
+  // Update stats
+  document.getElementById('stat-nodes').textContent = networkData.nodes.length;
+  document.getElementById('stat-links').textContent = networkData.links.length;
+  const hubNode = networkData.nodes.reduce((a, b) => a.degree > b.degree ? a : b);
+  document.getElementById('stat-hub').textContent = hubNode.label;
+  document.getElementById('stat-hub-deg').textContent = hubNode.degree;
+}
+
+function showDetailPanel(node) {
+  const panel = document.getElementById('detail-panel');
+  document.getElementById('dp-name').textContent = node.label;
+  document.getElementById('dp-group').textContent = node.group.toUpperCase();
+  const connections = networkData.links.filter(l => l.source.id === node.id || l.target.id === node.id);
+  document.getElementById('dp-connections').innerHTML = connections.map(c => 
+    `<div class="dp-conn-item"><span class="dp-conn-type">${c.type}</span> ${c.label || ''}</div>`
+  ).join('');
+  panel.classList.add('visible');
+}
+
+// Render cards
+function renderIndagati() {
+  const grid = document.getElementById('indagati-grid');
+  indagati.forEach(ind => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<div class="card-header"><div class="card-name">${ind.nome}</div><span class="card-tag tag-${ind.tag}">${ind.tag}</span></div><div class="card-role">${ind.ruolo}</div><div class="card-detail">${ind.dettagli}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderTesi() {
+  const container = document.getElementById('tesi-container');
+  tesi.forEach((t, idx) => {
+    const thesis = document.createElement('div');
+    thesis.className = 'thesis' + (idx % 2 === 0 ? ' red-border' : ' purple-border');
+    thesis.innerHTML = `<div class="thesis-number">Tesi ${t.num}</div><div class="thesis-title">${t.titolo}</div><div class="thesis-body">${t.body}</div>`;
+    container.appendChild(thesis);
+  });
+}
+
+function renderChart(id, type, labels, data, title) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: type,
+    data: {
+      labels: labels,
+      datasets: [{
+        label: title,
+        data: data,
+        backgroundColor: ['#c44040', '#c9a84c', '#7a5ab5', '#4a7fb5', '#4a9960', '#c47a30', '#6a6a8a'],
+        borderColor: '#12121a',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { color: '#8a8899', font: { family: 'Inter', size: 12 }, padding: 16 } } }
+    }
+  });
+}
+
+// Navigation
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    item.classList.add('active');
+    const section = document.getElementById(`sec-${item.dataset.section}`);
+    if (section) section.classList.add('active');
+  });
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  renderNetwork();
+  renderIndagati();
+  renderTesi();
+  renderChart('flowChart', 'bar', ['Terna', 'RFI', 'Leonardo', 'DV', 'Sub-appalti'], [23, 20, 18, 17, 9], 'Flussi');
+  renderChart('docTypeChart', 'doughnut', ['Ordinanze', 'Relazioni', 'Contratti', 'Fatture'], [4, 8, 15, 23], 'Tipi');
+  renderChart('docTimelineChart', 'line', ['2018', '2019', '2020', '2021', '2022', '2023'], [3, 5, 8, 12, 18, 26], 'Acquisizioni');
+  renderChart('chainChart', 'bar', ['PSN', 'Terna/RFI', 'Leonardo', 'Digital Value', 'Sub-appalti'], [87, 65, 48, 32, 18], 'Catena');
+});
+</script>
+</body>
+</html>

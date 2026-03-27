@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TELEDIFE PNRR Cybersecurity — Mappa completa delle aggiudicazioni</title>
+<title>TELEDIFE PNRR — Mappa completa Cybersecurity + Digitalizzazione</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
@@ -25,6 +25,7 @@
     --green: #4a9960;
     --orange: #c47a30;
     --purple: #7a5ab5;
+    --teal: #4a9999;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,976 +72,977 @@
 
   .nav-btn {
     padding: 14px 24px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-dim);
-    background: none;
     border: none;
-    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: var(--text-dim);
     cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
     white-space: nowrap;
     transition: all 0.2s;
   }
 
-  .nav-btn:hover { color: var(--text); background: var(--surface-2); }
-  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-  .panel { display: none; padding: 40px 60px; }
-  .panel.active { display: block; }
-
-  .section-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .section-subtitle {
-    font-size: 15px;
-    color: var(--text-dim);
-    margin-bottom: 30px;
-    font-style: italic;
-  }
-
-  #network-container {
-    width: 100%;
-    height: 700px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  #network-container svg { width: 100%; height: 100%; }
-
-  .network-legend {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: rgba(10,10,15,0.92);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 14px 18px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    z-index: 10;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-    color: var(--text-dim);
-  }
-
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .tooltip-box {
-    position: absolute;
-    display: none;
-    max-width: 380px;
-    background: rgba(18,18,26,0.96);
-    border: 1px solid var(--accent-dim);
-    border-radius: 8px;
-    padding: 16px 20px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
+  .nav-btn:hover {
     color: var(--text);
-    line-height: 1.5;
-    z-index: 100;
-    pointer-events: none;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  }
-
-  .tooltip-box .tt-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-  .tooltip-box .tt-type { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .tooltip-box .tt-amount { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent); margin-bottom: 6px; }
-
-  .table-wrap {
-    overflow-x: auto;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-  }
-
-  thead { background: var(--surface-2); }
-
-  th {
-    padding: 12px 14px;
-    text-align: left;
-    font-weight: 600;
-    color: var(--accent);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
-
-  td {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-
-  tr:hover { background: var(--surface-2); }
-  tr.flagged { background: rgba(196,64,64,0.08); }
-  tr.flagged td:first-child { border-left: 3px solid var(--red); }
-
-  .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-  .amount { font-family: 'JetBrains Mono', monospace; color: var(--accent); white-space: nowrap; }
-  .flag { color: var(--red); font-weight: 600; }
-  .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .tag-sdapa { background: rgba(74,127,181,0.15); color: var(--blue); }
-  .tag-art18 { background: rgba(196,64,64,0.15); color: var(--red); }
-  .tag-consip { background: rgba(74,153,96,0.15); color: var(--green); }
-  .tag-aq { background: rgba(122,90,181,0.15); color: var(--purple); }
-
-  .charts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
-  }
-
-  .chart-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 24px;
-  }
-
-  .chart-card h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .chart-card .chart-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 20px;
-  }
-
-  .bar-chart { display: flex; flex-direction: column; gap: 10px; }
-
-  .bar-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .bar-label {
-    width: 160px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    text-align: right;
-    flex-shrink: 0;
-    color: var(--text-dim);
-  }
-
-  .bar-track {
-    flex: 1;
-    height: 24px;
     background: var(--surface-2);
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
   }
 
-  .bar-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.8s ease;
-    display: flex;
-    align-items: center;
-    padding-left: 8px;
-  }
-
-  .bar-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: #fff;
-    white-space: nowrap;
-  }
-
-  .anomaly-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--red);
-    border-radius: 0 8px 8px 0;
-    padding: 24px 28px;
-    margin-bottom: 20px;
-  }
-
-  .anomaly-card.critical { border-left-color: var(--red); }
-  .anomaly-card.warning { border-left-color: var(--orange); }
-  .anomaly-card.info { border-left-color: var(--blue); }
-
-  .anomaly-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .anomaly-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 4px;
-  }
-
-  .anomaly-badge.critical { background: rgba(196,64,64,0.2); color: var(--red); }
-  .anomaly-badge.warning { background: rgba(196,122,48,0.2); color: var(--orange); }
-  .anomaly-badge.info { background: rgba(74,127,181,0.2); color: var(--blue); }
-
-  .anomaly-title {
-    font-size: 17px;
-    font-weight: 600;
-  }
-
-  .anomaly-body {
-    font-size: 15px;
-    color: var(--text-dim);
-    line-height: 1.7;
-  }
-
-  .anomaly-body strong { color: var(--text); }
-
-  .chain-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    max-width: 700px;
-  }
-
-  .chain-node {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+  .nav-btn.active {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
     margin-bottom: -1px;
   }
 
-  .chain-node.indagato { border-color: var(--red); background: rgba(196,64,64,0.05); }
-
-  .chain-rank {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    width: 180px;
-    flex-shrink: 0;
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px 60px;
   }
 
-  .chain-name {
-    font-size: 16px;
-    font-weight: 600;
-    flex: 1;
-  }
-
-  .chain-note {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-
-  .chain-arrow {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 18px;
-    padding: 4px 0;
-    margin-left: 90px;
-  }
-
-  .stats-row {
+  .grid-header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   .stat-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px 24px;
-    text-align: center;
-  }
-
-  .stat-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 4px;
+    padding: 20px;
+    border-radius: 4px;
   }
 
   .stat-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
     color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
   }
 
-  .stat-card.danger .stat-value { color: var(--red); }
-
-  .donut-container {
-    display: flex;
-    align-items: center;
-    gap: 40px;
+  .stat-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
   }
 
-  .donut-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .donut-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Inter', sans-serif;
+  .stat-meta {
     font-size: 13px;
-    color: var(--text-dim);
-  }
-
-  .donut-legend-swatch {
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-    flex-shrink: 0;
-  }
-
-  .footer {
-    border-top: 1px solid var(--border);
-    padding: 30px 60px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
     color: var(--text-muted);
-    line-height: 1.8;
   }
 
-  @media (max-width: 900px) {
-    .header { padding: 24px 20px; }
-    .panel { padding: 24px 20px; }
-    .charts-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .footer { padding: 20px; }
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 40px 0 20px;
+    padding: 20px 0 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 20px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+  }
+
+  th {
+    background: var(--surface-2);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  tr:hover {
+    background: var(--surface-2);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .badge-red { background: var(--red-dim); color: var(--red); }
+  .badge-green { background: rgba(74, 153, 96, 0.2); color: var(--green); }
+  .badge-blue { background: rgba(74, 127, 181, 0.2); color: var(--blue); }
+  .badge-orange { background: rgba(196, 122, 48, 0.2); color: var(--orange); }
+  .badge-purple { background: rgba(122, 90, 181, 0.2); color: var(--purple); }
+  .badge-teal { background: rgba(74, 153, 153, 0.2); color: var(--teal); }
+
+  .chart-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+
+  svg { max-width: 100%; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+    font-size: 12px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  .export-btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 20px 0;
+  }
+
+  .export-btn:hover {
+    background: var(--accent-dim);
+  }
+
+  @media (max-width: 768px) {
+    .grid-header { grid-template-columns: 1fr; }
+    .container { padding: 20px; }
+    .nav-btn { padding: 12px 16px; font-size: 11px; }
   }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-label">Radiografia investigativa</div>
-  <h1>TELEDIFE PNRR Cybersecurity</h1>
-  <div class="header-sub">Mappa completa delle aggiudicazioni M1C1-I1.5</div>
-  <div class="header-meta">17 contratti verificati &middot; &euro;42.676.656 &middot; Dati estratti da Amministrazione Trasparente difesa.it &middot; 27 marzo 2026</div>
+  <div class="header-label">TELEDIFE PNRR</div>
+  <h1>Mappa completa — Cybersecurity + Digitalizzazione</h1>
+  <div class="header-sub">Studio sulle commesse PNRR nei settori Cybersecurity e Digitalizzazione PA</div>
+  <div class="header-meta">Aggiornato: 27 marzo 2026 | 27 contratti | €62.047.842,94</div>
 </div>
 
 <div class="nav">
-  <button class="nav-btn active" onclick="showPanel('overview')">Sintesi</button>
-  <button class="nav-btn" onclick="showPanel('network')">Rete</button>
-  <button class="nav-btn" onclick="showPanel('table')">Tabella 17/17</button>
-  <button class="nav-btn" onclick="showPanel('charts')">Concentrazione</button>
-  <button class="nav-btn" onclick="showPanel('anomalies')">Anomalie</button>
-  <button class="nav-btn" onclick="showPanel('chain')">Catena di comando</button>
+  <button class="nav-btn active" onclick="switchTab('overview')">Overview</button>
+  <button class="nav-btn" onclick="switchTab('table')">Database completo</button>
+  <button class="nav-btn" onclick="switchTab('analysis')">Analisi per categoria</button>
+  <button class="nav-btn" onclick="switchTab('network')">Network graph</button>
 </div>
 
-<div class="panel active" id="panel-overview">
-  <div class="stats-row">
+<div class="container" id="overview" style="display: block;">
+  <div class="grid-header">
     <div class="stat-card">
-      <div class="stat-value">17</div>
-      <div class="stat-label">Contratti verificati</div>
+      <div class="stat-label">Numero contratti</div>
+      <div class="stat-value">27</div>
+      <div class="stat-meta">Totale commesse mappate</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">&euro;42,7M</div>
-      <div class="stat-label">Totale aggiudicato</div>
+      <div class="stat-label">Importo totale</div>
+      <div class="stat-value">€62,0M</div>
+      <div class="stat-meta">Finanziamento complessivo</div>
     </div>
-    <div class="stat-card danger">
-      <div class="stat-value">33,3%</div>
-      <div class="stat-label">Quota Leonardo (diretto+RTI+JV)</div>
+    <div class="stat-card">
+      <div class="stat-label">Media per contratto</div>
+      <div class="stat-value">€2,3M</div>
+      <div class="stat-meta">Importo medio</div>
     </div>
-    <div class="stat-card danger">
-      <div class="stat-value">2</div>
-      <div class="stat-label">Aziende indagate vincitrici</div>
-    </div>
-  </div>
-
-  <div class="charts-grid">
-    <div class="chart-card">
-      <h3>Per procedura</h3>
-      <div class="chart-sub">Come sono stati assegnati i 17 contratti</div>
-      <div class="donut-container">
-        <svg id="donut-procedure" width="200" height="200"></svg>
-        <div class="donut-legend" id="legend-procedure"></div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <h3>Gare con offerta unica</h3>
-      <div class="chart-sub">Invitati vs. offerte ricevute nei casi estremi</div>
-      <div class="bar-chart" id="single-bid-chart"></div>
+    <div class="stat-card">
+      <div class="stat-label">Aziende unica</div>
+      <div class="stat-value">16</div>
+      <div class="stat-meta">Appaltatori principali</div>
     </div>
   </div>
 
-  <div class="chart-card" style="margin-bottom:30px;">
-    <h3>Distribuzione per operatore</h3>
-    <div class="chart-sub">Importi aggiudicati in milioni di euro</div>
-    <div class="bar-chart" id="operator-chart"></div>
+  <div class="section-title">Distribuzione per categoria</div>
+  
+  <div class="chart-container">
+    <svg id="chartCategories" width="100%" height="400"></svg>
   </div>
-</div>
 
-<div class="panel" id="panel-network">
-  <div class="section-title">Rete delle connessioni</div>
-  <div class="section-subtitle">Persone, aziende, contratti e istituzioni. Clicca su un nodo per dettagli.</div>
-  <div id="network-container">
-    <div class="network-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Indagato / sotto indagine</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Persona TELEDIFE</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Azienda</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Contratto PNRR</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Istituzione / Meccanismo</div>
-    </div>
-    <div class="tooltip-box" id="tooltip"></div>
+  <div class="section-title">Top 5 Appaltatori</div>
+  
+  <div class="chart-container">
+    <svg id="chartContractors" width="100%" height="300"></svg>
+  </div>
+
+  <div class="section-title">Distribuzione temporale</div>
+  
+  <div class="chart-container">
+    <svg id="chartTimeline" width="100%" height="300"></svg>
   </div>
 </div>
 
-<div class="panel" id="panel-table">
-  <div class="section-title">Tabella completa 17/17</div>
-  <div class="section-subtitle">Tutti i contratti PNRR M1C1-I1.5 Cybersecurity verificati sui PDF ufficiali</div>
-  <div class="table-wrap">
-    <table>
+<div class="container" id="table" style="display: none;">
+  <div class="section-title">Database completo</div>
+  <button class="export-btn" onclick="exportToCSV()">Esporta in CSV</button>
+  
+  <div class="table-responsive">
+    <table id="dataTable">
       <thead>
         <tr>
-          <th>#</th>
-          <th>CIG</th>
-          <th>Oggetto</th>
-          <th>Aggiudicatario</th>
-          <th>Importo</th>
-          <th>Procedura</th>
-          <th>Invitati&rarr;Offerte</th>
-          <th>Firma esito</th>
+          <th>ID</th>
+          <th>Contratto</th>
+          <th>Categoria</th>
+          <th>Appaltatore</th>
+          <th>Importo (€)</th>
+          <th>Data firma</th>
+          <th>Durata (mesi)</th>
+          <th>Stato</th>
+          <th>PA</th>
         </tr>
       </thead>
-      <tbody id="contracts-tbody"></tbody>
+      <tbody id="tableBody">
+      </tbody>
     </table>
   </div>
 </div>
 
-<div class="panel" id="panel-charts">
-  <div class="section-title">Concentrazione</div>
-  <div class="section-subtitle">Chi controlla i fondi europei per la cybersecurity militare italiana</div>
-
-  <div class="chart-card" style="margin-bottom:30px;">
-    <h3>Leonardo: &euro;14,19M &mdash; un terzo del PNRR Cybersecurity</h3>
-    <div class="chart-sub">Contratti diretti (art. 18 senza bando), partecipazioni RTI, joint venture via Telespazio</div>
-    <div class="bar-chart">
-      <div class="bar-row">
-        <div class="bar-label">CyCOP (art.18, diretto)</div>
-        <div class="bar-track"><div class="bar-fill" style="width:7.6%;background:var(--red)"><span class="bar-value">&euro;1,09M</span></div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">Cyber Range (art.18, RTI mand.)</div>
-        <div class="bar-track"><div class="bar-fill" style="width:19.7%;background:var(--red)"><span class="bar-value">&euro;2,79M</span></div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">5G (RTI con HP)</div>
-        <div class="bar-track"><div class="bar-fill" style="width:31.6%;background:var(--orange)"><span class="bar-value">&euro;4,49M</span></div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label">TranSEC (Telespazio 67%)</div>
-        <div class="bar-track"><div class="bar-fill" style="width:41%;background:var(--purple)"><span class="bar-value">&euro;5,82M</span></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="charts-grid">
-    <div class="chart-card">
-      <h3>Top 5 aggiudicatari</h3>
-      <div class="chart-sub">Per importo totale</div>
-      <div class="bar-chart">
-        <div class="bar-row"><div class="bar-label">Leonardo (tot.)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"><span class="bar-value">&euro;14,19M</span></div></div></div>
-        <div class="bar-row"><div class="bar-label">TIM</div><div class="bar-track"><div class="bar-fill" style="width:87.7%;background:var(--blue)"><span class="bar-value">&euro;12,44M</span></div></div></div>
-        <div class="bar-row"><div class="bar-label">Telespazio</div><div class="bar-track"><div class="bar-fill" style="width:41%;background:var(--purple)"><span class="bar-value">&euro;5,82M</span></div></div></div>
-        <div class="bar-row"><div class="bar-label">FABARIS</div><div class="bar-track"><div class="bar-fill" style="width:31.7%;background:var(--green)"><span class="bar-value">&euro;4,49M</span></div></div></div>
-        <div class="bar-row"><div class="bar-label" style="color:var(--red)">Italware &#9888;</div><div class="bar-track"><div class="bar-fill" style="width:22.2%;background:var(--red)"><span class="bar-value">&euro;3,15M</span></div></div></div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <h3>Art. 18 vs. gare competitive</h3>
-      <div class="chart-sub">Contratti assegnati senza bando</div>
-      <div class="donut-container">
-        <svg id="donut-art18" width="200" height="200"></svg>
-        <div class="donut-legend" id="legend-art18"></div>
-      </div>
-    </div>
+<div class="container" id="analysis" style="display: none;">
+  <div class="section-title">Analisi per categoria</div>
+  
+  <div id="categoryAnalysis">
   </div>
 </div>
 
-<div class="panel" id="panel-anomalies">
-  <div class="section-title">Le 7 anomalie documentate</div>
-  <div class="section-subtitle">Ogni anomalia verificata sui PDF ufficiali di Amministrazione Trasparente</div>
-
-  <div class="anomaly-card critical">
-    <div class="anomaly-header">
-      <span class="anomaly-badge critical">critico</span>
-      <span class="anomaly-title">Italware vince &euro;3,15M un mese dopo gli arresti</span>
-    </div>
-    <div class="anomaly-body">RTI Italware S.r.l. (mandataria) + Trice s.r.l. ha ricevuto l'Ordine 8177757 in data <strong>12 novembre 2024</strong> per &euro;3.152.240,60 tramite Convenzione Consip Multibrand 6 Lotto 11. Paolino Iorio (DG Sogei) e Massimo Rossi (AD Digital Value, controllante di Italware) erano stati arrestati il <strong>14 ottobre 2024</strong>. L'ordine arriva 29 giorni dopo. La convenzione Consip ha funzionato da scudo: Italware era gi&agrave; fornitore predefinito nel lotto, e TELEDIFE ha potuto procedere all'adesione nonostante il contesto giudiziario. L'esclusione quinquennale di Italware dalle gare TELEDIFE, comunicata successivamente, riguarda le procedure SDAPA e non le adesioni a convenzioni preesistenti.</div>
+<div class="container" id="network" style="display: none;">
+  <div class="section-title">Network graph — Relazioni appaltatori-PA-categorie</div>
+  <div class="chart-container">
+    <svg id="networkGraph" width="100%" height="600"></svg>
+    <div class="legend" id="networkLegend"></div>
   </div>
-
-  <div class="anomaly-card critical">
-    <div class="anomaly-header">
-      <span class="anomaly-badge critical">critico</span>
-      <span class="anomaly-title">Sferanet vince &euro;1,32M durante le intercettazioni</span>
-    </div>
-    <div class="anomaly-body">Sferanet S.r.l. ha vinto la gara SDAPA per il WAF dell'Aeronautica Militare (base Resia) con aggiudicazione il <strong>28 dicembre 2023</strong>, per un importo stimato di &euro;1.320.000. In quel periodo la Procura di Roma stava intercettando le comunicazioni relative ai rapporti corruttivi interni a TELEDIFE. Sferanet &egrave; tra le aziende citate nell'indagine.</div>
-  </div>
-
-  <div class="anomaly-card warning">
-    <div class="anomaly-header">
-      <span class="anomaly-badge warning">anomalia</span>
-      <span class="anomaly-title">FABARIS: 1 offerta su 10.944 invitati</span>
-    </div>
-    <div class="anomaly-body">Per i materiali del Centro di Valutazione (WP13, CIG B57DC8293A), <strong>10.944</strong> operatori economici sono stati invitati tramite SDAPA. Una sola offerta &egrave; stata presentata: FABARIS S.p.A., che si &egrave; aggiudicata &euro;3.955.126,43. Il rapporto 1 su 10.944 &egrave; il pi&ugrave; estremo dell'intero programma PNRR. FABARIS &egrave; la stessa azienda che aveva gi&agrave; vinto il SOAR Marina Militare (firmato Travagliante).</div>
-  </div>
-
-  <div class="anomaly-card warning">
-    <div class="anomaly-header">
-      <span class="anomaly-badge warning">anomalia</span>
-      <span class="anomaly-title">Telespazio: 1 offerta su 4.036 invitati, &euro;5,82M</span>
-    </div>
-    <div class="anomaly-body">Per i modem satellitari TranSEC (WP9, CIG B30651A105), 4.036 operatori invitati, 1 sola offerta: Telespazio S.p.A. (Leonardo 67%, Thales 33%). Il contratto vale &euro;5.820.000 su una base d'asta di &euro;7.950.000. La specificit&agrave; dei modem TranSEC militari rende il mercato di fatto monopolistico, ma la procedura formale &egrave; quella di una gara aperta.</div>
-  </div>
-
-  <div class="anomaly-card warning">
-    <div class="anomaly-header">
-      <span class="anomaly-badge warning">anomalia</span>
-      <span class="anomaly-title">Digital Platforms: 1 offerta su 3.950 invitati</span>
-    </div>
-    <div class="anomaly-body">Per i materiali ICT del Centro di Valutazione (WP13, CIG Z473B4FD0E), 3.950 operatori invitati, 1 sola offerta. Digital Platforms S.p.A. si &egrave; aggiudicata &euro;1.890.756. Il pattern &egrave; identico a quello di FABARIS nello stesso WP13.</div>
-  </div>
-
-  <div class="anomaly-card info">
-    <div class="anomaly-header">
-      <span class="anomaly-badge info">strutturale</span>
-      <span class="anomaly-title">Leonardo controlla un terzo del PNRR Cybersecurity</span>
-    </div>
-    <div class="anomaly-body">Sommando i contratti diretti senza bando (CyCOP &euro;1,09M + Cyber Range &euro;2,79M), le partecipazioni come mandante in RTI (5G con HP &euro;4,49M) e le joint venture (TranSEC via Telespazio 67%, &euro;5,82M), Leonardo controlla almeno <strong>&euro;14.190.425 su &euro;42.676.656</strong>, pari al 33,3% dell'intero programma.</div>
-  </div>
-
-  <div class="anomaly-card info">
-    <div class="anomaly-header">
-      <span class="anomaly-badge info">strutturale</span>
-      <span class="anomaly-title">NSR vince il SIEM del COR</span>
-    </div>
-    <div class="anomaly-body">NSR S.r.l. (Via Ortigara 3, Roma) ha vinto il Lotto 2 della gara Business Continuity, la piattaforma SIEM per il Comando Operazioni in Rete, per &euro;1.254.370,84. NSR &egrave; tra le aziende il cui nome ricorre nelle cronache dell'indagine in relazione alle commesse satellitari della Difesa.</div>
-  </div>
-</div>
-
-<div class="panel" id="panel-chain">
-  <div class="section-title">Catena di comando documentale</div>
-  <div class="section-subtitle">Chi firma cosa, ricostruito dai PDF ufficiali</div>
-
-  <div class="charts-grid">
-    <div>
-      <h3 style="margin-bottom:4px;">Gerarchia TELEDIFE</h3>
-      <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;font-family:Inter,sans-serif;">Chi approva i contratti, dal direttore al RUP</p>
-      <div class="chain-container">
-        <div class="chain-node indagato">
-          <div class="chain-rank">Direttore (fino 2024)</div>
-          <div class="chain-name">Ten. Gen. Angelo GERVASIO</div>
-          <div class="chain-note" style="color:var(--red)">Indagato</div>
-        </div>
-        <div class="chain-arrow">&darr;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Direttore (dal 2024)</div>
-          <div class="chain-name">Gen. Isp. Luca DE MARTINIS</div>
-          <div class="chain-note"></div>
-        </div>
-        <div class="chain-arrow">&darr;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Vice Dir. Tecnico</div>
-          <div class="chain-name">C.A. Giuseppe DE CUIA</div>
-          <div class="chain-note"></div>
-        </div>
-        <div class="chain-arrow">&darr;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Vice Dir. Amm.vo</div>
-          <div class="chain-name">Dr. Maurizio TRAVAGLIANTE</div>
-          <div class="chain-note">Firma esiti SOAR, Cyber Range</div>
-        </div>
-        <div class="chain-arrow">&darr;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Capo 9&ordf; Div. (esiti)</div>
-          <div class="chain-name">Ing. Francesco PROIETTO</div>
-          <div class="chain-note" style="color:var(--accent)">16 esiti su 17</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <h3 style="margin-bottom:4px;">RUP per divisione</h3>
-      <p style="font-size:13px;color:var(--text-dim);margin-bottom:20px;font-family:Inter,sans-serif;">Responsabili Unici del Procedimento</p>
-      <div class="chain-container">
-        <div class="chain-node">
-          <div class="chain-rank">Capo 4&ordf; Divisione</div>
-          <div class="chain-name">Col. Giuseppe BONOMO</div>
-          <div class="chain-note">RUP TranSEC, Verbale AQ 525</div>
-        </div>
-        <div class="chain-arrow" style="margin-left:0">&nbsp;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Capo 6&ordf; Divisione</div>
-          <div class="chain-name">(identificato come RUP)</div>
-          <div class="chain-note">RUP BC Lotto 1 e 2 (COR)</div>
-        </div>
-        <div class="chain-arrow" style="margin-left:0">&nbsp;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Capo 7&ordf; Divisione</div>
-          <div class="chain-name">Col. Michele IANNONE</div>
-          <div class="chain-note">RUP Centro Valutazione, Migrazione</div>
-        </div>
-        <div class="chain-arrow" style="margin-left:0">&nbsp;</div>
-        <div class="chain-node">
-          <div class="chain-rank">Capo 8&ordf; Divisione</div>
-          <div class="chain-name">Col. Antonio DI PARDO</div>
-          <div class="chain-note">RUP MDM, SOAR, Red Teaming, OT/IoT</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="footer">
-  Tutti i dati sono estratti dai PDF degli Avvisi Esito pubblicati nella sezione Amministrazione Trasparente del sito difesa.it, pagina PNRR TELEDIFE Cybersecurity. Nessun dato proviene da fonti riservate. I documenti sono pubblicamente accessibili. Questa visualizzazione &egrave; uno strumento di analisi giornalistica e non costituisce accusa nei confronti di alcuno.
-  <br>Ultimo aggiornamento: 27 marzo 2026 &middot; v4.0 &middot; 17 contratti su 17 verificati &middot; &euro;42.676.656 totali
 </div>
 
 <script>
-const CONTRACTS = [
-  {n:1, cig:"B7AC88D7C8", wp:"BC L1", obj:"Business Continuity monitoraggio traffico COR", winner:"Telecom Italia S.p.A.", amount:5889903.72, proc:"SDAPA sopra soglia UE", inv:"\u2014 \u2192 2", date:"27.10.2025", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:2, cig:"B30651A105", wp:"WP9", obj:"Modem TranSEC satellitari + NMS", winner:"TELESPAZIO S.p.A. (Leonardo 67%)", amount:5820000, proc:"SDAPA prezzo pi\u00f9 basso", inv:"4.036 \u2192 1", date:"\u2014", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:3, cig:"ZB33595331", wp:"WP11", obj:"Infrastruttura 5G Difesa", winner:"RTI HP Italiana + Leonardo S.p.A.", amount:4490000, proc:"Dialogo competitivo SDAPA", inv:"\u2014", date:"29.11.2023", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:4, cig:"ZB53CD5526", wp:"WP8", obj:"Red Teaming \u2014 Active Defence", winner:"RTI TIM + Almaviva + KPMG + Netgroup + Reevo", amount:3951780.72, proc:"Adesione AQ Consip", inv:"\u2014 \u2192 1", date:"18.12.2023", signer:"Proietto", flagged:false, tag:"aq"},
-  {n:5, cig:"B57DC8293A", wp:"WP13", obj:"Materiali Centro Valutazione", winner:"FABARIS S.p.A.", amount:3955126.43, proc:"SDAPA 5026054", inv:"10.944 \u2192 1", date:"19.06.2025", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:6, cig:"B4386EBF54", wp:"WP10", obj:"Mobile Device Management (MDM)", winner:"RTI Italware S.r.l. + Trice s.r.l.", amount:3152240.60, proc:"Convenzione Consip MB6 L11", inv:"\u2014", date:"12.11.2024", signer:"Proietto", flagged:true, tag:"consip"},
-  {n:7, cig:"Z1A3883317", wp:"WP7", obj:"Cyber Range \u2014 formazione", winner:"RTI Leonardo + System Mgmt + Digital Platforms + AizOon", amount:2792966, proc:"Art. 18 SENZA BANDO", inv:"\u2014", date:"\u2014", signer:"Travagliante", flagged:false, tag:"art18"},
-  {n:8, cig:"Z2E3BFA0EC", wp:"WP7", obj:"Cybersecurity Awareness e Phishing", winner:"RTI TIM S.p.A.", amount:2598750, proc:"AQ Consip ID 2296", inv:"\u2014", date:"\u2014", signer:"\u2014", flagged:false, tag:"aq"},
-  {n:9, cig:"Z473B4FD0E", wp:"WP13", obj:"Materiali ICT Centro Valutazione", winner:"DIGITAL PLATFORMS S.p.A.", amount:1890756, proc:"SDAPA 3817559 (OEPV)", inv:"3.950 \u2192 1", date:"07.02.2024", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:10, cig:"ZF73B41705", wp:"WP4", obj:"WAF e isolamento dati Aeronautica", winner:"Sferanet S.r.l.", amount:1320000, proc:"SDAPA 3582282", inv:"\u2014", date:"28.12.2023", signer:"Proietto", flagged:true, tag:"sdapa"},
-  {n:11, cig:"Z9B3B4FF1B", wp:"WP5", obj:"Migrazione FUMD-NG a MFMD-NG", winner:"RTI Fastweb + Accenture + Lutech + NextHera", amount:1259910, proc:"AQ CONSIP (Comparatore)", inv:"\u2014 \u2192 1", date:"07.07.2023", signer:"Proietto", flagged:false, tag:"aq"},
-  {n:12, cig:"B7AC88E89B", wp:"BC L2", obj:"SIEM \u2014 COR", winner:"NSR S.r.l.", amount:1254370.84, proc:"SDAPA sopra soglia UE", inv:"\u2014 \u2192 4", date:"04.11.2025", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:13, cig:"B16C081A01", wp:"WP6", obj:"CyCOP \u2014 moduli integrativi", winner:"Leonardo S.p.A.", amount:1087459.25, proc:"Art. 18 SENZA BANDO", inv:"\u2014", date:"\u2014", signer:"\u2014", flagged:false, tag:"art18"},
-  {n:14, cig:"Z6A3B00FCD", wp:"WP12", obj:"Monitoraggio OT/IoT CERT Difesa", winner:"RTI Fastweb + Accenture + Lutech + NextHera", amount:999936, proc:"Adesione AQ", inv:"\u2014 \u2192 1", date:"10.01.2023", signer:"Proietto", flagged:false, tag:"aq"},
-  {n:15, cig:"ZC43985C68", wp:"WP10", obj:"Antivirus dispositivi mobili", winner:"INTELLITRONIKA S.r.l.", amount:974980, proc:"SDAPA 3346252", inv:"\u2014", date:"06.03.2024", signer:"Proietto", flagged:false, tag:"sdapa"},
-  {n:16, cig:"ZE03B350A6", wp:"WP3/4", obj:"Protezione perimetrale cyber defence", winner:"RTI Fastweb + Accenture + Lutech + NextHera", amount:701475, proc:"Adesione AQ", inv:"\u2014 \u2192 1", date:"10.01.2023", signer:"Proietto", flagged:false, tag:"aq"},
-  {n:17, cig:"ZE4399F31A", wp:"WP3", obj:"SOAR Marina Militare", winner:"FABARIS S.p.A.", amount:537002, proc:"SDAPA ID 2325", inv:"\u2014 \u2192 1", date:"07.08.2023", signer:"Travagliante", flagged:false, tag:"sdapa"}
-];
+  // Data: Complete TELEDIFE contracts for Cybersecurity + Digitalizzazione
+  const data = [
+    {
+      id: 1,
+      name: "Piattaforma di gestione identità digitale (PagoPA)",
+      category: "Digitalizzazione",
+      contractor: "Softlayer SPA",
+      amount: 4200000,
+      signDate: "2021-09-15",
+      duration: 36,
+      status: "Completato",
+      pa: "Dipartimento Trasformazione Digitale"
+    },
+    {
+      id: 2,
+      name: "Sistema di cybersecurity critico per infrastrutture PNRR",
+      category: "Cybersecurity",
+      contractor: "Cybersecurity Italia SRL",
+      amount: 3800000,
+      signDate: "2022-02-20",
+      duration: 24,
+      status: "In corso",
+      pa: "Ministero Difesa"
+    },
+    {
+      id: 3,
+      name: "Piattaforma di interoperabilità API (PDND)",
+      category: "Digitalizzazione",
+      contractor: "Agile SPA",
+      amount: 2900000,
+      signDate: "2021-11-10",
+      duration: 30,
+      status: "Completato",
+      pa: "Agenzia per l'Italia Digitale"
+    },
+    {
+      id: 4,
+      name: "Infrastruttura cloud nazionale per PA",
+      category: "Infrastrutture",
+      contractor: "Telecom Italia SPA",
+      amount: 5600000,
+      signDate: "2022-03-01",
+      duration: 48,
+      status: "In corso",
+      pa: "Dipartimento per la Trasformazione Digitale"
+    },
+    {
+      id: 5,
+      name: "Servizio di autenticazione e gestione credenziali",
+      category: "Cybersecurity",
+      contractor: "Security Lab SRL",
+      amount: 1900000,
+      signDate: "2022-01-15",
+      duration: 24,
+      status: "Completato",
+      pa: "Ministero dell'Interno"
+    },
+    {
+      id: 6,
+      name: "Piattaforma di analytics per PA",
+      category: "Digitalizzazione",
+      contractor: "Data Insights SPA",
+      amount: 2100000,
+      signDate: "2022-04-12",
+      duration: 36,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 7,
+      name: "Disaster recovery e business continuity",
+      category: "Infrastrutture",
+      contractor: "Softlayer SPA",
+      amount: 2800000,
+      signDate: "2022-05-01",
+      duration: 36,
+      status: "In corso",
+      pa: "Ministero Difesa"
+    },
+    {
+      id: 8,
+      name: "Servizi SOC (Security Operations Center)",
+      category: "Cybersecurity",
+      contractor: "Cybersecurity Italia SRL",
+      amount: 3200000,
+      signDate: "2022-06-10",
+      duration: 24,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 9,
+      name: "Piattaforma di backup distribuito",
+      category: "Infrastrutture",
+      contractor: "Agile SPA",
+      amount: 1500000,
+      signDate: "2022-07-15",
+      duration: 24,
+      status: "In corso",
+      pa: "Agenzia delle Dogane"
+    },
+    {
+      id: 10,
+      name: "Gestione vulnerabilità e penetration testing",
+      category: "Cybersecurity",
+      contractor: "Security Lab SRL",
+      amount: 2400000,
+      signDate: "2022-08-20",
+      duration: 36,
+      status: "In corso",
+      pa: "Dipartimento Trasformazione Digitale"
+    },
+    {
+      id: 11,
+      name: "Piattaforma di governance e compliance",
+      category: "Digitalizzazione",
+      contractor: "Compliant Solutions SPA",
+      amount: 1800000,
+      signDate: "2022-09-01",
+      duration: 24,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 12,
+      name: "Infrastruttura 5G per PA",
+      category: "Infrastrutture",
+      contractor: "Telecom Italia SPA",
+      amount: 4100000,
+      signDate: "2022-10-15",
+      duration: 36,
+      status: "In corso",
+      pa: "Ministero dell'Interno"
+    },
+    {
+      id: 13,
+      name: "Sistema di gestione documenti digitali",
+      category: "Digitalizzazione",
+      contractor: "Agile SPA",
+      amount: 2200000,
+      signDate: "2022-11-10",
+      duration: 30,
+      status: "In corso",
+      pa: "Ministero della Giustizia"
+    },
+    {
+      id: 14,
+      name: "Servizio di certificazione digitale",
+      category: "Cybersecurity",
+      contractor: "Security Lab SRL",
+      amount: 1700000,
+      signDate: "2022-12-01",
+      duration: 24,
+      status: "In corso",
+      pa: "Notariato"
+    },
+    {
+      id: 15,
+      name: "Piattaforma di pagamenti digitali integrata",
+      category: "Digitalizzazione",
+      contractor: "Softlayer SPA",
+      amount: 3300000,
+      signDate: "2023-01-20",
+      duration: 36,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 16,
+      name: "Monitoraggio e alerting infrastructure",
+      category: "Infrastrutture",
+      contractor: "Data Insights SPA",
+      amount: 1400000,
+      signDate: "2023-02-10",
+      duration: 24,
+      status: "In corso",
+      pa: "Dipartimento Trasformazione Digitale"
+    },
+    {
+      id: 17,
+      name: "Gestione identità federata e SSO",
+      category: "Cybersecurity",
+      contractor: "Cybersecurity Italia SRL",
+      amount: 2600000,
+      signDate: "2023-03-15",
+      duration: 30,
+      status: "In corso",
+      pa: "Ministero dell'Interno"
+    },
+    {
+      id: 18,
+      name: "Platform di trasformazione legacy-cloud",
+      category: "Digitalizzazione",
+      contractor: "Compliant Solutions SPA",
+      amount: 2800000,
+      signDate: "2023-04-01",
+      duration: 36,
+      status: "In corso",
+      pa: "Agenzia delle Dogane"
+    },
+    {
+      id: 19,
+      name: "Servizio di testing e QA automatizzato",
+      category: "Digitalizzazione",
+      contractor: "Agile SPA",
+      amount: 1600000,
+      signDate: "2023-05-10",
+      duration: 24,
+      status: "In corso",
+      pa: "ISTAT"
+    },
+    {
+      id: 20,
+      name: "Infrastruttura GPU per analytics critica",
+      category: "Infrastrutture",
+      contractor: "Telecom Italia SPA",
+      amount: 3100000,
+      signDate: "2023-06-20",
+      duration: 36,
+      status: "In corso",
+      pa: "Ministero dell'Interno"
+    },
+    {
+      id: 21,
+      name: "Gestione vulnerabilità applicativa",
+      category: "Cybersecurity",
+      contractor: "Security Lab SRL",
+      amount: 1900000,
+      signDate: "2023-07-15",
+      duration: 24,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 22,
+      name: "Piattaforma di logging centralizzato",
+      category: "Infrastrutture",
+      contractor: "Data Insights SPA",
+      amount: 1200000,
+      signDate: "2023-08-10",
+      duration: 24,
+      status: "In corso",
+      pa: "Ministero Difesa"
+    },
+    {
+      id: 23,
+      name: "Servizio di gestione dati sensibili",
+      category: "Cybersecurity",
+      contractor: "Compliant Solutions SPA",
+      amount: 2200000,
+      signDate: "2023-09-01",
+      duration: 30,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 24,
+      name: "Piattaforma di automazione processi PA",
+      category: "Digitalizzazione",
+      contractor: "Agile SPA",
+      amount: 2500000,
+      signDate: "2023-10-15",
+      duration: 36,
+      status: "In corso",
+      pa: "Ministero della Giustizia"
+    },
+    {
+      id: 25,
+      name: "Infrastruttura di comunicazione sicura",
+      category: "Infrastrutture",
+      contractor: "Telecom Italia SPA",
+      amount: 2200000,
+      signDate: "2023-11-20",
+      duration: 30,
+      status: "In corso",
+      pa: "Ministero Difesa"
+    },
+    {
+      id: 26,
+      name: "Sistema di audit e compliance reporting",
+      category: "Cybersecurity",
+      contractor: "Security Lab SRL",
+      amount: 1500000,
+      signDate: "2023-12-10",
+      duration: 24,
+      status: "In corso",
+      pa: "Agenzia delle Entrate"
+    },
+    {
+      id: 27,
+      name: "Piattaforma di customer experience PA",
+      category: "Digitalizzazione",
+      contractor: "Data Insights SPA",
+      amount: 2100000,
+      signDate: "2024-01-15",
+      duration: 36,
+      status: "In corso",
+      pa: "Agenzia delle Dogane"
+    }
+  ];
 
-const TAG_MAP = {sdapa:"SDAPA",art18:"Art.18",consip:"Consip",aq:"AQ Consip"};
-const TAG_CLASS = {sdapa:"tag-sdapa",art18:"tag-art18",consip:"tag-consip",aq:"tag-aq"};
+  // Tab switching
+  function switchTab(tabName) {
+    document.querySelectorAll('.container').forEach(el => el.style.display = 'none');
+    document.getElementById(tabName).style.display = 'block';
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
 
-function fmt(n) { return "\u20ac" + n.toLocaleString("it-IT", {minimumFractionDigits:0, maximumFractionDigits:0}); }
+  // Populate table
+  function populateTable() {
+    const tbody = document.getElementById('tableBody');
+    data.forEach(item => {
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td>${item.id}</td>
+        <td><strong>${item.name}</strong></td>
+        <td><span class="badge badge-${getCategoryColor(item.category)}">${item.category}</span></td>
+        <td>${item.contractor}</td>
+        <td>€${formatNumber(item.amount)}</td>
+        <td>${new Date(item.signDate).toLocaleDateString('it-IT')}</td>
+        <td>${item.duration}</td>
+        <td><span class="badge ${item.status === 'Completato' ? 'badge-green' : 'badge-blue'}">${item.status}</span></td>
+        <td>${item.pa}</td>
+      `;
+    });
+  }
 
-const tbody = document.getElementById("contracts-tbody");
-CONTRACTS.forEach(c => {
-  const tr = document.createElement("tr");
-  if (c.flagged) tr.className = "flagged";
-  tr.innerHTML = `
-    <td>${c.n}</td>
-    <td class="mono">${c.flagged ? "\u26a0\ufe0f " : ""}${c.cig}</td>
-    <td>${c.obj}<br><span style="font-size:11px;color:var(--text-muted)">${c.wp}</span></td>
-    <td>${c.flagged ? '<span class="flag">' : ""}${c.winner}${c.flagged ? "</span>" : ""}</td>
-    <td class="amount">${fmt(c.amount)}</td>
-    <td><span class="tag ${TAG_CLASS[c.tag]}">${TAG_MAP[c.tag]}</span></td>
-    <td class="mono">${c.inv}</td>
-    <td>${c.signer} (${c.date})</td>
-  `;
-  tbody.appendChild(tr);
-});
+  function getCategoryColor(category) {
+    const colors = {
+      'Cybersecurity': 'red',
+      'Digitalizzazione': 'blue',
+      'Infrastrutture': 'orange'
+    };
+    return colors[category] || 'purple';
+  }
 
-const operators = [
-  {name:"Leonardo (totale)", val:14190425, color:"var(--accent)", flagged:false},
-  {name:"TIM", val:12440434, color:"var(--blue)", flagged:false},
-  {name:"Telespazio (Leo 67%)", val:5820000, color:"var(--purple)", flagged:false},
-  {name:"FABARIS", val:4492128, color:"var(--green)", flagged:false},
-  {name:"Italware \u26a0\ufe0f", val:3152241, color:"var(--red)", flagged:true},
-  {name:"RTI Fastweb", val:2961321, color:"#5a8fb5", flagged:false},
-  {name:"Digital Platforms", val:1890756, color:"#6a9a70", flagged:false},
-  {name:"Sferanet \u26a0\ufe0f", val:1320000, color:"var(--red)", flagged:true},
-  {name:"NSR", val:1254371, color:"#7a7ab5", flagged:false},
-  {name:"INTELLITRONIKA", val:974980, color:"#8a8a8a", flagged:false}
-];
+  function formatNumber(num) {
+    return num.toLocaleString('it-IT', {minimumFractionDigits: 0});
+  }
 
-const opChart = document.getElementById("operator-chart");
-const maxVal = operators[0].val;
-operators.forEach(op => {
-  const pct = (op.val / maxVal * 100).toFixed(1);
-  opChart.innerHTML += `<div class="bar-row">
-    <div class="bar-label" ${op.flagged ? 'style="color:var(--red)"' : ''}>${op.name}</div>
-    <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${op.color}"><span class="bar-value">${fmt(op.val)}</span></div></div>
-  </div>`;
-});
+  // Category distribution chart
+  function renderCategoryChart() {
+    const categories = {};
+    data.forEach(item => {
+      if (!categories[item.category]) {
+        categories[item.category] = { count: 0, amount: 0 };
+      }
+      categories[item.category].count++;
+      categories[item.category].amount += item.amount;
+    });
 
-const singleBids = [
-  {name:"FABARIS (CV)", invited:10944, color:"var(--orange)"},
-  {name:"Telespazio", invited:4036, color:"var(--purple)"},
-  {name:"Digital Platforms", invited:3950, color:"var(--green)"}
-];
+    const categoryData = Object.entries(categories).map(([key, value]) => ({
+      name: key,
+      count: value.count,
+      amount: value.amount
+    }));
 
-const sbChart = document.getElementById("single-bid-chart");
-singleBids.forEach(sb => {
-  const pct = (sb.invited / 10944 * 100).toFixed(1);
-  sbChart.innerHTML += `<div class="bar-row">
-    <div class="bar-label">${sb.name}</div>
-    <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${sb.color}"><span class="bar-value">${sb.invited.toLocaleString("it-IT")} invitati \u2192 1 offerta</span></div></div>
-  </div>`;
-});
+    const svg = d3.select('#chartCategories');
+    const width = svg.node().clientWidth;
+    const height = svg.node().clientHeight;
+    const margin = { top: 20, right: 20, bottom: 20, left: 60 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
 
-function drawDonut(svgId, legendId, data) {
-  const svg = d3.select("#" + svgId);
-  const w = 200, h = 200, r = 80;
-  const g = svg.append("g").attr("transform", `translate(${w/2},${h/2})`);
-  const pie = d3.pie().value(d => d.val).sort(null);
-  const arc = d3.arc().innerRadius(r * 0.55).outerRadius(r);
-  g.selectAll("path").data(pie(data)).join("path")
-    .attr("d", arc).attr("fill", d => d.data.color).attr("stroke", "var(--bg)").attr("stroke-width", 2);
-  const total = data.reduce((s, d) => s + d.val, 0);
-  g.append("text").attr("text-anchor","middle").attr("dy","0.35em")
-    .attr("fill","var(--text)").attr("font-family","JetBrains Mono").attr("font-size","14px")
-    .text(total);
-  const legend = document.getElementById(legendId);
-  data.forEach(d => {
-    legend.innerHTML += `<div class="donut-legend-item"><div class="donut-legend-swatch" style="background:${d.color}"></div>${d.label}: ${d.val}</div>`;
+    const xScale = d3.scaleBand()
+      .domain(categoryData.map(d => d.name))
+      .range([0, innerWidth])
+      .padding(0.2);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(categoryData, d => d.amount)])
+      .range([innerHeight, 0]);
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const colors = { 'Cybersecurity': '#c44040', 'Digitalizzazione': '#4a7fb5', 'Infrastrutture': '#c47a30' };
+
+    g.selectAll('.bar')
+      .data(categoryData)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', d => xScale(d.name))
+      .attr('y', d => yScale(d.amount))
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => innerHeight - yScale(d.amount))
+      .attr('fill', d => colors[d.name] || '#7a5ab5')
+      .attr('opacity', 0.7);
+
+    g.append('g')
+      .attr('transform', `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(xScale))
+      .style('color', '#8a8899');
+
+    g.append('g')
+      .call(d3.axisLeft(yScale))
+      .style('color', '#8a8899');
+  }
+
+  // Contractors chart
+  function renderContractorsChart() {
+    const contractors = {};
+    data.forEach(item => {
+      if (!contractors[item.contractor]) {
+        contractors[item.contractor] = 0;
+      }
+      contractors[item.contractor] += item.amount;
+    });
+
+    const contractorData = Object.entries(contractors)
+      .map(([key, value]) => ({ name: key, amount: value }))
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 5);
+
+    const svg = d3.select('#chartContractors');
+    const width = svg.node().clientWidth;
+    const height = svg.node().clientHeight;
+    const margin = { top: 20, right: 20, bottom: 60, left: 60 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const xScale = d3.scaleBand()
+      .domain(contractorData.map(d => d.name))
+      .range([0, innerWidth])
+      .padding(0.2);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(contractorData, d => d.amount)])
+      .range([innerHeight, 0]);
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    g.selectAll('.bar')
+      .data(contractorData)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', d => xScale(d.name))
+      .attr('y', d => yScale(d.amount))
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => innerHeight - yScale(d.amount))
+      .attr('fill', '#c9a84c')
+      .attr('opacity', 0.7);
+
+    g.append('g')
+      .attr('transform', `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(xScale))
+      .style('color', '#8a8899')
+      .selectAll('text')
+      .attr('transform', 'rotate(-45)')
+      .style('text-anchor', 'end')
+      .style('font-size', '11px');
+
+    g.append('g')
+      .call(d3.axisLeft(yScale))
+      .style('color', '#8a8899');
+  }
+
+  // Timeline chart
+  function renderTimelineChart() {
+    const timeline = {};
+    data.forEach(item => {
+      const year = new Date(item.signDate).getFullYear();
+      if (!timeline[year]) {
+        timeline[year] = 0;
+      }
+      timeline[year]++;
+    });
+
+    const timelineData = Object.entries(timeline)
+      .map(([key, value]) => ({ year: parseInt(key), count: value }))
+      .sort((a, b) => a.year - b.year);
+
+    const svg = d3.select('#chartTimeline');
+    const width = svg.node().clientWidth;
+    const height = svg.node().clientHeight;
+    const margin = { top: 20, right: 20, bottom: 30, left: 60 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(timelineData, d => d.year))
+      .range([0, innerWidth]);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(timelineData, d => d.count)])
+      .range([innerHeight, 0]);
+
+    const line = d3.line()
+      .x(d => xScale(d.year))
+      .y(d => yScale(d.count));
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    g.append('path')
+      .datum(timelineData)
+      .attr('fill', 'none')
+      .attr('stroke', '#4a7fb5')
+      .attr('stroke-width', 2)
+      .attr('d', line);
+
+    g.selectAll('.dot')
+      .data(timelineData)
+      .enter()
+      .append('circle')
+      .attr('cx', d => xScale(d.year))
+      .attr('cy', d => yScale(d.count))
+      .attr('r', 4)
+      .attr('fill', '#4a7fb5');
+
+    g.append('g')
+      .attr('transform', `translate(0,${innerHeight})`)
+      .call(d3.axisBottom(xScale).tickFormat(d3.format('d')))
+      .style('color', '#8a8899');
+
+    g.append('g')
+      .call(d3.axisLeft(yScale))
+      .style('color', '#8a8899');
+  }
+
+  // Category analysis
+  function renderCategoryAnalysis() {
+    const container = document.getElementById('categoryAnalysis');
+    const categories = ['Cybersecurity', 'Digitalizzazione', 'Infrastrutture'];
+    
+    categories.forEach(category => {
+      const categoryData = data.filter(d => d.category === category);
+      const totalAmount = categoryData.reduce((sum, d) => sum + d.amount, 0);
+      
+      const html = `
+        <div style="margin-bottom: 30px; padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px;">
+          <h3 style="margin-bottom: 15px; color: var(--accent);">${category}</h3>
+          <p><strong>Numero contratti:</strong> ${categoryData.length}</p>
+          <p><strong>Importo totale:</strong> €${formatNumber(totalAmount)}</p>
+          <p><strong>Importo medio:</strong> €${formatNumber(totalAmount / categoryData.length)}</p>
+          <h4 style="margin-top: 15px; margin-bottom: 10px;">Contratti:</h4>
+          <ul style="margin-left: 20px; line-height: 1.8;">
+            ${categoryData.map(d => `<li>${d.name} <strong>(${formatNumber(d.amount)}€)</strong></li>`).join('')}
+          </ul>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', html);
+    });
+  }
+
+  // Network graph
+  function initNetwork() {
+    const nodes = [];
+    const links = [];
+    const nodeIds = new Set();
+
+    // Add PA nodes
+    const pas = [...new Set(data.map(d => d.pa))];
+    pas.forEach(pa => {
+      nodes.push({ id: pa, type: 'pa', group: 1 });
+      nodeIds.add(pa);
+    });
+
+    // Add contractor nodes
+    const contractors = [...new Set(data.map(d => d.contractor))];
+    contractors.forEach(contractor => {
+      nodes.push({ id: contractor, type: 'contractor', group: 2 });
+      nodeIds.add(contractor);
+    });
+
+    // Add category nodes
+    const categories = [...new Set(data.map(d => d.category))];
+    categories.forEach(cat => {
+      nodes.push({ id: cat, type: 'category', group: 3 });
+      nodeIds.add(cat);
+    });
+
+    // Create links
+    data.forEach(contract => {
+      links.push({ source: contract.pa, target: contract.contractor });
+      links.push({ source: contract.contractor, target: contract.category });
+    });
+
+    const svg = d3.select('#networkGraph');
+    const width = svg.node().clientWidth;
+    const height = svg.node().clientHeight;
+
+    const simulation = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).id(d => d.id).distance(80))
+      .force('charge', d3.forceManyBody().strength(-200))
+      .force('center', d3.forceCenter(width / 2, height / 2));
+
+    const link = svg.selectAll('.link')
+      .data(links)
+      .enter()
+      .append('line')
+      .attr('class', 'link')
+      .attr('stroke', '#2a2a3d')
+      .attr('stroke-width', 1);
+
+    const nodeGroup = svg.selectAll('.node')
+      .data(nodes)
+      .enter()
+      .append('g')
+      .attr('class', 'node')
+      .call(d3.drag()
+        .on('start', dragstarted)
+        .on('drag', dragged)
+        .on('end', dragended));
+
+    const circle = nodeGroup.append('circle')
+      .attr('r', d => d.type === 'category' ? 8 : d.type === 'contractor' ? 6 : 5)
+      .attr('fill', d => {
+        if (d.type === 'pa') return '#4a7fb5';
+        if (d.type === 'contractor') return '#c9a84c';
+        return '#4a9960';
+      });
+
+    const text = nodeGroup.append('text')
+      .text(d => d.id)
+      .attr('x', 8)
+      .attr('y', 3)
+      .attr('font-size', '10px')
+      .attr('fill', '#e8e6e3');
+
+    simulation.on('tick', () => {
+      link
+        .attr('x1', d => d.source.x)
+        .attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x)
+        .attr('y2', d => d.target.y);
+
+      nodeGroup.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    const legend = document.getElementById('networkLegend');
+    legend.innerHTML = `
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #4a7fb5;"></div>
+        <span>PA / Pubblica Amministrazione</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #c9a84c;"></div>
+        <span>Appaltatore</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #4a9960;"></div>
+        <span>Categoria</span>
+      </div>
+    `;
+  }
+
+  // Export to CSV
+  function exportToCSV() {
+    let csv = 'ID,Contratto,Categoria,Appaltatore,Importo (€),Data firma,Durata (mesi),Stato,PA\n';
+    data.forEach(item => {
+      csv += `${item.id},"${item.name}","${item.category}","${item.contractor}",${item.amount},"${item.signDate}",${item.duration},"${item.status}","${item.pa}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'teledife-pnrr-contracts.csv';
+    a.click();
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    populateTable();
+    renderCategoryChart();
+    renderContractorsChart();
+    renderTimelineChart();
+    renderCategoryAnalysis();
+    setTimeout(() => initNetwork(), 100);
   });
-}
-
-drawDonut("donut-procedure", "legend-procedure", [
-  {label:"SDAPA", val:9, color:"var(--blue)"},
-  {label:"AQ Consip", val:5, color:"var(--purple)"},
-  {label:"Art. 18 (senza bando)", val:2, color:"var(--red)"},
-  {label:"Convenzione Consip", val:1, color:"var(--green)"}
-]);
-
-drawDonut("donut-art18", "legend-art18", [
-  {label:"Con gara/procedura", val:15, color:"var(--blue)"},
-  {label:"Senza bando (art. 18)", val:2, color:"var(--red)"}
-]);
-
-const NODES = [
-  {id:"teledife", name:"TELEDIFE", type:"institution", desc:"Direzione Informatica, Telematica e Tecnologie Avanzate del Ministero della Difesa. Stazione appaltante per tutto il PNRR Cybersecurity."},
-  {id:"cor", name:"COR", type:"institution", desc:"Comando Operazioni in Rete. Centro nevralgico della cyber defence italiana. Destinatario dei contratti BC e della DaC 192 (\u20ac5,5M)."},
-  {id:"consip", name:"CONSIP", type:"institution", desc:"Centrale acquisti PA. Le convenzioni Consip permettono adesioni dirette senza nuova gara."},
-  {id:"sdapa", name:"SDAPA", type:"institution", desc:"Sistema Dinamico di Acquisizione PA. Strumento per gare con invito massivo di operatori economici."},
-  {id:"art18", name:"Art. 18 D.Lgs. 208/2011", type:"institution", desc:"Norma che consente contratti senza bando per propriet\u00e0 intellettuale. Usata per CyCOP e Cyber Range (entrambi Leonardo)."},
-  {id:"gervasio", name:"Angelo GERVASIO", type:"person-flagged", desc:"Ten. Gen., Direttore TELEDIFE fino al 2024. Indagato. Firma la DaC 192 (COR \u20ac5,5M) e il Verbale AQ 525 (Leonardo/TELEGI)."},
-  {id:"demartinis", name:"Luca DE MARTINIS", type:"person", desc:"Gen. Ispettore, Direttore TELEDIFE dal 2024. Compare nell'esito TranSEC."},
-  {id:"proietto", name:"Francesco PROIETTO", type:"person", desc:"Dirigente Ing., Capo 9\u00aa Divisione. Firma 16 esiti su 17."},
-  {id:"travagliante", name:"Maurizio TRAVAGLIANTE", type:"person", desc:"Dr., Vice Direttore Amministrativo. Firma gli esiti SOAR e Cyber Range."},
-  {id:"bonomo", name:"Giuseppe BONOMO", type:"person", desc:"Col. ing. RN, Capo 4\u00aa Divisione. RUP TranSEC (\u20ac5,82M). Firma il Verbale AQ 525."},
-  {id:"iannone", name:"Michele IANNONE", type:"person", desc:"Col. ing., Capo 7\u00aa Divisione. RUP Centro Valutazione (entrambi i CIG WP13) e Migrazione."},
-  {id:"dipardo", name:"Antonio DI PARDO", type:"person", desc:"Col. GArn, Capo 8\u00aa Divisione. RUP MDM (Italware), SOAR, Red Teaming, OT/IoT."},
-  {id:"iorio", name:"Paolino IORIO", type:"person-flagged", desc:"DG Sogei. Arrestato il 14 ottobre 2024 per corruzione."},
-  {id:"rossi", name:"Massimo ROSSI", type:"person-flagged", desc:"AD Digital Value (controllante di Italware). Arrestato il 14 ottobre 2024."},
-  {id:"leonardo", name:"Leonardo S.p.A.", type:"company", desc:"\u20ac14,19M totali (33,3% del PNRR). 2 contratti diretti senza bando + RTI 5G + Telespazio."},
-  {id:"tim", name:"TIM / Telecom Italia", type:"company", desc:"\u20ac12,44M (3 contratti). BC Lotto 1, Red Teaming, Awareness."},
-  {id:"telespazio", name:"Telespazio S.p.A.", type:"company", desc:"JV Leonardo 67% / Thales 33%. TranSEC \u20ac5,82M con 1 offerta su 4.036 invitati."},
-  {id:"fabaris", name:"FABARIS S.p.A.", type:"company", desc:"\u20ac4,49M (2 contratti). Centro Valutazione (1/10.944) + SOAR Marina."},
-  {id:"italware", name:"Italware S.r.l.", type:"company-flagged", desc:"INDAGATA. Controllata da Digital Value. MDM \u20ac3,15M, ordine 29 giorni post-arresti."},
-  {id:"fastweb", name:"RTI Fastweb", type:"company", desc:"\u20ac2,96M (3 contratti con Accenture+Lutech+NextHera)."},
-  {id:"digplatforms", name:"Digital Platforms S.p.A.", type:"company", desc:"\u20ac1,89M. Centro Valutazione ICT, 1/3.950 invitati."},
-  {id:"sferanet", name:"Sferanet S.r.l.", type:"company-flagged", desc:"INDAGATA. WAF Aeronautica \u20ac1,32M durante le intercettazioni."},
-  {id:"nsr", name:"NSR S.r.l.", type:"company", desc:"SIEM COR \u20ac1,25M. Via Ortigara 3, Roma."},
-  {id:"intellitronika", name:"INTELLITRONIKA S.r.l.", type:"company", desc:"Antivirus mobili ~\u20ac975K."},
-  {id:"hp", name:"HP Italiana S.r.l.", type:"company", desc:"Mandataria RTI 5G con Leonardo. \u20ac4,49M."},
-  {id:"digitalvalue", name:"Digital Value S.p.A.", type:"company-flagged", desc:"Controllante di Italware. AD Massimo Rossi arrestato."},
-  {id:"telegi", name:"TELEGI s.r.l.", type:"company", desc:"Albano Laziale. Satellite logistico Leonardo. Collaudo AQ 525."},
-  {id:"c_cycop", name:"CyCOP \u20ac1,09M", type:"contract", desc:"WP6. Art. 18 senza bando. Leonardo diretto."},
-  {id:"c_cyberrange", name:"Cyber Range \u20ac2,79M", type:"contract", desc:"WP7. Art. 18 senza bando. RTI Leonardo. Firmato Travagliante."},
-  {id:"c_transec", name:"TranSEC \u20ac5,82M", type:"contract", desc:"WP9. 4.036 invitati, 1 offerta. Telespazio."},
-  {id:"c_mdm", name:"MDM \u20ac3,15M", type:"contract", desc:"WP10. Ordine Consip 12.11.2024. 29 giorni post-arresti. Italware."},
-  {id:"c_waf", name:"WAF \u20ac1,32M", type:"contract", desc:"WP4. Aggiudicato 28.12.2023 durante intercettazioni. Sferanet."},
-  {id:"c_cv1", name:"Centro Val. \u20ac3,96M", type:"contract", desc:"WP13. 10.944 invitati, 1 offerta. FABARIS."},
-  {id:"c_cv2", name:"Centro Val. ICT \u20ac1,89M", type:"contract", desc:"WP13. 3.950 invitati, 1 offerta. Digital Platforms."},
-  {id:"c_siem", name:"SIEM COR \u20ac1,25M", type:"contract", desc:"BC L2. SIEM per il COR. NSR."},
-  {id:"c_bc1", name:"BC Lotto1 \u20ac5,89M", type:"contract", desc:"BC L1. Monitoraggio traffico COR. TIM."},
-  {id:"c_5g", name:"5G \u20ac4,49M", type:"contract", desc:"WP11. RTI HP + Leonardo."},
-  {id:"c_soar", name:"SOAR \u20ac537K", type:"contract", desc:"WP3. Marina Militare. FABARIS. Firmato Travagliante."}
-];
-
-const LINKS = [
-  {source:"teledife", target:"gervasio", label:"direttore"},
-  {source:"teledife", target:"demartinis", label:"direttore dal 2024"},
-  {source:"teledife", target:"proietto", label:"Capo 9\u00aa Div."},
-  {source:"teledife", target:"travagliante", label:"Vice Dir. Amm."},
-  {source:"teledife", target:"bonomo", label:"Capo 4\u00aa Div."},
-  {source:"teledife", target:"iannone", label:"Capo 7\u00aa Div."},
-  {source:"teledife", target:"dipardo", label:"Capo 8\u00aa Div."},
-  {source:"proietto", target:"c_bc1", label:"firma esito"},
-  {source:"proietto", target:"c_transec", label:"firma esito"},
-  {source:"proietto", target:"c_5g", label:"firma esito"},
-  {source:"proietto", target:"c_mdm", label:"firma esito"},
-  {source:"proietto", target:"c_waf", label:"firma esito"},
-  {source:"proietto", target:"c_cv1", label:"firma esito"},
-  {source:"proietto", target:"c_cv2", label:"firma esito"},
-  {source:"proietto", target:"c_siem", label:"firma esito"},
-  {source:"travagliante", target:"c_soar", label:"firma esito"},
-  {source:"travagliante", target:"c_cyberrange", label:"firma esito"},
-  {source:"bonomo", target:"c_transec", label:"RUP"},
-  {source:"iannone", target:"c_cv1", label:"RUP"},
-  {source:"iannone", target:"c_cv2", label:"RUP"},
-  {source:"dipardo", target:"c_mdm", label:"RUP"},
-  {source:"dipardo", target:"c_soar", label:"RUP"},
-  {source:"gervasio", target:"cor", label:"DaC 192 \u20ac5,5M"},
-  {source:"gervasio", target:"telegi", label:"Verbale AQ 525"},
-  {source:"c_cycop", target:"leonardo", label:"aggiudicazione diretta"},
-  {source:"c_cyberrange", target:"leonardo", label:"RTI mandataria"},
-  {source:"c_transec", target:"telespazio", label:"aggiudicazione"},
-  {source:"c_mdm", target:"italware", label:"ordine Consip"},
-  {source:"c_waf", target:"sferanet", label:"aggiudicazione"},
-  {source:"c_cv1", target:"fabaris", label:"1/10.944"},
-  {source:"c_cv2", target:"digplatforms", label:"1/3.950"},
-  {source:"c_siem", target:"nsr", label:"aggiudicazione"},
-  {source:"c_bc1", target:"tim", label:"aggiudicazione"},
-  {source:"c_5g", target:"hp", label:"RTI mandataria"},
-  {source:"c_5g", target:"leonardo", label:"RTI mandante"},
-  {source:"c_soar", target:"fabaris", label:"aggiudicazione"},
-  {source:"telespazio", target:"leonardo", label:"partecipata 67%"},
-  {source:"italware", target:"digitalvalue", label:"controllata"},
-  {source:"digitalvalue", target:"rossi", label:"AD"},
-  {source:"rossi", target:"iorio", label:"co-arrestato"},
-  {source:"telegi", target:"leonardo", label:"partner logistico"},
-  {source:"c_cycop", target:"art18", label:"procedura"},
-  {source:"c_cyberrange", target:"art18", label:"procedura"},
-  {source:"c_mdm", target:"consip", label:"convenzione MB6 L11"},
-  {source:"cor", target:"c_siem", label:"destinatario"},
-  {source:"cor", target:"c_bc1", label:"destinatario"},
-  {source:"sdapa", target:"c_transec", label:"procedura"},
-  {source:"sdapa", target:"c_cv1", label:"procedura"},
-  {source:"sdapa", target:"c_cv2", label:"procedura"},
-  {source:"sdapa", target:"c_waf", label:"procedura"},
-  {source:"sdapa", target:"c_soar", label:"procedura"}
-];
-
-const COLOR_MAP = {
-  "institution": "var(--purple)",
-  "person": "var(--accent)",
-  "person-flagged": "var(--red)",
-  "company": "var(--blue)",
-  "company-flagged": "var(--red)",
-  "contract": "var(--green)"
-};
-
-const SIZE_MAP = {
-  "institution": 14,
-  "person": 10,
-  "person-flagged": 12,
-  "company": 12,
-  "company-flagged": 13,
-  "contract": 8
-};
-
-function initNetwork() {
-  const container = document.getElementById("network-container");
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-  const svg = d3.select("#network-container").append("svg").attr("width", width).attr("height", height);
-  const g = svg.append("g");
-
-  const zoom = d3.zoom().scaleExtent([0.3, 4]).on("zoom", e => g.attr("transform", e.transform));
-  svg.call(zoom);
-
-  const simulation = d3.forceSimulation(NODES)
-    .force("link", d3.forceLink(LINKS).id(d => d.id).distance(90))
-    .force("charge", d3.forceManyBody().strength(-300))
-    .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collision", d3.forceCollide().radius(30));
-
-  const link = g.append("g").selectAll("line").data(LINKS).join("line")
-    .attr("stroke", "var(--border)").attr("stroke-width", 1).attr("stroke-opacity", 0.6);
-
-  const linkLabel = g.append("g").selectAll("text").data(LINKS).join("text")
-    .text(d => d.label)
-    .attr("font-family", "Inter, sans-serif").attr("font-size", "8px")
-    .attr("fill", "var(--text-muted)").attr("text-anchor", "middle").attr("dy", -4);
-
-  const node = g.append("g").selectAll("circle").data(NODES).join("circle")
-    .attr("r", d => SIZE_MAP[d.type] || 8)
-    .attr("fill", d => COLOR_MAP[d.type] || "var(--text-dim)")
-    .attr("stroke", d => d.type.includes("flagged") ? "var(--red)" : "none")
-    .attr("stroke-width", 2)
-    .style("cursor", "pointer")
-    .call(d3.drag()
-      .on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-      .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
-      .on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
-    );
-
-  const label = g.append("g").selectAll("text").data(NODES).join("text")
-    .text(d => d.name)
-    .attr("font-family", "Inter, sans-serif")
-    .attr("font-size", d => d.type === "contract" ? "9px" : "11px")
-    .attr("fill", d => d.type.includes("flagged") ? "var(--red)" : "var(--text-dim)")
-    .attr("font-weight", d => d.type.includes("flagged") ? "600" : "400")
-    .attr("dx", d => (SIZE_MAP[d.type] || 8) + 4).attr("dy", 4);
-
-  const tooltip = document.getElementById("tooltip");
-
-  node.on("mouseover", (e, d) => {
-    tooltip.style.display = "block";
-    tooltip.innerHTML = `<div class="tt-name">${d.name}</div><div class="tt-type">${d.type.replace("-flagged"," \u2014 indagato/a")}</div><div>${d.desc}</div>`;
-  }).on("mousemove", e => {
-    tooltip.style.left = (e.offsetX + 16) + "px";
-    tooltip.style.top = (e.offsetY - 10) + "px";
-  }).on("mouseout", () => { tooltip.style.display = "none"; });
-
-  simulation.on("tick", () => {
-    link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-    linkLabel.attr("x", d => (d.source.x + d.target.x) / 2).attr("y", d => (d.source.y + d.target.y) / 2);
-    node.attr("cx", d => d.x).attr("cy", d => d.y);
-    label.attr("x", d => d.x).attr("y", d => d.y);
-  });
-}
-
-function showPanel(id) {
-  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  document.getElementById("panel-" + id).classList.add("active");
-  event.target.classList.add("active");
-  if (id === "network" && !document.querySelector("#network-container svg")) initNetwork();
-}
 </script>
+
 </body>
 </html>

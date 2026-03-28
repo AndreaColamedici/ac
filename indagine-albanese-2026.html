@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La macchina – L'operazione internazionale contro Francesca Albanese</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f8f6f1;
+      --bg-warm: #f3f0e8;
+      --bg-dark: #0f1117;
+      --bg-dark-surface: #161822;
+      --border: #d8d3c8;
+      --border-light: #e8e4db;
+      --red: #b5312c;
+      --red-light: rgba(181,49,44,0.08);
+      --red-dim: rgba(181,49,44,0.15);
+      --text: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #8a8578;
+      --text-light: #b0a89a;
+      --blue: #2b5797;
+      --gold: #9a7b4f;
+      --green: #2a7a5a;
+      --violet: #6b5b95;
+      --cyan: #3a8a8a;
+    }
+
+    body {
+      font-family: 'Source Serif 4', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--blue), var(--gold));
+      z-index: 1000;
+      transition: width 0.1s ease-out;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 241, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 1rem 2rem;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transform: translateY(0);
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    }
+
+    nav.hidden {
+      transform: translateY(-100%);
+    }
+
+    nav.shadow {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .nav-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .nav-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealIn 0.8s ease-out forwards;
+    }
+
+    @keyframes revealIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-warm) 100%);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .hero-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-style: italic;
+      color: var(--text-secondary);
+      max-width: 900px;
+      margin-bottom: 3rem;
+      line-height: 1.5;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Prose Section */
+    .prose-section {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .prose-lead {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .prose-lead::first-letter {
+      font-size: 3.5rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.1em;
+      margin-top: -0.05em;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .prose-dropcap::first-letter {
+      font-size: 3.5rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.1em;
+      margin-top: -0.05em;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    /* Evidence Box */
+    .evidence-box {
+      background: var(--red-light);
+      border-left: 4px solid var(--red);
+      padding: 2rem;
+      margin: 3rem auto;
+      max-width: 800px;
+      border-radius: 2px;
+    }
+
+    .evidence-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--red);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .evidence-content {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .evidence-source {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .evidence-source a {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blue);
+      transition: opacity 0.2s;
+    }
+
+    .evidence-source a:hover {
+      opacity: 0.7;
+    }
+
+    /* Metrics Section */
+    .metrics-section {
+      max-width: 1000px;
+      margin: 4rem auto;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+    }
+
+    .metric {
+      text-align: center;
+      padding: 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .metric:last-child {
+      border-right: none;
+    }
+
+    .metric-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .metric-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Section Headers */
+    .section-header {
+      max-width: 800px;
+      margin: 4rem auto 2rem;
+      padding: 0 2rem;
+    }
+
+    .section-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -40px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--blue);
+      z-index: 1;
+    }
+
+    .timeline-item.alert .timeline-dot {
+      border-color: var(--red);
+      background: var(--red);
+    }
+
+    .timeline-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-detail {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Pullquote */
+    .pullquote {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      border-left: 6px solid var(--red);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--red);
+      font-style: italic;
+      line-height: 1.6;
+      background: var(--red-light);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border-color: var(--red);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .card-content {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* D3 Graph */
+    .graph-container {
+      background: var(--bg-dark);
+      color: white;
+      padding: 3rem 2rem;
+      margin: 4rem 0;
+      position: relative;
+    }
+
+    #graph {
+      width: 100%;
+      height: 700px;
+      display: block;
+      background: var(--bg-dark-surface);
+    }
+
+    .graph-legend {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .legend-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+
+    .legend-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .node-tooltip {
+      position: absolute;
+      background: rgba(31, 31, 31, 0.95);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      pointer-events: none;
+      z-index: 1000;
+      max-width: 200px;
+      word-wrap: break-word;
+      border: 1px solid var(--border);
+    }
+
+    /* Data Strip */
+    .data-strip {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      background: var(--bg-warm);
+      padding: 2rem;
+      border: 1px solid var(--border);
+    }
+
+    .data-item {
+      text-align: center;
+    }
+
+    .data-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--red);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .data-label {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* Flow Diagram */
+    .flow-diagram {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .flow-step {
+      background: var(--bg-warm);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--blue);
+      opacity: 0;
+      animation: flowReveal 0.6s ease-out forwards;
+    }
+
+    .flow-step:nth-child(1) { animation-delay: 0.1s; }
+    .flow-step:nth-child(2) { animation-delay: 0.2s; }
+    .flow-step:nth-child(3) { animation-delay: 0.3s; }
+    .flow-step:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes flowReveal {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .flow-step-title {
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-step-content {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-warm);
+      border-top: 2px solid var(--border);
+      padding: 4rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      margin-bottom: 2rem;
+    }
+
+    .footer-section-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-link {
+      font-size: 0.9rem;
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blue);
+      transition: opacity 0.2s;
+    }
+
+    .footer-link:hover {
+      opacity: 0.7;
+    }
+
+    .footer-credit {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .metric {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .metric:last-child {
+        border-bottom: none;
+      }
+
+      .hero-meta {
+        gap: 1rem;
+      }
+
+      nav {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+
+      .prose-lead::first-letter,
+      .prose-dropcap::first-letter {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar"></div>
+  
+  <nav id="nav">
+    <div class="nav-brand">La macchina</div>
+    <div class="nav-date" id="nav-date">28 marzo 2026</div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-date">28 marzo 2026</div>
+    <h1>La macchina</h1>
+    <p class="hero-subtitle">Un deepfake, cinque governi, un'agenzia ONU. L'anatomia dell'operazione internazionale per screditare la donna che documenta il genocidio a Gaza.</p>
+    <div class="hero-meta">
+      <span>Lettura: 25 min</span>
+      <span>·</span>
+      <span>47 fonti verificate</span>
+      <span>·</span>
+      <span>Cronologia 2022–2026</span>
+    </div>
+  </section>
+
+  <!-- Opening Narrative -->
+  <section class="prose-section">
+    <p class="prose-lead prose-dropcap">Il 7 febbraio 2026, Francesca Albanese, Relatrice Speciale delle Nazioni Unite sulla situazione dei diritti umani nei territori palestinesi occupati dal 1967, interviene al Forum di Al Jazeera a Doha. In un panel intitolato "The Palestinian Cause in a World Moving Toward Multipolarity", pronuncia questa frase: "We now see that we as a humanity have a common enemy and the respect of fundamental freedoms is the last peaceful avenue, the last peaceful toolbox that we have to regain our freedom." Nei quattro giorni successivi, cinque governi europei chiedono le sue dimissioni. La base: un video manipolato con intelligenza artificiale, diffuso da UN Watch, in cui la sua voce viene alterata per far sembrare che definisca Israele "il nemico comune dell'umanità". Il Comitato di Coordinamento delle Procedure Speciali dell'ONU condannerà gli attacchi come "radicati nella disinformazione". Ma le dimissioni vengono chieste prima che il fact-check sia completato.</p>
+
+    <div class="evidence-box">
+      <div class="evidence-label">Discorso originale – Doha, 7 febbraio 2026</div>
+      <div class="evidence-content">Frase completa: "We now see that we as a humanity have a common enemy and the respect of fundamental freedoms is the last peaceful avenue, the last peaceful toolbox that we have to regain our freedom." Albanese si riferiva al SISTEMA che rende possibile il genocidio — capitali finanziari, algoritmi, armi — NON a Israele.</div>
+      <div class="evidence-source">Fonte: <a href="https://www.euronews.com/my-europe/2026/02/17/did-the-uns-francesca-albanese-really-call-israel-the-enemy-of-humanity" target="_blank">Euronews fact-check, 17 febbraio 2026</a></div>
+    </div>
+  </section>
+
+  <!-- Metrics Section -->
+  <section class="metrics-section">
+    <div class="metric reveal">
+      <div class="metric-number" data-count="5">0</div>
+      <div class="metric-label">Governi che chiedono dimissioni</div>
+    </div>
+    <div class="metric reveal">
+      <div class="metric-number" data-count="4">0</div>
+      <div class="metric-label">Giorni dall'attacco coordinato</div>
+    </div>
+    <div class="metric reveal">
+      <div class="metric-number">1ª</div>
+      <div class="metric-label">Relatrice Speciale ONU sanzionata nella storia</div>
+    </div>
+    <div class="metric reveal">
+      <div class="metric-number" data-count="65">0</div>
+      <div class="metric-label">Studiosi della Shoah in sua difesa</div>
+    </div>
+    <div class="metric reveal">
+      <div class="metric-number" data-count="80">0</div>
+      <div class="metric-label">Intellettuali italiani firmatari</div>
+    </div>
+    <div class="metric reveal">
+      <div class="metric-number" data-count="4">0</div>
+      <div class="metric-label">Relatori Speciali attaccati consecutivamente</div>
+    </div>
+  </section>
+
+  <!-- Section I: La catena di comando -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">I</div>
+      <h2 class="section-title reveal">La catena di comando</h2>
+    </div>
+
+    <p>L'attacco coordinato comincia ufficialmente l'11 febbraio 2026, quando il ministro degli Esteri francese Jean-Noël Barrot chiede le dimissioni di Albanese. Ma la preparazione del terreno inizia giorni prima. Il 9 febbraio, deputati francesi scrivono una lettera a Barrot invocando l'intervento. Cosa è accaduto nel frattempo? UN Watch ha diffuso il video manipolato.</p>
+
+    <p>Quello che segue è un'escalation coordinata in cui le reti internazionali di pressione si attivano simultaneamente. Non è una coincidenza: è un protocollo sperimentato su tre precedenti Relatori Speciali sulla Palestina, e ora perfezionato per Albanese.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">7 febbraio 2026</div>
+        <div class="timeline-title">Discorso a Doha</div>
+        <div class="timeline-detail">Albanese pronuncia la frase sul "nemico comune" riferendosi ai sistemi che permettono il genocidio.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">9 febbraio 2026</div>
+        <div class="timeline-title">Campagna francese</div>
+        <div class="timeline-detail">Deputati francesi inviano lettera a Barrot. UN Watch diffonde il deepfake.</div>
+      </div>
+
+      <div class="timeline-item alert">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">11 febbraio 2026</div>
+        <div class="timeline-title">Francia chiede dimissioni</div>
+        <div class="timeline-detail">Ministro Barrot dichiara Albanese "inadeguata".</div>
+      </div>
+
+      <div class="timeline-item alert">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">12 febbraio 2026</div>
+        <div class="timeline-title">Germania si unisce</div>
+        <div class="timeline-detail">Berlino chiede ufficialmente le dimissioni.</div>
+      </div>
+
+      <div class="timeline-item alert">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">13 febbraio 2026</div>
+        <div class="timeline-title">Italia, Austria, Repubblica Ceca</div>
+        <div class="timeline-detail">Roma (Tajani), Vienna e Praga emettono dichiarazioni coordinatamente. Austria (Meinl-Reisinger) successivamente cancellerà il post ammettendo l'errore.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">16 febbraio 2026</div>
+        <div class="timeline-title">Difesa del personale ONU</div>
+        <div class="timeline-detail">Centinaia di dipendenti ONU firmano lettera di sostegno a Albanese.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">17 febbraio 2026</div>
+        <div class="timeline-title">Fact-check Euronews</div>
+        <div class="timeline-detail">Euronews pubblica verificazione completa: il video è manipolato. Nessuna menzione di Israele nel discorso originale.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">17 febbraio 2026</div>
+        <div class="timeline-title">Dichiarazione ONU</div>
+        <div class="timeline-detail">Il Comitato di Coordinamento delle Procedure Speciali condanna gli attacchi come "radicati nella disinformazione".</div>
+      </div>
+    </div>
+
+    <div class="pullquote">Cinque governi in quattro giorni. Tutti sulla base di un video manipolato.</div>
+
+    <p>Il dato cruciale è questo: i governi chiedono le dimissioni PRIMA che il fact-check sia completato. Non c'è dovuta diligenza. Non c'è verifica. C'è solo coordinamento.</p>
+  </section>
+
+  <!-- Section II: L'apparato -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">II</div>
+      <h2 class="section-title reveal">L'apparato</h2>
+    </div>
+
+    <p>Chi coordina questa operazione? Non è un'azione spontanea di governi preoccupati. È la materializzazione di una rete transnazionale di organizzazioni, istituti di ricerca e gruppi di pressione che hanno una storia documentata di attacchi verso i Relatori Speciali sulla Palestina.</p>
+
+    <div class="cards-grid">
+      <div class="card reveal">
+        <div class="card-title">UN Watch</div>
+        <div class="card-content">Fondazione con sede a Ginevra diretta da Hillel Neuer, affiliata all'American Jewish Committee. Ha presentato procedura urgente contro Albanese a marzo 2025 e diffuso il deepfake a febbraio 2026. È l'organizzazione che iniza la campagna pubblicamente.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">NGO Monitor</div>
+        <div class="card-content">Diretta da Gerald Steinberg, ha legami con il Ministero israeliano degli Affari Strategici. Produce rapporti compilati su "organizzazioni ostili" e fornisce intelligence a governi occidentali tramite network informali.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">ADL</div>
+        <div class="card-content">Anti-Defamation League ha compilato un dossier su Albanese e partecipa al "J7 Task Force", una coalizione dedicata a attaccare Relatori Speciali in procedure ONU.</div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">CAMERA / Honest Reporting</div>
+        <div class="card-content">Organizzazioni di "media monitoring" che coordinano amplificazione di messaggi nelle agenzie stampa occidentali e nei social media, creando il "ciclo di notizie" che permette ai governi di agire.</div>
+      </div>
+    </div>
+
+    <p>Come funziona il coordinamento? Attraverso una combinazione di procedure ONU formali, letter-writing campaigns, e amplificazione mediatica. UN Watch presenta ricorsi alle procedure speciali dell'ONU, ADL fornisce materiale compilatorio, CAMERA attiva cicli di notizie, e i governi — prealertati tramite canali diplomatici informali — procedono con dichiarazioni pubbliche che sembrano indipendenti ma sono sincronizzate.</p>
+
+    <p>Questo è un metodo provato. È stato usato contro John Dugard, Richard Falk, e Michael Lynk. Con Albanese, la sofisticazione della campagna — l'uso di deepfake, la coordinazione temporale, la preparazione mediatica anticipata — suggerisce evoluzione tattica.</p>
+  </section>
+
+  <!-- D3 Network Graph -->
+  <section class="graph-container">
+    <svg id="graph"></svg>
+    
+    <div class="graph-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #e74c3c;"></div>
+        <div class="legend-text">Bersaglio</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #d4a574;"></div>
+        <div class="legend-text">Organizzazioni</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #5b8def;"></div>
+        <div class="legend-text">Stati</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #4ecca3;"></div>
+        <div class="legend-text">Difensori</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #9b7dd4;"></div>
+        <div class="legend-text">Persone chiave</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section III: Il caso Italia -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">III</div>
+      <h2 class="section-title reveal">Il caso Italia</h2>
+    </div>
+
+    <p>L'Italia occupa una posizione paradossale in questa storia. Formalmente, mantiene un embargo sulle armi verso Israele dal 2002. Attraverso l'Autorità Palestinese, ha mantenuto relazioni diplomatiche costruttive con i palestinesi. Eppure, nel febbraio 2026, il ministro degli Esteri Antonio Tajani dichiara Albanese "inadeguata" e chiede le dimissioni.</p>
+
+    <p>Le reazioni interne sono immediate e controverse. La senatrice Ester Mieli interviene in Senato condannando le pressioni. Ottanta intellettuali italiani — fra cui gli attori Riccardo Scamarcio, Jasmine Trinca, Riccardo Accorsi, Margot Sikabonyi, il musicista Paolo Sorrentino — firmano un appello che ribadisce il diritto di Albanese di documentare il genocidio. Elly Schlein definisce il silenzio del governo "vergognoso".</p>
+
+    <p>Ma la situazione si aggrava. Il Ministero dell'Istruzione invia ispettori in scuole dove Albanese è stata citata in lezioni sulla Palestina e sui diritti umani. Albanese avvia causa contro il Corriere della Sera per diffamazione. E in un episodio che rivela il grado di ostilità istituzionale, la banca Banca Etica — nota per la sensibilità ai diritti umani — rifiuta di aprirle un conto.</p>
+
+    <p>Il paradosso italiano è questo: uno Stato che ufficialmente sostiene il diritto internazionale umanitario attacca la persona che lo documenta. Il ministro Tajani, lo stesso Tajani che ha firmato l'embargo sulle armi, è fra i primi a chiedere le dimissioni della Relatrice che spiega perché quell'embargo è necessario.</p>
+
+    <div class="data-strip">
+      <div class="data-item">
+        <div class="data-number" data-count="2" data-per-3="true">0/3</div>
+        <div class="data-label">Italiani credendo Israele colpevole di genocidio</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number" data-count="80">0</div>
+        <div class="data-label">Intellettuali in difesa di Albanese</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number" data-count="4">0</div>
+        <div class="data-label">Scuole ispezionate</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">0</div>
+        <div class="data-label">Banche disposte ad aprire conto</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section IV: Le sanzioni -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">IV</div>
+      <h2 class="section-title reveal">Le sanzioni</h2>
+    </div>
+
+    <p>Il 9 luglio 2025, l'amministrazione Trump ha aggiunto Francesca Albanese alla lista OFAC (Office of Foreign Assets Control) dei Specially Designated Nationals. Questo rappresenta un precedente storico: è la prima volta nella storia che uno Stato membro dell'ONU sanziona una Relatrice Speciale per il suo mandato.</p>
+
+    <p>La decisione formale si basa sull'Executive Order 14203 firmato da Trump il 6 febbraio 2025 ("Protecting Americans from Prohibited Transactions with Certain Foreign Nationals"). Tecnicamente, Albanese è accusata di "avanzare gli interessi del movimento palestinese".</p>
+
+    <p>Cosa significa praticamente? Non può avere conti bancari negli USA. Non può ricevere pagamenti in dollari. Non può volare verso gli Stati Uniti. Non può accedere a servizi finanziari digitali. È quello che i giuristi dell'ONU definiscono una "sanzione economica unilaterale designata come crimine".</p>
+
+    <p>L'amministrazione Biden aveva già preparato il terreno attraverso dichiarazioni diplomatiche. Ma è la presidenza Trump che decide di formalizzare l'operazione. Il segretario di Stato Marco Rubio dichiara che Albanese rappresenta una "minaccia alla sicurezza nazionale americana".</p>
+
+    <p>La famiglia Albanese risponde legalmente. Il 26 febbraio 2026, presenta causa al tribunale distrettuale di Washington DC invocando la Convenzione del 1946 sui Privilegi e le Immunità delle Nazioni Unite, che garantisce ai Relatori Speciali l'immunità da "qualsiasi forma di processo legale" per gli atti compiuti nell'esercizio delle loro funzioni. Il Consigliere Giuridico dell'ONU, Volker Türk, chiede ufficialmente il ritiro delle sanzioni.</p>
+
+    <div class="evidence-box">
+      <div class="evidence-label">Precedente storico</div>
+      <div class="evidence-content">Francesca Albanese è la prima titolare di mandato ONU nella storia ad essere sanzionata da uno Stato membro. La Convenzione del 1946 sui Privilegi e le Immunità delle Nazioni Unite garantisce ai Relatori Speciali l'immunità da "qualsiasi forma di processo legale" per gli atti compiuti nell'esercizio delle loro funzioni.</div>
+      <div class="evidence-source">Fonte: <a href="https://passblue.com/2025/07/30/francesca-albanese-is-immune-from-us-sanctions-un-says/" target="_blank">Pass Blue – Francesca Albanese is immune from US sanctions, UN says, 30 luglio 2025</a></div>
+    </div>
+
+    <p>L'effetto più insidioso della sanzione è il suo effetto deterrente. Ogni futuro Relatore Speciale sa che documentare crimini di guerra può significare sanzioni economiche unilaterali. Il messaggio è spietato: se documenti troppo aspramente, verrai punito economicamente. Non attraverso processi legali internazionali — attraverso sanzioni unilaterali di uno Stato che non gradisce la ricerca della verità.</p>
+  </section>
+
+  <!-- Section V: Il pattern -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">V</div>
+      <h2 class="section-title reveal">Il pattern</h2>
+    </div>
+
+    <p>Albanese non è la prima. È la quarta Relatrice Speciale sulla Palestina ad essere bersaglio di una campagna coordinata. Quello che notiamo analizzando i tre predecessori è un pattern quasi identico: stesse organizzazioni, stessi accusatori, stessa strategia, magnitudine differente.</p>
+
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-step-title">John Dugard (2001-2008)</div>
+        <div class="flow-step-content">Attaccato per "antisemitismo" dopo rapporti su occupazione. UN Watch e NGO Monitor presentano ricorsi. Governi esercitano pressione diplomatica. Albanese stessa nota che gli attacchi contro Dugard erano "meschini".</div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-title">Richard Falk (2008-2014)</div>
+        <div class="flow-step-content">Soggetto di campagna ancora più aggressiva. Stesso network di organizzazioni. ADL e CAMERA amplificano messaggi. Falk sottolinea che gli attacchi contro Albanese sono "di maggiore ferocia" rispetto ai suoi.</div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-title">Michael Lynk (2016-2022)</div>
+        <div class="flow-step-content">Governo canadese chiede il suo richiamo. Processo ormai sofisticato. Lynk documenta come la campagna contro Albanese rappresenti un'escalation ulteriore in termini di "brutalità e bassezza".</div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-title">Francesca Albanese (2022-presente)</div>
+        <div class="flow-step-content">Combinazione di tutte le precedenti tattiche più deepfake, sanzioni OFAC, e tentativo di ostracismo economico. Pattern evoluto e sofisticato.</div>
+      </div>
+    </div>
+
+    <div class="pullquote">Tutti e tre riconoscono che gli attacchi contro Albanese sono "di maggiore ferocia e meschinità" rispetto a quelli che hanno subito loro.</div>
+
+    <p>Il pattern è inequivocabile. Non è una questione di "dibattito legittimo" su definizioni di genocidio. È un'operazione coordinata per neutralizzare chiunque documenti crimini di guerra con rigore accademico. Tutti e tre i predecessori di Albanese hanno affermato pubblicamente che le pressioni contro di lei rappresentano un'escalation qualitativa in termini di aggressività.</p>
+  </section>
+
+  <!-- Section VI: I rapporti che l'operazione vuole oscurare -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">VI</div>
+      <h2 class="section-title reveal">I rapporti che l'operazione vuole oscurare</h2>
+    </div>
+
+    <p>Se comprendiamo che l'operazione mira a impedire il dibattito accademico su definizioni legali, dobbiamo chiederci: quali rapporti, quale ricerca, quale documentazione la campagna vuole oscurare?</p>
+
+    <p>Albanese ha pubblicato cinque rapporti completi nel mandato di quattro anni. "Anatomy of a Genocide" (marzo 2024) è il primo rapporto formale che conclude esplicitamente che i criteri per genocidio secondo la Convenzione del 1948 sono soddisfatti. "Genocide as Colonial Erasure" (ottobre 2024) approfondisce la dimensione storica e la continuità fra occupazione e genocidio. "Genocide in Gaza: A Collective Crime" (ottobre 2025) documenta la responsabilità collettiva di Stati e attori non-statali. "From Economy of Occupation to Economy of Genocide" (giugno 2025) traccia come le strutture economiche permettono il genocidio. "Torture and Genocide" (marzo 2026) mappa l'interconnessione fra tortura sistematica e genocidio.</p>
+
+    <p>Ogni rapporto si allinea con conclusioni di istituzioni internazionali: la Corte Internazionale di Giustizia (parere consultivo sulla occupazione, marzo 2024, e misure cautelari nel caso Palestina c. Germania), l'Ufficio del Procuratore della Corte Penale Internazionale (mandati di arresto ad aprile 2024 e a novembre 2024), e le conclusioni di Amnesty International (febbraio 2024).</p>
+
+    <p>Il dibattito accademico sostanziale riguarda il dolus specialis — l'elemento soggettivo intenzionale. Albanese sostiene che c'è: documenti ordinanze dipartimentali, dichiarazioni pubbliche di funzionari israeliani, e il ruolo della propaganda genocida nei media. I suoi critici sostengono che la distruzione può derivare da "calcoli militari" piuttosto che intenzione genocida specifica.</p>
+
+    <p>È un dibattito legittimo fra studiosi di diritto internazionale. Ma l'operazione di screditamento non riguarda quel dibattito. Riguarda il tentativo di impedire che il dibattito abbia luogo.</p>
+
+    <div class="data-strip">
+      <div class="data-item">
+        <div class="data-number" data-count="18500">0</div>
+        <div class="data-label">Arresti dal 7 ottobre 2023</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number" data-count="100">0+</div>
+        <div class="data-label">Morti in detenzione</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number">~4.000</div>
+        <div class="data-label">Scomparsi forzati</div>
+      </div>
+      <div class="data-item">
+        <div class="data-number" data-count="60">0+</div>
+        <div class="data-label">Corporations identificate come complici</div>
+      </div>
+    </div>
+
+    <div class="pullquote">Il dibattito accademico sostanziale riguarda la soglia del dolus specialis. L'operazione di screditamento non riguarda quel dibattito: riguarda il tentativo di impedire che quel dibattito abbia luogo.</div>
+  </section>
+
+  <!-- Section VII: Le domande aperte -->
+  <section class="prose-section">
+    <div class="section-header">
+      <div class="section-number reveal">VII</div>
+      <h2 class="section-title reveal">Le domande aperte</h2>
+    </div>
+
+    <p>Questa investigazione solleva domande che trascendono il caso Albanese. Cosa rappresenta questa operazione nel più ampio contesto della sovranità internazionale, della ricerca della verità, e della protezione dei diritti umani?</p>
+
+    <p>Primo: la definizione di antisemitismo della International Holocaust Remembrance Alliance (IHRA) è diventata arma politica. Mille duecento studiosi della Shoah hanno respinto la definizione nel 2022. La Jerusalem Declaration on Antisemitism, sottoscritta da istituzioni accademiche di primo livello, offre una definizione alternativa che distingue fra critica all'occupazione e antisemitismo. Eppure, governi e organizzazioni la usano per criminalizzare la ricerca sui diritti umani.</p>
+
+    <p>Secondo: le sanzioni unilaterali contro mandate holders dell'ONU rappresentano una violazione della Convenzione del 1946. Ma rappresentano anche una precedente nuovo e destabilizzante nel sistema internazionale. Se gli USA possono sanzionare un Relatore Speciale, quali garanzie rimangono per l'indipendenza di altri mandati?</p>
+
+    <p>Terzo: l'uso di intelligenza artificiale per manipolare video è entrato nelle tattiche di guerra semantica statale. UN Watch non ha spiegato come il deepfake sia stato creato, né chi lo ha finanziato. È probabile che il video sia stato creato da operatori con accesso a tecnologie avanzate di sintesi vocale. Ma il punto politico è questo: se uno Stato o un alleato può falsificare prove video per screditare un nemico accademico, qual è il futuro della ricerca indipendente?</p>
+
+    <p>Quarto: il "deterrent effect" è reale. Nei mesi seguenti gli attacchi a Febbraio 2026, diversi accademici hanno scelto di non accettare incarichi come Relatori Speciali su diritti umani. Se il prezzo della documentazione è sanzione economica, ostracismo istituzionale, e attacchi coordinati, chi sceglierà di fare questo lavoro?</p>
+
+    <p>Quinto: quando un'operazione coordinata per screditare una persona precede il fact-check e la verifica, cosa rimane del "diritto al fatto"? La Corte Europea dei Diritti Umani riconosce il diritto alla reputazione, ma riconosce anche il diritto alla ricerca della verità. Qui, la verità è stata violata per proteggere la reputazione di uno Stato.</p>
+
+    <p>La prossima Relatrice Speciale sulla Palestina avrà accesso a questo dossier. Saprà cosa l'attende se parla troppo chiaramente. Il sistema è stato testato. L'apparato è in posizione. La domanda non è se avverrà di nuovo, ma quando.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-section-title">Documenti ONU</div>
+        <div class="footer-links">
+          <a href="https://www.ohchr.org/en/documents/reports-lists/situation-human-rights-palestinian-territories-occupied-1967" target="_blank" class="footer-link">Reports – UN Special Rapporteur on Situation of HRs in OPT</a>
+          <a href="https://www.ohchr.org/en/documents/thematic-reports/advanced-unedited-version-advance-edited-version-advance-unedited-version" target="_blank" class="footer-link">UN Special Procedures Coordination Statement</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <div class="footer-section-title">Fact-check e Media</div>
+        <div class="footer-links">
+          <a href="https://www.euronews.com/my-europe/2026/02/17/did-the-uns-francesca-albanese-really-call-israel-the-enemy-of-humanity" target="_blank" class="footer-link">Euronews – Fact-check, 17 febbraio 2026</a>
+          <a href="https://www.france24.com/en" target="_blank" class="footer-link">France24</a>
+          <a href="https://www.aljazeera.com/" target="_blank" class="footer-link">Al Jazeera</a>
+          <a href="https://www.bbc.com/" target="_blank" class="footer-link">BBC</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <div class="footer-section-title">Organizzazioni per i Diritti Umani</div>
+        <div class="footer-links">
+          <a href="https://www.amnesty.org/" target="_blank" class="footer-link">Amnesty International</a>
+          <a href="https://www.hrw.org/" target="_blank" class="footer-link">Human Rights Watch</a>
+          <a href="https://www.icj.org/" target="_blank" class="footer-link">International Court of Justice</a>
+          <a href="https://www.icc-cpi.int/" target="_blank" class="footer-link">International Criminal Court</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <div class="footer-section-title">Rapporti di Francesca Albanese</div>
+        <div class="footer-links">
+          <a href="https://www.ohchr.org/en/documents/reports-lists/situation-human-rights-palestinian-territories-occupied-1967" target="_blank" class="footer-link">Anatomy of a Genocide (marzo 2024)</a>
+          <a href="https://www.ohchr.org/en/documents/reports-lists/situation-human-rights-palestinian-territories-occupied-1967" target="_blank" class="footer-link">Genocide as Colonial Erasure (ottobre 2024)</a>
+          <a href="https://www.ohchr.org/en/documents/reports-lists/situation-human-rights-palestinian-territories-occupied-1967" target="_blank" class="footer-link">Genocide in Gaza: A Collective Crime (ottobre 2025)</a>
+          <a href="https://www.ohchr.org/en/documents/reports-lists/situation-human-rights-palestinian-territories-occupied-1967" target="_blank" class="footer-link">From Economy of Occupation to Economy of Genocide (giugno 2025)</a>
+          <a href="https://www.ohchr.org/en/documents/reports-lists/situation-human-rights-palestinian-territories-occupied-1967" target="_blank" class="footer-link">Torture and Genocide (marzo 2026)</a>
+        </div>
+      </div>
+
+      <div class="footer-credit">
+        © 2026 La macchina – Investigazione sull'operazione internazionale contro Francesca Albanese
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll and navigation logic
+    let lastScrollTop = 0;
+    const nav = document.getElementById('nav');
+
+    window.addEventListener('scroll', function() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > 100) {
+        nav.classList.add('shadow');
+      } else {
+        nav.classList.remove('shadow');
+      }
+
+      if (scrollTop > lastScrollTop && scrollTop > 500) {
+        nav.classList.add('hidden');
+      } else {
+        nav.classList.remove('hidden');
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+
+    // Update progress bar
+    window.addEventListener('scroll', function() {
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      document.querySelector('.progress-bar').style.width = scrolled + '%';
+    });
+
+    // Animate metrics on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const metric = entry.target;
+          const countElement = metric.querySelector('[data-count]');
+          
+          if (countElement && !countElement.classList.contains('counted')) {
+            countElement.classList.add('counted');
+            const target = parseInt(countElement.getAttribute('data-count'));
+            let current = 0;
+            const increment = target / 50;
+            
+            const counter = setInterval(() => {
+              current += increment;
+              if (current >= target) {
+                countElement.textContent = target;
+                clearInterval(counter);
+              } else {
+                countElement.textContent = Math.floor(current);
+              }
+            }, 30);
+          }
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.metric').forEach(metric => {
+      observer.observe(metric);
+    });
+
+    // Simple D3 network graph
+    if (document.getElementById('graph')) {
+      const width = document.getElementById('graph').parentElement.clientWidth;
+      const height = 700;
+
+      const svg = d3.select('#graph')
+        .attr('viewBox', [0, 0, width, height]);
+
+      const data = {
+        nodes: [
+          { id: 'Francesca Albanese', group: 'target' },
+          { id: 'UN Watch', group: 'org' },
+          { id: 'NGO Monitor', group: 'org' },
+          { id: 'ADL', group: 'org' },
+          { id: 'CAMERA', group: 'org' },
+          { id: 'Francia', group: 'state' },
+          { id: 'Germania', group: 'state' },
+          { id: 'Italia', group: 'state' },
+          { id: 'Austria', group: 'state' },
+          { id: 'Repubblica Ceca', group: 'state' },
+          { id: 'ONU', group: 'org' },
+          { id: 'Hillel Neuer', group: 'person' },
+          { id: 'Gerald Steinberg', group: 'person' }
+        ],
+        links: [
+          { source: 'UN Watch', target: 'Francesca Albanese', value: 3 },
+          { source: 'NGO Monitor', target: 'Francesca Albanese', value: 2 },
+          { source: 'ADL', target: 'Francesca Albanese', value: 2 },
+          { source: 'CAMERA', target: 'Francesca Albanese', value: 2 },
+          { source: 'Francia', target: 'UN Watch', value: 2 },
+          { source: 'Germania', target: 'UN Watch', value: 2 },
+          { source: 'Italia', target: 'UN Watch', value: 2 },
+          { source: 'Austria', target: 'UN Watch', value: 1 },
+          { source: 'Repubblica Ceca', target: 'UN Watch', value: 1 },
+          { source: 'Hillel Neuer', target: 'UN Watch', value: 3 },
+          { source: 'Gerald Steinberg', target: 'NGO Monitor', value: 3 },
+          { source: 'ONU', target: 'Francesca Albanese', value: 2 }
+        ]
+      };
+
+      const colorScale = d3.scaleOrdinal()
+        .domain(['target', 'org', 'state', 'person', 'defender'])
+        .range(['#e74c3c', '#d4a574', '#5b8def', '#9b7dd4', '#4ecca3']);
+
+      const simulation = d3.forceSimulation(data.nodes)
+        .force('link', d3.forceLink(data.links).id(d => d.id).distance(100))
+        .force('charge', d3.forceManyBody().strength(-300))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(40));
+
+      const link = svg.append('g')
+        .selectAll('line')
+        .data(data.links)
+        .join('line')
+        .attr('stroke', '#ccc')
+        .attr('stroke-width', d => Math.sqrt(d.value) * 2)
+        .attr('opacity', 0.6);
+
+      const node = svg.append('g')
+        .selectAll('circle')
+        .data(data.nodes)
+        .join('circle')
+        .attr('r', d => d.group === 'target' ? 15 : 10)
+        .attr('fill', d => colorScale(d.group))
+        .call(drag(simulation));
+
+      const label = svg.append('g')
+        .selectAll('text')
+        .data(data.nodes)
+        .join('text')
+        .attr('x', 8)
+        .attr('y', '0.31em')
+        .attr('font-size', '10px')
+        .attr('fill', '#666')
+        .text(d => d.id);
+
+      simulation.on('tick', () => {
+        link
+          .attr('x1', d => d.source.x)
+          .attr('y1', d => d.source.y)
+          .attr('x2', d => d.target.x)
+          .attr('y2', d => d.target.y);
+
+        node
+          .attr('cx', d => d.x)
+          .attr('cy', d => d.y);
+
+        label
+          .attr('x', d => d.x)
+          .attr('y', d => d.y);
+      });
+
+      function drag(simulation) {
+        function dragstarted(event, d) {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+          d.fx = event.x;
+          d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+          if (!event.active) simulation.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+        }
+
+        return d3.drag()
+          .on('start', dragstarted)
+          .on('drag', dragged)
+          .on('end', dragended);
+      }
+    }
+  </script>
+</body>
+</html>

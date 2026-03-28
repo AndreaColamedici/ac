@@ -223,21 +223,110 @@
       .timeline::before { left:28px; }
     }
 
+    /* SCROLL PROGRESS */
+    .scroll-progress { position:fixed; top:0; left:0; height:2px; background:var(--red); z-index:10001; width:0; will-change:width; pointer-events:none; }
+
+    /* HERO META */
+    .hero-meta { display:flex; gap:20px; align-items:center; justify-content:center; margin-top:40px; opacity:0; animation:fadeUp 0.8s ease 1.6s forwards; }
+    .hero-meta-item { font-family:'JetBrains Mono',monospace; font-size:0.68em; color:var(--text-muted); letter-spacing:0.06em; }
+    .hero-meta-sep { width:3px; height:3px; border-radius:50%; background:var(--text-light); }
+
+    /* EVIDENCE BOX */
+    .evidence-box { max-width:660px; margin:56px auto; padding:0 32px; }
+    .evidence-inner { background:#fff; border:1px solid var(--border); border-left:3px solid var(--red); padding:28px 32px 28px 28px; position:relative; }
+    .evidence-label { font-family:'JetBrains Mono',monospace; font-size:0.62em; color:var(--red); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:14px; font-weight:500; display:flex; align-items:center; gap:8px; }
+    .evidence-label svg { width:14px; height:14px; stroke:var(--red); fill:none; stroke-width:1.5; }
+    .evidence-content { font-size:0.9em; color:var(--text-secondary); line-height:1.8; }
+    .evidence-content strong { color:var(--text); font-weight:600; }
+    .evidence-source { margin-top:14px; padding-top:12px; border-top:1px solid var(--border-light); }
+    .evidence-source a { font-family:'JetBrains Mono',monospace; font-size:0.7em; color:var(--red); text-decoration:none; border-bottom:1px dotted var(--red-dim); transition:border-color 0.3s; }
+    .evidence-source a:hover { border-color:var(--red); }
+
+    /* DATA STRIP */
+    .data-strip { background:var(--bg-warm); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:48px 32px; margin:80px 0; overflow:hidden; }
+    .data-strip-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:48px; }
+    .data-strip-stat { text-align:center; }
+    .data-strip-number { font-family:'Space Grotesk',sans-serif; font-size:clamp(2em,4vw,3.2em); font-weight:700; color:var(--red); letter-spacing:-0.03em; line-height:1; }
+    .data-strip-label { font-family:'Source Serif 4',Georgia,serif; font-size:0.88em; color:var(--text-secondary); margin-top:8px; font-style:italic; line-height:1.4; }
+    .data-strip-sep { width:1px; height:48px; background:var(--border); flex-shrink:0; }
+
+    /* DOC VISUAL */
+    .doc-visual { max-width:660px; margin:56px auto; padding:0 32px; }
+    .doc-visual-inner { display:flex; align-items:flex-start; gap:28px; background:var(--bg-warm); border:1px solid var(--border); padding:28px 32px; border-radius:4px; }
+    .doc-stack { position:relative; width:72px; height:90px; flex-shrink:0; }
+    .doc-page { position:absolute; width:52px; height:66px; background:#fff; border:1px solid var(--border); border-radius:2px; transition:transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .doc-page:nth-child(1) { top:0; left:0; transform:rotate(-4deg); z-index:1; }
+    .doc-page:nth-child(2) { top:4px; left:7px; transform:rotate(-1.5deg); z-index:2; }
+    .doc-page:nth-child(3) { top:8px; left:14px; transform:rotate(1deg); z-index:3; }
+    .doc-visual-inner:hover .doc-page:nth-child(1) { transform:rotate(-7deg) translateX(-4px); }
+    .doc-visual-inner:hover .doc-page:nth-child(3) { transform:rotate(4deg) translateX(4px); }
+    .doc-page-lines { position:absolute; top:12px; left:7px; right:7px; }
+    .doc-page-line { height:2px; background:var(--border); margin-bottom:4px; border-radius:1px; }
+    .doc-page-line:nth-child(2) { width:70%; }
+    .doc-page-line:nth-child(3) { width:85%; }
+    .doc-page-line:nth-child(4) { width:55%; }
+    .doc-page-stamp { position:absolute; bottom:6px; right:6px; width:12px; height:12px; border:1.5px solid var(--red); border-radius:50%; opacity:0.5; }
+    .doc-text { flex:1; }
+    .doc-text-title { font-family:'JetBrains Mono',monospace; font-size:0.66em; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:10px; font-weight:500; }
+    .doc-text p { font-size:0.88em; color:var(--text-secondary); line-height:1.75; margin:0; }
+    .doc-text a { color:var(--red); text-decoration:none; border-bottom:1px dotted var(--red-dim); }
+
+    /* FIGURE / FULL-WIDTH IMAGE SECTION */
+    .figure-section { max-width:900px; margin:64px auto; padding:0 32px; }
+    .figure-inner { position:relative; background:var(--bg-warm); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .figure-inner svg { display:block; width:100%; }
+    .figure-caption { padding:16px 24px; font-family:'JetBrains Mono',monospace; font-size:0.7em; color:var(--text-muted); letter-spacing:0.04em; line-height:1.6; border-top:1px solid var(--border-light); }
+
+    /* FLOW ANIMATION */
+    .flow-step { opacity:0; transform:translateX(-16px); transition:opacity 0.5s ease, transform 0.5s ease; }
+    .flow-step.flow-visible { opacity:1; transform:translateX(0); }
+
+    /* TIMELINE ENHANCED */
+    .timeline-dot { transform:scale(0); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s; }
+    .timeline-item.reveal.visible .timeline-dot { transform:scale(1); }
+
+    /* CARD HOVER */
+    .card { transition:box-shadow 0.3s ease, border-color 0.3s ease; }
+    .card:hover { box-shadow:0 4px 24px rgba(0,0,0,0.06); border-color:var(--red-dim); }
+
+    /* COUNTER ANIMATION */
+    .metric-number[data-target] { transition:opacity 0.3s; }
+
+    /* INLINE MARKER */
+    .text-mark { background:linear-gradient(to top, var(--red-light) 40%, transparent 40%); padding:0 2px; }
+
+    /* SECTION LEAD-IN (large first letter) */
+    .prose-dropcap::first-letter { font-family:'Space Grotesk',sans-serif; float:left; font-size:3.6em; line-height:0.8; padding-right:12px; padding-top:6px; color:var(--text); font-weight:700; }
+
+    /* KEY NUMBER INLINE */
+    .key-num { font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--red); letter-spacing:-0.02em; }
+
+    @media(max-width:768px) {
+      .data-strip-inner { flex-direction:column; gap:24px; }
+      .data-strip-sep { width:48px; height:1px; }
+      .doc-visual-inner { flex-direction:column; align-items:center; text-align:center; }
+      .evidence-inner { padding:24px 20px; }
+      .figure-section { padding:0 24px; }
+    }
+
     /* PRINT */
     @media print {
       body { background:#fff; color:#111; font-size:11pt; }
-      .nav,.graph-controls,.graph-search,.graph-wrapper { display:none; }
+      .nav,.graph-controls,.graph-search,.graph-wrapper,.scroll-progress { display:none; }
       .hero { min-height:auto; padding:40px 0; }
       .hero h1 { font-size:2.8em; }
       .reveal { opacity:1 !important; transform:none !important; }
-      .metrics,.footer { background:#f8f8f8; }
-      .card,.flow,.bar-container { border-color:#ddd; background:#fafafa; }
-      .metric-number.metric-money,.timeline-value,.card-value { color:#c0392b; }
+      .flow-step { opacity:1 !important; transform:none !important; }
+      .metrics,.footer,.data-strip { background:#f8f8f8; }
+      .card,.flow,.bar-container,.evidence-inner,.doc-visual-inner { border-color:#ddd; background:#fafafa; }
+      .metric-number.metric-money,.timeline-value,.card-value,.key-num,.data-strip-number { color:#c0392b; }
       a { color:#222; }
     }
   </style>
 </head>
 <body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <nav class="nav" id="mainNav">
     <div class="nav-inner">
@@ -257,44 +346,90 @@
     <h1>L'ordito</h1>
     <h2>Ventisei indagati, diciassette contratti verificati, un perimetro che supera il miliardo di euro. I documenti pubblici della Difesa raccontano una storia che nessun giornale ha ancora scritto per intero.</h2>
     <div class="hero-rule"></div>
+    <div class="hero-meta">
+      <span class="hero-meta-item">Lettura: 14 min</span>
+      <span class="hero-meta-sep"></span>
+      <span class="hero-meta-item">88 documenti analizzati</span>
+      <span class="hero-meta-sep"></span>
+      <span class="hero-meta-item">36 fonti verificate</span>
+    </div>
   </section>
 
   <!-- OPENING NARRATIVE -->
   <section class="prose-section">
-    <p class="prose-lead reveal">NSR S.r.l., sede in Via Ortigara 3, Roma, si presenta come specialista in cybersecurity e data protection. Il suo amministratore, Francesco Dattola, è al centro dell'inchiesta della Procura di Roma che il <a class="inline-ref" href="https://www.editorialedomani.it/fatti/corruzione-marchette-e-appalti-pilotati-il-nuovo-tsunami-che-scuote-la-difesa-hkaowiie" target="_blank" rel="noopener">26 marzo 2026</a> ha portato le perquisizioni della Guardia di Finanza a TELEDIFE, Terna, RFI e al Polo Strategico Nazionale. Ventisei indagati. L'accusa: un sistema di fatture false, Rolex e contanti per corrompere ufficiali pubblici e ottenere in anticipo le informazioni sulle gare. Il 5 novembre 2025, quattro mesi prima delle perquisizioni, lo stesso TELEDIFE pubblica nella sezione Amministrazione Trasparente di difesa.it l'esito di aggiudicazione del Lotto 2 della gara Business Continuity per il Comando Operazioni in Rete (COR). L'aggiudicatario è NSR S.r.l. L'importo è di €1.254.370,84. CIG <a class="inline-ref" href="https://www.difesa.it/sgd-dna/staff/dt/teledife/pnrr-teledife-cybersecurity/31086.html" target="_blank" rel="noopener">B7AC88E89B</a>. Procedura SDAPA sopra soglia UE. La società al centro dello schema corruttivo ha vinto direttamente un contratto TELEDIFE per la piattaforma SIEM del centro di comando cyber della Difesa.</p>
+    <p class="prose-lead prose-dropcap reveal">NSR S.r.l., sede in Via Ortigara 3, Roma, si presenta come specialista in cybersecurity e data protection. Il suo amministratore, Francesco Dattola, è al centro dell'inchiesta della Procura di Roma che il <a class="inline-ref" href="https://www.editorialedomani.it/fatti/corruzione-marchette-e-appalti-pilotati-il-nuovo-tsunami-che-scuote-la-difesa-hkaowiie" target="_blank" rel="noopener">26 marzo 2026</a> ha portato le perquisizioni della Guardia di Finanza a TELEDIFE, Terna, RFI e al Polo Strategico Nazionale. Ventisei indagati. L'accusa: un sistema di <span class="text-mark">fatture false, Rolex e contanti</span> per corrompere ufficiali pubblici e ottenere in anticipo le informazioni sulle gare.</p>
 
-    <p class="reveal">La cosa non è stata notata. E non è l'unico contratto. Nello stesso archivio, firmato dallo stesso Proietto alla 9ª Divisione, c'è l'esito del contratto NDR (Network Detection and Response), CIG <a class="inline-ref" href="https://www.difesa.it/amministrazione-trasparente/segredifesa/teledife/procedure-di-affidamento/acquisizione-piattaforma-network-detection-and-response-ndr/55954.html" target="_blank" rel="noopener">Z7B3C29216</a>, pubblicato lo stesso giorno. Importo: €983.528,62. L'aggiudicatario questa volta è il RTI con Telecom Italia S.p.A. mandataria, Almaviva, KPMG Advisory, Netgroup e ReeVo: lo stesso consorzio dell'Accordo Quadro Consip 2296 che ha ottenuto la Cybersecurity Awareness (€2.598.750) e il Red Teaming (€3.951.780). Il contratto NDR contiene una clausola di subappalto aperta. NSR, specialista in NDR, potrebbe operare come subfornitore di TIM. Il collegamento è indiziario. La coincidenza tra specializzazione, framework e periodo di autorizzazione (DaC 156 del 7 agosto 2023, firmata durante il mandato Gervasio) è troppo stretta per essere ignorata.</p>
+    <div class="evidence-box reveal">
+      <div class="evidence-inner">
+        <div class="evidence-label"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Documento TELEDIFE</div>
+        <div class="evidence-content">Esito di aggiudicazione, Lotto 2, Business Continuity per il COR. Aggiudicatario: <strong>NSR S.r.l.</strong> Importo: <strong>€1.254.370,84</strong>. CIG B7AC88E89B. Procedura SDAPA sopra soglia UE. Pubblicato il <strong>5 novembre 2025</strong>, quattro mesi prima delle perquisizioni.</div>
+        <div class="evidence-source"><a href="https://www.difesa.it/sgd-dna/staff/dt/teledife/pnrr-teledife-cybersecurity/31086.html" target="_blank" rel="noopener">difesa.it → Amministrazione Trasparente → PNRR Cybersecurity</a></div>
+      </div>
+    </div>
 
-    <p class="reveal">Al punto 18 dell'esito NDR, il Responsabile del procedimento risulta il Capo della 1ª Divisione del I Reparto di TELEDIFE. Quella posizione è di Fabio Cerase. La Procura accusa Cerase di aver consegnato a privati le specifiche della piattaforma CMDB prima della pubblicazione del bando. Due piattaforme di sicurezza informatica, stesso RUP indagato, stesso framework Consip, stesso RTI aggiudicatario. E a fianco, nello stesso esito del 5 novembre, NSR vince il SIEM direttamente.</p>
+    <p class="reveal">La società al centro dello schema corruttivo ha vinto direttamente un contratto TELEDIFE per la piattaforma SIEM del centro di comando cyber della Difesa.</p>
 
-    <p class="reveal">Quello che segue è il risultato dell'incrocio sistematico tra i <a class="inline-ref" href="https://www.difesa.it/sgd-dna/staff/dt/teledife/pnrr-teledife-cybersecurity/31086.html" target="_blank" rel="noopener">66 PDF pubblicati da TELEDIFE nella sezione Cybersecurity</a>, i 22 della Digitalizzazione, le Determinazioni a Contrarre del SatCom, le cronache giornalistiche degli arresti e le ordinanze della Procura. Sono 17 contratti cybersecurity verificati per un totale di €42.676.656, con CIG, importi, aggiudicatari, RUP e firmatari degli esiti estratti direttamente dai documenti. Ogni nome, ogni cifra, ogni data che compare in questo testo è rintracciabile nei PDF pubblici o nelle fonti giornalistiche citate in calce.</p>
+    <p class="reveal">La cosa non è stata notata. E non è l'unico contratto. Nello stesso archivio, firmato dallo stesso Proietto alla 9ª Divisione, c'è l'esito del contratto NDR (Network Detection and Response), CIG <a class="inline-ref" href="https://www.difesa.it/amministrazione-trasparente/segredifesa/teledife/procedure-di-affidamento/acquisizione-piattaforma-network-detection-and-response-ndr/55954.html" target="_blank" rel="noopener">Z7B3C29216</a>, pubblicato lo stesso giorno. Importo: <span class="key-num">€983.528,62</span>. L'aggiudicatario questa volta è il RTI con Telecom Italia S.p.A. mandataria, Almaviva, KPMG Advisory, Netgroup e ReeVo: lo stesso consorzio dell'Accordo Quadro Consip 2296 che ha ottenuto la Cybersecurity Awareness (<span class="key-num">€2.598.750</span>) e il Red Teaming (<span class="key-num">€3.951.780</span>). Il contratto NDR contiene una clausola di subappalto aperta. NSR, specialista in NDR, potrebbe operare come subfornitore di TIM. Il collegamento è indiziario. La coincidenza tra specializzazione, framework e periodo di autorizzazione (DaC 156 del 7 agosto 2023, firmata durante il mandato Gervasio) è troppo stretta per essere ignorata.</p>
+
+    <div class="evidence-box reveal">
+      <div class="evidence-inner">
+        <div class="evidence-label"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Anomalia procedurale</div>
+        <div class="evidence-content">Al punto 18 dell'esito NDR, il Responsabile del procedimento risulta il <strong>Capo della 1ª Divisione del I Reparto di TELEDIFE</strong>. Quella posizione è di <strong>Fabio Cerase</strong>. La Procura accusa Cerase di aver consegnato a privati le specifiche della piattaforma CMDB prima della pubblicazione del bando.</div>
+        <div class="evidence-source"><a href="https://www.difesa.it/amministrazione-trasparente/segredifesa/teledife/procedure-di-affidamento/acquisizione-piattaforma-network-detection-and-response-ndr/55954.html" target="_blank" rel="noopener">difesa.it → Esito NDR, CIG Z7B3C29216</a></div>
+      </div>
+    </div>
+
+    <p class="reveal">Due piattaforme di sicurezza informatica, stesso RUP indagato, stesso framework Consip, stesso RTI aggiudicatario. E a fianco, nello stesso esito del 5 novembre, NSR vince il SIEM direttamente.</p>
+
+    <div class="doc-visual reveal">
+      <div class="doc-visual-inner">
+        <div class="doc-stack">
+          <div class="doc-page">
+            <div class="doc-page-lines"><div class="doc-page-line"></div><div class="doc-page-line"></div><div class="doc-page-line"></div><div class="doc-page-line"></div></div>
+            <div class="doc-page-stamp"></div>
+          </div>
+          <div class="doc-page">
+            <div class="doc-page-lines"><div class="doc-page-line"></div><div class="doc-page-line"></div><div class="doc-page-line"></div><div class="doc-page-line"></div></div>
+            <div class="doc-page-stamp"></div>
+          </div>
+          <div class="doc-page">
+            <div class="doc-page-lines"><div class="doc-page-line"></div><div class="doc-page-line"></div><div class="doc-page-line"></div><div class="doc-page-line"></div></div>
+            <div class="doc-page-stamp"></div>
+          </div>
+        </div>
+        <div class="doc-text">
+          <div class="doc-text-title">Archivio analizzato</div>
+          <p><a href="https://www.difesa.it/sgd-dna/staff/dt/teledife/pnrr-teledife-cybersecurity/31086.html" target="_blank" rel="noopener">66 PDF Cybersecurity</a> + 22 Digitalizzazione + DaC SatCom + cronache giornalistiche + ordinanze della Procura. Da questi documenti sono estratti 17 contratti con CIG, importi, aggiudicatari, RUP e firmatari. Ogni nome, cifra e data è rintracciabile nelle fonti primarie.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- METRICS -->
   <section class="metrics reveal">
     <div class="metrics-grid">
       <div class="metric-item reveal reveal-delay-1">
-        <div class="metric-number">26</div>
+        <div class="metric-number" data-target="26">0</div>
         <div class="metric-label">Indagati</div>
       </div>
       <div class="metric-item reveal reveal-delay-2">
-        <div class="metric-number">17</div>
+        <div class="metric-number" data-target="17">0</div>
         <div class="metric-label">Contratti Cyber verificati</div>
       </div>
       <div class="metric-item reveal reveal-delay-3">
-        <div class="metric-number metric-money">€42,7M</div>
+        <div class="metric-number metric-money" data-target="42.7" data-prefix="€" data-suffix="M" data-decimals="1">€0M</div>
         <div class="metric-label">Cybersecurity PNRR</div>
       </div>
       <div class="metric-item reveal reveal-delay-4">
-        <div class="metric-number metric-money">€348M</div>
+        <div class="metric-number metric-money" data-target="348" data-prefix="€" data-suffix="M">€0M</div>
         <div class="metric-label">PNRR totale</div>
       </div>
       <div class="metric-item reveal reveal-delay-5">
-        <div class="metric-number metric-money">>&thinsp;€1Mld</div>
+        <div class="metric-number metric-money" data-target-text=">&thinsp;€1Mld">>&thinsp;€1Mld</div>
         <div class="metric-label">Perimetro</div>
       </div>
       <div class="metric-item reveal reveal-delay-6">
-        <div class="metric-number">112</div>
+        <div class="metric-number" data-target="112">0</div>
         <div class="metric-label">Procedure totali TELEDIFE</div>
       </div>
     </div>
@@ -373,9 +508,32 @@
     <p class="reveal">Oltre alle sette firme di Gervasio, la mappa completa delle aggiudicazioni cybersecurity conta altri dieci contratti: la piattaforma SIEM di NSR per il COR (€1.254.371), il monitoraggio del traffico COR di TIM (€5.889.904), i modem satellitari TranSEC di Telespazio (€5.820.000 con 1 offerta su 4.036 invitati), il MDM di Italware (€3.152.241, ordine emesso il 12 novembre 2024, ventinove giorni dopo gli arresti Sogei, <a class="inline-ref" href="https://www.difesa.it/amministrazione-trasparente/segredifesa/teledife/procedure-di-affidamento/pnrr-m1c1-investimento-1-5-cybersecurity-wp10-accesso-alla-rete-e-protezione-dei-dispositivi-mobili-acquisizione-tecnologia-di-mobile-device-management-mdm/58497.html" target="_blank" rel="noopener">esito pubblicato</a>), due forniture per il Centro Valutazione di Fabaris e Digital Platforms, la migrazione FUMD-NG di Fastweb, la protezione perimetrale e il monitoraggio OT/IoT sempre di Fastweb, l'antivirus mobile di Intellitronika e il WAF di Sferanet. Il totale dei 17 contratti verificati raggiunge €42.676.656.</p>
   </section>
 
-  <!-- IL CIRCUITO DEL DENARO -->
-  <div class="section-divider"><div class="section-divider-line"></div></div>
+  <!-- DATA STRIP -->
+  <div class="data-strip reveal">
+    <div class="data-strip-inner">
+      <div class="data-strip-stat">
+        <div class="data-strip-number" data-target="7">0</div>
+        <div class="data-strip-label">firme Gervasio</div>
+      </div>
+      <div class="data-strip-sep"></div>
+      <div class="data-strip-stat">
+        <div class="data-strip-number" data-target="5">0</div>
+        <div class="data-strip-label">meccanismi di aggiudicazione</div>
+      </div>
+      <div class="data-strip-sep"></div>
+      <div class="data-strip-stat">
+        <div class="data-strip-number">€15,2M</div>
+        <div class="data-strip-label">autorizzati in cybersecurity</div>
+      </div>
+      <div class="data-strip-sep"></div>
+      <div class="data-strip-stat">
+        <div class="data-strip-number">€348M</div>
+        <div class="data-strip-label">totale PNRR TELEDIFE</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- IL CIRCUITO DEL DENARO -->
   <section class="section-header reveal" id="denaro">
     <div class="section-number">II</div>
     <h2>Il circuito del denaro</h2>
@@ -406,6 +564,52 @@
       <div class="flow-step"><div class="flow-step-item">Offerta calibrata</div><div class="flow-arrow">→</div><div class="flow-step-item">Aggiudicazione</div></div>
     </div>
   </section>
+
+  <!-- FIGURE: Schema corruttivo -->
+  <div class="figure-section reveal">
+    <div class="figure-inner">
+      <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="background:var(--bg-warm)">
+        <text x="60" y="40" font-family="Space Grotesk,sans-serif" font-size="11" fill="#8a8578" font-weight="500" text-anchor="middle" letter-spacing="0.1em">DENARO ↓</text>
+        <rect x="20" y="55" width="120" height="44" rx="3" fill="#fff" stroke="#d8d3c8"/>
+        <text x="80" y="78" font-family="Space Grotesk,sans-serif" font-size="11" fill="#1a1a1a" font-weight="600" text-anchor="middle">NSR (Dattola)</text>
+        <text x="80" y="92" font-family="JetBrains Mono,monospace" font-size="8" fill="#8a8578" text-anchor="middle">fatture false</text>
+        <line x1="140" y1="77" x2="180" y2="77" stroke="#d8d3c8" stroke-width="1.5" marker-end="url(#arrowGrey)"/>
+        <rect x="180" y="55" width="120" height="44" rx="3" fill="#fff" stroke="#d8d3c8"/>
+        <text x="240" y="78" font-family="Space Grotesk,sans-serif" font-size="11" fill="#1a1a1a" font-weight="600" text-anchor="middle">Tron Group</text>
+        <text x="240" y="92" font-family="JetBrains Mono,monospace" font-size="8" fill="#8a8578" text-anchor="middle">acquisto Rolex</text>
+        <line x1="300" y1="77" x2="340" y2="77" stroke="#d8d3c8" stroke-width="1.5" marker-end="url(#arrowGrey)"/>
+        <rect x="340" y="55" width="120" height="44" rx="3" fill="#fff" stroke="#d8d3c8"/>
+        <text x="400" y="78" font-family="Space Grotesk,sans-serif" font-size="11" fill="#1a1a1a" font-weight="600" text-anchor="middle">Rolex → Cash</text>
+        <text x="400" y="92" font-family="JetBrains Mono,monospace" font-size="8" fill="#8a8578" text-anchor="middle">conversione</text>
+        <line x1="460" y1="77" x2="500" y2="77" stroke="#b5312c" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+        <rect x="500" y="55" width="140" height="44" rx="3" fill="rgba(181,49,44,0.08)" stroke="#b5312c" stroke-opacity="0.3"/>
+        <text x="570" y="78" font-family="Space Grotesk,sans-serif" font-size="11" fill="#b5312c" font-weight="600" text-anchor="middle">Ufficiali corrotti</text>
+        <text x="570" y="92" font-family="JetBrains Mono,monospace" font-size="8" fill="#b5312c" text-anchor="middle" opacity="0.7">tangente</text>
+        <text x="695" y="40" font-family="Space Grotesk,sans-serif" font-size="11" fill="#8a8578" font-weight="500" text-anchor="middle" letter-spacing="0.1em">↑ INFORMAZIONE</text>
+        <rect x="500" y="120" width="140" height="44" rx="3" fill="rgba(181,49,44,0.08)" stroke="#b5312c" stroke-opacity="0.3"/>
+        <text x="570" y="143" font-family="Space Grotesk,sans-serif" font-size="11" fill="#b5312c" font-weight="600" text-anchor="middle">Ufficiali RUP</text>
+        <text x="570" y="157" font-family="JetBrains Mono,monospace" font-size="8" fill="#b5312c" text-anchor="middle" opacity="0.7">specifiche bandi</text>
+        <line x1="500" y1="142" x2="460" y2="142" stroke="#d8d3c8" stroke-width="1.5" marker-end="url(#arrowGreyL)"/>
+        <rect x="340" y="120" width="120" height="44" rx="3" fill="#fff" stroke="#d8d3c8"/>
+        <text x="400" y="143" font-family="Space Grotesk,sans-serif" font-size="11" fill="#1a1a1a" font-weight="600" text-anchor="middle">Spalletta</text>
+        <text x="400" y="157" font-family="JetBrains Mono,monospace" font-size="8" fill="#8a8578" text-anchor="middle">cerniera</text>
+        <line x1="340" y1="142" x2="300" y2="142" stroke="#d8d3c8" stroke-width="1.5" marker-end="url(#arrowGreyL)"/>
+        <rect x="180" y="120" width="120" height="44" rx="3" fill="#fff" stroke="#d8d3c8"/>
+        <text x="240" y="143" font-family="Space Grotesk,sans-serif" font-size="11" fill="#1a1a1a" font-weight="600" text-anchor="middle">Dattola / Bisi</text>
+        <text x="240" y="157" font-family="JetBrains Mono,monospace" font-size="8" fill="#8a8578" text-anchor="middle">offerta calibrata</text>
+        <line x1="180" y1="142" x2="140" y2="142" stroke="#d8d3c8" stroke-width="1.5" marker-end="url(#arrowGreyL)"/>
+        <rect x="20" y="120" width="120" height="44" rx="3" fill="#fff" stroke="#d8d3c8"/>
+        <text x="80" y="143" font-family="Space Grotesk,sans-serif" font-size="11" fill="#1a1a1a" font-weight="600" text-anchor="middle">Aggiudicazione</text>
+        <text x="80" y="157" font-family="JetBrains Mono,monospace" font-size="8" fill="#8a8578" text-anchor="middle">gara vinta</text>
+        <defs>
+          <marker id="arrowGrey" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#d8d3c8" stroke-width="1"/></marker>
+          <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#b5312c" stroke-width="1"/></marker>
+          <marker id="arrowGreyL" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6" fill="none" stroke="#d8d3c8" stroke-width="1"/></marker>
+        </defs>
+      </svg>
+      <div class="figure-caption">Schema del doppio flusso corruttivo: il denaro scende da NSR agli ufficiali attraverso Tron Group e Rolex; l'informazione sale dagli ufficiali RUP ai privati attraverso Spalletta.</div>
+    </div>
+  </div>
 
   <!-- D3 NETWORK GRAPH (dark section) -->
   <div class="graph-wrapper">
@@ -449,7 +653,7 @@
   </section>
 
   <section class="prose-section">
-    <p class="reveal">L'inchiesta nasce da <a class="inline-ref" href="https://www.fanpage.it/attualita/di-cosa-si-occupa-sogei-e-cosa-sappiamo-sullarresto-per-corruzione-di-paolino-iorio/" target="_blank" rel="noopener">Sogei</a>. Il 15 ottobre 2024, Paolino Iorio, direttore generale della società IT del Ministero dell'Economia (sistema tributario, anagrafe, fatturazione elettronica), viene arrestato in flagranza mentre riceve 15.000 euro in contanti da Massimo Rossi, allora amministratore di ITD Solutions, controllata di Digital Value. Iorio ha patteggiato tre anni. L'esposizione complessiva di Sogei verso le società di Rossi ammontava a 104,3 milioni di euro: 98,6 milioni verso Italware e 5,7 milioni verso ITD Solutions.</p>
+    <p class="reveal">L'inchiesta nasce da <a class="inline-ref" href="https://www.fanpage.it/attualita/di-cosa-si-occupa-sogei-e-cosa-sappiamo-sullarresto-per-corruzione-di-paolino-iorio/" target="_blank" rel="noopener">Sogei</a>. Il 15 ottobre 2024, Paolino Iorio, direttore generale della società IT del Ministero dell'Economia (sistema tributario, anagrafe, fatturazione elettronica), viene arrestato in flagranza mentre riceve <span class="text-mark">15.000 euro in contanti</span> da Massimo Rossi, allora amministratore di ITD Solutions, controllata di Digital Value. Iorio ha patteggiato tre anni. L'esposizione complessiva di Sogei verso le società di Rossi ammontava a 104,3 milioni di euro: 98,6 milioni verso Italware e 5,7 milioni verso ITD Solutions.</p>
 
     <p class="reveal">Da Sogei l'indagine si è espansa verso TELEDIFE (stessi fornitori: Italware e Rossi), verso RFI e Terna (stessi intermediari: Spalletta e Dattola), e verso il Polo Strategico Nazionale. Emanuele Iannetti, CEO del PSN, la joint venture tra TIM, Leonardo, CDP e Sogei che gestisce il cloud della pubblica amministrazione, è tra i 26 indagati. Antonio Spalletta, l'intermediario tra gli ufficiali TELEDIFE e i privati, era anche collaboratore del PSN.</p>
 
@@ -482,6 +686,31 @@
       <div class="card-value">€6M contratto</div>
     </div>
   </section>
+
+  <!-- DATA STRIP 2 -->
+  <div class="data-strip reveal">
+    <div class="data-strip-inner">
+      <div class="data-strip-stat">
+        <div class="data-strip-number">4</div>
+        <div class="data-strip-label">enti coinvolti</div>
+      </div>
+      <div class="data-strip-sep"></div>
+      <div class="data-strip-stat">
+        <div class="data-strip-number">€104M</div>
+        <div class="data-strip-label">esposizione Sogei</div>
+      </div>
+      <div class="data-strip-sep"></div>
+      <div class="data-strip-stat">
+        <div class="data-strip-number">€400M</div>
+        <div class="data-strip-label">gara RFI</div>
+      </div>
+      <div class="data-strip-sep"></div>
+      <div class="data-strip-stat">
+        <div class="data-strip-number">1</div>
+        <div class="data-strip-label">CEO PSN indagato</div>
+      </div>
+    </div>
+  </div>
 
   <!-- IL PERIMETRO -->
   <section class="section-header reveal" id="perimetro">
@@ -530,7 +759,17 @@
 
     <p class="reveal">Lo <a class="inline-ref" href="https://www.startmag.it/economia/caso-sogei-il-ministero-difesa-silura-digital-value-anche-un-po-cisco/" target="_blank" rel="noopener">SDAPA AQ 800</a> (Cisco/Italware, €180M, revocato) ha una struttura propria. L'accusa della Procura è che Gianmatteo Maria Manghi, CEO di Cisco Italia, abbia negoziato la composizione dei consorzi per favorire Italware ed escludere gli operatori non graditi. Due manager Cisco, Luigi Capomasi e Martina Luciano, sono anch'essi indagati. Il produttore della tecnologia decideva chi potesse rivendere i suoi prodotti alla Difesa. Lo schema si replica con Nutanix: Pasquale Potenza e Gianfranco Marra, PA Sales Managers, pilotavano le gare insieme a Italware. Nutanix è il vendor dei server iperconvergenti aggiudicati a Italware nella Digitalizzazione (€1.107.666, CIG Z7E3C58823).</p>
 
-    <p class="reveal">Quanto alle 17 aggiudicazioni cybersecurity, la concentrazione è marcata. TIM (direttamente o come mandataria di RTI) controlla circa €12,4 milioni. Leonardo (direttamente, via RTI con HP, o tramite Telespazio al 67%) raggiunge €14,2 milioni, il 33% del totale. Italware si è aggiudicata il MDM da €3,15 milioni con un ordine Consip emesso il 12 novembre 2024, ventinove giorni dopo gli arresti di Iorio e Rossi del 14 ottobre. La Convenzione Consip era lo strumento: Italware era già il fornitore predefinito nel lotto, e TELEDIFE ha potuto aderire nonostante il contesto. L'esclusione quinquennale di Italware dalle gare TELEDIFE è arrivata dopo, limitata alle procedure SDAPA.</p>
+    <p class="reveal">Quanto alle 17 aggiudicazioni cybersecurity, la concentrazione è marcata. TIM (direttamente o come mandataria di RTI) controlla circa <span class="key-num">€12,4 milioni</span>. Leonardo (direttamente, via RTI con HP, o tramite Telespazio al 67%) raggiunge <span class="key-num">€14,2 milioni</span>, il 33% del totale.</p>
+
+    <div class="evidence-box reveal">
+      <div class="evidence-inner">
+        <div class="evidence-label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> 29 giorni dopo gli arresti</div>
+        <div class="evidence-content">Italware si è aggiudicata il MDM da <strong>€3.152.241</strong> con un ordine Consip emesso il <strong>12 novembre 2024</strong>, ventinove giorni dopo gli arresti di Iorio e Rossi del 14 ottobre. La Convenzione Consip era lo strumento: Italware era già il fornitore predefinito nel lotto, e TELEDIFE ha potuto aderire nonostante il contesto.</div>
+        <div class="evidence-source"><a href="https://www.difesa.it/amministrazione-trasparente/segredifesa/teledife/procedure-di-affidamento/pnrr-m1c1-investimento-1-5-cybersecurity-wp10-accesso-alla-rete-e-protezione-dei-dispositivi-mobili-acquisizione-tecnologia-di-mobile-device-management-mdm/58497.html" target="_blank" rel="noopener">difesa.it → Esito MDM, CIG B4386EBF54</a></div>
+      </div>
+    </div>
+
+    <p class="reveal">L'esclusione quinquennale di Italware dalle gare TELEDIFE è arrivata dopo, limitata alle procedure SDAPA.</p>
 
     <p class="reveal">I quattro PM che coordinano l'indagine sono Giuseppe De Falco, Giuseppe Cascini, Lorenzo Del Giudice e Gianfranco Gallo.</p>
   </section>
@@ -679,6 +918,20 @@
       ]
     };
 
+    /* ── SCROLL PROGRESS BAR ── */
+    var scrollBar = document.getElementById('scrollProgress');
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if(!ticking){
+        requestAnimationFrame(function(){
+          var h = document.documentElement.scrollHeight - window.innerHeight;
+          scrollBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
     /* ── NAVIGATION SHOW/HIDE ── */
     var nav = document.getElementById('mainNav');
     var heroEl = document.getElementById('hero');
@@ -694,6 +947,44 @@
       });
     }, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.reveal').forEach(function(el){ revealObs.observe(el); });
+
+    /* ── COUNTER ANIMATION ── */
+    var counterDone = false;
+    var counterObs = new IntersectionObserver(function(entries){
+      if(counterDone) return;
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        counterDone = true;
+        document.querySelectorAll('.metric-number[data-target]').forEach(function(el, idx){
+          var target = parseFloat(el.getAttribute('data-target'));
+          var prefix = el.getAttribute('data-prefix') || '';
+          var suffix = el.getAttribute('data-suffix') || '';
+          var decimals = parseInt(el.getAttribute('data-decimals')) || 0;
+          var duration = 1800;
+          var start = performance.now();
+          var delay = idx * 100;
+          setTimeout(function(){
+            function step(now){
+              var elapsed = now - start;
+              var progress = Math.min(elapsed / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              var current = target * eased;
+              el.textContent = prefix + (decimals > 0 ? current.toFixed(decimals).replace('.', ',') : Math.round(current)) + suffix;
+              if(progress < 1) requestAnimationFrame(step);
+            }
+            start = performance.now();
+            requestAnimationFrame(step);
+          }, delay);
+        });
+        document.querySelectorAll('.metric-number[data-target-text]').forEach(function(el){
+          setTimeout(function(){
+            el.innerHTML = el.getAttribute('data-target-text');
+          }, 600);
+        });
+      });
+    }, {threshold:0.3});
+    var metricsEl = document.querySelector('.metrics');
+    if(metricsEl) counterObs.observe(metricsEl);
 
     /* ── BAR CHART ANIMATION ── */
     var barAnimated = false;
@@ -711,6 +1002,48 @@
     }, {threshold:0.3});
     var barSection = document.getElementById('barChartSection');
     if(barSection) barObs.observe(barSection);
+
+    /* ── FLOW STEP ANIMATION ── */
+    var flowObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var steps = e.target.querySelectorAll('.flow-step');
+        steps.forEach(function(step, i){
+          setTimeout(function(){
+            step.classList.add('flow-visible');
+          }, i * 200);
+        });
+      });
+    }, {threshold:0.2});
+    document.querySelectorAll('.flow').forEach(function(f){ flowObs.observe(f); });
+
+    /* ── DATA STRIP COUNTER ── */
+    document.querySelectorAll('.data-strip').forEach(function(strip){
+      var done = false;
+      var obs = new IntersectionObserver(function(entries){
+        if(done) return;
+        entries.forEach(function(e){
+          if(!e.isIntersecting) return;
+          done = true;
+          strip.querySelectorAll('.data-strip-number[data-target]').forEach(function(el, idx){
+            var target = parseFloat(el.getAttribute('data-target'));
+            var duration = 1200;
+            var startTime;
+            setTimeout(function(){
+              function step(now){
+                if(!startTime) startTime = now;
+                var progress = Math.min((now - startTime) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(target * eased);
+                if(progress < 1) requestAnimationFrame(step);
+              }
+              requestAnimationFrame(step);
+            }, idx * 150);
+          });
+        });
+      }, {threshold:0.3});
+      obs.observe(strip);
+    });
 
     /* ── D3 NETWORK GRAPH ── */
     var container = document.getElementById('graphContainer');

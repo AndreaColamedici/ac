@@ -245,6 +245,347 @@
       .timeline::before { left:28px; }
     }
 
+    /* ══════ ENHANCED VISUAL EFFECTS ══════ */
+
+    /* HERO GRID BACKGROUND */
+    .hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg, transparent 49.5%, var(--border-light) 49.5%, var(--border-light) 50.5%, transparent 50.5%),
+        linear-gradient(0deg, transparent 49.5%, var(--border-light) 49.5%, var(--border-light) 50.5%, transparent 50.5%);
+      background-size:80px 80px;
+      opacity:0.25;
+      mask-image:radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%);
+      -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero::after {
+      content:'';
+      position:absolute; bottom:0; left:0; right:0; height:200px;
+      background:linear-gradient(to top, var(--bg), transparent);
+      pointer-events:none;
+    }
+
+    /* GLITCH TITLE */
+    .hero h1 {
+      position:relative;
+    }
+    .hero h1::before, .hero h1::after {
+      content:attr(data-text);
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      opacity:0;
+    }
+    .hero h1::before {
+      color:var(--red);
+      animation:glitch1 8s infinite linear;
+      clip-path:polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    .hero h1::after {
+      color:var(--blue);
+      animation:glitch2 8s infinite linear;
+      clip-path:polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    }
+    @keyframes glitch1 {
+      0%,92%,100% { opacity:0; transform:none; }
+      93% { opacity:0.8; transform:translate(-3px, -1px); }
+      94% { opacity:0; }
+      96% { opacity:0.6; transform:translate(2px, 1px); }
+      97% { opacity:0; }
+    }
+    @keyframes glitch2 {
+      0%,90%,100% { opacity:0; transform:none; }
+      91% { opacity:0.7; transform:translate(3px, 1px); }
+      92% { opacity:0; }
+      95% { opacity:0.5; transform:translate(-2px, -1px); }
+      96% { opacity:0; }
+    }
+
+    /* SCAN LINE (subtle CRT effect on hero) */
+    .hero .scan-line {
+      position:absolute; inset:0;
+      background:repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.015) 2px,
+        rgba(0,0,0,0.015) 4px
+      );
+      pointer-events:none;
+      opacity:0;
+      animation:scanIn 1.5s ease 2s forwards;
+    }
+    @keyframes scanIn { to { opacity:1; } }
+
+    /* LARGE WATERMARK SECTION NUMBERS */
+    .section-header { position:relative; overflow:visible; }
+    .section-number-bg {
+      position:absolute;
+      right:-20px; top:-60px;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(8em,20vw,14em);
+      font-weight:800;
+      color:var(--border-light);
+      line-height:1;
+      pointer-events:none;
+      user-select:none;
+      letter-spacing:-0.05em;
+      opacity:0;
+      transform:translateX(20px);
+      transition:opacity 1.2s ease, transform 1.2s ease;
+    }
+    .section-header.reveal.visible .section-number-bg {
+      opacity:0.5;
+      transform:translateX(0);
+    }
+
+    /* EVIDENCE BOX ANIMATED BORDER */
+    .evidence-inner::before {
+      content:'';
+      position:absolute;
+      left:-1px; top:0; bottom:0; width:3px;
+      background:var(--red);
+      transform:scaleY(0);
+      transform-origin:top;
+      transition:transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s;
+    }
+    .evidence-box.reveal.visible .evidence-inner::before {
+      transform:scaleY(1);
+    }
+    .evidence-inner { border-left:3px solid transparent !important; }
+
+    /* CARD 3D TILT */
+    .card {
+      transform-style:preserve-3d;
+      perspective:800px;
+      transition:box-shadow 0.3s ease, border-color 0.3s ease, transform 0.4s ease;
+    }
+    .card:hover {
+      transform:translateY(-4px) rotateX(2deg);
+      box-shadow:0 16px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    /* TIMELINE PULSE */
+    .timeline-dot::after {
+      content:'';
+      position:absolute;
+      top:50%; left:50%;
+      width:20px; height:20px;
+      border-radius:50%;
+      border:1px solid var(--red);
+      transform:translate(-50%,-50%) scale(0);
+      opacity:0;
+    }
+    .timeline-item.reveal.visible .timeline-dot::after {
+      animation:dotPulse 2s ease 0.5s;
+    }
+    @keyframes dotPulse {
+      0% { transform:translate(-50%,-50%) scale(0); opacity:0.6; }
+      100% { transform:translate(-50%,-50%) scale(3); opacity:0; }
+    }
+
+    /* TIMELINE LINE FILL ON SCROLL */
+    .timeline::after {
+      content:'';
+      position:absolute;
+      left:60px; top:8px;
+      width:1px;
+      height:0;
+      background:var(--red);
+      transition:height 0.5s ease;
+      z-index:1;
+    }
+
+    /* FLOW ARROW ANIMATION */
+    .flow-arrow {
+      opacity:0;
+      animation:none;
+    }
+    .flow-step.flow-visible .flow-arrow {
+      opacity:1;
+      animation:arrowBounce 0.6s ease;
+    }
+    @keyframes arrowBounce {
+      0% { transform:translateY(-8px); opacity:0; }
+      60% { transform:translateY(2px); opacity:1; }
+      100% { transform:translateY(0); opacity:1; }
+    }
+
+    /* DATA STRIP GLOW */
+    .data-strip-number {
+      text-shadow:0 0 0 transparent;
+      transition:text-shadow 0.8s ease;
+    }
+    .data-strip.animated .data-strip-number {
+      text-shadow:0 0 30px rgba(181,49,44,0.15);
+    }
+
+    /* PULLQUOTE ANIMATED LINE */
+    .pullquote::before {
+      transform:scaleY(0);
+      transform-origin:top;
+      transition:transform 1s cubic-bezier(0.22,1,0.36,1) 0.2s;
+    }
+    .pullquote.reveal.visible::before {
+      transform:scaleY(1);
+    }
+
+    /* SECTION HEADER LINE ANIMATION */
+    .section-header-line {
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.4s;
+    }
+    .section-header.reveal.visible .section-header-line {
+      transform:scaleX(1);
+    }
+
+    /* GRAPH WRAPPER STARFIELD */
+    .graph-wrapper { position:relative; overflow:hidden; }
+    .graph-wrapper .starfield {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.15) 50%, transparent 50%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.1) 50%, transparent 50%),
+        radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.12) 50%, transparent 50%),
+        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.08) 50%, transparent 50%),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.1) 50%, transparent 50%),
+        radial-gradient(1.5px 1.5px at 15% 75%, rgba(255,255,255,0.06) 50%, transparent 50%),
+        radial-gradient(1.5px 1.5px at 85% 15%, rgba(255,255,255,0.07) 50%, transparent 50%),
+        radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.09) 50%, transparent 50%);
+      pointer-events:none;
+      animation:starDrift 60s linear infinite;
+    }
+    @keyframes starDrift {
+      0% { transform:translateY(0); }
+      100% { transform:translateY(-30px); }
+    }
+
+    /* METRICS ITEM HOVER */
+    .metric-item {
+      transition:transform 0.3s ease;
+    }
+    .metric-item:hover {
+      transform:scale(1.05);
+    }
+    .metric-item:hover .metric-number {
+      color:var(--red) !important;
+    }
+
+    /* DEEPFAKE SECTION VHS EFFECT */
+    .deepfake-visual {
+      max-width:660px;
+      margin:48px auto;
+      padding:0 32px;
+    }
+    .deepfake-frame {
+      position:relative;
+      background:var(--bg-dark);
+      border-radius:4px;
+      padding:40px 32px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .deepfake-frame::before {
+      content:'';
+      position:absolute; inset:0;
+      background:repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1px,
+        rgba(255,255,255,0.02) 1px,
+        rgba(255,255,255,0.02) 2px
+      );
+      pointer-events:none;
+      animation:vhsScroll 4s linear infinite;
+    }
+    @keyframes vhsScroll {
+      0% { transform:translateY(0); }
+      100% { transform:translateY(20px); }
+    }
+    .deepfake-frame::after {
+      content:'REC ●';
+      position:absolute;
+      top:12px; right:16px;
+      font-family:'JetBrains Mono',monospace;
+      font-size:0.65em;
+      color:#e74c3c;
+      letter-spacing:0.05em;
+      animation:recBlink 1.5s ease infinite;
+    }
+    @keyframes recBlink {
+      0%,100% { opacity:1; }
+      50% { opacity:0.3; }
+    }
+    .deepfake-text-original {
+      color:rgba(255,255,255,0.7);
+      font-family:'Source Serif 4',Georgia,serif;
+      font-size:1.1em;
+      font-style:italic;
+      line-height:1.7;
+      margin-bottom:20px;
+      position:relative;
+    }
+    .deepfake-text-manipulated {
+      color:#e74c3c;
+      font-family:'Source Serif 4',Georgia,serif;
+      font-size:1.1em;
+      font-style:italic;
+      line-height:1.7;
+      position:relative;
+      text-decoration:line-through;
+      text-decoration-color:rgba(231,76,60,0.4);
+    }
+    .deepfake-label {
+      font-family:'JetBrains Mono',monospace;
+      font-size:0.6em;
+      text-transform:uppercase;
+      letter-spacing:0.15em;
+      margin-bottom:12px;
+      font-weight:500;
+    }
+    .deepfake-label-ok { color:#4ecca3; }
+    .deepfake-label-fake { color:#e74c3c; }
+    .deepfake-vs {
+      text-align:center;
+      color:rgba(255,255,255,0.2);
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:700;
+      font-size:0.8em;
+      letter-spacing:0.3em;
+      margin:16px 0;
+    }
+    .deepfake-noise {
+      position:absolute; inset:0;
+      opacity:0.03;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      pointer-events:none;
+    }
+
+    /* FOOTER ENHANCED */
+    .footer-title::after {
+      content:'';
+      display:block;
+      width:40px;
+      height:2px;
+      background:var(--red);
+      margin-top:16px;
+      opacity:0.5;
+    }
+
+    /* SMOOTH ENTRANCE FOR SECTIONS */
+    .prose-section p.reveal {
+      opacity:0;
+      transform:translateY(16px);
+      transition:opacity 0.7s ease, transform 0.7s ease;
+    }
+    .prose-section p.reveal.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+
     /* PRINT */
     @media print {
       body { background:#fff; color:#111; font-size:11pt; }
@@ -277,8 +618,9 @@
   </nav>
 
   <section class="hero" id="hero">
+    <div class="scan-line"></div>
     <div class="hero-date">Indagine &middot; Marzo 2026</div>
-    <h1>La macchina</h1>
+    <h1 data-text="La macchina">La macchina</h1>
     <h2>Anatomia dell'operazione di Stato israeliana contro Francesca Albanese, Relatrice Speciale ONU sui diritti umani nei Territori Palestinesi Occupati</h2>
     <div class="hero-rule"></div>
     <div class="hero-meta">
@@ -318,6 +660,7 @@
 
   <!-- ═══════ I. LA CABINA DI REGIA ═══════ -->
   <div class="section-header reveal" id="cabina">
+    <div class="section-number-bg">I</div>
     <div class="section-number">I</div>
     <h2>La cabina di regia</h2>
     <div class="section-header-line"></div>
@@ -355,6 +698,7 @@
 
   <!-- ═══════ II. IL DEEPFAKE ═══════ -->
   <div class="section-header reveal" id="deepfake">
+    <div class="section-number-bg">II</div>
     <div class="section-number">II</div>
     <h2>Il deepfake</h2>
     <div class="section-header-line"></div>
@@ -365,6 +709,20 @@
 
     <p class="reveal">Il video manipolato viene fatto circolare con estrema rapidità. Nel giro di pochi giorni, i ministri degli Esteri di <span class="text-mark">Austria, Repubblica Ceca, Francia e Germania</span> rilasciano dichiarazioni pubbliche in cui chiedono le dimissioni o la destituzione di Albanese, basandosi esclusivamente sulla versione manipolata. Il Comitato di Coordinamento delle Procedure Speciali dell'OHCHR interviene con una dichiarazione ufficiale: <em>«Promuovete la giustizia, non la disinformazione»</em>, condannando gli attacchi e difendendo l'integrità del mandato. Amnesty International pubblica un comunicato che definisce le dichiarazioni dei governi europei «oltraggiose» e ne chiede la ritrattazione.</p>
 
+  </div>
+
+  <div class="deepfake-visual reveal">
+    <div class="deepfake-frame">
+      <div class="deepfake-noise"></div>
+      <div class="deepfake-label deepfake-label-ok">▶ Discorso integrale — Doha, 7 febbraio 2026</div>
+      <div class="deepfake-text-original">«L'umanità ha un nemico comune: il sistema che ha reso possibile il genocidio in Palestina.»</div>
+      <div class="deepfake-vs">— MONTAGGIO UN WATCH —</div>
+      <div class="deepfake-label deepfake-label-fake">⚠ Versione manipolata e diffusa</div>
+      <div class="deepfake-text-manipulated">«Israele è il nemico comune dell'umanità.»</div>
+    </div>
+  </div>
+
+  <div class="prose-section">
     <p class="reveal">L'episodio del deepfake non è un incidente isolato. È il momento culminante di una campagna che dura da anni e che segue un copione preciso: estrarre frasi dal contesto, riformularle come prova di antisemitismo, amplificarle attraverso la rete di organizzazioni coordinate dal Ministero degli Affari Strategici e poi premere sui governi alleati perché agiscano. Il pattern è identico a quello usato contro i predecessori di Albanese: John Dugard (2001-2007), Richard Falk (2008-2014) e Michael Lynk (2016-2022), tutti e tre attaccati con le stesse accuse di antisemitismo e parzialità da UN Watch, tutti e tre costretti a operare in un ambiente ostile costruito dalla stessa macchina.</p>
   </div>
 
@@ -401,6 +759,7 @@
 
   <!-- ═══════ CRONOLOGIA ═══════ -->
   <div class="section-header reveal">
+    <div class="section-number-bg">III</div>
     <div class="section-number">III</div>
     <h2>La cronologia</h2>
     <div class="section-header-line"></div>
@@ -454,6 +813,7 @@
 
   <!-- ═══════ IV. LA RETE (D3 GRAPH) ═══════ -->
   <section class="graph-wrapper" id="rete">
+    <div class="starfield"></div>
     <div class="graph-section">
       <div class="graph-header">
         <div>
@@ -487,6 +847,7 @@
 
   <!-- ═══════ V. IL CASO ITALIA ═══════ -->
   <div class="section-header reveal" id="italia">
+    <div class="section-number-bg">V</div>
     <div class="section-number">V</div>
     <h2>Il caso Italia</h2>
     <div class="section-header-line"></div>
@@ -515,6 +876,7 @@
 
   <!-- ═══════ VI. LE SANZIONI ═══════ -->
   <div class="section-header reveal">
+    <div class="section-number-bg">VI</div>
     <div class="section-number">VI</div>
     <h2>Le sanzioni</h2>
     <div class="section-header-line"></div>
@@ -536,6 +898,7 @@
 
   <!-- ═══════ VII. IL PATTERN ═══════ -->
   <div class="section-header reveal" id="pattern">
+    <div class="section-number-bg">VII</div>
     <div class="section-number">VII</div>
     <h2>Il pattern</h2>
     <div class="section-header-line"></div>
@@ -614,6 +977,7 @@
 
   <!-- ═══════ VIII. I RAPPORTI ═══════ -->
   <div class="section-header reveal">
+    <div class="section-number-bg">VIII</div>
     <div class="section-number">VIII</div>
     <h2>I rapporti che li legano</h2>
     <div class="section-header-line"></div>
@@ -635,6 +999,7 @@
 
   <!-- ═══════ IX. LE DOMANDE APERTE ═══════ -->
   <div class="section-header reveal" id="domande">
+    <div class="section-number-bg">IX</div>
     <div class="section-number">IX</div>
     <h2>Le domande aperte</h2>
     <div class="section-header-line"></div>
@@ -949,6 +1314,7 @@
         entries.forEach(function(e){
           if(!e.isIntersecting) return;
           done = true;
+          strip.classList.add('animated');
           strip.querySelectorAll('.data-strip-number[data-target]').forEach(function(el, idx){
             var target = parseFloat(el.getAttribute('data-target'));
             var duration = 1200;
@@ -1093,6 +1459,53 @@
         e.preventDefault();
         var target = document.querySelector(this.getAttribute('href'));
         if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    /* ── TIMELINE FILL ON SCROLL ── */
+    var timelineEl = document.querySelector('.timeline');
+    if(timelineEl) {
+      var timelineLine = timelineEl.querySelector(':scope::after') || null;
+      window.addEventListener('scroll', function(){
+        var rect = timelineEl.getBoundingClientRect();
+        var viewH = window.innerHeight;
+        if(rect.top < viewH && rect.bottom > 0) {
+          var progress = Math.min(1, Math.max(0, (viewH - rect.top) / (rect.height + viewH)));
+          var lineHeight = progress * (rect.height - 40);
+          timelineEl.style.setProperty('--timeline-fill', lineHeight + 'px');
+        }
+      });
+      /* Use CSS custom property for the fill height */
+      var styleSheet = document.styleSheets[0];
+      try {
+        styleSheet.insertRule('.timeline::after { height: var(--timeline-fill, 0px) !important; }', styleSheet.cssRules.length);
+      } catch(e){}
+    }
+
+    /* ── PARALLAX HERO ELEMENTS ── */
+    var heroH1 = document.querySelector('.hero h1');
+    var heroH2 = document.querySelector('.hero h2');
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(y < window.innerHeight) {
+        var factor = y / window.innerHeight;
+        if(heroH1) heroH1.style.transform = 'translateY(' + (factor * 40) + 'px)';
+        if(heroH2) heroH2.style.transform = 'translateY(' + (factor * 25) + 'px)';
+        heroH1.style.opacity = 1 - factor * 0.6;
+        heroH2.style.opacity = 1 - factor * 0.8;
+      }
+    });
+
+    /* ── MOUSE PARALLAX ON CARDS ── */
+    document.querySelectorAll('.card').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = 'translateY(-4px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg)';
+      });
+      card.addEventListener('mouseleave', function(){
+        card.style.transform = '';
       });
     });
 

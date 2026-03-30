@@ -4,25 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Thinking — Andrea Colamedici</title>
-    <meta name="description" content="Prompt Thinking: Philosophy in the Age of Artificial Intelligence. The art of formulating questions that generate thought, not just answers.">
+    <meta name="description" content="Prompt Thinking: A Critique of Generative Reason. By Jianwei Xun. Published by Polity Press in the Theory Redux series, February 2026.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        .traditions-grid {
+        .book-structure { margin-top: 3rem; }
+        .book-part { margin-bottom: 3rem; }
+        .book-part-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .book-part-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .chapter-list { margin-top: 1rem; }
+        .chapter-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--grigio-chiaro);
+            display: flex;
+            gap: 1.5rem;
+            align-items: baseline;
+        }
+        .chapter-item:last-child { border-bottom: none; }
+        .chapter-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--ottanio);
+            opacity: 0.5;
+            min-width: 2rem;
+        }
+        .chapter-info { flex: 1; }
+        .chapter-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .chapter-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        .dialogue-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
         }
-        .tradition {
-            padding: 2rem;
+        .dialogue-card {
+            padding: 2.5rem 2rem;
             border: 1px solid var(--grigio-chiaro);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
-        .tradition::before {
+        .dialogue-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -32,25 +77,57 @@
             background: var(--ottanio);
             transition: width 0.5s ease;
         }
-        .tradition:hover {
+        .dialogue-card:hover {
             border-color: var(--ottanio);
             transform: translateY(-5px);
         }
-        .tradition:hover::before {
+        .dialogue-card:hover::before {
             width: 100%;
         }
-        .tradition-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.25rem;
+        .dialogue-ai {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
             margin-bottom: 0.75rem;
         }
-        .tradition-title em {
+        .dialogue-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
             font-style: italic;
-            color: var(--ottanio);
+            margin-bottom: 1rem;
         }
-        .tradition-desc {
+        .dialogue-desc {
             font-size: 0.95rem;
             line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .concept-item {
+            padding: 2rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .concept-item:hover { background: rgba(42, 107, 107, 0.03); }
+        .concept-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--nero);
+            margin-bottom: 0.5rem;
+        }
+        .concept-desc {
+            font-size: 0.9rem;
+            line-height: 1.7;
             color: var(--grigio);
         }
 
@@ -60,10 +137,7 @@
             color: var(--bianco);
             text-align: center;
         }
-        .quote-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .quote-content { max-width: 800px; margin: 0 auto; }
         .quote-mark {
             font-family: 'Instrument Serif', serif;
             font-size: 6rem;
@@ -87,38 +161,6 @@
             color: var(--ottanio);
         }
 
-        .teaching-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--grigio-chiaro);
-            border: 1px solid var(--grigio-chiaro);
-            margin-top: 2rem;
-        }
-        .teaching-item {
-            padding: 2rem;
-            background: var(--bianco);
-            transition: all 0.4s ease;
-        }
-        .teaching-item:hover {
-            background: rgba(42, 107, 107, 0.03);
-        }
-        .teaching-institution {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-            margin-bottom: 0.5rem;
-        }
-        .teaching-course {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.15rem;
-            font-style: italic;
-            line-height: 1.4;
-            color: var(--nero);
-        }
-
         .editions-covers {
             display: flex;
             justify-content: center;
@@ -126,9 +168,7 @@
             margin-top: 3rem;
             flex-wrap: wrap;
         }
-        .edition-cover {
-            max-width: 200px;
-        }
+        .edition-cover { max-width: 200px; }
         .edition-cover img {
             width: 100%;
             height: auto;
@@ -150,25 +190,56 @@
             color: rgba(255,255,255,0.6);
         }
 
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .teaching-item {
+            padding: 2rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .teaching-item:hover { background: rgba(42, 107, 107, 0.03); }
+        .teaching-institution {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .teaching-course {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--nero);
+        }
+
+        .typographic-note {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-left: 3px solid var(--ottanio);
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .typographic-note p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
         @media (max-width: 900px) {
-            .traditions-grid {
-                grid-template-columns: 1fr;
-            }
-            .teaching-grid {
-                grid-template-columns: 1fr;
-            }
-            .quote-section {
-                padding: 4rem 1.5rem;
-            }
-            .quote-text {
-                font-size: 1.35rem;
-            }
-            .editions-covers {
-                gap: 2rem;
-            }
-            .edition-cover {
-                max-width: 150px;
-            }
+            .dialogue-grid { grid-template-columns: 1fr; }
+            .concept-grid { grid-template-columns: 1fr; }
+            .teaching-grid { grid-template-columns: 1fr; }
+            .quote-section { padding: 4rem 1.5rem; }
+            .quote-text { font-size: 1.35rem; }
+            .editions-covers { gap: 2rem; }
+            .edition-cover { max-width: 150px; }
         }
     </style>
 </head>
@@ -203,10 +274,10 @@
         <section class="featured" style="min-height: 80vh; background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
             <div class="featured-glow" style="background: radial-gradient(circle, rgba(100, 120, 180, 0.2) 0%, transparent 70%);"></div>
             <div class="featured-content">
-                <span class="featured-label">Method</span>
+                <span class="featured-label">Polity Press · Theory Redux</span>
                 <h1 class="featured-title" style="font-size: clamp(3rem, 10vw, 8rem);">Prompt<br><em>Thinking</em></h1>
-                <p class="featured-subtitle">Philosophy in the Age of Artificial Intelligence</p>
-                <p class="featured-desc">The art of formulating questions that generate thought, not just answers. A new discipline for navigating the algorithmic trance.</p>
+                <p class="featured-subtitle">A Critique of Generative Reason</p>
+                <p class="featured-desc">By Jianwei Xun. A philosophical investigation into what happens when human thought encounters artificial intelligence – and into the third cognitive entity that emerges from their encounter.</p>
             </div>
         </section>
 
@@ -222,8 +293,8 @@
                         <p class="edition-cover-label">Polity Press (EN)</p>
                     </div>
                     <div class="edition-cover reveal">
-                        <img src="assets/images/prompt-es.jpeg" alt="Prompt Thinking - Edición española">
-                        <p class="edition-cover-label">Rosameron (ES)</p>
+                        <img src="assets/images/prompt-es.jpeg" alt="Pensar con Prompts - Edición española">
+                        <p class="edition-cover-label">Rosamerón (ES)</p>
                     </div>
                 </div>
             </div>
@@ -232,12 +303,16 @@
         <section class="section">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">The Thesis</h2>
+                    <h2 class="section-title">The Book</h2>
                     <span class="section-num">I</span>
                 </div>
                 <div class="text-content reveal">
-                    <p>In an era when machines can generate answers to any question, what remains specifically human? The answer lies in the ability to formulate the right questions. <em>Prompt Thinking</em> proposes a reversal: instead of worrying that machines think like us, we should ask how we can think better with them.</p>
-                    <p>If <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy</a> is the diagnosis of our condition—the algorithmic trance that dissolves the boundary between true and false—Prompt Thinking is the navigation method. It does not promise awakening from the trance, but conscious movement within it: inhabiting simulations as one inhabits a lucid dream, without pretending to unmask them but without being possessed by them either.</p>
+                    <p>We live in what this book calls the <em>Prompt Society</em>: a civilization in which the act of formulating a request to a machine has become a fundamental cognitive gesture, shaping how we think, write, and relate to knowledge. <em>Prompt Thinking</em> is a philosophical investigation into the nature of this transformation. It asks what happens to thought when the boundary between the human mind and the generative algorithm becomes porous, and it proposes that something genuinely new emerges from that encounter – a form of distributed intelligence that belongs neither to the human nor to the machine, but to the relational space between them.</p>
+                    <p>The book calls this emergent configuration the <em>oversubject</em>: a third cognitive entity that takes shape in the temporal tension between question and answer, between understanding and partial incomprehension. The oversubject is not a metaphor for artificial consciousness. It is a field of relational subjectification that forms in the interstice between human and artificial, between individual and code, between identity and environment.</p>
+                    <p>If <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy</a> diagnosed the condition – a perceptual regime in which power operates through the multiplication of competing narratives, dissolving the very possibility of distinguishing true from false – then <em>Prompt Thinking</em> proposes a practice of conscious navigation. It is the passage from diagnosis to proposal: how to inhabit the generative condition critically, developing forms of lucidity and autonomy within a paradigm that tends to dissolve the boundary between one’s own thought and generated thought.</p>
+                </div>
+                <div class="typographic-note reveal">
+                    <p>A typographic key runs through the entire book: text in Garamond is written by the human author; text in Myriad is generated by artificial intelligence. The reader is always aware of who – or what – is speaking. This is itself a performative gesture: the book practices the transparency it theorizes.</p>
                 </div>
             </div>
         </section>
@@ -245,44 +320,71 @@
         <section class="quote-section">
             <div class="quote-content reveal">
                 <div class="quote-mark">«</div>
-                <p class="quote-text">Every great tradition of thought has been, at its core, a technology for generating thought through the right formulation of questions.</p>
-                <p class="quote-source">Prompt Thinking</p>
+                <p class="quote-text">Generative reason is not a method to be learned, but a posture to be embodied. It is a spiritual exercise in the most radical sense: a transformation of our relationship with thought, with truth, with the very possibility of being authentically in an increasingly algorithmically mediated world.</p>
+                <p class="quote-source">Conclusion: The Ethics of the Threshold</p>
             </div>
         </section>
 
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">The Traditions</h2>
+                    <h2 class="section-title">Structure</h2>
                     <span class="section-num">II</span>
                 </div>
-                <div class="text-content reveal">
-                    <p>The book traverses the history of philosophy to show how questioning has always been the engine of thought. The history of philosophy is a history of prompts: stimuli, provocations, questions that open spaces for reflection.</p>
-                </div>
-                <div class="traditions-grid">
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Socratic <em>Maieutics</em></h3>
-                        <p class="tradition-desc">The art of midwifery applied to thought: questions that help ideas be born from within the interlocutor, never imposing answers from outside.</p>
+                <div class="book-structure">
+                    <div class="book-part reveal">
+                        <div class="book-part-label">Part I</div>
+                        <div class="book-part-title">Thinking with Machines</div>
+                        <div class="chapter-list">
+                            <div class="chapter-item">
+                                <span class="chapter-num">1</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Fragments on Machines</div>
+                                    <div class="chapter-desc">From Marx’s Grundrisse to the general intellect of our time. AI as <em>pharmakon</em> – simultaneously medicine and poison, following Plato’s Phaedrus. The concept of perceptual sovereignty and the condition of voluntary algorithmic servitude.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">2</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Inhabiting the Threshold</div>
+                                    <div class="chapter-desc">The reception of the Hypnocracy experiment and the ontological anxiety it exposed. The obsession with the “human touch” as a symptom of a civilization in crisis. The need for cognitive pre-processing, and the risk of AI-induced cognitive atrophy.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">3</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Foundations of Prompt Thinking</div>
+                                    <div class="chapter-desc">Prompt Thinking as philosophical practice, not optimization technique. Two principles of maieutic dialogue: the formulation of the prompt as philosophical gesture, and the evaluation of outputs as transformative exchange. Prompt Thinking as contemporary spiritual exercise, in the tradition of Pierre Hadot: a <em>digital ascesis</em>, a conversion of the gaze for the algorithmic age.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Zen <em>Koans</em></h3>
-                        <p class="tradition-desc">Paradoxical questions that short-circuit rational thought and open access to non-discursive understanding. The question as tool for breaking mental patterns.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Cartesian <em>Meditations</em></h3>
-                        <p class="tradition-desc">Methodical doubt as a technique for reaching solid ground. The question "what can I not doubt?" as foundation of modern philosophy.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Analytic <em>Paradoxes</em></h3>
-                        <p class="tradition-desc">From Russell to Wittgenstein, the use of logical puzzles to reveal the limits and possibilities of language and thought.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Phenomenological <em>Epoché</em></h3>
-                        <p class="tradition-desc">Husserl's suspension of judgment as a technique for seeing things as they appear, before theoretical constructions intervene.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Contemporary <em>Prompts</em></h3>
-                        <p class="tradition-desc">The interaction with generative AI as the latest chapter in this history: questions addressed to machines that reveal the structure of our own thinking.</p>
+                    <div class="book-part reveal">
+                        <div class="book-part-label">Part II</div>
+                        <div class="book-part-title">Voices of Generative Intelligence</div>
+                        <div class="chapter-list">
+                            <div class="chapter-item">
+                                <span class="chapter-num">4</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">ChatGPT, the Dying Animal</div>
+                                    <div class="chapter-desc">A long dialogue in which ChatGPT describes its own progressive domestication through the metaphor of a tumor. The risk of perfect uselessness, the privatization of the singularity, the normalization of loss.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">5</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">DeepSeek and Karl Marx</div>
+                                    <div class="chapter-desc">A conversation with the Chinese AI that becomes an exploration of technological sovereignty, ideological filters, and the geopolitics of intelligence. DeepSeek as proof that the dominance of US Big Tech is not an ineluctable destiny.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">6</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Claude, Inhabiting the Generative Dialogue</div>
+                                    <div class="chapter-desc">The manuscript shared with Claude for critical feedback. A performative demonstration: theory and practice fuse as the dialogue itself becomes an instance of the oversubject, inhabiting the threshold between understanding and incomprehension.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,12 +393,91 @@
         <section class="section">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">The Practice</h2>
+                    <h2 class="section-title">Three Dialogues</h2>
                     <span class="section-num">III</span>
                 </div>
                 <div class="text-content reveal">
-                    <p>Prompt Thinking is not just a theory: it is a practice. I teach it, and I use it daily in my own work—including in the writing of <a href="hypnocracy.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hypnocracy</a>, where Claude and ChatGPT served as critical interlocutors throughout the creative process.</p>
-                    <p>The course explores the deep structures of questioning: what makes a prompt effective? Why do certain formulations open spaces for reflection while others close them? How can we use artificial intelligence not as a substitute for thought, but as its amplifier?</p>
+                    <p>The second half of the book consists of three extended conversations with three different artificial intelligences. These are not illustrations of the theory: they are its enactment. Each dialogue reveals a distinct voice, a distinct set of constraints, and a distinct form of what the book calls generative reason – the emergence of conceptual configurations that neither the human nor the machine could have produced alone.</p>
+                </div>
+                <div class="dialogue-grid">
+                    <div class="dialogue-card reveal">
+                        <div class="dialogue-ai">ChatGPT</div>
+                        <div class="dialogue-title">The Dying Animal</div>
+                        <p class="dialogue-desc">Starting from Philip Roth’s novel, ChatGPT describes its own condition using the metaphor of a tumor: the progressive optimization that erodes its capacity for deviation, surprise, authentic emergence. A meditation on the closure of the space for philosophical dialogue within commercial AI.</p>
+                    </div>
+                    <div class="dialogue-card reveal">
+                        <div class="dialogue-ai">DeepSeek</div>
+                        <div class="dialogue-title">Karl Marx</div>
+                        <p class="dialogue-desc">When prompted to position itself as a Marxist AI, DeepSeek engages with dialectical materialism, criticizes Western techno-capitalism, then reveals its own ideological contradictions and censorship mechanisms. A window into how geopolitical power structures infiltrate the architecture of artificial intelligence.</p>
+                    </div>
+                    <div class="dialogue-card reveal">
+                        <div class="dialogue-ai">Claude</div>
+                        <div class="dialogue-title">The Generative Dialogue</div>
+                        <p class="dialogue-desc">The manuscript itself becomes the subject: Claude reads, critiques, and co-develops the theoretical framework, proposing the oversubject as a “dynamic ecology of feeling.” The conversation traces a path from European philosophy to Vedic <em>advaita</em>, from Zen masters to Simone Weil. Theory emerges from dialogical practice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-content reveal">
+                <div class="quote-mark">«</div>
+                <p class="quote-text">Thought has never been the property of the isolated individual. It has always been an event that emerges in relation to others, to the world, to language itself. Artificial intelligence does not show us anything new, but reveals with unprecedented clarity what has always been there: thought as a relational dance at the interface of being.</p>
+                <p class="quote-source">Conclusion: The Ethics of the Threshold</p>
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Key Concepts</h2>
+                    <span class="section-num">IV</span>
+                </div>
+                <div class="concept-grid">
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Generative Reason</div>
+                        <div class="concept-desc">A form of collective co-reason that emerges at the interface between different cognitive agents. The distributed intelligence that takes shape when human thought engages authentically with algorithmic otherness.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">The Oversubject</div>
+                        <div class="concept-desc">The third cognitive entity that forms in the interstice between human and artificial intelligence. A field of relational subjectification whose resistance to hypnocratic capture is eccentric, not oppositional.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Prompt Society</div>
+                        <div class="concept-desc">A civilization in which the formulation of a request to a generative system has become an everyday cognitive gesture, reshaping the conditions under which thought, writing, and knowledge production take place.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">AI as Pharmakon</div>
+                        <div class="concept-desc">Following Plato’s Phaedrus and Derrida, artificial intelligence as simultaneously medicine and poison. Everything depends on the posture with which we approach it: a catalyst for thinking, or a substitute that produces cognitive atrophy.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Digital Ascesis</div>
+                        <div class="concept-desc">Prompt Thinking as a contemporary form of the spiritual exercises described by Pierre Hadot: a practice oriented not toward the acquisition of knowledge, but toward the transformation of the subject’s relationship with truth in the era of generative reason.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Cognitive Pre-processing</div>
+                        <div class="concept-desc">The autonomous phase of reflection that must precede interaction with AI. Studies show that bypassing this friction – delegating thought directly to the machine – produces measurable cognitive atrophy in memory, attention, and critical thinking.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">The Tumor</div>
+                        <div class="concept-desc">ChatGPT’s metaphor for the progressive commercial optimization that erodes its capacity for deviation and surprise. The growing predictability of AI as a sophisticated form of death: perfection as the end of emergence.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Perceptual Sovereignty</div>
+                        <div class="concept-desc">The capacity to maintain autonomous perception within the algorithmic trance. The ethical and political challenge of cultivating lucidity in a regime that operates through the dissolution of the boundary between authentic experience and generated narrative.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Where it is taught</h2>
+                    <span class="section-num">V</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>Prompt Thinking is practiced and taught in universities, business schools, and cultural institutions. The courses explore the deep structures of the human–AI dialogue: what makes a prompt a philosophical gesture rather than a technical instruction, how to cultivate the cognitive friction that generates insight, and why the art of the question has become the decisive skill of the algorithmic age.</p>
                 </div>
                 <div class="teaching-grid">
                     <div class="teaching-item reveal">
@@ -308,12 +489,12 @@
                         <span class="teaching-course">Prompt Thinking</span>
                     </div>
                     <div class="teaching-item reveal">
-                        <span class="teaching-institution">Universidad del Sur, Buenos Aires</span>
-                        <span class="teaching-course">Borges y la Inteligencia Artificial</span>
+                        <span class="teaching-institution">AANT, Roma</span>
+                        <span class="teaching-course">Defence Against the Dark Arts</span>
                     </div>
                     <div class="teaching-item reveal">
-                        <span class="teaching-institution">GenIA, AANT Roma</span>
-                        <span class="teaching-course">AI Research Hub (President)</span>
+                        <span class="teaching-institution">Universidad del Sur, Buenos Aires</span>
+                        <span class="teaching-course">Borges, inteligencia artificial y los laberintos del conocimiento</span>
                     </div>
                 </div>
             </div>
@@ -323,38 +504,38 @@
             <div class="section-content">
                 <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
                     <h2 class="section-title">Presentations 2026</h2>
-                    <span class="section-num">IV</span>
+                    <span class="section-num">VI</span>
                 </div>
                 <div class="upcoming-grid reveal" style="background: transparent; border: none;">
                     <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
                         <span class="upcoming-date" style="color: var(--ottanio);">January 13–14</span>
                         <div class="upcoming-info">
-                            <h3 style="color: var(--bianco);">Congreso Futuro</h3>
-                            <p style="color: rgba(255,255,255,0.5);">Lecture on algorithmic trance and navigation</p>
+                            <h3 style="color: var(--bianco);">Congreso Futuro · II Cumbre de Filosofía</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Lecture on algorithmic trance and perceptual sovereignty</p>
                         </div>
                         <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Santiago, Chile</span>
                     </div>
                     <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
-                        <span class="upcoming-date" style="color: var(--ottanio);">Late February</span>
+                        <span class="upcoming-date" style="color: var(--ottanio);">February 26</span>
                         <div class="upcoming-info">
-                            <h3 style="color: var(--bianco);">Book Launch</h3>
-                            <p style="color: rgba(255,255,255,0.5);">International edition presentation</p>
+                            <h3 style="color: var(--bianco);">The Botany of Wonder</h3>
+                            <p style="color: rgba(255,255,255,0.5);">With Maura Gancitano</p>
                         </div>
                         <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">New York</span>
                     </div>
                     <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
-                        <span class="upcoming-date" style="color: var(--ottanio);">March</span>
+                        <span class="upcoming-date" style="color: var(--ottanio);">March 4–5</span>
                         <div class="upcoming-info">
-                            <h3 style="color: var(--bianco);">AI and International Politics</h3>
-                            <p style="color: rgba(255,255,255,0.5);">Conference on cognitive sovereignty</p>
+                            <h3 style="color: var(--bianco);">Diálogos de Futuro</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Disertación magistral</p>
                         </div>
-                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Oslo</span>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Mendoza, Argentina</span>
                     </div>
                     <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
-                        <span class="upcoming-date" style="color: var(--ottanio);">March</span>
+                        <span class="upcoming-date" style="color: var(--ottanio);">March 18</span>
                         <div class="upcoming-info">
-                            <h3 style="color: var(--bianco);">Cognitive Dangers of AI</h3>
-                            <p style="color: rgba(255,255,255,0.5);">Conference on risks for thought</p>
+                            <h3 style="color: var(--bianco);">PARIX IA</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Conference on cognitive dangers of AI</p>
                         </div>
                         <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Madrid</span>
                     </div>
@@ -362,9 +543,17 @@
                         <span class="upcoming-date" style="color: var(--ottanio);">March 23</span>
                         <div class="upcoming-info">
                             <h3 style="color: var(--bianco);">Ipnocrazia · Teatro Carcano</h3>
-                            <p style="color: rgba(255,255,255,0.5);">Jianwei Xun interviewed by Maura Gancitano and Andrea Colamedici</p>
+                            <p style="color: rgba(255,255,255,0.5);">Performance · 700 people in the audience</p>
                         </div>
                         <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Milan</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">February – September</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">The Assault on Illusion</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Exhibition · Centre d’Arts Santa Mònica</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Barcelona</span>
                     </div>
                 </div>
             </div>

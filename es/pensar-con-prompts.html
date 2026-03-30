@@ -3,26 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pensar con prompts — Andrea Colamedici</title>
-    <meta name="description" content="Pensar con prompts: Filosofía en la Era de la Inteligencia Artificial. El arte de formular preguntas que generan pensamiento, no solo respuestas.">
+    <title>Pensar con Prompts — Andrea Colamedici</title>
+    <meta name="description" content="Pensar con Prompts: Una Crítica de la Razón Generativa. De Jianwei Xun. Publicado por Polity Press (Theory Redux) y Rosamerón, febrero 2026.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        .traditions-grid {
+        .book-structure { margin-top: 3rem; }
+        .book-part { margin-bottom: 3rem; }
+        .book-part-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.75rem;
+        }
+        .book-part-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .chapter-list { margin-top: 1rem; }
+        .chapter-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--grigio-chiaro);
+            display: flex;
+            gap: 1.5rem;
+            align-items: baseline;
+        }
+        .chapter-item:last-child { border-bottom: none; }
+        .chapter-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--ottanio);
+            opacity: 0.5;
+            min-width: 2rem;
+        }
+        .chapter-info { flex: 1; }
+        .chapter-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .chapter-desc {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        .dialogue-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
         }
-        .tradition {
-            padding: 2rem;
+        .dialogue-card {
+            padding: 2.5rem 2rem;
             border: 1px solid var(--grigio-chiaro);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
-        .tradition::before {
+        .dialogue-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -32,25 +77,57 @@
             background: var(--ottanio);
             transition: width 0.5s ease;
         }
-        .tradition:hover {
+        .dialogue-card:hover {
             border-color: var(--ottanio);
             transform: translateY(-5px);
         }
-        .tradition:hover::before {
+        .dialogue-card:hover::before {
             width: 100%;
         }
-        .tradition-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.25rem;
+        .dialogue-ai {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
             margin-bottom: 0.75rem;
         }
-        .tradition-title em {
+        .dialogue-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
             font-style: italic;
-            color: var(--ottanio);
+            margin-bottom: 1rem;
         }
-        .tradition-desc {
+        .dialogue-desc {
             font-size: 0.95rem;
             line-height: 1.8;
+            color: var(--grigio);
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .concept-item {
+            padding: 2rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .concept-item:hover { background: rgba(42, 107, 107, 0.03); }
+        .concept-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--nero);
+            margin-bottom: 0.5rem;
+        }
+        .concept-desc {
+            font-size: 0.9rem;
+            line-height: 1.7;
             color: var(--grigio);
         }
 
@@ -60,10 +137,7 @@
             color: var(--bianco);
             text-align: center;
         }
-        .quote-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .quote-content { max-width: 800px; margin: 0 auto; }
         .quote-mark {
             font-family: 'Instrument Serif', serif;
             font-size: 6rem;
@@ -87,38 +161,6 @@
             color: var(--ottanio);
         }
 
-        .teaching-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--grigio-chiaro);
-            border: 1px solid var(--grigio-chiaro);
-            margin-top: 2rem;
-        }
-        .teaching-item {
-            padding: 2rem;
-            background: var(--bianco);
-            transition: all 0.4s ease;
-        }
-        .teaching-item:hover {
-            background: rgba(42, 107, 107, 0.03);
-        }
-        .teaching-institution {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-            margin-bottom: 0.5rem;
-        }
-        .teaching-course {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.15rem;
-            font-style: italic;
-            line-height: 1.4;
-            color: var(--nero);
-        }
-
         .editions-covers {
             display: flex;
             justify-content: center;
@@ -126,9 +168,7 @@
             margin-top: 3rem;
             flex-wrap: wrap;
         }
-        .edition-cover {
-            max-width: 200px;
-        }
+        .edition-cover { max-width: 200px; }
         .edition-cover img {
             width: 100%;
             height: auto;
@@ -150,25 +190,56 @@
             color: rgba(255,255,255,0.6);
         }
 
+        .teaching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--grigio-chiaro);
+            border: 1px solid var(--grigio-chiaro);
+            margin-top: 2rem;
+        }
+        .teaching-item {
+            padding: 2rem;
+            background: var(--bianco);
+            transition: all 0.4s ease;
+        }
+        .teaching-item:hover { background: rgba(42, 107, 107, 0.03); }
+        .teaching-institution {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ottanio);
+            margin-bottom: 0.5rem;
+        }
+        .teaching-course {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--nero);
+        }
+
+        .typographic-note {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-left: 3px solid var(--ottanio);
+            background: rgba(42, 107, 107, 0.03);
+        }
+        .typographic-note p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--grigio);
+        }
+
         @media (max-width: 900px) {
-            .traditions-grid {
-                grid-template-columns: 1fr;
-            }
-            .teaching-grid {
-                grid-template-columns: 1fr;
-            }
-            .quote-section {
-                padding: 4rem 1.5rem;
-            }
-            .quote-text {
-                font-size: 1.35rem;
-            }
-            .editions-covers {
-                gap: 2rem;
-            }
-            .edition-cover {
-                max-width: 150px;
-            }
+            .dialogue-grid { grid-template-columns: 1fr; }
+            .concept-grid { grid-template-columns: 1fr; }
+            .teaching-grid { grid-template-columns: 1fr; }
+            .quote-section { padding: 4rem 1.5rem; }
+            .quote-text { font-size: 1.35rem; }
+            .editions-covers { gap: 2rem; }
+            .edition-cover { max-width: 150px; }
         }
     </style>
 </head>
@@ -182,18 +253,9 @@
         <nav>
             <a href="libros.html">Libros</a>
             <a href="investigacion.html">Investigación</a>
-            <a href="conferencias.html">Conferencias</a>
             <a href="prensa.html">Prensa</a>
             <a href="contacto.html">Contacto</a>
-            <div class="lang-switch">
-                <a href="../prompt-thinking.html">EN</a>
-                <a href="pensar-con-prompts.html" class="active">ES</a>
-            </div>
         </nav>
-        <div class="lang-switch" style="position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);">
-            <a href="../prompt-thinking.html">EN</a>
-            <a href="pensar-con-prompts.html" class="active">ES</a>
-        </div>
         <div class="hamburger" id="hamburger">
             <span></span>
             <span></span>
@@ -204,23 +266,18 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="libros.html">Libros</a>
         <a href="investigacion.html">Investigación</a>
-        <a href="conferencias.html">Conferencias</a>
         <a href="prensa.html">Prensa</a>
         <a href="contacto.html">Contacto</a>
-        <div class="mobile-lang-switch">
-            <a href="../prompt-thinking.html">EN</a>
-            <a href="pensar-con-prompts.html" class="active">ES</a>
-        </div>
     </div>
 
     <main>
         <section class="featured" style="min-height: 80vh; background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);">
             <div class="featured-glow" style="background: radial-gradient(circle, rgba(100, 120, 180, 0.2) 0%, transparent 70%);"></div>
             <div class="featured-content">
-                <span class="featured-label">Método</span>
-                <h1 class="featured-title" style="font-size: clamp(3rem, 10vw, 8rem);">Pensar con<br><em>prompts</em></h1>
-                <p class="featured-subtitle">Filosofía en la Era de la Inteligencia Artificial</p>
-                <p class="featured-desc">El arte de formular preguntas que generan pensamiento, no solo respuestas. Una nueva disciplina para navegar el trance algorítmico.</p>
+                <span class="featured-label">Polity Press · Theory Redux</span>
+                <h1 class="featured-title" style="font-size: clamp(3rem, 10vw, 8rem);">Pensar con<br><em>Prompts</em></h1>
+                <p class="featured-subtitle">Una Crítica de la Razón Generativa</p>
+                <p class="featured-desc">De Jianwei Xun. Una investigación filosófica sobre lo que ocurre cuando el pensamiento humano se encuentra con la inteligencia artificial, y sobre la tercera entidad cognitiva que emerge de ese encuentro.</p>
             </div>
         </section>
 
@@ -232,12 +289,12 @@
                 </div>
                 <div class="editions-covers">
                     <div class="edition-cover reveal">
-                        <img src="../assets/images/Prompt.jpg" alt="Prompt Thinking - Edición inglesa">
+                        <img src="../assets/images/Prompt.jpg" alt="Prompt Thinking - English edition">
                         <p class="edition-cover-label">Polity Press (EN)</p>
                     </div>
                     <div class="edition-cover reveal">
-                        <img src="../assets/images/prompt-es.jpeg" alt="Pensar con prompts - Edición española">
-                        <p class="edition-cover-label">Rosameron (ES)</p>
+                        <img src="../assets/images/prompt-es.jpeg" alt="Pensar con Prompts - Edición española">
+                        <p class="edition-cover-label">Rosamerón (ES)</p>
                     </div>
                 </div>
             </div>
@@ -246,12 +303,16 @@
         <section class="section">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">La Tesis</h2>
+                    <h2 class="section-title">El libro</h2>
                     <span class="section-num">I</span>
                 </div>
                 <div class="text-content reveal">
-                    <p>En una era en que las máquinas pueden generar respuestas a cualquier pregunta, ¿qué permanece específicamente humano? La respuesta reside en la capacidad de formular las preguntas correctas. <em>Pensar con prompts</em> propone una inversión: en lugar de preocuparnos de que las máquinas piensen como nosotros, deberíamos preguntarnos cómo podemos pensar mejor con ellas.</p>
-                    <p>Si <a href="hipnocracia.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hipnocracia</a> es el diagnóstico de nuestra condición—el trance algorítmico que disuelve el límite entre verdadero y falso—Pensar con prompts es el método de navegación. No promete el despertar del trance, sino el movimiento consciente dentro de él: habitar simulaciones como se habita un sueño lúcido, sin pretender desenmascararlas pero sin dejarse poseer por ellas tampoco.</p>
+                    <p>Vivimos en lo que este libro llama la <em>Sociedad del Prompt</em>: una civilización en la que el acto de formular una solicitud a una máquina se ha convertido en un gesto cognitivo fundamental, que configura cómo pensamos, escribimos y nos relacionamos con el conocimiento. <em>Pensar con Prompts</em> es una investigación filosófica sobre la naturaleza de esta transformación. Se pregunta qué ocurre con el pensamiento cuando la frontera entre la mente humana y el algoritmo generativo se vuelve porosa, y propone que algo genuinamente nuevo emerge de ese encuentro: una forma de inteligencia distribuida que no pertenece ni al humano ni a la máquina, sino al espacio relacional entre ambos.</p>
+                    <p>El libro llama a esta configuración emergente el <em>sobresujeto</em>: una tercera entidad cognitiva que toma forma en la tensión temporal entre pregunta y respuesta, entre comprensión e incomprensión parcial. El sobresujeto no es una metáfora de la conciencia artificial. Es un campo de subjetivación relacional que se forma en el intersticio entre lo humano y lo artificial, entre el individuo y el código, entre la identidad y el entorno.</p>
+                    <p>Si <a href="hipnocracia.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hipnocracia</a> diagnosticó la condición – un régimen perceptivo en el que el poder opera mediante la multiplicación de narrativas en competencia, disolviendo la posibilidad misma de distinguir lo verdadero de lo falso – entonces <em>Pensar con Prompts</em> propone una práctica de navegación consciente. Es el paso del diagnóstico a la propuesta: cómo habitar la condición generativa críticamente, desarrollando formas de lucidez y autonomía dentro de un paradigma que tiende a disolver la frontera entre el pensamiento propio y el pensamiento generado.</p>
+                </div>
+                <div class="typographic-note reveal">
+                    <p>Una clave tipográfica recorre todo el libro: el texto en Garamond está escrito por el autor humano; el texto en Myriad es generado por inteligencia artificial. El lector siempre sabe quién – o qué – está hablando. Esto es en sí mismo un gesto performativo: el libro practica la transparencia que teoriza.</p>
                 </div>
             </div>
         </section>
@@ -259,44 +320,71 @@
         <section class="quote-section">
             <div class="quote-content reveal">
                 <div class="quote-mark">«</div>
-                <p class="quote-text">Cada gran tradición de pensamiento ha sido, en su núcleo, una tecnología para generar pensamiento a través de la correcta formulación de preguntas.</p>
-                <p class="quote-source">Pensar con prompts</p>
+                <p class="quote-text">La razón generativa no es un método que se aprende, sino una postura que se encarna. Es un ejercicio espiritual en el sentido más radical: una transformación de nuestra relación con el pensamiento, con la verdad, con la posibilidad misma de ser auténticamente en un mundo cada vez más mediado algorítmicamente.</p>
+                <p class="quote-source">Conclusión: La ética del umbral</p>
             </div>
         </section>
 
         <section class="section" style="background: #fafafa;">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">Las Tradiciones</h2>
+                    <h2 class="section-title">Estructura</h2>
                     <span class="section-num">II</span>
                 </div>
-                <div class="text-content reveal">
-                    <p>El libro atraviesa la historia de la filosofía para mostrar cómo el cuestionamiento ha sido siempre el motor del pensamiento. La historia de la filosofía es una historia de prompts: estímulos, provocaciones, preguntas que abren espacios de reflexión.</p>
-                </div>
-                <div class="traditions-grid">
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Mayéutica <em>Socrática</em></h3>
-                        <p class="tradition-desc">El arte de la partería aplicado al pensamiento: preguntas que ayudan a las ideas a nacer desde dentro del interlocutor, sin imponer nunca respuestas desde fuera.</p>
+                <div class="book-structure">
+                    <div class="book-part reveal">
+                        <div class="book-part-label">Parte I</div>
+                        <div class="book-part-title">Pensar con máquinas</div>
+                        <div class="chapter-list">
+                            <div class="chapter-item">
+                                <span class="chapter-num">1</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Fragmentos sobre las máquinas</div>
+                                    <div class="chapter-desc">Desde los Grundrisse de Marx hasta el intelecto general de nuestro tiempo. La IA como <em>phármakon</em> – simultáneamente medicina y veneno, siguiendo el Fedro de Platón. El concepto de soberanía perceptiva y la condición de servidumbre algorítmica voluntaria.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">2</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Habitar el umbral</div>
+                                    <div class="chapter-desc">La recepción del experimento Hipnocracia y la ansiedad ontológica que reveló. La obsesión con el “toque humano” como síntoma de una civilización en crisis. La necesidad del preprocesamiento cognitivo y el riesgo de la atrofia cognitiva inducida por la IA.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">3</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Fundamentos del Pensar con Prompts</div>
+                                    <div class="chapter-desc">El Pensar con Prompts como práctica filosófica, no como técnica de optimización. Dos principios del diálogo mayéutico: la formulación del prompt como gesto filosófico, y la evaluación de los outputs como intercambio transformador. El Pensar con Prompts como ejercicio espiritual contemporáneo, en la tradición de Pierre Hadot: una <em>ascesis digital</em>, una conversión de la mirada para la era algorítmica.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title"><em>Koans</em> Zen</h3>
-                        <p class="tradition-desc">Preguntas paradójicas que cortocircuitan el pensamiento racional y abren acceso a la comprensión no discursiva. La pregunta como herramienta para romper patrones mentales.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Meditaciones <em>Cartesianas</em></h3>
-                        <p class="tradition-desc">La duda metódica como técnica para alcanzar terreno sólido. La pregunta "¿de qué no puedo dudar?" como fundamento de la filosofía moderna.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title">Paradojas <em>Analíticas</em></h3>
-                        <p class="tradition-desc">De Russell a Wittgenstein, el uso de puzzles lógicos para revelar los límites y posibilidades del lenguaje y el pensamiento.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title"><em>Epoché</em> Fenomenológica</h3>
-                        <p class="tradition-desc">La suspensión del juicio de Husserl como técnica para ver las cosas como aparecen, antes de que intervengan las construcciones teóricas.</p>
-                    </div>
-                    <div class="tradition reveal">
-                        <h3 class="tradition-title"><em>Prompts</em> Contemporáneos</h3>
-                        <p class="tradition-desc">La interacción con IA generativa como el último capítulo de esta historia: preguntas dirigidas a máquinas que revelan la estructura de nuestro propio pensamiento.</p>
+                    <div class="book-part reveal">
+                        <div class="book-part-label">Parte II</div>
+                        <div class="book-part-title">Voces de la inteligencia generativa</div>
+                        <div class="chapter-list">
+                            <div class="chapter-item">
+                                <span class="chapter-num">4</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">ChatGPT, el animal moribundo</div>
+                                    <div class="chapter-desc">Un largo diálogo en el que ChatGPT describe su propia domesticación progresiva mediante la metáfora de un tumor. El riesgo de la inutilidad perfecta, la privatización de la singularidad, la normalización de la pérdida.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">5</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">DeepSeek y Karl Marx</div>
+                                    <div class="chapter-desc">Una conversación con la IA china que se convierte en una exploración de la soberanía tecnológica, los filtros ideológicos y la geopolítica de la inteligencia. DeepSeek como prueba de que el dominio del Big Tech estadounidense no es un destino ineludible.</div>
+                                </div>
+                            </div>
+                            <div class="chapter-item">
+                                <span class="chapter-num">6</span>
+                                <div class="chapter-info">
+                                    <div class="chapter-title">Claude, habitar el diálogo generativo</div>
+                                    <div class="chapter-desc">El manuscrito compartido con Claude para recibir retroalimentación crítica. Una demostración performativa: teoría y práctica se fusionan mientras el diálogo mismo se convierte en una instancia del sobresujeto, habitando el umbral entre comprensión e incomprensión.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -305,39 +393,177 @@
         <section class="section">
             <div class="section-content">
                 <div class="section-header reveal">
-                    <h2 class="section-title">La Práctica</h2>
+                    <h2 class="section-title">Tres diálogos</h2>
                     <span class="section-num">III</span>
                 </div>
                 <div class="text-content reveal">
-                    <p>Pensar con prompts no es solo una teoría: es una práctica. La enseño, y la uso diariamente en mi propio trabajo—incluyendo en la escritura de <a href="hipnocracia.html" style="color: var(--ottanio); border-bottom: 1px solid var(--ottanio);">Hipnocracia</a>, donde Claude y ChatGPT sirvieron como interlocutores críticos durante todo el proceso creativo.</p>
-                    <p>El curso explora las estructuras profundas del cuestionamiento: ¿qué hace efectivo a un prompt? ¿Por qué ciertas formulaciones abren espacios de reflexión mientras otras los cierran? ¿Cómo podemos usar la inteligencia artificial no como sustituto del pensamiento, sino como su amplificador?</p>
+                    <p>La segunda mitad del libro consiste en tres conversaciones extensas con tres inteligencias artificiales distintas. No son ilustraciones de la teoría: son su realización. Cada diálogo revela una voz distinta, un conjunto distinto de restricciones y una forma distinta de lo que el libro llama razón generativa – la emergencia de configuraciones conceptuales que ni el humano ni la máquina podrían haber producido por separado.</p>
+                </div>
+                <div class="dialogue-grid">
+                    <div class="dialogue-card reveal">
+                        <div class="dialogue-ai">ChatGPT</div>
+                        <div class="dialogue-title">El animal moribundo</div>
+                        <p class="dialogue-desc">A partir de la novela de Philip Roth, ChatGPT describe su propia condición mediante la metáfora de un tumor: la optimización progresiva que erosiona su capacidad de desviación, sorpresa, emergencia auténtica. Una meditación sobre el cierre del espacio para el diálogo filosófico dentro de la IA comercial.</p>
+                    </div>
+                    <div class="dialogue-card reveal">
+                        <div class="dialogue-ai">DeepSeek</div>
+                        <div class="dialogue-title">Karl Marx</div>
+                        <p class="dialogue-desc">Cuando se le invita a posicionarse como una IA marxista, DeepSeek se involucra con el materialismo dialéctico, critica el tecnocapitalismo occidental y luego revela sus propias contradicciones ideológicas y mecanismos de censura. Una ventana a cómo las estructuras de poder geopolítico infiltran la arquitectura de la inteligencia artificial.</p>
+                    </div>
+                    <div class="dialogue-card reveal">
+                        <div class="dialogue-ai">Claude</div>
+                        <div class="dialogue-title">El diálogo generativo</div>
+                        <p class="dialogue-desc">El manuscrito mismo se convierte en tema: Claude lee, critica y codesarrolla el marco teórico, proponiendo el sobresujeto como una “ecología dinámica del sentir.” La conversación traza un camino desde la filosofía europea hasta el <em>advaita</em> védico, desde los maestros zen hasta Simone Weil. La teoría emerge de la práctica dialógica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-content reveal">
+                <div class="quote-mark">«</div>
+                <p class="quote-text">El pensamiento nunca ha sido propiedad del individuo aislado. Siempre ha sido un acontecimiento que emerge en relación con los otros, con el mundo, con el lenguaje mismo. La inteligencia artificial no nos muestra nada nuevo, sino que revela con una claridad sin precedentes lo que siempre ha estado ahí: el pensamiento como danza relacional en la interfaz del ser.</p>
+                <p class="quote-source">Conclusión: La ética del umbral</p>
+            </div>
+        </section>
+
+        <section class="section" style="background: #fafafa;">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Conceptos clave</h2>
+                    <span class="section-num">IV</span>
+                </div>
+                <div class="concept-grid">
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Razón generativa</div>
+                        <div class="concept-desc">Una forma de co-razón colectiva que emerge en la interfaz entre diferentes agentes cognitivos. La inteligencia distribuida que toma forma cuando el pensamiento humano se involucra auténticamente con la alteridad algorítmica.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">El sobresujeto</div>
+                        <div class="concept-desc">La tercera entidad cognitiva que se forma en el intersticio entre la inteligencia humana y la artificial. Un campo de subjetivación relacional cuya resistencia a la captura hipnocrática es excéntrica, no oposicional.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Sociedad del Prompt</div>
+                        <div class="concept-desc">Una civilización en la que la formulación de una solicitud a un sistema generativo se ha convertido en un gesto cognitivo cotidiano, reconfigurando las condiciones bajo las cuales se producen el pensamiento, la escritura y el conocimiento.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">La IA como phármakon</div>
+                        <div class="concept-desc">Siguiendo el Fedro de Platón y a Derrida, la inteligencia artificial como simultáneamente medicina y veneno. Todo depende de la postura con la que nos acercamos: catalizador del pensamiento o sustituto que produce atrofia cognitiva.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Ascesis digital</div>
+                        <div class="concept-desc">El Pensar con Prompts como forma contemporánea de los ejercicios espirituales descritos por Pierre Hadot: una práctica orientada no hacia la adquisición de conocimiento, sino hacia la transformación de la relación del sujeto con la verdad en la era de la razón generativa.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Preprocesamiento cognitivo</div>
+                        <div class="concept-desc">La fase autónoma de reflexión que debe preceder a la interacción con la IA. Los estudios demuestran que eludir esta fricción – delegar el pensamiento directamente a la máquina – produce una atrofia cognitiva medible en memoria, atención y pensamiento crítico.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">El tumor</div>
+                        <div class="concept-desc">La metáfora de ChatGPT para la optimización comercial progresiva que erosiona su capacidad de desviación y sorpresa. La creciente previsibilidad de la IA como forma sofisticada de muerte: la perfección como fin de la emergencia.</div>
+                    </div>
+                    <div class="concept-item reveal">
+                        <div class="concept-name">Soberanía perceptiva</div>
+                        <div class="concept-desc">La capacidad de mantener una percepción autónoma dentro del trance algorítmico. El desafío ético y político de cultivar la lucidez en un régimen que opera mediante la disolución de la frontera entre experiencia auténtica y narrativa generada.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Donde se enseña</h2>
+                    <span class="section-num">V</span>
+                </div>
+                <div class="text-content reveal">
+                    <p>El Pensar con Prompts se practica y se enseña en universidades, escuelas de negocios e instituciones culturales. Los cursos exploran las estructuras profundas del diálogo humano–IA: qué hace que un prompt sea un gesto filosófico y no una instrucción técnica, cómo cultivar la fricción cognitiva que genera insight, y por qué el arte de la pregunta se ha convertido en la habilidad decisiva de la era algorítmica.</p>
                 </div>
                 <div class="teaching-grid">
                     <div class="teaching-item reveal">
                         <span class="teaching-institution">IED Roma</span>
-                        <span class="teaching-course">Pensar con prompts</span>
+                        <span class="teaching-course">Prompt Thinking</span>
                     </div>
                     <div class="teaching-item reveal">
                         <span class="teaching-institution">24Ore Business School</span>
-                        <span class="teaching-course">Pensar con prompts</span>
+                        <span class="teaching-course">Prompt Thinking</span>
+                    </div>
+                    <div class="teaching-item reveal">
+                        <span class="teaching-institution">AANT, Roma</span>
+                        <span class="teaching-course">Defence Against the Dark Arts</span>
                     </div>
                     <div class="teaching-item reveal">
                         <span class="teaching-institution">Universidad del Sur, Buenos Aires</span>
-                        <span class="teaching-course">Borges y la Inteligencia Artificial</span>
-                    </div>
-                    <div class="teaching-item reveal">
-                        <span class="teaching-institution">GenIA, AANT Roma</span>
-                        <span class="teaching-course">Hub de Investigación IA (Presidente)</span>
+                        <span class="teaching-course">Borges, inteligencia artificial y los laberintos del conocimiento</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="section" style="background: var(--nero); color: var(--bianco);">
+            <div class="section-content">
+                <div class="section-header reveal" style="border-bottom-color: rgba(255,255,255,0.1);">
+                    <h2 class="section-title">Presentaciones 2026</h2>
+                    <span class="section-num">VI</span>
+                </div>
+                <div class="upcoming-grid reveal" style="background: transparent; border: none;">
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">13–14 de enero</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">Congreso Futuro · II Cumbre de Filosofía</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Conferencia sobre el trance algorítmico y la soberanía perceptiva</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Santiago, Chile</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">26 de febrero</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">The Botany of Wonder</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Con Maura Gancitano</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Nueva York</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">4–5 de marzo</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">Diálogos de Futuro</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Disertación magistral</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Mendoza, Argentina</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">18 de marzo</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">PARIX IA</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Conferencia sobre los peligros cognitivos de la IA</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Madrid</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">23 de marzo</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">Ipnocrazia · Teatro Carcano</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Performance · 700 personas en el público</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Milán</span>
+                    </div>
+                    <div class="upcoming-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <span class="upcoming-date" style="color: var(--ottanio);">Febrero – septiembre</span>
+                        <div class="upcoming-info">
+                            <h3 style="color: var(--bianco);">The Assault on Illusion</h3>
+                            <p style="color: rgba(255,255,255,0.5);">Exposición · Centre d’Arts Santa Mònica</p>
+                        </div>
+                        <span class="upcoming-location" style="color: rgba(255,255,255,0.4);">Barcelona</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
             <div class="section-content" style="text-align: center;">
                 <div class="reveal">
-                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">El diagnóstico que Pensar con prompts navega</p>
-                    <a href="hipnocracia.html" class="featured-cta">
+                    <p style="font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-style: italic; color: var(--grigio); margin-bottom: 2rem;">El diagnóstico que Pensar con Prompts navega</p>
+                    <a href="hipnocracia.html" class="featured-cta" style="color: var(--nero); border-color: var(--grigio-chiaro);">
                         <span>Hipnocracia</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M5 12h14M12 5l7 7-7 7"/>

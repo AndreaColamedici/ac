@@ -1,11 +1,11 @@
 {
-  "updated": "2026-04-02T13:23:51Z",
+  "updated": "2026-04-02T19:02:45Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
       "yes": 16,
-      "volume": "46305.343535999964",
+      "volume": "46333.42000499996",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
         {
@@ -350,6 +350,10 @@
         },
         {
           "t": "2026-04-02T13:23:50Z",
+          "p": 16
+        },
+        {
+          "t": "2026-04-02T19:02:45Z",
           "p": 16
         }
       ],
@@ -696,6 +700,10 @@
         {
           "t": "2026-04-02T13:23:51Z",
           "p": 100
+        },
+        {
+          "t": "2026-04-02T19:02:45Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -703,7 +711,7 @@
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
       "yes": 57,
-      "volume": "51025.65499300005",
+      "volume": "51029.854993000044",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
         {
@@ -1028,6 +1036,10 @@
         },
         {
           "t": "2026-04-02T13:23:51Z",
+          "p": 57
+        },
+        {
+          "t": "2026-04-02T19:02:45Z",
           "p": 57
         }
       ],

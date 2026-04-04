@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il simulacro – Indagine sulla costruzione di Claudia Conte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8f6f1;
+      --bg-warm: #f3f0e8;
+      --bg-dark: #0f1117;
+      --bg-dark-surface: #161822;
+      --border: #d8d3c8;
+      --border-light: #e8e4db;
+      --red: #b5312c;
+      --red-light: rgba(181,49,44,0.08);
+      --red-dim: rgba(181,49,44,0.15);
+      --text: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #8a8578;
+      --text-light: #b0a89a;
+      --blue: #2b5797;
+      --gold: #9a7b4f;
+      --green: #2a7a5a;
+      --violet: #6b5b95;
+      --cyan: #3a8a8a;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Source Serif 4', Georgia, 'Times New Roman', serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.9;
+      font-size:1.05em;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    ::selection { background:var(--red-dim); color:var(--text); }
+
+    .nav { position:fixed; top:0; left:0; right:0; z-index:9999; background:rgba(248,246,241,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border-light); transform:translateY(-120%); transition:transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+    .nav.visible { transform:translateY(0); }
+    .nav-inner { max-width:720px; margin:0 auto; display:flex; align-items:center; padding:0 32px; height:52px; overflow-x:auto; }
+    .nav-brand { font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--text); font-size:0.95em; margin-right:auto; flex-shrink:0; letter-spacing:-0.02em; }
+    .nav-link { color:var(--text-muted); text-decoration:none; font-family:'Space Grotesk',sans-serif; font-size:0.72em; text-transform:uppercase; letter-spacing:0.1em; padding:16px 14px; transition:color 0.3s; white-space:nowrap; font-weight:500; }
+    .nav-link:hover { color:var(--text); }
+
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-delay-1 { transition-delay:0.06s; }
+    .reveal-delay-2 { transition-delay:0.12s; }
+    .reveal-delay-3 { transition-delay:0.18s; }
+    .reveal-delay-4 { transition-delay:0.24s; }
+    .reveal-delay-5 { transition-delay:0.30s; }
+
+    .hero { min-height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:120px 32px 140px; text-align:center; position:relative; background:var(--bg); }
+    .hero-date { font-family:'JetBrains Mono',monospace; font-size:0.75em; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.2em; margin-bottom:48px; opacity:0; animation:fadeUp 1s ease 0.3s forwards; font-weight:400; }
+    .hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(3.2em,9vw,7em); font-weight:700; color:var(--text); letter-spacing:-0.04em; margin-bottom:40px; opacity:0; animation:titleIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.5s forwards; line-height:0.92; }
+    .hero h2 { font-family:'Source Serif 4',Georgia,serif; font-size:clamp(1em,1.6vw,1.18em); font-weight:300; color:var(--text-secondary); max-width:600px; line-height:1.85; opacity:0; animation:fadeUp 1s ease 1s forwards; letter-spacing:0.005em; font-style:italic; }
+    @keyframes titleIn { 0%{opacity:0;transform:translateY(24px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .hero-rule { width:48px; height:1px; background:var(--text-muted); margin:48px auto 0; opacity:0; animation:fadeUp 0.8s ease 1.5s forwards; }
+    .hero-meta { display:flex; gap:20px; align-items:center; justify-content:center; margin-top:40px; opacity:0; animation:fadeUp 0.8s ease 1.6s forwards; flex-wrap:wrap; }
+    .hero-meta-item { font-family:'JetBrains Mono',monospace; font-size:0.68em; color:var(--text-muted); letter-spacing:0.06em; }
+    .hero-meta-sep { width:3px; height:3px; border-radius:50%; background:var(--text-light); }
+
+    .prose-section { max-width:660px; margin:0 auto; padding:80px 32px; }
+    .prose-section p { margin-bottom:28px; color:var(--text); font-size:1.02em; line-height:2; }
+    .prose-section p:last-child { margin-bottom:0; }
+    .prose-lead { font-size:1.08em !important; line-height:2.05 !important; }
+    .prose-dropcap::first-letter { font-family:'Space Grotesk',sans-serif; float:left; font-size:3.6em; line-height:0.8; padding-right:12px; padding-top:6px; color:var(--text); font-weight:700; }
+
+    .pullquote { max-width:660px; margin:64px auto; padding:0 32px 0 56px; position:relative; }
+    .pullquote::before { content:''; position:absolute; left:32px; top:4px; bottom:4px; width:2px; background:var(--red); opacity:0.5; }
+    .pullquote p { font-family:'Source Serif 4',Georgia,serif; font-size:clamp(1.15em,2vw,1.4em); font-weight:400; color:var(--text); line-height:1.65; font-style:italic; }
+
+    .metrics { background:var(--bg-warm); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:72px 32px; margin:0; }
+    .metrics-grid { max-width:900px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
+    .metric-item { padding:24px 16px; text-align:center; position:relative; }
+    .metric-item::before { content:''; position:absolute; left:0; top:25%; bottom:25%; width:1px; background:var(--border); }
+    .metric-item:first-child::before { display:none; }
+    .metric-number { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.8em,3vw,2.8em); font-weight:700; color:var(--text); margin-bottom:8px; letter-spacing:-0.03em; }
+    .metric-number.metric-red { color:var(--red); }
+    .metric-label { font-family:'JetBrains Mono',monospace; font-size:0.62em; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; font-weight:400; line-height:1.5; }
+
+    .section-header { max-width:660px; margin:120px auto 20px; padding:0 32px; }
+    .section-number { font-family:'JetBrains Mono',monospace; font-size:0.7em; color:var(--text-light); text-transform:uppercase; letter-spacing:0.18em; margin-bottom:12px; font-weight:400; }
+    .section-header h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2em,4.5vw,3em); font-weight:700; color:var(--text); letter-spacing:-0.035em; line-height:1.1; }
+    .section-header-line { width:32px; height:2px; background:var(--red); margin-top:20px; opacity:0.6; }
+
+    .timeline { max-width:660px; margin:40px auto; padding:0 32px 0 80px; position:relative; }
+    .timeline::before { content:''; position:absolute; left:60px; top:8px; bottom:40px; width:1px; background:var(--border); }
+    .timeline-item { position:relative; margin-bottom:40px; padding-bottom:40px; padding-left:36px; border-bottom:1px solid var(--border-light); }
+    .timeline-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    .timeline-dot { position:absolute; left:-28px; top:8px; width:7px; height:7px; background:var(--red); border-radius:50%; transform:scale(0); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s; }
+    .timeline-item.reveal.visible .timeline-dot { transform:scale(1); }
+    .timeline-date { font-family:'JetBrains Mono',monospace; font-size:0.72em; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; font-weight:400; }
+    .timeline-title { font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--text); font-size:1.05em; margin-bottom:6px; letter-spacing:-0.01em; }
+    .timeline-detail { font-size:0.92em; color:var(--text-secondary); line-height:1.7; }
+    .timeline-value { color:var(--red); font-weight:600; }
+    .timeline-alert { font-size:0.84em; color:var(--red); margin-top:8px; font-style:italic; line-height:1.7; }
+
+    .evidence-box { max-width:660px; margin:56px auto; padding:0 32px; }
+    .evidence-inner { background:#fff; border:1px solid var(--border); border-left:3px solid var(--red); padding:28px 32px 28px 28px; position:relative; }
+    .evidence-label { font-family:'JetBrains Mono',monospace; font-size:0.62em; color:var(--red); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:14px; font-weight:500; }
+    .evidence-content { font-size:0.9em; color:var(--text-secondary); line-height:1.8; }
+    .evidence-content strong { color:var(--text); font-weight:600; }
+    .evidence-source { margin-top:14px; padding-top:12px; border-top:1px solid var(--border-light); }
+    .evidence-source a { font-family:'JetBrains Mono',monospace; font-size:0.7em; color:var(--red); text-decoration:none; border-bottom:1px dotted var(--red-dim); transition:border-color 0.3s; }
+    .evidence-source a:hover { border-color:var(--red); }
+
+    .data-strip { background:var(--bg-warm); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:48px 32px; margin:80px 0; overflow:hidden; }
+    .data-strip-inner { max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:48px; flex-wrap:wrap; }
+    .data-strip-stat { text-align:center; }
+    .data-strip-number { font-family:'Space Grotesk',sans-serif; font-size:clamp(2em,4vw,3.2em); font-weight:700; color:var(--red); letter-spacing:-0.03em; line-height:1; }
+    .data-strip-label { font-family:'Source Serif 4',Georgia,serif; font-size:0.88em; color:var(--text-secondary); margin-top:8px; font-style:italic; line-height:1.4; }
+    .data-strip-sep { width:1px; height:48px; background:var(--border); flex-shrink:0; }
+
+    .cards-grid { max-width:900px; margin:48px auto; padding:0 32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+    .card { background:#fff; border:1px solid var(--border); border-radius:4px; padding:32px; position:relative; transition:box-shadow 0.3s ease, border-color 0.3s ease; }
+    .card:hover { box-shadow:0 4px 24px rgba(0,0,0,0.06); border-color:var(--red-dim); }
+    .card-title { font-family:'Space Grotesk',sans-serif; font-size:1.2em; font-weight:700; color:var(--text); margin-bottom:4px; letter-spacing:-0.02em; }
+    .card-role { font-family:'JetBrains Mono',monospace; font-size:0.68em; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px; font-weight:400; line-height:1.6; }
+    .card-text { font-size:0.9em; color:var(--text-secondary); line-height:1.75; }
+    .card-value { margin-top:16px; padding-top:16px; border-top:1px solid var(--border-light); font-family:'Space Grotesk',sans-serif; color:var(--red); font-weight:700; font-size:1.1em; letter-spacing:-0.01em; }
+
+    .graph-wrapper { background:var(--bg-dark); padding:100px 0 80px; margin:100px 0 0; }
+    .graph-section { max-width:1100px; margin:0 auto; padding:0 32px; }
+    .graph-header { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:20px; }
+    .graph-header h2 { font-family:'Space Grotesk',sans-serif; font-size:2.2em; font-weight:700; color:#e8e6e3; letter-spacing:-0.03em; }
+    .graph-desc { color:rgba(255,255,255,0.45); font-size:0.88em; max-width:560px; margin-bottom:16px; line-height:1.7; }
+    .graph-container { background:var(--bg-dark-surface); border:1px solid rgba(255,255,255,0.06); border-radius:4px; position:relative; height:700px; overflow:hidden; }
+    .graph-controls { position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:3px; z-index:10; }
+    .graph-btn { width:32px; height:32px; background:rgba(15,17,23,0.7); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.08); border-radius:3px; color:rgba(255,255,255,0.4); font-size:1em; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.2s; }
+    .graph-btn:hover { color:rgba(255,255,255,0.8); }
+    .graph-legend { display:flex; gap:20px; flex-wrap:wrap; margin-top:16px; }
+    .legend-item { display:flex; align-items:center; gap:6px; }
+    .legend-dot { width:8px; height:8px; border-radius:50%; }
+    .legend-label { font-family:'JetBrains Mono',monospace; font-size:0.65em; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; }
+    svg { font-family:'Space Grotesk',sans-serif; }
+    .link { stroke:rgba(255,255,255,0.06); stroke-opacity:1; stroke-width:1px; transition:stroke 0.3s, stroke-opacity 0.3s; }
+    .link.highlighted { stroke:#e74c3c; stroke-opacity:0.5; stroke-width:1.5px; }
+    .link.dimmed { stroke-opacity:0.02; }
+    .node { cursor:pointer; stroke-width:1.5px; transition:opacity 0.3s; }
+    .node-persona { fill:#e74c3c; stroke:rgba(231,76,60,0.3); }
+    .node-politica { fill:#5b8def; stroke:rgba(91,141,239,0.2); }
+    .node-media { fill:#e8a838; stroke:rgba(232,168,56,0.2); }
+    .node-societa { fill:#4ecca3; stroke:rgba(78,204,163,0.2); }
+    .node-istituzione { fill:#d4a574; stroke:rgba(212,165,116,0.2); }
+    .node-premio { fill:#9b7dd4; stroke:rgba(155,125,212,0.2); }
+    .node-editoria { fill:#2a7a5a; stroke:rgba(42,122,90,0.2); }
+    .node.dimmed { opacity:0.06; }
+    .node-text { font-size:8.5px; font-weight:500; pointer-events:none; text-anchor:middle; dominant-baseline:middle; fill:rgba(255,255,255,0.8); }
+    .node-text.dimmed { opacity:0.06; }
+    .tooltip { position:absolute; background:rgba(15,17,23,0.95); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.1); padding:14px 18px; border-radius:4px; font-size:0.88em; pointer-events:none; z-index:1000; display:none; max-width:280px; }
+    .tooltip-name { font-family:'Space Grotesk',sans-serif; font-weight:600; color:#e8e6e3; margin-bottom:4px; }
+    .tooltip-role { font-family:'JetBrains Mono',monospace; font-size:0.7em; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px; }
+    .tooltip-desc { color:rgba(255,255,255,0.6); font-size:0.9em; line-height:1.6; }
+
+    .footer { max-width:660px; margin:0 auto; padding:80px 32px 120px; }
+    .footer-line { width:48px; height:1px; background:var(--border); margin-bottom:40px; }
+    .footer-label { font-family:'JetBrains Mono',monospace; font-size:0.65em; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:20px; }
+    .footer-sources { display:grid; grid-template-columns:1fr; gap:8px; }
+    .source-item a { font-size:0.85em; color:var(--text-secondary); text-decoration:none; border-bottom:1px solid var(--border-light); transition:border-color 0.3s, color 0.3s; line-height:1.7; }
+    .source-item a:hover { color:var(--red); border-color:var(--red); }
+    .footer-colophon { margin-top:48px; padding-top:24px; border-top:1px solid var(--border-light); font-family:'JetBrains Mono',monospace; font-size:0.65em; color:var(--text-light); letter-spacing:0.04em; line-height:1.8; }
+
+    @media(max-width:768px) {
+      .metrics-grid { grid-template-columns:repeat(3,1fr); }
+      .metric-item:nth-child(4)::before { display:none; }
+      .cards-grid { grid-template-columns:1fr; }
+      .data-strip-inner { flex-direction:column; gap:32px; }
+      .data-strip-sep { width:48px; height:1px; }
+      .nav-link { font-size:0.65em; padding:16px 10px; }
+      .graph-container { height:500px; }
+    }
+    @media(max-width:480px) {
+      .metrics-grid { grid-template-columns:repeat(2,1fr); }
+      .metric-item:nth-child(3)::before { display:none; }
+      .timeline { padding-left:48px; }
+      .timeline::before { left:28px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">Il simulacro</span>
+    <a href="#rete" class="nav-link">La rete</a>
+    <a href="#avellino" class="nav-link">Avellino</a>
+    <a href="#laurea" class="nav-link">La laurea</a>
+    <a href="#libri" class="nav-link">I libri</a>
+    <a href="#premi" class="nav-link">I premi</a>
+    <a href="#intervista" class="nav-link">L'intervista</a>
+    <a href="#mappa" class="nav-link">Mappa</a>
+    <a href="#domande" class="nav-link">Domande</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-date">Aprile 2026</div>
+  <h1>Il simulacro</h1>
+  <h2>Indagine sulla costruzione di Claudia Conte: come si fabbrica un profilo istituzionale senza istituzioni, e perch&eacute; il sistema lo permette</h2>
+  <div class="hero-rule"></div>
+  <div class="hero-meta">
+    <span class="hero-meta-item">Andrea Colamedici</span>
+    <span class="hero-meta-sep"></span>
+    <span class="hero-meta-item">4 aprile 2026</span>
+    <span class="hero-meta-sep"></span>
+    <span class="hero-meta-item">Ricerca OSINT</span>
+  </div>
+</section>
+
+<section class="metrics">
+  <div class="metrics-grid">
+    <div class="metric-item reveal">
+      <div class="metric-number metric-red">3</div>
+      <div class="metric-label">Societ&agrave; fondate<br>soci diversi, stessi schemi</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-1">
+      <div class="metric-number">0</div>
+      <div class="metric-label">Credenziali accademiche<br>verificate in modo indipendente</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-2">
+      <div class="metric-number metric-red">0,07%</div>
+      <div class="metric-label">Engagement Instagram<br>su 311.000 follower</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-3">
+      <div class="metric-number">&euro;79.300</div>
+      <div class="metric-label">Incarichi Regione Campania<br>a societ&agrave; con 9 mesi di vita</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-4">
+      <div class="metric-number metric-red">5</div>
+      <div class="metric-label">Premi &ldquo;istituzionali&rdquo;<br>conferiti da enti privati</div>
+    </div>
+  </div>
+</section>
+
+<div class="prose-section">
+  <p class="prose-lead prose-dropcap reveal">Il primo aprile 2026, durante un&rsquo;intervista al podcast Money Talks di Money.it condotta da Marco Gaetani &mdash; ventiquattro anni, social media strategist di Fratelli d&rsquo;Italia alla Camera, conduttore di Radio Atreju &mdash; Claudia Conte ha dichiarato di avere una relazione sentimentale con il Ministro dell&rsquo;Interno Matteo Piantedosi. Poche ore dopo, il caso era su ogni testata. Nei giorni successivi &egrave; emerso un sistema di incarichi, collaborazioni e credenziali che solleva domande fondamentali sulla natura del potere relazionale in Italia.</p>
+  <p class="reveal">Questa indagine non riguarda il gossip sentimentale, e neppure il singolo conflitto d&rsquo;interessi. Riguarda un modello: la costruzione di un profilo pubblico interamente fondato su relazioni, credenziali non verificate e un circuito premiale autoreferenziale. Un simulacro di competenza istituzionale che ha funzionato per anni perch&eacute; il sistema in cui operava non prevede verifiche.</p>
+</div>
+
+<!-- I. LA RETE SOCIETARIA -->
+<div class="section-header reveal" id="rete">
+  <div class="section-number">I</div>
+  <h2>Il circuito societario</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Anna Claudia Conte, nata a Cassino nel 1992, figlia di Francesco, funzionario di polizia in servizio a Frosinone, ha fondato o cofondato tre entit&agrave; nel corso di un decennio. Ogni societ&agrave; ha avuto soci diversi, e ogni socio ha aperto una porta su un mondo differente. L&rsquo;unico punto fisso &egrave; Conte.</p>
+</div>
+
+<div class="cards-grid">
+  <div class="card reveal">
+    <div class="card-title">Nova Era APS</div>
+    <div class="card-role">2013 &middot; Associazione di promozione sociale</div>
+    <div class="card-text">Cofondazione con Emanuele Ajello, attore e regista, oggi vicino al mondo di Roberto Vannacci e del suo movimento Futuro Nazionale. Produzione di docufiction a tema sociale, tra cui &ldquo;Giovent&ugrave; Sballata&rdquo; per la Regione Lazio.</div>
+    <div class="card-value">Gate &rarr; destra sovranista</div>
+  </div>
+  <div class="card reveal reveal-delay-1">
+    <div class="card-title">Shallow Srls</div>
+    <div class="card-role">Luglio 2021 &middot; Impresa culturale</div>
+    <div class="card-text">Cofondazione con Renzo Lusetti, ex parlamentare PD e figura della Democrazia Cristiana, marito di Vira Carbone (inviata di Porta a Porta) e amico intimo di Francesco Pionati, direttore di Rai Radio 1. Lusetti esce nel febbraio 2022 dopo una lettera anonima alla moglie.</div>
+    <div class="card-value">Gate &rarr; centrosinistra DC, Rai</div>
+  </div>
+  <div class="card reveal reveal-delay-2">
+    <div class="card-title">Far From Shallow Srls</div>
+    <div class="card-role">Gennaio 2022 &middot; Liquidata febbraio 2024</div>
+    <div class="card-text">Socio al 30%: Ludovico Mazzolin, poi nominato dalla Banca d&rsquo;Italia nel marzo 2025 come liquidatore di Banca Progetto. Conte al 70%, poi unica proprietaria fino alla liquidazione.</div>
+    <div class="card-value">Gate &rarr; finanza bancaria</div>
+  </div>
+</div>
+
+<div class="pullquote reveal">
+  <p>Tre societ&agrave;, tre soci, tre ambienti: centrosinistra democristiano, finanza bancaria, destra sovranista. Una rete bipartisan per design, non per caso.</p>
+</div>
+
+<!-- II. IL TRIANGOLO AVELLINESE -->
+<div class="section-header reveal" id="avellino">
+  <div class="section-number">II</div>
+  <h2>Il triangolo avellinese</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Il dato che nessuno ha messo al centro della vicenda &egrave; che l&rsquo;intera rete si muove lungo un asse geografico preciso: la provincia di Avellino. Pellegrino Capaldo, fondatore della Scuola Politica &ldquo;Vivere nella Comunit&agrave;&rdquo; che Conte dichiara di aver frequentato, era di Atripalda, provincia di Avellino. Matteo Piantedosi &egrave; di Avellino. Francesco Pionati, ex direttore di Rai Radio 1, &egrave; di Avellino. Pionati e Piantedosi hanno frequentato lo stesso liceo classico, il Colletta, e si conoscono da tutta la vita.</p>
+  <p class="reveal">Capaldo era il banchiere-professore della Sapienza che ha plasmato una generazione di classe dirigente italiana: tra i suoi studenti, Mario Draghi e Carlo Messina. Democristiano, cofondatore dell&rsquo;UDR con Cossiga, presidente della Banca di Roma, Cavaliere del Lavoro. La sua Scuola Politica, fondata con Sabino Cassese, seleziona 40 giovani su 800 candidati. Conte dichiara di esserne stata allieva. Ma qui il curriculum comincia a scricchiolare.</p>
+</div>
+
+<div class="evidence-box reveal">
+  <div class="evidence-inner">
+    <div class="evidence-label">Connessione chiave</div>
+    <div class="evidence-content"><strong>Renzo Lusetti</strong> (ex socio di Conte in Shallow, ex PD) &egrave; amico intimo di <strong>Francesco Pionati</strong> (ex direttore Radio Rai 1, compagno di liceo di <strong>Piantedosi</strong>). Lusetti presenta Conte a Pionati. Pionati le affida il programma &ldquo;La mezz&rsquo;ora legale&rdquo;. Intervistato da Open il 4 aprile 2026, Pionati ammette di averla assunta lui, poi aggiunge: <em>&ldquo;La sua storia? &Egrave; molto strana.&rdquo;</em></div>
+    <div class="evidence-source"><a href="https://www.open.online/2026/04/04/claudia-conte-francesco-pionati-assunzione-rai-dubbi/">Open, 4 aprile 2026</a></div>
+  </div>
+</div>
+
+<!-- III. LA LAUREA FANTASMA -->
+<div class="section-header reveal" id="laurea">
+  <div class="section-number">III</div>
+  <h2>La laurea fantasma</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">La laurea magistrale in Giurisprudenza che Conte dichiara, e che su vari profili pubblici &egrave; stata attribuita alla LUISS, non risulta negli archivi dei laureati dell&rsquo;ateneo, aggiornati dall&rsquo;anno accademico 2006-2007 a oggi. Il curriculum presentato per l&rsquo;incarico alla Scuola di Perfezionamento delle Forze di Polizia era un foglio essenziale, in parte compilato a penna, privo dell&rsquo;indicazione dell&rsquo;ateneo e della data di laurea.</p>
+  <p class="reveal">Sulla Scuola di Politiche Economiche e Sociali &ldquo;Carlo Azeglio Ciampi&rdquo;, secondo alcune ricostruzioni, Conte avrebbe presentato domanda di ammissione senza poi effettivamente partecipare al corso. L&rsquo;appartenenza al Sovrano Militare Ordine di Malta &egrave; stata smentita ufficialmente dall&rsquo;Ordine stesso, che ha precisato che Conte &ldquo;non appartiene all&rsquo;Ordine in alcuna qualit&agrave;&rdquo; e che l&rsquo;attribuzione era riconducibile a &ldquo;organizzazioni prive di riconoscimento&rdquo; comunemente indicate come &ldquo;falsi ordini&rdquo;.</p>
+</div>
+
+<div class="data-strip reveal">
+  <div class="data-strip-inner">
+    <div class="data-strip-stat">
+      <div class="data-strip-number">0</div>
+      <div class="data-strip-label">Lauree verificate<br>negli archivi LUISS</div>
+    </div>
+    <div class="data-strip-sep"></div>
+    <div class="data-strip-stat">
+      <div class="data-strip-number">0</div>
+      <div class="data-strip-label">Frequenza confermata<br>Scuola Ciampi</div>
+    </div>
+    <div class="data-strip-sep"></div>
+    <div class="data-strip-stat">
+      <div class="data-strip-number">0</div>
+      <div class="data-strip-label">Appartenenze confermate<br>Ordine di Malta</div>
+    </div>
+  </div>
+</div>
+
+<div class="pullquote reveal">
+  <p>Se la laurea non c&rsquo;&egrave;, la frequentazione della Scuola Ciampi non c&rsquo;&egrave;, e l&rsquo;Ordine di Malta smentisce, l&rsquo;intero impianto formativo dichiarato &egrave; una costruzione narrativa.</p>
+</div>
+
+<!-- IV. IL CIRCUITO DEI LIBRI -->
+<div class="section-header reveal" id="libri">
+  <div class="section-number">IV</div>
+  <h2>I libri come infrastruttura</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Conte ha pubblicato cinque libri. La loro funzione non &egrave; primariamente letteraria: ogni libro &egrave; un veicolo per organizzare eventi dove riunire figure istituzionali e consolidare la rete. &ldquo;La legge del cuore&rdquo; (2022), dedicato a Falcone e Borsellino, ha la prefazione dell&rsquo;ex procuratore antimafia Federico Cafiero De Raho. Fu presentato alla Comunit&agrave; di Sant&rsquo;Egidio il 26 febbraio 2023 con presenti il Ministro Piantedosi, Cafiero De Raho, l&rsquo;europarlamentare Caterina Chinnici, magistrati, prefetti e funzionari di polizia. Un libro sulla legalit&agrave; diventa un evento istituzionale dove il networking &egrave; il prodotto reale.</p>
+  <p class="reveal">&ldquo;La voce di Iside&rdquo; (2024) ha la premessa dello scrittore Maurizio De Giovanni, ottenuta tramite Fulvio Bonavitacola (PD, vicepresidente della Campania), che organizz&ograve; un pranzo a tre. La prefazione &egrave; di Francesco Rocca, presidente della Regione Lazio (centrodestra). Ogni libro ha una firma di centrodestra e una di centrosinistra: bipartisan per design.</p>
+  <p class="reveal">Il Fatto Quotidiano ha documentato come Conte presentasse i suoi libri in eventi organizzati da prefetture &mdash; che dipendono dal Ministero dell&rsquo;Interno &mdash; durante il periodo in cui la relazione con Piantedosi era gi&agrave; in corso. Nel 2024 il Viminale stanzi&ograve; 450.000 euro per progetti contro la violenza di genere (tema del libro); nel 2025, 500.000 euro per il bullismo (tema del libro successivo). Le prefetture promuovono i libri; il ministero stanzia fondi sui temi dei libri; l&rsquo;autrice &egrave; la compagna del ministro.</p>
+</div>
+
+<div class="evidence-box reveal">
+  <div class="evidence-inner">
+    <div class="evidence-label">L&rsquo;editore fantasma</div>
+    <div class="evidence-content">L&rsquo;ultimo libro, <strong>&ldquo;Dove nascono i silenzi&rdquo;</strong> (marzo 2026), &egrave; pubblicato da <strong>&ldquo;Fall in Love&rdquo;</strong>. Questa casa editrice non ha un sito web, non appare nei cataloghi delle librerie come editore indipendente, non &egrave; identificabile nel panorama editoriale italiano. Se il libro &egrave; autopubblicato, le presentazioni in sedi istituzionali con governatori, prefetti e consiglieri della Presidenza del Consiglio assumono un significato diverso: non &egrave; l&rsquo;industria editoriale che promuove un&rsquo;autrice, &egrave; un&rsquo;autrice che promuove se stessa attraverso sedi cui accede grazie alle proprie relazioni.</div>
+  </div>
+</div>
+
+<!-- V. I PREMI -->
+<div class="section-header reveal" id="premi">
+  <div class="section-number">V</div>
+  <h2>Il circuito premiale</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Conte dichiara nel curriculum di essere stata &ldquo;premiata al Senato&rdquo;, &ldquo;premiata al Parlamento Europeo&rdquo;, &ldquo;premiata in Campidoglio&rdquo;. La formulazione &egrave; tecnicamente vera e sostanzialmente ingannevole. In nessuno di questi casi il premio &egrave; conferito dall&rsquo;istituzione che lo ospita: il Senato non premia, il Parlamento Europeo non premia, il Campidoglio non premia. Sono enti privati che utilizzano le sale istituzionali per conferire ai propri riconoscimenti un&rsquo;aura di ufficialit&agrave;.</p>
+</div>
+
+<div class="cards-grid">
+  <div class="card reveal">
+    <div class="card-title">&ldquo;Eccellenze Italiane&rdquo;</div>
+    <div class="card-role">Senato &middot; Sala Zuccari, Palazzo Giustiniani</div>
+    <div class="card-text">Organizzato dalla Fondazione E-novation di Massimo Lucidi, giornalista e operatore di public affairs. Premio privato. Il Senato presta la sala.</div>
+  </div>
+  <div class="card reveal reveal-delay-1">
+    <div class="card-title">&ldquo;Comunicare l&rsquo;Europa&rdquo;</div>
+    <div class="card-role">Parlamento Europeo &middot; Sala delle Bandiere, Roma</div>
+    <div class="card-text">Organizzato da Remind (Paolo Crisafi, filiera immobiliare) con l&rsquo;Ufficio per l&rsquo;Italia del PE e l&rsquo;Osservatorio Buone Pratiche di Franco Mencarelli (Corte dei Conti). Lo stesso Remind che dieci giorni prima del caso ha presentato il libro di Conte a Milano.</div>
+  </div>
+  <div class="card reveal reveal-delay-2">
+    <div class="card-title">&ldquo;Books for Peace&rdquo;</div>
+    <div class="card-role">Premio letterario internazionale</div>
+    <div class="card-text">Organizzato da un consorzio che include FUNVIC (fondazione universitaria brasiliana), un club UNESCO, ANASPOL (agenti polizia locale) e l&rsquo;Accademia Diplomatica Pax et Salus.</div>
+  </div>
+</div>
+
+<div class="pullquote reveal">
+  <p>Ogni credenziale nel curriculum di Conte &egrave; costruita per evocare un livello istituzionale superiore a quello reale. Il Senato non ha premiato nessuno. Ha affittato una sala.</p>
+</div>
+
+<!-- VI. LE PORTE -->
+<div class="section-header reveal" id="porte">
+  <div class="section-number">VI</div>
+  <h2>Le porte</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Ogni passaggio nella carriera di Conte corrisponde a una relazione personale che apre un ambiente istituzionale specifico. L&rsquo;ascesa &egrave; una sequenza di porte, e ogni porta attraversata diventa una riga del curriculum che giustifica l&rsquo;apertura della successiva.</p>
+</div>
+
+<div class="timeline">
+  <div class="timeline-item reveal">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">Origine</div>
+    <div class="timeline-title">Il padre, Francesco Conte</div>
+    <div class="timeline-detail">Funzionario di polizia a Frosinone. Primo gate: accesso al mondo della polizia come ambiente culturale e relazionale. Da qui le presentazioni dei libri nelle scuole di polizia, la madrinatura del Festival della Polizia, l&rsquo;incarico alla Scuola di Perfezionamento.</div>
+  </div>
+  <div class="timeline-item reveal">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2013</div>
+    <div class="timeline-title">Emanuele Ajello &rarr; Nova Era</div>
+    <div class="timeline-detail">Gate: produzione audiovisiva, mondo dello spettacolo. Ajello, attore vicino al mondo Vannacci, apre il circuito delle docufiction a tema sociale finanziate dalla Regione Lazio.</div>
+  </div>
+  <div class="timeline-item reveal">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2021</div>
+    <div class="timeline-title">Renzo Lusetti &rarr; Shallow &rarr; Rai</div>
+    <div class="timeline-detail">Gate: centrosinistra democristiano. Lusetti (ex PD) presenta Conte a Pionati (direttore Radio Rai 1). Pionati le affida il programma &ldquo;La mezz&rsquo;ora legale&rdquo;.</div>
+    <div class="timeline-alert">Lusetti esce dalla societ&agrave; dopo lettera anonima alla moglie.</div>
+  </div>
+  <div class="timeline-item reveal">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2023</div>
+    <div class="timeline-title">Fulvio Bonavitacola &rarr; Regione Campania</div>
+    <div class="timeline-detail">Gate: centrosinistra campano. Il vicepresidente PD della Campania affida alla Shallow incarichi per <span class="timeline-value">&euro;79.300</span> via trattativa diretta. Presenta Conte a Maurizio De Giovanni per la premessa del libro.</div>
+  </div>
+  <div class="timeline-item reveal">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2023&ndash;2024</div>
+    <div class="timeline-title">Matteo Piantedosi &rarr; Viminale</div>
+    <div class="timeline-detail">Gate: Ministero dell&rsquo;Interno. Presentazione del libro alla Scuola di Perfezionamento delle Forze di Polizia. Madrinatura del Festival della Polizia. Presentazioni nelle prefetture. Consulenza alla commissione parlamentare sulle periferie (febbraio 2026).</div>
+  </div>
+  <div class="timeline-item reveal">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2025</div>
+    <div class="timeline-title">Paolo Crisafi &rarr; Remind &rarr; Europa</div>
+    <div class="timeline-detail">Gate: filiera immobiliare e sedi europee. Premio al Parlamento Europeo, presentazione alla Terrazza Duomo 21 con il presidente della Lombardia e un consigliere della Presidenza del Consiglio.</div>
+  </div>
+</div>
+
+<!-- VII. L'INTERVISTA ORCHESTRATA -->
+<div class="section-header reveal" id="intervista">
+  <div class="section-number">VII</div>
+  <h2>L&rsquo;intervista orchestrata</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Il primo aprile 2026, Marco Gaetani, ventiquattro anni, classe 2001, salentino, laureato in Scienze Politiche con tesi sulla campagna di Trump, leader leccese di Giovent&ugrave; Nazionale, social media strategist di Fratelli d&rsquo;Italia alla Camera dei Deputati e conduttore di Radio Atreju, pone a Claudia Conte la domanda sulla relazione con Piantedosi durante il podcast Money Talks di Money.it.</p>
+  <p class="reveal">Gaetani ha poi dichiarato al Corriere della Sera che fu Conte stessa a chiedergli di porle quella domanda. La redazione di Money Talks ha aggiunto un dettaglio cruciale: &ldquo;Claudia Conte ci &egrave; stata presentata da una persona intermediaria, che ci ha anche detto che avrebbe potuto rispondere alla domanda sulle voci gi&agrave; circolanti, potendo confermare la relazione con il ministro poich&eacute; &mdash; ci aveva assicurato &mdash; lui era separato.&rdquo;</p>
+</div>
+
+<div class="evidence-box reveal">
+  <div class="evidence-inner">
+    <div class="evidence-label">L&rsquo;intermediario ignoto</div>
+    <div class="evidence-content">La &ldquo;persona intermediaria&rdquo; che ha messo in contatto Conte con Gaetani non &egrave; stata identificata da alcun giornale. Gaetani &egrave; un insider di FdI. La domanda investigativa che nessuno ha posto: l&rsquo;intermediario apparteneva al circuito di Fratelli d&rsquo;Italia? La rivelazione era un&rsquo;operazione interna alla maggioranza? Oppure Conte ha scelto deliberatamente un canale interno a FdI per rendere impossibile al partito liquidarla come fonte ostile?</div>
+    <div class="evidence-source"><a href="https://www.virgilio.it/notizie/piantedosi-e-la-giornalista-la-versione-del-podcaster-marco-gaetani-lei-mi-ha-chiesto-di-farle-la-domanda-1746433">Virgilio.it, 2 aprile 2026</a></div>
+  </div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">Secondo la ricostruzione di MOW, Piantedosi avrebbe voluto chiudere la relazione, e Conte avrebbe reso pubblica la cosa proprio per questo. Meloni aveva gi&agrave; avvertito il ministro sulla necessit&agrave; di evitare un &ldquo;Sangiuliano bis&rdquo;. Un&rsquo;ironia emersa nei giorni successivi: durante il caso Boccia-Sangiuliano del 2024, la stessa Claudia Conte era apparsa a La7 dichiarando che fosse &ldquo;sbagliato assegnare incarichi pubblici&rdquo; a Maria Rosaria Boccia.</p>
+</div>
+
+<!-- VIII. LA MAPPA -->
+<div class="graph-wrapper" id="mappa">
+  <div class="graph-section">
+    <div class="graph-header">
+      <div>
+        <div class="section-number" style="color:rgba(255,255,255,0.3)">VIII</div>
+        <h2>La mappa delle relazioni</h2>
+      </div>
+    </div>
+    <p class="graph-desc">Clicca su un nodo per evidenziare le connessioni dirette. Clicca sullo sfondo per resettare.</p>
+    <div class="graph-container" id="graphContainer">
+      <div class="graph-controls">
+        <button class="graph-btn" id="zoomIn">+</button>
+        <button class="graph-btn" id="zoomOut">&minus;</button>
+        <button class="graph-btn" id="zoomReset">&cir;</button>
+      </div>
+      <div class="tooltip" id="tooltip">
+        <div class="tooltip-name" id="tooltipName"></div>
+        <div class="tooltip-role" id="tooltipRole"></div>
+        <div class="tooltip-desc" id="tooltipDesc"></div>
+      </div>
+    </div>
+    <div class="graph-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div><span class="legend-label">Protagonista</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#5b8def"></div><span class="legend-label">Politica</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e8a838"></div><span class="legend-label">Media</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4ecca3"></div><span class="legend-label">Societ&agrave;</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#d4a574"></div><span class="legend-label">Istituzione</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#9b7dd4"></div><span class="legend-label">Premi/Enti</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2a7a5a"></div><span class="legend-label">Editoria</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- IX. LE DOMANDE APERTE -->
+<div class="section-header reveal" id="domande">
+  <div class="section-number">IX</div>
+  <h2>Le domande aperte</h2>
+  <div class="section-header-line"></div>
+</div>
+
+<div class="prose-section">
+  <p class="reveal">I giornali hanno raccontato il caso Conte come un triangolo tra relazione, incarichi e politica. Hanno mancato la struttura. Non siamo davanti a una persona competente che ha abusato delle proprie relazioni, ma a una persona che ha costruito l&rsquo;intera propria identit&agrave; professionale come narrazione performativa: relazione dopo relazione, credenziale dichiarata dopo credenziale dichiarata, porta aperta dopo porta aperta. Un sistema autoreferenziale che funziona finch&eacute; nessuno verifica. Le domande che restano aperte sono cinque.</p>
+  <p class="reveal">La prima: chi &egrave; l&rsquo;intermediario che ha messo in contatto Conte con Gaetani per l&rsquo;intervista a Money.it? Se la rivelazione &egrave; stata orchestrata, da chi e a quale scopo? La seconda: la casa editrice &ldquo;Fall in Love&rdquo; esiste come entit&agrave; indipendente, o i libri di Conte sono autopubblicati e promossi attraverso sedi istituzionali accessibili grazie alle relazioni? La terza: quali sono i flussi finanziari tra Remind, Shallow e Conte? Remind offre palcoscenici istituzionali; Conte offre contenuto &ldquo;sociale&rdquo;: qual &egrave; la contropartita economica? La quarta: quante altre credenziali nel curriculum sono verificabili? Se la laurea, la Scuola Ciampi e l&rsquo;Ordine di Malta non reggono alla verifica, che dire del resto? La quinta, la pi&ugrave; ampia: quante Claudia Conte operano nel sistema italiano senza che nessuno verifichi?</p>
+  <p class="reveal">La struttura non &egrave; quella di una persona che ha abusato del potere. &Egrave; quella di una persona che ha costruito un simulacro di potere, e il simulacro ha funzionato finch&eacute; &egrave; rimasto nel circuito dove nessuno verifica. Il caso Conte non &egrave; un&rsquo;anomalia. &Egrave; un sintomo.</p>
+</div>
+
+<!-- FONTI -->
+<div class="footer">
+  <div class="footer-line"></div>
+  <div class="footer-label">Fonti</div>
+  <div class="footer-sources">
+    <div class="source-item"><a href="https://www.ansa.it/sito/notizie/politica/2026/04/01/nasce-un-caso-su-claudia-conte-avs-chiede-a-piantedosi-di-chiarire_ee811716-9c99-4f8a-996b-7f9c7aa0dd84.html">ANSA &ndash; Relazione con Piantedosi, scoppia il caso, 1 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.ilpost.it/2026/04/02/claudia-conte-relazione-matteo-piantedosi/">Il Post &ndash; Ci sar&agrave; un nuovo caso Sangiuliano?, 2 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.ilfattoquotidiano.it/2026/04/01/claudia-conte-relazione-piantedosi-nomina-consulenza-commissione-sicurezza-camera/8343002/">Il Fatto Quotidiano &ndash; La relazione con Piantedosi e la nomina alla Commissione, 1 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.ilfattoquotidiano.it/in-edicola/articoli/2026/04/04/lady-viminale-vendeva-i-suoi-libri-che-venivano-promossi-dalle-prefetture/8345867/">Il Fatto Quotidiano &ndash; Lady Viminale vendeva i suoi libri promossi dalle prefetture, 4 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.ilfattoquotidiano.it/2026/04/04/claudia-conte-maurizio-degiovanni-prefazione-piantedosi-news/8346256/">Il Fatto Quotidiano &ndash; De Giovanni: prefazione chiesta dal vice di De Luca, 4 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.fanpage.it/politica/madrina-della-polizia-e-consulente-alla-camera-gli-incarichi-di-claudia-conte-sono-un-caso-per-piantedosi/">Fanpage &ndash; Madrina della polizia e consulente alla Camera, 2 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.fanpage.it/napoli/la-regione-campania-e-gli-incarichi-alla-societa-shallow-di-claudia-conte/">Fanpage &ndash; La Regione Campania e gli incarichi alla Shallow, 3 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.fanpage.it/politica/lo-strano-profilo-instagram-di-claudia-conte-foto-riciclate-da-anni-e-interazioni-che-non-tornano/">Fanpage &ndash; Lo strano profilo Instagram di Claudia Conte, 3 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.open.online/2026/04/04/claudia-conte-francesco-pionati-assunzione-rai-dubbi/">Open &ndash; Pionati: L&rsquo;ho assunta io in Rai, la sua storia &egrave; molto strana, 4 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.open.online/2026/04/04/claudia-conte-contratti-traballano-libri-prefetture-laurea-fantasma/">Open &ndash; Laurea fantasma, libri nelle prefetture, contratti traballanti, 4 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.open.online/2026/04/03/claudia-conte-lettera-anonima-renzo-lusetti/">Open &ndash; La lettera anonima alla moglie del politico PD, 3 aprile 2026</a></div>
+    <div class="source-item"><a href="https://mowmag.com/attualita/piantedosi-voleva-mollarla-e-claudia-conte-ha-fatto-coming-out-ora-sono-in-lite-e-lei-era-socia-di-un-big-del-pd-amico-del-direttore-di-radio-rai-1-pionati-dove-lei-lavora">MOW &ndash; Piantedosi voleva mollarla e Conte ha fatto coming out, 2 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.lettera43.it/come-rete-claudia-conte-arrivava-vaticano-santegidio-ordine-malta/">Lettera43 &ndash; La rete di Conte fino a Vaticano e Sant&rsquo;Egidio, 2 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.lettera43.it/scuola-polizia-programma-rai-radio-incarichi-claudia-conte-piantedosi/">Lettera43 &ndash; Dalla scuola di polizia al programma su Rai Radio 1, 2 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.editorialedomani.it/fatti/claudia-conte-piantedosi-parlero-il-giallo-della-laurea-alla-luiss-be1gqcaq">Editoriale Domani &ndash; Il giallo della laurea alla Luiss, 3 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.lacapitalenews.it/politica/claudia-conte-giallo-sulla-laurea-in-giurisprudenza/">La Capitale News &ndash; Giallo sulla laurea in Giurisprudenza, 3 aprile 2026</a></div>
+    <div class="source-item"><a href="https://www.virgilio.it/notizie/piantedosi-e-la-giornalista-la-versione-del-podcaster-marco-gaetani-lei-mi-ha-chiesto-di-farle-la-domanda-1746433">Virgilio &ndash; Gaetani: Lei mi ha chiesto di farle la domanda, 2 aprile 2026</a></div>
+    <div class="source-item"><a href="https://projects.propublica.org/nonprofits/organizations/911391357">ProPublica Nonprofit Explorer &ndash; Italy for Christ Inc., dati finanziari</a></div>
+    <div class="source-item"><a href="https://www.premioeccellenzaitaliana.it/">Premio Eccellenza Italiana &ndash; Fondazione E-novation</a></div>
+    <div class="source-item"><a href="https://www.booksforpeace.org/chi-siamo/">Books for Peace &ndash; Chi siamo</a></div>
+    <div class="source-item"><a href="https://www.onbd.it/chi-siamo/organizzazione/">ONBD &ndash; Organizzazione</a></div>
+  </div>
+  <div class="footer-colophon">
+    Indagine OSINT &middot; Aprile 2026 &middot; andreacolamedici.com<br>
+    Tutte le informazioni provengono da fonti pubbliche verificabili.
+  </div>
+</div>
+
+<script>
+// NAV
+const nav=document.getElementById('nav');
+let lastY=0;
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(y>400) nav.classList.add('visible');
+  else nav.classList.remove('visible');
+  lastY=y;
+});
+
+// REVEAL
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// D3 GRAPH
+const nodes=[
+  {id:"conte",label:"Claudia Conte",type:"persona",desc:"Giornalista, scrittrice, conduttrice. Nata a Cassino, 1992."},
+  {id:"piantedosi",label:"Piantedosi",type:"politica",desc:"Ministro dell'Interno. Avellino. Liceo Colletta."},
+  {id:"pionati",label:"Pionati",type:"media",desc:"Ex direttore Rai Radio 1. Avellino. Liceo Colletta. Assume Conte."},
+  {id:"lusetti",label:"Lusetti",type:"politica",desc:"Ex parlamentare PD, DC. Socio Shallow al 50% fino a feb 2022. Amico di Pionati."},
+  {id:"bonavitacola",label:"Bonavitacola",type:"politica",desc:"PD, vicepresidente Campania sotto De Luca. Affida incarichi a Shallow."},
+  {id:"ajello",label:"Ajello",type:"media",desc:"Attore, regista. Cofondatore Nova Era. Vicino a Vannacci."},
+  {id:"mazzolin",label:"Mazzolin",type:"societa",desc:"Socio Far From Shallow al 30%. Poi liquidatore Banca Progetto (Bankitalia)."},
+  {id:"crisafi",label:"Crisafi",type:"premio",desc:"Presidente Remind (filiera immobiliare). Organizza premi al PE e presentazioni."},
+  {id:"mencarelli",label:"Mencarelli",type:"premio",desc:"Consigliere Corte dei Conti. Presiede Osservatorio Buone Pratiche (Remind)."},
+  {id:"lucidi",label:"Lucidi",type:"premio",desc:"Giornalista, presidente Fondazione E-novation. Organizza 'Eccellenze Italiane' in Senato."},
+  {id:"gaetani",label:"Gaetani",type:"media",desc:"24 anni, social media FdI Camera, Radio Atreju. Conduce l'intervista rivelatrice."},
+  {id:"massaccesi",label:"Massaccesi",type:"premio",desc:"Ex taekwondoka olimpico. Presidente ONBD. Conte è 'portavoce'."},
+  {id:"degiovanni",label:"De Giovanni",type:"editoria",desc:"Scrittore. Premessa a 'La voce di Iside', presentato da Bonavitacola."},
+  {id:"rocca",label:"Rocca",type:"politica",desc:"Presidente Regione Lazio (cdx). Prefazione a 'La voce di Iside'."},
+  {id:"cafiero",label:"Cafiero De Raho",type:"istituzione",desc:"Ex procuratore nazionale antimafia. Prefazione a 'La legge del cuore'."},
+  {id:"shallow",label:"Shallow Srls",type:"societa",desc:"Impresa culturale. €79.300 da Campania. Sede Borgo Pio, Roma."},
+  {id:"ffs",label:"Far From Shallow",type:"societa",desc:"Fondata gen 2022, liquidata feb 2024."},
+  {id:"novaera",label:"Nova Era APS",type:"societa",desc:"Associazione di promozione sociale fondata 2013."},
+  {id:"rai",label:"Rai Radio 1",type:"media",desc:"'La mezz'ora legale'. Conte conduttrice dal set 2025."},
+  {id:"remind",label:"Remind",type:"premio",desc:"Associazione filiera immobiliare. Premi PE, presentazioni istituzionali."},
+  {id:"viminale",label:"Viminale",type:"istituzione",desc:"Min. Interno. Scuola polizia, prefetture, commissione parlamentare."},
+  {id:"campania",label:"Reg. Campania",type:"istituzione",desc:"Affidamenti diretti a Shallow: €42.700 + €36.000."},
+  {id:"santegidio",label:"Sant'Egidio",type:"istituzione",desc:"Presentazione 'La legge del cuore', feb 2023. Con Piantedosi presente."},
+  {id:"capaldo",label:"Capaldo",type:"politica",desc:"Banchiere, prof. Sapienza (Draghi allievo). Atripalda, Avellino. Fondatore Scuola Politica."},
+  {id:"carbone",label:"Vira Carbone",type:"media",desc:"Inviata Porta a Porta. Moglie (separata) di Lusetti."},
+  {id:"ifc",label:"Italy for Christ",type:"premio",desc:"Nonprofit evangelica USA, $320K/anno. Progetto 'Forever Open' Giubileo."},
+  {id:"ferrara",label:"Ferrara Film Fest.",type:"media",desc:"Conte co-direttrice artistica dal 2025. Fondato da Maximilian Law."},
+];
+const links=[
+  {source:"conte",target:"piantedosi",label:"relazione sentimentale"},
+  {source:"conte",target:"shallow",label:"fondatrice e CEO"},
+  {source:"conte",target:"ffs",label:"fondatrice 70%"},
+  {source:"conte",target:"novaera",label:"cofondatrice"},
+  {source:"conte",target:"rai",label:"conduttrice"},
+  {source:"conte",target:"ferrara",label:"co-direttrice artistica"},
+  {source:"conte",target:"massaccesi",label:"portavoce ONBD"},
+  {source:"lusetti",target:"shallow",label:"socio 50% (uscito feb 2022)"},
+  {source:"lusetti",target:"pionati",label:"amico intimo"},
+  {source:"lusetti",target:"carbone",label:"marito (separato 2018)"},
+  {source:"mazzolin",target:"ffs",label:"socio 30%"},
+  {source:"ajello",target:"novaera",label:"cofondatore"},
+  {source:"pionati",target:"rai",label:"ex direttore"},
+  {source:"pionati",target:"piantedosi",label:"compagno di liceo, Avellino"},
+  {source:"piantedosi",target:"viminale",label:"ministro"},
+  {source:"bonavitacola",target:"campania",label:"vicepresidente, delega ambiente"},
+  {source:"shallow",target:"campania",label:"€79.300 affidamenti diretti"},
+  {source:"bonavitacola",target:"degiovanni",label:"presenta Conte per prefazione"},
+  {source:"conte",target:"santegidio",label:"presentazione libro 2023"},
+  {source:"piantedosi",target:"santegidio",label:"presente a presentazione"},
+  {source:"cafiero",target:"conte",label:"prefazione 'La legge del cuore'"},
+  {source:"rocca",target:"conte",label:"prefazione 'La voce di Iside'"},
+  {source:"degiovanni",target:"conte",label:"premessa 'La voce di Iside'"},
+  {source:"crisafi",target:"remind",label:"presidente"},
+  {source:"mencarelli",target:"remind",label:"Osservatorio Buone Pratiche"},
+  {source:"remind",target:"conte",label:"premio PE + presentazione Milano"},
+  {source:"lucidi",target:"conte",label:"premio 'Eccellenze Italiane' in Senato"},
+  {source:"gaetani",target:"conte",label:"intervista 1 aprile 2026"},
+  {source:"conte",target:"viminale",label:"consulente commissione, scuola polizia"},
+  {source:"conte",target:"ifc",label:"progetto 'Forever Open' Giubileo"},
+  {source:"capaldo",target:"pionati",label:"Avellino"},
+  {source:"capaldo",target:"piantedosi",label:"Avellino"},
+  {source:"conte",target:"bonavitacola",label:"tour scuole ambiente"},
+];
+
+const container=document.getElementById('graphContainer');
+const width=container.clientWidth;
+const height=container.clientHeight;
+const svg=d3.select(container).append('svg').attr('width',width).attr('height',height);
+const g=svg.append('g');
+const zoom=d3.zoom().scaleExtent([0.3,4]).on('zoom',e=>g.attr('transform',e.transform));
+svg.call(zoom);
+document.getElementById('zoomIn').onclick=()=>svg.transition().call(zoom.scaleBy,1.3);
+document.getElementById('zoomOut').onclick=()=>svg.transition().call(zoom.scaleBy,0.7);
+document.getElementById('zoomReset').onclick=()=>svg.transition().call(zoom.transform,d3.zoomIdentity);
+
+const sim=d3.forceSimulation(nodes)
+  .force('link',d3.forceLink(links).id(d=>d.id).distance(100))
+  .force('charge',d3.forceManyBody().strength(-300))
+  .force('center',d3.forceCenter(width/2,height/2))
+  .force('collision',d3.forceCollide().radius(30));
+
+const link=g.append('g').selectAll('line').data(links).join('line').attr('class','link');
+const node=g.append('g').selectAll('circle').data(nodes).join('circle')
+  .attr('class',d=>'node node-'+d.type)
+  .attr('r',d=>d.id==='conte'?14:8)
+  .call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
+    .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y;})
+    .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
+
+const text=g.append('g').selectAll('text').data(nodes).join('text')
+  .attr('class','node-text')
+  .attr('dy',d=>d.id==='conte'?24:18)
+  .text(d=>d.label);
+
+const tooltip=document.getElementById('tooltip');
+const tooltipName=document.getElementById('tooltipName');
+const tooltipRole=document.getElementById('tooltipRole');
+const tooltipDesc=document.getElementById('tooltipDesc');
+const typeLabels={persona:'Protagonista',politica:'Politica',media:'Media',societa:'Società',istituzione:'Istituzione',premio:'Premi / Enti',editoria:'Editoria'};
+
+node.on('mouseover',(e,d)=>{
+  tooltipName.textContent=d.label;
+  tooltipRole.textContent=typeLabels[d.type]||d.type;
+  tooltipDesc.textContent=d.desc;
+  tooltip.style.display='block';
+}).on('mousemove',(e)=>{
+  const rect=container.getBoundingClientRect();
+  tooltip.style.left=(e.clientX-rect.left+16)+'px';
+  tooltip.style.top=(e.clientY-rect.top-10)+'px';
+}).on('mouseout',()=>{tooltip.style.display='none';});
+
+node.on('click',(e,d)=>{
+  e.stopPropagation();
+  const connected=new Set();
+  connected.add(d.id);
+  links.forEach(l=>{
+    if(l.source.id===d.id)connected.add(l.target.id);
+    if(l.target.id===d.id)connected.add(l.source.id);
+  });
+  node.classed('dimmed',n=>!connected.has(n.id));
+  text.classed('dimmed',n=>!connected.has(n.id));
+  link.classed('highlighted',l=>l.source.id===d.id||l.target.id===d.id);
+  link.classed('dimmed',l=>l.source.id!==d.id&&l.target.id!==d.id);
+});
+
+svg.on('click',()=>{
+  node.classed('dimmed',false);
+  text.classed('dimmed',false);
+  link.classed('highlighted',false);
+  link.classed('dimmed',false);
+});
+
+sim.on('tick',()=>{
+  link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+  node.attr('cx',d=>d.x).attr('cy',d=>d.y);
+  text.attr('x',d=>d.x).attr('y',d=>d.y);
+});
+</script>
+
+</body>
+</html>

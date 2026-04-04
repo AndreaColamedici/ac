@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-04T02:34:11Z",
+  "updated": "2026-04-04T07:06:25Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
@@ -375,6 +375,10 @@
         {
           "t": "2026-04-04T02:34:10Z",
           "p": 9
+        },
+        {
+          "t": "2026-04-04T07:06:25Z",
+          "p": 9
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -744,6 +748,10 @@
         {
           "t": "2026-04-04T02:34:10Z",
           "p": 100
+        },
+        {
+          "t": "2026-04-04T07:06:25Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -1100,6 +1108,10 @@
         },
         {
           "t": "2026-04-04T02:34:11Z",
+          "p": 58
+        },
+        {
+          "t": "2026-04-04T07:06:25Z",
           "p": 58
         }
       ],

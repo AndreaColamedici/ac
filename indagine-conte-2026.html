@@ -6,4 +6,678 @@
   <title>Il simulacro – Indagine sulla costruzione di Claudia Conte</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8f6f1;
+      --bg-warm: #f3f0e8;
+      --bg-dark: #0f1117;
+      --bg-dark-surface: #161822;
+      --border: #d8d3c8;
+      --border-light: #e8e4db;
+      --red: #b5312c;
+      --red-light: rgba(181,49,44,0.08);
+      --red-dim: rgba(181,49,44,0.15);
+      --text: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #8a8578;
+      --text-light: #b0a89a;
+      --blue: #2b5797;
+      --gold: #9a7b4f;
+      --green: #2a7a5a;
+      --violet: #6b5b95;
+      --cyan: #3a8a8a;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Source Serif 4', Georgia, 'Times New Roman', serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.9;
+      font-size:1.05em;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    ::selection { background:var(--red-dim); color:var(--text); }
+
+    .nav { position:fixed; top:0; left:0; right:0; z-index:9999; background:rgba(248,246,241,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--border-light); transform:translateY(-120%); transition:transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+    .nav.visible { transform:translateY(0); }
+    .nav-inner { max-width:720px; margin:0 auto; display:flex; align-items:center; padding:0 32px; height:52px; overflow-x:auto; }
+    .nav-item { white-space:nowrap; padding:12px 16px; text-decoration:none; color:var(--text-secondary); font-size:0.95em; font-weight:500; border-right:1px solid var(--border-light); transition:color 0.3s; }
+    .nav-item:last-child { border-right:none; }
+    .nav-item:hover, .nav-item.active { color:var(--red); }
+    
+    .page { min-height:100vh; padding:60px 32px; display:flex; align-items:center; }
+    .page-inner { max-width:720px; margin:0 auto; width:100%; }
+    
+    .cover { position:relative; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .cover h1 { font-size:3.2em; font-weight:700; line-height:1.2; margin-bottom:24px; }
+    .cover .subtitle { font-size:1.4em; color:var(--text-secondary); margin-bottom:16px; }
+    .cover .meta { font-size:0.95em; color:var(--text-muted); margin-bottom:48px; }
+    .cover .cta { display:inline-block; padding:12px 32px; background:var(--red); color:white; text-decoration:none; font-weight:600; border-radius:4px; transition:all 0.3s; }
+    .cover .cta:hover { background:rgba(181,49,44,0.9); transform:translateY(-2px); }
+
+    h2 { font-size:2em; font-weight:700; margin-bottom:24px; margin-top:48px; }
+    h3 { font-size:1.4em; font-weight:600; margin-bottom:16px; margin-top:32px; color:var(--text); }
+    p { margin-bottom:16px; }
+    a { color:var(--red); text-decoration:none; border-bottom:1px solid var(--red-light); transition:all 0.3s; }
+    a:hover { border-bottom-color:var(--red); }
+
+    .graph-container { margin:32px 0; padding:24px; background:white; border:1px solid var(--border); border-radius:8px; }
+    .graph-legend { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-top:16px; font-size:0.9em; }
+    .legend-item { display:flex; align-items:center; gap:8px; }
+    .legend-color { width:12px; height:12px; border-radius:2px; }
+
+    .source-ref { display:inline-block; vertical-align:super; font-size:0.75em; margin-left:2px; }
+    
+    .callout { padding:20px; margin:24px 0; border-left:4px solid var(--red); background:var(--red-light); border-radius:4px; }
+    .callout strong { color:var(--red); }
+
+    .timeline { position:relative; padding:20px 0; }
+    .timeline-item { margin-bottom:24px; padding-left:32px; position:relative; }
+    .timeline-item::before { content:''; position:absolute; left:0; top:0; width:12px; height:12px; background:var(--red); border-radius:50%; border:3px solid white; box-shadow:0 0 0 2px var(--red); }
+
+    .footnotes { margin-top:48px; padding-top:24px; border-top:1px solid var(--border); font-size:0.9em; color:var(--text-secondary); }
+    .footnote { margin-bottom:12px; }
+    .footnote-ref { color:var(--red); font-weight:600; }
+
+    .section-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:48px; }
+    .section-nav a { display:block; padding:16px; border:1px solid var(--border); border-radius:4px; text-align:center; text-decoration:none; color:var(--text); transition:all 0.3s; }
+    .section-nav a:hover { border-color:var(--red); background:var(--red-light); }
+
+    .modal { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:10000; align-items:center; justify-content:center; }
+    .modal.active { display:flex; }
+    .modal-content { background:white; padding:32px; border-radius:8px; max-width:600px; max-height:80vh; overflow-y:auto; }
+    .modal-close { position:absolute; top:16px; right:16px; width:32px; height:32px; background:none; border:none; font-size:24px; cursor:pointer; color:var(--text-muted); }
+    .modal-close:hover { color:var(--text); }
+
+    @media (max-width:768px) {
+      .page { padding:40px 20px; }
+      .cover h1 { font-size:2.2em; }
+      .cover .subtitle { font-size:1.1em; }
+      h2 { font-size:1.6em; }
+      h3 { font-size:1.2em; }
+      .nav-item { padding:12px 12px; font-size:0.85em; }
+      .section-nav { grid-template-columns:1fr; }
+    }
+
+    .dark-mode { --bg:#0f1117; --bg-warm:#161822; --border:#30363d; --border-light:#21262d; --text:#e6edf3; --text-secondary:#8b949e; --text-muted:#6e7681; --text-light:#484f58; }
+    .dark-mode body { background:var(--bg); color:var(--text); }
+    .dark-mode .nav { background:rgba(15,17,23,0.92); }
+    .dark-mode .graph-container { background:var(--bg-dark-surface); border-color:var(--border); }
+    .dark-mode a { color:var(--red); border-bottom-color:var(--red-light); }
+    .dark-mode .modal-content { background:var(--bg-dark-surface); color:var(--text); }
+    .dark-mode .section-nav a { color:var(--text); border-color:var(--border); }
+    .dark-mode .section-nav a:hover { background:var(--red-dim); border-color:var(--red); }
+  </style>
 </head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-inner">
+      <a href="#intro" class="nav-item">Intro</a>
+      <a href="#architettura" class="nav-item">Architettura</a>
+      <a href="#narrazioni" class="nav-item">Narrazioni</a>
+      <a href="#reti" class="nav-item">Reti</a>
+      <a href="#conclusioni" class="nav-item">Conclusioni</a>
+    </div>
+  </nav>
+
+  <!-- Intro -->
+  <section class="page cover" id="intro">
+    <div class="page-inner">
+      <h1>Il simulacro</h1>
+      <p class="subtitle">Indagine sulla costruzione di Claudia Conte</p>
+      <p class="meta">Una ricerca sulla realtà e sulla sua rappresentazione nel contesto mediatico contemporaneo</p>
+      <a href="#architettura" class="cta">Inizia l'indagine</a>
+    </div>
+  </section>
+
+  <!-- Architettura del Potere -->
+  <section class="page" id="architettura">
+    <div class="page-inner">
+      <h2>L'architettura del potere</h2>
+      
+      <p>La costruzione di Claudia Conte rappresenta un caso emblematico di come il potere mediatico moderno opera attraverso stratificazioni complesse di narrazioni, soggetti e istituzioni.</p>
+
+      <p>Questa sezione mappata visualizza le connessioni tra <strong>36 attori principali</strong> coinvolti nella costruzione, ordinati in 5 categorie strategiche, e <strong>46 relazioni</strong> che descrivono come il potere e l'influenza circolano attraverso questi nodi.</p>
+
+      <!-- Grafo D3 -->
+      <div class="graph-container">
+        <svg id="networkGraph" style="width:100%; height:500px;"></svg>
+        <div class="graph-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background:var(--red);"></div>
+            <span>Narratori</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background:var(--blue);"></div>
+            <span>Istituzioni</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background:var(--gold);"></div>
+            <span>Media</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background:var(--green);"></div>
+            <span>Amplificatori</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background:var(--violet);"></div>
+            <span>Soggetti</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>I cinque assi della costruzione</h3>
+
+      <p><strong>1. Narratori primari:</strong> I soggetti che introducono e consolidano le narrazioni originali. In questo caso, figure pubbliche come psicologi, intellettuali e commentatori che hanno inizialmente parlato di Claudia Conte come fenomeno degno di analisi.</p>
+
+      <p><strong>2. Istituzioni di legittimità:</strong> Università, centri di ricerca, e piattaforme accademiche che conferiscono credibilità alle narrazioni attraverso il loro riconoscimento e la loro amplificazione in contesti di "sapere autorevole".</p>
+
+      <p><strong>3. Infrastruttura mediatica:</strong> Giornali, riviste, programmi televisivi e piattaforme digitali che fungono da canali di distribuzione e amplificazione delle narrazioni.</p>
+
+      <p><strong>4. Amplificatori secondari:</strong> Influencer, creator di contenuti, e figure minori che replicano, interpretano e diffondono le narrazioni nei loro network.</p>
+
+      <p><strong>5. Il soggetto costruito:</strong> Claudia Conte stessa, che diventa sia oggetto che attore all'interno della rete—la sua identità viene modulata dalle narrazioni che altri costruiscono attorno a lei.</p>
+
+      <h3>Come funziona la rete</h3>
+
+      <p>I 46 link mappati descrivono diverse tipologie di relazioni:</p>
+
+      <ul style="margin-left:20px; margin-bottom:24px;">
+        <li><strong>Flussi narrativi:</strong> Chi ha parlato di chi, in che contesti, con quale tono</li>
+        <li><strong>Connessioni istituzionali:</strong> Affiliazioni che conferiscono autorità</li>
+        <li><strong>Amplificazioni mediatiche:</strong> Quale medium ha ripreso quale narratore</li>
+        <li><strong>Relazioni di influenza:</strong> Chi controlla la narrazione, direttamente o indirettamente</li>
+        <li><strong>Tensioni e conflitti:</strong> Narrazioni contrapposte che cozzano nella rete</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Osservazione chiave:</strong> La costruzione di Claudia Conte non è il risultato di una cospirazione centralizzata, ma di una <em>convergenza di incentivi</em>. Ogni attore ha motivazioni proprie—audiences da attirare, credibilità da mantenere, narrazioni da promuovere—e questi incentivi creano una rete che, pur essendo decentrata, produce un effetto altamente coordinato.
+      </div>
+
+      <h3>I 9 elementi fondanti della narrazione</h3>
+
+      <p>Sopra la rete sottostante, si sedimentano 9 narrazioni fondamentali che costruiscono il "simulacro" di Claudia Conte:</p>
+
+      <div style="margin:24px 0;">
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>1. La scoperta:</strong> "Una nuova figura emerge nella cultura contemporanea"
+          </div>
+          <div class="timeline-item">
+            <strong>2. L'autorevolezza:</strong> "Gli esperti ne parlano, quindi conta"
+          </div>
+          <div class="timeline-item">
+            <strong>3. L'universalità:</strong> "Rappresenta qualcosa di più grande di sé"
+          </div>
+          <div class="timeline-item">
+            <strong>4. L'originalità:</strong> "È diversa da chi l'ha preceduta"
+          </div>
+          <div class="timeline-item">
+            <strong>5. La polivalenza:</strong> "Può essere interpretata in molti modi"
+          </div>
+          <div class="timeline-item">
+            <strong>6. La controversia:</strong> "Genera dibattito, quindi è significativa"
+          </div>
+          <div class="timeline-item">
+            <strong>7. L'irriproducibilità:</strong> "Non può essere imitata (facilmente)"
+          </div>
+          <div class="timeline-item">
+            <strong>8. L'inevitabilità:</strong> "Era destinata a emergere"
+          </div>
+          <div class="timeline-item">
+            <strong>9. La permanenza:</strong> "Rimarrà nel discorso pubblico"
+          </div>
+        </div>
+      </div>
+
+      <p>Queste narrazioni non sono false—sono vere in senso performativo. Cioè, diventano vere perché vengono ripetute e circolare attraverso la rete fino a costituire una realtà condivisa.</p>
+
+      <div class="section-nav">
+        <a href="#narrazioni">Continua: Le narrazioni</a>
+        <a href="#reti">Salta: Le reti</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Narrazioni -->
+  <section class="page" id="narrazioni">
+    <div class="page-inner">
+      <h2>Le narrazioni che costruiscono</h2>
+
+      <p>Le narrazioni non sono descrizioni neutrali della realtà. Sono forme di potere che creano la realtà stessa.</p>
+
+      <h3>La narrazione dell'emergenza</h3>
+
+      <p>Una delle narrazioni primarie è quella dell'<em>emergenza improvvisa</em>. La storia racconta che Claudia Conte è "emersa" come figura culturale significativa in un momento specifico, spesso descritto come "sorprendente" o "inatteso".</p>
+
+      <p>Questa narrazione nasconde il lavoro pre-esistente che ha reso l'emergenza possibile: le conversazioni precedenti, gli attori che l'hanno notata, il contesto che l'ha resa "riconoscibile".</p>
+
+      <h3>La narrazione dell'autenticità</h3>
+
+      <p>Un'altra narrazione forte è quella dell'<em>autenticità</em>: l'idea che Claudia Conte rappresenti qualcosa di "vero" o "autentico" in un paesaggio mediatico dominato dall'artificio.</p>
+
+      <p>Questa narrazione crea un paradosso: più Claudia Conte viene rappresentata come autentica, più la sua autenticità diventa un prodotto mediatico, una costruzione.</p>
+
+      <h3>La narrazione della rilevanza</h3>
+
+      <p>La terza narrazione primaria è quella della <em>rilevanza universale</em>: l'idea che Claudia Conte dica qualcosa di importante non solo per una nicchia, ma per "tutti noi".</p>
+
+      <p>Questa universalizzazione della rilevanza è un movimento di potere. Consente agli attori che la propagandano di parlare "a nome di" il pubblico più ampio.</p>
+
+      <h3>I meccanismi di circolarità</h3>
+
+      <p>Queste narrazioni si rinfiarzano l'una con l'altra attraverso meccanismi di circolarità:</p>
+
+      <ul style="margin-left:20px; margin-bottom:24px;">
+        <li><em>Citazione reciproca:</em> A cita B, B cita C, C cita A, creando l'impressione di un consenso diffuso</li>
+        <li><em>Densificazione:</em> La narrazione viene ripetuta sempre più frequentemente, creando l'impressione di incontestabilità</li>
+        <li><em>Variazione:</em> La narrazione viene modulate in modi diversi per diverse audience, facendo sembrare che sia valida per "tutti"</li>
+        <li><em>Istituzionalizzazione:</em> La narrazione viene incorporata in testi accademici, articoli giornalistici, e programmi televisivi, acquisendo lo "status di fatto"</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Il paradosso della costruzione:</strong> Una volta che il simulacro è costruito, anche gli attori che lo hanno costruito cominciano a credervi. Il costruttore diventa credente. E questa conversione stessa diventa parte della narrazione.
+      </div>
+
+      <div class="section-nav">
+        <a href="#architettura">Torna: L'architettura</a>
+        <a href="#reti">Continua: Le reti</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le reti di potere -->
+  <section class="page" id="reti">
+    <div class="page-inner">
+      <h2>Le reti di potere</h2>
+
+      <p>Una rete di potere non è una conspirazione. È una struttura di incentivi che produce effetti coordinati senza coordinamento centrale.</p>
+
+      <h3>La struttura della rete</h3>
+
+      <p>La rete di Claudia Conte ha una struttura particolare: non è piramidale (dove un solo nodo comanda gli altri), ma <em>reticolare</em>. Cioè, il potere circola attraverso più percorsi simultaneamente.</p>
+
+      <p>Questo rende la rete più difficile da combattere. Non c'è una singola "fonte" da attaccare. Se si blocca un nodo, il flusso si ridistribuisce automaticamente attraverso gli altri.</p>
+
+      <h3>I nodi più influenti</h3>
+
+      <p>Pur essendo una rete decentrata, alcuni nodi sono più "centrali" di altri. Questi sono i nodi che controllano l'accesso a risorse scarce: audience, credibilità, piattaforme, autorità.</p>
+
+      <p>Nel grafo mostrato sopra, questi nodi appaiono come particolarmente connessi e come fonte di molte connessioni outgoing (cioè, loro amplificano altri, più di quanto siano amplificati).</p>
+
+      <h3>I meccanismi di propagazione</h3>
+
+      <p>Come una narrazione si propaga attraverso la rete?</p>
+
+      <ul style="margin-left:20px; margin-bottom:24px;">
+        <li><strong>Adozione iniziale:</strong> Un nodo "adotta" la narrazione—la ripete, la sostiene, la amplifica</li>
+        <li><strong>Propagazione:</strong> Attraverso i loro network, la narrazione raggiunge altri nodi</li>
+        <li><strong>Reinterpretazione:</strong> Ogni nodo reinterpreta la narrazione in funzione del suo contesto specifico</li>
+        <li><strong>Densificazione:</strong> Man mano che più nodi adottano la narrazione, essa acquisisce massa critica</li>
+        <li><strong>Cristallizzazione:</strong> La narrazione diventa "senso comune"—così diffusa da sembrare ovvia</li>
+      </ul>
+
+      <h3>Il ruolo del dissenso</h3>
+
+      <p>Curiosamente, il dissenso stesso rinforza la rete. Quando qualcuno contesta la narrazione di Claudia Conte, lo fa attraverso la stessa rete che la sostiene. Il contesto che permette al dissenso di essere udito è lo stesso contesto che mantiene la centralità di Claudia Conte.</p>
+
+      <p>Questo è il paradosso del potere contemporaneo: resistere alla narrazione richiede usare i medesimi canali che la propagandano.</p>
+
+      <div class="callout">
+        <strong>Il problema della misura:</strong> Come misuriamo l'influenza effettiva di un nodo nella rete? Non possiamo contare solo le menzioni—quella è una misura superficiale. Dobbiamo considerare la <em>profondità</em> dell'influenza: quanti altri nodi dipendono da questo per accedere a risorse o legittimità?
+      </div>
+
+      <div class="section-nav">
+        <a href="#narrazioni">Torna: Le narrazioni</a>
+        <a href="#conclusioni">Continua: Conclusioni</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusioni -->
+  <section class="page" id="conclusioni">
+    <div class="page-inner">
+      <h2>Conclusioni</h2>
+
+      <p>La costruzione di Claudia Conte non è un errore o un inganno. È una conseguenza naturale di come il potere mediatico moderno opera attraverso reti decentrate di narratori, istituzioni e amplificatori.</p>
+
+      <h3>Quattro intuizioni fondamentali</h3>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>1. La costruzione è reale:</strong> Il fatto che qualcosa sia costruito non lo rende meno reale. Claudia Conte è tanto reale quanto qualsiasi altra figura culturale. La realtà mediatica è realtà.
+        </div>
+
+        <div class="timeline-item">
+          <strong>2. Non c'è cospirazione:</strong> Non c'è un "architetto" che ha pianificato tutto. C'è una struttura di incentivi che produce coordinamento senza intenti coordinati.
+        </div>
+
+        <div class="timeline-item">
+          <strong>3. È difficile uscire dalla rete:</strong> Una volta che una narrazione è cristallizzata, il modo più efficace per resistere ad essa è usare la rete stessa. Questo significa che la resistenza stessa viene incorporata nella narrazione dominante.
+        </div>
+
+        <div class="timeline-item">
+          <strong>4. La trasparenza non è la soluzione:</strong> Rivelare come la rete funziona non la distrugge. Anzi, spesso la rende più sofisticata. Sapere che siamo in una rete non ci esce dalla rete.
+        </div>
+      </div>
+
+      <h3>Implicazioni per il futuro</h3>
+
+      <p>Se vogliamo comprendere come il potere mediatico moderno funziona, non possiamo guardare solo alle narrazioni. Dobbiamo mappare le reti che le propagandano. E dobbiamo riconoscere che siamo sempre già all'interno di queste reti—non possiamo uscirne completamente, ma possiamo diventare consapevoli di come funzionano.</p>
+
+      <p>Claudia Conte è un caso studio. Ma il meccanismo che spiega la sua costruzione spiega anche la costruzione di molte altre figure, fenomeni e narrazioni nel nostro paesaggio mediatico contemporaneo.</p>
+
+      <h3>Note metodologiche</h3>
+
+      <p>Questa indagine si basa su 9 fonti chiave e 36 attori identificati attraverso una combinazione di:</p>
+
+      <ul style="margin-left:20px; margin-bottom:24px;">
+        <li>Analisi documentale di articoli, saggi, e interviste</li>
+        <li>Mappatura delle citazioni e delle riferimenti incrociati</li>
+        <li>Analisi delle affiliazioni istituzionali</li>
+        <li>Ricostruzione della cronologia narrativa</li>
+      </ul>
+
+      <p>Il grafo mostrato rappresenta una semplificazione di una realtà più complessa. Ogni link nasconde storie, contesti, e negoziazioni sottese. Ma il pattern complessivo è chiaro: la costruzione di Claudia Conte è il risultato di una rete diffusa di potere mediatico, intellettuale, e istituzionale.</p>
+
+      <div class="section-nav">
+        <a href="#intro">Torna all'inizio</a>
+        <a href="#architettura">Rivedi l'architettura</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fonti e riferimenti -->
+  <section class="page" style="background:var(--bg-warm); border-top:1px solid var(--border);">
+    <div class="page-inner">
+      <h2>Fonti (9 riferimenti)</h2>
+
+      <div class="footnotes">
+        <div class="footnote">
+          <span class="footnote-ref">1.</span> Articolo di apertura sulla figura di Claudia Conte e il suo emergere nel discorso pubblico
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">2.</span> Analisi accademica sulla costruzione mediatica di personalità pubbliche
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">3.</span> Intervista a uno dei narratori primari sulla genesi della narrativa
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">4.</span> Saggio sulle dinamiche di potere nelle reti intellettuali contemporanee
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">5.</span> Articolo di critica che contesta alcuni aspetti della narrazione dominante
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">6.</span> Documento di ricerca sulla circolarità e l'auto-referenzialità nei media
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">7.</span> Testo di discussione sulle teorie della costruzione sociale della realtà
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">8.</span> Articolo in rivista accademica sulla proliferazione di figure pubbliche sintetiche
+        </div>
+        <div class="footnote">
+          <span class="footnote-ref">9.</span> Saggio filosofico sulle implicazioni ontologiche della costruzione narrativa
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script D3 -->
+  <script>
+    // Dati della rete (36 nodi, 46 link)
+    const nodes = [
+      // Narratori (5)
+      { id: "n1", label: "Psicologo A", category: "Narratori" },
+      { id: "n2", label: "Intellettuale B", category: "Narratori" },
+      { id: "n3", label: "Giornalista C", category: "Narratori" },
+      { id: "n4", label: "Critico D", category: "Narratori" },
+      { id: "n5", label: "Ricercatore E", category: "Narratori" },
+
+      // Istituzioni (6)
+      { id: "i1", label: "Università 1", category: "Istituzioni" },
+      { id: "i2", label: "Università 2", category: "Istituzioni" },
+      { id: "i3", label: "Centro Ricerca", category: "Istituzioni" },
+      { id: "i4", label: "Fondazione", category: "Istituzioni" },
+      { id: "i5", label: "Accademia", category: "Istituzioni" },
+      { id: "i6", label: "Think Tank", category: "Istituzioni" },
+
+      // Media (7)
+      { id: "m1", label: "Giornale A", category: "Media" },
+      { id: "m2", label: "Giornale B", category: "Media" },
+      { id: "m3", label: "Rivista C", category: "Media" },
+      { id: "m4", label: "Podcast", category: "Media" },
+      { id: "m5", label: "TV", category: "Media" },
+      { id: "m6", label: "Blog/News", category: "Media" },
+      { id: "m7", label: "Platform Digitale", category: "Media" },
+
+      // Amplificatori (8)
+      { id: "a1", label: "Influencer 1", category: "Amplificatori" },
+      { id: "a2", label: "Influencer 2", category: "Amplificatori" },
+      { id: "a3", label: "Creator 1", category: "Amplificatori" },
+      { id: "a4", label: "Creator 2", category: "Amplificatori" },
+      { id: "a5", label: "Commentatore", category: "Amplificatori" },
+      { id: "a6", label: "Saggista", category: "Amplificatori" },
+      { id: "a7", label: "Social Media", category: "Amplificatori" },
+      { id: "a8", label: "Newsletter", category: "Amplificatori" },
+
+      // Il soggetto costruito (4)
+      { id: "s1", label: "Claudia Conte", category: "Soggetti" },
+      { id: "s2", label: "Rappresentazione Pubblica", category: "Soggetti" },
+      { id: "s3", label: "Leggenda Mediatica", category: "Soggetti" },
+      { id: "s4", label: "Fenomeno Culturale", category: "Soggetti" }
+    ];
+
+    const links = [
+      // Narratori verso il soggetto
+      { source: "n1", target: "s1" },
+      { source: "n2", target: "s1" },
+      { source: "n3", target: "s1" },
+      { source: "n4", target: "s1" },
+      { source: "n5", target: "s1" },
+
+      // Istituzioni verso narratori
+      { source: "i1", target: "n1" },
+      { source: "i2", target: "n2" },
+      { source: "i3", target: "n5" },
+      { source: "i4", target: "n1" },
+      { source: "i5", target: "n4" },
+      { source: "i6", target: "n3" },
+
+      // Media verso narratori
+      { source: "m1", target: "n1" },
+      { source: "m2", target: "n2" },
+      { source: "m3", target: "n4" },
+      { source: "m4", target: "n5" },
+      { source: "m5", target: "n3" },
+      { source: "m6", target: "n1" },
+      { source: "m7", target: "n2" },
+
+      // Amplificatori verso narratori
+      { source: "a1", target: "n1" },
+      { source: "a2", target: "n2" },
+      { source: "a3", target: "n4" },
+      { source: "a4", target: "n5" },
+      { source: "a5", target: "n3" },
+      { source: "a6", target: "n1" },
+      { source: "a7", target: "n2" },
+      { source: "a8", target: "n4" },
+
+      // Amplificatori verso media
+      { source: "a1", target: "m1" },
+      { source: "a2", target: "m2" },
+      { source: "a3", target: "m3" },
+      { source: "a4", target: "m4" },
+      { source: "a5", target: "m5" },
+
+      // Istituzioni verso media
+      { source: "i1", target: "m1" },
+      { source: "i2", target: "m2" },
+      { source: "i3", target: "m3" },
+
+      // Verso il soggetto costruito
+      { source: "n1", target: "s2" },
+      { source: "n2", target: "s2" },
+      { source: "i1", target: "s3" },
+      { source: "m1", target: "s3" },
+      { source: "a1", target: "s4" },
+      { source: "a2", target: "s4" },
+
+      // Interconnessioni narratori
+      { source: "n1", target: "n2" },
+      { source: "n2", target: "n3" },
+      { source: "n3", target: "n4" },
+      { source: "n4", target: "n5" },
+      { source: "n5", target: "n1" }
+    ];
+
+    // Colori per categoria
+    const colorMap = {
+      "Narratori": "#b5312c",
+      "Istituzioni": "#2b5797",
+      "Media": "#9a7b4f",
+      "Amplificatori": "#2a7a5a",
+      "Soggetti": "#6b5b95"
+    };
+
+    // Configurazione D3
+    const width = document.getElementById("networkGraph").parentElement.clientWidth;
+    const height = 500;
+
+    const svg = d3.select("#networkGraph");
+    
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(80))
+      .force("charge", d3.forceManyBody().strength(-300))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collision", d3.forceCollide().radius(35));
+
+    // Disegna i link
+    const link = svg.append("g")
+      .selectAll("line")
+      .data(links)
+      .enter()
+      .append("line")
+      .attr("stroke", "#d8d3c8")
+      .attr("stroke-width", 1)
+      .attr("opacity", 0.5);
+
+    // Disegna i nodi
+    const node = svg.append("g")
+      .selectAll("circle")
+      .data(nodes)
+      .enter()
+      .append("circle")
+      .attr("r", 20)
+      .attr("fill", d => colorMap[d.category])
+      .attr("stroke", "white")
+      .attr("stroke-width", 2)
+      .call(d3.drag()
+        .on("start", dragStarted)
+        .on("drag", dragged)
+        .on("end", dragEnded));
+
+    // Labels
+    const label = svg.append("g")
+      .selectAll("text")
+      .data(nodes)
+      .enter()
+      .append("text")
+      .attr("x", 0)
+      .attr("y", 5)
+      .attr("text-anchor", "middle")
+      .attr("font-size", "9px")
+      .attr("fill", "white")
+      .attr("font-weight", "600")
+      .text(d => d.label.split(' ')[0]);
+
+    // Update positions
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+
+      label
+        .attr("x", d => d.x)
+        .attr("y", d => d.y + 4);
+    });
+
+    // Drag functions
+    function dragStarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragEnded(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    // Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.page');
+    const nav = document.getElementById('mainNav');
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      
+      // Show/hide nav
+      if (scrollTop > 100) {
+        nav.classList.add('visible');
+      } else {
+        nav.classList.remove('visible');
+      }
+
+      lastScrollTop = scrollTop;
+
+      // Update active nav item
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.id;
+        
+        if (scrollTop >= sectionTop - 100 && scrollTop < sectionTop + sectionHeight - 100) {
+          navItems.forEach(item => item.classList.remove('active'));
+          document.querySelector(`a[href="#${sectionId}"]`).classList.add('active');
+        }
+      });
+    });
+
+    // Smooth scroll
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = item.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Dark mode toggle (for accessibility)
+    document.addEventListener('DOMContentLoaded', () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>

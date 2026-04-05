@@ -1,11 +1,11 @@
 {
-  "updated": "2026-04-05T02:52:13Z",
+  "updated": "2026-04-05T07:13:27Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
       "yes": 10,
-      "volume": "49009.654337999964",
+      "volume": "49014.624337999965",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
         {
@@ -390,6 +390,10 @@
         },
         {
           "t": "2026-04-05T02:52:13Z",
+          "p": 10
+        },
+        {
+          "t": "2026-04-05T07:13:26Z",
           "p": 10
         }
       ],
@@ -776,6 +780,10 @@
         {
           "t": "2026-04-05T02:52:13Z",
           "p": 100
+        },
+        {
+          "t": "2026-04-05T07:13:27Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -1148,6 +1156,10 @@
         },
         {
           "t": "2026-04-05T02:52:13Z",
+          "p": 58
+        },
+        {
+          "t": "2026-04-05T07:13:27Z",
           "p": 58
         }
       ],

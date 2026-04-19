@@ -1,17 +1,13 @@
 {
-  "updated": "2026-04-19T03:21:10Z",
+  "updated": "2026-04-19T07:25:43Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon?",
-      "yes": 8,
-      "volume": "67438.95549499993",
+      "yes": 7,
+      "volume": "67443.21081099992",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
-        {
-          "t": "2026-03-25T02:36:16Z",
-          "p": 16
-        },
         {
           "t": "2026-03-25T07:08:10Z",
           "p": 16
@@ -407,6 +403,10 @@
         {
           "t": "2026-04-19T03:21:09Z",
           "p": 8
+        },
+        {
+          "t": "2026-04-19T07:25:43Z",
+          "p": 7
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -417,10 +417,6 @@
       "volume": "16222837.860438045",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
-        {
-          "t": "2026-03-25T02:36:16Z",
-          "p": 97
-        },
         {
           "t": "2026-03-25T07:08:10Z",
           "p": 98
@@ -816,20 +812,20 @@
         {
           "t": "2026-04-19T03:21:10Z",
           "p": 100
+        },
+        {
+          "t": "2026-04-19T07:25:43Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
     },
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
-      "yes": 65,
-      "volume": "52688.371905000065",
+      "yes": 62,
+      "volume": "52882.16989000006",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
-        {
-          "t": "2026-03-25T02:36:16Z",
-          "p": 58
-        },
         {
           "t": "2026-03-25T07:08:10Z",
           "p": 59
@@ -1225,6 +1221,10 @@
         {
           "t": "2026-04-19T03:21:10Z",
           "p": 65
+        },
+        {
+          "t": "2026-04-19T07:25:43Z",
+          "p": 62
         }
       ],
       "note": "Yes = Anthropic IPOs first (56%). No = OpenAI first (44%). Pentagon designation may delay Anthropic. No IPO by Jun 30 at 95% on related market."

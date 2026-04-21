@@ -1,6 +1,68 @@
 {
   "alerts": [
     {
+      "title": "Anthropic-Pentagon: 5% to 26%, White House thaw signals",
+      "shift_pp": 21,
+      "what_moved": [
+        {
+          "date": "April 18",
+          "event": "White House holds 'productive' meeting with Anthropic CEO Dario Amodei, Treasury Secretary Scott Bessent, and Chief of Staff Susie Wiles"
+        },
+        {
+          "date": "April 10-11",
+          "event": "Anthropic privately releases Claude Mythos preview model to select partners, demonstrating advanced cybersecurity capabilities"
+        },
+        {
+          "date": "April 8",
+          "event": "DC Appeals Court rejects Anthropic's emergency stay request, maintaining Pentagon's supply-chain risk designation"
+        },
+        {
+          "date": "March 26",
+          "event": "San Francisco Judge Rita Lin grants preliminary injunction blocking federal agencies from enforcing supply-chain risk ban"
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Pete Hegseth",
+          "role": "Defense Secretary, designated Anthropic as supply-chain risk"
+        },
+        {
+          "name": "Dario Amodei",
+          "role": "Anthropic CEO, met with White House leadership"
+        },
+        {
+          "name": "Susie Wiles",
+          "role": "White House Chief of Staff, led productive meeting with Anthropic"
+        },
+        {
+          "name": "Scott Bessent",
+          "role": "Treasury Secretary, participated in White House-Anthropic meeting"
+        },
+        {
+          "name": "David Sacks",
+          "role": "Former White House AI/Crypto Czar, cautioned about Mythos capabilities"
+        },
+        {
+          "name": "OpenAI",
+          "role": "Beneficiary of Pentagon pivot away from Anthropic"
+        },
+        {
+          "name": "xAI",
+          "role": "Musk company positioned to benefit from Anthropic exclusion"
+        },
+        {
+          "name": "Palantir",
+          "role": "Defense contractor affected by supply-chain restrictions"
+        }
+      ],
+      "assessment": "The market surge reflects White House engagement breaking two months of executive hostility after Anthropic's Mythos model demonstrated critical cybersecurity capabilities. Despite DC Appeals Court upholding the Pentagon ban, Friday's meeting with Wiles and Bessent signals potential pathway to reconciliation, especially given Trump's apparent unfamiliarity with the meeting when questioned by reporters.",
+      "timestamp": "2026-04-21T13:52:25Z",
+      "market_id": "anthropic-pentagon",
+      "price_before": 5,
+      "price_after": 26,
+      "volume": 70502.25642999992
+    },
+    {
       "title": "Anthropic-Pentagon: 17% to 6%, falling",
       "shift_pp": -11,
       "what_moved": [

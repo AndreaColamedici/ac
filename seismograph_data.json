@@ -1,17 +1,13 @@
 {
-  "updated": "2026-04-25T18:59:45Z",
+  "updated": "2026-04-26T03:26:27Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon by...?",
-      "yes": 9,
-      "volume": "81168.94219600005",
+      "yes": 10,
+      "volume": "81304.63845400004",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
-        {
-          "t": "2026-04-01T02:57:17Z",
-          "p": 16
-        },
         {
           "t": "2026-04-01T07:27:38Z",
           "p": 16
@@ -407,6 +403,10 @@
         {
           "t": "2026-04-25T18:59:44Z",
           "p": 9
+        },
+        {
+          "t": "2026-04-26T03:26:27Z",
+          "p": 10
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -417,10 +417,6 @@
       "volume": "16222837.860438045",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
-        {
-          "t": "2026-04-01T02:57:17Z",
-          "p": 100
-        },
         {
           "t": "2026-04-01T07:27:38Z",
           "p": 100
@@ -816,6 +812,10 @@
         {
           "t": "2026-04-25T18:59:45Z",
           "p": 100
+        },
+        {
+          "t": "2026-04-26T03:26:27Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -823,13 +823,9 @@
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
       "yes": 66,
-      "volume": "53152.29864000006",
+      "volume": "53153.79117600006",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
-        {
-          "t": "2026-04-01T02:57:17Z",
-          "p": 62
-        },
         {
           "t": "2026-04-01T07:27:39Z",
           "p": 62
@@ -1224,6 +1220,10 @@
         },
         {
           "t": "2026-04-25T18:59:45Z",
+          "p": 66
+        },
+        {
+          "t": "2026-04-26T03:26:27Z",
           "p": 66
         }
       ],

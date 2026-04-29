@@ -1,17 +1,13 @@
 {
-  "updated": "2026-04-29T08:24:52Z",
+  "updated": "2026-04-29T14:08:21Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
       "question": "Will Anthropic make a deal with the Pentagon by...?",
-      "yes": 3,
-      "volume": "91718.49170300007",
+      "yes": 1,
+      "volume": "91762.30360900007",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
-        {
-          "t": "2026-04-04T13:04:44Z",
-          "p": 12
-        },
         {
           "t": "2026-04-04T18:50:50Z",
           "p": 12
@@ -407,6 +403,10 @@
         {
           "t": "2026-04-29T08:24:51Z",
           "p": 3
+        },
+        {
+          "t": "2026-04-29T14:08:21Z",
+          "p": 1
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -417,10 +417,6 @@
       "volume": "16222837.860438045",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
-        {
-          "t": "2026-04-04T13:04:44Z",
-          "p": 100
-        },
         {
           "t": "2026-04-04T18:50:50Z",
           "p": 100
@@ -816,6 +812,10 @@
         {
           "t": "2026-04-29T08:24:52Z",
           "p": 100
+        },
+        {
+          "t": "2026-04-29T14:08:21Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -826,10 +826,6 @@
       "volume": "53265.74278300005",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
-        {
-          "t": "2026-04-04T13:04:44Z",
-          "p": 58
-        },
         {
           "t": "2026-04-04T18:50:51Z",
           "p": 58
@@ -1224,6 +1220,10 @@
         },
         {
           "t": "2026-04-29T08:24:52Z",
+          "p": 66
+        },
+        {
+          "t": "2026-04-29T14:08:21Z",
           "p": 66
         }
       ],

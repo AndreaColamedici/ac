@@ -270,273 +270,56 @@
         /* ———————————————————————————————————————————————————————————————
            RECENT / HIGHLIGHTS SECTION
            ——————————————————————————————————————————————————————————————— */
-        .recent-section {
-            background: #fafafa;
-            padding: 5rem 0;
-        }
-        .recent-event {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        .recent-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 3rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--grigio-chiaro);
-        }
-        .recent-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
-            font-weight: 400;
-        }
-        .recent-year {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-        }
-        
-        .recent-card {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: start;
-        }
-        .recent-card-meta {
-            position: sticky;
-            top: 6rem;
-        }
-        .recent-card-location {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-            margin-bottom: 0.5rem;
-        }
-        .recent-card-name {
-            font-family: 'Instrument Serif', serif;
-            font-size: 2rem;
-            font-weight: 400;
-            line-height: 1.2;
-            margin-bottom: 0.75rem;
-        }
-        .recent-card-name em {
-            font-style: italic;
-        }
-        .recent-card-date {
-            font-size: 0.85rem;
-            color: var(--grigio);
-        }
-        
-        .recent-card-facts {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .recent-fact {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 1.5rem;
-            align-items: start;
-            padding: 1.5rem;
-            background: var(--bianco);
-            border: 1px solid var(--grigio-chiaro);
-            transition: all 0.4s ease;
-        }
-        .recent-fact:hover {
-            border-color: var(--ottanio);
-            transform: translateX(5px);
-        }
-        .recent-fact-num {
-            font-family: 'Instrument Serif', serif;
-            font-size: 2rem;
-            font-style: italic;
-            color: var(--ottanio);
-            line-height: 1;
-            opacity: 0.5;
-        }
-        .recent-fact-content h4 {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.15rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-        }
-        .recent-fact-content p {
-            font-size: 0.9rem;
-            color: var(--grigio);
-            line-height: 1.6;
-        }
-        .recent-fact-link {
-            align-self: center;
-        }
-        .recent-fact-link a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--grigio-chiaro);
-            border-radius: 50%;
-            color: var(--grigio);
-            transition: all 0.3s ease;
-        }
-        .recent-fact-link a:hover {
-            background: var(--ottanio);
-            border-color: var(--ottanio);
-            color: var(--bianco);
-        }
-        
+        .recent-section { background: #fafafa; padding: 5rem 0; }
+        .recent-event { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .recent-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3rem; padding-bottom: 1rem; border-bottom: 1px solid var(--grigio-chiaro); }
+        .recent-title { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; }
+        .recent-year { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ottanio); }
+        .recent-card { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: start; }
+        .recent-card-meta { position: sticky; top: 6rem; }
+        .recent-card-location { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ottanio); margin-bottom: 0.5rem; }
+        .recent-card-name { font-family: 'Instrument Serif', serif; font-size: 2rem; font-weight: 400; line-height: 1.2; margin-bottom: 0.75rem; }
+        .recent-card-name em { font-style: italic; }
+        .recent-card-date { font-size: 0.85rem; color: var(--grigio); }
+        .recent-card-facts { display: flex; flex-direction: column; gap: 1.5rem; }
+        .recent-fact { display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: start; padding: 1.5rem; background: var(--bianco); border: 1px solid var(--grigio-chiaro); transition: all 0.4s ease; }
+        .recent-fact:hover { border-color: var(--ottanio); transform: translateX(5px); }
+        .recent-fact-num { font-family: 'Instrument Serif', serif; font-size: 2rem; font-style: italic; color: var(--ottanio); line-height: 1; opacity: 0.5; }
+        .recent-fact-content h4 { font-family: 'Instrument Serif', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 0.5rem; }
+        .recent-fact-content p { font-size: 0.9rem; color: var(--grigio); line-height: 1.6; }
+        .recent-fact-link { align-self: center; }
+        .recent-fact-link a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--grigio-chiaro); border-radius: 50%; color: var(--grigio); transition: all 0.3s ease; }
+        .recent-fact-link a:hover { background: var(--ottanio); border-color: var(--ottanio); color: var(--bianco); }
         @media (max-width: 900px) {
-            .recent-card {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .recent-card-meta {
-                position: static;
-            }
-            .recent-fact {
-                grid-template-columns: auto 1fr;
-            }
-            .recent-fact-link {
-                grid-column: 1 / -1;
-                justify-self: end;
-            }
+            .recent-card { grid-template-columns: 1fr; gap: 2rem; }
+            .recent-card-meta { position: static; }
+            .recent-fact { grid-template-columns: auto 1fr; }
+            .recent-fact-link { grid-column: 1 / -1; justify-self: end; }
         }
 
         /* ———————————————————————————————————————————————————————————————
            FIELD NOTE SECTION
            ——————————————————————————————————————————————————————————————— */
-        .field-note {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            padding: 4rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .field-note::before {
-            content: '👟';
-            position: absolute;
-            top: 50%;
-            right: 5%;
-            transform: translateY(-50%) rotate(-15deg);
-            font-size: 15rem;
-            opacity: 0.03;
-            pointer-events: none;
-        }
-        .field-note.field-note--traccia::before {
-            content: '✍';
-        }
-        .field-note-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        .field-note-badge {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--ottanio);
-            padding: 1rem 0;
-            border-left: 2px solid var(--ottanio);
-            padding-left: 0.75rem;
-        }
-        .field-note-main {
-            color: var(--bianco);
-        }
-        .field-note-date {
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 1rem;
-        }
-        .field-note-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 400;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: rgba(255,255,255,0.95);
-        }
-        .field-note-title em {
-            font-style: italic;
-            color: var(--ottanio);
-        }
-        .field-note-excerpt {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.6);
-            max-width: 600px;
-        }
-        .field-note-cta {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .field-note-cta a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            color: var(--bianco);
-            transition: all 0.4s ease;
-        }
-        .field-note-cta a:hover {
-            background: var(--ottanio);
-            border-color: var(--ottanio);
-            transform: scale(1.1);
-        }
-        .field-note-cta span {
-            font-size: 0.65rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-        }
-        
+        .field-note { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 4rem 2rem; position: relative; overflow: hidden; }
+        .field-note::before { content: '👟'; position: absolute; top: 50%; right: 5%; transform: translateY(-50%) rotate(-15deg); font-size: 15rem; opacity: 0.03; pointer-events: none; }
+        .field-note.field-note--traccia::before { content: '✍'; }
+        .field-note-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr auto; gap: 3rem; align-items: center; position: relative; z-index: 1; }
+        .field-note-badge { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ottanio); padding: 1rem 0; border-left: 2px solid var(--ottanio); padding-left: 0.75rem; }
+        .field-note-main { color: var(--bianco); }
+        .field-note-date { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+        .field-note-title { font-family: 'Instrument Serif', serif; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: 1rem; color: rgba(255,255,255,0.95); }
+        .field-note-title em { font-style: italic; color: var(--ottanio); }
+        .field-note-excerpt { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.6); max-width: 600px; }
+        .field-note-cta { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .field-note-cta a { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: var(--bianco); transition: all 0.4s ease; }
+        .field-note-cta a:hover { background: var(--ottanio); border-color: var(--ottanio); transform: scale(1.1); }
+        .field-note-cta span { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
         @media (max-width: 900px) {
-            .field-note-content {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                text-align: center;
-            }
-            .field-note-badge {
-                writing-mode: horizontal-tb;
-                transform: none;
-                border-left: none;
-                border-bottom: 2px solid var(--ottanio);
-                padding: 0 0 0.5rem 0;
-                justify-self: center;
-            }
-            .field-note-excerpt {
-                margin: 0 auto;
-            }
-            .field-note-cta {
-                flex-direction: row;
-                justify-content: center;
-            }
-            .field-note::before {
-                font-size: 8rem;
-                right: -5%;
-                opacity: 0.02;
-            }
+            .field-note-content { grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
+            .field-note-badge { writing-mode: horizontal-tb; transform: none; border-left: none; border-bottom: 2px solid var(--ottanio); padding: 0 0 0.5rem 0; justify-self: center; }
+            .field-note-excerpt { margin: 0 auto; }
+            .field-note-cta { flex-direction: row; justify-content: center; }
+            .field-note::before { font-size: 8rem; right: -5%; opacity: 0.02; }
         }
     </style>
 </head>
@@ -583,7 +366,6 @@
     </div>
 
     <main>
-        <!-- Floating background elements -->
         <div class="float-element float-1">?</div>
         <div class="float-element float-2">∞</div>
         <div class="float-element float-3">谎</div>
@@ -603,8 +385,6 @@
                     <span>Rome, 1987</span>
                     <span>President of GenIA, AI Hub at <a href="https://www.accademiadellearti.it/" target="_blank">AANT</a></span>
                     <span>Philosophical Director, <a href="https://www.pensarecontemporaneo.it/" target="_blank">Festival del Pensare Contemporaneo</a></span>
-                    <span>Scientific Committee, <a href="https://www.muse.it/" target="_blank">IO &amp; AI</a>, MUSE – Museo delle Scienze, Trento</span>
-                    <span>Scientific Committee, <a href="https://www.polito.it/ateneo/comunicazione-e-ufficio-stampa/avvisi/news?idn=27275" target="_blank">∀ISION_E</a>, Politecnico di Torino</span>
                 </div>
             </div>
         </section>
@@ -660,7 +440,6 @@
             </div>
         </section>
 
-        <!-- Recent / Highlights -->
         <section class="recent-section reveal">
             <div class="recent-event">
                 <div class="recent-header">
@@ -681,9 +460,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="https://arcipelagodellerealta.it" target="_blank" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -703,9 +480,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="https://teatrocarcano.com/eventi/ipnocrazia-tlon-gancitano-colamedici-2526.htm" target="_blank" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -725,9 +500,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="https://parix.es" target="_blank" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -747,9 +520,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="https://www.lo-oslo.no" target="_blank" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -769,9 +540,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="https://voicesfestival.eu/conference-event/power-perception-and-manipulation/" target="_blank" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -793,9 +562,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="press.html" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -831,9 +598,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="prompt-thinking.html" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -869,9 +634,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="prompt-thinking.html" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -925,9 +688,7 @@
                             </div>
                             <div class="recent-fact-link">
                                 <a href="santiago.html" class="magnetic">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </a>
                             </div>
                         </div>
@@ -936,7 +697,6 @@
             </div>
         </section>
 
-        <!-- Field Note: The Visible Trace of Thought -->
         <section class="field-note field-note--traccia reveal">
             <div class="field-note-content">
                 <div class="field-note-badge">Field Note</div>
@@ -947,16 +707,13 @@
                 </div>
                 <div class="field-note-cta">
                     <a href="traccia-visibile.html" class="magnetic">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                     <span>Read</span>
                 </div>
             </div>
         </section>
 
-        <!-- Field Note: Santiago Story -->
         <section class="field-note reveal">
             <div class="field-note-content">
                 <div class="field-note-badge">Field Note</div>
@@ -967,9 +724,7 @@
                 </div>
                 <div class="field-note-cta">
                     <a href="santiago.html" class="magnetic">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                     <span>Read</span>
                 </div>
@@ -990,9 +745,7 @@
                 <p class="featured-desc">In 2024 I invented a Chinese philosopher named Jianwei Xun. Le Monde, El País and Libération reviewed his book. When the hoax was revealed, it demonstrated the thesis: we live in a regime that operates directly on consciousness. Co-written with Claude and ChatGPT as critical interlocutors.</p>
                 <a href="hypnocracy.html" class="featured-cta magnetic">
                     <span>The experiment</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
                 <div class="featured-press">
                     <p class="featured-press-label">Featured in</p>
@@ -1020,9 +773,7 @@
                 <div style="margin-top: 2rem;">
                     <a href="prompt-thinking.html" class="featured-cta magnetic" style="color: var(--nero); border-color: var(--grigio-chiaro);">
                         <span>Discover the book</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                 </div>
                 <p class="section-connector">The thread connecting this work is a question: how do we think in the age of algorithmic trance?</p>
@@ -1066,9 +817,6 @@
     </footer>
 
     <script>
-        // ———————————————————————————————————————————————————————————————
-        // NEURAL NETWORK CANVAS
-        // ———————————————————————————————————————————————————————————————
         const canvas = document.getElementById('neural-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1115,9 +863,7 @@
             }
         }
 
-        for (let i = 0; i < 80; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < 80; i++) { particles.push(new Particle()); }
 
         function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
@@ -1139,61 +885,38 @@
 
         function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             connectParticles();
             requestAnimationFrame(animateCanvas);
         }
         animateCanvas();
 
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-        // ———————————————————————————————————————————————————————————————
-        // GLITCH EFFECT
-        // ———————————————————————————————————————————————————————————————
         const glitchElement = document.querySelector('.glitch');
         function triggerGlitch() {
             glitchElement.classList.add('active');
             setTimeout(() => glitchElement.classList.remove('active'), 300);
         }
-        setInterval(() => {
-            if (Math.random() > 0.7) triggerGlitch();
-        }, 3000);
+        setInterval(() => { if (Math.random() > 0.7) triggerGlitch(); }, 3000);
 
-        // ———————————————————————————————————————————————————————————————
-        // SCRAMBLE TEXT EFFECT
-        // ———————————————————————————————————————————————————————————————
         const scrambleEl = document.getElementById('scramble-text');
         const originalText = scrambleEl.textContent;
         const chars = '!<>-_\\/[]{}—=+*^?#アイウエオカキクケコサシスセソ';
-        
         function scrambleText() {
             let iteration = 0;
             const interval = setInterval(() => {
-                scrambleEl.textContent = originalText
-                    .split('')
-                    .map((char, index) => {
-                        if (index < iteration) return originalText[index];
-                        return chars[Math.floor(Math.random() * chars.length)];
-                    })
-                    .join('');
+                scrambleEl.textContent = originalText.split('').map((char, index) => {
+                    if (index < iteration) return originalText[index];
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join('');
                 if (iteration >= originalText.length) clearInterval(interval);
                 iteration += 1/2;
             }, 30);
         }
         setTimeout(scrambleText, 1000);
-        setInterval(() => {
-            if (Math.random() > 0.8) scrambleText();
-        }, 10000);
+        setInterval(() => { if (Math.random() > 0.8) scrambleText(); }, 10000);
 
-        // ———————————————————————————————————————————————————————————————
-        // MAGNETIC CURSOR EFFECT
-        // ———————————————————————————————————————————————————————————————
         document.querySelectorAll('.magnetic').forEach(el => {
             el.addEventListener('mousemove', (e) => {
                 const rect = el.getBoundingClientRect();
@@ -1201,14 +924,9 @@
                 const y = e.clientY - rect.top - rect.height / 2;
                 el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
             });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = 'translate(0, 0)';
-            });
+            el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0, 0)'; });
         });
 
-        // ———————————————————————————————————————————————————————————————
-        // TRANCE CHARACTERS (Hypnocracy section)
-        // ———————————————————————————————————————————————————————————————
         const tranceContainer = document.getElementById('trance-container');
         const tranceChars = ['谎', '梦', '幻', '眠', '醒'];
         for (let i = 0; i < 15; i++) {
@@ -1223,12 +941,8 @@
             tranceContainer.appendChild(char);
         }
 
-        // ———————————————————————————————————————————————————————————————
-        // ENHANCED CHINESE CHARACTER INTERACTION
-        // ———————————————————————————————————————————————————————————————
         const huangChar = document.getElementById('huangChar');
         const featuredSection = document.getElementById('hypnocracy-section');
-        
         if (huangChar && featuredSection) {
             let rotation = 0;
             featuredSection.addEventListener('mousemove', (e) => {
@@ -1240,55 +954,27 @@
             });
         }
 
-        // ———————————————————————————————————————————————————————————————
-        // SCROLL REVEAL
-        // ———————————————————————————————————————————————————————————————
         const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => { revealObserver.observe(el); });
 
-        document.querySelectorAll('.reveal').forEach(el => {
-            revealObserver.observe(el);
-        });
-
-        // ———————————————————————————————————————————————————————————————
-        // HEADER SCROLL
-        // ———————————————————————————————————————————————————————————————
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            
-            if (currentScroll > lastScroll && currentScroll > 200) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
+            if (currentScroll > 100) { header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
+            if (currentScroll > lastScroll && currentScroll > 200) { header.style.transform = 'translateY(-100%)'; } else { header.style.transform = 'translateY(0)'; }
             lastScroll = currentScroll;
         });
 
-        // ———————————————————————————————————————————————————————————————
-        // MOBILE MENU
-        // ———————————————————————————————————————————————————————————————
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-        
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
-
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');

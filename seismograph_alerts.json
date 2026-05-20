@@ -1,6 +1,60 @@
 {
   "alerts": [
     {
+      "title": "Anthropic-Pentagon: 68% to 25%, falling",
+      "shift_pp": -43,
+      "what_moved": [
+        {
+          "date": "2026-05-20",
+          "event": "OpenAI filed confidential IPO prospectus with Goldman Sachs/Morgan Stanley, targeting September debut"
+        },
+        {
+          "date": "2026-05-19",
+          "event": "Federal appeals court heard Anthropic v DoD arguments, designation remains in effect during litigation"
+        },
+        {
+          "date": "2026-05-01",
+          "event": "Pentagon signed AI deals with OpenAI, Google, SpaceX, Microsoft, NVIDIA, Amazon - excluded Anthropic"
+        },
+        {
+          "date": "2026-04-08",
+          "event": "DC Circuit denied Anthropic's stay request, supply chain risk designation upheld pending appeal"
+        },
+        {
+          "date": "2026-02-27",
+          "event": "Defense Secretary Pete Hegseth designated Anthropic supply chain risk over autonomous weapons/surveillance refusal"
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Anthropic",
+          "role": "Subject company facing Pentagon blacklisting, pursuing October IPO at $900B valuation"
+        },
+        {
+          "name": "OpenAI",
+          "role": "Primary competitor filing IPO confidentially this week, secured Pentagon deal after Anthropic exclusion"
+        },
+        {
+          "name": "Founders Fund",
+          "role": "Investor potentially affected by regulatory uncertainties around Anthropic IPO timing"
+        },
+        {
+          "name": "SoftBank",
+          "role": "Major AI investor monitoring competitive dynamics between OpenAI/Anthropic IPO race"
+        },
+        {
+          "name": "Amazon",
+          "role": "Strategic partner with $25B committed to Anthropic, signed separate Pentagon AI deal"
+        }
+      ],
+      "assessment": "OpenAI's confidential IPO filing this week targeting September debut has effectively ended Anthropic's first-mover advantage, driving the 43pp collapse. The Pentagon's sustained exclusion of Anthropic from defense AI deals while embracing OpenAI creates regulatory overhang that complicates Anthropic's October IPO timeline, despite CEO Dario Amodei's $30B revenue run rate and $900B private valuation talks.",
+      "timestamp": "2026-05-20T20:22:32Z",
+      "market_id": "anthropic-openai-ipo",
+      "price_before": 68,
+      "price_after": 25,
+      "volume": 57298.537541000034
+    },
+    {
       "title": "Anthropic-Pentagon: 5% to 26%, White House thaw signals",
       "shift_pp": 21,
       "what_moved": [

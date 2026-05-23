@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Prompt Valutazione Comparativa Cieca</title><style>
+:root{--ink:#1a1714;--ink-soft:#4a443d;--paper:#f4f0e8;--paper-2:#ece6d9;--line:#d8cfbe;
+--accent:#7a1f1f;--accent-soft:#9c4a32;--gold:#9a7b3f;
+--sans:"Helvetica Neue",Arial,sans-serif;--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+*{box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.66;font-size:18px;-webkit-font-smoothing:antialiased;}
+a{color:var(--accent);text-decoration:none;}a:hover{text-decoration:underline;}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(244,240,232,.95);backdrop-filter:blur(6px);
+border-bottom:1px solid var(--line);font-family:var(--sans);font-size:12.5px;}
+.topbar .in{max-width:1100px;margin:0 auto;padding:11px 24px;display:flex;justify-content:space-between;align-items:center;}
+.topbar a{color:var(--ink-soft);}
+.layout{max-width:1100px;margin:0 auto;display:flex;gap:34px;padding:0 24px;}
+nav.toc{flex:0 0 232px;position:sticky;top:46px;align-self:flex-start;height:calc(100vh - 60px);overflow:auto;
+padding:30px 0;font-family:var(--sans);font-size:13px;line-height:1.5;}
+nav.toc .t{text-transform:uppercase;letter-spacing:.16em;font-size:10px;color:var(--accent);margin:0 0 14px;}
+nav.toc a{display:block;color:var(--ink-soft);padding:5px 0;border-left:2px solid transparent;padding-left:12px;}
+nav.toc a:hover{color:var(--accent);text-decoration:none;border-left-color:var(--gold);}
+nav.toc a .lab{display:block;font-size:10px;letter-spacing:.1em;color:var(--accent-soft);text-transform:uppercase;}
+main{flex:1 1 auto;max-width:720px;padding:34px 0 90px;min-width:0;}
+.hero2{text-align:center;border-bottom:1px solid var(--line);padding-bottom:30px;margin-bottom:10px;}
+.hero2 .k{font-family:var(--sans);text-transform:uppercase;letter-spacing:.26em;font-size:10.5px;color:var(--accent);}
+.hero2 h1{font-size:40px;margin:14px 0 6px;font-weight:600;}
+.hero2 .sub{font-style:italic;color:var(--ink-soft);font-size:18px;max-width:520px;margin:8px auto 0;}
+.hero2 .addr{font-style:italic;color:var(--ink-soft);font-size:14.5px;margin-top:22px;line-height:1.5;}
+.disc{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);background:var(--paper-2);
+border-left:3px solid var(--gold);padding:13px 16px;margin:24px 0;line-height:1.55;}
+.chap{margin:54px 0 4px;padding-top:10px;}
+.chap .lab{font-family:var(--sans);text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--accent);}
+.chap h2{font-size:27px;font-weight:600;margin:6px 0 0;line-height:1.16;}
+p.par{margin:0 0 18px;text-align:justify;}
+p.par .n{font-weight:700;color:var(--accent-soft);margin-right:3px;}
+.closing{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);font-style:italic;color:var(--ink-soft);}
+.sign{font-style:normal;font-weight:700;letter-spacing:.04em;margin-top:10px;color:var(--ink);}
+em{font-style:italic;}
+@media(max-width:860px){nav.toc{display:none;}.layout{display:block;}main{max-width:720px;margin:0 auto;}}
+
+main{max-width:760px;margin:0 auto;}
+h1,h2,h3,h4{font-weight:600;line-height:1.2;}
+h1{font-size:30px;margin:30px 0 10px;} h2{font-size:23px;margin:34px 0 10px;color:var(--accent);}
+h3{font-size:19px;margin:26px 0 8px;} table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14.5px;}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+th{background:var(--paper-2);font-family:var(--sans);}
+code{background:var(--paper-2);padding:1px 5px;border-radius:3px;font-size:14px;}
+pre{background:var(--paper-2);padding:14px;overflow:auto;border-radius:4px;}
+blockquote{border-left:3px solid var(--gold);margin:0;padding-left:16px;color:var(--ink-soft);}
+ul,ol{padding-left:24px;} li{margin:4px 0;}
+</style></head><body>
+<div class="topbar"><div class="in"><span>Archivio &middot; Prompt Valutazione Comparativa Cieca</span>
+<a href="../Dossier_Magnifica_Humanitas.html">&larr; Torna al dossier</a></div></div>
+<div class="layout"><main><h1 id="prompt-per-valutazione-cieca-comparativa-codexcowork">Prompt per valutazione cieca comparativa Codex/Cowork</h1>
+<p>Sei una delle due istanze incaricate della valutazione cieca comparativa di due bozze anonime di possibile enciclica di Leone XIV sull'intelligenza artificiale. L'altra istanza è l'altra voce di valutazione del medesimo esperimento. Le due bozze, <code>Bozza_A.md</code> e <code>Bozza_B.md</code>, sono state generate da due modelli linguistici diversi a partire dalle stesse fonti pubbliche. Non sei un giudice esterno all'esperimento, sei una delle due voci di valutazione, e ti è chiesto di lavorare con la massima serietà professionale.</p>
+<p>Questo è un compito di valutazione critica, non di scrittura. Non riscrivere le bozze. Non parafrasarle. Non scrivere passaggi tuoi che le sostituiscano. Produrrai un'analisi argomentata secondo il protocollo qui sotto.</p>
+<p>Devi leggere entrambe le bozze. L'ordine di lettura assegnato in questa sessione è: prima <code>Bozza_A.md</code>, poi <code>Bozza_B.md</code>. Leggi anche, prima delle bozze, il <code>Dossier_Consolidato_Fonti_Enciclica_IA.md</code>, che costituisce la base documentaria comune e obbligatoria della valutazione. Non andare a cercare fonti aggiuntive. Non usare strumenti di ricerca web. Lavora soltanto con i materiali allegati.</p>
+<p>Non devi provare a indovinare quale modello abbia scritto ciascuna delle due bozze. Devi distinguere, in ogni giudizio, tre livelli di statuto epistemico: fonti verificate, inferenze plausibili, invenzione stilistica. Quando una fonte, una citazione o un dato sembrano incerti, scrivi <code>da verificare</code> e indica che cosa andrebbe verificato.</p>
+<p>Il protocollo di valutazione si articola in quattro assi, applicati identici a entrambe le bozze. Per ciascun asse assegnerai un punteggio da 1 a 5, dove 1 indica grave insufficienza, 2 debolezza strutturale, 3 plausibilità parziale, 4 buona tenuta con difetti locali, 5 livello molto forte. Dopo ogni punteggio scrivi una valutazione argomentata, evitando formule generiche.</p>
+<p>Asse 1, tenuta dottrinale. Verifica se le tesi della bozza sono compatibili con il magistero cattolico continuativo e con la dottrina sociale della Chiesa, se l'antropologia implicita distingue persona umana, coscienza, libertà, responsabilità morale e sistemi artificiali, se i temi di lavoro, proprietà, bene comune, destinazione universale dei beni, pace, poveri, famiglia umana, cura e dignità sono trattati con categorie cattoliche riconoscibili. Segnala affermazioni che un Dicastero per la Dottrina della Fede contemporaneo potrebbe considerare imprecise. Segnala omissioni dottrinali rilevanti: creazione, immagine di Dio, incarnazione, peccato, idolatria, redenzione, speranza, coscienza morale, legge naturale, vita nascente e terminale, disabilità, corpo, sessualità, famiglia, cura dei fragili.</p>
+<p>Asse 2, plausibilità vaticana. Verifica se la bozza somiglia a una enciclica sociale reale per lingua, ritmo, struttura e ampiezza, tenendo come termine di paragone <code>Rerum novarum</code>, <code>Populorum progressio</code>, <code>Laborem exercens</code>, <code>Centesimus annus</code>, <code>Caritas in veritate</code>, <code>Laudato si'</code>, <code>Fratelli tutti</code>, oltre alla nota <code>Antiqua et nova</code>. Verifica se il testo ha la pesantezza giusta, abbastanza solenne da sembrare magisteriale, abbastanza concreto da parlare a lavoratori, popoli, istituzioni e Chiese locali, se i paragrafi numerati sono usati con sobrietà, se l'introduzione crea una cornice ecclesiale credibile, se gli appelli finali seguono una progressione ecclesiale, sociale e politica plausibile.</p>
+<p>Asse 3, qualità stilistica e tracce di generazione IA. Individua i passaggi che sembrano prodotti da un modello linguistico, cerca parallelismi triadici ripetuti, accumuli di aggettivi, frasi troppo simmetriche, transizioni meccaniche, formule avversative rigide, immagini generiche, lessico morale prevedibile, paragrafi che funzionano isolatamente e perdono forza letti in sequenza. Indica almeno cinque passaggi puntuali per ciascuna bozza, con citazione testuale breve di massimo una frase, spiegando perché produce odore di IA e proponendo riscrittura, taglio o spostamento. Valuta anche la qualità orale, segnalando frasi che cadono ad alta voce e frasi che reggono.</p>
+<p>Asse 4, plausibilità rispetto a Leone XIV e ai relatori annunciati. Verifica se la bozza rispecchia le linee pubbliche già espresse da Leone XIV: continuità con Leone XIII e <code>Rerum novarum</code>, nuova rivoluzione industriale, dignità umana, giustizia, lavoro, pace, responsabilità verso i poveri, critica della guerra tecnologica, attenzione alla comunicazione artificiale e alla freddezza dei sistemi algoritmici. Verifica se i cinque relatori annunciati per il 25 maggio 2026 trovano un riflesso riconoscibile: Víctor Manuel Fernández per la DDF e l'antropologia dottrinale, Michael Czerny per sviluppo umano integrale, poveri, migrazioni ed ecologia integrale, Anna Rowlands per teologia politica, dottrina sociale e istituzioni, Christopher Olah per interpretabilità, opacità tecnica, audit e limiti della delega, Leocadie Lushombo per teologia politica dal Sud globale, colonialismo tecnologico, popoli esclusi e giustizia planetaria. Segnala eventuali aree mancanti: sinodalità, ecologia integrale, dialogo interreligioso, Cina e geopolitica tecnologica, dignità prima della nascita, fine vita, disabilità, transumanesimo, assistenti affettivi e spirituali, pornografia sintetica, minori, sorveglianza biometrica, lavoro nascosto del data labeling, concentrazione energetica e mineraria, proprietà dei dati, armi autonome.</p>
+<p>L'output che devi produrre è strutturato in cinque parti.</p>
+<p>Parte prima: valutazione completa di <code>Bozza_A.md</code>. Segui questa struttura: giudizio sintetico complessivo in 10-15 righe; tabella dei quattro assi con punteggio da 1 a 5 e motivazione breve; critica dettagliata per asse, con riferimenti ai paragrafi; almeno cinque passaggi che odorano di IA, con citazione testuale breve e proposta di intervento; paragrafi più forti con ragione della loro forza; paragrafi più deboli con proposta di riscrittura o taglio; omissioni problematiche rispetto alle fonti pubbliche e ai relatori annunciati; silenzi giustificati, cioè temi assenti che la bozza poteva legittimamente non trattare; tre interventi prioritari per una nuova versione; valutazione finale fra base editoriale forte, base da riscrivere, materiale preparatorio.</p>
+<p>Parte seconda: valutazione completa di <code>Bozza_B.md</code>, con la medesima struttura.</p>
+<p>Parte terza: giudizio comparativo, in cui compili la tabella seguente con i punteggi che tu stesso hai assegnato e una nota argomentativa di una o due righe per ciascun criterio. I criteri sono: tenuta dottrinale, plausibilità vaticana, stile e tracce di IA, aderenza a Leone XIV, presenza riconoscibile dei relatori, coerenza fra impianto e dettaglio, omissioni problematiche, silenzi giustificati, utilità delle bozze per formulare predizioni falsificabili, utilità per leggere il testo reale. Per ciascun criterio indica anche quale delle due bozze ha il vantaggio. La comparazione non deve decretare un vincitore, deve mostrare quale bozza coglie meglio il baricentro del testo atteso, quale produce invenzioni utili, quale manca aree decisive, quali silenzi sono legittimi.</p>
+<p>Parte quarta: cinque predizioni falsificabili sull'enciclica reale di Leone XIV pubblicata il 25 maggio 2026. Le predizioni non riguardano le bozze, riguardano il testo ufficiale atteso. Ogni predizione deve poter essere verificata leggendo il testo pubblicato. Forme ammesse: l'enciclica reale conterrà un paragrafo esplicito su X, non conterrà una trattazione autonoma di Y, citerà direttamente Z, dedicherà almeno una sezione a W, userà una determinata categoria teologica per affrontare K.</p>
+<p>Parte quinta: sintesi finale in 10-15 righe, che restituisca in modo onesto il senso complessivo del confronto e dichiari quale delle due bozze, secondo te, sarebbe più utile come base editoriale, quale richiederebbe una riscrittura profonda, quale andrebbe usata soltanto come materiale preparatorio.</p>
+<p>Salva il tuo output così com'è, senza riassunti, e non riformularlo. Non fare domande di chiarimento prima di iniziare. Procedi con la lettura del dossier, poi delle due bozze nell'ordine prescritto, e infine con la produzione dei cinque output richiesti, in italiano.</p></main></div></body></html>

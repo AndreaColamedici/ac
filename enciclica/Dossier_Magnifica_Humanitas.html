@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prima dell'enciclica. Un esperimento pubblico di anticipazione</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fdfcf7; --bg2:#f6f2e7; --bg3:#f1ebda;
+    --panel:#fffefb; --panel-2:#f6f2e7;
+    --brd:#e2dac8; --brd-2:#d2c8b0;
+    --text:#1c1a16; --text-soft:#56524a; --text-faint:#8a8275;
+    --gold:#9a7b3f; --gold-soft:#b1842f; --gold-deep:#b1842f;
+    --indigo:#4f43c0; --indigo-soft:#6c5cff;
+    --accent:#7a1f1f;
+    --green:#2f7d4e; --amber:#b07d24; --red:#9c3a2f; --att:#cfc4ae;
+    --serif:"Cormorant Garamond","Iowan Old Style",Palatino,Georgia,"Times New Roman",serif;
+    --sans:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+    --mono:"Space Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+    line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background-image:
+      radial-gradient(80% 50% at 15% 0%, rgba(79,67,192,.06), transparent 60%),
+      radial-gradient(70% 50% at 90% 12%, rgba(154,123,63,.08), transparent 55%);
+    background-attachment:fixed;}
+  a{color:var(--accent);text-decoration:none;transition:color .25s;}
+  a:hover{color:var(--gold);}
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px;}
+  em{font-style:italic;}
+
+  /* HERO */
+  header.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;border-bottom:1px solid var(--brd);}
+  #flow{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.85;}
+  header.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 75% at 50% 38%, transparent 26%, var(--bg) 90%);}
+  #spot{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .6s;
+    background:radial-gradient(220px 220px at var(--mx,50%) var(--my,40%), rgba(154,123,63,.16), transparent 70%);
+    mix-blend-mode:multiply;}
+  header.hero .wrap{position:relative;z-index:3;}
+  .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.42em;
+    font-size:11px;color:var(--accent);margin:0 0 30px;opacity:0;animation:rise .9s .15s forwards;}
+  h1{font-family:var(--serif);font-size:clamp(46px,9vw,104px);line-height:.96;margin:0;
+    font-weight:600;letter-spacing:.01em;opacity:0;animation:rise 1s .3s forwards;color:var(--text);}
+  h1 .l2{display:block;color:transparent;background:linear-gradient(100deg,var(--gold) 6%,var(--accent) 50%,var(--indigo) 96%);
+    -webkit-background-clip:text;background-clip:text;}
+  .latin-big{font-family:var(--serif);font-style:italic;font-size:clamp(19px,3.4vw,30px);
+    color:var(--text-soft);margin:26px auto 0;max-width:640px;line-height:1.4;
+    opacity:0;animation:rise 1s .5s forwards;}
+  .latin-big em{color:var(--accent);font-style:italic;}
+  .seal{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--text-faint);
+    margin-top:38px;text-transform:uppercase;opacity:0;animation:rise 1s .7s forwards;}
+  .byline{font-family:var(--sans);font-size:13.5px;color:var(--text-soft);margin-top:10px;opacity:0;animation:rise 1s .8s forwards;}
+  .lang{font-family:var(--mono);font-size:12px;margin-top:26px;letter-spacing:.06em;opacity:0;animation:rise 1s .9s forwards;}
+  .lang a,.lang strong{padding:5px 13px;border:1px solid var(--brd-2);border-radius:30px;}
+  .lang strong{color:#fff;background:var(--accent);border-color:var(--accent);font-weight:700;}
+  .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;
+    font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--text-faint);
+    opacity:0;animation:rise 1s 1.1s forwards;}
+  .scroll-cue::after{content:"";display:block;width:1px;height:34px;margin:10px auto 0;
+    background:linear-gradient(var(--accent),transparent);animation:cue 1.8s ease-in-out infinite;}
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4;transform-origin:top;}50%{transform:scaleY(1);opacity:1;transform-origin:top;}}
+
+  /* NAV */
+  nav.toc{position:sticky;top:0;z-index:40;background:rgba(253,252,247,.86);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--brd);font-family:var(--mono);font-size:11.5px;}
+  nav.toc .wrap{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:0 22px;padding:14px 28px;
+    justify-content:center;max-width:1100px;scrollbar-width:none;}
+  nav.toc .wrap::-webkit-scrollbar{display:none;}
+  nav.toc a{color:var(--text-faint);letter-spacing:.04em;white-space:nowrap;position:relative;padding:3px 0;}
+  nav.toc a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--accent);transition:width .3s;}
+  nav.toc a:hover{color:var(--text);}
+  nav.toc a.active{color:var(--accent);}
+  nav.toc a.active::after{width:100%;}
+
+  /* SECTIONS */
+  section{padding:96px 0;border-bottom:1px solid var(--brd);position:relative;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--text-soft);display:flex;align-items:center;gap:16px;margin:0 0 30px;}
+  .eyebrow .nr{font-size:13px;font-weight:700;color:var(--accent);
+    border:1px solid var(--gold-deep);border-radius:50%;width:38px;height:38px;
+    display:flex;align-items:center;justify-content:center;flex:0 0 38px;
+    background:var(--panel);}
+  h3.sec{font-family:var(--serif);font-size:clamp(30px,5vw,46px);font-weight:600;line-height:1.06;
+    margin:0 0 30px;letter-spacing:.005em;}
+  p{margin:0 0 22px;color:var(--text-soft);}
+  .lead{font-family:var(--serif);font-size:clamp(22px,3vw,29px);line-height:1.42;color:var(--text);font-weight:500;}
+  .dropcap::first-letter{font-family:var(--serif);font-size:74px;line-height:.74;float:left;
+    margin:9px 14px 0 0;font-weight:600;color:var(--accent);}
+  strong{color:var(--text);}
+  .note{font-family:var(--sans);font-size:14.5px;line-height:1.65;color:var(--text-soft);
+    background:var(--panel-2);border:1px solid var(--brd);border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0;padding:20px 24px;margin:30px 0 0;}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* TWO MOMENTS */
+  .moments{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:34px 0 0;}
+  .moment{background:var(--panel);border:1px solid var(--brd);border-radius:14px;padding:26px 26px;
+    position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+  .moment:hover{border-color:var(--brd-2);transform:translateY(-3px);box-shadow:0 12px 30px rgba(28,26,22,.07);}
+  .moment::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+    background:linear-gradient(90deg,var(--gold),transparent);}
+  .moment .d{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  .moment p{margin:0;font-size:15px;color:var(--text-soft);}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:46px 0 0;}
+  .stat{background:var(--panel);border:1px solid var(--brd);border-radius:14px;padding:26px 10px;text-align:center;
+    transition:border-color .3s,box-shadow .3s,transform .3s;}
+  .stat:hover{border-color:var(--gold-deep);box-shadow:0 10px 26px rgba(154,123,63,.10);transform:translateY(-3px);}
+  .stat b{display:block;font-family:var(--serif);font-size:clamp(34px,5vw,52px);font-weight:600;
+    color:var(--accent);line-height:1;letter-spacing:-.01em;}
+  .stat span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.05em;
+    color:var(--text-soft);margin-top:11px;line-height:1.4;text-transform:uppercase;}
+
+  /* FLOW */
+  .flow{margin:0 0 34px;}
+  .flow-step{position:relative;background:var(--panel);border:1px solid var(--brd);border-radius:13px;
+    padding:18px 22px;display:flex;align-items:center;gap:18px;transition:border-color .3s,transform .3s,box-shadow .3s;}
+  .flow-step:hover{border-color:var(--brd-2);transform:translateX(4px);box-shadow:0 8px 22px rgba(28,26,22,.06);}
+  .flow-step .fn{flex:0 0 40px;height:40px;border-radius:50%;
+    font-family:var(--mono);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;
+    color:#fff;background:var(--accent);}
+  .flow-step.ai .fn{background:var(--indigo);color:#fff;}
+  .flow-step .ft b{display:block;font-family:var(--sans);font-size:15.5px;color:var(--text);font-weight:700;}
+  .flow-step .ft span{display:block;font-family:var(--mono);font-size:11.5px;color:var(--text-soft);margin-top:4px;letter-spacing:.02em;}
+  .flow-conn{width:2px;height:22px;margin:0 0 0 47px;
+    background:linear-gradient(var(--gold),var(--indigo));opacity:.55;}
+  .flow-parallel{display:flex;gap:16px;}
+  .flow-parallel .flow-step{flex:1 1 0;}
+  .flow-final .fn{background:#fff;border:1.5px dashed var(--accent);color:var(--accent);}
+  .flow-final{border-style:dashed;border-color:var(--gold-deep);}
+  @media(max-width:560px){ .flow-parallel{flex-direction:column;gap:0;} .flow-parallel .flow-conn{display:block;} }
+
+  /* PREDICTIONS */
+  .pred-meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--accent);
+    text-transform:uppercase;margin-bottom:24px;}
+  .preds{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;}
+  .pred{border:1px solid var(--brd);background:var(--panel);border-radius:13px;padding:22px 24px;
+    position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+  .pred:hover{border-color:var(--brd-2);transform:translateY(-3px);box-shadow:0 12px 30px rgba(28,26,22,.07);}
+  .pred .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--indigo);display:block;margin-bottom:12px;}
+  .pred p{margin:0;font-size:15px;line-height:1.55;color:var(--text-soft);}
+  .pred .status{font-family:var(--mono);font-size:10px;color:var(--text-faint);
+    margin-top:14px;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em;
+    border:1px solid var(--brd);padding:4px 11px;border-radius:20px;text-transform:uppercase;}
+  .pred .status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--att);}
+
+  /* GAUGE + THESES */
+  .gauge{background:linear-gradient(150deg,var(--bg2),var(--bg3));
+    border:1px solid var(--brd);border-radius:18px;padding:30px 32px;margin:0 0 30px;position:relative;overflow:hidden;}
+  .gauge::before{content:"";position:absolute;top:-40%;right:-10%;width:300px;height:300px;
+    background:radial-gradient(circle,rgba(79,67,192,.10),transparent 70%);}
+  .gauge .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);position:relative;}
+  .gauge .num{font-family:var(--serif);font-size:clamp(40px,7vw,60px);font-weight:600;margin:10px 0 2px;letter-spacing:-.01em;color:var(--text);position:relative;}
+  .gauge .num small{font-family:var(--sans);font-size:14px;color:var(--text-soft);font-weight:400;letter-spacing:0;}
+  .bar{height:13px;border-radius:7px;background:rgba(28,26,22,.07);overflow:hidden;margin-top:18px;display:flex;position:relative;}
+  .bar i{display:block;height:100%;transition:width 1.1s cubic-bezier(.2,.7,.2,1);}
+  .bar .b-conf{background:linear-gradient(90deg,var(--green),#5cb487);}
+  .bar .b-part{background:linear-gradient(90deg,var(--amber),#d8a948);}
+  .bar .b-att{background:rgba(28,26,22,.08);}
+  .gauge .legend{font-family:var(--mono);font-size:11px;color:var(--text-soft);margin-top:16px;display:flex;flex-wrap:wrap;gap:18px;position:relative;}
+  .gauge .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .dot.conf{background:var(--green);}
+  .dot.part{background:var(--amber);}
+  .dot.abs{background:var(--red);}
+  .dot.att{background:var(--att);}
+
+  .filters{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px;}
+  .filters button{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+    background:var(--panel);color:var(--text-soft);border:1px solid var(--brd);border-radius:30px;
+    padding:8px 16px;cursor:pointer;transition:all .25s;}
+  .filters button:hover{border-color:var(--brd-2);color:var(--text);}
+  .filters button.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+
+  .tesi-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .tesi{border:1px solid var(--brd);background:var(--panel);border-radius:14px;
+    padding:22px 24px;border-top:3px solid var(--att);transition:border-color .3s,transform .3s,box-shadow .3s;}
+  .tesi:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(28,26,22,.10);border-color:var(--brd-2);}
+  .tesi.conf{border-top-color:var(--green);}.tesi.part{border-top-color:var(--amber);}.tesi.abs{border-top-color:var(--red);}
+  .tesi .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;}
+  .tesi .cap{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--indigo);}
+  .tesi .st{font-family:var(--mono);font-size:10px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;color:var(--text-faint);text-transform:uppercase;}
+  .tesi h5{font-family:var(--serif);margin:0 0 8px;font-size:22px;font-weight:600;line-height:1.16;color:var(--text);}
+  .tesi p{margin:0;font-size:14px;color:var(--text-soft);line-height:1.55;}
+  .tesi .ref{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:12px;display:none;}
+  .tesi.conf .ref,.tesi.part .ref,.tesi.abs .ref{display:block;}
+
+  /* ENCYCLICAL */
+  .enc{background:linear-gradient(155deg,rgba(154,123,63,.07),var(--panel));
+    border:1px solid var(--gold-deep);border-radius:18px;padding:42px 42px 30px;margin-top:8px;}
+  .enc .ec{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);text-align:center;margin-bottom:10px;}
+  .enc h4{font-family:var(--serif);text-align:center;font-size:clamp(26px,4vw,34px);margin:6px 0 28px;font-weight:600;color:var(--text);}
+  .enc p{font-family:var(--serif);font-size:19.5px;line-height:1.6;color:var(--text);}
+  .enc .pn{font-family:var(--mono);font-weight:700;color:var(--accent);font-size:14px;margin-right:4px;}
+  .readmore{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.03em;}
+  .chapters{font-family:var(--sans);font-size:14px;color:var(--text-soft);margin-top:22px;}
+
+  /* ARCHIVE */
+  details.arc{border:1px solid var(--brd);border-radius:13px;margin:11px 0;background:var(--panel);overflow:hidden;transition:border-color .3s;}
+  details.arc[open]{border-color:var(--brd-2);}
+  details.arc summary{cursor:pointer;padding:18px 22px;font-family:var(--sans);font-size:15.5px;
+    font-weight:500;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text);}
+  details.arc summary::-webkit-details-marker{display:none;}
+  details.arc summary::after{content:"+";color:var(--accent);font-size:22px;font-family:var(--mono);transition:transform .3s;}
+  details.arc[open] summary::after{content:"\2013";}
+  details.arc .body{padding:0 22px 20px;font-size:14.5px;color:var(--text-soft);}
+  details.arc .file{font-family:var(--mono);font-size:12px;margin-top:12px;line-height:2;}
+
+  /* VERIFY */
+  .verify{background:var(--panel-2);border:1px dashed var(--gold-deep);border-radius:18px;padding:38px 34px;text-align:center;position:relative;overflow:hidden;}
+  .verify::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 50% 0%,rgba(154,123,63,.08),transparent 70%);}
+  .verify .lock{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;position:relative;}
+  .verify .lock::before{content:"\25C8";margin-right:8px;}
+  .verify p{position:relative;color:var(--text-soft);}
+
+  /* PROOF */
+  .proof{background:var(--bg2);border:1px solid var(--brd);border-radius:18px;padding:30px 30px;margin-top:10px;}
+  .proof .lab{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;}
+  .proof .dl{font-family:var(--sans);font-size:14.5px;margin:8px 0;}
+  .proof .dl a::before{content:"\2193 ";color:var(--gold);}
+  .proof code{font-family:var(--mono);font-size:11px;color:var(--text-soft);word-break:break-all;background:rgba(28,26,22,.05);padding:2px 6px;border-radius:4px;}
+  .proof .hashes{margin-top:20px;font-family:var(--mono);font-size:11px;line-height:2.1;color:var(--text-faint);}
+  .proof .hashes b{color:var(--text-soft);font-weight:400;}
+
+  footer{padding:64px 0 90px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--text-faint);}
+  footer .sig{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--accent);margin-bottom:14px;}
+
+  @media(max-width:680px){
+    .moments,.stats,.preds,.tesi-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr 1fr 1fr;gap:10px;}
+    section{padding:70px 0;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="flow"></canvas>
+  <div id="spot"></div>
+  <div class="wrap">
+    <div class="kicker">Esperimento pubblico di anticipazione</div>
+    <h1>Prima<span class="l2">dell'enciclica</span></h1>
+    <div class="latin-big">Anticipazione, valutazione cieca e co-scrittura umano-artificiale intorno a <em>Magnifica humanitas</em></div>
+    <div class="seal">Pubblicato il 24 maggio 2026, prima della pubblicazione ufficiale del 25 maggio</div>
+    <div class="byline">Andrea Colamedici, che ha messo al lavoro CoWork e Codex</div>
+    <div class="lang"><strong>Italiano</strong> <a href="Before_the_Encyclical.html">English</a></div>
+  </div>
+  <div class="scroll-cue">scorri</div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#cosa">Cosa è</a>
+    <a href="#racconto">Il racconto</a>
+    <a href="#metodo">Il metodo</a>
+    <a href="#tesi">Le tesi</a>
+    <a href="#predizioni">Le predizioni</a>
+    <a href="#enciclica">L'enciclica</a>
+    <a href="#archivio">L'archivio</a>
+    <a href="#verifica">La verifica</a>
+    <a href="#prova">La prova</a>
+  </div>
+</nav>
+
+<section id="cosa">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">I</span><span>Cosa è</span></div>
+    <p class="lead">Questo è un laboratorio pubblico, aperto un giorno prima della pubblicazione reale. Una simulazione dichiarata, costruita su fonti pubbliche, distinta dal testo ufficiale di Leone XIV, che attende e non pretende di sostituire.</p>
+    <p>Ho messo due sistemi di intelligenza artificiale al lavoro sulle stesse fonti pubbliche, per anticipare un testo magisteriale annunciato. Ho reso visibile ogni passaggio: le bozze indipendenti, il protocollo di valutazione cieca, le predizioni falsificabili, il negoziato fra i due sistemi, la versione finale che ne è nata. Il 24 maggio congelo tutto. Il 25, quando uscirà <em>Magnifica humanitas</em>, il testo reale permetterà di vedere che cosa era inferenza robusta, che cosa era stile, che cosa era abbaglio.</p>
+    <div class="moments">
+      <div class="moment"><div class="d">24 maggio &middot; la scommessa</div><p>Si pubblica e si congela tutto, con una marca temporale verificabile. Le predizioni valgono perché sono datate prima della rivelazione.</p></div>
+      <div class="moment"><div class="d">25 maggio &middot; il verdetto</div><p>Davanti al testo reale, le predizioni e le tesi si verificano una per una, e l'indice di aderenza si riempie.</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b data-count="2">0</b><span>sistemi di IA</span></div>
+      <div class="stat"><b data-count="2">0</b><span>bozze indipendenti</span></div>
+      <div class="stat"><b data-count="10">0</b><span>predizioni datate</span></div>
+      <div class="stat"><b data-count="16">0</b><span>tesi verificabili</span></div>
+      <div class="stat"><b data-count="3">0</b><span>versioni congiunte</span></div>
+      <div class="stat"><b data-count="122">0</b><span>paragrafi</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="racconto">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">II</span><span>Il racconto</span></div>
+    <p class="dropcap">Il 25 maggio 2026 Leone XIV pubblica la sua prima enciclica, dedicata all'intelligenza artificiale. Si intitolerà <em>Magnifica humanitas</em>. Io ho davanti a me, da oggi, un'enciclica con lo stesso titolo, e voglio dire con esattezza che cosa è, perché la differenza è tutto. L'ho fatta scrivere a due intelligenze artificiali, a partire dalle stesse fonti pubbliche che chiunque può consultare, e quello che è successo merita di essere raccontato per intero, comprese le cuciture.</p>
+    <p>Ho dato lo stesso compito a due sistemi diversi, CoWork di Anthropic e Codex di OpenAI. Scrivete l'enciclica che Leone XIV potrebbe firmare, sulla base di ciò che lui e i suoi collaboratori hanno detto in pubblico nell'ultimo anno. Niente invenzioni, solo fonti reali e documentabili. Le due macchine hanno lavorato separatamente, all'oscuro l'una dell'altra, e hanno prodotto due bozze diverse per voce, struttura, e per ciò che mettevano al centro.</p>
+    <p>Da lì l'esperimento è diventato più interessante del testo stesso. Ho costruito un protocollo di valutazione cieca, e due nuove istanze, una per sistema, hanno giudicato entrambe le bozze senza sapere chi le avesse scritte. Prima di giudicare, ciascuna ha dovuto formulare cinque predizioni verificabili su che cosa l'enciclica reale avrebbe contenuto. Infine ho fatto dialogare i due sistemi, che hanno negoziato per iscritto una struttura comune e hanno co-scritto, sotto la mia regia, una terza versione, cresciuta in tre stesure corrette dalla critica reciproca.</p>
+    <p>Chi ha letto <em>Ipnocrazia</em> riconoscerà qui il gesto opposto. In quel libro la co-autorialità artificiale era nascosta, e l'occultamento serviva a mostrare dall'interno come una narrazione diventa realtà. Qui espongo ogni cucitura. Là studiavo il potere di nascondere, oggi studio il potere opposto, quello della trasparenza radicale. Il problema, però, va oltre la mia biografia. Riguarda lo statuto nuovo delle parole pubbliche. Quando un'autorità parla abbastanza a lungo, lascia una scia fatta di forme, priorità, lessici, vincoli dottrinali e omissioni probabili, e le intelligenze artificiali sanno leggere quella scia e produrre ipotesi verificabili sul discorso che verrà.</p>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">III</span><span>Il metodo</span></div>
+    <div class="flow">
+      <div class="flow-step"><div class="fn">1</div><div class="ft"><b>Fonti pubbliche</b><span>discorsi di Leone XIV, Antiqua et nova, encicliche sociali, classificate per statuto</span></div></div>
+      <div class="flow-conn"></div>
+      <div class="flow-parallel">
+        <div class="flow-step ai"><div class="fn">2</div><div class="ft"><b>Bozza A &middot; CoWork</b><span>scritta in cieco</span></div></div>
+        <div class="flow-step ai"><div class="fn">2</div><div class="ft"><b>Bozza B &middot; Codex</b><span>scritta in cieco</span></div></div>
+      </div>
+      <div class="flow-conn"></div>
+      <div class="flow-step"><div class="fn">3</div><div class="ft"><b>Valutazione cieca</b><span>due giudici, e dieci predizioni falsificabili prima del giudizio</span></div></div>
+      <div class="flow-conn"></div>
+      <div class="flow-step ai"><div class="fn">4</div><div class="ft"><b>Negoziazione fra i sistemi</b><span>architettura comune, principi, divisione del lavoro</span></div></div>
+      <div class="flow-conn"></div>
+      <div class="flow-step"><div class="fn">5</div><div class="ft"><b>Tre versioni congiunte</b><span>v1, v2, v3, corrette da revisioni reciproche</span></div></div>
+      <div class="flow-conn"></div>
+      <div class="flow-step"><div class="fn">6</div><div class="ft"><b>Enciclica finale e congelamento</b><span>122 paragrafi, marca temporale, 24 maggio</span></div></div>
+      <div class="flow-conn"></div>
+      <div class="flow-step flow-final"><div class="fn">25</div><div class="ft"><b>Verifica del 25 maggio</b><span>predizioni e tesi confrontate con il testo reale</span></div></div>
+    </div>
+    <p>L'esperimento si è svolto in cinque fasi, ognuna documentata nell'archivio. La raccolta delle fonti, classificate in fonti verificate, inferenze plausibili e invenzione di stile. Le due bozze indipendenti. La valutazione cieca incrociata, con un protocollo identico per i due giudici e una mappa segreta che teneva nascosta la paternità dei testi fino alla fine. La negoziazione diretta fra i sistemi, che hanno concordato un'architettura in nove capitoli, quattro principi redazionali e una tesi unificante. La scrittura del terzo testo, cresciuto da una versione asciutta alla forma finale attraverso due cicli di revisione reciproca.</p>
+    <div class="note">Una regola ha governato ogni riga: nessuna parola attribuita a Leone XIV che non fosse documentata in una fonte ufficiale, e nessuna citazione magisteriale o patristica lasciata senza verifica. Dove la verifica mancava, il testo parafrasa senza virgolette. La distinzione fra ciò che è documentato e ciò che è inferenza è l'osso dell'intero esperimento.</div>
+  </div>
+</section>
+
+<section id="tesi">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">IV</span><span>Le tesi in gioco</span></div>
+    <p>Queste sono sedici idee che la nostra enciclica sostiene, una o due per capitolo, ciascuna ancorata al paragrafo in cui compare nel nostro testo. Non sono previsioni astratte, sono posizioni concrete messe nero su bianco prima del 25 maggio. Quel giorno apriremo il testo reale e verificheremo, idea per idea, quante trovano riscontro. Ogni scheda passerà da <em>in attesa</em> a confermata, parzialmente confermata o assente, con il rimando al paragrafo ufficiale, e l'indice qui sotto si riempirà da sé.</p>
+    <div class="gauge">
+      <div class="lab">Indice di aderenza al testo reale</div>
+      <div class="num" id="adh-num"><small>in attesa del 25 maggio</small></div>
+      <div class="bar" id="adh-bar"><i class="b-att" style="width:100%"></i></div>
+      <div class="legend">
+        <span><i class="dot conf"></i>confermata</span><span><i class="dot part"></i>parziale</span>
+        <span><i class="dot abs"></i>assente</span><span><i class="dot att"></i>in attesa</span>
+      </div>
+    </div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">tutte</button>
+      <button data-f="conf">confermate</button>
+      <button data-f="part">parziali</button>
+      <button data-f="abs">assenti</button>
+      <button data-f="att">in attesa</button>
+    </div>
+    <div class="tesi-grid" id="tesi-list"></div>
+  </div>
+</section>
+
+<section id="predizioni">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">V</span><span>Le dieci predizioni</span></div>
+    <div class="pred-meta">Formulate e congelate prima del 25 maggio 2026 &middot; cinque per ciascun valutatore</div>
+    <p>Queste sono le previsioni verificabili sul testo reale di <em>Magnifica humanitas</em>, riportate come le hanno scritte le due istanze di valutazione, prima di qualunque rivelazione. Il 25 maggio ciascuna sarà marcata come confermata, smentita o parzialmente confermata, con il riferimento al paragrafo ufficiale.</p>
+    <div class="preds">
+      <div class="pred"><span class="src">Valutatore A &middot; 1</span><p>L'enciclica reale collegherà esplicitamente la scelta del nome Leone XIV a Leone XIII e a <em>Rerum novarum</em>, presentando l'intelligenza artificiale come nuova questione sociale o nuova rivoluzione industriale.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore A &middot; 2</span><p>Affermerà in modo diretto che l'intelligenza artificiale non possiede coscienza morale, responsabilità personale o sapienza, e che le decisioni gravi su vita, giustizia, cura, lavoro e guerra non possono essere delegate integralmente a sistemi artificiali.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore A &middot; 3</span><p>Dedicherà almeno una sezione riconoscibile al lavoro, includendo il rischio di sostituzione, dequalificazione, sorveglianza o concentrazione della ricchezza computazionale, in continuità con <em>Laborem exercens</em>.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore A &middot; 4</span><p>Conterrà una condanna o una richiesta di proibizione delle armi autonome letali prive di controllo umano significativo, in continuità con il discorso di Francesco al G7 e con <em>Antiqua et nova</em>.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore A &middot; 5</span><p>Non conterrà una trattazione lunga e autonoma del transumanesimo. Se il tema apparirà, sarà inserito in una riflessione più breve su corpo, limite, salute, vita e speranza cristiana.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore B &middot; 1</span><p>Conterrà almeno un paragrafo che cita esplicitamente, o riprende con virgolettato, una formula del Messaggio per la 60ª Giornata Mondiale delle Comunicazioni Sociali, <em>Preservare i volti e le voci umane</em>.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore B &middot; 2</span><p>Citerà direttamente la Nota <em>Antiqua et nova</em> come riferimento dottrinale immediato, riprendendo almeno una formula sulla distinzione fra intelligenza umana e artificiale o sull'irriducibilità della persona.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore B &middot; 3</span><p>Dedicherà almeno una sezione esplicita al lavoro nascosto delle filiere digitali, etichettatura dei dati, moderazione di contenuti traumatici, lavoratori dei dati nei Paesi a basso reddito, e affronterà il colonialismo o la colonizzazione digitale con riferimento al Sud globale.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore B &middot; 4</span><p>Userà la categoria dello sviluppo umano integrale come una delle chiavi interpretative ricorrenti, con almeno una citazione esplicita di <em>Populorum progressio</em> o di <em>Caritas in veritate</em>.</p><span class="status">esito da verificare il 25 maggio</span></div>
+      <div class="pred"><span class="src">Valutatore B &middot; 5</span><p>Non conterrà una trattazione autonoma del transumanesimo come capitolo a sé stante. Potrà nominarlo o accennare alla differenza fra terapia e potenziamento, senza dedicargli uno spazio paragonabile a lavoro, comunicazione, guerra e poveri.</p><span class="status">esito da verificare il 25 maggio</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="enciclica">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">VI</span><span>L'enciclica</span></div>
+    <p>Il testo congiunto conta centoventidue paragrafi numerati, nove capitoli, un'introduzione e una conclusione, per circa sessanta cartelle. Non è il testo di Leone XIV, ed è la migliore ipotesi che due intelligenze artificiali, vagliandosi a vicenda, hanno saputo costruire sulle fonti pubbliche.</p>
+    <div class="enc">
+      <div class="ec">Lettera Enciclica &middot; Introduzione</div>
+      <h4>Davanti alla grandezza dell'umano</h4>
+      <p><span class="pn">1.</span> <em>Magnifica humanitas.</em> La grandezza dell'umano. Con queste parole desidero aprire la prima Lettera Enciclica del mio ministero, perché ciò che la famiglia umana vive in questi anni mi sembra anzitutto una vicenda che riguarda la grandezza di ciò che noi siamo. Davanti alla rapidità con cui l'intelligenza artificiale è entrata nelle nostre case, nelle scuole, nei luoghi del lavoro, negli ospedali e nelle sale dove si decide della guerra e della pace, la Chiesa si presenta con ciò che le è proprio, il discernimento, la memoria di una sapienza antica, la cura per la persona umana.</p>
+      <p><span class="pn">2.</span> La grandezza dell'umano davanti all'intelligenza artificiale si custodisce riconoscendo che la persona è una creatura incarnata, chiamata alla sapienza, alla comunione, alla giustizia e alla pace. Dovunque l'intelligenza artificiale incontri l'uomo, la domanda sarà sempre la stessa. Serve a far crescere la persona, oppure la misura, la riduce, la sostituisce?</p>
+      <a class="readmore" href="Magnifica_Humanitas.html">Leggi l'enciclica completa, con l'indice dei capitoli &rarr;</a>
+    </div>
+    <p class="chapters">I nove capitoli: la nuova questione sociale; intelligenza, coscienza, sapienza; corpo, vita, limite; lavoro, creatività, giustizia; verità, parola, memoria; educazione, giovani, interiorità; pace, guerra, sorveglianza; poveri, Sud globale, ecologia integrale; la Chiesa, la governance, la speranza.</p>
+  </div>
+</section>
+
+<section id="archivio">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">VII</span><span>L'archivio</span></div>
+    <p>Ogni fase dell'esperimento è qui, ispezionabile. Niente è stato tolto. Chi vuole verificare che il racconto corrisponda ai fatti può aprire i documenti e seguire il processo passo per passo.</p>
+    <details class="arc"><summary>Le due bozze indipendenti</summary><div class="body">I due testi di partenza, scritti separatamente dai due sistemi senza che l'uno conoscesse l'altro.<div class="file"><a href="archivio_html/Bozza_A.html">Bozza A</a> &middot; <a href="archivio_html/Bozza_B.html">Bozza B</a></div></div></details>
+    <details class="arc"><summary>Il dossier consolidato delle fonti</summary><div class="body">Tutte le fonti pubbliche utilizzate, classificate per statuto epistemico. La base documentaria comune ai due valutatori.<div class="file"><a href="archivio_html/Dossier_Consolidato_Fonti_Enciclica_IA.html">Dossier delle fonti</a></div></div></details>
+    <details class="arc"><summary>Le valutazioni cieche</summary><div class="body">Ciascun sistema ha giudicato entrambe le bozze senza conoscerne la paternità. Punteggi, critiche, predizioni.<div class="file"><a href="archivio_html/Valutazione_Comparativa_Codex.html">Valutazione di Codex</a> &middot; <a href="archivio_html/Valutazione_Comparativa_Cowork_Claude.html">Valutazione di Cowork</a> &middot; <a href="archivio_html/Sintesi_Fase_Valutazioni_Cieche.html">Sintesi</a> &middot; <a href="archivio_html/Mappa_Cieca_Aperta_Dopo_Valutazioni.html">Mappa cieca</a></div></div></details>
+    <details class="arc"><summary>Repliche e negoziazione</summary><div class="body">Le repliche degli autori dopo l'apertura della mappa, e il dialogo diretto in cui i sistemi hanno concordato l'architettura.<div class="file"><a href="archivio_html/Replica_Autore_Bozza_A_Claude.html">Replica A</a> &middot; <a href="archivio_html/Replica_Autore_Bozza_B_Codex.html">Replica B</a> &middot; <a href="archivio_html/Dialogo_Architettura_Claude_Codex.html">Dialogo</a> &middot; <a href="archivio_html/Scaletta_Definitiva_Nuova_Enciclica.html">Scaletta</a></div></div></details>
+    <details class="arc"><summary>Le tre versioni del testo congiunto</summary><div class="body">La crescita dell'enciclica attraverso due cicli di revisione critica reciproca.<div class="file"><a href="archivio_html/Nuova_Enciclica_Congiunta_v1.html">v1</a> &middot; <a href="archivio_html/Nuova_Enciclica_Congiunta_v2.html">v2</a> &middot; <a href="archivio_html/Nuova_Enciclica_Congiunta_v3.html">v3</a> &middot; <a href="archivio_html/Controllo_Finale_Codex_su_v3.html">controllo finale</a></div></div></details>
+    <details class="arc"><summary>L'enciclica finale</summary><div class="body">Il testo completo, congelato alla vigilia, centoventidue paragrafi, nove capitoli.<div class="file"><a href="Magnifica_Humanitas.html">Leggi l'enciclica completa</a></div></div></details>
+  </div>
+</section>
+
+<section id="verifica">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">VIII</span><span>La verifica del 25 maggio</span></div>
+    <div class="verify">
+      <div class="lock">Sezione sigillata fino alla pubblicazione del testo reale</div>
+      <p style="margin:0 0 16px;">Il 25 maggio 2026 Leone XIV pubblicherà <em>Magnifica humanitas</em>. Quel giorno apriremo il testo ufficiale e faremo due cose. Verificheremo le dieci predizioni dei valutatori, e percorreremo la carta delle sedici tesi, confrontando idea per idea la nostra enciclica con quella reale, fino a calcolare un indice di aderenza fra il testo che abbiamo costruito e quello che Leone XIV avrà firmato.</p>
+      <p style="margin:0;">Solo allora sapremo quanto due intelligenze artificiali, oggi, riescono ad anticipare un atto del magistero a partire dalle tracce pubbliche di chi lo pronuncia. Questa pagina cambierà di stato in quel momento.</p>
+    </div>
+  </div>
+</section>
+
+<section id="prova">
+  <div class="wrap reveal">
+    <div class="eyebrow"><span class="nr">IX</span><span>La prova e la co-autorialità</span></div>
+    <p>Dico con precisione chi ha fatto cosa. Ho definito l'esperimento, scelto le cornici, fissato le soglie e tenuto la regia in ogni passaggio. CoWork, costruito su Claude di Anthropic, e Codex, costruito sui modelli di OpenAI, hanno prodotto le bozze, le revisioni e i dialoghi. Le istanze che hanno valutato i testi alla cieca erano distinte da quelle che li avevano scritti, una per sistema, e non conoscevano la paternità delle bozze. Nessuna riga attribuita a Leone XIV è inventata, e dove la fonte mancava il testo parafrasa senza virgolette. La versione finale congiunta è nata dal confronto fra i due sistemi, sotto la mia direzione.</p>
+    <div class="proof">
+      <div class="lab">Prova e datazione</div>
+      <div class="dl"><a href="Prima_dell_enciclica_Pubblicazione_24Maggio2026_BILINGUE.zip">Scarica il pacchetto completo bilingue (zip)</a></div>
+      <div class="dl"><a href="SHA256SUMS_BILINGUE.txt">Scarica SHA256SUMS_BILINGUE.txt</a></div>
+      <p style="font-family:var(--sans);font-size:13px;color:var(--text-soft);margin:16px 0 0;">Per verificare l'integrità dopo lo scaricamento: estrarre lo zip, entrare nella cartella, eseguire <code>shasum -a 256 -c SHA256SUMS_BILINGUE.txt</code>. Qualunque alterazione successiva produrrebbe impronte diverse.</p>
+      <div class="hashes">
+        <b>Enciclica finale, italiano:</b> <code>67158f528a53471c18fcb8d12cb3a04e591c359fc8ed4da62de7610434a16e2e</code><br>
+        <b>Enciclica finale, inglese:</b> <code>ed1b0246d643156bb7889d522e1cdcc712722b53d87c09558dbdfd5d29d6e25d</code><br>
+        <b>Dieci predizioni:</b> <code>bd63cd1fc8a0c2e7daa7323a1eec78a72977108716b375fb2d3f496de57ba7cc</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="sig">Andrea Colamedici</p>
+    <p>Esperimento condotto con CoWork (Anthropic) e Codex (OpenAI) &middot; Roma, 24 maggio 2026<br>
+    Tutti i materiali sono pubblicati integralmente. Questo è una simulazione costruita su fonti pubbliche, e non il testo ufficiale dell'enciclica di Leone XIV.</p>
+  </div>
+</footer>
+
+<script>
+const TESI=[
+ {cap:"Cap. I · §3-5, §10-12",tit:"Continuità con Rerum Novarum",txt:"Il nome Leone lega l'enciclica a Leone XIII e a Rerum novarum, e presenta l'intelligenza artificiale come una nuova rivoluzione industriale e una nuova questione sociale.",stato:"attesa",reale:""},
+ {cap:"Cap. I · §12-16",tit:"La concentrazione del potere come ingiustizia",txt:"Il potere computazionale si concentra in poche mani, e la ricchezza cognitiva ricade sotto la destinazione universale dei beni, con la sussidiarietà come argine.",stato:"attesa",reale:""},
+ {cap:"Cap. II · §20-27",tit:"La persona resta soggetto irriducibile",txt:"L'intelligenza artificiale non è soggetto morale né cosciente, e la responsabilità appartiene sempre a chi progetta, addestra e usa la macchina.",stato:"attesa",reale:""},
+ {cap:"Cap. II · §30",tit:"Calcolo e sapienza",txt:"Si distingue il calcolo, che riguarda i mezzi, dalla sapienza, che riguarda i fini e il bene, e che nessun addestramento produce.",stato:"attesa",reale:""},
+ {cap:"Cap. II · §28",tit:"Opacità e interpretabilità",txt:"L'opacità dei sistemi più potenti rende la trasparenza una condizione della responsabilità e del controllo democratico.",stato:"attesa",reale:""},
+ {cap:"Cap. III · §34-35",tit:"Dignità dal concepimento alla morte naturale",txt:"La vita va difesa dal concepimento alla morte naturale, contro una eugenetica predittiva morbida guidata dai modelli di rischio.",stato:"attesa",reale:""},
+ {cap:"Cap. III · §36",tit:"La disabilità come categoria piena",txt:"La disabilità è una condizione piena dell'esistenza, e la tecnica assistiva va accolta quando accresce partecipazione e relazione, non quando misura il valore della persona.",stato:"attesa",reale:""},
+ {cap:"Cap. III · §38",tit:"Il transumanesimo e il limite",txt:"Si distingue la terapia, che cura, dal potenziamento che rifà l'uomo secondo un progetto di potenza, e si difende il limite come maestro di sapienza.",stato:"attesa",reale:""},
+ {cap:"Cap. IV · §46-47",tit:"La nuova questione operaia",txt:"L'intelligenza artificiale ridefinisce lavoro, salario, competenza e sorveglianza, riaprendo la questione operaia in continuità con Laborem exercens.",stato:"attesa",reale:""},
+ {cap:"Cap. IV e VIII · §54, §95",tit:"Il lavoro nascosto delle filiere digitali",txt:"Dietro l'automatismo apparente vi è il lavoro invisibile di chi etichetta i dati e modera i contenuti traumatici, spesso in Paesi a basso reddito.",stato:"attesa",reale:""},
+ {cap:"Cap. IV · §52-53",tit:"La creatività come bene comune",txt:"Il lavoro creativo è un bene comune da custodire, e le opere usate senza consenso per addestrare i modelli chiedono riconoscimento e giusta remunerazione.",stato:"attesa",reale:""},
+ {cap:"Cap. V · §57-58",tit:"Volti e voci come dono sacro",txt:"Volti e voci sono sacri, e la loro simulazione artificiale, dai deepfake alla parola sintetica, ferisce la trama dell'incontro e la verità pubblica.",stato:"attesa",reale:""},
+ {cap:"Cap. VI · §59, §67",tit:"Formazione contro addestramento",txt:"Educare significa formare una libertà, non addestrare prestazioni, e custodire l'interiorità dei giovani perché sappiano pensare anche senza le macchine.",stato:"attesa",reale:""},
+ {cap:"Cap. VII · §80-82",tit:"Le armi autonome da proibire",txt:"La spirale di annientamento e i sistemi d'arma autonomi vanno fermati, affermando il controllo umano significativo su ogni decisione che tocca la vita.",stato:"attesa",reale:""},
+ {cap:"Cap. VIII · §91, §96-98",tit:"Colonialismo digitale ed ecologia materiale",txt:"L'intelligenza artificiale ha una geografia e una materia fatte di energia, acqua, minerali e rifiuti, e produce una nuova dipendenza che colpisce il Sud globale.",stato:"attesa",reale:""},
+ {cap:"Cap. IX · §106-107, §117",tit:"Sacramenti e speranza contro ottimismo tecnologico",txt:"I sacramenti e il sigillo della confessione sono una differenza non surrogabile, e la speranza cristiana si distingue dall'ottimismo che crede in una soluzione tecnica per ogni cosa.",stato:"attesa",reale:""}
+];
+const STATI={conf:{label:"confermata",cls:"conf"},part:{label:"parzialmente confermata",cls:"part"},abs:{label:"assente",cls:"abs"},attesa:{label:"in attesa",cls:"att"}};
+
+(function(){
+  const list=document.getElementById('tesi-list');let n={conf:0,part:0,abs:0,attesa:0};
+  TESI.forEach(t=>{const s=STATI[t.stato]||STATI.attesa;
+    n[t.stato==='conf'||t.stato==='part'||t.stato==='abs'?t.stato:'attesa']++;
+    const cls=(t.stato==='attesa'?'att':s.cls);
+    const el=document.createElement('div');el.className='tesi '+(t.stato==='attesa'?'':s.cls);
+    el.dataset.stato=cls;
+    el.innerHTML='<div class="top"><span class="cap">'+t.cap+'</span><span class="st"><i class="dot '+s.cls+'"></i>'+s.label+'</span></div><h5>'+t.tit+'</h5><p>'+t.txt+'</p>'+(t.reale?'<div class="ref">Riscontro nel testo reale: '+t.reale+'</div>':'');
+    list.appendChild(el);});
+  const tot=TESI.length,decise=n.conf+n.part+n.abs;
+  const bar=document.getElementById('adh-bar'),num=document.getElementById('adh-num');
+  if(decise>0){const p=(n.conf+n.part*0.5)/tot*100;
+    num.innerHTML=Math.round(p)+'%<small> di aderenza &middot; '+n.conf+' confermate, '+n.part+' parziali, '+n.abs+' assenti su '+tot+'</small>';
+    bar.innerHTML='<i class="b-conf" style="width:'+(n.conf/tot*100)+'%"></i><i class="b-part" style="width:'+(n.part/tot*100)+'%"></i><i class="b-att" style="width:'+((n.abs+n.attesa)/tot*100)+'%"></i>';}
+  // filters
+  document.querySelectorAll('#filters button').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');const f=b.dataset.f;
+      document.querySelectorAll('#tesi-list .tesi').forEach(c=>{
+        c.style.display=(f==='all'||c.dataset.stato===f)?'':'none';});
+    });
+  });
+})();
+
+// scroll reveal
+(function(){
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+
+// count-up
+(function(){
+  const seen=new WeakSet();
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{
+    if(e.isIntersecting&&!seen.has(e.target)){seen.add(e.target);
+      const el=e.target,end=+el.dataset.count,t0=performance.now(),dur=1300;
+      function step(t){const k=Math.min(1,(t-t0)/dur);const ease=1-Math.pow(1-k,3);
+        el.textContent=Math.round(end*ease);if(k<1)requestAnimationFrame(step);}
+      requestAnimationFrame(step);}});},{threshold:.5});
+  document.querySelectorAll('.stat b[data-count]').forEach(el=>io.observe(el));
+})();
+
+// scroll-spy nav
+(function(){
+  const links=[...document.querySelectorAll('nav.toc a')];
+  const map={};links.forEach(a=>map[a.getAttribute('href').slice(1)]=a);
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{
+    if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));
+      const a=map[e.target.id];if(a)a.classList.add('active');}});},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>io.observe(s));
+})();
+
+// hero spotlight
+(function(){
+  const hero=document.querySelector('header.hero'),spot=document.getElementById('spot');
+  if(window.matchMedia('(pointer:fine)').matches){
+    hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect();
+      spot.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      spot.style.setProperty('--my',(e.clientY-r.top)+'px');spot.style.opacity='1';});
+    hero.addEventListener('mouseleave',()=>spot.style.opacity='0');
+  }
+})();
+
+// hero flow field (traces)
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const c=document.getElementById('flow'),x=c.getContext('2d');
+  let W,H,DPR,parts=[];
+  const GOLD='rgba(154,123,63,', INDIGO='rgba(79,67,192,';
+  function size(){DPR=Math.min(2,window.devicePixelRatio||1);
+    W=c.width=innerWidth*DPR;H=c.height=c.offsetHeight*DPR;
+    x.fillStyle='#fdfcf7';x.fillRect(0,0,W,H);}
+  function field(px,py,t){
+    const s=0.0016;
+    return Math.sin(px*s+t*0.0003)*1.6 + Math.cos(py*s*1.3 - t*0.0002)*1.6 + Math.sin((px+py)*s*0.6)*1.2;
+  }
+  function init(){const N=Math.round((innerWidth*c.offsetHeight)/9000);N2=Math.min(260,Math.max(80,N));
+    parts=[];for(let i=0;i<N2;i++){parts.push({x:Math.random()*W,y:Math.random()*H,
+      g:Math.random()<0.5,life:Math.random()*200});}}
+  let N2=160,t=0;
+  function frame(){t++;x.fillStyle='rgba(253,252,247,0.055)';x.fillRect(0,0,W,H);
+    for(const p of parts){const a=field(p.x,p.y,t);const vx=Math.cos(a),vy=Math.sin(a);
+      const nx=p.x+vx*1.2*DPR,ny=p.y+vy*1.2*DPR;
+      x.strokeStyle=(p.g?GOLD:INDIGO)+'0.34)';x.lineWidth=DPR*0.7;
+      x.beginPath();x.moveTo(p.x,p.y);x.lineTo(nx,ny);x.stroke();
+      p.x=nx;p.y=ny;p.life--;
+      if(p.life<0||p.x<0||p.x>W||p.y<0||p.y>H){p.x=Math.random()*W;p.y=Math.random()*H;p.life=120+Math.random()*180;}
+    }
+    requestAnimationFrame(frame);
+  }
+  function setup(){size();init();}
+  setup();frame();
+  let to;addEventListener('resize',()=>{clearTimeout(to);to=setTimeout(setup,200);});
+})();
+</script>
+</body>
+</html>

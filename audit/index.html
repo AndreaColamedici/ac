@@ -19,10 +19,10 @@ table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9re
 th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid var(--code-bg); }
 th { font-weight: bold; }
 .no { color: #c0392b; font-weight: bold; }
-code { background: var(--code-bg); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.85em; }
-pre { background: var(--code-bg); padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; font-size: 0.82em; line-height: 1.5; }
+pre { background: var(--code-bg); padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; font-size: 0.8em; line-height: 1.5; max-height: 400px; }
 a { color: var(--accent); }
-.cta { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; background: var(--accent); color: #fff; text-decoration: none; border-radius: 4px; font-family: sans-serif; font-size: 0.9rem; }
+.cta { display: inline-block; margin: 0.5rem 0.5rem 0 0; padding: 0.7rem 1.5rem; background: var(--accent); color: #fff; text-decoration: none; border-radius: 4px; font-family: sans-serif; font-size: 0.9rem; }
+.cta.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
 .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--code-bg); color: var(--muted); font-size: 0.85rem; }
 </style>
 </head>
@@ -56,15 +56,14 @@ a { color: var(--accent); }
 
 <p>Copy the script below into any AI system's code execution environment (Claude.ai, ChatGPT, Gemini). It will produce a structured JSON report of the client exposure surface.</p>
 
-<a class="cta" href="https://github.com/AndreaColamedici/andreacolamedici.com/blob/main/audit/ai-privacy-audit.py">Download the Audit Script</a>
+<p>
+<a class="cta" href="ai-privacy-audit.py" download>Download Script</a>
+<a class="cta secondary" href="https://raw.githubusercontent.com/AndreaColamedici/andreacolamedici.com/main/audit/ai-privacy-audit.py">View on GitHub</a>
+</p>
 
 <h2>How It Works</h2>
 
 <p>The script measures the execution environment using standard Linux tools: TCP connections, TLS certificates, filesystem configuration, process memory, transcript contents. It does not probe for vulnerabilities or reverse-engineer proprietary systems. It observes what is visible from within the environment provided to users.</p>
-
-<h2>The Paper</h2>
-
-<p>The full methodology, findings, and regulatory analysis are in the paper <em>Inside the Container: What a User Can Measure About the Privacy Architecture of an AI Conversation</em> (Colamedici, 2026, draft). The paper documents nine specific findings, a capability/policy/verifiability table, and a comparative privacy spectrum from hosted AI to end-to-end encrypted messaging to local open-weight models.</p>
 
 <h2>The Privacy Spectrum</h2>
 
@@ -75,13 +74,17 @@ a { color: var(--accent); }
 <tr><td>Privacy guarantee</td><td>Policy</td><td>Cryptographic</td><td>Architectural</td></tr>
 </table>
 
+<h2>The Paper</h2>
+
+<p><em>Inside the Container: What a User Can Measure About the Privacy Architecture of an AI Conversation</em> (Colamedici, 2026, draft). Nine findings, a capability/policy/verifiability table, regulatory mapping to EU AI Act and GDPR, and a comparative privacy spectrum.</p>
+
 <h2>Contribute</h2>
 
 <p>Run the audit on a different AI system and share your results. The comparative data across providers is what makes this work powerful. Each additional column in the table is another data point for regulators, researchers, and users.</p>
 
 <div class="footer">
 <p>Andrea Colamedici · <a href="https://tlon.it">Tlon</a> · June 2026</p>
-<p>License: CC BY 4.0. The audit script and methodology are free to use, reproduce, and adapt.</p>
+<p>License: CC BY 4.0</p>
 </div>
 
 </body>

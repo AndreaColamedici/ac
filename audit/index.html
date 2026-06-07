@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside the Container — AI Privacy Audit Kit</title>
+<style>
+:root { --bg: #faf9f6; --fg: #1a1a1a; --accent: #2d5016; --muted: #666; --code-bg: #f0efe8; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1a1a; --fg: #e8e6e0; --accent: #8cb369; --muted: #999; --code-bg: #2a2a2a; }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--fg); max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; line-height: 1.7; }
+h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+h2 { font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
+p { margin-bottom: 1rem; }
+.subtitle { color: var(--muted); font-style: italic; margin-bottom: 2rem; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid var(--code-bg); }
+th { font-weight: bold; }
+.no { color: #c0392b; font-weight: bold; }
+code { background: var(--code-bg); padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.85em; }
+pre { background: var(--code-bg); padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; font-size: 0.82em; line-height: 1.5; }
+a { color: var(--accent); }
+.cta { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; background: var(--accent); color: #fff; text-decoration: none; border-radius: 4px; font-family: sans-serif; font-size: 0.9rem; }
+.footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--code-bg); color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>Inside the Container</h1>
+<p class="subtitle">What a user can measure about the privacy architecture of an AI conversation</p>
+
+<p>When you talk to an AI, where does your conversation go? Who can read it? What is stored, and where?</p>
+
+<p>This project provides a reproducible protocol for answering these questions from the user's side. Not by reading the provider's privacy policy. By measuring.</p>
+
+<h2>The Central Finding</h2>
+
+<p>The client-side architecture of a hosted AI conversation provides no user-verifiable privacy guarantee. The user's trust rests entirely on the provider's policy commitments.</p>
+
+<table>
+<tr><th>Data Category</th><th>Provider Can Access</th><th>User Can Verify</th></tr>
+<tr><td>Your messages</td><td>Yes</td><td class="no">No</td></tr>
+<tr><td>AI responses</td><td>Yes</td><td class="no">No</td></tr>
+<tr><td>AI reasoning (thinking)</td><td>Yes</td><td class="no">No</td></tr>
+<tr><td>Your uploaded files</td><td>Yes</td><td class="no">No</td></tr>
+<tr><td>Tool code & outputs</td><td>Yes</td><td class="no">No</td></tr>
+<tr><td>External service calls</td><td>Yes</td><td class="no">No</td></tr>
+<tr><td>Container network traffic</td><td>Yes</td><td class="no">No</td></tr>
+</table>
+
+<p>The privacy model of hosted AI conversation is the same as email: the server can read your messages. It is not the same as end-to-end encrypted messaging, where the server cannot.</p>
+
+<h2>Run the Audit Yourself</h2>
+
+<p>Copy the script below into any AI system's code execution environment (Claude.ai, ChatGPT, Gemini). It will produce a structured JSON report of the client exposure surface.</p>
+
+<a class="cta" href="https://github.com/AndreaColamedici/andreacolamedici.com/blob/main/audit/ai-privacy-audit.py">Download the Audit Script</a>
+
+<h2>How It Works</h2>
+
+<p>The script measures the execution environment using standard Linux tools: TCP connections, TLS certificates, filesystem configuration, process memory, transcript contents. It does not probe for vulnerabilities or reverse-engineer proprietary systems. It observes what is visible from within the environment provided to users.</p>
+
+<h2>The Paper</h2>
+
+<p>The full methodology, findings, and regulatory analysis are in the paper <em>Inside the Container: What a User Can Measure About the Privacy Architecture of an AI Conversation</em> (Colamedici, 2026, draft). The paper documents nine specific findings, a capability/policy/verifiability table, and a comparative privacy spectrum from hosted AI to end-to-end encrypted messaging to local open-weight models.</p>
+
+<h2>The Privacy Spectrum</h2>
+
+<table>
+<tr><th>Property</th><th>Hosted AI</th><th>Signal</th><th>Local Model</th></tr>
+<tr><td>Provider reads content</td><td>Yes</td><td>No</td><td>N/A</td></tr>
+<tr><td>User-verifiable encryption</td><td>No</td><td>Yes</td><td>N/A</td></tr>
+<tr><td>Privacy guarantee</td><td>Policy</td><td>Cryptographic</td><td>Architectural</td></tr>
+</table>
+
+<h2>Contribute</h2>
+
+<p>Run the audit on a different AI system and share your results. The comparative data across providers is what makes this work powerful. Each additional column in the table is another data point for regulators, researchers, and users.</p>
+
+<div class="footer">
+<p>Andrea Colamedici · <a href="https://tlon.it">Tlon</a> · June 2026</p>
+<p>License: CC BY 4.0. The audit script and methodology are free to use, reproduce, and adapt.</p>
+</div>
+
+</body>
+</html>

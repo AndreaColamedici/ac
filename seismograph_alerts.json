@@ -1,6 +1,60 @@
 {
   "alerts": [
     {
+      "title": "Pentagon designation clouds Anthropic IPO: 82% to 71%, falling",
+      "shift_pp": -11,
+      "what_moved": [
+        {
+          "date": "2026-06-08",
+          "event": "NSA using Anthropic's Claude Mythos for offensive cyber operations despite Pentagon blacklist"
+        },
+        {
+          "date": "2026-06-08",
+          "event": "OpenAI files confidential IPO after Anthropic, targeting fall public listing at $1T+ valuation"
+        },
+        {
+          "date": "2026-06-08",
+          "event": "Anthropic-Pentagon tensions reportedly easing ahead of IPO despite ongoing court battle"
+        },
+        {
+          "date": "2026-06-07",
+          "event": "Pentagon still 'vigorously' defending supply chain risk designation in court"
+        },
+        {
+          "date": "2026-06-01",
+          "event": "Anthropic files confidential IPO at $965B valuation, ahead of OpenAI's $852B March valuation"
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Anthropic",
+          "role": "Primary subject - AI company facing Pentagon designation while pursuing IPO"
+        },
+        {
+          "name": "OpenAI",
+          "role": "Key competitor - filed IPO June 8, targeting fall debut after Anthropic"
+        },
+        {
+          "name": "Founders Fund",
+          "role": "VC stakeholder - position affected by IPO timing dynamics"
+        },
+        {
+          "name": "SoftBank",
+          "role": "Strategic investor - exposed to AI sector IPO sequencing"
+        },
+        {
+          "name": "Amazon",
+          "role": "Major Anthropic investor and Claude integration partner via Bedrock"
+        }
+      ],
+      "assessment": "<cite index=\"8-2,8-10\">OpenAI filed confidential IPO papers June 8 targeting fall listing at $852B+ valuation, one week after Anthropic's June 1 filing at $965B</cite>. <cite index=\"2-6,2-7\">The NSA uses Anthropic's Mythos model for offensive cyber operations with embedded engineers, creating regulatory contradiction with Pentagon blacklist</cite>. <cite index=\"1-4,1-7\">Pentagon designation remains in force despite reported White House thaw, with ongoing court battle creating IPO timing uncertainty versus OpenAI's clearer path</cite>.",
+      "timestamp": "2026-06-09T03:54:16Z",
+      "market_id": "anthropic-openai-ipo",
+      "price_before": 82,
+      "price_after": 71,
+      "volume": 131765.17273099977
+    },
+    {
       "title": "Anthropic-OpenAI IPO: 24% to 77%, rising",
       "shift_pp": 53,
       "what_moved": [

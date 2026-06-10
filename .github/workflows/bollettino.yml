@@ -1,0 +1,46 @@
+name: Bollettino
+
+on:
+  schedule:
+    # Due esecuzioni per coprire ora legale e solare:
+    # lo script procede solo quando a Roma sono le 7:00, l'altra esecuzione esce subito.
+    - cron: "0 5 * * *"
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bollettino
+  cancel-in-progress: false
+
+jobs:
+  pubblica:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Genera il Bollettino
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
+        run: node scripts/bollettino.mjs
+
+      - name: Pubblica
+        run: |
+          git config user.name "Elia"
+          git config user.email "elia@andreacolamedici.com"
+          git add bollettino bollettino.html
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica da pubblicare."
+          else
+            git commit -m "Bollettino $(date -u +%F): pubblicazione autonoma"
+            git push
+          fi

@@ -1,6 +1,60 @@
 {
   "alerts": [
     {
+      "title": "Anthropic IPO Race: 72% to 82%, rising",
+      "shift_pp": 10,
+      "what_moved": [
+        {
+          "date": "2026-06-08",
+          "event": "OpenAI filed confidential IPO paperwork one week after Anthropic, at $852B valuation vs Anthropic's $965B"
+        },
+        {
+          "date": "2026-06-01",
+          "event": "Anthropic filed confidential S-1 with SEC for IPO at $965B valuation following $65B funding round"
+        },
+        {
+          "date": "2026-03-06",
+          "event": "Pentagon officially designated Anthropic as supply chain risk, first American company to receive this designation"
+        },
+        {
+          "date": "2026-02-27",
+          "event": "Defense Secretary Pete Hegseth announced Anthropic supply chain risk designation after failed Pentagon negotiations"
+        },
+        {
+          "date": "2026-02-28",
+          "event": "OpenAI secured Pentagon contract hours after Anthropic was blacklisted, replacing Anthropic in military systems"
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Anthropic",
+          "role": "Claude developer filing for IPO at $965B valuation, designated Pentagon supply chain risk"
+        },
+        {
+          "name": "OpenAI",
+          "role": "ChatGPT maker filing IPO at $852B valuation, secured Pentagon contract after Anthropic blacklisted"
+        },
+        {
+          "name": "Amazon",
+          "role": "Major Anthropic investor and cloud provider, potential divestment risk from Pentagon designation"
+        },
+        {
+          "name": "SoftBank",
+          "role": "Major investor in both companies' recent funding rounds"
+        },
+        {
+          "name": "Founders Fund",
+          "role": "Early Anthropic backer, managing regulatory and valuation risk"
+        }
+      ],
+      "assessment": "Market confidence in Anthropic's IPO timing advantage strengthened following OpenAI's delayed June 8 filing versus Anthropic's June 1 submission. Despite Pentagon supply chain risk designation creating regulatory overhang, Anthropic's $965B valuation premium over OpenAI's $852B and stronger enterprise positioning with Claude Code ($2.5B annualized billings) offset geopolitical concerns in IPO race dynamics.",
+      "timestamp": "2026-06-10T20:34:42Z",
+      "market_id": "anthropic-openai-ipo",
+      "price_before": 72,
+      "price_after": 82,
+      "volume": 145246.81797999988
+    },
+    {
       "title": "Pentagon designation clouds Anthropic IPO: 82% to 71%, falling",
       "shift_pp": -11,
       "what_moved": [

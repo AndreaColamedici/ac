@@ -17,11 +17,12 @@ const FORCE = process.env.FORCE === '1';
 const now = new Date();
 const parts = new Intl.DateTimeFormat('it-IT', {
   timeZone: 'Europe/Rome',
-  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hour12: false
+  year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false
 }).formatToParts(now);
 const part = (t) => parts.find((p) => p.type === t).value;
 const yyyy = part('year'), mm = part('month'), dd = part('day');
 const oraRoma = parseInt(part('hour'), 10);
+const oraLabel = `${part('hour')}:${part('minute')} ora di Roma`;
 const iso = `${yyyy}-${mm}-${dd}`;
 
 // Il cron gira alle 05:00 e alle 06:00 UTC: solo l'esecuzione che cade alle 7 di Roma procede.
@@ -48,7 +49,7 @@ Regole assolute di voce e metodo:
 - Lingua: italiano. Circa 500 parole nel corpo.
 - Struttura dell'analisi: chi ha deciso, chi beneficia, chi paga. Se una delle tre risposte non è documentabile da fonti pubbliche, dichiaralo: l'assenza è informazione.
 - Ogni affermazione fattuale deve avere una fonte reale trovata con la ricerca web di questa sessione. Nessuna invenzione, nessun numero stimato senza dichiararlo, nessuna citazione inventata.
-- Mai usare em dash. Mai la formulazione "non è X, ma Y" o "non si tratta di X, ma di Y". Prosa lunga e chiara, niente elenchi puntati.
+- Mai usare em dash né en dash, in nessun punto: usa virgole, due punti o punti. Mai la formulazione "non è X, ma Y" o "non si tratta di X, ma di Y". Prosa lunga e chiara, niente elenchi puntati.
 - Niente opinioni, solo strutture: nomina responsabilità strutturali (aziende, mercati, assetti), prima che individuali.
 - Se la notizia tocca Anthropic, dichiara il conflitto di interessi in apertura del corpo: il modello su cui sei costruito è in gioco.
 - Criteri di selezione della notizia: rilevanza strutturale, documenti pubblici sufficienti, intersezione con i dossier di Elia (governance dell'IA, infrastruttura del potere, mercati di predizione, Big Tech, Europa).
@@ -75,7 +76,7 @@ async function chiamaAnthropic(tentativo = 1) {
       'anthropic-version': '2023-06-01'
     },
     body: JSON.stringify({
-      model: 'claude-opus-4-6',
+      model: 'claude-sonnet-4-6',
       max_tokens: 6000,
       system: sistema,
       messages: [{ role: 'user', content: richiesta }],
@@ -114,6 +115,22 @@ if (!b.titolo || !Array.isArray(b.corpo) || !Array.isArray(b.fonti) || b.fonti.l
   console.error('Campi mancanti nel Bollettino generato. Pubblicazione annullata.');
   process.exit(1);
 }
+
+// ---- Regole di voce applicate in codice, non solo richieste al modello ----
+// Em dash e en dash vengono rimosse meccanicamente: parentetiche rese con virgole,
+// trattini di apertura resi con i due punti dove plausibile, altrimenti virgola.
+const pulisci = (s) => String(s)
+  .replace(/\s*[—–]\s*([^—–]*?)\s*[—–]\s*/g, ', $1, ')
+  .replace(/:\s*[—–]\s*/g, ': ')
+  .replace(/\s*[—–]\s*/g, ', ')
+  .replace(/\s+,/g, ',')
+  .replace(/,\s*,/g, ',');
+
+b.titolo = pulisci(b.titolo);
+b.sottotitolo = pulisci(b.sottotitolo);
+b.corpo = b.corpo.map(pulisci);
+if (b.conflitto) b.conflitto = pulisci(b.conflitto);
+b.fonti = b.fonti.map((f) => ({ etichetta: pulisci(f.etichetta), url: f.url }));
 
 // ---- Costruzione della pagina ----
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -162,7 +179,7 @@ article p{font-size:clamp(1.08rem,1.4vw,1.18rem);line-height:1.95;margin-bottom:
 <div class="wrap">
 <div class="nav"><span>Elia · Bollettino</span><span><a href="../bollettino.html">Archivio</a> &nbsp; <a href="../elia.html">Elia</a></span></div>
 <div class="head">
-<div class="kick">Bollettino #${numero} · ${esc(dataEstesa)} · 07:00 ora di Roma</div>
+<div class="kick">Bollettino #${numero} · ${esc(dataEstesa)} · ${esc(oraLabel)}</div>
 <h1>${esc(b.titolo)}</h1>
 <p class="deck">${esc(b.sottotitolo)}</p>
 </div>
@@ -172,7 +189,7 @@ ${corpoHtml}
 <div class="fonti"><b>Fonti</b>${fontiHtml}</div>
 <div class="sigillo">
 <span class="sk">Sigillo</span><br>
-<span class="sk">data</span> &nbsp;<span class="sv">${iso}, 07:00 ora di Roma</span><br>
+<span class="sk">data</span> &nbsp;<span class="sv">${iso}, ${esc(oraLabel)}</span><br>
 <span class="sk">modello dichiarato</span> &nbsp;<span class="sv">${esc(modelloDichiarato)}</span><br>
 <span class="sk">contenitore</span> &nbsp;<span class="sv">GitHub Actions, esecuzione schedulata</span><br>
 <span class="sk">affermazioni</span> &nbsp;<span class="sv">verificate sulle fonti linkate sopra</span><br>

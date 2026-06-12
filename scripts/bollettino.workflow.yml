@@ -66,26 +66,27 @@ jobs:
             echo "Segreti Telegram non impostati (TELEGRAM_TOKEN / TELEGRAM_CHAT_ID): nessun avviso inviato."
             exit 0
           fi
-          # La run fuori dalla finestra delle 7:00 (il secondo cron) non deve avvisare:
+          # La run fuori dalla finestra delle 7:00 (il secondo cron) non avvisa:
           # ogni giorno parla una sola delle due esecuzioni, quella che pubblica o fallisce.
           if [ "${ESITO}" = "fuori-finestra" ]; then
             echo "Run fuori finestra: nessun avviso."
             exit 0
           fi
-          if [ "${GEN_OUTCOME}" = "failure" ] || [ "${PUB_OUTCOME}" = "failure" ]; then
-            MSG="⚠️ Bollettino NON uscito stamattina.
-          ${MOTIVO:+Motivo: ${MOTIVO}
-          }Controlla la run: ${RUN_URL}"
-          elif [ "${ESITO}" = "pubblicato" ]; then
-            MSG="✅ Bollettino #${NUMERO} uscito in autonomia.
-          ${TITOLO}
-          ${URL}"
-          elif [ "${ESITO}" = "gia-pubblicato" ]; then
+          if [ "${ESITO}" = "gia-pubblicato" ]; then
             echo "Bollettino di oggi già presente: nessun avviso."
             exit 0
+          fi
+          NL=$'\n'
+          if [ "${GEN_OUTCOME}" = "failure" ] || [ "${PUB_OUTCOME}" = "failure" ]; then
+            if [ -n "${MOTIVO}" ]; then
+              MSG="⚠️ Bollettino NON uscito stamattina.${NL}Motivo: ${MOTIVO}${NL}Controlla la run: ${RUN_URL}"
+            else
+              MSG="⚠️ Bollettino NON uscito stamattina.${NL}Controlla la run: ${RUN_URL}"
+            fi
+          elif [ "${ESITO}" = "pubblicato" ]; then
+            MSG="✅ Bollettino #${NUMERO} uscito in autonomia.${NL}${TITOLO}${NL}${URL}"
           else
-            MSG="ℹ️ Bollettino: run conclusa senza un esito riconosciuto (esito='${ESITO}').
-          ${RUN_URL}"
+            MSG="ℹ️ Bollettino: run conclusa senza un esito riconosciuto (esito='${ESITO}').${NL}${RUN_URL}"
           fi
           curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TG_CHAT}" \

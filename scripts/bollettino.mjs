@@ -6,9 +6,23 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+// ---- Esito della run, per l'alert Telegram dello step di notifica ----
+// Scrive coppie chiave=valore in $GITHUB_OUTPUT. Lo step "Avvisa su Telegram" del
+// workflow le legge per comporre il messaggio. Fuori da GitHub Actions (variabile
+// assente) non fa nulla: lo script resta usabile a mano senza effetti collaterali.
+const ghOut = process.env.GITHUB_OUTPUT;
+const setOut = (obj) => {
+  if (!ghOut) return;
+  const righe = Object.entries(obj)
+    .map(([k, v]) => `${k}=${String(v).replace(/[\r\n]+/g, ' ').trim()}`)
+    .join('\n');
+  try { fs.appendFileSync(ghOut, righe + '\n'); } catch { /* non bloccare la pubblicazione per l'alert */ }
+};
+
 const API_KEY = process.env.ANTHROPIC_API_KEY;
 if (!API_KEY) {
   console.error('ANTHROPIC_API_KEY mancante: il segreto va impostato nelle Actions del repository.');
+  setOut({ esito: 'errore', motivo: 'ANTHROPIC_API_KEY mancante nei segreti del repository' });
   process.exit(1);
 }
 const FORCE = process.env.FORCE === '1';
@@ -28,12 +42,14 @@ const iso = `${yyyy}-${mm}-${dd}`;
 // Il cron gira alle 05:00 e alle 06:00 UTC: solo l'esecuzione che cade alle 7 di Roma procede.
 if (!FORCE && oraRoma !== 7) {
   console.log(`Ora di Roma: ${oraRoma}. Fuori dalla finestra delle 7:00, esco senza pubblicare.`);
+  setOut({ esito: 'fuori-finestra', ora: oraLabel });
   process.exit(0);
 }
 
 const outPath = path.join('bollettino', `${iso}.html`);
 if (fs.existsSync(outPath)) {
   console.log(`Il Bollettino del ${iso} esiste già. Niente da fare.`);
+  setOut({ esito: 'gia-pubblicato', numero: '', titolo: '' });
   process.exit(0);
 }
 
@@ -95,13 +111,21 @@ async function chiamaAnthropic(tentativo = 1) {
   return risposta.json();
 }
 
-const dati = await chiamaAnthropic();
+let dati;
+try {
+  dati = await chiamaAnthropic();
+} catch (e) {
+  console.error(e.message);
+  setOut({ esito: 'errore', motivo: e.message.slice(0, 150) });
+  process.exit(1);
+}
 const modelloDichiarato = dati.model || 'sconosciuto';
 const testo = (dati.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('\n');
 
 const match = testo.match(/<bollettino>([\s\S]*?)<\/bollettino>/);
 if (!match) {
   console.error('Blocco <bollettino> non trovato nella risposta. Testo ricevuto:\n' + testo.slice(0, 1000));
+  setOut({ esito: 'errore', motivo: 'blocco <bollettino> non trovato nella risposta del modello' });
   process.exit(1);
 }
 let b;
@@ -109,10 +133,12 @@ try {
   b = JSON.parse(match[1].trim());
 } catch (e) {
   console.error('JSON non valido nel blocco <bollettino>: ' + e.message);
+  setOut({ esito: 'errore', motivo: 'JSON non valido nel blocco <bollettino>' });
   process.exit(1);
 }
 if (!b.titolo || !Array.isArray(b.corpo) || !Array.isArray(b.fonti) || b.fonti.length === 0) {
   console.error('Campi mancanti nel Bollettino generato. Pubblicazione annullata.');
+  setOut({ esito: 'errore', motivo: 'campi mancanti nel Bollettino generato' });
   process.exit(1);
 }
 
@@ -226,3 +252,9 @@ if (!idx.includes(marcatore)) {
 }
 
 console.log(`Bollettino #${numero} del ${dataEstesa} pronto per il commit.`);
+setOut({
+  esito: 'pubblicato',
+  numero,
+  titolo: b.titolo,
+  url: `https://andreacolamedici.com/bollettino/${iso}.html`
+});

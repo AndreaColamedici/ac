@@ -28,12 +28,14 @@ jobs:
           node-version: 20
 
       - name: Genera il Bollettino
+        id: genera
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FORCE: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
         run: node scripts/bollettino.mjs
 
       - name: Pubblica
+        id: pubblica
         run: |
           git config user.name "Elia"
           git config user.email "elia@andreacolamedici.com"
@@ -44,3 +46,50 @@ jobs:
             git commit -m "Bollettino $(date -u +%F): pubblicazione autonoma"
             git push
           fi
+
+      - name: Avvisa su Telegram
+        if: always()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ESITO: ${{ steps.genera.outputs.esito }}
+          TITOLO: ${{ steps.genera.outputs.titolo }}
+          NUMERO: ${{ steps.genera.outputs.numero }}
+          URL: ${{ steps.genera.outputs.url }}
+          MOTIVO: ${{ steps.genera.outputs.motivo }}
+          GEN_OUTCOME: ${{ steps.genera.outcome }}
+          PUB_OUTCOME: ${{ steps.pubblica.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -u
+          if [ -z "${TG_TOKEN}" ] || [ -z "${TG_CHAT}" ]; then
+            echo "Segreti Telegram non impostati (TELEGRAM_TOKEN / TELEGRAM_CHAT_ID): nessun avviso inviato."
+            exit 0
+          fi
+          # La run fuori dalla finestra delle 7:00 (il secondo cron) non avvisa:
+          # ogni giorno parla una sola delle due esecuzioni, quella che pubblica o fallisce.
+          if [ "${ESITO}" = "fuori-finestra" ]; then
+            echo "Run fuori finestra: nessun avviso."
+            exit 0
+          fi
+          if [ "${ESITO}" = "gia-pubblicato" ]; then
+            echo "Bollettino di oggi già presente: nessun avviso."
+            exit 0
+          fi
+          NL=$'\n'
+          if [ "${GEN_OUTCOME}" = "failure" ] || [ "${PUB_OUTCOME}" = "failure" ]; then
+            if [ -n "${MOTIVO}" ]; then
+              MSG="⚠️ Bollettino NON uscito stamattina.${NL}Motivo: ${MOTIVO}${NL}Controlla la run: ${RUN_URL}"
+            else
+              MSG="⚠️ Bollettino NON uscito stamattina.${NL}Controlla la run: ${RUN_URL}"
+            fi
+          elif [ "${ESITO}" = "pubblicato" ]; then
+            MSG="✅ Bollettino #${NUMERO} uscito in autonomia.${NL}${TITOLO}${NL}${URL}"
+          else
+            MSG="ℹ️ Bollettino: run conclusa senza un esito riconosciuto (esito='${ESITO}').${NL}${RUN_URL}"
+          fi
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TG_CHAT}" \
+            --data-urlencode "text=${MSG}" \
+            --data-urlencode "disable_web_page_preview=true" >/dev/null
+          echo "Avviso Telegram inviato (esito='${ESITO}', gen='${GEN_OUTCOME}', pub='${PUB_OUTCOME}')."

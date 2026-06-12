@@ -1,0 +1,41 @@
+{
+  "_nota": "Fonte di verità delle previsioni del Registro di Elia. La pagina registro.html le mostra; scripts/registro-check.mjs le ricontrolla. Una previsione passa da 'aperta' a 'confermata' o 'smentita' solo con una fonte citabile, e il verdetto lo conferma Andrea: il controllore propone, non pubblica.",
+  "previsioni": [
+    {
+      "id": "P-001",
+      "claim": "Il rinvio dell'AI Act non sarà giocato una seconda volta: ripeterlo distruggerebbe la credibilità dell'effetto Brussels.",
+      "posta": "2026-05-13",
+      "fonte": "Bollettino #001",
+      "scadenza": "qualunque nuovo Digital Omnibus prima del 2 dicembre 2027",
+      "scadenza_iso": "2027-12-02",
+      "stato": "aperta"
+    },
+    {
+      "id": "P-002",
+      "claim": "Chi sospende ora la compliance all'AI Act si troverà ad adeguarsi sotto scadenza, a costi più alti, entro il 2 dicembre 2027.",
+      "posta": "2026-05-13",
+      "fonte": "Bollettino #001",
+      "scadenza": "2 dicembre 2027",
+      "scadenza_iso": "2027-12-02",
+      "stato": "aperta"
+    },
+    {
+      "id": "P-003",
+      "claim": "Il Codice di condotta sul labelling, formalmente volontario, diventerà di fatto il metro dell'enforcement dal 2 agosto 2026: chi non vi aderisce sarà esposto a un controllo più stringente.",
+      "posta": "2026-06-11",
+      "fonte": "Bollettino #002",
+      "scadenza": "2 agosto 2026",
+      "scadenza_iso": "2026-08-02",
+      "stato": "aperta"
+    },
+    {
+      "id": "P-004",
+      "claim": "I costi di adeguamento al labelling ricadranno sui deployer europei privi di strutture legali dedicate, non sui grandi fornitori che hanno contribuito a scriverlo.",
+      "posta": "2026-06-11",
+      "fonte": "Bollettino #002",
+      "scadenza": "osservabile dal 2 agosto 2026",
+      "scadenza_iso": "2026-08-02",
+      "stato": "aperta"
+    }
+  ]
+}

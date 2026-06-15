@@ -2,6 +2,7 @@
 // Complete data from Elia Radiographs #1-#4
 // 80 nodes, 117 links
 // Every link includes source citation and URL.
+// Last automated verification: June 15, 2026
 // Primary sources: CNBC, NPR, Defense One, Fortune, AP/PBS, TechCrunch,
 // Corporate Europe Observatory, OpenSecrets, CoinDesk, Bloomberg, Axios,
 // DefenseScoop, Pentagon official documents (media.defense.gov),
@@ -17,7 +18,7 @@ const NODES = [
       "r1",
       "r3"
     ],
-    "desc": "CEO of Tesla, SpaceX, xAI. Former head of DOGE (Jan-May 2025). Before DOGE, his businesses had received at least $38B in government contracts, loans, subsidies, and tax credits since 2003 (Washington Post). SpaceX held $22B in government contracts (Shotwell, 2024). xAI's Grok classified systems agreement signed ~Feb 23-24, 2026; Anthropic designated supply chain risk ~10 days later. During DOGE tenure, DOJ dropped several lawsuits into SpaceX and Tesla. After departure: xAI won $200M Pentagon contract (Jul 2025), Grok deployed at Impact Level 5 for all 3M military/civilian personnel (Dec 2025), classified systems agreement for intelligence, weapons, battlefield operations (Feb 2026). Accepted 'all lawful purposes' standard."
+    "desc": "CEO of Tesla, SpaceX, xAI. Former head of DOGE (Jan-May 2025). DOGE dissolved November 2025, eight months before scheduled July 2026 end date. Before DOGE, his businesses had received at least $38B in government contracts"
   },
   {
     "id": "sacks",
@@ -26,7 +27,7 @@ const NODES = [
     "rads": [
       "r1"
     ],
-    "desc": "White House AI & Crypto Czar (Dec 2024). GP at Craft Ventures. Former PayPal COO. 'Special government employee' (130 days/year), exempt from Senate confirmation. Invested via Craft in xAI, Palantir, SpaceX, Neuralink. NYT investigation (Nov 30, 2025): remains invested in 449 companies with AI products out of 708 total tech investments. Did not classify Palantir as AI in ethics disclosures. Ethics waivers described by WashU expert Kathleen Clark as 'sham ethics waivers' (NPR, Dec 2025; 'like a presidential pardon in advance,' TechCrunch). Accused Anthropic of 'woke AI.' Helped draft EOs targeting state AI safety laws. Lobbied for Vance as VP alongside Musk, Thiel, Carlson."
+    "desc": "Former White House AI & Crypto Czar (Dec 2024-Mar 2026). Co-chair of President's Council of Advisors on Science and Technology (PCAST) since Mar 2026. GP at Craft Ventures. Completed 130-day limit as 'Special government employee'"
   },
   {
     "id": "thiel",
@@ -93,7 +94,7 @@ const NODES = [
     "rads": [
       "r1"
     ],
-    "desc": "Attorney General. Jan 9, 2026: established AI Litigation Task Force under DOJ."
+    "desc": "Former Attorney General (Feb 2025-Apr 2026). Fired by Trump April 2, 2026. Jan 9, 2026: established AI Litigation Task Force under DOJ. Succeeded by Todd Blanche (acting)"
   },
   {
     "id": "dario",
@@ -103,7 +104,7 @@ const NODES = [
       "r4",
       "r1"
     ],
-    "desc": "CEO/Co-founder Anthropic. Former VP Research at OpenAI. Left 2021 with six colleagues over 'directional differences.' Feb 26, 2026: 'We cannot in good conscience accede to their request.' Feb 24: met Hegseth, refused full military access. Mar 9: filed two lawsuits against DoD. Led Anthropic $0 to $14B annual revenue in under 3 years. ~80% revenue from enterprise (CNBC, Jan 2026)."
+    "desc": "CEO/Co-founder Anthropic. Former VP Research at OpenAI. Company sued Pentagon March 2026 over 'supply chain risk' designation. Won preliminary injunction March 27, 2026. Company valued at $965B (May 2026) after $65B Series H funding round"
   },
   {
     "id": "daniela",
@@ -177,7 +178,7 @@ const NODES = [
       "r4",
       "r1"
     ],
-    "desc": "CEO OpenAI. Called Anthropic Super Bowl ad 'clearly dishonest.' 'Anthropic serves expensive product to rich people; we bring AI to billions who can't pay.' OpenAI signed Pentagon deal hours after Trump's order against Anthropic."
+    "desc": "CEO OpenAI. Called Anthropic Super Bowl ad 'clearly dishonest.' OpenAI signed $200M Pentagon contract February 2026 after Trump banned Anthropic. Contract estimated potentially worth $500M-$2B over five years"
   },
   {
     "id": "salla",

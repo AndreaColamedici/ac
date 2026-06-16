@@ -1,6 +1,39 @@
 {
   "alerts": [
     {
+      "timestamp": "2026-06-16T04:47:38Z",
+      "market_id": "anthropic-openai-ipo",
+      "title": "anthropic-openai-ipo: 76% to 44%, falling",
+      "shift_pp": -32,
+      "price_before": 76,
+      "price_after": 44,
+      "volume": 166224.84812899993,
+      "what_moved": [],
+      "nodes": [
+        {
+          "name": "Anthropic",
+          "role": "see Network"
+        },
+        {
+          "name": "OpenAI",
+          "role": "see Network"
+        },
+        {
+          "name": "Founders Fund",
+          "role": "see Network"
+        },
+        {
+          "name": "SoftBank",
+          "role": "see Network"
+        },
+        {
+          "name": "Amazon",
+          "role": "see Network"
+        }
+      ],
+      "assessment": "The market shifted 32pp. Context: Pentagon designation may delay Anthropic IPO. Yes=Anthropic first, No=OpenAI first. Automated alert, pending analysis."
+    },
+    {
       "title": "Anthropic IPO Race: 72% to 82%, rising",
       "shift_pp": 10,
       "what_moved": [

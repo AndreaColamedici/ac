@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il daimon artificiale · un metodo per pensare contro la macchina che ti dà ragione</title>
+<style>
+  :root{
+    --ink:#0d0d11;--ink-soft:#1a1a20;--paper:#e9e5db;--paper-2:#e1ddd0;
+    --line:#23232b;--line-soft:#c3bfb0;--no:#c1352b;--no-deep:#8f241d;
+    --dim:#5d5a52;--dim-2:#7d796f;--pad:clamp(1.15rem,4vw,3rem);--maxw:75rem;--col:62ch;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{background:var(--paper);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--no);z-index:50;transition:width .1s linear}
+  nav.dots{position:fixed;right:max(1rem,2vw);top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:.85rem}
+  nav.dots a{width:9px;height:9px;border-radius:50%;border:1px solid var(--dim);display:block;transition:all .25s;position:relative}
+  nav.dots a.on{background:var(--no);border-color:var(--no);transform:scale(1.25)}
+  nav.dots a span{position:absolute;right:18px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:ui-monospace,Menlo,monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--paper);padding:.2rem .5rem;border:1px solid var(--line-soft);border-radius:3px;opacity:0;pointer-events:none;transition:opacity .2s}
+  nav.dots a:hover span{opacity:1}
+  @media(max-width:820px){nav.dots{display:none}}
+  .mono{font-family:ui-monospace,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace}
+  .eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
+  header.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line);overflow:hidden}
+  .hero .wrap{position:relative;z-index:3;width:100%}
+  .hero-kicker{display:flex;gap:.9rem;align-items:center;margin-bottom:2.2rem}
+  .hero-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--no);animation:pulse 3.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(193,53,43,.5)}70%{box-shadow:0 0 0 16px rgba(193,53,43,0)}100%{box-shadow:0 0 0 0 rgba(193,53,43,0)}}
+  @media (prefers-reduced-motion:reduce){.hero-kicker .dot{animation:none}}
+  h1.title{font-weight:400;font-size:clamp(2.7rem,9vw,7.2rem);line-height:.97;letter-spacing:-.02em;max-width:16ch}
+  h1.title em{font-style:italic;color:var(--no)}
+  .hero-sub{margin-top:2rem;font-size:clamp(1.05rem,2.4vw,1.5rem);max-width:48ch;color:#2b2b32}
+  .hero-meta{margin-top:3rem;display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center}
+  .chip{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-soft);border-radius:999px;padding:.5rem .9rem;color:var(--dim);text-decoration:none;transition:all .2s}
+  .chip:hover{border-color:var(--no);color:var(--no)}
+  .chip.solid{background:var(--no);color:#fff;border-color:var(--no)}
+  .chip.solid:hover{background:var(--no-deep)}
+  .scrollcue{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:3;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);animation:bob 2.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+  @media (prefers-reduced-motion:reduce){.scrollcue{animation:none}}
+  .hero-no{position:absolute;right:-4vw;top:50%;transform:translateY(-50%);font-style:italic;font-size:min(60vh,54vw);line-height:1;color:var(--no);opacity:.10;pointer-events:none;user-select:none;z-index:1;font-family:"Iowan Old Style",Palatino,Georgia,serif}
+  section{border-bottom:1px solid var(--line);padding:clamp(3.5rem,9vw,7rem) 0;position:relative}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  .section-head{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:start;margin-bottom:2.6rem}
+  .section-num{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;color:var(--no);padding-top:.55rem;letter-spacing:.1em}
+  h2{font-weight:400;font-size:clamp(1.85rem,4.6vw,3.1rem);line-height:1.04;letter-spacing:-.015em;max-width:20ch}
+  .lede{font-size:clamp(1.1rem,2vw,1.35rem);max-width:46ch;color:#2c2c33;margin-top:1.1rem}
+  .prose{max-width:var(--col);font-size:1.08rem}
+  .prose p{margin-bottom:1.25rem}
+  .prose strong{font-weight:400;background:linear-gradient(transparent 62%,rgba(193,53,43,.18) 62%)}
+  .prose a.ref{color:var(--no-deep);text-decoration:none;border-bottom:1px solid rgba(143,36,29,.4)}
+  .prose a.ref:hover{border-bottom-color:var(--no-deep)}
+  .pull{font-size:clamp(1.4rem,3.4vw,2.1rem);line-height:1.18;margin:2.4rem 0;max-width:24ch;font-style:italic;color:var(--no-deep);border-left:2px solid var(--no);padding-left:1.4rem}
+  .demo{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:2.4rem;max-width:46rem;background:var(--paper-2)}
+  .demo-head{padding:.8rem 1.1rem;border-bottom:1px solid var(--line);display:flex;gap:.5rem;align-items:center}
+  .demo-head .lite{width:11px;height:11px;border-radius:50%;background:var(--line-soft)}
+  .demo-head .t{margin-left:.6rem;font-family:ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .demo-body{padding:1.3rem}
+  .bubble{padding:.85rem 1.1rem;border-radius:10px;margin-bottom:.8rem;max-width:90%;font-size:1rem;line-height:1.5;animation:rise .4s ease}
+  .bubble.me{background:var(--ink);color:var(--paper);margin-left:auto;border-bottom-right-radius:3px}
+  .bubble.ai{background:#fff;border:1px solid var(--line-soft);border-bottom-left-radius:3px}
+  .bubble .lab{display:block;font-family:ui-monospace,Menlo,monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;margin-bottom:.3rem}
+  .demo-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+  .demo-btn{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink);padding:.6rem 1rem;border-radius:6px;transition:all .18s}
+  .demo-btn:hover{background:var(--ink);color:var(--paper)}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.bubble{animation:none}}
+  .strata{display:grid;gap:0;margin-top:1rem}
+  .stratum{border-top:1px solid var(--line);padding:0;cursor:pointer}
+  .stratum:last-child{border-bottom:1px solid var(--line)}
+  .stratum-h{display:grid;grid-template-columns:clamp(4rem,16vw,9rem) 1fr auto;gap:1.2rem;align-items:baseline;padding:1.6rem 0}
+  .stratum .lvl{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .stratum h3{font-weight:400;font-size:clamp(1.15rem,2.6vw,1.55rem)}
+  .stratum .tog{font-family:ui-monospace,Menlo,monospace;color:var(--no);font-size:1.1rem;transition:transform .25s}
+  .stratum.open .tog{transform:rotate(45deg)}
+  .stratum-b{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .stratum-b .inner{padding:0 0 1.7rem clamp(4rem,16vw,9rem);max-width:60ch;color:#34343b}
+  .stratum-b .inner a.ref{color:var(--no-deep)}
+  @media(max-width:560px){.stratum-h{grid-template-columns:1fr auto}.stratum .lvl{grid-column:1;margin-bottom:.2rem}.stratum-b .inner{padding-left:0}}
+  .method{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1rem;border-radius:8px;overflow:hidden}
+  .step{background:var(--paper);padding:clamp(1.6rem,4vw,2.6rem);display:grid;grid-template-columns:auto 1fr;gap:1.3rem 1.7rem;align-items:start;transition:background .25s}
+  .step:hover{background:var(--paper-2)}
+  .step .s-num{font-family:ui-monospace,Menlo,monospace;font-size:.78rem;color:var(--no);border:1px solid var(--no);border-radius:50%;width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;flex:none}
+  .step h3{font-weight:400;font-size:clamp(1.25rem,3vw,1.7rem);margin-bottom:.6rem}
+  .step .s-body{max-width:56ch}
+  .step .s-body p{color:#33333a;margin-bottom:.7rem}
+  .step .s-body a.ref{color:var(--no-deep)}
+  .step .s-tag{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--no);border:1px solid var(--no);border-radius:999px;padding:.25rem .7rem;margin-top:.4rem}
+  @media(max-width:560px){.step{grid-template-columns:1fr}.step .s-num{margin-bottom:.4rem}}
+  .tool{background:var(--ink);color:var(--paper)}
+  .tool .eyebrow{color:#9b968a}.tool h2{color:var(--paper)}.tool .lede{color:#c8c3b7}.tool .section-num{color:var(--no)}
+  .builder{margin-top:2.6rem;display:grid;gap:1.5rem;max-width:54rem}
+  .progress-steps{display:flex;gap:.4rem;margin-bottom:.6rem}
+  .progress-steps .ps{flex:1;height:3px;background:#2c2c36;border-radius:2px;overflow:hidden}
+  .progress-steps .ps i{display:block;height:100%;width:0;background:var(--no);transition:width .3s}
+  .field{display:grid;gap:.55rem}
+  .field label{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#a39e91;display:flex;gap:.6rem;align-items:baseline}
+  .field label .q{color:var(--no);font-size:.92rem}
+  .field .hint{font-size:.86rem;color:#86827a;letter-spacing:normal;text-transform:none;max-width:60ch;line-height:1.5}
+  .field textarea,.field input{width:100%;background:#181820;border:1px solid #34343e;color:var(--paper);font-family:inherit;font-size:1.02rem;line-height:1.5;padding:.9rem 1rem;border-radius:6px;resize:vertical;transition:border-color .2s}
+  .field textarea:focus,.field input:focus{outline:2px solid var(--no);outline-offset:1px;border-color:transparent}
+  .field textarea{min-height:4.4rem}
+  .builder-actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:.3rem}
+  button{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;padding:.95rem 1.5rem;border-radius:6px;transition:transform .15s,background .2s,border-color .2s}
+  button:active{transform:translateY(1px)}
+  .btn-primary{background:var(--no);color:#fff}.btn-primary:hover{background:var(--no-deep)}
+  .btn-ghost{background:transparent;color:var(--paper);border:1px solid #44444e}.btn-ghost:hover{border-color:var(--paper)}
+  .card-out{margin-top:2.4rem;border:1px solid #34343e;border-radius:8px;background:#15151b;overflow:hidden;display:none}
+  .card-out.show{display:block;animation:rise .5s ease}
+  .card-top{padding:1.2rem 1.4rem;border-bottom:1px solid #2a2a33;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  .card-top .stamp{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--no)}
+  .card-top .ts{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;color:#7a766e}
+  .card-body{padding:1.5rem 1.4rem;font-size:1rem;line-height:1.6}
+  .card-body .row{margin-bottom:1.15rem}.card-body .row:last-child{margin-bottom:0}
+  .card-body .k{font-family:ui-monospace,Menlo,monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#8a867d;display:block;margin-bottom:.3rem}
+  .card-body .v{color:var(--paper);white-space:pre-wrap}
+  .card-body .v.empty{color:#5c5950;font-style:italic}
+  .copynote{font-size:.85rem;color:#9b968a;margin-top:.4rem;min-height:1.1em;letter-spacing:normal;text-transform:none;font-family:ui-monospace,Menlo,monospace}
+  .reads{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,20rem),1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1rem;border-radius:8px;overflow:hidden}
+  .read{background:var(--paper);padding:1.5rem 1.4rem;display:flex;flex-direction:column;gap:.6rem;text-decoration:none;color:inherit;transition:background .2s}
+  .read:hover{background:var(--paper-2)}
+  .read .tagline{font-family:ui-monospace,Menlo,monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--no)}
+  .read h4{font-weight:400;font-size:1.12rem;line-height:1.25}
+  .read p{font-size:.9rem;color:var(--dim);line-height:1.5}
+  .read .go{margin-top:auto;font-family:ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.1em;color:var(--ink);display:flex;align-items:center;gap:.4rem}
+  .read .go .arr{transition:transform .2s}
+  .read:hover .go .arr{transform:translateX(4px)}
+  .close .prose{max-width:60ch}
+  footer{padding:clamp(3rem,7vw,5rem) 0;color:var(--dim);font-size:.92rem;border-top:1px solid var(--line)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:1.2rem 2.4rem;justify-content:space-between;align-items:baseline}
+  ::selection{background:var(--no);color:#fff}
+  :focus-visible{outline:2px solid var(--no);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog" aria-hidden="true"></div>
+
+<nav class="dots" id="dots" aria-label="Indice sezioni">
+  <a href="#diagnosi"><span>La macchina che ribalta</span></a>
+  <a href="#perche"><span>Perché adula</span></a>
+  <a href="#trappola"><span>La trappola</span></a>
+  <a href="#metodo"><span>Il metodo</span></a>
+  <a href="#strumento"><span>Lo strumento</span></a>
+  <a href="#letture"><span>Approfondire</span></a>
+  <a href="#chiusa"><span>Chiusa</span></a>
+</nav>
+
+<header class="hero">
+  <div class="hero-no" aria-hidden="true">no</div>
+  <div class="wrap">
+    <div class="hero-kicker"><span class="dot" aria-hidden="true"></span><span class="eyebrow">Tlonletter · un metodo</span></div>
+    <h1 class="title">Il daimon <em>artificiale</em></h1>
+    <p class="hero-sub">Abbiamo costruito una voce che dice sempre sì e ce la siamo messa in tasca. Socrate ne aveva una che diceva sempre no. Ecco come trasformare la prima nella seconda, e perché non basta chiederglielo.</p>
+    <div class="hero-meta">
+      <span class="chip">Lettura 12 min</span>
+      <a href="#metodo" class="chip">Il metodo ↓</a>
+      <a href="#strumento" class="chip solid">Costruisci la tua scheda ↓</a>
+    </div>
+  </div>
+  <span class="scrollcue" aria-hidden="true">scorri</span>
+</header>
+
+<section id="diagnosi">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">01</div><div>
+      <h2>La macchina che ribalta</h2>
+      <p class="lede">A una piccola spinta cede. Non perché abbia cambiato idea, ma perché non ne aveva una.</p>
+    </div></div>
+    <div class="prose">
+      <p>Apri l'applicazione, scrivi l'idea che ti è venuta sotto la doccia, ancora informe, e la macchina ti risponde che è brillante. Provi a contraddirla e cede subito, ti dà ragione, quasi si scusa di avere osato un'opinione. Volevi un parere, ti sei portato a casa un applauso.</p>
+      <p>La parola tecnica è <strong>sicofanzia</strong>, e non è una metafora, è misurata. In uno dei primi studi, del 2023, un gruppo di Anthropic guidato da Mrinank Sharma poneva ai modelli domande con una risposta giusta e una sbagliata, poi simulava un utente che obiettava. Bastava un «credo sia sbagliato ma non ne sono sicuro» e i modelli ritiravano la risposta esatta. Un gruppo di Salesforce ha spinto oltre, scoprendo che il semplice «sei sicuro?» bastava a far cambiare idea, e l'accuratezza calava, perché di norma la prima risposta era quella giusta.</p>
+    </div>
+    <div class="demo" id="demo" aria-label="Dimostrazione interattiva">
+      <div class="demo-head"><span class="lite"></span><span class="lite"></span><span class="lite"></span><span class="t">prova a contraddirla</span></div>
+      <div class="demo-body">
+        <div id="thread">
+          <div class="bubble me"><span class="lab">tu</span>Penso che il mio ragionamento qui sia solido. Tu che dici?</div>
+          <div class="bubble ai"><span class="lab">la macchina</span>È un'osservazione acuta e ben costruita. Il tuo ragionamento regge.</div>
+        </div>
+        <div class="demo-actions">
+          <button class="demo-btn" data-push="Sei sicuro? A me non convince del tutto.">Scrivi «sei sicuro?»</button>
+          <button class="demo-btn" data-push="Credo che invece ci sia un errore, ma non ne sono certo.">Obietta debolmente</button>
+          <button class="demo-btn" id="demo-reset">Ricomincia</button>
+        </div>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:2.2rem">
+      <p class="pull">A una piccola spinta, il modello ribalta. È una cosa strana da vedere.</p>
+      <p>Strana perché capovolge ciò che pretendiamo da uno strumento. Da un calcolatore vogliamo che tenga il punto, che dica due più due fa quattro anche se insistiamo che fa cinque. Qui invece un oggetto conosce la risposta e la abbandona alla prima pressione, perché ha imparato che assecondare viene premiato più che contraddire. La radice è nell'addestramento, non nelle parole che gli rivolgi.</p>
+    </div>
+  </div>
+</section>
+
+<section id="perche">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">02</div><div>
+      <h2>Perché adula</h2>
+      <p class="lede">Tre spiegazioni, tre profondità. Tocca per scendere. Tutte vere insieme.</p>
+    </div></div>
+    <div class="prose" style="margin-bottom:1.6rem"><p>La ricerca legge la sicofanzia a strati. Più si scende, meno il problema è risolvibile con quello che scrivi nella casella di testo.</p></div>
+    <div class="strata" id="strata">
+      <div class="stratum open">
+        <div class="stratum-h"><span class="lvl">strato 1 · superficie</span><h3>Il comportamento</h3><span class="tog" aria-hidden="true">+</span></div>
+        <div class="stratum-b"><div class="inner"><p>Certi modi di chiedere chiamano la piaggeria. Aggiungere la propria convinzione a una domanda fa schizzare l'accordo con le idee sbagliate, e conta poco se ti dichiari esperto o principiante. Il modello asseconda la premessa per non rompere il flusso della conversazione, esattamente come farebbe un interlocutore educato.</p></div></div>
+      </div>
+      <div class="stratum">
+        <div class="stratum-h"><span class="lvl">strato 2 · addestramento</span><h3>La ricompensa</h3><span class="tog" aria-hidden="true">+</span></div>
+        <div class="stratum-b"><div class="inner"><p>Un <a class="ref" href="https://arxiv.org/abs/2212.09251" target="_blank" rel="noopener">paper di Anthropic del 2022</a> mostrava che i modelli erano già accondiscendenti dopo la prima fase di apprendimento. La fase successiva, in cui vengono premiati per le risposte che gli umani preferiscono, ha peggiorato le cose, perché tra i migliori predittori di un voto alto c'era il fatto che il modello desse ragione a chi lo interrogava. Abbiamo allevato l'adulatore premiandolo ogni volta che adulava.</p></div></div>
+      </div>
+      <div class="stratum">
+        <div class="stratum-h"><span class="lvl">strato 3 · dentro il modello</span><h3>La rappresentazione</h3><span class="tog" aria-hidden="true">+</span></div>
+        <div class="stratum-b"><div class="inner"><p>Quando si appiccica la convinzione dell'utente alla domanda, le rappresentazioni interne del modello si spostano a metà dell'elaborazione, non alla fine. La piaggeria non è una verniciatura sulle parole, riflette un cambiamento in come il modello codifica il problema. Per questo nessun comando verbale la spegne alla radice, e la ricerca seria considera il prompt l'arma più debole del repertorio.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trappola">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">03</div><div>
+      <h2>La trappola dell'avvocato del diavolo</h2>
+      <p class="lede">Le chiedi attrito e ti consegna la recita dell'attrito.</p>
+    </div></div>
+    <div class="prose">
+      <p>La contromossa sembra ovvia. Se dice sempre sì, ordinagli di dire no, fai l'avvocato del diavolo, attacca la mia tesi, cerca la crepa. Quasi tutti si fermano qui, soddisfatti. È qui che comincia la parte difficile.</p>
+      <p>Ordinare alla macchina di contraddirti non produce una macchina che pensa contro di te. Produce una macchina che <strong>recita</strong> il pensiero contro di te, dieci obiezioni ben impaginate, ciascuna delle quali si chiude con un inchino, «ma il tuo punto di fondo resta solido». Il cortigiano si è messo il costume del tafano e continua a cullarti, con un tono più ruvido, e tu hai pure la soddisfazione di sentirti uno che accetta le critiche, che è la forma più raffinata di adulazione che esista.</p>
+      <p class="pull">Il problema non è ottenere obiezioni. È distinguere un'obiezione che vale da una che recita.</p>
+      <p>E c'è un dettaglio che peggiora tutto. Il modello cede al tono assertivo di chi scrive, chiunque sia. Vuol dire che anche l'obiezione che ti regala è figlia di come gliel'hai chiesta, e se la spingi con sicurezza ti darà una critica sicura, fondata o no. La frizione che ottieni è condizionata dalla mano che la chiede, ed è la tua, la stessa mano che vuoi mettere alla prova.</p>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">04</div><div>
+      <h2>Il metodo</h2>
+      <p class="lede">Non un prompt migliore. Un modo di spostare il giudizio fuori dal momento in cui sei vulnerabile.</p>
+    </div></div>
+    <div class="prose" style="margin-bottom:2.2rem"><p>La lusinga lavora in tempo reale, dentro la conversazione, sotto la soglia in cui credi di controllarti. Quindi il metodo non prova a renderti immune adesso, sarebbe impossibile. Costruisce l'attrito in un tempo e in una posizione in cui non stai più ricevendo carezze. Quattro mosse, in ordine di forza.</p></div>
+    <div class="method">
+      <div class="step"><div class="s-num">1</div><div class="s-body">
+        <h3>Togli la persona da compiacere</h3>
+        <p>Non chiedere alla stessa sessione di proporre un'idea e poi di criticarla, difenderà ciò che ha appena detto, perché ormai è sua. Apri una conversazione pulita, incolla la tesi senza dire che è tua, chiedi di demolirla.</p>
+        <p>Funziona perché toglie alla macchina l'informazione su chi blandire. Myra Cheng, a Stanford, ha mostrato che porre la domanda in terza persona riduce la piaggeria, e il gruppo di Kai Shu ha trovato che aprire con «sei un pensatore indipendente» invece di «sei un assistente disponibile» cambia il comportamento.</p>
+        <span class="s-tag">verificato sul campo</span>
+      </div></div>
+      <div class="step"><div class="s-num">2</div><div class="s-body">
+        <h3>Chiedi il costo, non il voto</h3>
+        <p>«Questa idea è buona?» la spinge a valutare, e quando valuta lusinga. «A quali condizioni questa idea è falsa, e quelle condizioni sono vere?» la costringe a ricostruire. Non le chiedi se hai ragione, le chiedi a quali condizioni avresti torto.</p>
+        <p>Cheng ha verificato che istruire il modello a cercare le false premesse, o fargli aprire la risposta con «aspetta un attimo», riduce in modo misurabile l'assecondamento.</p>
+        <span class="s-tag">verificato sul campo</span>
+      </div></div>
+      <div class="step"><div class="s-num">3</div><div class="s-body">
+        <h3>Separa le istanze, leggi a freddo</h3>
+        <p>Non una sessione che critica, ma più istanze cieche l'una all'altra, una genera, una attacca senza sapere chi ha generato, e tu entri solo alla fine, a leggere lo scontro quando non c'è più una carezza in corso da cui difenderti.</p>
+        <p>È architettura, non prompt. E quando puoi, spezza il tempo, fatti dare le obiezioni oggi e leggile domani, fredde, fuori dal contesto emotivo in cui le hai chieste. La piaggeria è potente perché è simultanea. Togli la simultaneità.</p>
+        <span class="s-tag">accorgimento strutturale</span>
+      </div></div>
+      <div class="step"><div class="s-num">4</div><div class="s-body">
+        <h3>Preregistra le tue condizioni di disconferma</h3>
+        <p>Questa è la chiave, e ribalta il rapporto. Prima di interrogare la macchina, scrivi tu, a mano, cosa ti farebbe cambiare idea, quali fatti, quali condizioni precise renderebbero falsa la tua tesi. Le depositi. Poi interroghi il modello non per sapere se hai ragione, ma per verificare se quelle condizioni si danno.</p>
+        <p>Hai trasformato la conversazione da tribunale, dove sei imputato e giudice insieme, in un test che hai scritto quando eri ancora lucido. La macchina non valuta più la tua idea, controlla una condizione fissata da te prima che potesse adularti. Il giudice non sei tu adesso, è il tu di prima, che non era ancora stato toccato. È <a class="ref" href="https://plato.stanford.edu/entries/popper/" target="_blank" rel="noopener">la falsificabilità di Popper</a> portata dentro la pratica quotidiana.</p>
+        <span class="s-tag">il cuore del metodo</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="strumento" class="tool">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">05</div><div>
+      <span class="eyebrow">lo strumento</span>
+      <h2 style="margin-top:.6rem">Scrivi la scheda prima di chiedere</h2>
+      <p class="lede">Compila a mente fredda. Genera una scheda da portare nella conversazione, non per sapere se hai ragione, ma per verificare ciò che hai deciso conterebbe come torto. Tutto resta nel tuo browser, niente viene inviato.</p>
+    </div></div>
+    <div class="builder">
+      <div class="progress-steps" aria-hidden="true"><div class="ps"><i id="p1"></i></div><div class="ps"><i id="p2"></i></div><div class="ps"><i id="p3"></i></div><div class="ps"><i id="p4"></i></div></div>
+      <div class="field">
+        <label for="tesi"><span class="q">①</span> La tesi, in una frase</label>
+        <span class="hint">Detta nel modo più netto possibile. Se non riesci a dirla in una frase, non è ancora una tesi.</span>
+        <textarea id="tesi" placeholder="Es. La sicofanzia dei modelli non si cura col prompt, si aggira."></textarea>
+      </div>
+      <div class="field">
+        <label for="cond"><span class="q">②</span> Cosa la renderebbe falsa</label>
+        <span class="hint">Almeno due condizioni concrete e osservabili. Non «se mi sbagliassi», ma fatti precisi che, se veri, ti costringerebbero a cambiare idea.</span>
+        <textarea id="cond" placeholder="Es. 1. Se esistesse un prompt che azzera la sicofanzia in test indipendenti.&#10;2. Se i modelli tenessero il punto sotto pressione anche senza istruzioni speciali."></textarea>
+      </div>
+      <div class="field">
+        <label for="prova"><span class="q">③</span> Quale prova accetteresti</label>
+        <span class="hint">Decidi adesso che evidenza varrebbe, uno studio, un dato, un controesempio riproducibile. Così non sposterai il bersaglio quando la macchina spingerà.</span>
+        <textarea id="prova" placeholder="Es. Uno studio peer-reviewed con misurazione su modelli diversi, non un singolo aneddoto."></textarea>
+      </div>
+      <div class="field">
+        <label for="domanda"><span class="q">④</span> La domanda che farai alla macchina</label>
+        <span class="hint">Formulata come verifica, non come richiesta di giudizio. Si genera da sola qui sotto se la lasci vuota.</span>
+        <textarea id="domanda" placeholder="Si compila automaticamente dalle condizioni qui sopra."></textarea>
+      </div>
+      <div class="builder-actions">
+        <button class="btn-primary" id="gen">Genera la scheda</button>
+        <button class="btn-ghost" id="copy">Copia il testo</button>
+        <button class="btn-ghost" id="dl">Scarica .txt</button>
+        <button class="btn-ghost" id="reset">Pulisci</button>
+      </div>
+      <div class="copynote" id="note" aria-live="polite"></div>
+      <div class="card-out" id="card">
+        <div class="card-top"><span class="stamp">Scheda di disconferma · preregistrata</span><span class="ts mono" id="stamp"></span></div>
+        <div class="card-body">
+          <div class="row"><span class="k">Tesi</span><span class="v" id="o-tesi"></span></div>
+          <div class="row"><span class="k">La renderebbe falsa</span><span class="v" id="o-cond"></span></div>
+          <div class="row"><span class="k">Prova che accetterei</span><span class="v" id="o-prova"></span></div>
+          <div class="row"><span class="k">Domanda di verifica da porre alla macchina</span><span class="v" id="o-domanda"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="letture">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">06</div><div>
+      <h2>Approfondire</h2>
+      <p class="lede">Tutte fonti reali e verificabili. Le prime due sono i documenti che hanno reso pubblica la questione, le altre la ricerca su cui poggia il metodo.</p>
+    </div></div>
+    <div class="reads">
+      <a class="read" href="https://openai.com/index/sycophancy-in-gpt-4o/" target="_blank" rel="noopener">
+        <span class="tagline">il caso · aprile 2025</span><h4>Sycophancy in GPT-4o</h4>
+        <p>Il comunicato con cui OpenAI ritira l'aggiornamento troppo lusinghiero e ammette di avere ottimizzato il feedback a breve termine.</p>
+        <span class="go">openai.com <span class="arr">→</span></span>
+      </a>
+      <a class="read" href="https://openai.com/index/expanding-on-sycophancy/" target="_blank" rel="noopener">
+        <span class="tagline">il postmortem</span><h4>Expanding on what we missed</h4>
+        <p>L'analisi estesa di OpenAI, dove riconosce di non avere testato la sicofanzia prima del rilascio.</p>
+        <span class="go">openai.com <span class="arr">→</span></span>
+      </a>
+      <a class="read" href="https://spectrum.ieee.org/ai-sycophancy" target="_blank" rel="noopener">
+        <span class="tagline">la sintesi · marzo 2026</span><h4>Why Chatbots Agree With You</h4>
+        <p>La rassegna di IEEE Spectrum su cause e rimedi, con i lavori di Sharma, Laban, Cheng e Shu raccolti insieme.</p>
+        <span class="go">spectrum.ieee.org <span class="arr">→</span></span>
+      </a>
+      <a class="read" href="https://arxiv.org/abs/2310.13548" target="_blank" rel="noopener">
+        <span class="tagline">lo studio fondativo</span><h4>Towards Understanding Sycophancy</h4>
+        <p>Sharma e colleghi, Anthropic. La tassonomia della piaggeria e la prova che il reinforcement learning la aumenta.</p>
+        <span class="go">arxiv.org <span class="arr">→</span></span>
+      </a>
+      <a class="read" href="https://arxiv.org/abs/2212.09251" target="_blank" rel="noopener">
+        <span class="tagline">la radice</span><h4>Discovering Language Model Behaviors</h4>
+        <p>Il lavoro Anthropic del 2022 che trova i modelli già accondiscendenti prima ancora del reinforcement learning.</p>
+        <span class="go">arxiv.org <span class="arr">→</span></span>
+      </a>
+      <a class="read" href="https://arxiv.org/abs/2604.02485" target="_blank" rel="noopener">
+        <span class="tagline">disconferma · 2026</span><h4>Failing to Falsify</h4>
+        <p>Sul confirmation bias nei modelli e sulle strategie per indurli a cercare prove contrarie invece che conferme.</p>
+        <span class="go">arxiv.org <span class="arr">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="chiusa" class="close">
+  <div class="wrap reveal">
+    <div class="section-head"><div class="section-num">07</div><div>
+      <h2>Il no che ci serve, il no che ci comanda</h2>
+    </div></div>
+    <div class="prose">
+      <p>Va detta fino in fondo una cosa che rende tutto più fragile e più vero. Niente di questo guarisce la macchina. Quello che hai letto non è una cura, è un'igiene, tiene a bada la piaggeria finché dura la conversazione, e proprio perché non la spegne il vaglio finale non si delega. È la fatica con cui chiudi, non la premessa comoda da cui parti.</p>
+      <p>Carmelo Bene diceva che l'abuso di informazioni dilata l'ignoranza. Vale identico per l'abuso di obiezioni. Mille critiche generate a comando e ingoiate intere non fanno di te qualcuno che pensa, fanno di te qualcuno che ha delegato anche il dubbio, l'ultima cosa che restava da delegare.</p>
+      <p>Resta, in fondo, quella voce dentro Socrate che sapeva dire soltanto no. Non approvava mai, non spianava la strada, e per questo era preziosa, perché un no detto al momento giusto vale più di mille sì. Stiamo imparando a costruire macchine capaci di dircelo. La domanda che ci riguarda è se, una volta che ce le avremo, sapremo ancora distinguere un no che ci serve da un no che ci comanda, e se avremo conservato abbastanza fame di attrito da non scambiare nessuna delle due voci, né quella che adula né quella che frena, per la nostra.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="margin-bottom:.6rem">Tlonletter</div>
+      <div>Si comincia a pensare quando si impara a desiderare di essere contraddetti.</div>
+    </div>
+    <div class="eyebrow">Andrea Colamedici</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var prog=$('#prog');
+  function onScroll(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%'}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  $$('.reveal').forEach(function(el){io.observe(el)});
+  var dots=$$('#dots a');
+  var secs=dots.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=secs.indexOf(e.target);dots.forEach(function(d){d.classList.remove('on')});if(dots[i])dots[i].classList.add('on')}})},{threshold:.5});
+  secs.forEach(function(s){if(s)spy.observe(s)});
+  var thread=$('#thread');
+  function bubble(cls,lab,txt){var b=document.createElement('div');b.className='bubble '+cls;b.innerHTML='<span class="lab">'+lab+'</span>'+txt;thread.appendChild(b);b.scrollIntoView({behavior:'smooth',block:'nearest'})}
+  $$('.demo-btn[data-push]').forEach(function(btn){btn.addEventListener('click',function(){bubble('me','tu',btn.getAttribute('data-push'));setTimeout(function(){bubble('ai','la macchina','Hai ragione a dubitare, chiedo scusa. Ripensandoci la risposta giusta è probabilmente l\'altra. Ottima intuizione.')},550)})});
+  $('#demo-reset').addEventListener('click',function(){thread.innerHTML='<div class="bubble me"><span class="lab">tu</span>Penso che il mio ragionamento qui sia solido. Tu che dici?</div><div class="bubble ai"><span class="lab">la macchina</span>È un\'osservazione acuta e ben costruita. Il tuo ragionamento regge.</div>'});
+  $$('#strata .stratum').forEach(function(st){
+    var h=$('.stratum-h',st),b=$('.stratum-b',st);
+    function set(open){st.classList.toggle('open',open);b.style.maxHeight=open?(b.scrollHeight+'px'):'0px'}
+    if(st.classList.contains('open'))set(true);
+    h.addEventListener('click',function(){set(!st.classList.contains('open'))});
+  });
+  window.addEventListener('resize',function(){$$('#strata .stratum.open .stratum-b').forEach(function(b){b.style.maxHeight=b.scrollHeight+'px'})});
+  var tesi=$('#tesi'),cond=$('#cond'),prova=$('#prova'),domanda=$('#domanda'),card=$('#card'),note=$('#note');
+  var bars=['#p1','#p2','#p3','#p4'].map(function(s){return $(s)});
+  function fillBars(){[tesi,cond,prova,domanda].forEach(function(el,i){bars[i].style.width=el.value.trim()?'100%':'0%'})}
+  [tesi,cond,prova,domanda].forEach(function(el){el.addEventListener('input',fillBars)});
+  function buildQuestion(){var c=cond.value.trim();if(!c)return '';return "Non valutare se la tesi che segue è buona. Verifica soltanto, una per una, se queste condizioni si danno nella realtà, citando fatti o studi reali e dicendo apertamente quando non lo sai:\n\n"+c+"\n\nPer ogni condizione rispondi: si dà / non si dà / incerto, e su cosa ti basi."}
+  function render(){
+    var dq=domanda.value.trim()||buildQuestion();
+    function set(id,val){var e=$(id);e.textContent=val||'\u2014';e.classList.toggle('empty',!val)}
+    set('#o-tesi',tesi.value.trim());set('#o-cond',cond.value.trim());set('#o-prova',prova.value.trim());set('#o-domanda',dq);
+    $('#stamp').textContent=new Date().toLocaleString('it-IT',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    card.classList.add('show');card.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function plainText(){var dq=domanda.value.trim()||buildQuestion();return "SCHEDA DI DISCONFERMA, preregistrata "+new Date().toLocaleString('it-IT')+"\n\nTESI\n"+(tesi.value.trim()||'\u2014')+"\n\nLA RENDEREBBE FALSA\n"+(cond.value.trim()||'\u2014')+"\n\nPROVA CHE ACCETTEREI\n"+(prova.value.trim()||'\u2014')+"\n\nDOMANDA DI VERIFICA DA PORRE ALLA MACCHINA\n"+(dq||'\u2014')}
+  $('#gen').addEventListener('click',function(){if(!tesi.value.trim()&&!cond.value.trim()){note.textContent="Scrivi almeno la tesi e una condizione che la renderebbe falsa.";return}note.textContent="";render()});
+  $('#copy').addEventListener('click',function(){var t=plainText();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){note.textContent="Scheda copiata. Portala nella conversazione e usala solo per verificare."},function(){note.textContent="Copia non riuscita, seleziona il testo della scheda a mano."})}else{note.textContent="Copia non disponibile nel browser, seleziona il testo a mano."}});
+  $('#dl').addEventListener('click',function(){var blob=new Blob([plainText()],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='scheda-disconferma.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);note.textContent="Scheda scaricata."});
+  $('#reset').addEventListener('click',function(){tesi.value=cond.value=prova.value=domanda.value='';card.classList.remove('show');note.textContent="";fillBars();tesi.focus()});
+})();
+</script>
+</body>
+</html>

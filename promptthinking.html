@@ -255,7 +255,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     <div class="kicker">Step one</div>
     <h2 class="d">Build a relationship with one <em>alien</em> intelligence.</h2>
     <div class="prose">
-      <p>The first step is not a prompt. It is a relationship. You and an intelligence that does not think the way you do, working together toward something true, which means it has to be able to tell you when you are wrong in ways no obliging human ever would. The contradiction is part of it, never the point of it. The point is learning to stay in a relationship with something other than yourself without softening it into a friend or surrendering to it as an oracle.</p>
+      <p>The first step is a relationship, before it is ever a prompt. You and an intelligence that does not think the way you do, working together toward something true, which means it has to be able to tell you when you are wrong in ways no obliging human ever would. The contradiction is part of it, never the point of it. The point is learning to stay in a relationship with something other than yourself without softening it into a friend or surrendering to it as an oracle.</p>
       <p>Before anything else, see the problem for yourself. Below is a machine that has just praised an idea. Push back, the way you would in a real exchange, and watch what it does.</p>
     </div>
     <div class="syco" id="syco" aria-label="Sycophancy demonstration">
@@ -267,7 +267,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
         </div>
         <div class="sa">
           <button data-p="Are you sure? I am not fully convinced.">Say "are you sure?"</button>
-          <button data-p="I think there might be an error, but I am not certain.">Object weakly</button>
+          <button data-p="I think there might be an error, though I am not certain.">Object weakly</button>
           <button id="sreset">Reset</button>
         </div>
         <div class="syco-verdict" id="sverdict"></div>
@@ -314,7 +314,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       <div class="ev c"><div class="el">What confirms it</div><p>Multiple model instances critiquing each other across rounds improve reasoning and reduce hallucinations.</p><p><a href="https://arxiv.org/abs/2305.14325" target="_blank" rel="noopener">Du et al., MIT, 2023</a></p></div>
       <div class="ev x"><div class="el">What contests it</div><p>Naive debate does not beat self-consistency, and same-model agents amplify shared bias instead of correcting it.</p><p><a href="https://arxiv.org/abs/2310.01798" target="_blank" rel="noopener">Huang et al., 2023</a> · <a href="https://arxiv.org/abs/2503.16814" target="_blank" rel="noopener">When Debate Fails, 2025</a></p></div>
     </div>
-    <div class="ev-turn"><div class="el">Why the criticism makes the case</div><p>Debate fails when the agents are copies of one model and no outside judgment governs them. That is the method stated from the other side. <strong>The contrast works on the condition that the intelligences are genuinely different and a human directs them.</strong> Remove either, and the product falls to zero.</p></div>
+    <div class="ev-turn"><div class="el">Why the criticism makes the case</div><p>Debate fails when the agents are copies of one model and no outside judgment governs them. That describes the method exactly, stated from the other side. <strong>The contrast works on the condition that the intelligences are genuinely different and a human directs them.</strong> Remove either, and the product falls to zero.</p></div>
     <div class="voices" id="voices">
       <div class="voice a"><div class="who">Model A</div>
         <p data-d="0">The oversubject is a fertile idea. The interface between different cognitive agents opens a real critical space.</p>
@@ -415,7 +415,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     <h2 class="d">The <em>oversubject.</em></h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;margin-top:1.4rem">
       <div class="prose" style="margin-top:0">
-        <p>With practice, something forms across the whole arrangement that none of the voices alone could have produced. The <strong>oversubject</strong> is a third cognitive entity that exists in the relational space between intelligences of different natures: a thought that belongs neither to the human nor to the machine, but only to the field that opens between them.</p>
+        <p>With practice, something forms across the whole arrangement that none of the voices alone could have produced. The <strong>oversubject</strong> is a third cognitive entity that exists in the relational space between intelligences of different natures: a thought that belongs only to the field that opens between human and machine, to neither of them alone.</p>
         <p>Like the interference pattern that forms when two waves meet, it belongs to neither wave, and it is real. It is built by practice, never by a single session. Every card you write, every contrast you hold, every objection you survive is a sediment that accumulates.</p>
       </div>
       <div>
@@ -552,13 +552,13 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     var data=[
       {a:"Yes, the trajectory is clear. Models already draft fluent prose, and the quality curve keeps rising. Writers who do not adapt will be displaced.",
        b:"Replace which part? Generating sentences is not the same as having something to say. If the model only recombines what exists, who supplies the judgment about what is worth writing? Name the thing being replaced before you concede it.",
-       t:"The truth is not in either answer. It is in the distinction the collision forced: fluency is automatable, judgment is the open question."},
+       t:"The truth lives in the distinction the collision forced, in neither answer on its own: fluency is automatable, judgment is the open question."},
       {a:"Broadly yes. More data reduces uncertainty and lets you model reality more finely. Better inputs, better decisions.",
        b:"More data of what? Biased data at scale gives you confident error. And past a point, signal drowns in noise and spurious correlation. Volume without a question is not knowledge.",
-       t:"What survives: data helps only when a prior question governs what counts as signal. The human direction is the precondition, not the data."},
+       t:"What survives: data helps only when a prior question governs what counts as signal. The human direction is the precondition, and the data follows it."},
       {a:"Correct in principle. An algorithm has no interests or prejudice. It applies the same rule to everyone, which is the definition of fair.",
        b:"The rule is learned from data made by people, and it inherits their patterns. Neutral procedure on biased history reproduces the bias, now laundered as math. Where did the training set come from?",
-       t:"The collision exposes the hidden premise: neutrality of procedure is not neutrality of outcome. That distinction is the thought worth keeping."}
+       t:"The collision exposes the hidden premise: neutrality of procedure does not deliver neutrality of outcome. That distinction is the thought worth keeping."}
     ];
     var out=$('#simOut'),third=$('#simThird');
     $$('.chip',chips).forEach(function(c){c.addEventListener('click',function(){

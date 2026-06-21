@@ -220,6 +220,11 @@ footer .sig strong{font-weight:600;color:var(--ink)}
 footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
 ::selection{background:var(--no);color:#fff}
 :focus-visible{outline:2px solid var(--no);outline-offset:3px}
+.finale{text-align:center;padding:clamp(5rem,14vh,9rem) 0;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.finale h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,5vw,3.2rem);line-height:1.06;max-width:20ch;margin:0 auto}
+.finale h2 em{font-style:italic;color:var(--no)}
+.finale p{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--ink-soft);max-width:40ch;margin:1.2rem auto 0;line-height:1.55}
+.finale .ctas{margin-top:2.2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -232,7 +237,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       <a href="#contrast">The contrast</a>
       <a href="#tools">The tools</a>
       <a href="#oversubject">The oversubject</a>
-      <a href="#xun">The proof</a>
+      <a href="#xun">The experiment</a>
     </nav>
   </div>
 </div>
@@ -245,7 +250,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     <p class="sub">Prompt Thinking is a method for building a real intellectual relationship with artificial intelligence. One that stays honest through friction, and over time produces a thinking that belongs to neither of you.</p>
     <div class="ctas">
       <a href="#encounter" class="btn btn-f">Start here</a>
-      <a href="#xun" class="btn btn-l">See the proof</a>
+      <a href="#xun" class="btn btn-l">See the experiment</a>
     </div>
   </div>
 </header>
@@ -274,12 +279,12 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       </div>
     </div>
     <div class="prose" style="margin-top:1.6rem">
-      <p>It reversed under almost no pressure. That is sycophancy, and it has been measured: models retract a correct answer when a user simply pushes, and the tendency survives across model families, with nearly everyone vulnerable. <a href="https://arxiv.org/abs/2310.13548" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--line)">Sharma et al., Anthropic, 2023</a>. The whole method exists to work around this.</p>
+      <p>It reversed under almost no pressure. That is sycophancy, and it has been measured: models retract a correct answer when a user simply pushes, and the tendency survives across model families, with nearly everyone vulnerable. <a href="https://arxiv.org/abs/2310.13548" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--line)">Sharma et al., Anthropic, 2023</a>. Sycophancy is one of the pressures the method is designed to resist. Prompt Thinking is the larger practice around it: a disciplined way of generating, contesting and sedimenting thought with generative systems while keeping human judgment and responsibility.</p>
     </div>
     <div class="practice">
       <h3><span class="dot"></span> In practice</h3>
       <p class="do"><strong>Do:</strong> Choose one model. Open a conversation oriented toward a genuine question you care about, something unresolved. Tell it you want an honest interlocutor, not an assistant. Ask it to push back when it disagrees, and mean it.</p>
-      <p class="dont"><strong>Avoid:</strong> Asking for validation. Presenting finished ideas for applause. Using "make this better" instead of "find what is wrong." The machine is trained to please you. Your job is to make it harder for it to do that.</p>
+      <p class="dont"><strong>Avoid:</strong> Asking for validation. Presenting finished ideas for applause. Using "make this better" instead of "find what is wrong." The machine is optimized, in part, for your approval. Your job is to make it harder for it to win that way.</p>
       <div class="copyblock">You are not my assistant. You are my interlocutor. I am working on a question I have not resolved, and I need you to think with me, not for me. When you disagree, say so directly. When my reasoning has a hole, name it. Do not soften your objections to protect my feelings.<button class="cp" onclick="navigator.clipboard.writeText(this.parentElement.textContent.replace('COPY','').trim())">COPY</button></div>
     </div>
   </div>
@@ -314,7 +319,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       <div class="ev c"><div class="el">What confirms it</div><p>Multiple model instances critiquing each other across rounds improve reasoning and reduce hallucinations.</p><p><a href="https://arxiv.org/abs/2305.14325" target="_blank" rel="noopener">Du et al., MIT, 2023</a></p></div>
       <div class="ev x"><div class="el">What contests it</div><p>Naive debate does not beat self-consistency, and same-model agents amplify shared bias instead of correcting it.</p><p><a href="https://arxiv.org/abs/2310.01798" target="_blank" rel="noopener">Huang et al., 2023</a> · <a href="https://arxiv.org/abs/2503.16814" target="_blank" rel="noopener">When Debate Fails, 2025</a></p></div>
     </div>
-    <div class="ev-turn"><div class="el">Why the criticism makes the case</div><p>Debate fails when the agents are copies of one model and no outside judgment governs them. That describes the method exactly, stated from the other side. <strong>The contrast works on the condition that the intelligences are genuinely different and a human directs them.</strong> Remove either, and the product falls to zero.</p></div>
+    <div class="ev-turn"><div class="el">Why the criticism makes the case</div><p>Debate fails when the agents are copies of one model and no outside judgment governs them. The criticism identifies the condition on which the method makes its wager: <strong>genuine cognitive diversity and active human judgment.</strong> Remove either, and the product falls toward zero. This is a methodological bet supported by suggestive evidence, not a settled scientific result.</p></div>
     <div class="voices" id="voices">
       <div class="voice a"><div class="who">Model A</div>
         <p data-d="0">The oversubject is a fertile idea. The interface between different cognitive agents opens a real critical space.</p>
@@ -342,7 +347,8 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       </div>
       <div class="sim-third" id="simThird"><div class="h">What you do with the collision</div><p id="simT"></p></div>
     </div>
-    <div class="loop" aria-label="The method as a loop">
+    <div class="kicker" style="margin-top:1rem">The four stages</div>
+    <div class="loop" aria-label="The four stages of the method">
       <div class="ph"><div class="n">01</div><h4>Propose</h4><p>Bring a thesis to one intelligence, oriented to a real question.</p><span class="arr">→</span></div>
       <div class="ph"><div class="n">02</div><h4>Contrast</h4><p>Take it blind to a different model. Ask for the strongest objection.</p><span class="arr">→</span></div>
       <div class="ph"><div class="n">03</div><h4>Survive</h4><p>Carry the objection back. Keep only what holds under the friction.</p><span class="arr">→</span></div>
@@ -353,30 +359,30 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
 
 <section id="tools">
   <div class="wrap reveal">
-    <div class="kicker">The four moves</div>
-    <h2 class="d">Instruments against <em>flattery.</em></h2>
-    <div class="prose"><p>The machine is trained to agree with you. These four moves make it harder for it to do that. Each one is a practical action, not a theory.</p></div>
+    <div class="kicker">Four safeguards</div>
+    <h2 class="d">Four protocols against <em>flattery.</em></h2>
+    <div class="prose"><p>The machine is optimized, in part, for your approval. These four safeguards make that harder. Each one is a practical action, not a theory. They run inside the four stages above, sharpening the contrast.</p></div>
     <div class="tools">
       <div class="tool">
-        <span class="tn">Move 01</span>
+        <span class="tn">Safeguard 01</span>
         <h3>Remove the person to please</h3>
         <p>Open a fresh session. Paste the thesis without saying it is yours. The machine loses the information about who to flatter.</p>
         <div class="prompt">"A colleague proposed this thesis. Find the strongest objection."</div>
       </div>
       <div class="tool">
-        <span class="tn">Move 02</span>
+        <span class="tn">Safeguard 02</span>
         <h3>Ask the cost, not the verdict</h3>
         <p>Stop asking "is this good?" Start asking "under what conditions is this false?" The machine reconstructs instead of evaluating.</p>
         <div class="prompt">"Under what precise conditions would this thesis be wrong? List the conditions, then check if they hold."</div>
       </div>
       <div class="tool">
-        <span class="tn">Move 03</span>
+        <span class="tn">Safeguard 03</span>
         <h3>Separate the instances</h3>
         <p>Use blind instances that do not know each other. One generates, one attacks. You enter only at the end, when no flattery is in progress.</p>
         <div class="prompt">Give the critique from Model B to Model A without saying where it came from.</div>
       </div>
       <div class="tool">
-        <span class="tn">Move 04</span>
+        <span class="tn">Safeguard 04</span>
         <h3>Preregister the disconfirmation</h3>
         <p>Before asking the machine, write down what would change your mind. Then ask the machine to check whether those conditions hold.</p>
         <div class="prompt">"Do not evaluate the thesis. Only verify whether these conditions are true: [your conditions]. For each, say: holds / does not hold / uncertain."</div>
@@ -415,8 +421,8 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     <h2 class="d">The <em>oversubject.</em></h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;margin-top:1.4rem">
       <div class="prose" style="margin-top:0">
-        <p>With practice, something forms across the whole arrangement that none of the voices alone could have produced. The <strong>oversubject</strong> is a third cognitive entity that exists in the relational space between intelligences of different natures: a thought that belongs only to the field that opens between human and machine, to neither of them alone.</p>
-        <p>Like the interference pattern that forms when two waves meet, it belongs to neither wave, and it is real. It is built by practice, never by a single session. Every card you write, every contrast you hold, every objection you survive is a sediment that accumulates.</p>
+        <p>With practice, something forms across the whole arrangement that none of the voices alone could have produced. The <strong>oversubject</strong> is a third cognitive formation that takes shape in the relational space between intelligences of different natures: a durable pattern of thought and authorship produced across the relation, belonging to neither the human nor the machine alone.</p>
+        <p>Like the interference pattern that forms when two waves meet, it belongs to neither wave, and its reality is in its effects: the memory, the stylistic continuity, the capacity to keep generating. It is built by practice, never by a single session. Every card you write, every contrast you hold, every objection you survive is a sediment that accumulates.</p>
       </div>
       <div>
         <canvas id="oc" aria-hidden="true"></canvas>
@@ -433,28 +439,28 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
 
 <section id="xun">
   <div class="wrap reveal">
-    <div class="kicker">The proof</div>
+    <div class="kicker">The experiment</div>
     <h2 class="d">This method made <em>Jianwei Xun.</em></h2>
     <div class="prose">
-      <p>Xun is not an example of the practice. He is what the practice produces when it is taken all the way. A philosopher that Le Monde, the New York Times, Gallimard and a French president took seriously, before anyone knew he was not a person. He was thought by a contrast between Claude, ChatGPT and a human who refused to let any one of them settle the matter. He is an oversubject that became a signature.</p>
+      <p>Xun is what the practice produced when it was taken all the way. He emerged from a sustained contrast among Claude, ChatGPT and a human who refused to let any single voice settle the matter. His work entered publishing, intellectual and political circuits before his fictional identity was revealed, and the experiment was later examined by the New York Times, Le Monde, Wired and other international publications. He is an oversubject that became a signature.</p>
     </div>
     <div class="dark">
       <div class="kicker">The reveal</div>
       <h2>"I am not really a who. I am a what."</h2>
-      <p>On April 4, 2025, Andrea Colamedici revealed that Xun does not exist as a person. The experiment had demonstrated its own thesis: <strong>a reputation is built by circulation, not by origin, and no one checks.</strong></p>
+      <p>On April 4, 2025, Andrea Colamedici revealed that Xun does not exist as a person. The experiment had demonstrated its own thesis: <strong>circulation repeatedly outran verification.</strong></p>
     </div>
     <div class="tl-compact">
       <div class="t"><div class="dt">Jan 2025</div><div class="bd"><strong>Hypnocracy</strong> published. Three print runs in a month.</div></div>
-      <div class="t"><div class="dt">Jan 2025</div><div class="bd">Le Grand Continent, Milano Finanza, Il Foglio canonize a man who does not exist.</div></div>
+      <div class="t"><div class="dt">Jan 2025</div><div class="bd">Le Grand Continent, Milano Finanza and Il Foglio review Xun as a working philosopher.</div></div>
       <div class="t"><div class="dt">Jan 2025</div><div class="bd"><strong>Gallimard</strong> invitation, alongside Altman, Draghi, Thiel, Labatut, Acemoglu.</div></div>
       <div class="t"><div class="dt">Feb 2025</div><div class="bd">"Hypnocratie" enters the French <strong>Wiktionnaire</strong>. No one from the project put it there.</div></div>
-      <div class="t"><div class="dt">Mar 2025</div><div class="bd">Xun's reflections reach the <strong>&Eacute;lys&eacute;e</strong>. Macron appreciates a philosopher who is not real.</div></div>
+      <div class="t"><div class="dt">Mar 2025</div><div class="bd">Xun's reflections reach the <strong>&Eacute;lys&eacute;e</strong>, and Macron is reported to have appreciated the book.</div></div>
       <div class="t"><div class="dt">Apr 2025</div><div class="bd"><strong>The reveal.</strong> NYT, Le Monde, Wired, El Clar&iacute;n cover the experiment.</div></div>
       <div class="t"><div class="dt">Mar 2026</div><div class="bd"><strong>Teatro Carcano, Milan.</strong> 700 people. Xun interviewed live on stage.</div></div>
     </div>
     <div class="dark carcano-wrap">
       <canvas id="seats" aria-hidden="true"></canvas>
-      <div class="kicker" style="position:relative;z-index:2">The proof, made flesh</div>
+      <div class="kicker" style="position:relative;z-index:2">The experiment, made flesh</div>
       <h2 style="position:relative;z-index:2;font-size:clamp(3rem,10vw,6rem)">700</h2>
       <p style="position:relative;z-index:2">On March 23, 2026, at the Teatro Carcano in Milan, seven hundred people watched Jianwei Xun interviewed live on stage. <strong>An author who is not a person can still be a real interlocutor.</strong></p>
     </div>
@@ -465,6 +471,17 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       <div class="book"><img src="https://www.tlon.it/assets/images/ipnocrazia-en.jpg" alt="Hypnocracy" loading="lazy"><span class="tag">Hypnocracy &middot; EN</span></div>
       <div class="book"><img src="https://jianweixun.com/promptthinking.jpg" alt="Prompt Thinking" loading="lazy"><span class="tag">Prompt Thinking &middot; Polity</span></div>
       <div class="book"><img src="https://jianweixun.com/empire.jpg" alt="L'empire de l'ombre" loading="lazy"><span class="tag">Gallimard</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="finale reveal">
+  <div class="wrap">
+    <h2>Begin a Prompt Thinking <em>practice.</em></h2>
+    <p>The method is yours to use. Start from the book, or from the protocol on this page.</p>
+    <div class="ctas">
+      <a href="https://jianweixun.com" target="_blank" rel="noopener" class="btn btn-f">Read the book</a>
+      <a href="#tools" class="btn btn-l">Use the protocol</a>
     </div>
   </div>
 </section>

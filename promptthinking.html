@@ -208,6 +208,10 @@ h2.d em{font-style:italic;color:var(--no)}
 .tl-compact .bd{font-size:.94rem;color:var(--ink-soft);line-height:1.45}
 .tl-compact .bd strong{color:var(--ink);font-weight:600}
 @media(max-width:560px){.tl-compact .t{grid-template-columns:1fr;gap:.2rem}}
+a.tl-src{color:inherit;border:none;display:inline-flex;align-items:baseline;gap:.3rem;transition:color .2s}
+a.tl-src:hover{color:var(--no)}
+a.tl-src .ext{font-size:.62rem;color:var(--grey-2);font-weight:600;letter-spacing:.04em;transition:color .2s}
+a.tl-src:hover .ext{color:var(--no)}
 .dark{background:var(--ink);color:var(--paper);border-radius:22px;padding:clamp(2rem,5vw,3.4rem);margin-top:2rem}
 .dark .kicker{color:var(--no)}
 .dark h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;color:var(--paper);max-width:22ch}
@@ -247,7 +251,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
   <div class="inner">
     <div class="ey">A practice, not a lecture</div>
     <h1>Think <em>with</em> a machine. Without handing the thinking <em>over.</em></h1>
-    <p class="sub">Prompt Thinking is a method for building a real intellectual relationship with artificial intelligence. One that stays honest through friction, and over time produces a thinking that belongs to neither of you.</p>
+    <p class="sub">Prompt Thinking is a method for building a real intellectual relationship with artificial intelligence. One that stays honest through friction, and over time produces a way of thinking that belongs to neither of you.</p>
     <div class="ctas">
       <a href="#encounter" class="btn btn-f">Start here</a>
       <a href="#xun" class="btn btn-l">See the experiment</a>
@@ -295,21 +299,21 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     <div class="kicker">Step two</div>
     <h2 class="d">Add the others. Read the <em>collision,</em> not the consensus.</h2>
     <div class="prose">
-      <p>Once the relationship with one intelligence holds, you widen it. A second model, then several, set against one another so that the thinking happens in the friction between them rather than in the echo of any single one. You stop reading one answer and start reading the collision between many. The weak thoughts fall away, and what survives the contrast is stronger than what any voice alone would have produced.</p>
+      <p>Once the relationship with one intelligence holds, you widen it. A second model, then several, set against one another so that the thinking happens in the friction between them rather than in the echo of any single one. You stop reading one answer and start reading the collision between many. Weak claims are exposed to pressure, and what survives has at least endured a more demanding test.</p>
     </div>
     <div class="practice">
       <h3><span class="dot"></span> In practice</h3>
       <p class="do"><strong>Do:</strong> Take your best idea from the first model. Open a fresh session with a different model, one that has never seen the conversation. Paste the idea without saying it is yours, and ask: "What is wrong with this?" Then take the strongest objection back to the first model. Repeat. You are the human who governs the collision.</p>
-      <p class="dont"><strong>Avoid:</strong> Using the same model in two windows. The contrast requires genuine difference. Two copies of the same mind amplify their shared blind spots instead of correcting them. Use models from different makers.</p>
+      <p class="dont"><strong>Avoid:</strong> Using the same model in two windows. The contrast requires genuine difference. Two copies of the same mind amplify their shared blind spots instead of correcting them. Whenever possible, use models from different makers. This does not guarantee cognitive diversity, though it reduces the risk of identical blind spots.</p>
       <div class="copyblock">A colleague has proposed the following thesis. I need you to find the strongest possible objection to it. Do not soften the critique. If you think it fails, say where and why. Here is the thesis:
 
 [paste the idea here]<button class="cp" onclick="navigator.clipboard.writeText(this.parentElement.textContent.replace('COPY','').trim())">COPY</button></div>
     </div>
     <div class="formula-lab">
       <div class="formula">
-        <div class="factor"><div class="val" id="fAI">AI</div><div class="lbl">the medium</div><input type="range" id="rAI" min="0" max="100" value="80" aria-label="AI factor"></div>
+        <div class="factor"><div class="val" id="fAI">AI</div><div class="lbl">the other voice</div><input type="range" id="rAI" min="0" max="100" value="80" aria-label="AI factor"></div>
         <div class="op">&times;</div>
-        <div class="factor"><div class="val" id="fHU">human</div><div class="lbl">the direction</div><input type="range" id="rHU" min="0" max="100" value="80" aria-label="Human factor"></div>
+        <div class="factor"><div class="val" id="fHU">human</div><div class="lbl">the judgment</div><input type="range" id="rHU" min="0" max="100" value="80" aria-label="Human factor"></div>
         <div class="op">=</div>
         <div class="result" id="res"><div class="val" id="resVal">oversubject</div><div class="lbl">a third order</div></div>
       </div>
@@ -371,7 +375,7 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
       </div>
       <div class="tool">
         <span class="tn">Safeguard 02</span>
-        <h3>Ask the cost, not the verdict</h3>
+        <h3>Ask for the failure conditions, not the verdict</h3>
         <p>Stop asking "is this good?" Start asking "under what conditions is this false?" The machine reconstructs instead of evaluating.</p>
         <div class="prompt">"Under what precise conditions would this thesis be wrong? List the conditions, then check if they hold."</div>
       </div>
@@ -452,12 +456,13 @@ footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
     <div class="tl-compact">
       <div class="t"><div class="dt">Jan 2025</div><div class="bd"><strong>Hypnocracy</strong> published. Three print runs in a month.</div></div>
       <div class="t"><div class="dt">Jan 2025</div><div class="bd">Le Grand Continent, Milano Finanza and Il Foglio review Xun as a working philosopher.</div></div>
-      <div class="t"><div class="dt">Jan 2025</div><div class="bd"><strong>Gallimard</strong> invitation, alongside Altman, Draghi, Thiel, Labatut, Acemoglu.</div></div>
+      <div class="t"><div class="dt">Jan 2025</div><div class="bd"><a class="tl-src" href="https://www.gallimard.fr/catalogue/l-empire-de-l-ombre/9782073107541" target="_blank" rel="noopener"><span><strong>Gallimard</strong> invitation, alongside Altman, Draghi, Thiel, Labatut, Acemoglu.</span><span class="ext">&#8599;</span></a></div></div>
       <div class="t"><div class="dt">Feb 2025</div><div class="bd">"Hypnocratie" enters the French <strong>Wiktionnaire</strong>. No one from the project put it there.</div></div>
       <div class="t"><div class="dt">Mar 2025</div><div class="bd">Xun's reflections reach the <strong>&Eacute;lys&eacute;e</strong>, and Macron is reported to have appreciated the book.</div></div>
-      <div class="t"><div class="dt">Apr 2025</div><div class="bd"><strong>The reveal.</strong> NYT, Le Monde, Wired, El Clar&iacute;n cover the experiment.</div></div>
+      <div class="t"><div class="dt">Apr 2025</div><div class="bd"><strong>The reveal.</strong> Covered by <a class="tl-src" href="https://www.nytimes.com/2025/04/30/world/europe/hypnocracy-ai-philosopher-book.html" target="_blank" rel="noopener"><span>NYT</span><span class="ext">&#8599;</span></a>, <a class="tl-src" href="https://www.lemonde.fr/idees/article/2025/04/16/le-philosophe-jianwei-xun-n-existe-pas-mais-son-concept-d-hypnocratie-entre-dans-notre-realite_6596657_3232.html" target="_blank" rel="noopener"><span>Le Monde</span><span class="ext">&#8599;</span></a>, <a class="tl-src" href="https://english.elpais.com/technology/2025-04-07/jianwei-xun-the-supposed-philosopher-behind-the-hypnocracy-theory-does-not-exist-and-is-a-product-of-artificial-intelligence.html" target="_blank" rel="noopener"><span>El Pa&iacute;s</span><span class="ext">&#8599;</span></a> and others.</div></div>
       <div class="t"><div class="dt">Mar 2026</div><div class="bd"><strong>Teatro Carcano, Milan.</strong> 700 people. Xun interviewed live on stage.</div></div>
     </div>
+    <p style="font-size:.82rem;color:var(--grey);margin-top:1rem;line-height:1.5">The full press record of the experiment is collected at <a href="https://jianweixun.com" target="_blank" rel="noopener" style="color:var(--ink-soft);border-bottom:1px solid var(--line)">jianweixun.com</a>.</p>
     <div class="dark carcano-wrap">
       <canvas id="seats" aria-hidden="true"></canvas>
       <div class="kicker" style="position:relative;z-index:2">The experiment, made flesh</div>

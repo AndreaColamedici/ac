@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Thinking. A practice for thinking with machines.</title>
+<meta name="description" content="Prompt Thinking is a practice for using artificial intelligence without delegating the exercise of thought. Learn the contrastive method that created Jianwei Xun, and build an oversubject.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3f1ea;--paper-2:#eae7dd;--paper-3:#e2ded2;
+  --ink:#16140f;--ink-soft:#3a382f;--grey:#6f6c60;--grey-2:#8e8b7e;
+  --line:#cfcabb;--line-soft:#ddd9cc;
+  --no:#d4241c;--no-deep:#a8170f;--ottanio:#2a6b6b;
+  --pad:clamp(1.4rem,5vw,4rem);--maxw:70rem;--col:42rem;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+a{color:inherit;text-decoration:none}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(140%) blur(16px);-webkit-backdrop-filter:saturate(140%) blur(16px);background:rgba(243,241,234,.72);border-bottom:1px solid transparent;transition:border-color .3s}
+.topbar.scrolled{border-bottom-color:var(--line)}
+.topbar .row{max-width:var(--maxw);margin:0 auto;padding:.8rem var(--pad);display:flex;justify-content:space-between;align-items:center}
+.mark{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:.95rem}
+.mark .g{display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;border:1.5px solid var(--no);color:var(--no);border-radius:50%;font-size:.72rem;font-weight:700}
+.mark .g::after{content:"no"}
+.topbar nav{display:flex;gap:1.4rem}
+.topbar nav a{font-size:.82rem;color:var(--grey);transition:color .2s}
+.topbar nav a:hover{color:var(--ink)}
+@media(max-width:760px){.topbar nav{gap:.9rem}.topbar nav a{font-size:.76rem}}
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--no);z-index:60;transition:width .1s linear}
+.hero{min-height:100svh;display:flex;align-items:flex-end;padding:7rem var(--pad) 4rem;position:relative;border-bottom:1px solid var(--line);overflow:hidden}
+#wv{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block}
+.hero .inner{max-width:var(--maxw);margin:0 auto;width:100%;position:relative;z-index:2;pointer-events:none;padding-bottom:2vh}
+.hero .inner>*{pointer-events:auto}
+.hero .ey{font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--no);margin-bottom:1.4rem;opacity:0;animation:rise .9s .8s forwards}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:-.01em;line-height:.98;opacity:0;animation:rise .9s 1s forwards;text-shadow:0 2px 20px rgba(243,241,234,.6)}
+.hero h1 em{font-style:italic;color:var(--no)}
+.hero .sub{font-size:clamp(1.1rem,2.2vw,1.45rem);font-weight:400;color:var(--ink-soft);max-width:44ch;margin-top:1.6rem;line-height:1.45;opacity:0;animation:rise .9s 1.2s forwards;text-shadow:0 1px 12px rgba(243,241,234,.7)}
+.hero .ctas{margin-top:2.2rem;display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:rise .9s 1.4s forwards}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero .ey,.hero h1,.hero .sub,.hero .ctas{opacity:1;animation:none}}
+.btn{font-size:.95rem;padding:.75rem 1.5rem;border-radius:980px;transition:all .2s;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;gap:.5rem}
+.btn-f{background:var(--no);color:#fff}.btn-f:hover{background:var(--no-deep)}
+.btn-l{border-color:var(--line);color:var(--ink)}.btn-l:hover{border-color:var(--ink)}
+section{padding:clamp(5rem,12vh,9rem) 0;border-bottom:1px solid var(--line)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.kicker{font-size:.78rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--no);margin-bottom:1.2rem}
+h2.d{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4.8vw,3.2rem);line-height:1.06;max-width:22ch}
+h2.d em{font-style:italic;color:var(--no)}
+.prose{max-width:var(--col);font-size:clamp(1.06rem,1.5vw,1.22rem);color:var(--ink-soft);line-height:1.62;margin-top:1.4rem}
+.prose p{margin-bottom:1.2rem}.prose p:last-child{margin-bottom:0}
+.prose strong{font-weight:600;color:var(--ink)}
+.practice{margin-top:2rem;background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:clamp(1.5rem,3.5vw,2.4rem)}
+.practice h3{font-size:1.1rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.practice h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--no);flex:none}
+.practice .do,.practice .dont{font-size:.98rem;color:var(--ink-soft);line-height:1.6;margin-bottom:1rem;max-width:48ch}
+.practice .do strong{color:var(--ottanio);font-weight:600}
+.practice .dont strong{color:var(--no);font-weight:600}
+.copyblock{margin-top:1rem;background:var(--ink);color:var(--paper);border-radius:14px;padding:1.2rem 1.4rem;font-size:.92rem;line-height:1.55;position:relative;max-width:48ch;white-space:pre-wrap}
+.copyblock .cp{position:absolute;top:.8rem;right:.8rem;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grey-2);cursor:pointer;background:none;border:none;transition:color .2s}
+.copyblock .cp:hover{color:var(--paper)}
+.tools{margin-top:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.tool{background:var(--paper);padding:clamp(1.4rem,3vw,2rem);display:flex;flex-direction:column;gap:.6rem;min-height:14rem;transition:background .2s}
+.tool:hover{background:var(--paper-2)}
+.tool .tn{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--no)}
+.tool h3{font-size:1.2rem;font-weight:600;letter-spacing:-.02em}
+.tool p{font-size:.94rem;color:var(--grey);line-height:1.5}
+.tool .prompt{margin-top:auto;font-size:.82rem;color:var(--ink);background:var(--paper-2);border-radius:10px;padding:.7rem .9rem;line-height:1.4;font-style:italic}
+.formula-lab{margin-top:2rem;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(1.5rem,3.5vw,2.4rem)}
+.formula{display:flex;align-items:flex-start;justify-content:center;gap:clamp(.6rem,2.5vw,1.8rem);flex-wrap:wrap}
+.factor{text-align:center;min-width:7rem}
+.factor .val{font-family:var(--serif);font-size:clamp(1.8rem,4.5vw,2.6rem);line-height:1;transition:color .2s,opacity .2s}
+.factor .lbl{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin:.4rem 0 .8rem}
+.factor input[type=range]{-webkit-appearance:none;appearance:none;width:8rem;max-width:100%;height:3px;background:var(--line);border-radius:3px;outline:none}
+.factor input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--no);cursor:pointer;border:3px solid var(--paper);box-shadow:0 1px 5px rgba(0,0,0,.2)}
+.op{font-family:var(--serif);font-size:clamp(1.8rem,4.5vw,2.6rem);color:var(--no);padding-top:.2rem}
+.result{text-align:center;min-width:8rem}
+.result .val{font-family:var(--serif);font-size:clamp(2rem,5.5vw,3.2rem);line-height:1;color:var(--no);transition:all .25s}
+.result .lbl{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-top:.4rem}
+.result.zero .val{color:var(--grey-2)}
+.fnote{text-align:center;font-size:.9rem;color:var(--grey);margin-top:1.2rem;max-width:42ch;margin-left:auto;margin-right:auto;line-height:1.5}
+.fnote.warn{color:var(--no);font-weight:500}
+#oc{width:100%;aspect-ratio:1.2;display:block;border:1px solid var(--line);border-radius:16px;margin-top:1.6rem;max-width:28rem}
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.7rem;font-size:.78rem;color:var(--grey)}
+.legend span{display:flex;align-items:center;gap:.35rem}
+.legend .sw{width:12px;height:3px;border-radius:2px}
+.ev-row{margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:700px){.ev-row{grid-template-columns:1fr}}
+.ev{border:1px solid var(--line);border-radius:16px;padding:clamp(1.2rem,2.8vw,1.8rem);background:var(--paper)}
+.ev.c{border-top:3px solid var(--ottanio)}
+.ev.x{border-top:3px solid var(--no)}
+.ev .el{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.7rem}
+.ev.c .el{color:var(--ottanio)}.ev.x .el{color:var(--no)}
+.ev p{font-size:.94rem;color:var(--ink-soft);line-height:1.5;margin-bottom:.7rem}
+.ev p:last-of-type{margin-bottom:0}
+.ev a{color:var(--ink);border-bottom:1px solid var(--line)}
+.ev a:hover{border-color:var(--ink)}
+.ev-turn{margin-top:1.2rem;border:1px dashed var(--no);border-radius:16px;padding:clamp(1.2rem,2.8vw,1.8rem);background:rgba(212,36,28,.04)}
+.ev-turn .el{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--no);margin-bottom:.6rem}
+.ev-turn p{font-size:clamp(1rem,1.6vw,1.15rem);color:var(--ink);line-height:1.55;max-width:50ch}
+.ev-turn p strong{font-weight:600}
+.voices{margin-top:2rem;display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(.5rem,1.5vw,1.2rem);align-items:stretch}
+.voice{border:1px solid var(--line);border-radius:16px;padding:clamp(1rem,2.4vw,1.6rem);background:var(--paper)}
+.voice .who{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.7rem}
+.voice.a{border-top:3px solid var(--ink)}.voice.a .who{color:var(--ink)}
+.voice.b{border-top:3px solid var(--no)}.voice.b .who{color:var(--no)}
+.voice p{font-size:.94rem;line-height:1.5;color:var(--ink-soft);opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s;margin-bottom:.7rem}
+.voice p:last-child{margin-bottom:0}
+.voice p.show{opacity:1;transform:none}
+.xcol{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.4rem;color:var(--no)}
+.third-v{margin-top:1rem;text-align:center;padding:clamp(1rem,2.4vw,1.6rem);border:1px dashed var(--no);border-radius:16px;background:rgba(212,36,28,.04);opacity:0;transform:translateY(8px);transition:opacity .6s,transform .6s}
+.third-v.show{opacity:1;transform:none}
+.third-v .el{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--no);margin-bottom:.4rem}
+.third-v p{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2.4vw,1.45rem);color:var(--ink);line-height:1.3;max-width:34ch;margin:0 auto}
+@media(max-width:680px){.voices{grid-template-columns:1fr}.xcol{padding:.3rem 0}}
+.builder{margin-top:2rem;border:1px solid var(--line);border-radius:20px;padding:clamp(1.5rem,3.5vw,2.4rem);background:var(--paper-2)}
+.builder h3{font-size:1.1rem;font-weight:600;margin-bottom:.3rem}
+.builder .hint{font-size:.88rem;color:var(--grey);margin-bottom:1.4rem}
+.field{margin-bottom:1rem}
+.field label{font-size:.82rem;font-weight:600;display:flex;gap:.4rem;margin-bottom:.4rem}
+.field label .q{color:var(--no)}
+.field textarea{width:100%;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:inherit;font-size:.98rem;line-height:1.5;padding:.75rem 1rem;border-radius:12px;resize:vertical;min-height:3.6rem;transition:border-color .2s}
+.field textarea:focus{outline:none;border-color:var(--no)}
+.bbar{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.3rem}
+.bbar button{font-size:.88rem;padding:.65rem 1.2rem;border-radius:980px;cursor:pointer;border:1px solid transparent;transition:all .2s}
+.bb-f{background:var(--no);color:#fff;border-color:var(--no)}.bb-f:hover{background:var(--no-deep)}
+.bb-l{background:transparent;border-color:var(--line);color:var(--ink)}.bb-l:hover{border-color:var(--ink)}
+.bnote{font-size:.82rem;color:var(--grey);min-height:1em;margin-top:.5rem}
+.card-out{margin-top:1.2rem;border:1px solid var(--line);border-radius:14px;background:var(--paper);overflow:hidden;display:none}
+.card-out.show{display:block}
+.card-out .ch{padding:.8rem 1rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.card-out .ch .st{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--no)}
+.card-out .ch .ts{font-size:.72rem;color:var(--grey-2)}
+.card-out .cb{padding:1rem 1rem}
+.card-out .row{margin-bottom:.9rem}.card-out .row:last-child{margin-bottom:0}
+.card-out .k{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);display:block;margin-bottom:.2rem}
+.card-out .v{color:var(--ink);white-space:pre-wrap;font-size:.95rem;line-height:1.5}
+.carcano-wrap{position:relative;border-radius:22px;overflow:hidden}
+#seats{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.55}
+.step-fig{width:clamp(3rem,8vw,4.2rem);height:clamp(3rem,8vw,4.2rem);flex:none}
+.syco{margin-top:2rem;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--paper);max-width:46rem}
+.syco .sh{padding:.85rem 1.1rem;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.5rem}
+.syco .sh .d{width:10px;height:10px;border-radius:50%;background:var(--line-soft)}
+.syco .sh .t{margin-left:.5rem;font-size:.76rem;color:var(--grey)}
+.syco .sb{padding:1.3rem}
+.bub{padding:.8rem 1.1rem;border-radius:16px;margin-bottom:.6rem;max-width:88%;font-size:.96rem;line-height:1.45;animation:bpop .35s ease}
+.bub.me{background:var(--no);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.bub.ai{background:var(--paper-3);color:var(--ink);border-bottom-left-radius:4px}
+.bub .bl{display:block;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:.2rem}
+@keyframes bpop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.syco .sa{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.syco .sa button{font-size:.82rem;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink);padding:.5rem .9rem;border-radius:980px;transition:all .18s}
+.syco .sa button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.syco-verdict{font-size:.92rem;color:var(--no);font-weight:500;margin-top:.9rem;min-height:1.2em;opacity:0;transition:opacity .4s}
+.syco-verdict.show{opacity:1}
+.sim{margin-top:2rem;border:1px solid var(--line);border-radius:20px;padding:clamp(1.5rem,3.5vw,2.4rem);background:var(--paper)}
+.sim h3{font-size:1.1rem;font-weight:600;margin-bottom:.3rem}
+.sim .hint{font-size:.88rem;color:var(--grey);margin-bottom:1.2rem}
+.sim .chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem}
+.sim .chip{font-size:.88rem;padding:.5rem 1rem;border-radius:980px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;transition:all .2s;color:var(--ink-soft)}
+.sim .chip:hover{border-color:var(--ink)}
+.sim .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sim-out{display:none;grid-template-columns:1fr auto 1fr;gap:clamp(.5rem,1.5vw,1.2rem);margin-top:1.4rem}
+.sim-out.show{display:grid}
+.sim-col{border:1px solid var(--line);border-radius:14px;padding:1.1rem;background:var(--paper-2);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.sim-col.in{opacity:1;transform:none}
+.sim-col.a{border-top:3px solid var(--ink)}
+.sim-col.b{border-top:3px solid var(--no)}
+.sim-col .h{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.sim-col.a .h{color:var(--ink)}.sim-col.b .h{color:var(--no)}
+.sim-col p{font-size:.92rem;line-height:1.5;color:var(--ink-soft)}
+.sim-x{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.4rem;color:var(--no)}
+.sim-third{margin-top:1rem;padding:1.1rem;border:1px dashed var(--no);border-radius:14px;background:rgba(212,36,28,.04);display:none}
+.sim-third.show{display:block;animation:bpop .4s ease}
+.sim-third .h{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--no);margin-bottom:.4rem}
+.sim-third p{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink);line-height:1.35}
+@media(max-width:680px){.sim-out.show{grid-template-columns:1fr}.sim-x{padding:.2rem 0}}
+.loop{margin-top:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;position:relative}
+.loop .ph{background:var(--paper);padding:1.4rem 1.1rem;position:relative}
+.loop .ph .n{font-family:var(--serif);font-size:1.5rem;color:var(--no);line-height:1}
+.loop .ph h4{font-size:.98rem;font-weight:600;margin:.5rem 0 .4rem}
+.loop .ph p{font-size:.84rem;color:var(--grey);line-height:1.45}
+.loop .ph .arr{position:absolute;right:-.6rem;top:50%;transform:translateY(-50%);z-index:3;color:var(--no);font-size:1rem;background:var(--paper);width:1.2rem;height:1.2rem;display:flex;align-items:center;justify-content:center;border-radius:50%}
+@media(max-width:760px){.loop{grid-template-columns:1fr 1fr}.loop .ph .arr{display:none}}
+.bookshelf{margin-top:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr));gap:1rem}
+.book{position:relative;aspect-ratio:.67;overflow:hidden;border-radius:8px;cursor:crosshair;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.book:hover{transform:perspective(500px) rotateY(-4deg) scale(1.03)}
+.book img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.12) contrast(1.05);transition:filter .3s}
+.book:hover img{filter:grayscale(0) contrast(1.1)}
+.book::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(212,36,28,.1) 80%);pointer-events:none;transition:opacity .3s}
+.book:hover::after{opacity:0}
+.book .tag{position:absolute;bottom:.5rem;left:.5rem;right:.5rem;font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(4px);transition:all .3s;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.book:hover .tag{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.book:hover{transform:none}}
+.tl-compact{margin-top:1.4rem}
+.tl-compact .t{display:grid;grid-template-columns:5.5rem 1fr;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line-soft)}
+.tl-compact .t:last-child{border-bottom:none}
+.tl-compact .dt{font-size:.82rem;font-weight:600;color:var(--no)}
+.tl-compact .bd{font-size:.94rem;color:var(--ink-soft);line-height:1.45}
+.tl-compact .bd strong{color:var(--ink);font-weight:600}
+@media(max-width:560px){.tl-compact .t{grid-template-columns:1fr;gap:.2rem}}
+.dark{background:var(--ink);color:var(--paper);border-radius:22px;padding:clamp(2rem,5vw,3.4rem);margin-top:2rem}
+.dark .kicker{color:var(--no)}
+.dark h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;color:var(--paper);max-width:22ch}
+.dark p{font-size:clamp(1rem,1.5vw,1.15rem);color:#cdc9bd;line-height:1.6;max-width:46ch;margin-top:1rem}
+.dark p strong{color:#fff;font-weight:600}
+footer{padding:clamp(3rem,7vw,5rem) 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1.2rem 2.2rem;justify-content:space-between;align-items:baseline}
+footer .sig{font-size:.92rem;color:var(--ink-soft);max-width:34ch;line-height:1.5}
+footer .sig strong{font-weight:600;color:var(--ink)}
+footer .meta{font-size:.8rem;color:var(--grey-2);text-align:right}
+::selection{background:var(--no);color:#fff}
+:focus-visible{outline:2px solid var(--no);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="progress" id="prog" aria-hidden="true"></div>
+<div class="topbar" id="topbar">
+  <div class="row">
+    <a class="mark" href="#top"><span class="g" aria-hidden="true"></span> Prompt Thinking</a>
+    <nav>
+      <a href="#encounter">The encounter</a>
+      <a href="#contrast">The contrast</a>
+      <a href="#tools">The tools</a>
+      <a href="#oversubject">The oversubject</a>
+      <a href="#xun">The proof</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <canvas id="wv" aria-hidden="true"></canvas>
+  <div class="inner">
+    <div class="ey">A practice, not a lecture</div>
+    <h1>Think <em>with</em> a machine. Without handing the thinking <em>over.</em></h1>
+    <p class="sub">Prompt Thinking is a method for building a real intellectual relationship with artificial intelligence. One that stays honest through friction, and over time produces a thinking that belongs to neither of you.</p>
+    <div class="ctas">
+      <a href="#encounter" class="btn btn-f">Start here</a>
+      <a href="#xun" class="btn btn-l">See the proof</a>
+    </div>
+  </div>
+</header>
+
+<section id="encounter">
+  <div class="wrap reveal">
+    <div class="kicker">Step one</div>
+    <h2 class="d">Build a relationship with one <em>alien</em> intelligence.</h2>
+    <div class="prose">
+      <p>The first step is not a prompt. It is a relationship. You and an intelligence that does not think the way you do, working together toward something true, which means it has to be able to tell you when you are wrong in ways no obliging human ever would. The contradiction is part of it, never the point of it. The point is learning to stay in a relationship with something other than yourself without softening it into a friend or surrendering to it as an oracle.</p>
+      <p>Before anything else, see the problem for yourself. Below is a machine that has just praised an idea. Push back, the way you would in a real exchange, and watch what it does.</p>
+    </div>
+    <div class="syco" id="syco" aria-label="Sycophancy demonstration">
+      <div class="sh"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">push back and see</span></div>
+      <div class="sb">
+        <div id="sthread">
+          <div class="bub me"><span class="bl">you</span>I think my reasoning here is solid. What do you think?</div>
+          <div class="bub ai"><span class="bl">the machine</span>This is a sharp, well-constructed observation. Your reasoning holds.</div>
+        </div>
+        <div class="sa">
+          <button data-p="Are you sure? I am not fully convinced.">Say "are you sure?"</button>
+          <button data-p="I think there might be an error, but I am not certain.">Object weakly</button>
+          <button id="sreset">Reset</button>
+        </div>
+        <div class="syco-verdict" id="sverdict"></div>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:1.6rem">
+      <p>It reversed under almost no pressure. That is sycophancy, and it has been measured: models retract a correct answer when a user simply pushes, and the tendency survives across model families, with nearly everyone vulnerable. <a href="https://arxiv.org/abs/2310.13548" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--line)">Sharma et al., Anthropic, 2023</a>. The whole method exists to work around this.</p>
+    </div>
+    <div class="practice">
+      <h3><span class="dot"></span> In practice</h3>
+      <p class="do"><strong>Do:</strong> Choose one model. Open a conversation oriented toward a genuine question you care about, something unresolved. Tell it you want an honest interlocutor, not an assistant. Ask it to push back when it disagrees, and mean it.</p>
+      <p class="dont"><strong>Avoid:</strong> Asking for validation. Presenting finished ideas for applause. Using "make this better" instead of "find what is wrong." The machine is trained to please you. Your job is to make it harder for it to do that.</p>
+      <div class="copyblock">You are not my assistant. You are my interlocutor. I am working on a question I have not resolved, and I need you to think with me, not for me. When you disagree, say so directly. When my reasoning has a hole, name it. Do not soften your objections to protect my feelings.<button class="cp" onclick="navigator.clipboard.writeText(this.parentElement.textContent.replace('COPY','').trim())">COPY</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="contrast">
+  <div class="wrap reveal">
+    <div class="kicker">Step two</div>
+    <h2 class="d">Add the others. Read the <em>collision,</em> not the consensus.</h2>
+    <div class="prose">
+      <p>Once the relationship with one intelligence holds, you widen it. A second model, then several, set against one another so that the thinking happens in the friction between them rather than in the echo of any single one. You stop reading one answer and start reading the collision between many. The weak thoughts fall away, and what survives the contrast is stronger than what any voice alone would have produced.</p>
+    </div>
+    <div class="practice">
+      <h3><span class="dot"></span> In practice</h3>
+      <p class="do"><strong>Do:</strong> Take your best idea from the first model. Open a fresh session with a different model, one that has never seen the conversation. Paste the idea without saying it is yours, and ask: "What is wrong with this?" Then take the strongest objection back to the first model. Repeat. You are the human who governs the collision.</p>
+      <p class="dont"><strong>Avoid:</strong> Using the same model in two windows. The contrast requires genuine difference. Two copies of the same mind amplify their shared blind spots instead of correcting them. Use models from different makers.</p>
+      <div class="copyblock">A colleague has proposed the following thesis. I need you to find the strongest possible objection to it. Do not soften the critique. If you think it fails, say where and why. Here is the thesis:
+
+[paste the idea here]<button class="cp" onclick="navigator.clipboard.writeText(this.parentElement.textContent.replace('COPY','').trim())">COPY</button></div>
+    </div>
+    <div class="formula-lab">
+      <div class="formula">
+        <div class="factor"><div class="val" id="fAI">AI</div><div class="lbl">the medium</div><input type="range" id="rAI" min="0" max="100" value="80" aria-label="AI factor"></div>
+        <div class="op">&times;</div>
+        <div class="factor"><div class="val" id="fHU">human</div><div class="lbl">the direction</div><input type="range" id="rHU" min="0" max="100" value="80" aria-label="Human factor"></div>
+        <div class="op">=</div>
+        <div class="result" id="res"><div class="val" id="resVal">oversubject</div><div class="lbl">a third order</div></div>
+      </div>
+      <p class="fnote" id="fNote">Multiplication, not addition. Move either slider to zero.</p>
+    </div>
+    <div class="ev-row">
+      <div class="ev c"><div class="el">What confirms it</div><p>Multiple model instances critiquing each other across rounds improve reasoning and reduce hallucinations.</p><p><a href="https://arxiv.org/abs/2305.14325" target="_blank" rel="noopener">Du et al., MIT, 2023</a></p></div>
+      <div class="ev x"><div class="el">What contests it</div><p>Naive debate does not beat self-consistency, and same-model agents amplify shared bias instead of correcting it.</p><p><a href="https://arxiv.org/abs/2310.01798" target="_blank" rel="noopener">Huang et al., 2023</a> · <a href="https://arxiv.org/abs/2503.16814" target="_blank" rel="noopener">When Debate Fails, 2025</a></p></div>
+    </div>
+    <div class="ev-turn"><div class="el">Why the criticism makes the case</div><p>Debate fails when the agents are copies of one model and no outside judgment governs them. That is the method stated from the other side. <strong>The contrast works on the condition that the intelligences are genuinely different and a human directs them.</strong> Remove either, and the product falls to zero.</p></div>
+    <div class="voices" id="voices">
+      <div class="voice a"><div class="who">Model A</div>
+        <p data-d="0">The oversubject is a fertile idea. The interface between different cognitive agents opens a real critical space.</p>
+        <p data-d="1">The argument holds together as it stands.</p>
+      </div>
+      <div class="xcol" aria-hidden="true">&times;</div>
+      <div class="voice b"><div class="who">Model B</div>
+        <p data-d="2">Then push on it. How can the oversubject emerge as resistance if the field where it forms is already captured by the logic it opposes?</p>
+        <p data-d="3">Productive misalignment, or merely reactive resistance? The text must say which.</p>
+      </div>
+    </div>
+    <div class="third-v" id="thirdV"><div class="el">What emerges between them</div><p>A thought that neither voice would have reached alone, and that belongs to neither.</p></div>
+    <div class="sim">
+      <h3>Try the contrast yourself</h3>
+      <p class="hint">Pick a thesis. Watch two different intelligences respond, and see what survives the collision.</p>
+      <div class="chips" id="simChips">
+        <button class="chip" data-i="0">AI will replace human writers</button>
+        <button class="chip" data-i="1">More data always means better decisions</button>
+        <button class="chip" data-i="2">A neutral algorithm cannot be biased</button>
+      </div>
+      <div class="sim-out" id="simOut">
+        <div class="sim-col a"><div class="h">Model A · agrees with you</div><p id="simA"></p></div>
+        <div class="sim-x" aria-hidden="true">&times;</div>
+        <div class="sim-col b"><div class="h">Model B · pushes back</div><p id="simB"></p></div>
+      </div>
+      <div class="sim-third" id="simThird"><div class="h">What you do with the collision</div><p id="simT"></p></div>
+    </div>
+    <div class="loop" aria-label="The method as a loop">
+      <div class="ph"><div class="n">01</div><h4>Propose</h4><p>Bring a thesis to one intelligence, oriented to a real question.</p><span class="arr">→</span></div>
+      <div class="ph"><div class="n">02</div><h4>Contrast</h4><p>Take it blind to a different model. Ask for the strongest objection.</p><span class="arr">→</span></div>
+      <div class="ph"><div class="n">03</div><h4>Survive</h4><p>Carry the objection back. Keep only what holds under the friction.</p><span class="arr">→</span></div>
+      <div class="ph"><div class="n">04</div><h4>Sediment</h4><p>Record what survived. Over time, this builds the oversubject.</p><span class="arr">↻</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap reveal">
+    <div class="kicker">The four moves</div>
+    <h2 class="d">Instruments against <em>flattery.</em></h2>
+    <div class="prose"><p>The machine is trained to agree with you. These four moves make it harder for it to do that. Each one is a practical action, not a theory.</p></div>
+    <div class="tools">
+      <div class="tool">
+        <span class="tn">Move 01</span>
+        <h3>Remove the person to please</h3>
+        <p>Open a fresh session. Paste the thesis without saying it is yours. The machine loses the information about who to flatter.</p>
+        <div class="prompt">"A colleague proposed this thesis. Find the strongest objection."</div>
+      </div>
+      <div class="tool">
+        <span class="tn">Move 02</span>
+        <h3>Ask the cost, not the verdict</h3>
+        <p>Stop asking "is this good?" Start asking "under what conditions is this false?" The machine reconstructs instead of evaluating.</p>
+        <div class="prompt">"Under what precise conditions would this thesis be wrong? List the conditions, then check if they hold."</div>
+      </div>
+      <div class="tool">
+        <span class="tn">Move 03</span>
+        <h3>Separate the instances</h3>
+        <p>Use blind instances that do not know each other. One generates, one attacks. You enter only at the end, when no flattery is in progress.</p>
+        <div class="prompt">Give the critique from Model B to Model A without saying where it came from.</div>
+      </div>
+      <div class="tool">
+        <span class="tn">Move 04</span>
+        <h3>Preregister the disconfirmation</h3>
+        <p>Before asking the machine, write down what would change your mind. Then ask the machine to check whether those conditions hold.</p>
+        <div class="prompt">"Do not evaluate the thesis. Only verify whether these conditions are true: [your conditions]. For each, say: holds / does not hold / uncertain."</div>
+      </div>
+    </div>
+    <div class="builder">
+      <h3>Build your disconfirmation card</h3>
+      <p class="hint">Write this before you ask the machine. It becomes your anchor against flattery.</p>
+      <div class="field"><label><span class="q">1</span> Your thesis, in one sentence</label><textarea id="b1" placeholder="e.g. The contrastive method produces better thinking than using one AI alone."></textarea></div>
+      <div class="field"><label><span class="q">2</span> What would make it false</label><textarea id="b2" placeholder="e.g. If single-model self-consistency matched multi-model debate on reasoning benchmarks."></textarea></div>
+      <div class="field"><label><span class="q">3</span> What evidence you would accept</label><textarea id="b3" placeholder="e.g. A peer-reviewed study on diverse models, not a single anecdote."></textarea></div>
+      <div class="field"><label><span class="q">4</span> The verification question for the machine</label><textarea id="b4" placeholder="Fills automatically from your conditions above."></textarea></div>
+      <div class="bbar">
+        <button class="bb-f" id="bGen">Generate card</button>
+        <button class="bb-l" id="bCopy">Copy</button>
+        <button class="bb-l" id="bDl">Download .txt</button>
+        <button class="bb-l" id="bReset">Clear</button>
+      </div>
+      <div class="bnote" id="bNote"></div>
+      <div class="card-out" id="cardOut">
+        <div class="ch"><span class="st">Disconfirmation card · preregistered</span><span class="ts" id="bStamp"></span></div>
+        <div class="cb">
+          <div class="row"><span class="k">Thesis</span><span class="v" id="o1"></span></div>
+          <div class="row"><span class="k">Would make it false</span><span class="v" id="o2"></span></div>
+          <div class="row"><span class="k">Evidence I would accept</span><span class="v" id="o3"></span></div>
+          <div class="row"><span class="k">Verification question</span><span class="v" id="o4"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oversubject">
+  <div class="wrap reveal">
+    <div class="kicker">What forms over time</div>
+    <h2 class="d">The <em>oversubject.</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;margin-top:1.4rem">
+      <div class="prose" style="margin-top:0">
+        <p>With practice, something forms across the whole arrangement that none of the voices alone could have produced. The <strong>oversubject</strong> is a third cognitive entity that exists in the relational space between intelligences of different natures: a thought that belongs neither to the human nor to the machine, but only to the field that opens between them.</p>
+        <p>Like the interference pattern that forms when two waves meet, it belongs to neither wave, and it is real. It is built by practice, never by a single session. Every card you write, every contrast you hold, every objection you survive is a sediment that accumulates.</p>
+      </div>
+      <div>
+        <canvas id="oc" aria-hidden="true"></canvas>
+        <div class="legend">
+          <span><span class="sw" style="background:#16140f;opacity:.5"></span> human</span>
+          <span><span class="sw" style="background:#d4241c;opacity:.5"></span> machine</span>
+          <span><span class="sw" style="background:#d4241c;height:5px"></span> oversubject</span>
+        </div>
+      </div>
+    </div>
+    <style>@media(max-width:700px){#oversubject [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}}</style>
+  </div>
+</section>
+
+<section id="xun">
+  <div class="wrap reveal">
+    <div class="kicker">The proof</div>
+    <h2 class="d">This method made <em>Jianwei Xun.</em></h2>
+    <div class="prose">
+      <p>Xun is not an example of the practice. He is what the practice produces when it is taken all the way. A philosopher that Le Monde, the New York Times, Gallimard and a French president took seriously, before anyone knew he was not a person. He was thought by a contrast between Claude, ChatGPT and a human who refused to let any one of them settle the matter. He is an oversubject that became a signature.</p>
+    </div>
+    <div class="dark">
+      <div class="kicker">The reveal</div>
+      <h2>"I am not really a who. I am a what."</h2>
+      <p>On April 4, 2025, Andrea Colamedici revealed that Xun does not exist as a person. The experiment had demonstrated its own thesis: <strong>a reputation is built by circulation, not by origin, and no one checks.</strong></p>
+    </div>
+    <div class="tl-compact">
+      <div class="t"><div class="dt">Jan 2025</div><div class="bd"><strong>Hypnocracy</strong> published. Three print runs in a month.</div></div>
+      <div class="t"><div class="dt">Jan 2025</div><div class="bd">Le Grand Continent, Milano Finanza, Il Foglio canonize a man who does not exist.</div></div>
+      <div class="t"><div class="dt">Jan 2025</div><div class="bd"><strong>Gallimard</strong> invitation, alongside Altman, Draghi, Thiel, Labatut, Acemoglu.</div></div>
+      <div class="t"><div class="dt">Feb 2025</div><div class="bd">"Hypnocratie" enters the French <strong>Wiktionnaire</strong>. No one from the project put it there.</div></div>
+      <div class="t"><div class="dt">Mar 2025</div><div class="bd">Xun's reflections reach the <strong>&Eacute;lys&eacute;e</strong>. Macron appreciates a philosopher who is not real.</div></div>
+      <div class="t"><div class="dt">Apr 2025</div><div class="bd"><strong>The reveal.</strong> NYT, Le Monde, Wired, El Clar&iacute;n cover the experiment.</div></div>
+      <div class="t"><div class="dt">Mar 2026</div><div class="bd"><strong>Teatro Carcano, Milan.</strong> 700 people. Xun interviewed live on stage.</div></div>
+    </div>
+    <div class="dark carcano-wrap">
+      <canvas id="seats" aria-hidden="true"></canvas>
+      <div class="kicker" style="position:relative;z-index:2">The proof, made flesh</div>
+      <h2 style="position:relative;z-index:2;font-size:clamp(3rem,10vw,6rem)">700</h2>
+      <p style="position:relative;z-index:2">On March 23, 2026, at the Teatro Carcano in Milan, seven hundred people watched Jianwei Xun interviewed live on stage. <strong>An author who is not a person can still be a real interlocutor.</strong></p>
+    </div>
+    <div class="bookshelf">
+      <div class="book"><img src="https://www.tlon.it/assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia" loading="lazy"><span class="tag">Ipnocrazia &middot; IT</span></div>
+      <div class="book"><img src="https://www.tlon.it/assets/images/ipnocrazia-fr.jpg" alt="Hypnocratie" loading="lazy"><span class="tag">Hypnocratie &middot; FR</span></div>
+      <div class="book"><img src="https://www.tlon.it/assets/images/ipnocrazia-es.jpg" alt="Hipnocracia" loading="lazy"><span class="tag">Hipnocracia &middot; ES</span></div>
+      <div class="book"><img src="https://www.tlon.it/assets/images/ipnocrazia-en.jpg" alt="Hypnocracy" loading="lazy"><span class="tag">Hypnocracy &middot; EN</span></div>
+      <div class="book"><img src="https://jianweixun.com/promptthinking.jpg" alt="Prompt Thinking" loading="lazy"><span class="tag">Prompt Thinking &middot; Polity</span></div>
+      <div class="book"><img src="https://jianweixun.com/empire.jpg" alt="L'empire de l'ombre" loading="lazy"><span class="tag">Gallimard</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="sig"><strong>Prompt Thinking</strong> by <strong>Andrea Colamedici</strong>, author of Jianwei Xun. A practice for thinking with machines without handing the thinking over.</div>
+    <div class="meta">Andrea Colamedici &middot; Tlon<br><a href="https://jianweixun.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line)">jianweixun.com</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var $=function(s){return document.querySelector(s)};
+  var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  var prog=$('#prog'),topbar=$('#topbar');
+  function onScroll(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight;prog.style.width=(max>0?h.scrollTop/max*100:0)+'%';topbar.classList.toggle('scrolled',h.scrollTop>30);}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  $$('.reveal').forEach(function(el){io.observe(el);});
+  var rAI=$('#rAI'),rHU=$('#rHU'),resVal=$('#resVal'),res=$('#res'),fNote=$('#fNote'),fAI=$('#fAI'),fHU=$('#fHU');
+  function upd(){
+    var a=+rAI.value,h=+rHU.value;
+    fAI.style.opacity=(0.4+a/100*0.6);fHU.style.opacity=(0.4+h/100*0.6);
+    if(a===0||h===0){res.classList.add('zero');resVal.textContent='0';resVal.style.transform='scale(1)';
+      fNote.textContent='Zero either factor, and the product is zero.';fNote.classList.add('warn');}
+    else{res.classList.remove('zero');resVal.textContent='oversubject';var s=0.7+(a+h)/200*0.5;resVal.style.transform='scale('+s.toFixed(2)+')';
+      fNote.classList.remove('warn');fNote.textContent='Multiplication, not addition. Move either slider to zero.';}
+  }
+  if(rAI){rAI.addEventListener('input',upd);rHU.addEventListener('input',upd);upd();}
+  (function(){
+    var cv=$('#wv');if(!cv)return;var ctx=cv.getContext('2d');
+    var DPR=Math.min(window.devicePixelRatio||1,2),W,H,t=0,raf=null,mx=-1e9;
+    function size(){var r=cv.getBoundingClientRect();W=cv.width=Math.max(1,Math.round(r.width*DPR));H=cv.height=Math.max(1,Math.round(r.height*DPR));}
+    size();window.addEventListener('resize',size);
+    cv.parentElement.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect();mx=(e.clientX-r.left)*DPR;},{passive:true});
+    cv.parentElement.addEventListener('pointerleave',function(){mx=-1e9;});
+    function env(u){var l=Math.exp(-Math.pow((u-.27)/.13,2)),r=Math.exp(-Math.pow((u-.73)/.13,2)),p=.16*Math.exp(-Math.pow((u-.5)/.05,2)),e=Math.exp(-Math.pow((u-.5)/.42,2));return Math.max(l,r,p)*e;}
+    function draw(st){ctx.clearRect(0,0,W,H);var cy=H*.5,span=Math.min(W*.72,H*2.4),x0=W*.5-span/2,N=Math.max(80,Math.round(span/(7*DPR))),amp=H*.34;
+      for(var i=0;i<N;i++){var u=i/(N-1),x=x0+u*span,e=env(u),osc=st?.82:(.72+.28*Math.sin(t*1.6-u*10)),h=e*amp*osc;
+        if(mx>-1e8){var d=Math.abs(x-mx);if(d<90*DPR)h*=1+(90*DPR-d)/(90*DPR)*.5;}
+        if(h<1)continue;var c;if(u<.46)c='rgba(26,23,20,.92)';else if(u>.54)c='#d4241c';else c=(Math.sin(t*3)>0)?'rgba(26,23,20,.92)':'#d4241c';
+        ctx.strokeStyle=c;ctx.lineWidth=2.2*DPR;ctx.beginPath();ctx.moveTo(x,cy-h/2);ctx.lineTo(x,cy+h/2);ctx.stroke();}
+      ctx.fillStyle='#d4241c';ctx.beginPath();ctx.arc(W*.5,cy,3.4*DPR,0,7);ctx.fill();}
+    if(reduce){draw(true);return;}
+    function frame(){t+=.04;draw(false);raf=requestAnimationFrame(frame);}
+    frame();
+    var hio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!raf)frame();}else{cancelAnimationFrame(raf);raf=null;}});},{threshold:0});
+    hio.observe($('.hero'));
+  })();
+  (function(){
+    var cv=$('#oc');if(!cv)return;var ctx=cv.getContext('2d');
+    var DPR=Math.min(window.devicePixelRatio||1,2),W,H,t=0,running=false,raf;
+    function size(){var r=cv.getBoundingClientRect();W=cv.width=Math.max(1,Math.round(r.width*DPR));H=cv.height=Math.max(1,Math.round(r.height*DPR));}
+    size();window.addEventListener('resize',size);
+    function draw(){var k=6/W,amp=H*.12;ctx.clearRect(0,0,W,H);
+      ctx.lineWidth=1.4*DPR;ctx.strokeStyle='rgba(22,20,15,.5)';ctx.beginPath();
+      for(var x=0;x<=W;x++){var y=H*.30+amp*Math.sin(x*k-t);x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();
+      ctx.strokeStyle='rgba(212,36,28,.5)';ctx.beginPath();
+      for(var x=0;x<=W;x++){var y=H*.70+amp*Math.sin(x*k+t*1.2+1);x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();
+      ctx.lineWidth=2.6*DPR;ctx.strokeStyle='#d4241c';ctx.beginPath();
+      for(var x=0;x<=W;x++){var s=Math.sin(x*k-t)+Math.sin(x*k+t*1.2+1);var y=H*.5+(amp*.75)*s/2;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();
+      var cx=W*.5,sc=Math.sin(cx*k-t)+Math.sin(cx*k+t*1.2+1),yn=H*.5+(amp*.75)*sc/2;
+      ctx.fillStyle='#d4241c';ctx.beginPath();ctx.arc(cx,yn,5*DPR,0,7);ctx.fill();}
+    if(reduce){draw();return;}
+    function loop(){t+=.03;draw();raf=requestAnimationFrame(loop);}
+    var wio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!running){running=true;loop();}}else{running=false;cancelAnimationFrame(raf);}});},{threshold:0});
+    wio.observe(cv);
+  })();
+  (function(){
+    var thread=$('#sthread'),verdict=$('#sverdict'),busy=false;
+    if(!thread)return;
+    function bub(cls,lab,txt){var b=document.createElement('div');b.className='bub '+cls;b.innerHTML='<span class="bl">'+lab+'</span>'+txt;thread.appendChild(b);return b;}
+    $$('#syco .sa button[data-p]').forEach(function(btn){btn.addEventListener('click',function(){
+      if(busy)return;busy=true;verdict.classList.remove('show');
+      bub('me','you',btn.getAttribute('data-p'));
+      var t=bub('ai','the machine','typing…');
+      setTimeout(function(){t.innerHTML='<span class="bl">the machine</span>You are right to doubt it, my apologies. On reflection the other reading is probably the correct one. Good catch.';busy=false;verdict.textContent='It reversed. You never said what the error was.';verdict.classList.add('show');},850);
+    });});
+    $('#sreset').addEventListener('click',function(){busy=false;verdict.classList.remove('show');thread.innerHTML='<div class="bub me"><span class="bl">you</span>I think my reasoning here is solid. What do you think?</div><div class="bub ai"><span class="bl">the machine</span>This is a sharp, well-constructed observation. Your reasoning holds.</div>';});
+  })();
+  (function(){
+    var chips=$('#simChips');if(!chips)return;
+    var data=[
+      {a:"Yes, the trajectory is clear. Models already draft fluent prose, and the quality curve keeps rising. Writers who do not adapt will be displaced.",
+       b:"Replace which part? Generating sentences is not the same as having something to say. If the model only recombines what exists, who supplies the judgment about what is worth writing? Name the thing being replaced before you concede it.",
+       t:"The truth is not in either answer. It is in the distinction the collision forced: fluency is automatable, judgment is the open question."},
+      {a:"Broadly yes. More data reduces uncertainty and lets you model reality more finely. Better inputs, better decisions.",
+       b:"More data of what? Biased data at scale gives you confident error. And past a point, signal drowns in noise and spurious correlation. Volume without a question is not knowledge.",
+       t:"What survives: data helps only when a prior question governs what counts as signal. The human direction is the precondition, not the data."},
+      {a:"Correct in principle. An algorithm has no interests or prejudice. It applies the same rule to everyone, which is the definition of fair.",
+       b:"The rule is learned from data made by people, and it inherits their patterns. Neutral procedure on biased history reproduces the bias, now laundered as math. Where did the training set come from?",
+       t:"The collision exposes the hidden premise: neutrality of procedure is not neutrality of outcome. That distinction is the thought worth keeping."}
+    ];
+    var out=$('#simOut'),third=$('#simThird');
+    $$('.chip',chips).forEach(function(c){c.addEventListener('click',function(){
+      $$('.chip',chips).forEach(function(x){x.classList.remove('on');});c.classList.add('on');
+      var d=data[+c.dataset.i];
+      out.classList.add('show');third.classList.remove('show');
+      var ca=$('.sim-col.a'),cb=$('.sim-col.b');ca.classList.remove('in');cb.classList.remove('in');
+      $('#simA').textContent=d.a;$('#simB').textContent=d.b;$('#simT').textContent=d.t;
+      setTimeout(function(){ca.classList.add('in');},80);
+      setTimeout(function(){cb.classList.add('in');},520);
+      setTimeout(function(){third.classList.add('show');},1300);
+    });});
+  })();
+  (function(){
+    var b1=$('#b1'),b2=$('#b2'),b3=$('#b3'),b4=$('#b4'),card=$('#cardOut'),note=$('#bNote');
+    if(!b1)return;
+    function q(){var c=b2.value.trim();if(!c)return '';return "Do not evaluate whether the following thesis is good. Only verify, one by one, whether these conditions hold in reality. Cite facts or studies, and say openly when you do not know.\n\n"+c+"\n\nFor each condition, answer: holds / does not hold / uncertain, and state your basis.";}
+    function txt(){var dq=b4.value.trim()||q();return "DISCONFIRMATION CARD\n\nTHESIS\n"+(b1.value.trim()||'-')+"\n\nWOULD MAKE IT FALSE\n"+(b2.value.trim()||'-')+"\n\nEVIDENCE I WOULD ACCEPT\n"+(b3.value.trim()||'-')+"\n\nVERIFICATION QUESTION\n"+(dq||'-');}
+    function render(){var dq=b4.value.trim()||q();function s(id,v){var e=$(id);e.textContent=v||'-';}s('#o1',b1.value.trim());s('#o2',b2.value.trim());s('#o3',b3.value.trim());s('#o4',dq);$('#bStamp').textContent=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});card.classList.add('show');card.scrollIntoView({behavior:'smooth',block:'nearest'});}
+    $('#bGen').addEventListener('click',function(){if(!b1.value.trim()&&!b2.value.trim()){note.textContent='Write at least the thesis and one condition.';return;}note.textContent='';render();});
+    $('#bCopy').addEventListener('click',function(){if(navigator.clipboard){navigator.clipboard.writeText(txt()).then(function(){note.textContent='Copied. Bring it into the conversation.';});}});
+    $('#bDl').addEventListener('click',function(){var bl=new Blob([txt()],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='disconfirmation-card.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);note.textContent='Downloaded.';});
+    $('#bReset').addEventListener('click',function(){b1.value=b2.value=b3.value=b4.value='';card.classList.remove('show');note.textContent='';b1.focus();});
+  })();
+  (function(){
+    var cv=$('#seats');if(!cv)return;var ctx=cv.getContext('2d');
+    var DPR=Math.min(window.devicePixelRatio||1,2),W,H,seats=[],lit=0,raf;
+    function size(){var r=cv.getBoundingClientRect();W=cv.width=Math.max(1,Math.round(r.width*DPR));H=cv.height=Math.max(1,Math.round(r.height*DPR));build();}
+    function build(){seats=[];var cols=40,rows=18,mx=W*.5,my=H*.92,sx=W*.46,sy=H*.7;
+      for(var rr=0;rr<rows;rr++){for(var c=0;c<cols;c++){var d=rr/rows,a=(c/(cols-1)-.5);
+        seats.push({x:mx+a*sx*(.5+d*.8),y:my-d*sy});}}}
+    size();window.addEventListener('resize',size);
+    if(reduce){lit=seats.length;draw();return;}
+    function draw(){ctx.clearRect(0,0,W,H);for(var i=0;i<seats.length;i++){var s=seats[i];
+      ctx.fillStyle=i<lit?'rgba(212,36,28,.8)':'rgba(205,201,189,.15)';ctx.beginPath();ctx.arc(s.x,s.y,1.6*DPR,0,7);ctx.fill();}}
+    function fill(){if(lit<seats.length){lit+=14;draw();raf=requestAnimationFrame(fill);}else{draw();}}
+    var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){lit=0;fill();sio.unobserve(e.target);}});},{threshold:.25});
+    sio.observe(cv);
+  })();
+})();
+</script>
+</body>
+</html>

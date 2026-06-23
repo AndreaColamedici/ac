@@ -45,6 +45,13 @@
   .pair .slash{color:var(--faint);padding:0 .25em}
   .pair .gloss{margin-top:2.2rem;font-size:clamp(1rem,2.4vmin,1.6rem)}
 
+  /* quote: a circumscribed citation */
+  .quote .q{font-size:clamp(1.6rem,4.2vmin,3.1rem);font-weight:500;line-height:1.32;max-width:24ch}
+  .quote .q em{font-style:italic}
+  .quote .q .zhq2{display:block;font-family:var(--cjk);font-weight:400;font-size:.82em;margin-top:1.3rem;line-height:1.5;color:var(--ink)}
+  .quote .attr{margin-top:2.6rem;color:var(--dim);font-style:italic;font-size:clamp(.95rem,2vmin,1.3rem);letter-spacing:.02em;line-height:1.5}
+  .quote .attr .zhattr{display:block;font-family:var(--cjk);font-style:normal;font-size:.9em;margin-top:.35rem}
+
   .daimon .greek{font-family:var(--greek);font-size:clamp(3.2rem,11.5vmin,8rem);letter-spacing:.04em}
   .daimon .meta-greek{margin-top:.6rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.2rem,3vmin,2rem)}
   .daimon .zh{margin-top:2rem;font-size:clamp(1.3rem,3vmin,2rem)}
@@ -159,7 +166,14 @@
     <div class="gloss">disenchantment&nbsp;&nbsp;/&nbsp;&nbsp;re-enchantment</div>
   </section>
 
-  <!-- 4 · the daimon -->
+  <!-- 4 · the encyclical: even those who build them do not know the inside -->
+  <section class="slide quote" data-cue="Cultivated, not built">
+    <!-- native Chinese review: the quotation and the attribution -->
+    <div class="q">These systems are <em>cultivated more than built</em>. Developers set a frame within which an intelligence grows, and its inner workings remain largely unknown.<span class="zhq2">这些系统更像是被培育，而非被建造。开发者设定了一个让智能在其中生长的框架，而其内部运作，至今在很大程度上仍属未知。</span></div>
+    <div class="attr">Pope Leo XIV, first encyclical Magnifica humanitas, 2026<span class="zhattr">教宗良十四世，首部通谕《Magnifica humanitas》，2026</span></div>
+  </section>
+
+  <!-- 5 · the daimon -->
   <section class="slide daimon" data-cue="The daimon">
     <div class="greek">δαίμων</div>
     <div class="meta-greek">μεταξύ — the between</div>
@@ -167,7 +181,7 @@
     <div class="zh">代蒙 · 之间</div>
   </section>
 
-  <!-- 5 · concept: the defective daimon -->
+  <!-- 6 · concept: the defective daimon -->
   <section class="slide concept" data-cue="The defective daimon">
     <!-- native Chinese review: coined term 有缺陷的代蒙 + the definition -->
     <div class="term">The defective daimon<span class="z prov">有缺陷的代蒙</span></div>
@@ -175,7 +189,7 @@
     <div class="triple">The daimon still crosses the distance. At its origin there is no longer a face to address, only a dispersed, real multitude that no one gathers into a name. The messenger has lost the sender.<span class="zh3">代蒙依然跨越距离。在它的源头，已不再有一张可以面对的面孔，只有一个分散而真实的群体，无人将其聚成一个名字。信使，失去了发信人。</span></div>
   </section>
 
-  <!-- 6 · Prompt Thinking, a four-move sequence with an academic framing -->
+  <!-- 7 · Prompt Thinking, a four-move sequence with an academic framing -->
   <section class="slide ops" data-cue="Prompt Thinking">
     <div class="lead">Prompt Thinking</div>
     <!-- native Chinese review: framing line + the four operations 提出 / 分离 / 判断 / 沉淀 -->
@@ -191,13 +205,13 @@
     </div>
   </section>
 
-  <!-- 7 · sycophancy -->
+  <!-- 8 · sycophancy -->
   <section class="slide line" data-cue="Sycophancy">
     <div class="en">The machine takes your ignorance and gilds it.</div>
     <div class="zh">机器把你的无知镀上黄金。</div>
   </section>
 
-  <!-- 8 · concept: meaning -->
+  <!-- 9 · concept: meaning -->
   <section class="slide concept" data-cue="Meaning">
     <div class="term">Meaning<span class="z">意义</span></div>
     <div class="rule"></div>
@@ -205,7 +219,7 @@
     <div class="def">Meaning is generated only while the act of thinking remains yours.<span class="zh3">意义只在思考的行动仍属于你时生成。</span></div>
   </section>
 
-  <!-- 9 · fused: the oversubject + responsibility, with operative definition -->
+  <!-- 10 · fused: the oversubject + responsibility, with operative definition -->
   <section class="slide word" data-cue="The oversubject">
     <div class="en">oversubject</div>
     <div class="it">oltresoggetto</div>
@@ -218,14 +232,14 @@
     <div class="couplet">Genesis is distributed, responsibility is not.<span class="zh2">生成可以分布，责任不能。</span></div>
   </section>
 
-  <!-- 10 · Lu Xun (portrait to be made local later) -->
+  <!-- 11 · Lu Xun (portrait to be made local later) -->
   <section class="slide luxun" data-cue="Lu Xun">
     <img class="portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lu%20Xun%201936.jpg" alt="Lu Xun, 1936" onerror="this.style.display='none';document.getElementById('luxun-fb').style.display='block';">
     <div id="luxun-fb" class="luxun-fb">鲁迅</div>
     <div class="caption">鲁迅 · 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
   </section>
 
-  <!-- 11 · decentering, with the European thesis underneath -->
+  <!-- 12 · decentering, with the European thesis underneath -->
   <section class="slide line" data-cue="Decentering">
     <div class="en">No one is at the center anymore.</div>
     <div class="zh">不再有谁居于中心。</div>
@@ -233,7 +247,7 @@
     <div class="sub">European thought ceases to be the natural center from which the world is interpreted.<span class="zhs">欧洲思想，不再是阐释世界的当然中心。</span></div>
   </section>
 
-  <!-- 12 · concept: hypnocracy, three lines -->
+  <!-- 13 · concept: hypnocracy, three lines -->
   <section class="slide concept" data-cue="Hypnocracy">
     <!-- native Chinese review: coined term 催眠统治 (hypnocracy) + the three lines -->
     <div class="term">Hypnocracy<span class="z prov">催眠统治</span></div>
@@ -241,7 +255,7 @@
     <div class="triple">Power no longer needs to silence us. It keeps us awake, consuming, and lost among competing narratives. Generative AI scales the flood.<span class="zh3">权力不再需要让我们沉默。它让我们保持清醒、不断消费，迷失在相互竞争的叙事之间。生成式人工智能放大了这股洪流。</span></div>
   </section>
 
-  <!-- 13 · covers, aligned by height and baseline -->
+  <!-- 14 · covers, aligned by height and baseline -->
   <section class="slide covers" data-cue="The covers">
     <div class="coverrow">
       <img src="assets/images/ipnocrazia-it.jpg" alt="Hypnocracy, Italian edition">
@@ -253,7 +267,7 @@
     <div class="caption">One name, several books, many languages.<span class="zh4">一个名字，多部作品，多种语言。</span></div>
   </section>
 
-  <!-- 14 · Alveare, Chinese site + the bee line (screenshot to replace iframe later) -->
+  <!-- 15 · Alveare, Chinese site + the bee line (screenshot to replace iframe later) -->
   <section class="slide alveare" data-cue="Alveare">
     <div class="framewrap">
       <iframe src="https://alveare.cloud/index_zh.html" title="蜂巢 Alveare" loading="lazy" referrerpolicy="no-referrer"></iframe>
@@ -262,7 +276,7 @@
     <div class="url">alveare.cloud</div>
   </section>
 
-  <!-- 15 · concept: the trace -->
+  <!-- 16 · concept: the trace -->
   <section class="slide concept" data-cue="The trace">
     <div class="term">The trace<span class="z">痕迹</span></div>
     <div class="rule"></div>
@@ -270,13 +284,13 @@
     <div class="triple">The product can be made in seconds. What bears witness now is the trace: the questions, the corrections, what was refused.<span class="zh3">成品可以在几秒间完成。如今作证的，是痕迹：那些提问、修正，以及被拒绝的东西。</span></div>
   </section>
 
-  <!-- 16 · the other -->
+  <!-- 17 · the other -->
   <section class="slide line" data-cue="The mirror and the other">
     <div class="en">to bear another who is truly other</div>
     <div class="zh">去承受一个真正的他者。</div>
   </section>
 
-  <!-- 17 · oracle / interlocutor: two ways to treat the same machine -->
+  <!-- 18 · oracle / interlocutor: two ways to treat the same machine -->
   <section class="slide duo" data-cue="Oracle or interlocutor">
     <div class="pairwrap">
       <div class="col">
@@ -293,13 +307,13 @@
     </div>
   </section>
 
-  <!-- 18 · fused close: myths first, then the questions -->
+  <!-- 19 · fused close: myths first, then the questions -->
   <section class="slide close" data-cue="Closing">
     <div class="myth">There will still be myths.<span class="zhm">神话依然会存在。</span></div>
     <div class="ask2">How do we care for the space of that between? Who is allowed to take part in it?<span class="zhq">我们如何守护那个“之间”的空间？谁被允许参与其中？</span></div>
   </section>
 
-  <!-- 19 · thanks -->
+  <!-- 20 · thanks -->
   <section class="slide end" data-cue="Close">
     <div class="zh">谢谢大家</div>
     <div class="en">Thank you</div>

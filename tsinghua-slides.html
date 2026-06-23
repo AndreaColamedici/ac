@@ -32,7 +32,7 @@
     display:none;
     flex-direction:column;align-items:center;justify-content:center;
     text-align:center;
-    padding:8vmin 9vmin;
+    padding:7vmin 8vmin;
     opacity:0;transition:opacity .45s ease;
   }
   .slide.active{display:flex;opacity:1}
@@ -41,28 +41,10 @@
   .zh{font-family:var(--cjk);color:var(--dim);font-weight:400;line-height:1.3}
   .gloss{color:var(--dim);font-style:italic;letter-spacing:.02em}
 
-  /* placeholder for chinese still to be fixed with the interpreter */
-  .ph{
-    font-family:var(--cjk);
-    color:var(--faint);
-    font-size:.5em;font-style:normal;
-    border-bottom:1px dotted var(--faint);
-    padding-bottom:.1em;
-    letter-spacing:.04em;
-  }
-  .prov{color:var(--warn);opacity:.62} /* provisional chinese, to review */
+  .ph{font-family:var(--cjk);color:var(--faint);font-size:.5em;font-style:normal;border-bottom:1px dotted var(--faint);padding-bottom:.1em;letter-spacing:.04em}
+  .prov{color:var(--warn);opacity:.62}
+  .dimcap{color:var(--faint);font-family:var(--serif);font-style:italic;font-size:.62em;letter-spacing:.02em}
 
-  /* image placeholder */
-  .imgbox{
-    width:min(74vw,920px);height:min(46vh,460px);
-    border:1px dashed #36342e;border-radius:3px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:1.1rem;color:var(--dim);
-    background:
-      repeating-linear-gradient(45deg,transparent,transparent 16px,rgba(255,255,255,.012) 16px,rgba(255,255,255,.012) 32px);
-  }
-  .imgbox .tag{font-family:var(--serif);font-style:italic;font-size:clamp(.95rem,1.9vmin,1.25rem);letter-spacing:.02em}
-  .imgbox .sub{font-size:clamp(.78rem,1.5vmin,1rem);color:var(--faint);max-width:34ch;line-height:1.5}
   .caption{margin-top:2.2rem;font-family:var(--cjk);color:var(--dim);font-size:clamp(1rem,2.4vmin,1.6rem);letter-spacing:.06em}
 
   /* slide 1 title */
@@ -75,7 +57,7 @@
   .ask .en{font-size:clamp(3rem,11vmin,8.5rem);font-weight:600}
   .ask .zh{margin-top:2.6rem;font-size:clamp(1.6rem,5vmin,3.4rem)}
 
-  /* hanzi pair (祛魅 / 复魅) */
+  /* hanzi pair */
   .pair .han{font-family:var(--cjk);font-size:clamp(3.4rem,13vmin,9rem);letter-spacing:.12em;color:var(--ink)}
   .pair .slash{color:var(--faint);padding:0 .25em}
   .pair .gloss{margin-top:2.4rem;font-size:clamp(1rem,2.4vmin,1.6rem)}
@@ -110,6 +92,19 @@
   .chi .en .x{display:block;margin-top:.5em}
   .chi .zh{margin-top:2.6rem;font-size:clamp(1.1rem,2.6vmin,1.7rem);line-height:1.8}
 
+  /* Lu Xun portrait */
+  .luxun .portrait{max-height:56vh;width:auto;filter:grayscale(.12) contrast(1.03);box-shadow:0 18px 60px rgba(0,0,0,.55)}
+  .luxun-fb{display:none;font-family:var(--cjk);font-size:clamp(6rem,26vmin,17rem);color:var(--ink);line-height:1}
+
+  /* covers */
+  .covers .coverrow{display:flex;gap:clamp(.5rem,1.6vw,1.6rem);align-items:flex-end;justify-content:center;flex-wrap:nowrap;max-width:95vw}
+  .covers .coverrow img{height:min(46vh,430px);width:auto;box-shadow:0 12px 40px rgba(0,0,0,.5);border-radius:1px}
+  .covers .caption{margin-top:1.8rem}
+
+  /* alveare live */
+  .alveare .framewrap{width:min(82vw,1080px);height:min(56vh,560px);border:1px solid #2a2925;border-radius:3px;overflow:hidden;background:#111}
+  .alveare iframe{width:100%;height:100%;border:0;background:#fff}
+
   /* closing thanks */
   .end .zh{font-family:var(--cjk);font-size:clamp(3rem,11vmin,8rem);letter-spacing:.1em;color:var(--ink)}
   .end .en{margin-top:2rem;font-style:italic;color:var(--dim);font-size:clamp(1.2rem,3vmin,2rem)}
@@ -120,7 +115,7 @@
   .progress{position:fixed;left:0;top:0;height:2px;background:var(--warn);opacity:.55;width:0;transition:width .45s ease;z-index:10}
   .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.85rem;letter-spacing:.05em;transition:opacity .6s ease}
   .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.8rem);letter-spacing:.16em;text-transform:uppercase;opacity:.7}
-  @media (max-width:640px){.foot{display:none}}
+  @media (max-width:640px){.foot{display:none}.covers .coverrow img{height:30vh}}
 </style>
 </head>
 <body>
@@ -176,29 +171,30 @@
   </section>
 
   <!-- 7 -->
-  <section class="slide" data-cue="Lu Xun" style="flex-direction:column">
-    <div class="imgbox">
-      <div class="tag">IMAGE — portrait of Lu Xun</div>
-      <div class="sub">ritratto, a pieno campo o a sinistra</div>
-    </div>
-    <div class="caption">鲁迅 &nbsp;·&nbsp; 故事新编 &nbsp;<span style="color:var(--faint);font-size:.7em">Old Tales Retold</span></div>
+  <section class="slide luxun" data-cue="Lu Xun">
+    <img class="portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lu%20Xun%201936.jpg" alt="Lu Xun, 1936" onerror="this.style.display='none';document.getElementById('luxun-fb').style.display='block';">
+    <div id="luxun-fb" class="luxun-fb">鲁迅</div>
+    <div class="caption">鲁迅 &nbsp;·&nbsp; 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
   </section>
 
   <!-- 8 -->
-  <section class="slide" data-cue="The covers">
-    <div class="imgbox">
-      <div class="tag">IMAGE — three Xun covers</div>
-      <div class="sub">Ipnocrazia · Prompt Thinking (Polity Press) · L'empire de l'ombre (Gallimard)</div>
+  <section class="slide covers" data-cue="The covers">
+    <div class="coverrow">
+      <img src="assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia, edizione italiana">
+      <img src="assets/images/ipnocrazia-fr.jpg" alt="Hypnocratie, édition française">
+      <img src="assets/images/ipnocrazia-es.jpg" alt="Hipnocracia, edición española">
+      <img src="assets/images/ipnocrazia-en.jpg" alt="Hypnocracy, English edition">
+      <img src="assets/images/Prompt.jpg" alt="Prompt Thinking, Polity Press">
     </div>
+    <div class="caption dimcap">Jianwei Xun · 2024–2026 · Tlon, Gallimard, Polity Press</div>
   </section>
 
   <!-- 9 -->
-  <section class="slide" data-cue="Alveare">
-    <div class="imgbox">
-      <div class="tag">IMAGE — alveare.cloud, live view</div>
-      <div class="sub">screenshot del sito vivo</div>
+  <section class="slide alveare" data-cue="Alveare">
+    <div class="framewrap">
+      <iframe src="https://alveare.cloud" title="Alveare — alveare.cloud" loading="lazy" referrerpolicy="no-referrer"></iframe>
     </div>
-    <div class="caption">Alveare &nbsp;·&nbsp; 蜂巢</div>
+    <div class="caption">Alveare &nbsp;·&nbsp; 蜂巢 &nbsp;<span class="dimcap">alveare.cloud</span></div>
   </section>
 
   <!-- 10 -->
@@ -266,12 +262,11 @@
     else if(e.key==='f'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen();}}
   });
 
-  // click / tap: right half forward, left half back
   document.getElementById('deck').addEventListener('click',function(e){
+    if(e.target.tagName==='IFRAME')return;
     if(e.clientX < window.innerWidth*0.28){prev();}else{next();}
   });
 
-  // swipe
   var x0=null;
   document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
   document.addEventListener('touchend',function(e){

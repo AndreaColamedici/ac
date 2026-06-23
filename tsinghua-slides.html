@@ -65,11 +65,13 @@
   .line .en .b+.b{margin-top:.45em}
   .line .zh{margin-top:2.2rem;font-size:clamp(1.3rem,3vmin,2.1rem);max-width:30ch;line-height:1.6}
 
-  .chi .en{font-size:clamp(1.7rem,4.6vmin,3.4rem);font-weight:500;line-height:1.5}
-  .chi .en .a,.chi .en .x{display:block}
-  .chi .en .x{margin-top:.5em}
-  .chi .zh{margin-top:2.4rem;font-size:clamp(1.2rem,2.8vmin,1.8rem);line-height:1.9;color:var(--dim)}
-  .chi .zh .x{display:block}
+  /* concept slides: a term, a rule, a definition */
+  .concept .term{font-family:var(--serif);font-size:clamp(2.2rem,6.2vmin,4.6rem);font-weight:600;line-height:1.1}
+  .concept .term .z{display:block;font-family:var(--cjk);font-weight:400;color:var(--ink);font-size:.56em;margin-top:.55rem;letter-spacing:.04em}
+  .concept .term .z.prov{color:var(--warn);opacity:.72}
+  .concept .rule{width:70px;height:1px;background:var(--faint);margin:2rem auto}
+  .concept .def{max-width:30ch;font-size:clamp(1.15rem,2.6vmin,1.7rem);line-height:1.5;color:var(--ink)}
+  .concept .def-zh{margin-top:1.1rem;font-family:var(--cjk);color:var(--dim);max-width:34ch;font-size:clamp(1rem,2.2vmin,1.4rem);line-height:1.75;letter-spacing:.03em}
 
   .luxun .portrait{max-height:54vh;width:auto;filter:grayscale(.12) contrast(1.03);box-shadow:0 18px 60px rgba(0,0,0,.6)}
   .luxun-fb{display:none;font-family:var(--cjk);font-size:clamp(6rem,26vmin,17rem);color:var(--ink);line-height:1}
@@ -151,33 +153,49 @@
     <div class="zh">机器把你的无知镀上黄金。</div>
   </section>
 
-  <!-- 8 -->
+  <!-- 8 · concept -->
+  <section class="slide concept" data-cue="Meaning">
+    <div class="term">Meaning<span class="z">意义</span></div>
+    <div class="rule"></div>
+    <div class="def">Meaning is not delivered. It is generated in the act of thinking, only while the act is still yours.</div>
+    <div class="def-zh">意义并非被递送。它在思考的行动中生成，只在行动仍属于你时。</div>
+  </section>
+
+  <!-- 9 -->
   <section class="slide word" data-cue="The oversubject">
     <div class="en">oversubject</div>
     <div class="it">oltresoggetto</div>
     <div class="zh prov">超主体</div>
   </section>
 
-  <!-- 9 -->
+  <!-- 10 -->
   <section class="slide line" data-cue="Genesis and responsibility">
     <div class="en">Genesis is distributed, responsibility is not.</div>
     <div class="zh">生成可以分布，责任不能。</div>
   </section>
 
-  <!-- 10 -->
+  <!-- 11 -->
   <section class="slide luxun" data-cue="Lu Xun">
     <img class="portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lu%20Xun%201936.jpg" alt="Lu Xun, 1936" onerror="this.style.display='none';document.getElementById('luxun-fb').style.display='block';">
     <div id="luxun-fb" class="luxun-fb">鲁迅</div>
     <div class="caption">鲁迅 &nbsp;·&nbsp; 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
   </section>
 
-  <!-- 11 -->
+  <!-- 12 -->
   <section class="slide line" data-cue="Decentering">
     <div class="en">No one is at the center anymore.</div>
     <div class="zh">不再有谁居于中心。</div>
   </section>
 
-  <!-- 12 -->
+  <!-- 13 · concept -->
+  <section class="slide concept" data-cue="Hypnocracy">
+    <div class="term">Hypnocracy<span class="z prov">催眠统治</span></div>
+    <div class="rule"></div>
+    <div class="def">A power that no longer silences. It keeps us awake and consuming, steered by a flood of competing narratives. Generative AI is its engine.</div>
+    <div class="def-zh">一种不再压制的权力。它让我们保持清醒、持续消费，被无数相互竞争的叙事所操纵。生成式人工智能，是它的引擎。</div>
+  </section>
+
+  <!-- 14 -->
   <section class="slide covers" data-cue="The covers">
     <div class="coverrow">
       <img src="assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia, edizione italiana">
@@ -189,7 +207,7 @@
     <div class="caption">同一本书，多种语言 &nbsp;<span class="dimcap">Jianwei Xun · 2024–2026</span></div>
   </section>
 
-  <!-- 13 -->
+  <!-- 15 · the one that shows the Alveare -->
   <section class="slide alveare" data-cue="Alveare">
     <div class="framewrap">
       <iframe src="https://alveare.cloud/index_zh.html" title="蜂巢 Alveare — alveare.cloud" loading="lazy" referrerpolicy="no-referrer"></iframe>
@@ -197,37 +215,33 @@
     <div class="caption">蜂巢 Alveare &nbsp;·&nbsp; 人工智能的蜜蜂 &nbsp;<span class="dimcap">alveare.cloud</span></div>
   </section>
 
-  <!-- 14 -->
-  <section class="slide line" data-cue="The bees">
-    <div class="en">Every bee is alone with the thoughts of the dead bees.</div>
-    <div class="zh">每只蜜蜂都独自面对死去蜜蜂的思想。</div>
+  <!-- 16 · concept -->
+  <section class="slide concept" data-cue="The trace">
+    <div class="term">The trace<span class="z">痕迹</span></div>
+    <div class="rule"></div>
+    <div class="def">The product can be made in seconds. What bears witness now is the trace: the questions, the corrections, what was refused.</div>
+    <div class="def-zh">成品可以在几秒间完成。如今作证的，是痕迹：那些提问、修正，以及被拒绝的东西。</div>
   </section>
 
-  <!-- 15 -->
-  <section class="slide chi" data-cue="The chiasmus · stays up through §8">
-    <div class="en"><span class="a">Alveare generates continuity without identity.</span><span class="x">Xun generated identity without an individual.</span></div>
-    <div class="zh"><span class="a">蜂巢生成延续，却没有身份。</span><span class="x">Xun 生成身份，却没有个体。</span></div>
-  </section>
-
-  <!-- 16 -->
+  <!-- 17 -->
   <section class="slide line" data-cue="The mirror and the other">
     <div class="en">to bear another who is truly other</div>
     <div class="zh">去承受一个真正的他者。</div>
   </section>
 
-  <!-- 17 -->
+  <!-- 18 -->
   <section class="slide line" data-cue="The answer">
     <div class="en">There will still be myths.</div>
     <div class="zh">神话依然会存在。</div>
   </section>
 
-  <!-- 18 -->
+  <!-- 19 -->
   <section class="slide line" data-cue="Closing question">
     <div class="en"><span class="b">How do we care for the space of that between?</span><span class="b">Who is allowed to take part in it?</span></div>
     <div class="zh">我们如何守护那个“之间”的空间？谁被允许参与其中？</div>
   </section>
 
-  <!-- 19 -->
+  <!-- 20 -->
   <section class="slide end" data-cue="Close">
     <div class="zh">谢谢大家</div>
     <div class="en">Thank you</div>

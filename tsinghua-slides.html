@@ -85,6 +85,15 @@
   .concept .triple{max-width:32ch;font-size:clamp(1.15rem,2.8vmin,1.9rem);line-height:1.5;color:var(--ink)}
   .concept .triple .zh3{display:block;font-family:var(--cjk);font-size:.85em;margin-top:1.2rem;line-height:1.7;color:var(--ink)}
 
+  /* duo: two ways to treat the same machine */
+  .duo .pairwrap{display:flex;gap:clamp(2rem,6vw,5.5rem);align-items:stretch;justify-content:center;flex-wrap:wrap}
+  .duo .col{max-width:20ch;display:flex;flex-direction:column;gap:1.1rem;text-align:center}
+  .duo .t{font-size:clamp(1.8rem,4.6vmin,3.2rem);font-weight:600}
+  .duo .t .z{display:block;font-family:var(--cjk);font-weight:400;font-size:.58em;margin-top:.4rem;color:var(--ink)}
+  .duo .g{color:var(--dim);font-style:italic;font-size:clamp(1rem,2.3vmin,1.5rem);line-height:1.4}
+  .duo .g .zg{display:block;font-family:var(--cjk);font-style:normal;font-size:.9em;margin-top:.55rem;color:var(--dim)}
+  .duo .vrule{width:1px;align-self:stretch;background:var(--faint)}
+
   .luxun .portrait{max-height:52vh;width:auto;filter:grayscale(.12) contrast(1.02);box-shadow:0 8px 30px rgba(0,0,0,.45)}
   .luxun-fb{display:none;font-family:var(--cjk);font-size:clamp(6rem,25vmin,16rem);color:var(--ink);line-height:1}
   .luxun .caption{margin-top:2rem;font-family:var(--cjk);color:var(--ink);font-size:clamp(1.2rem,2.8vmin,1.9rem);letter-spacing:.05em}
@@ -99,13 +108,6 @@
   .alveare .bee{margin-top:2rem;font-size:clamp(1.4rem,3.4vmin,2.4rem);font-weight:500;max-width:24ch;line-height:1.25}
   .alveare .bee .zh5{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:.8rem;color:var(--ink)}
   .alveare .url{margin-top:1.2rem;font-style:italic;color:var(--dim);font-size:clamp(.8rem,1.6vmin,1rem);letter-spacing:.08em}
-
-  .trace .concl{font-size:clamp(1.7rem,4.4vmin,3.1rem);font-weight:600;line-height:1.22;max-width:22ch;margin-bottom:3rem}
-  .trace .concl .zh6{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem;color:var(--ink)}
-  .trace .exchange{display:flex;flex-direction:column;gap:1.1rem;text-align:left;max-width:34ch}
-  .trace .turn{display:grid;grid-template-columns:6.5rem 1fr;gap:1.2rem;align-items:baseline}
-  .trace .lab{font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.82rem);letter-spacing:.2em;text-transform:uppercase;color:var(--warn);opacity:.82}
-  .trace .said{font-size:clamp(1.05rem,2.5vmin,1.6rem);color:var(--ink);line-height:1.35}
 
   .close .myth{font-size:clamp(2.2rem,6vmin,4.4rem);font-weight:600;line-height:1.2}
   .close .myth .zhm{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem}
@@ -165,7 +167,7 @@
     <div class="zh">代蒙 · 之间</div>
   </section>
 
-  <!-- 5 · concept: the defective daimon (was the god-is-missing line) -->
+  <!-- 5 · concept: the defective daimon -->
   <section class="slide concept" data-cue="The defective daimon">
     <!-- native Chinese review: coined term 有缺陷的代蒙 + the definition -->
     <div class="term">The defective daimon<span class="z prov">有缺陷的代蒙</span></div>
@@ -260,15 +262,12 @@
     <div class="url">alveare.cloud</div>
   </section>
 
-  <!-- 15 · the trace: a real working exchange (replace with a real, approved transcript) -->
-  <section class="slide trace" data-cue="The trace">
-    <div class="concl">The product can be made in seconds. What bears witness now is the trace.<span class="zh6">成品可以在几秒间完成。如今作证的，是痕迹。</span></div>
-    <!-- placeholder exchange, neutral and non-reserved; swap for a real approved trace -->
-    <div class="exchange">
-      <div class="turn"><span class="lab">proposed</span><span class="said">“Open with: AI is a tool.”</span></div>
-      <div class="turn"><span class="lab">refused</span><span class="said">“No. That closes the question.”</span></div>
-      <div class="turn"><span class="lab">retained</span><span class="said">“Open with a question. Who thinks?”</span></div>
-    </div>
+  <!-- 15 · concept: the trace -->
+  <section class="slide concept" data-cue="The trace">
+    <div class="term">The trace<span class="z">痕迹</span></div>
+    <div class="rule"></div>
+    <!-- native Chinese review: definition -->
+    <div class="triple">The product can be made in seconds. What bears witness now is the trace: the questions, the corrections, what was refused.<span class="zh3">成品可以在几秒间完成。如今作证的，是痕迹：那些提问、修正，以及被拒绝的东西。</span></div>
   </section>
 
   <!-- 16 · the other -->
@@ -277,13 +276,30 @@
     <div class="zh">去承受一个真正的他者。</div>
   </section>
 
-  <!-- 17 · fused close: myths first, then the questions -->
+  <!-- 17 · oracle / interlocutor: two ways to treat the same machine -->
+  <section class="slide duo" data-cue="Oracle or interlocutor">
+    <div class="pairwrap">
+      <div class="col">
+        <!-- native Chinese review: 神谕 (oracle) + gloss -->
+        <div class="t">Oracle<span class="z">神谕</span></div>
+        <div class="g">gives you the answer, and takes away your question<span class="zg">给你答案，却带走你的问题</span></div>
+      </div>
+      <div class="vrule"></div>
+      <div class="col">
+        <!-- native Chinese review: 对话者 (interlocutor) + gloss -->
+        <div class="t">Interlocutor<span class="z">对话者</span></div>
+        <div class="g">hands you a contestable trace, and keeps the question alive<span class="zg">递给你一段可争辩的痕迹，让问题保持鲜活</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 · fused close: myths first, then the questions -->
   <section class="slide close" data-cue="Closing">
     <div class="myth">There will still be myths.<span class="zhm">神话依然会存在。</span></div>
     <div class="ask2">How do we care for the space of that between? Who is allowed to take part in it?<span class="zhq">我们如何守护那个“之间”的空间？谁被允许参与其中？</span></div>
   </section>
 
-  <!-- 18 · thanks -->
+  <!-- 19 · thanks -->
   <section class="slide end" data-cue="Close">
     <div class="zh">谢谢大家</div>
     <div class="en">Thank you</div>

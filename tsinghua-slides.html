@@ -23,12 +23,10 @@
   .vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(6,6,7,.5) 100%)}
   .deck{position:fixed;inset:0;z-index:1}
 
-  /* safe area: keep all content well inside a 16:9 projector frame */
   .slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9vmin 11vmin;opacity:0;transition:opacity .5s ease}
   .slide.active{display:flex;opacity:1}
   .slide>*{max-width:min(82vw,1500px)}
 
-  /* English above, Chinese directly below at ~85% of the English size, same ivory, never a separate column */
   .en{font-family:var(--serif);line-height:1.14;letter-spacing:.005em}
   .zh{font-family:var(--cjk);color:var(--ink);font-weight:400;line-height:1.4;letter-spacing:.03em}
   .gloss{color:var(--dim);font-style:italic;letter-spacing:.02em}
@@ -51,14 +49,10 @@
   .daimon .meta-greek{margin-top:.6rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.2rem,3vmin,2rem)}
   .daimon .zh{margin-top:2rem;font-size:clamp(1.3rem,3vmin,2rem)}
 
-  /* fused: messenger (small) + the god (dominant) */
-  .godslide .pre{color:var(--dim);font-style:italic;font-size:clamp(1.1rem,2.6vmin,1.7rem);line-height:1.4;margin-bottom:2.6rem}
-  .godslide .pre .zh-sm{display:block;font-family:var(--cjk);font-style:normal;color:var(--dim);font-size:.85em;margin-top:.4rem}
-  .godslide .big{font-size:clamp(2rem,5.6vmin,4.2rem);font-weight:600;line-height:1.18;max-width:20ch}
-  .godslide .zh-big{margin-top:1.8rem;font-family:var(--cjk);font-size:clamp(1.7rem,4.7vmin,3.5rem);line-height:1.35}
-
-  /* Prompt Thinking: a sequence of four moves, read as language, not a UI */
-  .ops .lead{margin-bottom:3.2rem;font-style:italic;color:var(--dim);font-size:clamp(1.1rem,2.4vmin,1.6rem);letter-spacing:.06em}
+  /* Prompt Thinking: a sequence of four moves, with an academic framing line */
+  .ops .lead{margin-bottom:1.3rem;font-style:italic;color:var(--dim);font-size:clamp(1.1rem,2.4vmin,1.6rem);letter-spacing:.06em}
+  .ops .sub{margin-bottom:3.2rem;color:var(--dim);font-style:italic;font-size:clamp(1.05rem,2.3vmin,1.5rem);max-width:36ch;line-height:1.4}
+  .ops .sub .zhs{display:block;font-family:var(--cjk);font-style:normal;font-size:.88em;margin-top:.55rem;color:var(--dim)}
   .ops .row{display:flex;gap:clamp(1rem,4vw,3.6rem);flex-wrap:wrap;justify-content:center;align-items:baseline}
   .ops .op{display:flex;flex-direction:column;gap:.6rem}
   .ops .op .w{font-size:clamp(1.4rem,4vmin,2.9rem);font-weight:600}
@@ -68,7 +62,9 @@
   .word .en{font-size:clamp(2.6rem,7.6vmin,5.8rem);font-weight:600;letter-spacing:.01em}
   .word .it{margin-top:.8rem;font-style:italic;color:var(--dim);font-size:clamp(1.3rem,3.2vmin,2.2rem)}
   .word .zh{margin-top:1.4rem;font-size:clamp(1.6rem,3.6vmin,2.6rem)}
-  .word .rule{width:64px;height:1px;background:var(--faint);margin:2.2rem auto}
+  .word .def2{margin-top:1.6rem;color:var(--dim);font-style:italic;font-size:clamp(1.05rem,2.3vmin,1.5rem);max-width:34ch;line-height:1.4}
+  .word .def2 .zhs2{display:block;font-family:var(--cjk);font-style:normal;font-size:.88em;margin-top:.5rem;color:var(--dim)}
+  .word .rule{width:64px;height:1px;background:var(--faint);margin:2rem auto}
   .word .couplet{font-size:clamp(1.5rem,3.6vmin,2.6rem);font-weight:500;line-height:1.3;max-width:24ch}
   .word .couplet .zh2{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem;color:var(--ink)}
 
@@ -76,6 +72,8 @@
   .line .en .b{display:block}
   .line .en .b+.b{margin-top:.45em}
   .line .zh{margin-top:2rem;font-size:clamp(1.7rem,4.6vmin,3.4rem);max-width:30ch;line-height:1.45}
+  .line .sub{margin-top:1.8rem;color:var(--dim);font-style:italic;font-size:clamp(1rem,2.2vmin,1.45rem);max-width:32ch;line-height:1.4}
+  .line .sub .zhs{display:block;font-family:var(--cjk);font-style:normal;font-size:.9em;margin-top:.5rem;color:var(--dim)}
 
   /* concept: term, rule, definition */
   .concept .term{font-family:var(--serif);font-size:clamp(2.2rem,6vmin,4.4rem);font-weight:600;line-height:1.1}
@@ -84,7 +82,7 @@
   .concept .rule{width:64px;height:1px;background:var(--faint);margin:2.2rem auto}
   .concept .def{max-width:26ch;font-size:clamp(1.3rem,3vmin,2.1rem);line-height:1.4;color:var(--ink)}
   .concept .def .zh3{display:block;font-family:var(--cjk);font-size:.85em;margin-top:1.1rem;line-height:1.6;color:var(--ink)}
-  .concept .triple{max-width:30ch;font-size:clamp(1.2rem,2.9vmin,1.95rem);line-height:1.5;color:var(--ink)}
+  .concept .triple{max-width:32ch;font-size:clamp(1.15rem,2.8vmin,1.9rem);line-height:1.5;color:var(--ink)}
   .concept .triple .zh3{display:block;font-family:var(--cjk);font-size:.85em;margin-top:1.2rem;line-height:1.7;color:var(--ink)}
 
   .luxun .portrait{max-height:52vh;width:auto;filter:grayscale(.12) contrast(1.02);box-shadow:0 8px 30px rgba(0,0,0,.45)}
@@ -96,14 +94,12 @@
   .covers .caption{margin-top:2rem;font-size:clamp(1.2rem,2.7vmin,1.8rem);color:var(--ink)}
   .covers .caption .zh4{display:block;font-family:var(--cjk);font-size:.9em;margin-top:.5rem}
 
-  /* Alveare: one real screen of the Chinese site + the bee line, small URL, no QR */
   .alveare .framewrap{width:min(70vw,920px);height:min(44vh,460px);border:1px solid #2a2925;border-radius:2px;overflow:hidden;background:#0b0b0c}
   .alveare iframe{width:100%;height:100%;border:0;background:#0b0b0c}
   .alveare .bee{margin-top:2rem;font-size:clamp(1.4rem,3.4vmin,2.4rem);font-weight:500;max-width:24ch;line-height:1.25}
   .alveare .bee .zh5{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:.8rem;color:var(--ink)}
   .alveare .url{margin-top:1.2rem;font-style:italic;color:var(--dim);font-size:clamp(.8rem,1.6vmin,1rem);letter-spacing:.08em}
 
-  /* The trace: a real working exchange, labelled */
   .trace .concl{font-size:clamp(1.7rem,4.4vmin,3.1rem);font-weight:600;line-height:1.22;max-width:22ch;margin-bottom:3rem}
   .trace .concl .zh6{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem;color:var(--ink)}
   .trace .exchange{display:flex;flex-direction:column;gap:1.1rem;text-align:left;max-width:34ch}
@@ -111,7 +107,6 @@
   .trace .lab{font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.82rem);letter-spacing:.2em;text-transform:uppercase;color:var(--warn);opacity:.82}
   .trace .said{font-size:clamp(1.05rem,2.5vmin,1.6rem);color:var(--ink);line-height:1.35}
 
-  /* fused close: myths first, then the two questions */
   .close .myth{font-size:clamp(2.2rem,6vmin,4.4rem);font-weight:600;line-height:1.2}
   .close .myth .zhm{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem}
   .close .ask2{margin-top:3rem;font-size:clamp(1.4rem,3.4vmin,2.4rem);font-weight:400;line-height:1.35;max-width:26ch;color:var(--ink)}
@@ -120,7 +115,6 @@
   .end .zh{font-family:var(--cjk);font-size:clamp(3rem,10.5vmin,7.6rem);letter-spacing:.12em;color:var(--ink)}
   .end .en{margin-top:1.8rem;font-style:italic;color:var(--dim);font-size:clamp(1.2rem,3vmin,2rem)}
 
-  /* discreet chrome, hideable for projection with the c key */
   .counter{position:fixed;right:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.7rem,1.4vmin,.9rem);letter-spacing:.18em;z-index:10;transition:opacity .3s}
   .foot{position:fixed;left:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-style:italic;font-size:clamp(.7rem,1.4vmin,.9rem);letter-spacing:.04em;z-index:10;transition:opacity .3s}
   .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.6rem,1.2vmin,.76rem);letter-spacing:.16em;text-transform:uppercase;opacity:.55;z-index:10;transition:opacity .3s}
@@ -128,7 +122,6 @@
   .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.8rem;letter-spacing:.05em;transition:opacity .6s ease;z-index:10}
   body.clean .counter,body.clean .foot,body.clean .slidecue,body.clean .progress,body.clean .hint{opacity:0 !important}
 
-  /* emergency PDF: File > Print > Save as PDF, one slide per page at 1920x1080 */
   @media print{
     @page{size:1920px 1080px;margin:0}
     html,body{overflow:visible;background:#0a0a0b !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -172,17 +165,19 @@
     <div class="zh">代蒙 · 之间</div>
   </section>
 
-  <!-- 5 · fused: messenger (small) + the god is missing (dominant) -->
-  <section class="slide godslide" data-cue="The god is missing">
-    <div class="pre">the messenger who has lost the sender<span class="zh-sm">失去了发信人的信使</span></div>
-    <div class="big">The far shore is crowded. What is missing is the god.</div>
-    <div class="zh-big">彼岸熙熙攘攘。缺席的，是神。</div>
+  <!-- 5 · concept: the defective daimon (was the god-is-missing line) -->
+  <section class="slide concept" data-cue="The defective daimon">
+    <!-- native Chinese review: coined term 有缺陷的代蒙 + the definition -->
+    <div class="term">The defective daimon<span class="z prov">有缺陷的代蒙</span></div>
+    <div class="rule"></div>
+    <div class="triple">The daimon still crosses the distance. At its origin there is no longer a face to address, only a dispersed, real multitude that no one gathers into a name. The messenger has lost the sender.<span class="zh3">代蒙依然跨越距离。在它的源头，已不再有一张可以面对的面孔，只有一个分散而真实的群体，无人将其聚成一个名字。信使，失去了发信人。</span></div>
   </section>
 
-  <!-- 6 · Prompt Thinking, a four-move sequence -->
+  <!-- 6 · Prompt Thinking, a four-move sequence with an academic framing -->
   <section class="slide ops" data-cue="Prompt Thinking">
     <div class="lead">Prompt Thinking</div>
-    <!-- native Chinese review: the four operations 提出 / 分离 / 判断 / 沉淀 -->
+    <!-- native Chinese review: framing line + the four operations 提出 / 分离 / 判断 / 沉淀 -->
+    <div class="sub">turning a generative system from a surface of confirmation into a device of contrast<span class="zhs">把生成式系统，从确认的表面，转变为对照的装置</span></div>
     <div class="row">
       <div class="op"><span class="w">propose</span><span class="c">提出</span></div>
       <span class="sep">·</span>
@@ -208,12 +203,13 @@
     <div class="def">Meaning is generated only while the act of thinking remains yours.<span class="zh3">意义只在思考的行动仍属于你时生成。</span></div>
   </section>
 
-  <!-- 9 · fused: the oversubject + responsibility -->
+  <!-- 9 · fused: the oversubject + responsibility, with operative definition -->
   <section class="slide word" data-cue="The oversubject">
     <div class="en">oversubject</div>
     <div class="it">oltresoggetto</div>
-    <!-- native Chinese review: coined term 超主体 (oversubject) -->
+    <!-- native Chinese review: coined term 超主体 (oversubject) + operative definition -->
     <div class="zh prov">超主体</div>
+    <div class="def2">a center of selection, continuity, and orientation produced by repeated contrast, in an operative sense, not a moral agent<span class="zhs2">在操作意义上，一个由反复对照产生的选择、延续与定向的中心，并非道德主体</span></div>
     <div class="rule"></div>
     <!-- spoken line on screen, kept identical to the speech.
          ChatGPT alternative, not used: "Thought can be co-generated. Responsibility cannot be delegated." -->
@@ -227,10 +223,12 @@
     <div class="caption">鲁迅 · 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
   </section>
 
-  <!-- 11 · decentering -->
+  <!-- 11 · decentering, with the European thesis underneath -->
   <section class="slide line" data-cue="Decentering">
     <div class="en">No one is at the center anymore.</div>
     <div class="zh">不再有谁居于中心。</div>
+    <!-- native Chinese review: the decentering thesis -->
+    <div class="sub">European thought ceases to be the natural center from which the world is interpreted.<span class="zhs">欧洲思想，不再是阐释世界的当然中心。</span></div>
   </section>
 
   <!-- 12 · concept: hypnocracy, three lines -->

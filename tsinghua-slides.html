@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Defective Daimon — Tsinghua deck</title>
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --ink:#f2efe8;
+    --dim:#857f74;
+    --faint:#3a3934;
+    --hair:#23221f;
+    --warn:#c9a24b;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Palladio,Georgia,"Times New Roman",serif;
+    --cjk:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","Noto Sans CJK SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --greek:"GFS Didot","Iowan Old Style",Palatino,Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--serif);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .deck{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    padding:8vmin 9vmin;
+    opacity:0;transition:opacity .45s ease;
+  }
+  .slide.active{display:flex;opacity:1}
+
+  .en{font-family:var(--serif);line-height:1.12;letter-spacing:.005em}
+  .zh{font-family:var(--cjk);color:var(--dim);font-weight:400;line-height:1.3}
+  .gloss{color:var(--dim);font-style:italic;letter-spacing:.02em}
+
+  /* placeholder for chinese still to be fixed with the interpreter */
+  .ph{
+    font-family:var(--cjk);
+    color:var(--faint);
+    font-size:.5em;font-style:normal;
+    border-bottom:1px dotted var(--faint);
+    padding-bottom:.1em;
+    letter-spacing:.04em;
+  }
+  .prov{color:var(--warn);opacity:.62} /* provisional chinese, to review */
+
+  /* image placeholder */
+  .imgbox{
+    width:min(74vw,920px);height:min(46vh,460px);
+    border:1px dashed #36342e;border-radius:3px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:1.1rem;color:var(--dim);
+    background:
+      repeating-linear-gradient(45deg,transparent,transparent 16px,rgba(255,255,255,.012) 16px,rgba(255,255,255,.012) 32px);
+  }
+  .imgbox .tag{font-family:var(--serif);font-style:italic;font-size:clamp(.95rem,1.9vmin,1.25rem);letter-spacing:.02em}
+  .imgbox .sub{font-size:clamp(.78rem,1.5vmin,1rem);color:var(--faint);max-width:34ch;line-height:1.5}
+  .caption{margin-top:2.2rem;font-family:var(--cjk);color:var(--dim);font-size:clamp(1rem,2.4vmin,1.6rem);letter-spacing:.06em}
+
+  /* slide 1 title */
+  .title .en{font-size:clamp(2.4rem,7.4vmin,5.6rem);font-weight:600}
+  .title .en .b{display:block;font-weight:400;color:var(--ink)}
+  .title .zh{margin-top:2.4rem;font-size:clamp(1.1rem,2.8vmin,1.9rem)}
+  .title .meta{margin-top:4.2rem;color:var(--dim);font-style:italic;font-size:clamp(.85rem,1.7vmin,1.1rem);line-height:1.7;letter-spacing:.02em}
+
+  /* big single-question slides */
+  .ask .en{font-size:clamp(3rem,11vmin,8.5rem);font-weight:600}
+  .ask .zh{margin-top:2.6rem;font-size:clamp(1.6rem,5vmin,3.4rem)}
+
+  /* hanzi pair (祛魅 / 复魅) */
+  .pair .han{font-family:var(--cjk);font-size:clamp(3.4rem,13vmin,9rem);letter-spacing:.12em;color:var(--ink)}
+  .pair .slash{color:var(--faint);padding:0 .25em}
+  .pair .gloss{margin-top:2.4rem;font-size:clamp(1rem,2.4vmin,1.6rem)}
+
+  /* daimon */
+  .daimon .greek{font-family:var(--greek);font-size:clamp(3.2rem,12vmin,8.4rem);letter-spacing:.04em}
+  .daimon .meta-greek{margin-top:.6rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.1rem,3vmin,2rem)}
+  .daimon .en{margin-top:2.8rem;font-size:clamp(1.5rem,4.4vmin,3.1rem);font-style:italic;color:var(--ink)}
+  .daimon .zh{margin-top:1.6rem;font-size:clamp(1rem,2.2vmin,1.4rem)}
+
+  /* four operations */
+  .ops .row{display:flex;gap:clamp(1.2rem,5vw,4.5rem);flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .ops .op{display:flex;flex-direction:column;gap:.7rem;min-width:6rem}
+  .ops .op .w{font-size:clamp(1.4rem,4.2vmin,3rem);font-weight:600}
+  .ops .op .c{font-family:var(--cjk);font-size:clamp(1rem,2.4vmin,1.6rem)}
+  .ops .lead{margin-bottom:3.4rem;font-style:italic;color:var(--dim);font-size:clamp(1rem,2.3vmin,1.5rem);letter-spacing:.06em}
+  .ops .dot{color:var(--faint);align-self:center;font-size:clamp(1rem,3vmin,2rem)}
+
+  /* coined word */
+  .word .en{font-size:clamp(2.6rem,8.5vmin,6.4rem);font-weight:600;letter-spacing:.01em}
+  .word .it{margin-top:1rem;font-style:italic;color:var(--dim);font-size:clamp(1.3rem,3.6vmin,2.4rem)}
+  .word .zh{margin-top:2.4rem;font-size:clamp(1.1rem,2.6vmin,1.7rem)}
+
+  /* line slides */
+  .line .en{font-size:clamp(1.9rem,5.6vmin,4.1rem);font-weight:500;max-width:20ch;line-height:1.18}
+  .line .en .b{display:block}
+  .line .zh{margin-top:2.4rem;font-size:clamp(1.2rem,2.8vmin,1.9rem)}
+
+  /* chiasmus */
+  .chi .en{font-size:clamp(1.7rem,4.8vmin,3.5rem);font-weight:500;line-height:1.5}
+  .chi .en .a{display:block}
+  .chi .en .x{display:block;margin-top:.5em}
+  .chi .zh{margin-top:2.6rem;font-size:clamp(1.1rem,2.6vmin,1.7rem);line-height:1.8}
+
+  /* closing thanks */
+  .end .zh{font-family:var(--cjk);font-size:clamp(3rem,11vmin,8rem);letter-spacing:.1em;color:var(--ink)}
+  .end .en{margin-top:2rem;font-style:italic;color:var(--dim);font-size:clamp(1.2rem,3vmin,2rem)}
+
+  /* chrome */
+  .counter{position:fixed;right:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.18em}
+  .foot{position:fixed;left:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-style:italic;font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.04em}
+  .progress{position:fixed;left:0;top:0;height:2px;background:var(--warn);opacity:.55;width:0;transition:width .45s ease;z-index:10}
+  .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.85rem;letter-spacing:.05em;transition:opacity .6s ease}
+  .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.8rem);letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+  @media (max-width:640px){.foot{display:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide title active" data-cue="Title">
+    <div class="en">The Defective Daimon<span class="b">Thinking with the Machine</span></div>
+    <div class="zh"><span class="ph">中文标题 · da fissare con l'interprete</span></div>
+    <div class="meta">Andrea Colamedici · autore del progetto Jianwei Xun<br>Fangtang AI4H Forum · Tsinghua University · Beijing, June 2026</div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide ask" data-cue="The question">
+    <div class="en">Who thinks?</div>
+    <div class="zh">谁在思考？</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide pair" data-cue="Disenchantment / re-enchantment">
+    <div class="han">祛魅<span class="slash">/</span>复魅</div>
+    <div class="gloss">disenchantment&nbsp;&nbsp;/&nbsp;&nbsp;re-enchantment</div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide daimon" data-cue="The daimon">
+    <div class="greek">δαίμων</div>
+    <div class="meta-greek">μεταξύ — the between</div>
+    <div class="en">the messenger who has lost the sender</div>
+    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide ops" data-cue="Prompt Thinking">
+    <div class="lead">Prompt Thinking</div>
+    <div class="row">
+      <div class="op"><span class="w">propose</span><span class="c prov">提出</span></div>
+      <span class="dot">·</span>
+      <div class="op"><span class="w">separate</span><span class="c prov">分离</span></div>
+      <span class="dot">·</span>
+      <div class="op"><span class="w">judge</span><span class="c prov">判断</span></div>
+      <span class="dot">·</span>
+      <div class="op"><span class="w">sediment</span><span class="c prov">沉淀</span></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide word" data-cue="The oversubject">
+    <div class="en">oversubject</div>
+    <div class="it">oltresoggetto</div>
+    <div class="zh"><span class="ph">中文 · una delle tre rese da coniare</span></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" data-cue="Lu Xun" style="flex-direction:column">
+    <div class="imgbox">
+      <div class="tag">IMAGE — portrait of Lu Xun</div>
+      <div class="sub">ritratto, a pieno campo o a sinistra</div>
+    </div>
+    <div class="caption">鲁迅 &nbsp;·&nbsp; 故事新编 &nbsp;<span style="color:var(--faint);font-size:.7em">Old Tales Retold</span></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide" data-cue="The covers">
+    <div class="imgbox">
+      <div class="tag">IMAGE — three Xun covers</div>
+      <div class="sub">Ipnocrazia · Prompt Thinking (Polity Press) · L'empire de l'ombre (Gallimard)</div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide" data-cue="Alveare">
+    <div class="imgbox">
+      <div class="tag">IMAGE — alveare.cloud, live view</div>
+      <div class="sub">screenshot del sito vivo</div>
+    </div>
+    <div class="caption">Alveare &nbsp;·&nbsp; 蜂巢</div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide line" data-cue="The bees">
+    <div class="en">Every bee is alone with the thoughts of the dead bees.</div>
+    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide chi" data-cue="The chiasmus · stays up through §8">
+    <div class="en"><span class="a">Alveare generates continuity without identity.</span><span class="x">Xun generated identity without an individual.</span></div>
+    <div class="zh"><span class="ph">中文 · da concordare, tenere il parallelismo</span></div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide line" data-cue="The mirror and the other">
+    <div class="en">to bear another who is truly other</div>
+    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide line" data-cue="Closing question">
+    <div class="en"><span class="b">How do we care for the space of that between?</span><span class="b" style="margin-top:.5em">Who is allowed to take part in it?</span></div>
+    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide end" data-cue="Close">
+    <div class="zh">谢谢大家</div>
+    <div class="en">Thank you</div>
+  </section>
+
+</div>
+
+<div class="slidecue" id="cue"></div>
+<div class="counter" id="counter"></div>
+<div class="foot">The Defective Daimon · Tsinghua 2026</div>
+<div class="hint" id="hint">→ &nbsp;spazio o frecce per scorrere</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, n=slides.length;
+  var counter=document.getElementById('counter');
+  var cue=document.getElementById('cue');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+
+  function show(k){
+    i=Math.max(0,Math.min(n-1,k));
+    slides.forEach(function(s,idx){s.classList.toggle('active',idx===i);});
+    counter.textContent=(i+1)+' / '+n;
+    cue.textContent=slides[i].getAttribute('data-cue')||'';
+    prog.style.width=((i)/(n-1)*100)+'%';
+    if(i>0&&hint){hint.style.opacity='0';}
+  }
+  function next(){show(i+1);}
+  function prev(){show(i-1);}
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){show(0);}
+    else if(e.key==='End'){show(n-1);}
+    else if(e.key==='f'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen();}}
+  });
+
+  // click / tap: right half forward, left half back
+  document.getElementById('deck').addEventListener('click',function(e){
+    if(e.clientX < window.innerWidth*0.28){prev();}else{next();}
+  });
+
+  // swipe
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>40){dx<0?next():prev();}x0=null;
+  },{passive:true});
+
+  show(0);
+})();
+</script>
+</body>
+</html>

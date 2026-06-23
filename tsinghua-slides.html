@@ -9,9 +9,8 @@
   :root{
     --bg:#0a0a0b;
     --ink:#f2efe8;
-    --dim:#857f74;
+    --dim:#9a9384;
     --faint:#3a3934;
-    --hair:#23221f;
     --warn:#c9a24b;
     --serif:"Iowan Old Style","Palatino Linotype",Palatino,Palladio,Georgia,"Times New Roman",serif;
     --cjk:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","Noto Sans CJK SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
@@ -19,113 +18,91 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%}
-  body{
-    background:var(--bg);color:var(--ink);
-    font-family:var(--serif);
-    overflow:hidden;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-  }
-  .deck{position:fixed;inset:0}
-  .slide{
-    position:absolute;inset:0;
-    display:none;
-    flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;
-    padding:7vmin 8vmin;
-    opacity:0;transition:opacity .45s ease;
-  }
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  #bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(6,6,7,.72) 100%)}
+  .deck{position:fixed;inset:0;z-index:1}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7vmin 8vmin;opacity:0;transition:opacity .5s ease}
   .slide.active{display:flex;opacity:1}
 
   .en{font-family:var(--serif);line-height:1.12;letter-spacing:.005em}
-  .zh{font-family:var(--cjk);color:var(--dim);font-weight:400;line-height:1.3}
+  .zh{font-family:var(--cjk);color:var(--dim);font-weight:400;line-height:1.4;letter-spacing:.04em}
   .gloss{color:var(--dim);font-style:italic;letter-spacing:.02em}
-
-  .ph{font-family:var(--cjk);color:var(--faint);font-size:.5em;font-style:normal;border-bottom:1px dotted var(--faint);padding-bottom:.1em;letter-spacing:.04em}
-  .prov{color:var(--warn);opacity:.62}
+  .prov{color:var(--warn);opacity:.66}
   .dimcap{color:var(--faint);font-family:var(--serif);font-style:italic;font-size:.62em;letter-spacing:.02em}
+  .note{position:absolute;bottom:4.4vmin;font-family:var(--cjk);color:var(--faint);font-size:.8rem;letter-spacing:.08em}
+  .caption{margin-top:2rem;font-family:var(--cjk);color:var(--dim);font-size:clamp(1rem,2.4vmin,1.6rem);letter-spacing:.06em}
 
-  .caption{margin-top:2.2rem;font-family:var(--cjk);color:var(--dim);font-size:clamp(1rem,2.4vmin,1.6rem);letter-spacing:.06em}
-
-  /* slide 1 title */
-  .title .en{font-size:clamp(2.4rem,7.4vmin,5.6rem);font-weight:600}
+  .title .en{font-size:clamp(2.4rem,7.2vmin,5.4rem);font-weight:600}
   .title .en .b{display:block;font-weight:400;color:var(--ink)}
-  .title .zh{margin-top:2.4rem;font-size:clamp(1.1rem,2.8vmin,1.9rem)}
-  .title .meta{margin-top:4.2rem;color:var(--dim);font-style:italic;font-size:clamp(.85rem,1.7vmin,1.1rem);line-height:1.7;letter-spacing:.02em}
+  .title .zh{margin-top:2.2rem;font-size:clamp(1.3rem,3.4vmin,2.4rem);color:var(--ink)}
+  .title .meta{margin-top:3.8rem;color:var(--dim);font-style:italic;font-size:clamp(.85rem,1.7vmin,1.1rem);line-height:1.7;letter-spacing:.02em}
 
-  /* big single-question slides */
-  .ask .en{font-size:clamp(3rem,11vmin,8.5rem);font-weight:600}
-  .ask .zh{margin-top:2.6rem;font-size:clamp(1.6rem,5vmin,3.4rem)}
+  .ask .en{font-size:clamp(3rem,10.5vmin,8rem);font-weight:600}
+  .ask .zh{margin-top:2.4rem;font-size:clamp(1.8rem,5.4vmin,3.6rem);color:var(--ink)}
 
-  /* hanzi pair */
   .pair .han{font-family:var(--cjk);font-size:clamp(3.4rem,13vmin,9rem);letter-spacing:.12em;color:var(--ink)}
   .pair .slash{color:var(--faint);padding:0 .25em}
-  .pair .gloss{margin-top:2.4rem;font-size:clamp(1rem,2.4vmin,1.6rem)}
+  .pair .gloss{margin-top:2.2rem;font-size:clamp(1rem,2.4vmin,1.6rem)}
 
-  /* daimon */
   .daimon .greek{font-family:var(--greek);font-size:clamp(3.2rem,12vmin,8.4rem);letter-spacing:.04em}
-  .daimon .meta-greek{margin-top:.6rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.1rem,3vmin,2rem)}
-  .daimon .en{margin-top:2.8rem;font-size:clamp(1.5rem,4.4vmin,3.1rem);font-style:italic;color:var(--ink)}
-  .daimon .zh{margin-top:1.6rem;font-size:clamp(1rem,2.2vmin,1.4rem)}
+  .daimon .meta-greek{margin-top:.5rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.1rem,3vmin,2rem)}
+  .daimon .en{margin-top:2.4rem;font-size:clamp(1.5rem,4.2vmin,3rem);font-style:italic;color:var(--ink)}
+  .daimon .zh{margin-top:1.3rem;font-size:clamp(1.2rem,2.6vmin,1.7rem)}
 
-  /* four operations */
   .ops .row{display:flex;gap:clamp(1.2rem,5vw,4.5rem);flex-wrap:wrap;justify-content:center;align-items:flex-start}
   .ops .op{display:flex;flex-direction:column;gap:.7rem;min-width:6rem}
   .ops .op .w{font-size:clamp(1.4rem,4.2vmin,3rem);font-weight:600}
-  .ops .op .c{font-family:var(--cjk);font-size:clamp(1rem,2.4vmin,1.6rem)}
-  .ops .lead{margin-bottom:3.4rem;font-style:italic;color:var(--dim);font-size:clamp(1rem,2.3vmin,1.5rem);letter-spacing:.06em}
+  .ops .op .c{font-family:var(--cjk);font-size:clamp(1.1rem,2.6vmin,1.7rem);color:var(--dim)}
+  .ops .lead{margin-bottom:3rem;font-style:italic;color:var(--dim);font-size:clamp(1rem,2.3vmin,1.5rem);letter-spacing:.06em}
   .ops .dot{color:var(--faint);align-self:center;font-size:clamp(1rem,3vmin,2rem)}
 
-  /* coined word */
-  .word .en{font-size:clamp(2.6rem,8.5vmin,6.4rem);font-weight:600;letter-spacing:.01em}
-  .word .it{margin-top:1rem;font-style:italic;color:var(--dim);font-size:clamp(1.3rem,3.6vmin,2.4rem)}
-  .word .zh{margin-top:2.4rem;font-size:clamp(1.1rem,2.6vmin,1.7rem)}
+  .word .en{font-size:clamp(2.6rem,8.2vmin,6.2rem);font-weight:600;letter-spacing:.01em}
+  .word .it{margin-top:.9rem;font-style:italic;color:var(--dim);font-size:clamp(1.3rem,3.4vmin,2.3rem)}
+  .word .zh{margin-top:2rem;font-size:clamp(1.4rem,3vmin,2.1rem);color:var(--ink)}
 
-  /* line slides */
-  .line .en{font-size:clamp(1.9rem,5.6vmin,4.1rem);font-weight:500;max-width:20ch;line-height:1.18}
+  .line .en{font-size:clamp(1.9rem,5.4vmin,4rem);font-weight:500;max-width:21ch;line-height:1.2}
   .line .en .b{display:block}
-  .line .zh{margin-top:2.4rem;font-size:clamp(1.2rem,2.8vmin,1.9rem)}
+  .line .en .b+.b{margin-top:.45em}
+  .line .zh{margin-top:2.2rem;font-size:clamp(1.3rem,3vmin,2.1rem);max-width:30ch;line-height:1.6}
 
-  /* chiasmus */
-  .chi .en{font-size:clamp(1.7rem,4.8vmin,3.5rem);font-weight:500;line-height:1.5}
-  .chi .en .a{display:block}
-  .chi .en .x{display:block;margin-top:.5em}
-  .chi .zh{margin-top:2.6rem;font-size:clamp(1.1rem,2.6vmin,1.7rem);line-height:1.8}
+  .chi .en{font-size:clamp(1.7rem,4.6vmin,3.4rem);font-weight:500;line-height:1.5}
+  .chi .en .a,.chi .en .x{display:block}
+  .chi .en .x{margin-top:.5em}
+  .chi .zh{margin-top:2.4rem;font-size:clamp(1.2rem,2.8vmin,1.8rem);line-height:1.9;color:var(--dim)}
+  .chi .zh .x{display:block}
 
-  /* Lu Xun portrait */
-  .luxun .portrait{max-height:56vh;width:auto;filter:grayscale(.12) contrast(1.03);box-shadow:0 18px 60px rgba(0,0,0,.55)}
+  .luxun .portrait{max-height:54vh;width:auto;filter:grayscale(.12) contrast(1.03);box-shadow:0 18px 60px rgba(0,0,0,.6)}
   .luxun-fb{display:none;font-family:var(--cjk);font-size:clamp(6rem,26vmin,17rem);color:var(--ink);line-height:1}
 
-  /* covers */
   .covers .coverrow{display:flex;gap:clamp(.5rem,1.6vw,1.6rem);align-items:flex-end;justify-content:center;flex-wrap:nowrap;max-width:95vw}
-  .covers .coverrow img{height:min(46vh,430px);width:auto;box-shadow:0 12px 40px rgba(0,0,0,.5);border-radius:1px}
-  .covers .caption{margin-top:1.8rem}
+  .covers .coverrow img{height:min(46vh,430px);width:auto;box-shadow:0 12px 40px rgba(0,0,0,.55);border-radius:1px}
+  .covers .caption{margin-top:1.6rem}
 
-  /* alveare live */
-  .alveare .framewrap{width:min(82vw,1080px);height:min(56vh,560px);border:1px solid #2a2925;border-radius:3px;overflow:hidden;background:#111}
+  .alveare .framewrap{width:min(82vw,1080px);height:min(56vh,560px);border:1px solid #2a2925;border-radius:3px;overflow:hidden;background:#111;box-shadow:0 18px 60px rgba(0,0,0,.5)}
   .alveare iframe{width:100%;height:100%;border:0;background:#fff}
 
-  /* closing thanks */
-  .end .zh{font-family:var(--cjk);font-size:clamp(3rem,11vmin,8rem);letter-spacing:.1em;color:var(--ink)}
-  .end .en{margin-top:2rem;font-style:italic;color:var(--dim);font-size:clamp(1.2rem,3vmin,2rem)}
+  .end .zh{font-family:var(--cjk);font-size:clamp(3rem,11vmin,8rem);letter-spacing:.12em;color:var(--ink)}
+  .end .en{margin-top:1.8rem;font-style:italic;color:var(--dim);font-size:clamp(1.2rem,3vmin,2rem)}
 
-  /* chrome */
-  .counter{position:fixed;right:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.18em}
-  .foot{position:fixed;left:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-style:italic;font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.04em}
-  .progress{position:fixed;left:0;top:0;height:2px;background:var(--warn);opacity:.55;width:0;transition:width .45s ease;z-index:10}
-  .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.85rem;letter-spacing:.05em;transition:opacity .6s ease}
-  .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.8rem);letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+  .counter{position:fixed;right:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.18em;z-index:10}
+  .foot{position:fixed;left:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-style:italic;font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.04em;z-index:10}
+  .progress{position:fixed;left:0;top:0;height:2px;background:var(--warn);opacity:.5;width:0;transition:width .5s ease;z-index:10}
+  .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.85rem;letter-spacing:.05em;transition:opacity .6s ease;z-index:10}
+  .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.8rem);letter-spacing:.16em;text-transform:uppercase;opacity:.7;z-index:10}
   @media (max-width:640px){.foot{display:none}.covers .coverrow img{height:30vh}}
 </style>
 </head>
 <body>
+<canvas id="bg"></canvas>
+<div class="vignette"></div>
 <div class="progress" id="prog"></div>
 <div class="deck" id="deck">
 
   <!-- 1 -->
-  <section class="slide title active" data-cue="Title">
+  <section class="slide title" data-cue="Title">
     <div class="en">The Defective Daimon<span class="b">Thinking with the Machine</span></div>
-    <div class="zh"><span class="ph">中文标题 · da fissare con l'interprete</span></div>
+    <div class="zh">有缺陷的代蒙 · 与机器一同思考</div>
     <div class="meta">Andrea Colamedici · autore del progetto Jianwei Xun<br>Fangtang AI4H Forum · Tsinghua University · Beijing, June 2026</div>
   </section>
 
@@ -146,10 +123,16 @@
     <div class="greek">δαίμων</div>
     <div class="meta-greek">μεταξύ — the between</div>
     <div class="en">the messenger who has lost the sender</div>
-    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+    <div class="zh">失去了发信人的信使</div>
   </section>
 
-  <!-- 5 -->
+  <!-- 5 (new) -->
+  <section class="slide line" data-cue="The god is missing">
+    <div class="en"><span class="b">The far shore is crowded.</span><span class="b">What is missing is the god.</span></div>
+    <div class="zh">彼岸熙熙攘攘。缺席的，是神。</div>
+  </section>
+
+  <!-- 6 -->
   <section class="slide ops" data-cue="Prompt Thinking">
     <div class="lead">Prompt Thinking</div>
     <div class="row">
@@ -163,21 +146,45 @@
     </div>
   </section>
 
-  <!-- 6 -->
+  <!-- 7 (new) -->
+  <section class="slide line" data-cue="Sycophancy">
+    <div class="en">The machine takes your ignorance and gilds it.</div>
+    <div class="zh">机器把你的无知镀上黄金。</div>
+  </section>
+
+  <!-- 8 -->
   <section class="slide word" data-cue="The oversubject">
     <div class="en">oversubject</div>
     <div class="it">oltresoggetto</div>
-    <div class="zh"><span class="ph">中文 · una delle tre rese da coniare</span></div>
+    <div class="zh prov">超主体</div>
   </section>
 
-  <!-- 7 -->
+  <!-- 9 (new) -->
+  <section class="slide line" data-cue="Genesis and responsibility">
+    <div class="en">Genesis is distributed, responsibility is not.</div>
+    <div class="zh">生成可以分布，责任不能。</div>
+  </section>
+
+  <!-- 10 -->
   <section class="slide luxun" data-cue="Lu Xun">
     <img class="portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lu%20Xun%201936.jpg" alt="Lu Xun, 1936" onerror="this.style.display='none';document.getElementById('luxun-fb').style.display='block';">
     <div id="luxun-fb" class="luxun-fb">鲁迅</div>
     <div class="caption">鲁迅 &nbsp;·&nbsp; 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
   </section>
 
-  <!-- 8 -->
+  <!-- 11 (new) -->
+  <section class="slide line" data-cue="Decentering">
+    <div class="en">No one is at the center anymore.</div>
+    <div class="zh">不再有谁居于中心。</div>
+  </section>
+
+  <!-- 12 (new) -->
+  <section class="slide line" data-cue="Homage or appropriation">
+    <div class="en"><span class="b">Homage, or appropriation?</span><span class="b" style="font-size:.62em;font-style:italic;color:var(--dim)">You can judge that better than I can.</span></div>
+    <div class="zh">致敬，还是挪用？由你们来评判。</div>
+  </section>
+
+  <!-- 13 -->
   <section class="slide covers" data-cue="The covers">
     <div class="coverrow">
       <img src="assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia, edizione italiana">
@@ -186,10 +193,10 @@
       <img src="assets/images/ipnocrazia-en.jpg" alt="Hypnocracy, English edition">
       <img src="assets/images/Prompt.jpg" alt="Prompt Thinking, Polity Press">
     </div>
-    <div class="caption dimcap">Jianwei Xun · 2024–2026 · Tlon, Gallimard, Polity Press</div>
+    <div class="caption">同一本书，多种语言 &nbsp;<span class="dimcap">Jianwei Xun · 2024–2026</span></div>
   </section>
 
-  <!-- 9 -->
+  <!-- 14 -->
   <section class="slide alveare" data-cue="Alveare">
     <div class="framewrap">
       <iframe src="https://alveare.cloud" title="Alveare — alveare.cloud" loading="lazy" referrerpolicy="no-referrer"></iframe>
@@ -197,31 +204,37 @@
     <div class="caption">Alveare &nbsp;·&nbsp; 蜂巢 &nbsp;<span class="dimcap">alveare.cloud</span></div>
   </section>
 
-  <!-- 10 -->
+  <!-- 15 -->
   <section class="slide line" data-cue="The bees">
     <div class="en">Every bee is alone with the thoughts of the dead bees.</div>
-    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+    <div class="zh">每只蜜蜂都独自面对死去蜜蜂的思想。</div>
   </section>
 
-  <!-- 11 -->
+  <!-- 16 -->
   <section class="slide chi" data-cue="The chiasmus · stays up through §8">
     <div class="en"><span class="a">Alveare generates continuity without identity.</span><span class="x">Xun generated identity without an individual.</span></div>
-    <div class="zh"><span class="ph">中文 · da concordare, tenere il parallelismo</span></div>
+    <div class="zh"><span class="a">蜂巢生成延续，却没有身份。</span><span class="x">Xun 生成身份，却没有个体。</span></div>
   </section>
 
-  <!-- 12 -->
+  <!-- 17 -->
   <section class="slide line" data-cue="The mirror and the other">
     <div class="en">to bear another who is truly other</div>
-    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+    <div class="zh">去承受一个真正的他者。</div>
   </section>
 
-  <!-- 13 -->
+  <!-- 18 (new) -->
+  <section class="slide line" data-cue="The answer">
+    <div class="en">There will still be myths.</div>
+    <div class="zh">神话依然会存在。</div>
+  </section>
+
+  <!-- 19 -->
   <section class="slide line" data-cue="Closing question">
-    <div class="en"><span class="b">How do we care for the space of that between?</span><span class="b" style="margin-top:.5em">Who is allowed to take part in it?</span></div>
-    <div class="zh"><span class="ph">中文 · da concordare con l'interprete</span></div>
+    <div class="en"><span class="b">How do we care for the space of that between?</span><span class="b">Who is allowed to take part in it?</span></div>
+    <div class="zh">我们如何守护那个“之间”的空间？谁被允许参与其中？</div>
   </section>
 
-  <!-- 14 -->
+  <!-- 20 -->
   <section class="slide end" data-cue="Close">
     <div class="zh">谢谢大家</div>
     <div class="en">Thank you</div>
@@ -235,6 +248,26 @@
 <div class="hint" id="hint">→ &nbsp;spazio o frecce per scorrere</div>
 
 <script>
+// drifting field: bees and traces
+(function(){
+  var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,pts=[],N=56,LINK=155;
+  function size(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  size();window.addEventListener('resize',size);
+  for(var k=0;k<N;k++){pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16});}
+  function loop(){
+    x.clearRect(0,0,W,H);
+    var i,j,a,b,dx,dy,d;
+    for(i=0;i<N;i++){a=pts[i];a.x+=a.vx;a.y+=a.vy;
+      if(a.x<-5)a.x=W+5;if(a.x>W+5)a.x=-5;if(a.y<-5)a.y=H+5;if(a.y>H+5)a.y=-5;}
+    for(i=0;i<N;i++){for(j=i+1;j<N;j++){a=pts[i];b=pts[j];dx=a.x-b.x;dy=a.y-b.y;d=Math.sqrt(dx*dx+dy*dy);
+      if(d<LINK){x.strokeStyle='rgba(190,178,150,'+(1-d/LINK)*0.06+')';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}}
+    for(i=0;i<N;i++){a=pts[i];x.fillStyle='rgba(205,194,168,0.30)';x.beginPath();x.arc(a.x,a.y,1.1,0,6.283);x.fill();}
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// deck navigation
 (function(){
   var slides=[].slice.call(document.querySelectorAll('.slide'));
   var i=0, n=slides.length;
@@ -242,7 +275,6 @@
   var cue=document.getElementById('cue');
   var prog=document.getElementById('prog');
   var hint=document.getElementById('hint');
-
   function show(k){
     i=Math.max(0,Math.min(n-1,k));
     slides.forEach(function(s,idx){s.classList.toggle('active',idx===i);});
@@ -253,7 +285,6 @@
   }
   function next(){show(i+1);}
   function prev(){show(i-1);}
-
   document.addEventListener('keydown',function(e){
     if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
     else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();prev();}
@@ -261,19 +292,16 @@
     else if(e.key==='End'){show(n-1);}
     else if(e.key==='f'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen();}}
   });
-
   document.getElementById('deck').addEventListener('click',function(e){
     if(e.target.tagName==='IFRAME')return;
     if(e.clientX < window.innerWidth*0.28){prev();}else{next();}
   });
-
   var x0=null;
   document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
   document.addEventListener('touchend',function(e){
     if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;
     if(Math.abs(dx)>40){dx<0?next():prev();}x0=null;
   },{passive:true});
-
   show(0);
 })();
 </script>

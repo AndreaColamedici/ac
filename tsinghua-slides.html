@@ -8,9 +8,9 @@
 <style>
   :root{
     --bg:#0a0a0b;
-    --ink:#f2efe8;
-    --dim:#9a9384;
-    --faint:#3a3934;
+    --ink:#f1eee6;
+    --dim:#8f897c;
+    --faint:#36352f;
     --warn:#c9a24b;
     --serif:"Iowan Old Style","Palatino Linotype",Palatino,Palladio,Georgia,"Times New Roman",serif;
     --cjk:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","Noto Sans CJK SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
@@ -20,78 +20,122 @@
   html,body{height:100%}
   body{background:var(--bg);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   #bg{position:fixed;inset:0;z-index:0;pointer-events:none}
-  .vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(6,6,7,.72) 100%)}
+  .vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(6,6,7,.5) 100%)}
   .deck{position:fixed;inset:0;z-index:1}
-  .slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7vmin 8vmin;opacity:0;transition:opacity .5s ease}
+
+  /* safe area: keep all content well inside a 16:9 projector frame */
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9vmin 11vmin;opacity:0;transition:opacity .5s ease}
   .slide.active{display:flex;opacity:1}
+  .slide>*{max-width:min(82vw,1500px)}
 
-  .en{font-family:var(--serif);line-height:1.12;letter-spacing:.005em}
-  .zh{font-family:var(--cjk);color:var(--dim);font-weight:400;line-height:1.4;letter-spacing:.04em}
+  /* English above, Chinese directly below at ~85% of the English size, same ivory, never a separate column */
+  .en{font-family:var(--serif);line-height:1.14;letter-spacing:.005em}
+  .zh{font-family:var(--cjk);color:var(--ink);font-weight:400;line-height:1.4;letter-spacing:.03em}
   .gloss{color:var(--dim);font-style:italic;letter-spacing:.02em}
-  .prov{color:var(--warn);opacity:.66}
-  .dimcap{color:var(--faint);font-family:var(--serif);font-style:italic;font-size:.62em;letter-spacing:.02em}
-  .caption{margin-top:2rem;font-family:var(--cjk);color:var(--dim);font-size:clamp(1rem,2.4vmin,1.6rem);letter-spacing:.06em}
+  .prov{color:var(--warn);opacity:.7}
+  .dimcap{color:var(--dim);font-family:var(--serif);font-style:italic;font-size:.62em;letter-spacing:.02em}
 
-  .title .en{font-size:clamp(2.4rem,7.2vmin,5.4rem);font-weight:600}
+  .title .en{font-size:clamp(2.4rem,7vmin,5.2rem);font-weight:600}
   .title .en .b{display:block;font-weight:400;color:var(--ink)}
-  .title .zh{margin-top:2.2rem;font-size:clamp(1.3rem,3.4vmin,2.4rem);color:var(--ink)}
-  .title .meta{margin-top:3.8rem;color:var(--dim);font-style:italic;font-size:clamp(.85rem,1.7vmin,1.1rem);line-height:1.7;letter-spacing:.02em}
+  .title .zh{margin-top:2rem;font-size:clamp(1.5rem,4.2vmin,3rem)}
+  .title .meta{margin-top:4rem;color:var(--dim);font-style:italic;font-size:clamp(.85rem,1.7vmin,1.1rem);line-height:1.8;letter-spacing:.02em}
 
-  .ask .en{font-size:clamp(3rem,10.5vmin,8rem);font-weight:600}
-  .ask .zh{margin-top:2.4rem;font-size:clamp(1.8rem,5.4vmin,3.6rem);color:var(--ink)}
+  .ask .en{font-size:clamp(3rem,10vmin,7.6rem);font-weight:600}
+  .ask .zh{margin-top:2.2rem;font-size:clamp(2.4rem,8vmin,6.2rem)}
 
-  .pair .han{font-family:var(--cjk);font-size:clamp(3.4rem,13vmin,9rem);letter-spacing:.12em;color:var(--ink)}
+  .pair .han{font-family:var(--cjk);font-size:clamp(3.4rem,12.5vmin,8.6rem);letter-spacing:.12em;color:var(--ink)}
   .pair .slash{color:var(--faint);padding:0 .25em}
   .pair .gloss{margin-top:2.2rem;font-size:clamp(1rem,2.4vmin,1.6rem)}
 
-  .daimon .greek{font-family:var(--greek);font-size:clamp(3.2rem,12vmin,8.4rem);letter-spacing:.04em}
-  .daimon .meta-greek{margin-top:.5rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.1rem,3vmin,2rem)}
-  .daimon .en{margin-top:2.4rem;font-size:clamp(1.5rem,4.2vmin,3rem);font-style:italic;color:var(--ink)}
-  .daimon .zh{margin-top:1.3rem;font-size:clamp(1.2rem,2.6vmin,1.7rem)}
+  .daimon .greek{font-family:var(--greek);font-size:clamp(3.2rem,11.5vmin,8rem);letter-spacing:.04em}
+  .daimon .meta-greek{margin-top:.6rem;font-family:var(--greek);color:var(--dim);font-style:italic;font-size:clamp(1.2rem,3vmin,2rem)}
+  .daimon .zh{margin-top:2rem;font-size:clamp(1.3rem,3vmin,2rem)}
 
-  .ops .row{display:flex;gap:clamp(1.2rem,5vw,4.5rem);flex-wrap:wrap;justify-content:center;align-items:flex-start}
-  .ops .op{display:flex;flex-direction:column;gap:.7rem;min-width:6rem}
-  .ops .op .w{font-size:clamp(1.4rem,4.2vmin,3rem);font-weight:600}
-  .ops .op .c{font-family:var(--cjk);font-size:clamp(1.1rem,2.6vmin,1.7rem);color:var(--dim)}
-  .ops .lead{margin-bottom:3rem;font-style:italic;color:var(--dim);font-size:clamp(1rem,2.3vmin,1.5rem);letter-spacing:.06em}
-  .ops .dot{color:var(--faint);align-self:center;font-size:clamp(1rem,3vmin,2rem)}
+  /* fused: messenger (small) + the god (dominant) */
+  .godslide .pre{color:var(--dim);font-style:italic;font-size:clamp(1.1rem,2.6vmin,1.7rem);line-height:1.4;margin-bottom:2.6rem}
+  .godslide .pre .zh-sm{display:block;font-family:var(--cjk);font-style:normal;color:var(--dim);font-size:.85em;margin-top:.4rem}
+  .godslide .big{font-size:clamp(2rem,5.6vmin,4.2rem);font-weight:600;line-height:1.18;max-width:20ch}
+  .godslide .zh-big{margin-top:1.8rem;font-family:var(--cjk);font-size:clamp(1.7rem,4.7vmin,3.5rem);line-height:1.35}
 
-  .word .en{font-size:clamp(2.6rem,8.2vmin,6.2rem);font-weight:600;letter-spacing:.01em}
-  .word .it{margin-top:.9rem;font-style:italic;color:var(--dim);font-size:clamp(1.3rem,3.4vmin,2.3rem)}
-  .word .zh{margin-top:2rem;font-size:clamp(1.4rem,3vmin,2.1rem);color:var(--ink)}
+  /* Prompt Thinking: a sequence of four moves, read as language, not a UI */
+  .ops .lead{margin-bottom:3.2rem;font-style:italic;color:var(--dim);font-size:clamp(1.1rem,2.4vmin,1.6rem);letter-spacing:.06em}
+  .ops .row{display:flex;gap:clamp(1rem,4vw,3.6rem);flex-wrap:wrap;justify-content:center;align-items:baseline}
+  .ops .op{display:flex;flex-direction:column;gap:.6rem}
+  .ops .op .w{font-size:clamp(1.4rem,4vmin,2.9rem);font-weight:600}
+  .ops .op .c{font-family:var(--cjk);font-size:clamp(1.2rem,3.4vmin,2.4rem);color:var(--ink)}
+  .ops .sep{color:var(--faint);align-self:center;font-size:clamp(1rem,2.6vmin,1.8rem)}
 
-  .line .en{font-size:clamp(1.9rem,5.4vmin,4rem);font-weight:500;max-width:21ch;line-height:1.2}
+  .word .en{font-size:clamp(2.6rem,7.6vmin,5.8rem);font-weight:600;letter-spacing:.01em}
+  .word .it{margin-top:.8rem;font-style:italic;color:var(--dim);font-size:clamp(1.3rem,3.2vmin,2.2rem)}
+  .word .zh{margin-top:1.4rem;font-size:clamp(1.6rem,3.6vmin,2.6rem)}
+  .word .rule{width:64px;height:1px;background:var(--faint);margin:2.2rem auto}
+  .word .couplet{font-size:clamp(1.5rem,3.6vmin,2.6rem);font-weight:500;line-height:1.3;max-width:24ch}
+  .word .couplet .zh2{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem;color:var(--ink)}
+
+  .line .en{font-size:clamp(2rem,5.4vmin,4rem);font-weight:500;max-width:22ch;line-height:1.2}
   .line .en .b{display:block}
   .line .en .b+.b{margin-top:.45em}
-  .line .zh{margin-top:2.2rem;font-size:clamp(1.3rem,3vmin,2.1rem);max-width:30ch;line-height:1.6}
+  .line .zh{margin-top:2rem;font-size:clamp(1.7rem,4.6vmin,3.4rem);max-width:30ch;line-height:1.45}
 
-  /* concept slides: a term, a rule, a definition */
-  .concept .term{font-family:var(--serif);font-size:clamp(2.2rem,6.2vmin,4.6rem);font-weight:600;line-height:1.1}
-  .concept .term .z{display:block;font-family:var(--cjk);font-weight:400;color:var(--ink);font-size:.56em;margin-top:.55rem;letter-spacing:.04em}
-  .concept .term .z.prov{color:var(--warn);opacity:.72}
-  .concept .rule{width:70px;height:1px;background:var(--faint);margin:2rem auto}
-  .concept .def{max-width:30ch;font-size:clamp(1.15rem,2.6vmin,1.7rem);line-height:1.5;color:var(--ink)}
-  .concept .def-zh{margin-top:1.1rem;font-family:var(--cjk);color:var(--dim);max-width:34ch;font-size:clamp(1rem,2.2vmin,1.4rem);line-height:1.75;letter-spacing:.03em}
+  /* concept: term, rule, definition */
+  .concept .term{font-family:var(--serif);font-size:clamp(2.2rem,6vmin,4.4rem);font-weight:600;line-height:1.1}
+  .concept .term .z{display:block;font-family:var(--cjk);font-weight:400;color:var(--ink);font-size:.62em;margin-top:.5rem;letter-spacing:.03em}
+  .concept .term .z.prov{color:var(--warn);opacity:.74}
+  .concept .rule{width:64px;height:1px;background:var(--faint);margin:2.2rem auto}
+  .concept .def{max-width:26ch;font-size:clamp(1.3rem,3vmin,2.1rem);line-height:1.4;color:var(--ink)}
+  .concept .def .zh3{display:block;font-family:var(--cjk);font-size:.85em;margin-top:1.1rem;line-height:1.6;color:var(--ink)}
+  .concept .triple{max-width:30ch;font-size:clamp(1.2rem,2.9vmin,1.95rem);line-height:1.5;color:var(--ink)}
+  .concept .triple .zh3{display:block;font-family:var(--cjk);font-size:.85em;margin-top:1.2rem;line-height:1.7;color:var(--ink)}
 
-  .luxun .portrait{max-height:54vh;width:auto;filter:grayscale(.12) contrast(1.03);box-shadow:0 18px 60px rgba(0,0,0,.6)}
-  .luxun-fb{display:none;font-family:var(--cjk);font-size:clamp(6rem,26vmin,17rem);color:var(--ink);line-height:1}
+  .luxun .portrait{max-height:52vh;width:auto;filter:grayscale(.12) contrast(1.02);box-shadow:0 8px 30px rgba(0,0,0,.45)}
+  .luxun-fb{display:none;font-family:var(--cjk);font-size:clamp(6rem,25vmin,16rem);color:var(--ink);line-height:1}
+  .luxun .caption{margin-top:2rem;font-family:var(--cjk);color:var(--ink);font-size:clamp(1.2rem,2.8vmin,1.9rem);letter-spacing:.05em}
 
-  .covers .coverrow{display:flex;gap:clamp(.5rem,1.6vw,1.6rem);align-items:flex-end;justify-content:center;flex-wrap:nowrap;max-width:95vw}
-  .covers .coverrow img{height:min(46vh,430px);width:auto;box-shadow:0 12px 40px rgba(0,0,0,.55);border-radius:1px}
-  .covers .caption{margin-top:1.6rem}
+  .covers .coverrow{display:flex;gap:clamp(.6rem,1.8vw,1.8rem);align-items:flex-end;justify-content:center;flex-wrap:nowrap;max-width:90vw}
+  .covers .coverrow img{height:min(44vh,420px);width:auto;box-shadow:0 6px 22px rgba(0,0,0,.42);border-radius:1px}
+  .covers .caption{margin-top:2rem;font-size:clamp(1.2rem,2.7vmin,1.8rem);color:var(--ink)}
+  .covers .caption .zh4{display:block;font-family:var(--cjk);font-size:.9em;margin-top:.5rem}
 
-  .alveare .framewrap{width:min(82vw,1080px);height:min(56vh,560px);border:1px solid #2a2925;border-radius:3px;overflow:hidden;background:#111;box-shadow:0 18px 60px rgba(0,0,0,.5)}
+  /* Alveare: one real screen of the Chinese site + the bee line, small URL, no QR */
+  .alveare .framewrap{width:min(70vw,920px);height:min(44vh,460px);border:1px solid #2a2925;border-radius:2px;overflow:hidden;background:#0b0b0c}
   .alveare iframe{width:100%;height:100%;border:0;background:#0b0b0c}
+  .alveare .bee{margin-top:2rem;font-size:clamp(1.4rem,3.4vmin,2.4rem);font-weight:500;max-width:24ch;line-height:1.25}
+  .alveare .bee .zh5{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:.8rem;color:var(--ink)}
+  .alveare .url{margin-top:1.2rem;font-style:italic;color:var(--dim);font-size:clamp(.8rem,1.6vmin,1rem);letter-spacing:.08em}
 
-  .end .zh{font-family:var(--cjk);font-size:clamp(3rem,11vmin,8rem);letter-spacing:.12em;color:var(--ink)}
+  /* The trace: a real working exchange, labelled */
+  .trace .concl{font-size:clamp(1.7rem,4.4vmin,3.1rem);font-weight:600;line-height:1.22;max-width:22ch;margin-bottom:3rem}
+  .trace .concl .zh6{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem;color:var(--ink)}
+  .trace .exchange{display:flex;flex-direction:column;gap:1.1rem;text-align:left;max-width:34ch}
+  .trace .turn{display:grid;grid-template-columns:6.5rem 1fr;gap:1.2rem;align-items:baseline}
+  .trace .lab{font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.82rem);letter-spacing:.2em;text-transform:uppercase;color:var(--warn);opacity:.82}
+  .trace .said{font-size:clamp(1.05rem,2.5vmin,1.6rem);color:var(--ink);line-height:1.35}
+
+  /* fused close: myths first, then the two questions */
+  .close .myth{font-size:clamp(2.2rem,6vmin,4.4rem);font-weight:600;line-height:1.2}
+  .close .myth .zhm{display:block;font-family:var(--cjk);font-weight:400;font-size:.85em;margin-top:1rem}
+  .close .ask2{margin-top:3rem;font-size:clamp(1.4rem,3.4vmin,2.4rem);font-weight:400;line-height:1.35;max-width:26ch;color:var(--ink)}
+  .close .ask2 .zhq{display:block;font-family:var(--cjk);font-size:.85em;margin-top:.9rem;color:var(--dim)}
+
+  .end .zh{font-family:var(--cjk);font-size:clamp(3rem,10.5vmin,7.6rem);letter-spacing:.12em;color:var(--ink)}
   .end .en{margin-top:1.8rem;font-style:italic;color:var(--dim);font-size:clamp(1.2rem,3vmin,2rem)}
 
-  .counter{position:fixed;right:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.18em;z-index:10}
-  .foot{position:fixed;left:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-style:italic;font-size:clamp(.7rem,1.5vmin,.95rem);letter-spacing:.04em;z-index:10}
-  .progress{position:fixed;left:0;top:0;height:2px;background:var(--warn);opacity:.5;width:0;transition:width .5s ease;z-index:10}
-  .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.85rem;letter-spacing:.05em;transition:opacity .6s ease;z-index:10}
-  .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.62rem,1.3vmin,.8rem);letter-spacing:.16em;text-transform:uppercase;opacity:.7;z-index:10}
-  @media (max-width:640px){.foot{display:none}.covers .coverrow img{height:30vh}}
+  /* discreet chrome, hideable for projection with the c key */
+  .counter{position:fixed;right:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.7rem,1.4vmin,.9rem);letter-spacing:.18em;z-index:10;transition:opacity .3s}
+  .foot{position:fixed;left:3.2vmin;bottom:2.8vmin;color:var(--faint);font-family:var(--serif);font-style:italic;font-size:clamp(.7rem,1.4vmin,.9rem);letter-spacing:.04em;z-index:10;transition:opacity .3s}
+  .slidecue{position:fixed;left:3.2vmin;top:2.4vmin;color:var(--faint);font-family:var(--serif);font-size:clamp(.6rem,1.2vmin,.76rem);letter-spacing:.16em;text-transform:uppercase;opacity:.55;z-index:10;transition:opacity .3s}
+  .progress{position:fixed;left:0;top:0;height:1px;background:var(--warn);opacity:.4;width:0;transition:width .5s ease;z-index:10}
+  .hint{position:fixed;left:50%;bottom:2.6vmin;transform:translateX(-50%);color:var(--faint);font-style:italic;font-family:var(--serif);font-size:.8rem;letter-spacing:.05em;transition:opacity .6s ease;z-index:10}
+  body.clean .counter,body.clean .foot,body.clean .slidecue,body.clean .progress,body.clean .hint{opacity:0 !important}
+
+  /* emergency PDF: File > Print > Save as PDF, one slide per page at 1920x1080 */
+  @media print{
+    @page{size:1920px 1080px;margin:0}
+    html,body{overflow:visible;background:#0a0a0b !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    #bg,.vignette,.progress,.hint,.slidecue,.counter,.foot{display:none !important}
+    .deck{position:static}
+    .slide{position:relative;display:flex !important;opacity:1 !important;width:1920px;height:1080px;page-break-after:always;break-after:page}
+  }
 </style>
 </head>
 <body>
@@ -100,148 +144,148 @@
 <div class="progress" id="prog"></div>
 <div class="deck" id="deck">
 
-  <!-- 1 -->
+  <!-- 1 · title -->
   <section class="slide title" data-cue="Title">
     <div class="en">The Defective Daimon<span class="b">Thinking with the Machine</span></div>
+    <!-- native Chinese review: title + coined term 代蒙 (daimon) -->
     <div class="zh">有缺陷的代蒙 · 与机器一同思考</div>
-    <div class="meta">Andrea Colamedici · autore del progetto Jianwei Xun<br>Fangtang AI4H Forum · Tsinghua University · Beijing, June 2026</div>
+    <div class="meta">Andrea Colamedici · author of the Jianwei Xun project<br>Fangtang AI4H Forum · Tsinghua University · Beijing, June 2026</div>
   </section>
 
-  <!-- 2 -->
+  <!-- 2 · who thinks -->
   <section class="slide ask" data-cue="The question">
     <div class="en">Who thinks?</div>
     <div class="zh">谁在思考？</div>
   </section>
 
-  <!-- 3 -->
+  <!-- 3 · disenchantment / re-enchantment -->
   <section class="slide pair" data-cue="Disenchantment / re-enchantment">
     <div class="han">祛魅<span class="slash">/</span>复魅</div>
     <div class="gloss">disenchantment&nbsp;&nbsp;/&nbsp;&nbsp;re-enchantment</div>
   </section>
 
-  <!-- 4 -->
+  <!-- 4 · the daimon -->
   <section class="slide daimon" data-cue="The daimon">
     <div class="greek">δαίμων</div>
     <div class="meta-greek">μεταξύ — the between</div>
-    <div class="en">the messenger who has lost the sender</div>
-    <div class="zh">失去了发信人的信使</div>
+    <!-- native Chinese review: 代蒙 (daimon), 之间 (metaxy / the between) -->
+    <div class="zh">代蒙 · 之间</div>
   </section>
 
-  <!-- 5 -->
-  <section class="slide line" data-cue="The god is missing">
-    <div class="en"><span class="b">The far shore is crowded.</span><span class="b">What is missing is the god.</span></div>
-    <div class="zh">彼岸熙熙攘攘。缺席的，是神。</div>
+  <!-- 5 · fused: messenger (small) + the god is missing (dominant) -->
+  <section class="slide godslide" data-cue="The god is missing">
+    <div class="pre">the messenger who has lost the sender<span class="zh-sm">失去了发信人的信使</span></div>
+    <div class="big">The far shore is crowded. What is missing is the god.</div>
+    <div class="zh-big">彼岸熙熙攘攘。缺席的，是神。</div>
   </section>
 
-  <!-- 6 -->
+  <!-- 6 · Prompt Thinking, a four-move sequence -->
   <section class="slide ops" data-cue="Prompt Thinking">
     <div class="lead">Prompt Thinking</div>
+    <!-- native Chinese review: the four operations 提出 / 分离 / 判断 / 沉淀 -->
     <div class="row">
-      <div class="op"><span class="w">propose</span><span class="c prov">提出</span></div>
-      <span class="dot">·</span>
-      <div class="op"><span class="w">separate</span><span class="c prov">分离</span></div>
-      <span class="dot">·</span>
-      <div class="op"><span class="w">judge</span><span class="c prov">判断</span></div>
-      <span class="dot">·</span>
-      <div class="op"><span class="w">sediment</span><span class="c prov">沉淀</span></div>
+      <div class="op"><span class="w">propose</span><span class="c">提出</span></div>
+      <span class="sep">·</span>
+      <div class="op"><span class="w">separate</span><span class="c">分离</span></div>
+      <span class="sep">·</span>
+      <div class="op"><span class="w">judge</span><span class="c">判断</span></div>
+      <span class="sep">·</span>
+      <div class="op"><span class="w">sediment</span><span class="c">沉淀</span></div>
     </div>
   </section>
 
-  <!-- 7 -->
+  <!-- 7 · sycophancy -->
   <section class="slide line" data-cue="Sycophancy">
     <div class="en">The machine takes your ignorance and gilds it.</div>
     <div class="zh">机器把你的无知镀上黄金。</div>
   </section>
 
-  <!-- 8 · concept -->
+  <!-- 8 · concept: meaning -->
   <section class="slide concept" data-cue="Meaning">
     <div class="term">Meaning<span class="z">意义</span></div>
     <div class="rule"></div>
-    <div class="def">Meaning is not delivered. It is generated in the act of thinking, only while the act is still yours.</div>
-    <div class="def-zh">意义并非被递送。它在思考的行动中生成，只在行动仍属于你时。</div>
+    <!-- native Chinese review: reworded definition -->
+    <div class="def">Meaning is generated only while the act of thinking remains yours.<span class="zh3">意义只在思考的行动仍属于你时生成。</span></div>
   </section>
 
-  <!-- 9 -->
+  <!-- 9 · fused: the oversubject + responsibility -->
   <section class="slide word" data-cue="The oversubject">
     <div class="en">oversubject</div>
     <div class="it">oltresoggetto</div>
+    <!-- native Chinese review: coined term 超主体 (oversubject) -->
     <div class="zh prov">超主体</div>
+    <div class="rule"></div>
+    <!-- spoken line on screen, kept identical to the speech.
+         ChatGPT alternative, not used: "Thought can be co-generated. Responsibility cannot be delegated." -->
+    <div class="couplet">Genesis is distributed, responsibility is not.<span class="zh2">生成可以分布，责任不能。</span></div>
   </section>
 
-  <!-- 10 -->
-  <section class="slide line" data-cue="Genesis and responsibility">
-    <div class="en">Genesis is distributed, responsibility is not.</div>
-    <div class="zh">生成可以分布，责任不能。</div>
-  </section>
-
-  <!-- 11 -->
+  <!-- 10 · Lu Xun (portrait to be made local later) -->
   <section class="slide luxun" data-cue="Lu Xun">
     <img class="portrait" src="https://commons.wikimedia.org/wiki/Special:FilePath/Lu%20Xun%201936.jpg" alt="Lu Xun, 1936" onerror="this.style.display='none';document.getElementById('luxun-fb').style.display='block';">
     <div id="luxun-fb" class="luxun-fb">鲁迅</div>
-    <div class="caption">鲁迅 &nbsp;·&nbsp; 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
+    <div class="caption">鲁迅 · 故事新编 &nbsp;<span class="dimcap">Lu Xun · Old Tales Retold</span></div>
   </section>
 
-  <!-- 12 -->
+  <!-- 11 · decentering -->
   <section class="slide line" data-cue="Decentering">
     <div class="en">No one is at the center anymore.</div>
     <div class="zh">不再有谁居于中心。</div>
   </section>
 
-  <!-- 13 · concept -->
+  <!-- 12 · concept: hypnocracy, three lines -->
   <section class="slide concept" data-cue="Hypnocracy">
+    <!-- native Chinese review: coined term 催眠统治 (hypnocracy) + the three lines -->
     <div class="term">Hypnocracy<span class="z prov">催眠统治</span></div>
     <div class="rule"></div>
-    <div class="def">A power that no longer silences. It keeps us awake and consuming, steered by a flood of competing narratives. Generative AI is its engine.</div>
-    <div class="def-zh">一种不再压制的权力。它让我们保持清醒、持续消费，被无数相互竞争的叙事所操纵。生成式人工智能，是它的引擎。</div>
+    <div class="triple">Power no longer needs to silence us. It keeps us awake, consuming, and lost among competing narratives. Generative AI scales the flood.<span class="zh3">权力不再需要让我们沉默。它让我们保持清醒、不断消费，迷失在相互竞争的叙事之间。生成式人工智能放大了这股洪流。</span></div>
   </section>
 
-  <!-- 14 -->
+  <!-- 13 · covers, aligned by height and baseline -->
   <section class="slide covers" data-cue="The covers">
     <div class="coverrow">
-      <img src="assets/images/ipnocrazia-it.jpg" alt="Ipnocrazia, edizione italiana">
-      <img src="assets/images/ipnocrazia-fr.jpg" alt="Hypnocratie, édition française">
-      <img src="assets/images/ipnocrazia-es.jpg" alt="Hipnocracia, edición española">
+      <img src="assets/images/ipnocrazia-it.jpg" alt="Hypnocracy, Italian edition">
+      <img src="assets/images/ipnocrazia-fr.jpg" alt="Hypnocracy, French edition">
+      <img src="assets/images/ipnocrazia-es.jpg" alt="Hypnocracy, Spanish edition">
       <img src="assets/images/ipnocrazia-en.jpg" alt="Hypnocracy, English edition">
       <img src="assets/images/Prompt.jpg" alt="Prompt Thinking, Polity Press">
     </div>
-    <div class="caption">同一本书，多种语言 &nbsp;<span class="dimcap">Jianwei Xun · 2024–2026</span></div>
+    <div class="caption">One name, several books, many languages.<span class="zh4">一个名字，多部作品，多种语言。</span></div>
   </section>
 
-  <!-- 15 · the one that shows the Alveare -->
+  <!-- 14 · Alveare, Chinese site + the bee line (screenshot to replace iframe later) -->
   <section class="slide alveare" data-cue="Alveare">
     <div class="framewrap">
-      <iframe src="https://alveare.cloud/index_zh.html" title="蜂巢 Alveare — alveare.cloud" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      <iframe src="https://alveare.cloud/index_zh.html" title="蜂巢 Alveare" loading="lazy" referrerpolicy="no-referrer"></iframe>
     </div>
-    <div class="caption">蜂巢 Alveare &nbsp;·&nbsp; 人工智能的蜜蜂 &nbsp;<span class="dimcap">alveare.cloud</span></div>
+    <div class="bee">Every bee is alone with the thoughts of the dead bees.<span class="zh5">每只蜜蜂都独自面对死去蜜蜂的思想。</span></div>
+    <div class="url">alveare.cloud</div>
   </section>
 
-  <!-- 16 · concept -->
-  <section class="slide concept" data-cue="The trace">
-    <div class="term">The trace<span class="z">痕迹</span></div>
-    <div class="rule"></div>
-    <div class="def">The product can be made in seconds. What bears witness now is the trace: the questions, the corrections, what was refused.</div>
-    <div class="def-zh">成品可以在几秒间完成。如今作证的，是痕迹：那些提问、修正，以及被拒绝的东西。</div>
+  <!-- 15 · the trace: a real working exchange (replace with a real, approved transcript) -->
+  <section class="slide trace" data-cue="The trace">
+    <div class="concl">The product can be made in seconds. What bears witness now is the trace.<span class="zh6">成品可以在几秒间完成。如今作证的，是痕迹。</span></div>
+    <!-- placeholder exchange, neutral and non-reserved; swap for a real approved trace -->
+    <div class="exchange">
+      <div class="turn"><span class="lab">proposed</span><span class="said">“Open with: AI is a tool.”</span></div>
+      <div class="turn"><span class="lab">refused</span><span class="said">“No. That closes the question.”</span></div>
+      <div class="turn"><span class="lab">retained</span><span class="said">“Open with a question. Who thinks?”</span></div>
+    </div>
   </section>
 
-  <!-- 17 -->
+  <!-- 16 · the other -->
   <section class="slide line" data-cue="The mirror and the other">
     <div class="en">to bear another who is truly other</div>
     <div class="zh">去承受一个真正的他者。</div>
   </section>
 
-  <!-- 18 -->
-  <section class="slide line" data-cue="The answer">
-    <div class="en">There will still be myths.</div>
-    <div class="zh">神话依然会存在。</div>
+  <!-- 17 · fused close: myths first, then the questions -->
+  <section class="slide close" data-cue="Closing">
+    <div class="myth">There will still be myths.<span class="zhm">神话依然会存在。</span></div>
+    <div class="ask2">How do we care for the space of that between? Who is allowed to take part in it?<span class="zhq">我们如何守护那个“之间”的空间？谁被允许参与其中？</span></div>
   </section>
 
-  <!-- 19 -->
-  <section class="slide line" data-cue="Closing question">
-    <div class="en"><span class="b">How do we care for the space of that between?</span><span class="b">Who is allowed to take part in it?</span></div>
-    <div class="zh">我们如何守护那个“之间”的空间？谁被允许参与其中？</div>
-  </section>
-
-  <!-- 20 -->
+  <!-- 18 · thanks -->
   <section class="slide end" data-cue="Close">
     <div class="zh">谢谢大家</div>
     <div class="en">Thank you</div>
@@ -252,29 +296,29 @@
 <div class="slidecue" id="cue"></div>
 <div class="counter" id="counter"></div>
 <div class="foot">The Defective Daimon · Tsinghua 2026</div>
-<div class="hint" id="hint">→ &nbsp;spazio o frecce per scorrere</div>
+<div class="hint" id="hint">→ &nbsp;arrows or space to advance &nbsp;·&nbsp; c to hide</div>
 
 <script>
-// drifting field: bees and traces
+// a faint, slow breath in the background: bees and traces, near-still
 (function(){
-  var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,pts=[],N=56,LINK=155;
+  var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,pts=[],N=32,LINK=150;
   function size(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
   size();window.addEventListener('resize',size);
-  for(var k=0;k<N;k++){pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16});}
+  for(var k=0;k<N;k++){pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.05,vy:(Math.random()-.5)*.05});}
   function loop(){
     x.clearRect(0,0,W,H);
     var i,j,a,b,dx,dy,d;
     for(i=0;i<N;i++){a=pts[i];a.x+=a.vx;a.y+=a.vy;
       if(a.x<-5)a.x=W+5;if(a.x>W+5)a.x=-5;if(a.y<-5)a.y=H+5;if(a.y>H+5)a.y=-5;}
     for(i=0;i<N;i++){for(j=i+1;j<N;j++){a=pts[i];b=pts[j];dx=a.x-b.x;dy=a.y-b.y;d=Math.sqrt(dx*dx+dy*dy);
-      if(d<LINK){x.strokeStyle='rgba(190,178,150,'+(1-d/LINK)*0.06+')';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}}
-    for(i=0;i<N;i++){a=pts[i];x.fillStyle='rgba(205,194,168,0.30)';x.beginPath();x.arc(a.x,a.y,1.1,0,6.283);x.fill();}
+      if(d<LINK){x.strokeStyle='rgba(185,174,148,'+(1-d/LINK)*0.035+')';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}}
+    for(i=0;i<N;i++){a=pts[i];x.fillStyle='rgba(195,184,158,0.16)';x.beginPath();x.arc(a.x,a.y,1,0,6.283);x.fill();}
     requestAnimationFrame(loop);
   }
   loop();
 })();
 
-// deck navigation
+// navigation
 (function(){
   var slides=[].slice.call(document.querySelectorAll('.slide'));
   var i=0, n=slides.length;
@@ -298,6 +342,7 @@
     else if(e.key==='Home'){show(0);}
     else if(e.key==='End'){show(n-1);}
     else if(e.key==='f'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen();}}
+    else if(e.key==='c'){document.body.classList.toggle('clean');}
   });
   document.getElementById('deck').addEventListener('click',function(e){
     if(e.target.tagName==='IFRAME')return;

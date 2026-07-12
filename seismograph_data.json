@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-12T03:19:49Z",
+  "updated": "2026-07-12T08:22:24Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
@@ -8,10 +8,6 @@
       "volume": "41934.838751000076",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
-        {
-          "t": "2026-06-17T04:27:34Z",
-          "p": 0
-        },
         {
           "t": "2026-06-17T11:03:48Z",
           "p": 0
@@ -407,6 +403,10 @@
         {
           "t": "2026-07-12T03:19:48Z",
           "p": 0
+        },
+        {
+          "t": "2026-07-12T08:22:23Z",
+          "p": 0
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -417,10 +417,6 @@
       "volume": "16222837.860438045",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
-        {
-          "t": "2026-06-17T04:27:34Z",
-          "p": 100
-        },
         {
           "t": "2026-06-17T11:03:48Z",
           "p": 100
@@ -816,6 +812,10 @@
         {
           "t": "2026-07-12T03:19:49Z",
           "p": 100
+        },
+        {
+          "t": "2026-07-12T08:22:23Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -823,13 +823,9 @@
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
       "yes": 86,
-      "volume": "222704.51773499997",
+      "volume": "222706.816584",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
-        {
-          "t": "2026-06-17T04:27:34Z",
-          "p": 73
-        },
         {
           "t": "2026-06-17T11:03:48Z",
           "p": 73
@@ -1224,6 +1220,10 @@
         },
         {
           "t": "2026-07-12T03:19:49Z",
+          "p": 86
+        },
+        {
+          "t": "2026-07-12T08:22:24Z",
           "p": 86
         }
       ],

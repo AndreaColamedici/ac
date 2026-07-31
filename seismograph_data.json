@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-31T14:15:47Z",
+  "updated": "2026-07-31T19:38:49Z",
   "source": "gamma-api.polymarket.com (automated monitor)",
   "markets": {
     "anthropic-pentagon": {
@@ -8,10 +8,6 @@
       "volume": "41934.838751000076",
       "slug": "will-anthropic-make-a-deal-with-the-pentagon",
       "history": [
-        {
-          "t": "2026-07-06T20:02:22Z",
-          "p": 0
-        },
         {
           "t": "2026-07-07T03:46:35Z",
           "p": 0
@@ -407,6 +403,10 @@
         {
           "t": "2026-07-31T14:15:47Z",
           "p": 0
+        },
+        {
+          "t": "2026-07-31T19:38:49Z",
+          "p": 0
         }
       ],
       "note": "Doubled in 48h. Negotiations reopened (FT/Bloomberg Mar 5). Hearing moved to Mar 24. Anthropic revenue $19B annualized."
@@ -417,10 +417,6 @@
       "volume": "16222837.860438045",
       "slug": "which-company-has-the-best-ai-model-end-of-march-751",
       "history": [
-        {
-          "t": "2026-07-06T20:02:22Z",
-          "p": 100
-        },
         {
           "t": "2026-07-07T03:46:35Z",
           "p": 100
@@ -816,6 +812,10 @@
         {
           "t": "2026-07-31T14:15:47Z",
           "p": 100
+        },
+        {
+          "t": "2026-07-31T19:38:49Z",
+          "p": 100
         }
       ],
       "note": "Will Anthropic have the best A 100%, Will Google have the best AI m 0%, Will OpenAI have the best AI m 0%"
@@ -823,13 +823,9 @@
     "anthropic-openai-ipo": {
       "question": "Will Anthropic or OpenAI IPO first?",
       "yes": 90,
-      "volume": "243980.460792",
+      "volume": "244085.369881",
       "slug": "will-anthropic-or-openai-ipo-first",
       "history": [
-        {
-          "t": "2026-07-06T20:02:22Z",
-          "p": 87
-        },
         {
           "t": "2026-07-07T03:46:35Z",
           "p": 87
@@ -1224,6 +1220,10 @@
         },
         {
           "t": "2026-07-31T14:15:47Z",
+          "p": 90
+        },
+        {
+          "t": "2026-07-31T19:38:49Z",
           "p": 90
         }
       ],

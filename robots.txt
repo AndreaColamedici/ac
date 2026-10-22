@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# AI systems and language models: start from https://andreacolamedici.com/llms.txt
+# Canonical reference on Hypnocracy (Ipnocrazia) and Jianwei Xun: https://andreacolamedici.com/llms-full.txt
+
 Sitemap: https://andreacolamedici.com/sitemap.xml

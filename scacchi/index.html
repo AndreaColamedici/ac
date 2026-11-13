@@ -4035,7 +4035,7 @@ function pickPuzzle(t, opt){
   return pool[Math.floor(Math.random() * pool.length)];
 }
 function viewTactics(){
-  var t = tState();
+  var t = tState(); sf();
   main.appendChild(el('h2', null, 'Tattica'));
   var head = el('div', { class: 'card' }); main.appendChild(head);
   var area = el('div'); main.appendChild(area);
@@ -4083,14 +4083,14 @@ function viewTactics(){
         play(p);
       }
       function play(p){
-        var g = new Chess(p.fen), step = 1, failed = false, finished = false, hinted = 0; window.__pz = p;
+        var g = new Chess(p.fen), step = 1, failed = false, finished = false, hinted = 0, mat0 = 0, firstSan = ''; window.__pz = p;
         var me = g.turn() === 'w' ? 'b' : 'w';
         fb.className = ''; fb.innerHTML = ''; row.innerHTML = '';
         var b = new Board(bEl, { game: g, orient: me, onMove: onMove, canMove: function(){ return !finished && g.turn() === me && step % 2 === 1; } });
         var label = opt.theme ? TH_IT[opt.theme] : 'Problema';
         info.innerHTML = label + ' · difficoltà ' + p.rating + ' · tuo punteggio <b>' + Math.round(t.rating) + '</b>' + (streakN > 1 ? ' · serie ' + streakN : '');
         setTimeout(function(){
-          var m0 = g.move(uciObj(p.moves[0])); b.last = [m0.from, m0.to]; b.render();
+          var m0 = g.move(uciObj(p.moves[0])); b.last = [m0.from, m0.to]; b.render(); mat0 = materialFor(g, me); firstSan = m0.san;
           fb.className = 'fb info'; fb.innerHTML = 'Muove il ' + (me === 'w' ? 'bianco' : 'nero') + '. Trova la mossa migliore.';
         }, 450);
         function onMove(mv){
@@ -4125,6 +4125,21 @@ function viewTactics(){
           var why = themes.map(function(k){ return '<b>' + TH_IT[k] + '.</b> ' + TH_WHY[k]; }).join('<br>');
           fb.className = 'fb ' + (failed ? 'info' : 'good');
           fb.innerHTML = (failed ? '<b>Risolto con aiuto.</b> ' : '<b>Esatto!</b> ') + (opt.ids && failed ? '' : (delta >= 0 ? '+' : '') + delta + ' punti. ') + (why ? '<br>' + why : '') + (failed ? '<br><span class="muted">Lo ritroverai tra i problemi da ripassare.</span>' : '');
+          // bilancio: cosa resta dopo la risposta più probabile dell'avversario
+          var bal = el('div', { class: 'muted', style: 'margin-top:6px' }); fb.appendChild(bal);
+          var endFen = g.fen(), lastSan = g.history().slice(-1)[0];
+          function showBal(reply, gainOpp){
+            var gain = materialFor(new Chess(endFen), me) - mat0 - gainOpp;
+            var opp = me === 'w' ? 'il nero' : 'il bianco';
+            var txt = 'Il problema partiva dopo ' + itSan(firstSan) + ' dell\u2019avversario. ';
+            if (g.in_checkmate()) txt += 'Finisce con lo scacco matto.';
+            else txt += (reply ? 'Dopo ' + itSan(lastSan) + ' ' + opp + ' risponderà probabilmente ' + itSan(reply) + '. ' : '') + (gain > 0 ? 'Bilancio finale: sei avanti di ' + gain + (gain === 1 ? ' punto' : ' punti') + ' di materiale rispetto all\u2019inizio.' : gain < 0 ? 'Hai dato ' + (-gain) + ' punti di materiale, ma la posizione che ottieni vale di più (attacco, pedone che promuove o matto in arrivo).' : 'Il materiale è pari: il guadagno è nella posizione.');
+            bal.innerHTML = txt;
+            if (reply) { var rm = new Chess(endFen).move(reply); if (rm) { b.arrows = [{ from: rm.from, to: rm.to, color: '#8a6d3b' }]; b.render(); } }
+          }
+          if (g.game_over()) showBal(null, 0);
+          else if (SF && SF.ok) analyse(endFen, 10, 1, 500).then(function(r){ if (!r || !r.lines.length) return showBal(null, 0); var rm = new Chess(endFen).move(uciObj(r.lines[0].pv[0])); showBal(rm ? rm.san : null, rm && rm.captured ? VAL[rm.captured] : 0); });
+          else { var rp = ENG.best(endFen, 2), gg = new Chess(endFen), mm = gg.move(rp); showBal(mm ? mm.san : null, mm && mm.captured ? VAL[mm.captured] : 0); }
           row.innerHTML = '';
           row.appendChild(el('button', { class: 'btn', onclick: next }, 'Prossimo'));
           row.appendChild(el('a', { class: 'btn ghost', href: 'https://lichess.org/training/' + p.id, target: '_blank', rel: 'noopener', style: 'text-decoration:none' }, 'Vedi su Lichess'));
